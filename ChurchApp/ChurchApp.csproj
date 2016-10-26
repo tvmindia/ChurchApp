@@ -329,6 +329,19 @@
     <Compile Include="AdminPanel\Priests.aspx.designer.cs">
       <DependentUpon>Priests.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Administrators.cs" />
+    <Compile Include="DAL\AppImages.cs" />
+    <Compile Include="DAL\Church.cs" />
+    <Compile Include="DAL\dbConnection.cs" />
+    <Compile Include="DAL\Events.cs" />
+    <Compile Include="DAL\FamilyUnits.cs" />
+    <Compile Include="DAL\GalleryAlbum.cs" />
+    <Compile Include="DAL\Members.cs" />
+    <Compile Include="DAL\Notices.cs" />
+    <Compile Include="DAL\Novenas.cs" />
+    <Compile Include="DAL\OrgDesignationMaster.cs" />
+    <Compile Include="DAL\PatronMaster.cs" />
+    <Compile Include="DAL\TownMaster.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -346,7 +359,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DAL\" />
     <Folder Include="WebServices\" />
   </ItemGroup>
   <PropertyGroup>
