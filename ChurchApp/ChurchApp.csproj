@@ -335,6 +335,7 @@
     <Compile Include="DAL\Members.cs" />
     <Compile Include="DAL\OrgDesignationMaster.cs" />
     <Compile Include="DAL\PatronMaster.cs" />
+    <Compile Include="DAL\TownMaster.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
