@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ChurchApp
+namespace ChurchApp.DAL
 {
     public class GalleryAlbum
     {
