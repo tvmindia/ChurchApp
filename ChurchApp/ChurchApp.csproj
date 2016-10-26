@@ -330,6 +330,7 @@
     <Compile Include="DAL\AppImages.cs" />
     <Compile Include="DAL\Church.cs" />
     <Compile Include="DAL\dbConnection.cs" />
+    <Compile Include="DAL\Events.cs" />
     <Compile Include="DAL\FamilyUnits.cs" />
     <Compile Include="DAL\GalleryAlbum.cs" />
     <Compile Include="DAL\Members.cs" />
