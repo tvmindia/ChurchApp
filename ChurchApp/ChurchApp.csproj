@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{90BBD177-9BEA-41BA-A0C1-7B4296E159A1}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ChurchApp</RootNamespace>
+    <AssemblyName>ChurchApp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminPanel\Events.aspx" />
+    <Content Include="AdminPanel\Families.aspx" />
+    <Content Include="AdminPanel\Gallery.aspx" />
+    <Content Include="AdminPanel\Institutions.aspx" />
+    <Content Include="AdminPanel\MassSchedules.aspx" />
+    <Content Include="AdminPanel\Notices.aspx" />
+    <Content Include="AdminPanel\Notifications.aspx" />
+    <Content Include="AdminPanel\Novenas.aspx" />
+    <Content Include="AdminPanel\PiousOrganizations.aspx" />
+    <Content Include="AdminPanel\Profile.aspx" />
+    <Content Include="CSS\bootstrap-responsive.css" />
+    <Content Include="CSS\bootstrap-responsive.min.css" />
+    <Content Include="CSS\bootstrap.min.css" />
+    <Content Include="CSS\chosen.css" />
+    <Content Include="CSS\CustomCSS\AdminLayout.css" />
+    <Content Include="CSS\CustomCSS\DashBoard.css" />
+    <Content Include="CSS\elfinder.min.css" />
+    <Content Include="CSS\elfinder.theme.css" />
+    <Content Include="CSS\font-awesome.min.css" />
+    <Content Include="CSS\fullcalendar.css" />
+    <Content Include="CSS\glyphicons.css" />
+    <Content Include="CSS\googleapiFont.css" />
+    <Content Include="CSS\halflings.css" />
+    <Content Include="CSS\ie.css" />
+    <Content Include="CSS\ie9.css" />
+    <Content Include="CSS\jquery-ui-1.8.21.custom.css" />
+    <Content Include="CSS\jquery.cleditor.css" />
+    <Content Include="CSS\jquery.gritter.css" />
+    <Content Include="CSS\jquery.iphone.toggle.css" />
+    <Content Include="CSS\jquery.noty.css" />
+    <Content Include="CSS\noty_theme_default.css" />
+    <Content Include="CSS\style-forms.css" />
+    <Content Include="CSS\style-responsive.css" />
+    <Content Include="CSS\style.css" />
+    <Content Include="CSS\uniform.default.css" />
+    <Content Include="CSS\uploadify.css" />
+    <Content Include="Font\fontawesome-webfont.svg" />
+    <Content Include="Font\glyphicons-regular-0.eot" />
+    <Content Include="Font\glyphicons-regular.eot" />
+    <Content Include="Font\glyphicons-regular.svg" />
+    <Content Include="Font\glyphicons-regular.ttf" />
+    <Content Include="Font\glyphicons-regular.woff" />
+    <Content Include="Font\glyphiconshalflings-regular-0.eot" />
+    <Content Include="Font\glyphiconshalflings-regular.eot" />
+    <Content Include="Font\glyphiconshalflings-regular.svg" />
+    <Content Include="Font\glyphiconshalflings-regular.ttf" />
+    <Content Include="Font\glyphiconshalflings-regular.woff" />
+    <Content Include="img\church-black-silhouette-with-a-cross-on-topblack1616.png" />
+    <Content Include="Login.aspx" />
+    <Content Include="Master\AdminLayout.Master" />
+    <Content Include="Font\fontawesome-webfont.eot" />
+    <Content Include="Font\fontawesome-webfont.ttf" />
+    <Content Include="Font\fontawesome-webfont.woff" />
+    <Content Include="Font\fontawesome-webfont.woff2" />
+    <Content Include="Font\FontAwesome.otf" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminPanel\DashBoard.aspx" />
+    <Content Include="AdminPanel\Home.aspx" />
+    <Content Include="img\arrows-active.png" />
+    <Content Include="img\arrows-normal.png" />
+    <Content Include="img\avatar.jpg" />
+    <Content Include="img\bg-input-focus.png" />
+    <Content Include="img\bg-input.png" />
+    <Content Include="img\bg-login.jpg" />
+    <Content Include="img\browser-chrome-big.png" />
+    <Content Include="img\browser-firefox-big.png" />
+    <Content Include="img\browser-ie.png" />
+    <Content Include="img\browser-opera.png" />
+    <Content Include="img\browser-safari.png" />
+    <Content Include="img\buttons.gif" />
+    <Content Include="img\chat-left%402x.png" />
+    <Content Include="img\chat-left-metro%402x.png" />
+    <Content Include="img\chat-left-metro.png" />
+    <Content Include="img\chat-left.png" />
+    <Content Include="img\chat-right%402x.png" />
+    <Content Include="img\chat-right-metro%402x.png" />
+    <Content Include="img\chat-right-metro.png" />
+    <Content Include="img\chat-right.png" />
+    <Content Include="img\chosen-sprite.png" />
+    <Content Include="img\close-button-white.png" />
+    <Content Include="img\close-button.png" />
+    <Content Include="img\crop.gif" />
+    <Content Include="img\dialogs.png" />
+    <Content Include="img\gallery\photo1.jpg" />
+    <Content Include="img\gallery\photo10.jpg" />
+    <Content Include="img\gallery\photo11.jpg" />
+    <Content Include="img\gallery\photo12.jpg" />
+    <Content Include="img\gallery\photo13.jpg" />
+    <Content Include="img\gallery\photo2.jpg" />
+    <Content Include="img\gallery\photo3.jpg" />
+    <Content Include="img\gallery\photo4.jpg" />
+    <Content Include="img\gallery\photo5.jpg" />
+    <Content Include="img\gallery\photo6.jpg" />
+    <Content Include="img\gallery\photo7.jpg" />
+    <Content Include="img\gallery\photo8.jpg" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="img\glyphicons-white.png" />
+    <Content Include="img\glyphicons-white.svg" />
+    <Content Include="img\glyphicons.png" />
+    <Content Include="img\glyphicons.svg" />
+    <Content Include="img\glyphicons_halflings-white.png" />
+    <Content Include="img\glyphicons_halflings-white.svg" />
+    <Content Include="img\glyphicons_halflings.png" />
+    <Content Include="img\glyphicons_halflings.svg" />
+    <Content Include="img\icons-big.png" />
+    <Content Include="img\icons-small.png" />
+    <Content Include="img\iphone-style-checkboxes\off-63584.png" />
+    <Content Include="img\iphone-style-checkboxes\on-63584.png" />
+    <Content Include="img\iphone-style-checkboxes\slider_center-63584.png" />
+    <Content Include="img\iphone-style-checkboxes\slider_left-63584.png" />
+    <Content Include="img\iphone-style-checkboxes\slider_right-63584.png" />
+    <Content Include="img\progress.gif" />
+    <Content Include="img\quicklook-bg.png" />
+    <Content Include="img\quicklook-icons.png" />
+    <Content Include="img\quote.png" />
+    <Content Include="img\resize.png" />
+    <Content Include="img\slider_r8.png" />
+    <Content Include="img\spinner-mini.gif" />
+    <Content Include="img\sprite.png" />
+    <Content Include="img\timeline-bg.png" />
+    <Content Include="img\timeline-left-arrow%402x.png" />
+    <Content Include="img\timeline-left-arrow.png" />
+    <Content Include="img\timeline-right-arrow%402x.png" />
+    <Content Include="img\timeline-right-arrow.png" />
+    <Content Include="img\toolbar.gif" />
+    <Content Include="img\toolbar.png" />
+    <Content Include="img\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="img\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="img\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="img\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="img\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="img\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="img\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="img\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="img\ui-icons_222222_256x240.png" />
+    <Content Include="img\ui-icons_2e83ff_256x240.png" />
+    <Content Include="img\ui-icons_454545_256x240.png" />
+    <Content Include="img\ui-icons_888888_256x240.png" />
+    <Content Include="img\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="img\uploadify-cancel.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\counter.js" />
+    <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\CustomJS\Common.js" />
+    <Content Include="Scripts\CustomJS\DashBoard.js" />
+    <Content Include="Scripts\excanvas.js" />
+    <Content Include="Scripts\fullcalendar.min.js" />
+    <Content Include="Scripts\jquery-1.12.3.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-migrate-1.0.0.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.0.custom.min.js" />
+    <Content Include="Scripts\jquery.chosen.min.js" />
+    <Content Include="Scripts\jquery.cleditor.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.elfinder.min.js" />
+    <Content Include="Scripts\jquery.flot.js" />
+    <Content Include="Scripts\jquery.flot.pie.js" />
+    <Content Include="Scripts\jquery.flot.resize.min.js" />
+    <Content Include="Scripts\jquery.flot.stack.js" />
+    <Content Include="Scripts\jquery.gritter.min.js" />
+    <Content Include="Scripts\jquery.imagesloaded.js" />
+    <Content Include="Scripts\jquery.iphone.toggle.js" />
+    <Content Include="Scripts\jquery.knob.modified.js" />
+    <Content Include="Scripts\jquery.masonry.min.js" />
+    <Content Include="Scripts\jquery.noty.js" />
+    <Content Include="Scripts\jquery.raty.min.js" />
+    <Content Include="Scripts\jquery.sparkline.min.js" />
+    <Content Include="Scripts\jquery.ui.touch-punch.js" />
+    <Content Include="Scripts\jquery.uniform.min.js" />
+    <Content Include="Scripts\jquery.uploadify-3.1.min.js" />
+    <Content Include="Scripts\modernizr.js" />
+    <Content Include="Scripts\retina.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminPanel\DashBoard.aspx.cs">
+      <DependentUpon>DashBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\DashBoard.aspx.designer.cs">
+      <DependentUpon>DashBoard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Events.aspx.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Events.aspx.designer.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Families.aspx.cs">
+      <DependentUpon>Families.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Families.aspx.designer.cs">
+      <DependentUpon>Families.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Gallery.aspx.cs">
+      <DependentUpon>Gallery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Gallery.aspx.designer.cs">
+      <DependentUpon>Gallery.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Institutions.aspx.cs">
+      <DependentUpon>Institutions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Institutions.aspx.designer.cs">
+      <DependentUpon>Institutions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\MassSchedules.aspx.cs">
+      <DependentUpon>MassSchedules.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\MassSchedules.aspx.designer.cs">
+      <DependentUpon>MassSchedules.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Notices.aspx.cs">
+      <DependentUpon>Notices.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Notices.aspx.designer.cs">
+      <DependentUpon>Notices.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Notifications.aspx.cs">
+      <DependentUpon>Notifications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Notifications.aspx.designer.cs">
+      <DependentUpon>Notifications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Novenas.aspx.cs">
+      <DependentUpon>Novenas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Novenas.aspx.designer.cs">
+      <DependentUpon>Novenas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\PiousOrganizations.aspx.cs">
+      <DependentUpon>PiousOrganizations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\PiousOrganizations.aspx.designer.cs">
+      <DependentUpon>PiousOrganizations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Master\AdminLayout.Master.cs">
+      <DependentUpon>AdminLayout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Master\AdminLayout.Master.designer.cs">
+      <DependentUpon>AdminLayout.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DAL\" />
+    <Folder Include="WebServices\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>11767</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:11767/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

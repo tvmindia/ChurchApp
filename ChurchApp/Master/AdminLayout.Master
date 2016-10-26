@@ -1,0 +1,306 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminLayout.master.cs" Inherits="ChurchApp.Master.AdminLayout" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <!-- start: Meta -->
+	<meta charset="utf-8"/>
+	<title>Thrithvam Technology Pvt Ltd.</title>
+	<meta name="description" content="Bootstrap Metro Dashboard"/>
+	<meta name="author" content="Albert Thomson"/>
+	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina"/>
+	<!-- end: Meta -->
+
+  
+	
+	<!-- start: Mobile Specific -->
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<!-- end: Mobile Specific -->
+	
+	<!-- start: CSS -->
+    <%-- <link href="../fonts/fontawesome-webfont-62877.ttf" rel="stylesheet"/>
+    <link href="../fonts/fontawesome-webfont-62877.woff" rel="stylesheet"/>--%>
+   	<link  href="../CSS/bootstrap.min.css" rel="stylesheet"/>
+	<link href="../CSS/bootstrap-responsive.min.css" rel="stylesheet"/>
+	<link href="../CSS/style.css" rel="stylesheet"/>
+	<link href="../CSS/style-responsive.css" rel="stylesheet"/>
+	<link href="../CSS/googleapiFont.css" rel="stylesheet" />
+
+    <link href="../CSS/CustomCSS/AdminLayout.css" rel="stylesheet" />
+   
+	<!-- end: CSS -->
+
+   <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <!-- start: Header -->
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" href="../AdminPanel/Home.aspx"><span>ChurchAPP</span></a>
+								
+				<!-- start: Header Menu -->
+				<div class="nav-no-collapse header-nav">
+					<ul class="nav pull-right">
+						<li class="dropdown hidden-phone">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="halflings-icon white warning-sign"></i>
+							</a>
+							<ul class="dropdown-menu notifications">
+								<li class="dropdown-menu-title">
+ 									<span>You have 11 notifications</span>
+									<a href="#refresh"><i class="icon-repeat"></i></a>
+								</li>	
+                            
+							
+							
+								<li>
+                                    <a href="#">
+										<span class="icon blue"><i class="icon-user"></i></span>
+										<span class="message">New user registration</span>
+										<span class="time">yesterday</span> 
+                                    </a>
+                                </li>
+                                <li class="dropdown-menu-sub-footer">
+                            		<a>View all notifications</a>
+								</li>	
+							</ul>
+						</li>
+						<!-- start: Notifications Dropdown -->
+						<li class="dropdown hidden-phone">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="halflings-icon white tasks"></i>
+							</a>
+							<ul class="dropdown-menu tasks">
+								<li class="dropdown-menu-title">
+ 									<span>You have 17 tasks in progress</span>
+									<a href="#refresh"><i class="icon-repeat"></i></a>
+								</li>
+								<li>
+                                    <a href="#">
+										<span class="header">
+											<span class="title">iOS Development</span>
+											<span class="percent"></span>
+										</span>
+                                        <div class="taskProgress progressSlim red">80</div> 
+                                    </a>
+                                </li>
+                               
+								
+								<li>
+                            		<a class="dropdown-menu-sub-footer">View all tasks</a>
+								</li>	
+							</ul>
+						</li>
+						<!-- end: Notifications Dropdown -->
+						<!-- start: Message Dropdown -->
+						<li class="dropdown hidden-phone">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="halflings-icon white envelope"></i>
+							</a>
+							<ul class="dropdown-menu messages">
+								<li class="dropdown-menu-title">
+ 									<span>You have 9 messages</span>
+									<a href="#refresh"><i class="icon-repeat"></i></a>
+								</li>	
+                            	<li>
+                                    <a href="#">
+										<span class="avatar"><img src="../img/avatar.jpg" alt="Avatar"/></span>
+										<span class="header">
+											<span class="from">
+										    	Albert
+										     </span>
+											<span class="time">
+										    	6 min
+										    </span>
+										</span>
+                                        <span class="message">
+                                            Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+                                        </span>  
+                                    </a>
+                                </li>
+                              
+                               
+								
+                               
+								<li>
+                            		<a class="dropdown-menu-sub-footer">View all messages</a>
+								</li>	
+							</ul>
+						</li>
+						<!-- end: Message Dropdown -->
+						<li>
+							<a class="btn" href="#">
+								<i class="halflings-icon white wrench"></i>
+							</a>
+						</li>
+						<!-- start: User Dropdown -->
+						<li class="dropdown">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="halflings-icon white user"></i> Albert
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-menu-title">
+ 									<span>Account Settings</span>
+								</li>
+								<li><a href="#"><i class="halflings-icon user"></i> Profile</a></li>
+								<li><a href="login.html"><i class="halflings-icon off"></i> Logout</a></li>
+							</ul>
+						</li>
+						<!-- end: User Dropdown -->
+					</ul>
+				</div>
+				<!-- end: Header Menu -->
+				
+			</div>
+		</div>
+	</div>
+	<!-- start: Header -->
+
+    <div class="topline" style="width:100%;border-top:5px solid #004f1c;">
+
+    </div>
+
+
+    <div class="container-fluid-full">
+    <div class="row-fluid"><!-- rowfluid1 -->
+
+        <!-- start: Main Menu -->
+			<div id="sidebar-left" class="span2">
+				<div class="nav-collapse sidebar-nav">
+					<ul class="nav nav-tabs nav-stacked main-menu">
+						<li><a href="../AdminPanel/DashBoard.aspx"><i class="fa fa-tachometer" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Dashboard</span></a></li>	
+						<li><a href="../AdminPanel/Home.aspx"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Home</span></a></li>
+					    <li><a href="../AdminPanel/Profile.aspx"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Profile</span></a></li>
+						<li><a href="../AdminPanel/Events.aspx"><i class="fa fa-bullhorn" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Events</span></a></li>
+						<li><a href="../AdminPanel/Families.aspx"><i class="fa fa-users fa-lg" aria-hidden="false"></i><span class="hidden-tablet navtitle"> Families</span></a></li>
+						<li><a href="../AdminPanel/Gallery.aspx"><i class="fa fa-television" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Gallery</span></a></li>
+						<li><a href="../AdminPanel/Institutions.aspx"><i class="fa fa-university" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Institutions</span></a></li>
+                        <li><a href="../AdminPanel/PiousOrganizations.aspx"><i class="fa fa-university" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Pious Organizations</span></a></li>
+						<li><a href="../AdminPanel/MassSchedules.aspx"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Mass Schedules</span></a></li>
+                        <li><a href="../AdminPanel/Novenas.aspx"><i class="fa fa-child" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Novenas</span></a></li>
+						<li><a href="../AdminPanel/Notices.aspx"><i class="fa fa-sticky-note" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Notices</span></a></li>
+						<li><a href="../AdminPanel/Notifications.aspx"><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Notifications</span></a></li>
+						
+						
+					</ul>
+                   
+				</div>
+			</div>
+        <!-- end: Main Menu -->
+
+         
+
+         <!---------------------------------- start: Content --------------------------------------->
+	
+         <form id="form1" enctype="multipart/form-data">
+       
+         <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+      
+        </asp:ContentPlaceHolder>
+       
+	    </form>
+       <!------------------------------------ end: Content ----------------------------------------->
+   
+    </div><!-- rowfluid1 -->
+    </div><!-- rowfluid full -->
+
+
+
+	<div class="modal hide fade" id="myModal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Settings</h3>
+		</div>
+		<div class="modal-body">
+			<p>Here settings can be configured...</p>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a>
+			<a href="#" class="btn btn-primary">Save changes</a>
+		</div>
+	</div>
+	
+	<div class="clearfix"></div>
+
+    
+	<footer>
+        
+		<p>
+			<span style="text-align:left;float:left">&copy; 2016 <a href="http://www.thrithvam.com/" alt="Thrithvam Technology Pvt Ltd"> Thrithvam Technology Pvt Ltd.</a></span>
+			
+		</p>
+
+	</footer>
+
+
+      <!-- start: JavaScript-->
+        <script src="../Scripts/jquery-1.12.3.min.js"></script>
+		<%--<script src="../Scripts/jquery-1.9.1.min.js"></script>--%>
+	    <script src="../Scripts/jquery-migrate-1.0.0.min.js"></script>
+	
+		<script src="../Scripts/jquery-ui-1.10.0.custom.min.js"></script>
+	
+		<script src="../Scripts/jquery.ui.touch-punch.js"></script>
+	
+		<script src="../Scripts/modernizr.js"></script>
+	
+		<script src="../Scripts/bootstrap.min.js"></script>
+	
+		<script src="../Scripts/jquery.cookie.js"></script>
+	
+		<script src='../Scripts/fullcalendar.min.js'></script>
+	
+		<script src='../Scripts/jquery.dataTables.min.js'></script>
+
+	   	<script src="../Scripts/excanvas.js"></script>
+	    <script src="../Scripts/jquery.flot.js"></script>
+	    <script src="../Scripts/jquery.flot.pie.js"></script>
+    	<script src="../Scripts/jquery.flot.stack.js"></script>
+	    <script src="../Scripts/jquery.flot.resize.min.js"></script>
+	
+		<script src="../Scripts/jquery.chosen.min.js"></script>
+	
+		<script src="../Scripts/jquery.uniform.min.js"></script>
+		
+		<script src="../Scripts/jquery.cleditor.min.js"></script>
+	
+		<script src="../Scripts/jquery.noty.js"></script>
+	
+		<script src="../Scripts/jquery.elfinder.min.js"></script>
+	
+		<script src="../Scripts/jquery.raty.min.js"></script>
+	
+		<script src="../Scripts/jquery.iphone.toggle.js"></script>
+	
+		<script src="../Scripts/jquery.uploadify-3.1.min.js"></script>
+	
+		<script src="../Scripts/jquery.gritter.min.js"></script>
+	
+		<script src="../Scripts/jquery.imagesloaded.js"></script>
+	
+		<script src="../Scripts/jquery.masonry.min.js"></script>
+	
+		<script src="../Scripts/jquery.knob.modified.js"></script>
+	
+		<script src="../Scripts/jquery.sparkline.min.js"></script>
+	
+		<script src="../Scripts/counter.js"></script>
+	
+		<script src="../Scripts/retina.js"></script>
+
+		<script src="../Scripts/custom.js"></script>
+      
+
+	<!-- end: JavaScript-->
+
+</body>
+</html>

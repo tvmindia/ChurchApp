@@ -1,0 +1,21 @@
+﻿
+/*navi bar hover color is from bootstrap so alter here*/
+.nav > li > a:hover, .nav > li > a:focus {
+   background-color: #a6a6a6!important;
+}
+
+
+ /*Font awesome icon color change*/
+.fa{
+color: #04273B!important;
+}
+/*Left navigation bar text color change*/
+.navtitle
+{
+ color:#04273B!important;
+}
+
+.box-header .fa
+{
+    color: #004e96!important;
+}
