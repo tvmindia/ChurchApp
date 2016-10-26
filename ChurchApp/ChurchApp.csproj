@@ -66,7 +66,7 @@
     <Content Include="AdminPanel\Notifications.aspx" />
     <Content Include="AdminPanel\Novenas.aspx" />
     <Content Include="AdminPanel\PiousOrganizations.aspx" />
-    <Content Include="AdminPanel\Profile.aspx" />
+    <Content Include="AdminPanel\Priests.aspx" />
     <Content Include="CSS\bootstrap-responsive.css" />
     <Content Include="CSS\bootstrap-responsive.min.css" />
     <Content Include="CSS\bootstrap.min.css" />
@@ -105,6 +105,7 @@
     <Content Include="Font\glyphiconshalflings-regular.ttf" />
     <Content Include="Font\glyphiconshalflings-regular.woff" />
     <Content Include="img\church-black-silhouette-with-a-cross-on-topblack1616.png" />
+    <Content Include="img\St_Thomas_Church,_Irinjalakuda.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="Master\AdminLayout.Master" />
     <Content Include="Font\fontawesome-webfont.eot" />
@@ -209,8 +210,10 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\counter.js" />
     <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\CustomJS\AdminLayout.js" />
     <Content Include="Scripts\CustomJS\Common.js" />
     <Content Include="Scripts\CustomJS\DashBoard.js" />
+    <Content Include="Scripts\CustomJS\Home.js" />
     <Content Include="Scripts\excanvas.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\jquery-1.12.3.min.js" />
@@ -319,12 +322,12 @@
     <Compile Include="AdminPanel\PiousOrganizations.aspx.designer.cs">
       <DependentUpon>PiousOrganizations.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminPanel\Profile.aspx.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
+    <Compile Include="AdminPanel\Priests.aspx.cs">
+      <DependentUpon>Priests.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminPanel\Profile.aspx.designer.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
+    <Compile Include="AdminPanel\Priests.aspx.designer.cs">
+      <DependentUpon>Priests.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

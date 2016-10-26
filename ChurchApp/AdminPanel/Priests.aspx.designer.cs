@@ -11,7 +11,7 @@ namespace ChurchApp.AdminPanel
 {
 
 
-    public partial class Profile
+    public partial class Priests
     {
     }
 }

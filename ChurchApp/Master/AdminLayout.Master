@@ -36,7 +36,7 @@
 </head>
 <body>
     <!-- start: Header -->
-	<div class="navbar">
+	<div class="navbar"><!--navbar-fixed-top fixing bar at top-->
 		<div class="navbar-inner">
 			<div class="container-fluid">
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
@@ -165,9 +165,7 @@
 	</div>
 	<!-- start: Header -->
 
-    <div class="topline" style="width:100%;border-top:5px solid #004f1c;">
-
-    </div>
+   
 
 
     <div class="container-fluid-full">
@@ -179,11 +177,12 @@
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li><a href="../AdminPanel/DashBoard.aspx"><i class="fa fa-tachometer" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Dashboard</span></a></li>	
 						<li><a href="../AdminPanel/Home.aspx"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Home</span></a></li>
-					    <li><a href="../AdminPanel/Profile.aspx"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Profile</span></a></li>
+					    <li><a href="../AdminPanel/Priests.aspx"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Priests</span></a></li>
 						<li><a href="../AdminPanel/Events.aspx"><i class="fa fa-bullhorn" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Events</span></a></li>
 						<li><a href="../AdminPanel/Families.aspx"><i class="fa fa-users fa-lg" aria-hidden="false"></i><span class="hidden-tablet navtitle"> Families</span></a></li>
 						<li><a href="../AdminPanel/Gallery.aspx"><i class="fa fa-television" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Gallery</span></a></li>
 						<li><a href="../AdminPanel/Institutions.aspx"><i class="fa fa-university" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Institutions</span></a></li>
+
                         <li><a href="../AdminPanel/PiousOrganizations.aspx"><i class="fa fa-university" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Pious Organizations</span></a></li>
 						<li><a href="../AdminPanel/MassSchedules.aspx"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Mass Schedules</span></a></li>
                         <li><a href="../AdminPanel/Novenas.aspx"><i class="fa fa-child" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Novenas</span></a></li>
@@ -235,7 +234,7 @@
 	<footer>
         
 		<p>
-			<span style="text-align:left;float:left">&copy; 2016 <a href="http://www.thrithvam.com/" alt="Thrithvam Technology Pvt Ltd"> Thrithvam Technology Pvt Ltd.</a></span>
+			<span style="text-align:left;float:left">&copy; 2016 <a href="http://www.thrithvam.com/"> Thrithvam Technology Pvt Ltd.</a></span>
 			
 		</p>
 
@@ -298,6 +297,8 @@
 		<script src="../Scripts/retina.js"></script>
 
 		<script src="../Scripts/custom.js"></script>
+
+        <script src="../Scripts/CustomJS/AdminLayout.js"></script>
       
 
 	<!-- end: JavaScript-->

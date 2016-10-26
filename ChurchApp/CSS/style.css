@@ -299,7 +299,7 @@ h6 {
 =================================================================== */
 .navbar {
 	margin-bottom: 0px;
-}
+ }
 
 .navbar-inner {
 	margin-bottom: 0px;
@@ -315,7 +315,8 @@ h6 {
        -moz-border-radius: 0px;
           	border-radius: 0px;
   	*zoom: 1;
-	border-bottom: 1px solid #38383D; /* rgba(0, 0, 0, 0.05); */
+	border-bottom:7px solid #004f1c; /*1px solid #38383D;*/ /* rgba(0, 0, 0, 0.05); */
+    
 	
 }
 
@@ -393,7 +394,7 @@ a.brand span {
 }
 
 /* Navigation Section
-=================================================================== */
+================================================================================================ */
 
 #sidebar-left {
 	background:#eee!important;/*#3A3A3A;*/
