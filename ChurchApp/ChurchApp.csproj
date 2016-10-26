@@ -332,6 +332,7 @@
     <Compile Include="DAL\dbConnection.cs" />
     <Compile Include="DAL\FamilyUnits.cs" />
     <Compile Include="DAL\GalleryAlbum.cs" />
+    <Compile Include="DAL\Members.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
