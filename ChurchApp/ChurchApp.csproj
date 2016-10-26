@@ -328,6 +328,7 @@
     </Compile>
     <Compile Include="DAL\Administrators.cs" />
     <Compile Include="DAL\AppImages.cs" />
+    <Compile Include="DAL\Church.cs" />
     <Compile Include="DAL\dbConnection.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
