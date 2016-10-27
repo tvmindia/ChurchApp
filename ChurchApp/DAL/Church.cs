@@ -332,12 +332,12 @@ namespace ChurchApp.DAL
 
         #region ChurchDetail Methods
 
-        #region SelectChurchDetail
+        #region SelectChurchDetails
         /// <summary>
         /// Get All Church Details
         /// </summary>
         /// <returns>All Church Details</returns>
-        public DataSet SelectChurchDetail()
+        public DataSet SelectChurchDetails()
         {
             dbConnection dcon = null;
             DataSet ds = null;
@@ -350,6 +350,7 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetAllChurchDetails]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -369,15 +370,15 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion SelectChurchDetail
+        #endregion SelectChurchDetails
 
-        #region InsertChurchDetail
+        #region InsertChurchDetails
 
         /// <summary>
         /// Add New Church Detail
         /// </summary>
         /// <returns>Success or Failure</returns>
-        public string InsertChurchDetail()
+        public string InsertChurchDetails()
         {
             dbConnection dcon = null;
             SqlParameter param1 = null;
@@ -414,14 +415,14 @@ namespace ChurchApp.DAL
             }
             return param1.Value.ToString();
         }
-        #endregion InsertChurchDetail
+        #endregion InsertChurchDetails
 
-        #region UpdateChurchDetail
+        #region UpdateChurchDetails
         /// <summary>
         /// Edit Church Details
         /// </summary>
         /// <returns>Success/failure</returns>
-        public string UpdateChurchDetail()
+        public string UpdateChurchDetails()
         {
             SqlParameter param1 = null;
             dbConnection dcon = null;
@@ -458,14 +459,14 @@ namespace ChurchApp.DAL
             }
             return param1.Value.ToString();
         }
-        #endregion UpdateChurchDetail
+        #endregion UpdateChurchDetails
 
-        #region DeleteChurchDetail
+        #region DeleteChurchDetails
         /// <summary>
         /// Delete Church Details
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string DeleteChurchDetail()
+        public string DeleteChurchDetails()
         {
             SqlParameter outParam = null;
             SqlCommand cmd = null;
@@ -479,6 +480,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[DeleteChurchDetails]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchDetailID);
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
