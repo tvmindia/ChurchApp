@@ -80,8 +80,12 @@ namespace ChurchApp.DAL
 
         #region Methods
 
-        #region SelectNotification
-        public DataSet SelectNotification()
+        #region SelectNotifications
+        /// <summary>
+        /// Select All Notifications By ChurchID
+        /// </summary>
+        /// <returns>All Notifications</returns>
+        public DataSet SelectNotifications()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -114,10 +118,14 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion SelectNotification
+        #endregion SelectNotifications
 
-        #region InsertNotifications
-        public string InsertNotifications()
+        #region InsertNotification
+        /// <summary>
+        /// Add New Notification
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string InsertNotification()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -157,10 +165,14 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion InsertNotifications
+        #endregion InsertNotification
 
-        #region UpdateNotifications
-        public string UpdateNotifications()
+        #region UpdateNotification
+        /// <summary>
+        /// Update Notification Details
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string UpdateNotification()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -201,10 +213,14 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion UpdateNotifications
+        #endregion UpdateNotification
 
-        #region DeleteNotifications
-        public string DeleteNotifications()
+        #region DeleteNotification
+        /// <summary>
+        /// Delete Notiication By ChurchId
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string DeleteNotification()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -236,7 +252,7 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion DeleteNotifications
+        #endregion DeleteNotification
 
         #endregion Methods
     }
