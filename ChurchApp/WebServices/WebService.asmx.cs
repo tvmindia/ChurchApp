@@ -31,61 +31,6 @@ namespace ChurchApp.WebServices
     // [System.Web.Script.Services.ScriptService]
     public class WebService : System.Web.Services.WebService
     {
-        #region Churches
-
-        #region Search Church
-
-        [WebMethod]
-        // To search churches by church name or town name
-        public string SearchChurch(string SearchTerm )
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                ChurchApp.DAL.Church chrchobj = new DAL.Church();
-                dt = chrchobj.SearchChurchesByChurchOrTownName(SearchTerm);
-                
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-            }
-            return getDbDataAsJSON(dt);
-        }
-
-        #endregion Search Church
-
-        #region Get Church Details by ID
-        [WebMethod]
-        public string ChurchDetailsByID(string ChurchID)
-        {
-            DataTable dt = new DataTable();
-
-            try
-            {
-                ChurchApp.DAL.Church chrchobj = new DAL.Church();
-                chrchobj.churchId = ChurchID;
-                dt = chrchobj.GetChurchDetailsByChurchID();
-                
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-
-            }
-            return getDbDataAsJSON(dt);
-        }
-
-        #endregion Get Church Details by ID
-
-        #endregion Churches
-
         #region General Methods
 
         #region JSON converter
@@ -112,7 +57,7 @@ namespace ChurchApp.WebServices
                     rows.Add(row);
                 }
                 this.Context.Response.ContentType = "";
-                
+
             }
             catch (Exception ex)
             {
@@ -226,6 +171,89 @@ namespace ChurchApp.WebServices
         #endregion Utility Functions
 
         #endregion General Methods
+
+        #region Churches
+
+        #region Search Church
+
+        [WebMethod]
+        // To search churches by church name or town name
+        public string SearchChurch(string SearchTerm )
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ChurchApp.DAL.Church chrchobj = new DAL.Church();
+                dt = chrchobj.SearchChurchesByChurchOrTownName(SearchTerm);
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion Search Church
+
+        #region Get Church Details by ID
+        [WebMethod]
+        public string ChurchDetailsByID(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Church chrchobj = new DAL.Church();
+                chrchobj.churchId = ChurchID;
+                dt = chrchobj.GetChurchDetailsByChurchID();
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion Get Church Details by ID
+
+        #endregion Churches
+
+        #region Town
+
+        #region All Token
+        [WebMethod]
+        public string AllToken()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ChurchApp.DAL.TownMaster twnObj = new DAL.TownMaster();
+                dt = twnObj.SelectTownMasters().Tables[0];
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion All Token
+
+        #endregion Town
 
     }
 }
