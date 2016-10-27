@@ -81,6 +81,10 @@ namespace ChurchApp.DAL
         #region Methods
 
         #region SelectInstitutions
+        /// <summary>
+        /// Get All Institutions
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public DataSet SelectInstitutions()
         {
             dbConnection dcon = null;
@@ -116,7 +120,11 @@ namespace ChurchApp.DAL
         }
         #endregion SelectInstitutions
 
-        #region InsertInstitutions
+        #region InsertInstitution
+        /// <summary>
+        /// Add New Institution
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string InsertInstitution()
         {
             dbConnection dcon = null;
@@ -157,9 +165,13 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion InsertInstitutions
+        #endregion InsertInstitution
 
-        #region UpdateInstitutions
+        #region UpdateInstitution
+        /// <summary>
+        /// Update Institution Details
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdateInstitution()
         {
             dbConnection dcon = null;
@@ -201,9 +213,13 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion UpdateInstitutions
+        #endregion UpdateInstitution
 
-        #region DeleteInstitutions
+        #region DeleteInstitution
+        /// <summary>
+        /// Delete Institution
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeleteInstitution()
         {
             dbConnection dcon = null;
@@ -236,7 +252,7 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion DeleteInstitutions
+        #endregion DeleteInstitution
 
         #endregion Methods
     }
