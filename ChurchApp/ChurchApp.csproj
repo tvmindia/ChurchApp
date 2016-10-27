@@ -113,6 +113,7 @@
     <Content Include="Font\fontawesome-webfont.woff" />
     <Content Include="Font\fontawesome-webfont.woff2" />
     <Content Include="Font\FontAwesome.otf" />
+    <Content Include="WebServices\WebService.asmx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -361,10 +362,12 @@
       <DependentUpon>AdminLayout.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebServices\WebService.asmx.cs">
+      <DependentUpon>WebService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="WebServices\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
