@@ -305,6 +305,91 @@ namespace ChurchApp.DAL
         }
         #endregion DeleteChurch
 
+        #region Search Churches By Church Or TownName
+        /// <summary>
+        /// Search Churches By Church Or TownName
+        /// </summary>
+        /// <returns>Dattable Containing Search results</returns>
+        public DataTable SearchChurchesByChurchOrTownName(string SearchTerm)
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SearchChurchesByChurchOrTownName]";
+                cmd.Parameters.Add("@SearchName", SqlDbType.NVarChar, 150).Value = SearchTerm;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return dt;
+
+        }
+        #endregion Search Churches By Church Or TownName
+
+        #region Get Church Details By churchID
+
+        public DataTable GetChurchDetailsByChurchID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetChurchDetailsByChurchID]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return dt;
+        }
+
+        #endregion Get Church Details By churchID
+
         #endregion Church Methods
     }
 
