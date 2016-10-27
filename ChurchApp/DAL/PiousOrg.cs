@@ -61,6 +61,10 @@ namespace ChurchApp.DAL
         #region Methods
 
         #region SelectPiousOrg
+        /// <summary>
+        /// Select All PiousOrg By ChurchID
+        /// </summary>
+        /// <returns>All PiousOrg</returns>
         public DataSet SelectPiousOrg()
         {
             dbConnection dcon = null;
@@ -97,6 +101,10 @@ namespace ChurchApp.DAL
         #endregion SelectPiousOrg
 
         #region InsertPiousOrg
+        /// <summary>
+        /// Add new PiousOrg
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string InsertPiousOrg()
         {
             dbConnection dcon = null;
@@ -136,6 +144,10 @@ namespace ChurchApp.DAL
         #endregion InsertPiousOrg
 
         #region UpdatePiousOrg
+        /// <summary>
+        /// Update PiousOrg Details
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdatePiousOrg()
         {
             dbConnection dcon = null;
@@ -176,6 +188,10 @@ namespace ChurchApp.DAL
         #endregion UpdatePiousOrg
 
         #region DeletePiousOrg
+        /// <summary>
+        /// Delete PiousOrg
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeletePiousOrg()
         {
             dbConnection dcon = null;
