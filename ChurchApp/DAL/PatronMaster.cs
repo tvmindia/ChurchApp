@@ -56,6 +56,10 @@ namespace ChurchApp.DAL
         #region Methods
 
         #region SelectPatronMaster
+        /// <summary>
+        /// Select All PatronMaster
+        /// </summary>
+        /// <returns>All PatronMaster</returns>
         public DataSet SelectPatronMaster()
         {
             dbConnection dcon = null;
@@ -91,6 +95,10 @@ namespace ChurchApp.DAL
         #endregion SelectPatronMaster
 
         #region InsertPatronMaster
+        /// <summary>
+        /// Add New PatronMaster
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string InsertPatronMaster()
         {
             dbConnection dcon = null;
@@ -129,6 +137,10 @@ namespace ChurchApp.DAL
         #endregion InsertPatronMaster
 
         #region UpdatePatronMaster
+        /// <summary>
+        /// Update PatronMaster Details
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdatePatronMaster()
         {
             dbConnection dcon = null;
@@ -168,6 +180,10 @@ namespace ChurchApp.DAL
         #endregion UpdatePatronMaster
 
         #region DeletePatronMaster
+        /// <summary>
+        /// Delete PatronMaster
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeletePatronMaster()
         {
             dbConnection dcon = null;
