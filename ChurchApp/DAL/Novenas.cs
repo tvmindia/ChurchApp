@@ -81,6 +81,10 @@ namespace ChurchApp.DAL
         #region Novenas Methods
 
         #region SelectNovenas
+        /// <summary>
+        /// Select All Novenas
+        /// </summary>
+        /// <returns>All Novenas</returns>
         public DataSet SelectNovenas()
         {
             dbConnection dcon = null;
@@ -117,8 +121,12 @@ namespace ChurchApp.DAL
         }
         #endregion SelectNovenas
 
-        #region InsertNovenas
-        public string InsertNovenas()
+        #region InsertNovena
+        /// <summary>
+        /// Add New Novena
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string InsertNovena()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -158,9 +166,13 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion InsertNovenas
+        #endregion InsertNovena
 
         #region UpdateNovena
+        /// <summary>
+        /// Update Novena Details
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdateNovena()
         {
             dbConnection dcon = null;
@@ -205,6 +217,10 @@ namespace ChurchApp.DAL
         #endregion UpdateNovena
 
         #region DeleteNovena
+        /// <summary>
+        /// Delete Novena
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeleteNovena()
         {
             dbConnection dcon = null;
@@ -263,8 +279,12 @@ namespace ChurchApp.DAL
 
         #region NovenaTiming Methods
 
-        #region SelectNovenaTiming
-        public DataSet SelectNovenaTiming()
+        #region SelectNovenaTimings
+        /// <summary>
+        /// Select NovenaTimings
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public DataSet SelectNovenaTimings()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -297,9 +317,13 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion NovenaTiming
+        #endregion SelectNovenaTimings
 
         #region InsertNovenaTiming
+        /// <summary>
+        /// Add new novena timing
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string InsertNovenaTiming()
         {
             dbConnection dcon = null;
@@ -338,6 +362,10 @@ namespace ChurchApp.DAL
         #endregion InsertNovenaTiming
 
         #region UpdateNovenaTiming
+        /// <summary>
+        /// Update novena timing details
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdateNovenaTiming()
         {
             dbConnection dcon = null;
@@ -377,6 +405,10 @@ namespace ChurchApp.DAL
         #endregion UpdateNovenaTiming
 
         #region DeleteNovenaTiming
+        /// <summary>
+        /// Delete Novena Timing
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeleteNovenaTiming()
         {
             dbConnection dcon = null;
