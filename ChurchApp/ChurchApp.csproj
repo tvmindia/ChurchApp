@@ -342,6 +342,7 @@
     <Compile Include="DAL\Novenas.cs" />
     <Compile Include="DAL\OrgDesignationMaster.cs" />
     <Compile Include="DAL\PatronMaster.cs" />
+    <Compile Include="DAL\Priest.cs" />
     <Compile Include="DAL\TownMaster.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
