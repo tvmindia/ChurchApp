@@ -393,15 +393,22 @@ function template_functions(){
 	});
 	$('.btn-minimize').click(function(e){
 		e.preventDefault();
-		var $target = $(this).parent().parent().next('.box-content');
-		if($target.is(':visible')) $('i',$(this)).removeClass('chevron-up').addClass('chevron-down');
-		else 					   $('i',$(this)).removeClass('chevron-down').addClass('chevron-up');
+		var $target = $(this).parent().parent().next('#IdDivChurchDisplay');
+		if ($target.is(':visible'))
+		    $('i', $(this)).removeClass('chevron-up').addClass('chevron-down');
+		else
+		    $('i', $(this)).removeClass('chevron-down').addClass('chevron-up');
 		$target.slideToggle();
+
+		
+
+		
+
 	});
-	$('.btn-setting').click(function(e){
-		e.preventDefault();
-		$('#myModal').modal('show');
-	});
+	//$('.btn-setting').click(function(e){
+	//	e.preventDefault();
+	//	$('#myModal').modal('show');
+	//});
 	
 	
 	/* ---------- Progress  ---------- */
