@@ -60,7 +60,12 @@ namespace ChurchApp.DAL
             get;
             set;
         }
-        public string latLong
+        public string latitude
+        {
+            get;
+            set;
+        }
+        public string longitude
         {
             get;
             set;
@@ -173,7 +178,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
                 cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
-                cmd.Parameters.Add("@Latlong", SqlDbType.NVarChar, 100).Value = latLong;
+                cmd.Parameters.Add("@Latitude", SqlDbType.NVarChar, 100).Value = latitude;
+                cmd.Parameters.Add("@Longitude", SqlDbType.NVarChar, 100).Value = longitude;
                 cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1;
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
@@ -230,7 +236,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
                 cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
-                cmd.Parameters.Add("@Latlong", SqlDbType.NVarChar, 100).Value = latLong;
+                cmd.Parameters.Add("@Latitude", SqlDbType.NVarChar, 100).Value = latitude;
+                cmd.Parameters.Add("@Longitude", SqlDbType.NVarChar, 100).Value = longitude;
                 cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1;
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
