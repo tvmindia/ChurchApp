@@ -1,6 +1,11 @@
 ﻿img {
    
-    height: 193px;
-    width: 173px;
-    max-width: 225px;
+    height: 150px!important;
+    width: 130px!important;
+    max-width: 225px!important;
+}
+
+#PriestEditDivBox
+{
+    display:none;
 }
