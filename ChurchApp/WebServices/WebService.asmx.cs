@@ -32,6 +32,24 @@ namespace ChurchApp.WebServices
     public class WebService : System.Web.Services.WebService
     {
         #region Churches
+        [WebMethod]
+        public string SearchChurch(string SearchTerm )
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ChurchApp.DAL.Church chrchobj = new DAL.Church();
+                
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+
 
         #endregion Churches
 
@@ -65,7 +83,7 @@ namespace ChurchApp.WebServices
             }
             catch (Exception ex)
             {
-               
+                throw ex;
             }
             finally
             {
@@ -146,7 +164,7 @@ namespace ChurchApp.WebServices
             }
             catch (Exception ex)
             {
-                
+                throw ex;
             }
             finally
             {
