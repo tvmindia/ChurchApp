@@ -90,8 +90,12 @@ namespace ChurchApp.DAL
 
         #region Methods
 
-        #region SelectPriest
-        public DataSet SelectPriest()
+        #region SelectPriests
+        /// <summary>
+        /// Select All Priests
+        /// </summary>
+        /// <returns>All Priests</returns>
+        public DataSet SelectPriests()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -124,9 +128,13 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion SelectPriest
+        #endregion SelectPriests
 
         #region InsertPriest
+        /// <summary>
+        /// Add new Priest
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string InsertPriest()
         {
             dbConnection dcon = null;
@@ -172,6 +180,10 @@ namespace ChurchApp.DAL
         #endregion InsertPriest
 
         #region UpdatePriest
+        /// <summary>
+        /// Update Priest
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdatePriest()
         {
             dbConnection dcon = null;
@@ -218,6 +230,10 @@ namespace ChurchApp.DAL
         #endregion UpdatePriest
 
         #region DeletePriest
+        /// <summary>
+        /// Delete Priest
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeletePriest()
         {
             dbConnection dcon = null;
