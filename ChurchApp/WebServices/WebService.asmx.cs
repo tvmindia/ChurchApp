@@ -39,6 +39,7 @@ namespace ChurchApp.WebServices
             try
             {
                 ChurchApp.DAL.Church chrchobj = new DAL.Church();
+                dt = chrchobj.SearchChurchesByChurchOrTownName(SearchTerm);
                 
             }
             catch (Exception ex)
