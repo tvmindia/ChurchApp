@@ -76,6 +76,10 @@ namespace ChurchApp.DAL
         #region Methods
 
         #region SelectMembers
+        /// <summary>
+        /// Select All Members based on Church
+        /// </summary>
+        /// <returns>All Members</returns>
         public DataSet SelectMembers()
         {
             dbConnection dcon = null;
@@ -206,6 +210,10 @@ namespace ChurchApp.DAL
         #endregion UpdateMember
 
         #region DeleteMember
+        /// <summary>
+        /// Delete Member
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeleteMember()
         {
             dbConnection dcon = null;

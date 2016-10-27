@@ -114,6 +114,7 @@
     <Content Include="Font\fontawesome-webfont.woff" />
     <Content Include="Font\fontawesome-webfont.woff2" />
     <Content Include="Font\FontAwesome.otf" />
+    <Content Include="WebServices\WebService.asmx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -337,12 +338,15 @@
     <Compile Include="DAL\Events.cs" />
     <Compile Include="DAL\FamilyUnits.cs" />
     <Compile Include="DAL\GalleryAlbum.cs" />
+    <Compile Include="DAL\Institutions.cs" />
     <Compile Include="DAL\Members.cs" />
     <Compile Include="DAL\Notices.cs" />
     <Compile Include="DAL\Notifications.cs" />
     <Compile Include="DAL\Novenas.cs" />
     <Compile Include="DAL\OrgDesignationMaster.cs" />
     <Compile Include="DAL\PatronMaster.cs" />
+    <Compile Include="DAL\PiousOrg.cs" />
+    <Compile Include="DAL\Priest.cs" />
     <Compile Include="DAL\TownMaster.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -359,10 +363,12 @@
       <DependentUpon>AdminLayout.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebServices\WebService.asmx.cs">
+      <DependentUpon>WebService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="WebServices\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

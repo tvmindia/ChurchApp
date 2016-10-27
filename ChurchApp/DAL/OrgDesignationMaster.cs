@@ -56,6 +56,10 @@ namespace ChurchApp.DAL
         #region Methods
 
         #region SelectOrgDesignationMaster
+        /// <summary>
+        /// Select OrgDesignation Master Details
+        /// </summary>
+        /// <returns>All OrgDesignationMaster</returns>
         public DataSet SelectOrgDesignationMaster()
         {
             dbConnection dcon = null;
@@ -91,6 +95,10 @@ namespace ChurchApp.DAL
         #endregion SelectOrgDesignationMaster
 
         #region InsertOrgDesignationMaster
+        /// <summary>
+        /// Add New OrgDesignation Master
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string InsertOrgDesignationMaster()
         {
             dbConnection dcon = null;
@@ -129,6 +137,10 @@ namespace ChurchApp.DAL
         #endregion InsertOrgDesignationMaster
 
         #region UpdateOrgDesignationMaster
+        /// <summary>
+        /// Update OrgDesignation Master Details
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdateOrgDesignationMaster()
         {
             dbConnection dcon = null;
@@ -168,6 +180,10 @@ namespace ChurchApp.DAL
         #endregion UpdateOrgDesignationMaster
 
         #region DeleteOrgDesignationMaster
+        /// <summary>
+        /// Delete OrgDesignation Master
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeleteOrgDesignationMaster()
         {
             dbConnection dcon = null;
@@ -200,6 +216,7 @@ namespace ChurchApp.DAL
             return outParam.Value.ToString();
         }
         #endregion OrgDesignationMaster
+
         #endregion Methods
     }
 }

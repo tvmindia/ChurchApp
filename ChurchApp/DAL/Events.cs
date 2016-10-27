@@ -86,6 +86,10 @@ namespace ChurchApp.DAL
         #region Methods
 
         #region SelectEvents
+        /// <summary>
+        /// Get All Events based on churchID
+        /// </summary>
+        /// <returns>All Events</returns>
         public DataSet SelectEvents()
         {
             dbConnection dcon = null;
@@ -121,8 +125,12 @@ namespace ChurchApp.DAL
         }
         #endregion SelectEvents
 
-        #region InsertEvents
-        public string InsertEvents()
+        #region InsertEvent
+        /// <summary>
+        /// Add New Event
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string InsertEvent()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -163,9 +171,13 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion InsertEvents
+        #endregion InsertEvent
 
         #region UpdateEvent
+        /// <summary>
+        /// Edit Event
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdateEvent()
         {
             dbConnection dcon = null;
@@ -211,6 +223,10 @@ namespace ChurchApp.DAL
         #endregion UpdateEvent
 
         #region DeleteEvent
+        /// <summary>
+        /// Deletes an event
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeleteEvent()
         {
             dbConnection dcon = null;

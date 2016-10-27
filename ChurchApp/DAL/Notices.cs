@@ -71,6 +71,10 @@ namespace ChurchApp.DAL
         #region Notice Methods
 
         #region SelectNotices
+        /// <summary>
+        /// Get All Notices By ChurchId
+        /// </summary>
+        /// <returns>All Notices</returns>
         public DataSet SelectNotices()
         {
             dbConnection dcon = null;
@@ -106,8 +110,12 @@ namespace ChurchApp.DAL
         }
         #endregion SelectNotices
 
-        #region InsertNotices
-        public string InsertNotices()
+        #region InsertNotice
+        /// <summary>
+        /// Add New Notice
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string InsertNotice()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -145,10 +153,14 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion InsertNotices
+        #endregion InsertNotice
 
-        #region UpdateNotices
-        public string UpdateNotices()
+        #region UpdateNotice
+        /// <summary>
+        /// Update Notice
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string UpdateNotice()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -187,10 +199,14 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion UpdateNotices
+        #endregion UpdateNotice
 
-        #region DeleteNotices
-        public string DeleteNotices()
+        #region DeleteNotice
+        /// <summary>
+        /// Delete Notice
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string DeleteNotice()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -222,7 +238,7 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion DeleteNotices
+        #endregion DeleteNotice
 
         #endregion Notice Methods
     }
@@ -231,6 +247,10 @@ namespace ChurchApp.DAL
         #region NoticeType Methods
 
         #region SelectNoticeType
+        /// <summary>
+        /// Get All Notice type
+        /// </summary>
+        /// <returns>All Notice type</returns>
         public DataSet SelectNoticeType()
         {
             dbConnection dcon = null;
@@ -266,6 +286,10 @@ namespace ChurchApp.DAL
         #endregion SelectNoticeType
 
         #region InsertNoticeType
+        /// <summary>
+        /// Add new notice type
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string InsertNoticeType()
         {
             dbConnection dcon = null;
@@ -303,6 +327,10 @@ namespace ChurchApp.DAL
         #endregion InsertNoticeType
 
         #region UpdateNoticeType
+        /// <summary>
+        /// Update Notice type
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdateNoticeType()
         {
             dbConnection dcon = null;
@@ -340,6 +368,10 @@ namespace ChurchApp.DAL
         #endregion UpdateNoticeType
 
         #region DeleteNoticeType
+        /// <summary>
+        /// Delete Notice Type
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeleteNoticeType()
         {
             dbConnection dcon = null;

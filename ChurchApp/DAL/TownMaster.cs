@@ -50,8 +50,12 @@ namespace ChurchApp.DAL
 
         #region Methods
 
-        #region SelectTownMaster
-        public DataSet SelectTownMaster()
+        #region SelectTownMasters
+        /// <summary>
+        /// Select All TownMaster
+        /// </summary>
+        /// <returns>All TownMaster</returns>
+        public DataSet SelectTownMasters()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -83,9 +87,13 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion SelectTownMaster
+        #endregion SelectTownMasters
 
         #region InsertTownMaster
+        /// <summary>
+        /// Add New TownMaster
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string InsertTownMaster()
         {
             dbConnection dcon = null;
@@ -124,6 +132,10 @@ namespace ChurchApp.DAL
         #endregion InsertTownMaster
 
         #region UpdateTownMaster
+        /// <summary>
+        /// Update TownMaster Details
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdateTownMaster()
         {
             dbConnection dcon = null;
@@ -162,6 +174,10 @@ namespace ChurchApp.DAL
         #endregion UpdateTownMaster
 
         #region DeleteTownMaster
+        /// <summary>
+        /// Delete TownMaster
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeleteTownMaster()
         {
             dbConnection dcon = null;

@@ -8,50 +8,60 @@ using System.Web;
 
 namespace ChurchApp.DAL
 {
-    public class Notifications
+    public class Priest
     {
         #region Public Properties
-        public string notificationID
+        public string priestID
         {
             get;
             set;
         }
-        public string notificationType
+        public string priestName
         {
             get;
             set;
         }
-        public string linkID
+        public string dob
         {
             get;
             set;
         }
-        public string caption
+        public string about
         {
             get;
             set;
         }
-        public string description
+        public string dateOrdination
         {
             get;
             set;
         }
-        public string startDate
+        public string designation
         {
             get;
             set;
         }
-        public string expiryDate
+        public string address
         {
             get;
             set;
         }
-        public string isDelete
+        public string emailId
         {
             get;
             set;
         }
-        public string churchId
+        public string mobile
+        {
+            get;
+            set;
+        }
+        public string imageId
+        {
+            get;
+            set;
+        }
+        public string churchID
         {
             get;
             set;
@@ -80,12 +90,12 @@ namespace ChurchApp.DAL
 
         #region Methods
 
-        #region SelectNotifications
+        #region SelectPriests
         /// <summary>
-        /// Select All Notifications By ChurchID
+        /// Select All Priests
         /// </summary>
-        /// <returns>All Notifications</returns>
-        public DataSet SelectNotifications()
+        /// <returns>All Priests</returns>
+        public DataSet SelectPriests()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -98,8 +108,8 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllNotifications]";
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.CommandText = "[GetAllPriests]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -118,14 +128,14 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion SelectNotifications
+        #endregion SelectPriests
 
-        #region InsertNotification
+        #region InsertPriest
         /// <summary>
-        /// Add New Notification
+        /// Add new Priest
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string InsertNotification()
+        public string InsertPriest()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -137,15 +147,17 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[InsertNotifications]";
-                cmd.Parameters.Add("@Type", SqlDbType.NVarChar,20).Value = notificationType;
-                cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
-                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
-                cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(expiryDate);
-                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.CommandText = "[InsertPriest]";
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar,150).Value = priestName;
+                cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = Convert.ToDateTime(dob);
+                cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
+                cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = Convert.ToDateTime(dateOrdination);
+                cmd.Parameters.Add("@Designation", SqlDbType.NVarChar, 150).Value = designation;
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar,255).Value = emailId;
+                cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = mobile;
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
+                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -165,14 +177,14 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion InsertNotification
+        #endregion InsertPriest
 
-        #region UpdateNotification
+        #region UpdatePriest
         /// <summary>
-        /// Update Notification Details
+        /// Update Priest
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string UpdateNotification()
+        public string UpdatePriest()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -184,16 +196,18 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[UpdateNotifications]";
-                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
-                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = notificationType;
-                cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
-                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
-                cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(expiryDate);
-                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.CommandText = "[UpdatePriest]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(priestID);
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = priestName;
+                cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = Convert.ToDateTime(dob);
+                cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
+                cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = Convert.ToDateTime(dateOrdination);
+                cmd.Parameters.Add("@Designation", SqlDbType.NVarChar, 150).Value = designation;
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = emailId;
+                cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = mobile;
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
+                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
@@ -213,14 +227,14 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion UpdateNotification
+        #endregion UpdatePriest
 
-        #region DeleteNotification
+        #region DeletePriest
         /// <summary>
-        /// Delete Notiication By ChurchId
+        /// Delete Priest
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string DeleteNotification()
+        public string DeletePriest()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -232,9 +246,9 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[DeleteNotifications]";
-                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.CommandText = "[DeletePriest]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(priestID);
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -252,7 +266,7 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion DeleteNotification
+        #endregion DeletePriest
 
         #endregion Methods
     }

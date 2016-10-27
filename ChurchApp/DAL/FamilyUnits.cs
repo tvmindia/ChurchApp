@@ -51,6 +51,10 @@ namespace ChurchApp.DAL
         #region FamilyUnit Methods
 
         #region SelectFamilyUnits
+        /// <summary>
+        /// Selects All FamilyUnits By churchID
+        /// </summary>
+        /// <returns>All FamilyUnits</returns>
         public DataSet SelectFamilyUnits()
         {
             dbConnection dcon = null;
@@ -87,6 +91,10 @@ namespace ChurchApp.DAL
         #endregion SelectFamilyUnits
 
         #region InsertFamilyUnit
+        /// <summary>
+        /// Add new familyUnit
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string InsertFamilyUnit()
         {
             dbConnection dcon = null;
@@ -124,6 +132,10 @@ namespace ChurchApp.DAL
         #endregion InsertFamilyUnit
 
         #region UpdateFamilyUnit
+        /// <summary>
+        /// Edit FamilyUnit
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdateFamilyUnit()
         {
             dbConnection dcon = null;
@@ -162,6 +174,10 @@ namespace ChurchApp.DAL
         #endregion UpdateFamilyUnit
 
         #region DeleteFamilyUnit
+        /// <summary>
+        /// Delete FamilyUnit
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeleteFamilyUnit()
         {
             dbConnection dcon = null;
@@ -213,10 +229,14 @@ namespace ChurchApp.DAL
         }
         #endregion Public Properties
 
-        #region Family Mathods
+        #region Families Methods
 
-        #region SelectFamilys
-        public DataSet SelectFamilys()
+        #region SelectFamilies
+        /// <summary>
+        /// Select All Families based on churchId and UnitId
+        /// </summary>
+        /// <returns>All Families</returns>
+        public DataSet SelectFamilies()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -231,6 +251,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetAllFamily]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.Parameters.Add("@UnitID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(unitId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -252,6 +273,10 @@ namespace ChurchApp.DAL
         #endregion SelectFamilys
 
         #region InsertFamily
+        /// <summary>
+        /// Add new family
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string InsertFamily()
         {
             dbConnection dcon = null;
@@ -290,6 +315,10 @@ namespace ChurchApp.DAL
         #endregion InsertFamily
 
         #region UpdateFamily
+        /// <summary>
+        /// Edit Family details
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string UpdateFamily()
         {
             dbConnection dcon = null;
@@ -329,6 +358,10 @@ namespace ChurchApp.DAL
         #endregion UpdateFamily
 
         #region DeleteFamily
+        /// <summary>
+        /// Delete family 
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeleteFamily()
         {
             dbConnection dcon = null;
@@ -344,6 +377,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[DeleteFamily]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyId);
                 cmd.Parameters.Add("@churchId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.Parameters.Add("@UnitID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(unitId);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -363,6 +397,6 @@ namespace ChurchApp.DAL
         }
         #endregion DeleteFamily
 
-        #endregion Family Mathods
+        #endregion Families Methods
     }
 }
