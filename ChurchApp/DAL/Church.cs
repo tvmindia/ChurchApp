@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -598,6 +599,11 @@ namespace ChurchApp.DAL
     public class MassTimings : Church
     {
         #region Public Properties
+        public string massChurchId
+        {
+            get;
+            set;
+        }
         public string massTimingID
         {
             get;
@@ -632,10 +638,11 @@ namespace ChurchApp.DAL
             {
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
+                cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetAllMassTiming]";
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -674,9 +681,9 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertMassTiming]";
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
-                cmd.Parameters.Add("@Time", SqlDbType.DateTime).Value = Convert.ToDateTime(massTime);
+                cmd.Parameters.Add("@Time", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);

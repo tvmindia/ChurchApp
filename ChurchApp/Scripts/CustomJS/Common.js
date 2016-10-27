@@ -32,6 +32,7 @@ function postBlobAjax(formData, page) {
 
 
 function getJsonData(data, page) {
+    
     var jsonResult = {};
     // $("#loadingimage").show();
     var req = $.ajax({

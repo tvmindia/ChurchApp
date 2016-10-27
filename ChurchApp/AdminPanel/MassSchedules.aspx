@@ -2,7 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    
+    <script src="../Scripts/CustomJS/Common.js"></script>
+    <script src="../Scripts/CustomJS/MassSchedules.js"></script>
      <div id="content" class="span10">
         <ul class="breadcrumb">
 			 <li>
@@ -34,21 +35,7 @@
 							  </tr>
 						  </thead>   
 						  <tbody id="massTimingTableBody">
-							<tr>
-								<td></td>
-								<td class="center"></td>
-								
-								
-								<td class="center">
-									
-									<a class="circlebtn circlebtn-info" href="#">
-										<i class="halflings-icon white edit"></i>  
-									</a>
-									<a class="circlebtn circlebtn-danger" href="#">
-										<i class="halflings-icon white trash"></i> 
-									</a>
-								</td>
-							</tr>
+							
 						</tbody>
 					  </table>            
 					</div>
@@ -71,7 +58,7 @@
 							
 								  <label class="control-label" for="focusedInput">Day</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtMass" type="text"/>
+								  <input class="input-large focused" id="txtDay" type="text"/>
 								</div>
 								</div>
 
@@ -87,7 +74,7 @@
 
                         </div>
                       <div class="form-actions">
-								<button type="submit" class="btn btn-primary">Save changes</button>
+								<button type="submit" class="btn btn-primary AddMass">Save changes</button>
 								<button class="btn">Cancel</button>
 							  </div>
                 </div>
