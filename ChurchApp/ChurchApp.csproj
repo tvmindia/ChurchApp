@@ -114,6 +114,7 @@
     <Content Include="Font\fontawesome-webfont.woff" />
     <Content Include="Font\fontawesome-webfont.woff2" />
     <Content Include="Font\FontAwesome.otf" />
+    <Content Include="Scripts\CustomJS\MassSchedules.js" />
     <Content Include="WebServices\WebService.asmx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
