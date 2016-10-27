@@ -335,6 +335,7 @@
     <Compile Include="DAL\GalleryAlbum.cs" />
     <Compile Include="DAL\Members.cs" />
     <Compile Include="DAL\Notices.cs" />
+    <Compile Include="DAL\Notifications.cs" />
     <Compile Include="DAL\Novenas.cs" />
     <Compile Include="DAL\OrgDesignationMaster.cs" />
     <Compile Include="DAL\PatronMaster.cs" />
