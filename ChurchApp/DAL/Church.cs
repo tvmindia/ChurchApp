@@ -10,10 +10,18 @@ namespace ChurchApp.DAL
 {
     public class Church
     {
-        Administrators administratorsObj = new Administrators();
-        AppImages appImagesObj = new AppImages();
-        GalleryAlbum galleryAlbumObj = new GalleryAlbum();
-        Members membersObj = new Members();
+        Administrators administrators = new Administrators();
+        AppImages appImages = new AppImages();
+        GalleryAlbum galleryAlbum = new GalleryAlbum();
+        Members members = new Members();
+        Events events = new Events();
+        FamilyUnits familyUnits = new FamilyUnits();
+        Institutions institutions = new Institutions();
+        Notices notices = new Notices();
+        Notifications notifications = new Notifications();
+        Novenas novenas = new Novenas();
+        PiousOrg piousOrg = new PiousOrg();
+        Priest priest = new Priest();
 
         #region Public Properties
 
