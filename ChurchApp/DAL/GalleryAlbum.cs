@@ -61,12 +61,12 @@ namespace ChurchApp.DAL
 
         #region GalleryAlbum Methods
 
-        #region SelectGalleryAlbum
+        #region SelectGalleryAlbums
         /// <summary>
         /// Get All Gallery Album
         /// </summary>
         /// <returns>Gallery Album</returns>
-        public DataSet SelectGalleryAlbum()
+        public DataSet SelectGalleryAlbums()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -99,7 +99,7 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion SelectGalleryAlbum
+        #endregion SelectGalleryAlbums
 
         #region InsertGalleryAlbum
         /// <summary>
@@ -251,12 +251,12 @@ namespace ChurchApp.DAL
 
         #region GalleryItem Methods
 
-        #region SelectGalleryItem
+        #region SelectGalleryItems
         /// <summary>
         /// Get all gallery items
         /// </summary>
         /// <returns>gallery items</returns>
-        public DataSet SelectGalleryItem()
+        public DataSet SelectGalleryItems()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -269,8 +269,8 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllGalleryAlbum]";
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.CommandText = "[GetAllGalleryItems]";
+                cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -289,7 +289,7 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion SelectGalleryItem
+        #endregion SelectGalleryItems
 
         #region InsertGalleryItem
         /// <summary>
@@ -334,6 +334,10 @@ namespace ChurchApp.DAL
         #endregion InsertGalleryItem
 
         #region DeleteGalleryItem
+        /// <summary>
+        /// Delete GalleryItem From Gallery Album
+        /// </summary>
+        /// <returns>Success/Failure</returns>
         public string DeleteGalleryItem()
         {
             dbConnection dcon = null;
@@ -348,6 +352,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[DeleteGalleryItems]";
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(galleryItemID);
+                cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
