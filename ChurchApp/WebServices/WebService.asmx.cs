@@ -225,6 +225,32 @@ namespace ChurchApp.WebServices
 
         #endregion Get Church Details by ID
 
+        #region GetMyChurchDetails
+        [WebMethod]
+        public string GetMyChurchDetails(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Church chrchobj = new DAL.Church();
+                chrchobj.churchId = ChurchID;
+                dt = chrchobj.GetChurchDetailsByChurchID();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion GetMyChurchDetails
+
         #endregion Churches
 
         #region Town
@@ -254,6 +280,66 @@ namespace ChurchApp.WebServices
         #endregion All Token
 
         #endregion Town
+
+        #region Novena
+
+        #region All Novena
+
+        [WebMethod]
+        public string AllNovena(string  churchId,string patronId )
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Novenas novenaObj = new DAL.Novenas();
+                novenaObj.patronId = patronId;
+                novenaObj.churchId = churchId;
+                dt = novenaObj.SelectNovenas().Tables[0];
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion All Novena
+
+        #region Novenas By Caption
+
+        [WebMethod]
+        public string NovenasByCaption(string NovenaCaption)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Novenas novenaObj = new DAL.Novenas();
+                novenaObj.novenaCaption = NovenaCaption;
+                dt = novenaObj.GetNovenaDetailsByCaption();
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion Novenas By Caption
+
+        #endregion Novena
 
     }
 }

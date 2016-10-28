@@ -255,6 +255,47 @@ namespace ChurchApp.DAL
         }
         #endregion DeleteNovena
 
+        #region GetNovenaDetailsByCaption
+        /// <summary>
+        /// To get novena details by novena caption
+        /// </summary>
+        /// <returns>Datatable contains filtered novena details</returns>
+        public DataTable GetNovenaDetailsByCaption()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetNovenaDetailsByCaption]";
+                cmd.Parameters.Add("@NovenaCaption", SqlDbType.NVarChar, 100).Value = novenaCaption;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+
+        #endregion GetNovenaDetailsByCaption
+
         #endregion Novenas Methods
     }
     public class NovenaTiming : Novenas
