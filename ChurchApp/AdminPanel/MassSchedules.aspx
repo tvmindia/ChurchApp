@@ -42,7 +42,7 @@
 				</div>
             <div class="box span6">
                 	<div class="box-header" data-original-title>
-						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Add Mass Time</h2>
+						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="AddorEditSpan">Save</span> Mass Time</h2>
 						<div class="box-icon">
 						
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -74,7 +74,7 @@
 
                         </div>
                       <div class="form-actions">
-								<button type="submit" class="btn btn-primary AddMass">Save changes</button>
+								<button type="submit" class="btn btn-primary AddMass">Save</button>
 								<button class="btn">Cancel</button>
 							  </div>
                 </div>
@@ -88,7 +88,8 @@
 
 
 
-    </div>
+   <input type="hidden" id="hdfChurchID" />
+    <input type="hidden" id="hdfMassID" />
 
 
 

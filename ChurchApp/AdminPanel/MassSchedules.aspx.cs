@@ -59,5 +59,58 @@ namespace ChurchApp.AdminPanel
             return status;
         }
         #endregion InsertMassTiming
+
+        #region UpdateMassTiming
+        [System.Web.Services.WebMethod]
+        public static string UpdateMassTiming(MassTimings MassTimingsObj)
+        {
+            string status = null;
+            status = MassTimingsObj.UpdateMassTiming();
+            return status;
+        }
+        #endregion UpdateMassTiming
+
+        #region DeleteMassTiming
+        [System.Web.Services.WebMethod]
+        public static string DeleteMassTiming(MassTimings MassTimingsObj)
+        {
+            string status = null;
+            status = MassTimingsObj.DeleteMassTiming();
+            return status;
+        }
+        #endregion DeleteMassTiming
+
+        #region UpdateMassTiming
+        [System.Web.Services.WebMethod]
+        public static string selectMassTimeByMassID(MassTimings MassTimingsObj)
+        {
+            string jsonResult = null;
+            DataSet ds = null;
+            ds = MassTimingsObj.SelectMassTimingByMassID();
+
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+
+            }
+
+
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult;
+        }
+        #endregion UpdateMassTiming
     }
 }

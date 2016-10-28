@@ -724,7 +724,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertMassTiming]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
-                cmd.Parameters.Add("@Time", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value = massTime;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -766,9 +766,9 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UpdateMassTiming]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massTimingID);
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
-                cmd.Parameters.Add("@Time", SqlDbType.DateTime).Value = Convert.ToDateTime(massTime);
+                cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value = massTime;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
@@ -809,7 +809,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[DeleteMassTiming]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massTimingID);
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 outParam1 = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam1.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -828,6 +828,47 @@ namespace ChurchApp.DAL
             return outParam1.Value.ToString();
         }
         #endregion DeleteMassTiming
+
+        #region selectMassDetailsByMassID
+        /// <summary>
+        /// Select Mass Details By MassID
+        /// </summary>
+        /// <returns>Mass Details</returns>
+        public DataSet SelectMassTimingByMassID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            DataSet ds = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[selectMassTimeByMassID]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massTimingID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion selectMassDetailsByMassID
 
         #endregion MassTiming Methods
     }
