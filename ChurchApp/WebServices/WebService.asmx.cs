@@ -235,7 +235,7 @@ namespace ChurchApp.WebServices
             {
                 ChurchApp.DAL.Church chrchobj = new DAL.Church();
                 chrchobj.churchId = ChurchID;
-                dt = chrchobj.GetChurchDetailsByChurchID();
+                dt = chrchobj.GetMyChurchDetails();
 
             }
             catch (Exception ex)
