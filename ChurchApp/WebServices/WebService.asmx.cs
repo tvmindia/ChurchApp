@@ -199,7 +199,7 @@ namespace ChurchApp.WebServices
 
         #endregion Search Church
 
-        #region Get Church Details by ID
+        #region Get Church Data by ID (STATIC)
         [WebMethod]
         public string ChurchDetailsByID(string ChurchID)
         {
@@ -223,9 +223,129 @@ namespace ChurchApp.WebServices
             return getDbDataAsJSON(dt);
         }
 
-        #endregion Get Church Details by ID
+        #endregion Get Data Details by ID
 
-        #region GetMyChurchDetails
+        #endregion Churches
+
+        #region Church Detail
+
+        #region More Details of Church (Dynamic)
+
+        [WebMethod]
+        public string GetChurchDetailsByChurchID(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.ChurchDetails chrchDetailobj = new DAL.ChurchDetails();
+                chrchDetailobj.churchId = ChurchID;
+                dt = chrchDetailobj.SelectChurchDetails().Tables[0];
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion More Details of Church (Dynamic)
+
+        #endregion Church Detail
+
+        #region Town
+
+        #region All Town
+        [WebMethod]
+        public string AllTown()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ChurchApp.DAL.TownMaster twnObj = new DAL.TownMaster();
+                dt = twnObj.SelectTownMasters().Tables[0];
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion All Town
+
+        #endregion Town
+
+        #region Novena
+
+        #region All Patrons
+
+        [WebMethod]
+        public string AllPatrons(string  churchId,string patronId )
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.PatronMaster patronObj = new DAL.PatronMaster();
+                dt = patronObj.SelectPatronMaster().Tables[0];
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion All Patrons
+
+        #region Novenas By Patron ID
+
+        [WebMethod]
+        public string NovenasByPatronID(string PatronID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Novenas novenaObj = new DAL.Novenas();
+                novenaObj.patronId = PatronID;
+                dt = novenaObj.GetNovenaDetailsByPatronID();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion Novenas By Patron ID
+
+        #endregion Novena
+
+        #region My Church
+
+        #region Get My ChurchDetails
         [WebMethod]
         public string GetMyChurchDetails(string ChurchID)
         {
@@ -249,97 +369,29 @@ namespace ChurchApp.WebServices
             return getDbDataAsJSON(dt);
         }
 
-        #endregion GetMyChurchDetails
+        #endregion Get My ChurchDetails
 
-        #endregion Churches
+        #region Notices
 
-        #region Town
+        #endregion Notices
 
-        #region All Token
-        [WebMethod]
-        public string AllToken()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                ChurchApp.DAL.TownMaster twnObj = new DAL.TownMaster();
-                dt = twnObj.SelectTownMasters().Tables[0];
-            }
-            catch (Exception ex)
-            {
-                
-                throw ex;
-            }
-            finally
-            {
+        #region Events
 
-            }
-            return getDbDataAsJSON(dt);
-        }
+        #endregion Events
 
-        #endregion All Token
+        #region Gallery
 
-        #endregion Town
+        #endregion Gallery
 
-        #region Novena
+        #region Timings
 
-        #region All Novena
+        #endregion Timings
 
-        [WebMethod]
-        public string AllNovena(string  churchId,string patronId )
-        {
-            DataTable dt = new DataTable();
+        #region About
 
-            try
-            {
-                ChurchApp.DAL.Novenas novenaObj = new DAL.Novenas();
-                novenaObj.patronId = patronId;
-                novenaObj.churchId = churchId;
-                dt = novenaObj.SelectNovenas().Tables[0];
-            }
-            catch (Exception ex)
-            {
-                
-                throw ex;
-            }
-            finally
-            {
+        #endregion About
 
-            }
-            return getDbDataAsJSON(dt);
-        }
-
-        #endregion All Novena
-
-        #region Novenas By Caption
-
-        [WebMethod]
-        public string NovenasByCaption(string NovenaCaption)
-        {
-            DataTable dt = new DataTable();
-
-            try
-            {
-                ChurchApp.DAL.Novenas novenaObj = new DAL.Novenas();
-                novenaObj.novenaCaption = NovenaCaption;
-                dt = novenaObj.GetNovenaDetailsByCaption();
-            }
-            catch (Exception ex)
-            {
-                
-                throw ex;
-            }
-
-            finally
-            {
-
-            }
-            return getDbDataAsJSON(dt);
-        }
-
-        #endregion Novenas By Caption
-
-        #endregion Novena
+        #endregion My Church
 
     }
 }

@@ -255,12 +255,12 @@ namespace ChurchApp.DAL
         }
         #endregion DeleteNovena
 
-        #region GetNovenaDetailsByCaption
+        #region Get Novenas By patronID
         /// <summary>
-        /// To get novena details by novena caption
+        /// To Get Novenas By patronID
         /// </summary>
         /// <returns>Datatable contains filtered novena details</returns>
-        public DataTable GetNovenaDetailsByCaption()
+        public DataTable GetNovenaDetailsByPatronID()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -273,8 +273,8 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetNovenaDetailsByCaption]";
-                cmd.Parameters.Add("@NovenaCaption", SqlDbType.NVarChar, 100).Value = novenaCaption;
+                cmd.CommandText = "[GetNovenaDetailsByPatronID]";
+                cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = patronId;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 dt = new DataTable();
@@ -294,7 +294,7 @@ namespace ChurchApp.DAL
             return dt;
         }
 
-        #endregion GetNovenaDetailsByCaption
+        #endregion Get Novenas By patronID
 
         #endregion Novenas Methods
     }
