@@ -28,6 +28,7 @@
 	<link href="../CSS/googleapiFont.css" rel="stylesheet" />
 
     <link href="../CSS/CustomCSS/AdminLayout.css" rel="stylesheet" />
+    <link href="../CSS/select2.min.css" rel="stylesheet" />
    
 	<!-- end: CSS -->
 
@@ -90,7 +91,7 @@
 
         <script src="../Scripts/CustomJS/AdminLayout.js"></script>
       
-
+    <script src="../Scripts/select2.min.js"></script>
 	<!-- end: JavaScript-->
 
 
