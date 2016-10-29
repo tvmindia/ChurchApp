@@ -21,71 +21,114 @@
         
               
 				<div class="row-fluid">
-                    <div class="box span6">
-					<div class="box-header">
-						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Priests.</h2>
-						<div class="box-icon">
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							
-						</div>
+               
+                     
+				
+				<div class="span6">
+					<h1>Current Vicars</h1>
+					
+					<div class="priority high"><span>high priority</span></div>
+					
+					<div class="task high">
+                        <ul class="dashboard-list">
+						<li class="">
+								<a href="#">
+									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
+								</a>
+								<div class="priesteditdiv">
+                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
+								</div>
+													
+												   
+								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
+								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
+								<strong>Status:</strong> Vicar<br/> 
+                                                       						
+							</li>
+                            </ul>
 					</div>
-					<div class="box-content">
-						<div class="todo">
-							<ul class="todo-list">
-								<li>
-                                   <ul><li><img class="grayscale" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/><span>9961442805</span></li></ul>
-									<span>Sreejith</span>     
-														<span class="todo-actions">
-														<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-												        </span>
 
-                                    <span>9961442805</span>
-								</li>
-								
-								
-								<li>
-                                   <ul><li><img class="grayscale" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/></li></ul>
-									<span>Jibin</span>     
-														<span class="todo-actions">
-														<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-												        </span>
-
-                                    <span>9961442805</span>
-								</li>
-                                <li>
-                                   <ul><li><img class="grayscale" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/></li></ul>
-									<span>Priest1</span>     
-														<span class="todo-actions">
-														<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-												        </span>
-
-                                    <span>9961442805</span>
-								</li>
-                                <li>
-                                   <ul><li><img class="grayscale" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/></li></ul>
-									<span>Priest1</span>     
-														<span class="todo-actions">
-														<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-												        </span>
-
-                                    <span>9961442805</span>
-								</li>
-								
-								
-							</ul>
-						</div>	
+                    <div class="task high">
+                        <ul class="dashboard-list">
+						<li class="">
+								<a href="#">
+									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
+								</a>
+								<div class="priesteditdiv">
+                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
+								</div>
+													
+												   
+								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
+								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
+								<strong>Status:</strong> Vicar<br/> 
+                                                       						
+							</li>
+                            </ul>
 					</div>
+
+                    <div class="task high">
+                        <ul class="dashboard-list">
+						<li class="">
+								<a href="#">
+									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
+								</a>
+								<div class="priesteditdiv">
+                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
+								</div>
+													
+												   
+								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
+								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
+								<strong>Status:</strong> Vicar<br/> 
+                                                       						
+							</li>
+                            </ul>
+					</div>
+                 
+                   
+
+
+				
+					
+					
+					
+				
+					
+					<div class="priority low"><span>low priority</span></div>
+
+                    <div class="task low">
+
+                           <ul class="dashboard-list">
+						<li class="">
+								<a href="#">
+									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
+								</a>
+								<div class="priesteditdiv">
+                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
+								</div>
+													
+												   
+								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
+								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
+								<strong>Status:</strong> Vicar<br/> 
+                                                       						
+							</li>
+                            </ul>
+					
+					</div>
+					
+				
+					<div class="clearfix"></div>		
+					
 				</div>
-
-                    <div class="box span6" id="PriestEditDivBox">
-					<div class="box-header">
-						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Priests.</h2>
-						<div class="box-icon">
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							
-						</div>
-					</div>
-					<div class="box-content">
+				
+				<div id="PriestEditDivBox" class="span6 noMarginLeft">
+					
+					<div class="dark">
+					
+					<h1>Edit</h1>
+						<div class="box-content">
 					   <div class="form-horizontal">
 				    <fieldset>
                          <div class="control-group">
@@ -159,8 +202,22 @@
 						  </fieldset>
 					</div>   
 					</div>
+				
 				</div>
-				</div>
+				
+				</div>	
+						
+			</div>
+                  
+					
+				
+			
+			
+
+
+
+
+        
 				
 			
 		
