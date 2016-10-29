@@ -28,7 +28,7 @@ namespace ChurchApp.WebServices
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-    // [System.Web.Script.Services.ScriptService]
+     [System.Web.Script.Services.ScriptService]
     public class WebService : System.Web.Services.WebService
     {
         #region General Methods
@@ -227,6 +227,7 @@ namespace ChurchApp.WebServices
 
         #endregion Churches
 
+        // --More (dynamic)
         #region Church Detail
 
         #region More Details of Church (Dynamic)
@@ -373,23 +374,194 @@ namespace ChurchApp.WebServices
 
         #region Notices
 
+        [WebMethod]
+        public string GetMyChurchNotices(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Notices noticeObj = new DAL.Notices();
+                noticeObj.churchId = ChurchID;
+                dt = noticeObj.SelectNotices().Tables[0];
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
         #endregion Notices
 
         #region Events
 
+        [WebMethod]
+        public string GetMyChurchEvents(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Events eventObj = new DAL.Events();
+                eventObj.churchId = ChurchID;
+                dt = eventObj.SelectEvents().Tables[0];
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
         #endregion Events
 
-        #region Gallery
+        #region Family Units
 
-        #endregion Gallery
+        [WebMethod]
+        public string GetMyChurchFamilyUnits(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.FamilyUnits familyUnitObj  = new DAL.FamilyUnits();
+                familyUnitObj.churchId = ChurchID;
+                dt = familyUnitObj.SelectFamilyUnits().Tables[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+
+        #endregion Family Units
+
+        #region Family
+
+        [WebMethod]
+        public string FamilyByFamilyUnitID(string ChurchID, string UnitID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ChurchApp.DAL.Family fmlyObj  = new DAL.Family();
+                fmlyObj.churchId = ChurchID;
+                fmlyObj.unitId = UnitID;
+                dt=  fmlyObj.SelectFamilies().Tables[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion Family
+
+        #region Gallery Album
+
+        [WebMethod]
+        ///Album
+        public string GetMyChurchGallery(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.GalleryAlbum galleryObj = new DAL.GalleryAlbum();
+                galleryObj.churchId = ChurchID;
+                dt = galleryObj.SelectGalleryAlbums().Tables[0];
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion Gallery Album
+
+        #region Gallery Items
+
+        [WebMethod]
+        ///Album
+        public string GetMyChurchGalleryItems(string AlbumID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.GalleryItems galleryItemObj = new DAL.GalleryItems();
+                galleryItemObj.albumId = AlbumID;
+                galleryItemObj.SelectGalleryItems();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+
+        #endregion Gallery Items
 
         #region Timings
 
+        [WebMethod]
+        public string GetMyChurchTiming(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.MassTimings massTimObj = new DAL.MassTimings();
+                massTimObj.churchId = ChurchID;
+                dt = massTimObj.SelectMassTimings().Tables[0];
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
         #endregion Timings
-
-        #region About
-
-        #endregion About
 
         #endregion My Church
 
