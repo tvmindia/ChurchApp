@@ -90,6 +90,7 @@
     <Content Include="CSS\jquery.iphone.toggle.css" />
     <Content Include="CSS\jquery.noty.css" />
     <Content Include="CSS\noty_theme_default.css" />
+    <Content Include="CSS\select2.min.css" />
     <Content Include="CSS\style-forms.css" />
     <Content Include="CSS\style-responsive.css" />
     <Content Include="CSS\style.css" />
@@ -116,6 +117,7 @@
     <Content Include="Font\fontawesome-webfont.woff2" />
     <Content Include="Font\FontAwesome.otf" />
     <Content Include="Scripts\CustomJS\MassSchedules.js" />
+    <Content Include="Scripts\CustomJS\Notifications.js" />
     <Content Include="Scripts\CustomJS\Priests.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="WebServices\WebService.asmx" />
