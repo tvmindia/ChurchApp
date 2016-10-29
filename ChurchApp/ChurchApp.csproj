@@ -126,6 +126,7 @@
     <Content Include="Font\FontAwesome.otf" />
     <Content Include="Scripts\CustomJS\Events.js" />
     <Content Include="Scripts\CustomJS\MassSchedules.js" />
+    <Content Include="Scripts\CustomJS\Notices.js" />
     <Content Include="Scripts\CustomJS\Notifications.js" />
     <Content Include="Scripts\CustomJS\Priests.js" />
     <Content Include="Scripts\select2.min.js" />
