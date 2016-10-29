@@ -1,0 +1,32 @@
+﻿
+
+#EventEditDivBox
+{
+    display:none;
+}
+
+
+
+ul.dashboard-list li .Eventimage {
+height: 208px;
+width: 325px;
+padding: 1px;
+float: left;
+margin-top: -6px;
+margin-right: 35px;
+border: 1px solid #eee;
+}
+
+.task .Eventeditdiv {
+    display: inline-block;
+    float: right;
+    width: 15%;
+    padding: 10px 10px 10px 0px;
+    font-size: 12px;
+    text-align: right;
+}
+
+.Eventlist{
+    line-height:67px;
+}
+

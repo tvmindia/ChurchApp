@@ -23,7 +23,7 @@
 				<div class="row-fluid">
                
                      
-				
+                   
 				<div class="span6">
 					<h1>Current Vicars</h1>
 					
@@ -33,7 +33,7 @@
                         <ul class="dashboard-list">
 						<li class="vicarlist">
 								<a href="#">
-									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
+									<img class="priestimage" src="../img/gallery/assist%20vicar.jpg"/>
 								</a>
 								<div class="priesteditdiv">
                                     	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
@@ -52,7 +52,7 @@
                         <ul class="dashboard-list">
 						<li class="vicarlist">
 								<a href="#">
-									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
+									<img class="priestimage" src="../img/gallery/assist%20vicar.jpg"/>
 								</a>
 								<div class="priesteditdiv">
                                     	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
@@ -85,7 +85,7 @@
                            <ul class="dashboard-list">
 						<li class="vicarlist">
 								<a href="#">
-									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
+									<img class="priestimage" src="../img/gallery/assist%20vicar.jpg" alt="St.Thomas Church"/>
 								</a>
 								<div class="priesteditdiv">
                                     	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
@@ -105,7 +105,7 @@
 
                       <ul class="dashboard-list">
 						<li class="vicarlist">
-								<a href="#"><img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/></a>
+								<a href="#"><img class="priestimage" src="../img/gallery/assist%20vicar.jpg" alt="St.Thomas Church"/></a>
 								<div class="priesteditdiv">
                                     	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
 								</div>
@@ -133,17 +133,13 @@
 						<div class="box-content">
 					   <div class="form-horizontal">
 				    <fieldset>
-                          <div class="control-group">
-                           <div class="controls">
-                            <output id="imageList" class="listClass"></output>
-                           </div>
-                          </div>
+                        
 					
 
 							<div class="control-group">
-							  <label class="control-label" for="fileInput">Profile Picture</label>
+							  <label class="control-label" for="fileInput">Picture URL</label>
 							  <div class="controls">
-								<input class="input-file uniform_on" id="imageUpload" type="file"/>
+								<input class="input-large focused" id="txtImageVicarURL" type="text"/>
 							  </div>
 							</div>          
                          <div class="control-group">
