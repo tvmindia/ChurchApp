@@ -6,13 +6,14 @@
 }
 
 
+
 ul.dashboard-list li .priestimage {
-    height: 50px;
-    width: 50px;
+    height: 158px;
+    width: 133px;
     padding: 1px;
     float: left;
-    margin-top: 3px;
-    margin-right: 15px;
+    margin-top: -6px;
+    margin-right: 125px;
     border: 1px solid #eee;
 }
 
@@ -23,4 +24,19 @@ ul.dashboard-list li .priestimage {
     padding: 10px 10px 10px 0px;
     font-size: 12px;
     text-align: right;
+}
+
+.vicarlist{
+    line-height:50px;
+}
+
+.thumb
+{
+    height: 158px;
+    width: 133px;
+    padding: 1px;
+    float: left;
+    margin-top: -6px;
+    margin-right: 125px;
+    border: 1px solid #eee;
 }

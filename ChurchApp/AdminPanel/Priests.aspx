@@ -27,11 +27,11 @@
 				<div class="span6">
 					<h1>Current Vicars</h1>
 					
-					<div class="priority high"><span>high priority</span></div>
+					<div class="priority high"><span>Vicar</span></div>
 					
 					<div class="task high">
                         <ul class="dashboard-list">
-						<li class="">
+						<li class="vicarlist">
 								<a href="#">
 									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
 								</a>
@@ -50,7 +50,7 @@
 
                     <div class="task high">
                         <ul class="dashboard-list">
-						<li class="">
+						<li class="vicarlist">
 								<a href="#">
 									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
 								</a>
@@ -67,24 +67,7 @@
                             </ul>
 					</div>
 
-                    <div class="task high">
-                        <ul class="dashboard-list">
-						<li class="">
-								<a href="#">
-									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
-								</a>
-								<div class="priesteditdiv">
-                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-								</div>
-													
-												   
-								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Status:</strong> Vicar<br/> 
-                                                       						
-							</li>
-                            </ul>
-					</div>
+                 
                  
                    
 
@@ -95,12 +78,12 @@
 					
 				
 					
-					<div class="priority low"><span>low priority</span></div>
+					<div class="priority low"><span>Asst. Vicar</span></div>
 
                     <div class="task low">
 
                            <ul class="dashboard-list">
-						<li class="">
+						<li class="vicarlist">
 								<a href="#">
 									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
 								</a>
@@ -112,6 +95,25 @@
 								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
 								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
 								<strong>Status:</strong> Vicar<br/> 
+                                                       						
+							</li>
+                            </ul>
+					
+					</div>
+
+                       <div class="task low">
+
+                      <ul class="dashboard-list">
+						<li class="vicarlist">
+								<a href="#"><img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/></a>
+								<div class="priesteditdiv">
+                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
+								</div>
+													
+												   
+								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
+								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
+								<strong>Status:</strong> Vicar<br/>
                                                        						
 							</li>
                             </ul>
@@ -131,6 +133,19 @@
 						<div class="box-content">
 					   <div class="form-horizontal">
 				    <fieldset>
+                          <div class="control-group">
+                           <div class="controls">
+                            <output id="imageList" class="listClass"></output>
+                           </div>
+                          </div>
+					
+
+							<div class="control-group">
+							  <label class="control-label" for="fileInput">Profile Picture</label>
+							  <div class="controls">
+								<input class="input-file uniform_on" id="imageUpload" type="file"/>
+							  </div>
+							</div>          
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
@@ -186,14 +201,7 @@
 								  <input class="input-large focused" name="Email" id="txtMobile" type="text" value=""/>
 								</div>
 								</div>
-					
-
-							<div class="control-group">
-							  <label class="control-label" for="fileInput">File input</label>
-							  <div class="controls">
-								<input class="input-file uniform_on" id="fileInput" type="file"/>
-							  </div>
-							</div>          
+                        
 						
 							<div class="form-actions">
 							  <button type="submit" class="btn btn-primary">Save changes</button>
