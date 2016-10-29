@@ -119,7 +119,11 @@ namespace ChurchApp.AdminPanel
         {
             string jsonResult = null;
             DataSet ds = null;
-            ds = NoticeObj.GetNoticesByNoticeID(); 
+
+            NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
+            ds = NoticeObj.GetNoticesByNoticeID();
+
+            
 
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -148,6 +152,35 @@ namespace ChurchApp.AdminPanel
 
 
         #endregion  Get Notice By NoticeID
+
+        #region  Insert Notice
+
+        [System.Web.Services.WebMethod]
+        public static string InsertNotice(ChurchApp.DAL.Notices NoticeObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            NoticeObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
+            NoticeObj.createdBy = "Shamila";
+            string status = null;
+            try
+            {
+                if (NoticeObj.churchId != string.Empty || NoticeObj.churchId != null)
+                {
+                    status = NoticeObj.InsertNotice().ToString();
+                 }
+             }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NoticeObj);
+            
+        }
+
+        #endregion Insert Notice
 
         #endregion Methods
 

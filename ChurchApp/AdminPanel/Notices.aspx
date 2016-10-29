@@ -2,8 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     
-    <script src="../Scripts/select2.min.js"></script>
-    <link href="../CSS/select2.min.css" rel="stylesheet" />
+    <%--<script src="../Scripts/select2.min.js"></script>
+    <link href="../CSS/select2.min.css" rel="stylesheet" />--%>
 
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Notices.js"></script>
@@ -43,7 +43,7 @@
 
                     <div class="box span6" id="PriestEditDivBox">
 					<div class="box-header">
-						<h2><i class="fa fa-file-o" aria-hidden="true"></i><span class="break"></span>Add Notice</h2>
+						<h2 id="HeadNotice"><i class="fa fa-file-o" aria-hidden="true"></i><span class="break"></span>Add Notice</h2>
 						<div class="box-icon">
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 							
@@ -87,8 +87,8 @@
 							</div>      
 						
 							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Save changes</button>
-							  <button type="reset" class="btn btn-primary">Cancel</button>
+							  <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
+							  <button type="reset" class="btn btn-primary" id="btnCancel">Cancel</button>
 							</div>
 						  </fieldset>
 					</div>   

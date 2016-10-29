@@ -120,7 +120,7 @@ namespace ChurchApp.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
-            try
+            try   
             {
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
@@ -131,9 +131,14 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@NoticeName", SqlDbType.NVarChar, 100).Value = noticeName;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar,-1).Value = description;
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+
+                if (imageId != string.Empty && imageId != null)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                }
+                
                 cmd.Parameters.Add("@NoticeType", SqlDbType.NVarChar, 20).Value = noticeType;
-                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
+              //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
