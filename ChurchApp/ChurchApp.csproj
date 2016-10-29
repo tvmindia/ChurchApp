@@ -90,6 +90,7 @@
     <Content Include="CSS\jquery.iphone.toggle.css" />
     <Content Include="CSS\jquery.noty.css" />
     <Content Include="CSS\noty_theme_default.css" />
+    <Content Include="CSS\select2.min.css" />
     <Content Include="CSS\style-forms.css" />
     <Content Include="CSS\style-responsive.css" />
     <Content Include="CSS\style.css" />

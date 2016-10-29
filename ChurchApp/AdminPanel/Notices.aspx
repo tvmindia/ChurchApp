@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <script src="../Scripts/CustomJS/Common.js"></script>
+    <script src="../Scripts/select2.min.js"></script>
     <script>
         $("document").ready(function (e)
         {
