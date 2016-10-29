@@ -1,9 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Notices.aspx.cs" Inherits="ChurchApp.AdminPanel.Notices" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    
+    <script src="../Scripts/select2.min.js"></script>
+    <link href="../CSS/select2.min.css" rel="stylesheet" />
+
+    <script src="../Scripts/CustomJS/Common.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <script src="../Scripts/CustomJS/Common.js"></script>
-    <script src="../Scripts/select2.min.js"></script>
+    
     <script>
         $("document").ready(function (e)
         {
@@ -12,7 +17,7 @@
             BindNoticesOnEdit();
             debugger;
             $("#ddlNoticeType").select2({
-                placeholder: "Choose Notice Types",
+                placeholder: "Choose Types",
                 allowClear: true,
                 data: BindNoticeTypeDropDown()
             });
@@ -21,7 +26,7 @@
         });
 
         function BindNoticeTypeDropDown() {
-
+            debugger;
             var jsonResult = {};
             var NoticeType = new Object();
             jsonResult = GetAllNoticeTypes(NoticeType);
@@ -136,8 +141,8 @@
 								<label class="control-label" for="focusedInput">Notice Type</label>
 								<div class="controls">
 							    
-                                   <select class="Notices" id="ddlNoticeType" style="max-width: 50%!important; width: 40%!important;">
-                                                        <option></option>
+                                   <select  id="ddlNoticeType" >
+                                                   <option></option>        
                                                     </select>
 								</div>
 								</div>
