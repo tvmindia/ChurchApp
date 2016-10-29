@@ -26,7 +26,7 @@
 						</div>
 					</div>
 					<div class="box-content">
-						<table id="massTimingTable" class="table table-striped table-bordered bootstrap-datatable datatable">
+						<table id="massTimingTable" class="table table-striped table-bordered bootstrap-datatable">
 						  <thead>
 							  <tr>
 								  <th>Day</th>
@@ -75,7 +75,7 @@
                         </div>
                       <div class="form-actions">
 								<button type="submit" class="btn btn-primary AddMass">Save</button>
-								<button class="btn">Cancel</button>
+								<button class="btn cancel">Cancel</button>
 							  </div>
                 </div>
                 </div>
