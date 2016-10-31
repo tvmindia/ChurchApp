@@ -1,0 +1,12 @@
+﻿.familyViewDetails
+{
+    position:absolute;
+    right:25px;
+}
+
+.unitViewDetails
+{
+   position: absolute;
+   left: 43%;
+   color:#337ab7!important;
+}
