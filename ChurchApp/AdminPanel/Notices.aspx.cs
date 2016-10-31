@@ -123,8 +123,6 @@ namespace ChurchApp.AdminPanel
             NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
             ds = NoticeObj.GetNoticesByNoticeID();
 
-            
-
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -160,14 +158,21 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             NoticeObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
-            NoticeObj.createdBy = "Shamila";
+            NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
             string status = null;
             try
             {
-                if (NoticeObj.churchId != string.Empty || NoticeObj.churchId != null)
+                if (NoticeObj.noticeId == string.Empty || NoticeObj.noticeId == null )
                 {
+                    NoticeObj.createdBy = "Shamila";
                     status = NoticeObj.InsertNotice().ToString();
                  }
+
+                else
+                {
+                    NoticeObj.updatedBy = "Shamila";
+                    status = NoticeObj.UpdateNotice().ToString();
+                }
              }
             catch (Exception)
             {

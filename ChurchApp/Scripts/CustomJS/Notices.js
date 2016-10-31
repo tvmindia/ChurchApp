@@ -102,8 +102,8 @@ function BindControlsOnEdit()
         {
             //$("#lblNoticeName").show();
             //$("#txtNoticeName").hide();
-            $("#txtNoticeName").text(jsonResult.NoticeName);
-
+            //$("#txtNoticeName").text(jsonResult.NoticeName);
+            $("#txtNoticeName").val(jsonResult.NoticeName);
             
             //$("#lblNoticeDescription").show();
             //$("#txtDescription").hide();

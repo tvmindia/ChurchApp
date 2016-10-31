@@ -8,7 +8,24 @@
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Notices.js"></script>
 
+    <style>
+        
+ul.dashboard-list li .priestimage {
+    height: 158px;
+    width: 133px;
+    padding: 1px;
+    float: left;
+    margin-top: -6px;
+    margin-right: 125px;
+    border: 1px solid #eee;
+}
 
+
+.vicarlist{
+    line-height:50px;
+}
+
+    </style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
@@ -24,24 +41,43 @@
 			</ul>
          
          <div class="row-fluid">
-                    <div class="box span6">
-					<div class="box-header">
-						<h2 id="headNoticeName"><i class="fa fa-file-o" aria-hidden="true"></i><span class="break"></span>Notice Name</h2>
-						<div class="box-icon">
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							
-						</div>
+             <div class="span6">
+                 <h1>Current Vicars</h1>
+					
+					<div class="priority high"><span>Notices : Type1</span></div>
+					<div class="task high">
+                        <ul class="dashboard-list">
+                                <li class="vicarlist">
+								<a href="#">
+									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
+								</a>
+											   
+								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
+								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
+								<strong>Status:</strong> Vicar<br/> 
+                            	</li>
+                           
+                        </ul>
+
 					</div>
-					<div class="box-content">
-                        <div class="span12" >
 
-                            <div class="span4" ><img id="imgNoticeImage" class="grayscale" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church" /></div>
-                            <div class="span8"></div>
-                         </div>
-                        </div>
-				</div>
+                    <div class="task high">
+                        <ul class="dashboard-list">
+						<li class="vicarlist">
+								<a href="#">
+									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
+								</a>
+										   
+								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
+								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
+								<strong>Status:</strong> Vicar<br/> 
+                                                       						
+							</li>
+                            </ul>
+					</div>
+             </div>
 
-                    <div class="box span6" id="PriestEditDivBox">
+             <div class="box span6" id="PriestEditDivBox">
 					<div class="box-header">
 						<h2 id="HeadNotice"><i class="fa fa-file-o" aria-hidden="true"></i><span class="break"></span>Add Notice</h2>
 						<div class="box-icon">
@@ -94,11 +130,7 @@
 					</div>   
 					</div>
 				</div>
-				</div>
-
-
-
-
+		</div>
     </div>
 
 </asp:Content>
