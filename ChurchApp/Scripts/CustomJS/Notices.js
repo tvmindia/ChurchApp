@@ -1,4 +1,7 @@
-﻿$("document").ready(function (e) {
+﻿
+var imageId = '';
+
+$("document").ready(function (e) {
     
     BindNotices();
   //  BindNoticesOnEdit();
@@ -11,13 +14,16 @@
     });
 
     $('#btnSave').click(function (e) {
+
+        debugger;
+
         var Notices = new Object();
         Notices.noticeName = $("#txtNoticeName").val();
         Notices.description = $("#txtDescription").val();
         Notices.noticeType = $("#ddlNoticeType").val();
         // Notices.isDelete = 0;
-
-     //   InsertNotice(Notices);
+        Notices.imageId = imageId;
+        InsertNotice(Notices);
     });
 
 
@@ -30,8 +36,61 @@
 
    // BindControlsOnEdit();
 
+    $(function () {
+        $('#btnUpload').click(function () {
+            
+            var fileUpload = $("#UpNotice").get(0);
+            var files = fileUpload.files;
+            var test = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                test.append(files[i].name, files[i]);
+            }
+            $.ajax({
+                url: "../ImageHandler/UploadHandler.ashx",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: test,
+                // dataType: "json",
+                success: function (result) {
+
+                    debugger;
+
+                    alert(result);
+
+                     InsertAppImage(result);
+                },
+                error: function (err) {
+                   // alert(err.statusText);
+                }
+            });
+        });
+    })
+
+
+
 
 });
+
+function InsertAppImage(result)
+{
+    debugger;
+   
+    var AppImages = new Object();
+    AppImages.url = result;
+
+    var data = "{'AppImgObj':" + JSON.stringify(AppImages) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/InsertAppImage");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    $.each(table, function (index, table)
+    {
+        imageId = table.appImageId;
+    });
+    //imageId
+}
+
+
 
 //Notice Type Dropdown
 function BindNoticeTypeDropDown() {

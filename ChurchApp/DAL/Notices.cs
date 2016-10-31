@@ -120,6 +120,7 @@ namespace ChurchApp.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
+            
             try   
             {
                 dcon = new dbConnection();
@@ -143,6 +144,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
+
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -156,6 +158,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
+
             return outParam.Value.ToString();
         }
         #endregion InsertNotice
