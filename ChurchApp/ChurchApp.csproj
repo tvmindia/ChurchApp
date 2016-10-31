@@ -118,6 +118,8 @@
     <Content Include="img\gallery\5.jpg" />
     <Content Include="img\gallery\6.jpg" />
     <Content Include="img\gallery\assist vicar.jpg" />
+    <Content Include="img\gallery\Cycle.jpg" />
+    <Content Include="img\gallery\Kozhi.jpg" />
     <Content Include="img\St_Thomas_Church,_Irinjalakuda.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="Master\AdminLayout.Master" />

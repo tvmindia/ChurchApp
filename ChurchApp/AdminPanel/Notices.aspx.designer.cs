@@ -22,15 +22,6 @@ namespace ChurchApp.AdminPanel {
         protected global::System.Web.UI.HtmlControls.HtmlForm frm1;
         
         /// <summary>
-        /// UpNotice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputFile UpNotice;
-        
-        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>

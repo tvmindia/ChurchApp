@@ -8,16 +8,7 @@
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Notices.js"></script>
     <link href="../CSS/CustomCSS/Notice.css" rel="stylesheet" />
-
-    <script>
-        function UploadFile(fileUpload) {
-            if (fileUpload.value != '') {
-                document.getElementById("<%=btnUpload.ClientID %>").click();
-            }
-        }
-    </script>
-
-
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <form ID="frm1" runat="server">
@@ -115,7 +106,9 @@
 							<div class="control-group">
 							  <label class="control-label" for="fileInput">File input</label>
 							  <div class="controls">
-								<input class="input-file uniform_on" id="UpNotice" type="file" runat="server"/>
+								<%--<input class="input-file uniform_on" id="UpNotice" type="file" runat="server"/>--%>
+                                  <input type="file" id="UpNotice" />
+                                  
                                   <%--<asp:FileUpload ID="UpNotice" runat="server" />--%>
                                   <input type="button" id="btnUpload" value="Upload Files"/>
 							  </div>

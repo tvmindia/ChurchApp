@@ -30,7 +30,7 @@ namespace ChurchApp.AdminPanel
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            UpNotice.Attributes["onchange"] = "UploadFile(this)";
+          
         }
 
         #endregion Page Load
@@ -39,7 +39,7 @@ namespace ChurchApp.AdminPanel
 
         protected void UploadFile(object sender, EventArgs e)
         {
-            string fileName = Path.GetFileName(UpNotice.FileName);
+           // string fileName = Path.GetFileName(UpNotice.FileName);
             //UpNotice.PostedFile.SaveAs(Server.MapPath("~/img/gallery") + fileName);
            
         }
@@ -198,6 +198,32 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Insert Notice
+
+        #region  Insert App Image
+
+        [System.Web.Services.WebMethod]
+        public static string InsertAppImage(ChurchApp.DAL.AppImages AppImgObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            string status = null;
+            try
+            {
+                AppImgObj.createdBy = "Shamila";
+                status = AppImgObj.InsertAppImage();
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(AppImgObj);
+
+        }
+
+        #endregion Insert App Image
+
 
         #endregion Methods
 

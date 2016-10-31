@@ -5,16 +5,19 @@
     display:none;
 }
 
-
+ul.dashboard-list li{
+    padding:21px!important;
+}
 
 ul.dashboard-list li .priestimage {
     height: 158px;
     width: 133px;
-    padding: 1px;
+    padding: 5px;
     float: left;
     margin-top: -6px;
     margin-right: 125px;
     border: 1px solid #eee;
+    border-radius:50%;
 }
 
 .task .priesteditdiv {
@@ -28,5 +31,12 @@ ul.dashboard-list li .priestimage {
 
 .vicarlist{
     line-height:50px;
+    box-shadow:#4745b44d 3px 0px 25px -3px;
+}
+.priority.low{
+    padding:18px!important;
+}
+vicardetails{
+    background-color:aqua;
 }
 

@@ -33,15 +33,20 @@
                         <ul class="dashboard-list">
 						<li class="vicarlist">
 								<a href="#">
-									<img class="priestimage" src="../img/gallery/assist%20vicar.jpg"/>
+									<img class="priestimage" src="../img/gallery/Cycle.jpg"/>
 								</a>
-					      		<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Status:</strong> Vicar<br/> 
-                               <ul><li><div class="priesteditdiv">
-                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i>dfdf</a>
-								</div></li></ul>
-                            
+								<%--<div class="priesteditdiv">
+                                <a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
+								</div>--%>
+													
+								
+                                <strong>Name:</strong> BR. JOSEPH MANNULLIL,OFM<br/>
+								<strong>Since:</strong> 18-06-1961 <br/>
+								<strong>Status:</strong> Brother
+								 <div class="priesteditdiv">
+                                    	<a href="#">View Details</a>
+								</div>  		   
+								
                                                        						
 							</li>
                             </ul>
@@ -53,14 +58,17 @@
 								<a href="#">
 									<img class="priestimage" src="../img/gallery/assist%20vicar.jpg"/>
 								</a>
-								<div class="priesteditdiv">
+								<%--<div class="priesteditdiv">
                                     	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-								</div>
+								</div>--%>
 													
-												   
+											   
 								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
 								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Status:</strong> Vicar<br/> 
+								<strong>Status:</strong> Vicar
+                                <div class="priesteditdiv">
+                                    	<a href="#">View Details</a>
+								</div>  
                                                        						
 							</li>
                             </ul>
@@ -84,17 +92,19 @@
                            <ul class="dashboard-list">
 						<li class="vicarlist">
 								<a href="#">
-									<img class="priestimage" src="../img/gallery/assist%20vicar.jpg" alt="St.Thomas Church"/>
+									<img class="priestimage" src="../img/gallery/Kozhi.jpg" alt="St.Thomas Church"/>
 								</a>
-								<div class="priesteditdiv">
+								<%--<div class="priesteditdiv">
                                     	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-								</div>
+								</div>--%>
 													
 												   
 								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Status:</strong> Vicar<br/> 
-                                                       						
+								<strong>Ordination:</strong> Jul 25, 2012<br/>
+								<strong>Status:</strong> Vicar
+                                   <div class="priesteditdiv">
+                                    	<a href="#">View Details</a>
+								</div>                       						
 							</li>
                             </ul>
 					
@@ -105,15 +115,15 @@
                       <ul class="dashboard-list">
 						<li class="vicarlist">
 								<a href="#"><img class="priestimage" src="../img/gallery/assist%20vicar.jpg" alt="St.Thomas Church"/></a>
-								<div class="priesteditdiv">
-                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-								</div>
+								
 													
 												   
-								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Status:</strong> Vicar<br/>
-                                                       						
+								<strong>Name:</strong> Fr.Mathew Konkanianikal<br/>
+								<strong>Ordination:</strong> Jul 25, 2012<br/>
+								<strong>Status:</strong>Guest Vicar
+                                    <div class="priesteditdiv">
+                                    	<a href="#">View Details</a>
+								</div>                   						
 							</li>
                             </ul>
 					
@@ -122,6 +132,28 @@
 				
 					<div class="clearfix"></div>		
 					
+				</div>
+                    <div id="PriestAdd" class="span6 noMarginLeft">
+					
+					<div class="dark">
+					
+					<h1>Add </h1>
+						<div class="box-content">
+					   <div class="form-horizontal">
+				    <fieldset>
+						<div class="priesteditdiv">
+                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i> Edit</a>
+								</div>
+							<div class="form-actions">
+							  <button type="submit" class="btn btn-primary">Save changes</button>
+							  <button type="reset" class="btn btn-primary">Cancel</button>
+							</div>
+						  </fieldset>
+					</div>   
+					</div>
+				
+				</div>
+				
 				</div>
 				
 				<div id="PriestEditDivBox" class="span6 noMarginLeft">
