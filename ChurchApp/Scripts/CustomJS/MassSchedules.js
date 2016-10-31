@@ -159,30 +159,79 @@ function BindMassTimingTable(Records) {
     $("tbody#massTimingTableBody tr").remove();
 
     $.each(Records, function (index, Records) {
-        var time = Records.Time.Hours + ":" + Records.Time.Minutes;
-        var hours = time.split(":")[0].length;
-        var minute = time.split(":")[1].length;
-        if ((hours == "1") && (minute == "1")) {
-            hours = "0" + Records.Time.Hours;
-            minute = "0" + Records.Time.Minutes;
-            var time = hours + ":" + minute;
-        }
-      else if (hours == "1")
+        if (Records.Time.includes(",") == true)
         {
-            hours = "0" + Records.Time.Hours;
-            var time = hours + ":" + Records.Time.Minutes;
+            var timeArray = [];
+            var timeLength = Records.Time.split(',').length;
+            for(var i=0;i<timeLength;i++)
+            {
+                var recordsTime = Records.Time.split(',')[i];
+                var time = recordsTime.split(':')[0] + ":" + recordsTime.split(':')[1];
+                var hours = time.split(":")[0].length;
+                var minute = time.split(":")[1].length;
+                if ((hours == "1") && (minute == "1")) {
+                    hours = "0" + recordsTime.split(':')[0];
+                    minute = "0" + recordsTime.split(':')[1];
+                    var time = hours + ":" + minute;
+                }
+                else if (hours == "1") {
+                    hours = "0" + recordsTime.split(':')[0];
+                    var time = hours + ":" + recordsTime.split(':')[1];
+                }
+                else if (minute == "1") {
+                    minute = "0" + recordsTime.split(':')[1];
+                    var time = recordsTime.split(':')[0] + ":" + minute;
+                }
+                time = timeTo12HrFormat(time);
+                timeArray.push(time);
+            }
+            var html = '<tr class="MassTimingRows" ID="' + Records.ID + '"ChurchID="' + Records.ChurchID + '"><td>' + Records.Day + '</td><td class="center"><div id="tags"></div>' + timeArray + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEdit" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
         }
-      else if (minute == "1")
+        else
         {
-            minute = "0" + Records.Time.Minutes;
-            var time = Records.Time.Hours + ":" + minute;
+            var time = Records.Time.split(':')[0] + ":" + Records.Time.split(':')[1];
+            var hours = time.split(":")[0].length;
+            var minute = time.split(":")[1].length;
+            if ((hours == "1") && (minute == "1")) {
+                hours = "0" + Records.Time.split(':')[0];
+                minute = "0" + Records.Time.split(':')[1];
+                var time = hours + ":" + minute;
+            }
+            else if (hours == "1") {
+                hours = "0" + Records.Time.split(':')[0];
+                var time = hours + ":" + Records.Time.split(':')[1];
+            }
+            else if (minute == "1") {
+                minute = "0" + Records.Time.split(':')[1];
+                var time = Records.Time.split(':')[0] + ":" + minute;
+            }
+            time = timeTo12HrFormat(time);
+            var html = '<tr class="MassTimingRows" ID="' + Records.ID + '"ChurchID="' + Records.ChurchID + '"><td>' + Records.Day + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEdit" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
         }
-       
-     
-        var html = '<tr class="MassTimingRows" ID="' + Records.ID + '"ChurchID="' + Records.ChurchID + '"><td>' + Records.Day + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEdit" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+
+      
         $("#massTimingTable").append(html);
     })
 }
+function timeTo12HrFormat(time) {   // Take a time in 24 hour format and format it in 12 hour format
+    debugger;
+    var time_part_array = time.split(":");
+    var ampm = 'AM';
+
+    if (time_part_array[0] >= 12) {
+        ampm = 'PM';
+    }
+
+    if (time_part_array[0] > 12) {
+        time_part_array[0] = time_part_array[0] - 12;
+    }
+
+    formatted_time = time_part_array[0] + ':' + time_part_array[1] + ' ' + ampm;
+
+    return formatted_time;
+}
+
+
 function BindAsyncAdminsTable() {
     debugger;
     var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';

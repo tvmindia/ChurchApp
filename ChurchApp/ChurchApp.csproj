@@ -76,6 +76,7 @@
     <Content Include="CSS\CustomCSS\Events.css" />
     <Content Include="CSS\CustomCSS\Families.css" />
     <Content Include="CSS\CustomCSS\Home.css" />
+    <Content Include="CSS\CustomCSS\MassSchedules.css" />
     <Content Include="CSS\CustomCSS\Notice.css" />
     <Content Include="CSS\CustomCSS\Priests.css" />
     <Content Include="CSS\elfinder.min.css" />
