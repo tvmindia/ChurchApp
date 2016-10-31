@@ -30,13 +30,3 @@ ul.dashboard-list li .priestimage {
     line-height:50px;
 }
 
-.thumb
-{
-    height: 158px;
-    width: 133px;
-    padding: 1px;
-    float: left;
-    margin-top: -6px;
-    margin-right: 125px;
-    border: 1px solid #eee;
-}
