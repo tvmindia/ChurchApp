@@ -139,7 +139,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            appImageId = outParam1.ToString();
+            appImageId = outParam1.Value.ToString();
 
             return outParam.Value.ToString();
         }

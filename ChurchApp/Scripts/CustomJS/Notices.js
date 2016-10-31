@@ -14,7 +14,7 @@ $("document").ready(function (e) {
     });
 
     $('#btnSave').click(function (e) {
-
+        alert($("#hdfImageID").val());
         debugger;
 
         var Notices = new Object();
@@ -22,7 +22,13 @@ $("document").ready(function (e) {
         Notices.description = $("#txtDescription").val();
         Notices.noticeType = $("#ddlNoticeType").val();
         // Notices.isDelete = 0;
-        Notices.imageId = imageId;
+        imageId = $("#hdfImageID").val();
+
+        if (imageId != null && imageId != "")
+        {
+            Notices.imageId = imageId;
+        }
+        
         InsertNotice(Notices);
     });
 
@@ -81,11 +87,13 @@ function InsertAppImage(result)
 
     var data = "{'AppImgObj':" + JSON.stringify(AppImages) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/InsertAppImage");
-    var table = {};
-    table = JSON.parse(jsonResult.d);
-    $.each(table, function (index, table)
+    $.each(jsonResult, function (index, jsonResult)
     {
-        imageId = table.appImageId;
+        debugger;
+        
+        imageId = jsonResult.appImageId;
+        $("#hdfImageID").val(imageId);
+
     });
     //imageId
 }

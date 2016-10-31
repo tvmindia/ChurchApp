@@ -110,14 +110,16 @@
                                   <input type="file" id="UpNotice" />
                                   
                                   <%--<asp:FileUpload ID="UpNotice" runat="server" />--%>
-                                  <input type="button" id="btnUpload" value="Upload Files"/>
+
+                                   <a class="btn btn-primary" id="btnUpload"><span></span>Upload Files</a>
+                                  <%--<input type="button" id="btnUpload" value="Upload Files"/>--%>
 							  </div>
 							</div>      
 					
                     
 							<div class="form-actions">
-                               
-							  <button type="submit" id="btnSave" class="btn btn-primary"  runat="server">Save</button>
+                               <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
+							  <%--<button type="submit" id="btnSave" class="btn btn-primary">Save</button>--%>
 							    <button type="reset" class="btn btn-primary" id="btnCancel">Cancel</button>
                            <%--<asp:Button ID="btnUpload" class="btn btn-primary" runat="server" Text="Upload"  />--%>
                                 
@@ -127,8 +129,11 @@
 					</div>
 
                      </div>
+                 <input id="hdfImageID" type="hidden" value="" />
 				</div>
 		</div>
     </div>
+
+
       </form>
 </asp:Content>
