@@ -4,9 +4,15 @@
 {
     display:none;
 }
+ul.dashboard-list li{
+    box-shadow: #4745b44d 3px 0px 25px -3px;
+    padding: 69px 0;
+    line-height: 52px;
+}
 
-
-
+.priority.low{
+    margin-top: 25px!important;
+}
 ul.dashboard-list li .Eventimage {
 height: 208px;
 width: 325px;
@@ -15,6 +21,7 @@ float: left;
 margin-top: -6px;
 margin-right: 35px;
 border: 1px solid #eee;
+border-radius:8%;
 }
 
 .task .Eventeditdiv {

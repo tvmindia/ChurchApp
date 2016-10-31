@@ -40,7 +40,7 @@
 								</div>--%>
 													
 								
-                                <strong>Name:</strong> BR. JOSEPH MANNULLIL,OFM<br/>
+                                <strong>Name:</strong> BR. JOSEPH MANNULLIL, OFM<br/>
 								<strong>Since:</strong> 18-06-1961 <br/>
 								<strong>Status:</strong> Brother
 								 <div class="priesteditdiv">
