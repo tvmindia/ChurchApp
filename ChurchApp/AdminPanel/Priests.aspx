@@ -35,14 +35,13 @@
 								<a href="#">
 									<img class="priestimage" src="../img/gallery/assist%20vicar.jpg"/>
 								</a>
-								<div class="priesteditdiv">
-                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-								</div>
-													
-												   
-								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
+					      		<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
 								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
 								<strong>Status:</strong> Vicar<br/> 
+                               <ul><li><div class="priesteditdiv">
+                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i>dfdf</a>
+								</div></li></ul>
+                            
                                                        						
 							</li>
                             </ul>
