@@ -7,29 +7,20 @@
 
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Notices.js"></script>
+    <link href="../CSS/CustomCSS/Notice.css" rel="stylesheet" />
 
-    <style>
-        
-ul.dashboard-list li .priestimage {
-    height: 158px;
-    width: 133px;
-    padding: 1px;
-    float: left;
-    margin-top: -6px;
-    margin-right: 125px;
-    border: 1px solid #eee;
-}
+    <script>
+        function UploadFile(fileUpload) {
+            if (fileUpload.value != '') {
+                document.getElementById("<%=btnUpload.ClientID %>").click();
+            }
+        }
+    </script>
 
-
-.vicarlist{
-    line-height:50px;
-}
-
-    </style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    
+    <form ID="frm1" runat="server">
      <div id="content" class="span10">
         <ul class="breadcrumb">
 				 <li>
@@ -42,49 +33,55 @@ ul.dashboard-list li .priestimage {
          
          <div class="row-fluid">
              <div class="span6">
-                 <h1>Current Vicars</h1>
+                 <h1>Notices</h1>
 					
 					<div class="priority high"><span>Notices : Type1</span></div>
+
+                 <div  id="DivNoticeType1">
 					<div class="task high">
-                        <ul class="dashboard-list">
-                                <li class="vicarlist">
-								<a href="#">
-									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
+
+                        <div class="span12" id="divulContainer">
+
+                            <ul class="dashboard-list">
+                                <li class="liNoticeList">
+
+                                    <div class="span3">
+                                        <a href="#">
+									<img class="imgNotice" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
 								</a>
-											   
-								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Status:</strong> Vicar<br/> 
-                            	</li>
-                           
-                        </ul>
+
+                                    </div>
+
+                                   
+                                    <div class="span9">
+                                   <p class="pContainerNotice">
+                                    <span style="font-weight:bold;">Name</span>
+                                   <br />
+                                   asffffffffffffffffffffffffff   
+                                    </p>	
+
+                                    </div>
+
+								
+									
+								</li>
+                         </ul>
+
+                        </div>
+
+
+                        
 
 					</div>
-
-                    <div class="task high">
-                        <ul class="dashboard-list">
-						<li class="vicarlist">
-								<a href="#">
-									<img class="priestimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
-								</a>
-										   
-								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Status:</strong> Vicar<br/> 
-                                                       						
-							</li>
-                            </ul>
-					</div>
+                </div>
              </div>
 
-             <div class="box span6" id="PriestEditDivBox">
-					<div class="box-header">
-						<h2 id="HeadNotice"><i class="fa fa-file-o" aria-hidden="true"></i><span class="break"></span>Add Notice</h2>
-						<div class="box-icon">
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							
-						</div>
-					</div>
+             <div  id="PriestEditDivBox" class="span6 noMarginLeft">
+
+                 <div class="dark">
+					<h1>Add Notice</h1>
+
+
 					<div class="box-content">
 					   <div class="form-horizontal">
 				    <fieldset>
@@ -118,19 +115,27 @@ ul.dashboard-list li .priestimage {
 							<div class="control-group">
 							  <label class="control-label" for="fileInput">File input</label>
 							  <div class="controls">
-								<input class="input-file uniform_on" id="fileInput" type="file"/>
+								<input class="input-file uniform_on" id="UpNotice" type="file" runat="server"/>
+                                  <%--<asp:FileUpload ID="UpNotice" runat="server" />--%>
+                                  <input type="button" id="btnUpload" value="Upload Files"/>
 							  </div>
 							</div>      
-						
+					
+                    
 							<div class="form-actions">
-							  <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
-							  <button type="reset" class="btn btn-primary" id="btnCancel">Cancel</button>
+                               
+							  <button type="submit" id="btnSave" class="btn btn-primary"  runat="server">Save</button>
+							    <button type="reset" class="btn btn-primary" id="btnCancel">Cancel</button>
+                           <%--<asp:Button ID="btnUpload" class="btn btn-primary" runat="server" Text="Upload"  />--%>
+                                
 							</div>
 						  </fieldset>
 					</div>   
 					</div>
+
+                     </div>
 				</div>
 		</div>
     </div>
-
+      </form>
 </asp:Content>

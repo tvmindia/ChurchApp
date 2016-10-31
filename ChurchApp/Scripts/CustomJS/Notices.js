@@ -1,8 +1,8 @@
 ﻿$("document").ready(function (e) {
-    debugger;
+    
     BindNotices();
   //  BindNoticesOnEdit();
-    debugger;
+   
 
     $("#ddlNoticeType").select2({
        placeholder: "Choose Types",
@@ -17,7 +17,7 @@
         Notices.noticeType = $("#ddlNoticeType").val();
         // Notices.isDelete = 0;
 
-        InsertNotice(Notices);
+     //   InsertNotice(Notices);
     });
 
 
@@ -26,7 +26,9 @@
 
     });
 
-    BindControlsOnEdit();
+  
+
+   // BindControlsOnEdit();
 
 
 });
@@ -57,9 +59,24 @@ function BindNotices() {
     var Notices = new Object();
     jsonResult = GetNotices(Notices);
     if (jsonResult != undefined) {
-        //  FillOrderTable(jsonResult);
+       FillNotice(jsonResult);
     }
 }
+
+function FillNotice(Records)
+{
+    $('#DivNoticeType1').html('');
+
+    $.each(Records, function (index, Records) {
+        debugger;
+
+        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '</span><br/>' + Records.Description + '</p></div> </li></ul></div></div>'
+
+        $("#DivNoticeType1").append(html);
+        
+    });
+    }
+
 
 function GetNotices(Notices) {
     var ds = {};

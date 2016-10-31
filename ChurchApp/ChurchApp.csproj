@@ -147,6 +147,7 @@
     <Content Include="Scripts\jquery.dataTables.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="WebServices\WebService.asmx" />
+    <Content Include="ImageHandler\UploadHandler.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -368,6 +369,9 @@
     <Compile Include="DAL\PiousOrg.cs" />
     <Compile Include="DAL\Priest.cs" />
     <Compile Include="DAL\TownMaster.cs" />
+    <Compile Include="ImageHandler\UploadHandler.ashx.cs">
+      <DependentUpon>UploadHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

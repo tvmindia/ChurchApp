@@ -115,7 +115,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertAppImages]";
                 cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
                 cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = type;
-                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
+                //cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);

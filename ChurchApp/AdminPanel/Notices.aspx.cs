@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -29,10 +30,21 @@ namespace ChurchApp.AdminPanel
         
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            UpNotice.Attributes["onchange"] = "UploadFile(this)";
         }
 
         #endregion Page Load
+
+        #region Image Upload
+
+        protected void UploadFile(object sender, EventArgs e)
+        {
+            string fileName = Path.GetFileName(UpNotice.FileName);
+            //UpNotice.PostedFile.SaveAs(Server.MapPath("~/img/gallery") + fileName);
+           
+        }
+
+        #endregion Image Upload
 
         #endregion Events
 
@@ -158,7 +170,7 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             NoticeObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
-            NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
+          //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
             string status = null;
             try
             {
