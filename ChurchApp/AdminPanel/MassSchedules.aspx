@@ -4,6 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/MassSchedules.js"></script>
+    <link href="../CSS/CustomCSS/MassSchedules.css" rel="stylesheet" />
      <div id="content" class="span10">
         <ul class="breadcrumb">
 			 <li>

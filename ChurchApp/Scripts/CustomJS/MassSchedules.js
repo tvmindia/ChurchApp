@@ -90,11 +90,45 @@
         result = DeleteMassTime(MassTimings);
         if (result == "1") {
             alert("Success");
+           
         }
         else {
             alert("Failure");
         }
-        });
+    });
+
+    $("#tags input").on({
+
+        focusout: function () {
+            var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig, ''); // allowed characters
+            if (txt) $("<span/>", { text: txt.toLowerCase(), insertBefore: this });
+            this.value = "";
+        },
+        keypress: function (ev) {
+
+            if (ev.keyCode == 13) {
+
+                // if: comma|enter (delimit more keyCodes with | pipe) 
+                if (/(188|13)/.test(ev.which)) $(this).focusout();
+                var callbacks = $.Callbacks();
+                callbacks.add(alert("Do u want to delete?"));
+                callbacks.disable();
+                return false;
+            }
+        }
+    });
+    $('#tags').on('click', 'span', function () {
+        $(this).remove();
+    });
+    $('#tags span').each(function () {
+        //  tags.push($(this).text()) + " ";
+        var split = $(this).text().split('\n');
+
+        for (var i = 0; i < split.length; i++)
+            if (split[i]) lines.push(split[i]);
+
+
+    });
 });//end of document.ready
 
 //----------Insert MassTiming--------------//
@@ -159,6 +193,7 @@ function BindMassTimingTable(Records) {
     $("tbody#massTimingTableBody tr").remove();
 
     $.each(Records, function (index, Records) {
+        debugger;
         if (Records.Time.includes(",") == true)
         {
             var timeArray = [];
@@ -185,7 +220,24 @@ function BindMassTimingTable(Records) {
                 time = timeTo12HrFormat(time);
                 timeArray.push(time);
             }
-            var html = '<tr class="MassTimingRows" ID="' + Records.ID + '"ChurchID="' + Records.ChurchID + '"><td>' + Records.Day + '</td><td class="center"><div id="tags"></div>' + timeArray + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEdit" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+           
+            //$("#txtTags").siblings('span').remove();
+          
+            //var str = Records.Time;
+            //var str_array = str.split(',');
+
+            //for (var i = 0; i < str_array.length; i++) {
+               
+            //    var tcount = function () {
+            //        var txt = timeArray[i]; // allowed characters
+            //        if (txt) $("<span/>", { text: txt.toLowerCase(), insertBefore: this });
+            //        this.value = "";
+
+            //    }
+            //    $("#txtTags").val(tcount);
+            //}
+           // var html = '<tr class="MassTimingRows" ID="' + Records.ID + '"ChurchID="' + Records.ChurchID + '"><td>' + Records.Day + '</td><td class="center"><div id="tags"> <input type="text" value="" id="txtTags" /></div></td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEdit" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+            var html = '<tr class="MassTimingRows" ID="' + Records.ID + '"ChurchID="' + Records.ChurchID + '"><td>' + Records.Day + '</td><td class="center">' + timeArray + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEdit" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
         }
         else
         {
