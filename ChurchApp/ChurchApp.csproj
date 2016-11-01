@@ -98,6 +98,7 @@
     <Content Include="CSS\style-forms.css" />
     <Content Include="CSS\style-responsive.css" />
     <Content Include="CSS\style.css" />
+    <Content Include="CSS\timepicki.css" />
     <Content Include="CSS\uniform.default.css" />
     <Content Include="CSS\uploadify.css" />
     <Content Include="Font\fontawesome-webfont.svg" />
