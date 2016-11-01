@@ -92,7 +92,7 @@
                            <ul class="dashboard-list">
 						<li class="vicarlist">
 								<a href="#">
-									<img class="priestimage" src="../img/gallery/Kozhi.jpg" alt="St.Thomas Church"/>
+									<img class="priestimage" src="../img/gallery/kozhipadan.jpg" alt="St.Thomas Church"/>
 								</a>
 								<%--<div class="priesteditdiv">
                                     	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>

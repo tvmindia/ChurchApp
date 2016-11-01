@@ -31,7 +31,8 @@ ul.dashboard-list li .priestimage {
 
 .vicarlist{
     line-height:50px;
-    box-shadow:#4745b44d 3px 0px 25px -3px;
+    -webkit-box-shadow:#4745b44d 3px 0px 25px -3px;
+    
 }
 .priority.low{
     padding:18px!important;
