@@ -1,6 +1,6 @@
 ﻿$("document").ready(function (e) {
     BindAsyncAdminsTable();
-
+    $("#TxtTime").timepicki();
     $('#massTimingTable').dataTable({
        
         "bPaginate": false,
