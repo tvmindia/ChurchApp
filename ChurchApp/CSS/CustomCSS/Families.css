@@ -38,3 +38,7 @@ left: 82%;
     position:absolute;
     right:2%;
 }
+.accordion-heading {
+    
+    background-color: #ddd;
+}

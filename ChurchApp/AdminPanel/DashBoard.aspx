@@ -21,8 +21,9 @@
 						</div>
 					</div>
 					<div class="box-content">
-						<table class="table table-striped table-bordered bootstrap-datatable datatable">
-						  <thead>
+					         	<div class="box-content">
+						<table class="table table-bordered table-striped table-condensed">
+							   <thead>
 							  <tr>
 								  <th>Username</th>
 								  <th>Date registered</th>
@@ -52,16 +53,18 @@
 								</td>
 							</tr>
 						</tbody>
-					  </table>            
+						 </table>  
+						
+					</div>
 					</div>
 				</div><!--/span12-->
 		
 			</div><!--/row-fluid sortable-->
          <!--churchtable-->
-
+     
 
         <!--/forms-->
-        	<div class="row-fluid sortable">
+        	<div class="row-fluid">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span class="break"></span>Edit Church</h2>
