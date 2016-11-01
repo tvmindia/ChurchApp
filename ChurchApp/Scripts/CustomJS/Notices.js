@@ -6,39 +6,58 @@ $("document").ready(function (e) {
     BindNotices();
   //  BindNoticesOnEdit();
    
-
     $("#ddlNoticeType").select2({
        placeholder: "Choose Types",
         allowClear: true,
         data: BindNoticeTypeDropDown()
     });
 
-    $('#btnSave').click(function (e) {
-        alert($("#hdfImageID").val());
-        debugger;
 
+    $(".high").click(function () {
+        //do something
+
+        var NoticeID = $(this).siblings('#hdfNoticeID').val();
+
+        NoticeID = $(this).find('input:hidden').attr('id');
+
+        $("#hdfNoticeID").val(NoticeID);
+
+        var Notices = new Object();
+        Notices.noticeId = NoticeID;
+
+        BindControlsOnEdit(Notices);
+
+      //  alert(NoticeID);
+
+    });
+
+
+    $('#btnSave').click(function (e) {
+       
+        debugger;
         var Notices = new Object();
         Notices.noticeName = $("#txtNoticeName").val();
         Notices.description = $("#txtDescription").val();
         Notices.noticeType = $("#ddlNoticeType").val();
         // Notices.isDelete = 0;
-        imageId = $("#hdfImageID").val();
-
-        if (imageId != null && imageId != "")
-        {
+        if (imageId != null && imageId != "") {
             Notices.imageId = imageId;
         }
-        
-        InsertNotice(Notices);
-    });
 
+        var NoticeID = $("#hdfNoticeID").val();
+
+        if (NoticeID != null && NoticeID != "")
+        {
+            Notices.noticeId = NoticeID
+        }
+        InsertNotice(Notices);
+       
+    });
 
     $('#btnCancel').click(function (e) {
-        ClearControls();
+      //  ClearControls();
 
     });
-
-  
 
    // BindControlsOnEdit();
 
@@ -64,7 +83,7 @@ $("document").ready(function (e) {
 
                     alert(result);
 
-                     InsertAppImage(result);
+                    GetInsertedImgID(result);
                 },
                 error: function (err) {
                    // alert(err.statusText);
@@ -73,10 +92,20 @@ $("document").ready(function (e) {
         });
     })
 
-
-
-
 });
+
+function GetInsertedImgID(result)
+{
+    var json = InsertAppImage(result);
+
+    imageId = json.appImageId;
+    $("#hdfImageID").val(imageId);
+
+    alert(imageId);
+
+}
+
+
 
 function InsertAppImage(result)
 {
@@ -87,14 +116,10 @@ function InsertAppImage(result)
 
     var data = "{'AppImgObj':" + JSON.stringify(AppImages) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/InsertAppImage");
-    $.each(jsonResult, function (index, jsonResult)
-    {
-        debugger;
-        
-        imageId = jsonResult.appImageId;
-        $("#hdfImageID").val(imageId);
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
 
-    });
     //imageId
 }
 
@@ -136,8 +161,9 @@ function FillNotice(Records)
 
     $.each(Records, function (index, Records) {
         debugger;
+        //hdfNoticeID
 
-        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '</span><br/>' + Records.Description + '</p></div> </li></ul></div></div>'
+        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '</span><br/>' + Records.Description + '</p></div> </li></ul></div><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
 
         $("#DivNoticeType1").append(html);
         
@@ -174,10 +200,10 @@ function GetNoticesBynoticeID(Notices) {
     return table;
 }
 
-function BindControlsOnEdit()
+function BindControlsOnEdit(Notices)
 {
     var jsonResult = {};
-    var Notices = new Object();
+    
     jsonResult = GetNoticesBynoticeID(Notices);
 
     if (jsonResult != undefined)
@@ -198,7 +224,7 @@ function BindControlsOnEdit()
              
         });
 
-       // $("#HeadNotice").text("Edit Notice");
+         $("#h1Notice").text("Edit Notice");
     }
 }
 
