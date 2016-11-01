@@ -6,7 +6,35 @@
 
 .unitViewDetails
 {
-   position: absolute;
-   left: 43%;
-   color:#337ab7!important;
+  position: relative;
+top: -23px;
+color: #337ab7 !important;
+left: 82%;
+}
+
+#FamilyEditDivBox
+{
+    display:none;
+}
+#UnitEditDivBox
+{
+    display:none;
+}
+#FamilyViewDivBox
+{
+    display:none;
+}
+#UnitViewDivBox
+{
+    display:none;
+}
+.Uniteditdiv
+{
+    position:absolute;
+    right:2%;
+}
+.Familyeditdiv
+{
+    position:absolute;
+    right:2%;
 }

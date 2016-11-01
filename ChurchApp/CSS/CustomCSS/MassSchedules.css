@@ -1,2 +1,35 @@
-﻿body {
+﻿#tags{
+  float:left;
+  border:1px none;
+  padding:5px;
+  font-family:Arial;
+}
+#tags > span{
+  cursor:pointer;
+  display:block;
+  float:left;
+  color:#fff;
+  background:#004e96;
+  padding:5px;
+  padding-right:25px;
+  margin:4px;
+}
+#tags > span:hover{
+  opacity:0.7;
+}
+#tags > span:after{
+ position:absolute;
+ content:"×";
+ border:0px solid;
+ padding:2px 5px;
+ margin-left:3px;
+ font-size:17px;
+}
+#tags > input{
+ 
+    margin: 0px;
+    padding: 6px;
+    width: 2px;
+    height:1px;
+
 }
