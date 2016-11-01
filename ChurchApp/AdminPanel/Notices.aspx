@@ -22,14 +22,27 @@
 				<li>Notices</li>
 			</ul>
          
+         
+
          <div class="row-fluid">
+
+             <div class="span12">
+
              <div class="span6">
+                 <div class="span1"><a class="btn btn-primary" id="btnAdd"  ><span></span>Add Notice</a></div>
+
+             </div>
+               </div>
+
+             <div class="span6">
+                    
                  <h1>Notices</h1>
-					
-					<div class="priority high"><span>Notices : Type1</span></div>
+              
+                 
+				<div class="priority high"><span>Notices : Type1</span></div>
 
                  <div  id="DivNoticeType1">
-					<div class="task high" id="IndividualNotice">
+					<%--<div class="task high" id="IndividualNotice">
 
                         <div class="span12" id="divulContainer">
 
@@ -39,8 +52,7 @@
                                     <div class="span3">
                                         <a href="#">
 									<img class="imgNotice" src="D:/ChurchAPP/ChurchAppWeb/ChurchApp/img/gallery/c1.png" alt="St.Thomas Church"/>
-								<%--"D:\ChurchAPP\ChurchAppWeb\ChurchApp\img\gallery\swipe-to-right.png"--%>
-                                        
+								    
                                         </a>
 
                                     </div>
@@ -62,12 +74,17 @@
 
                         </div>
 
-					</div>
+					</div>--%>
                 </div>
+
+                
              </div>
+             
+              
+             
 
-             <div  id="PriestEditDivBox" class="span6 noMarginLeft">
-
+             <div  id="PriestEditDivBox" class="span6 noMarginLeft" style="display:none">
+               
                  <div class="dark">
 					<h1 id="h1Notice">Add Notice</h1>
 
