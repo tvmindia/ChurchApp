@@ -131,20 +131,20 @@
                                   
                                   <%--<asp:FileUpload ID="UpNotice" runat="server" />--%>
 
-                                   <a class="btn btn-primary" id="btnUpload"><span></span>Upload Files</a>
+                                   <a class="btn btn-primary" id="btnUpload"><span></span>Upload File</a>
                                   <%--<input type="button" id="btnUpload" value="Upload Files"/>--%>
 							  </div>
 							</div>      
 					
 
-                        <div class="control-group">
+                    <%--    <div class="control-group">
                                                         <label class="control-label" for="image" style="visibility: hidden">Image</label>
                                                         <div class="controls">
                                                             <img id="ImgProduct" style="height: 100px; max-width: 100%; border: none" src="../img/No-Img_Chosen.png" />
 
                                                         </div>
                                                     </div>
-
+--%>
 
                     
 							<div class="form-actions">
@@ -152,7 +152,7 @@
 							  <%--<button type="submit" id="btnSave" class="btn btn-primary">Save</button>--%>
 							    <button type="reset" class="btn btn-primary" id="btnCancel">Cancel</button>
                            <%--<asp:Button ID="btnUpload" class="btn btn-primary" runat="server" Text="Upload"  />--%>
-                                
+                                 <a class="btn btn-primary" id="btnDelete"  ><span></span>Delete</a>
 							</div>
 						  </fieldset>
 					</div>   

@@ -1,5 +1,11 @@
 ﻿
-var imageId = '';
+var imageId         =  '';
+var imgPath         =  '';
+
+var DeletedImgID    =  '';
+var DeletedImgPath      =  '';
+
+
 //var ImageIDOnEdit = '';
 
 $("document").ready(function (e) {
@@ -60,10 +66,49 @@ $("document").ready(function (e) {
         InsertNotice(Notices);
         BindNotices();
         ClearControls();
+
+        debugger;
+
+        if (DeletedImgID != '') {
+            var AppImages = new Object();
+            AppImages.appImageId = DeletedImgID;
+            DeleteAppImage(AppImages);
+
+            if (DeletedImgPath != '') {
+                DeleteFileFromFolder(DeletedImgPath);
+            }
+
+        }
+
+
     });
 
     $('#btnCancel').click(function (e) {
         ClearControls();
+
+    });
+
+    $('#btnDelete').click(function (e)
+    {
+        debugger;
+
+        var NoticeID = $("#hdfNoticeID").val();
+
+        var Notices = new Object();
+        Notices.noticeId = NoticeID;
+
+      var DeletionStatus =  DeleteNotice(Notices);
+
+      //if (DeletionStatus.status == "1")
+      //{
+          var AppImages = new Object();
+          AppImages.appImageId = imageId;
+          DeleteAppImage(AppImages);
+
+          DeleteFileFromFolder(imgPath);
+
+      //}
+
 
     });
 
@@ -77,8 +122,12 @@ $("document").ready(function (e) {
    // BindControlsOnEdit();
 
     //$(function () {
-        $('#btnUpload').click(function () {
-            
+    $('#btnUpload').click(function () {
+            debugger;
+
+            DeletedImgID = imageId;
+            DeletedImgPath = imgPath
+
             var fileUpload = $("#UpNotice").get(0);
             var files = fileUpload.files;
             var test = new FormData();
@@ -109,6 +158,36 @@ $("document").ready(function (e) {
 
 });
 
+function DeleteNotice(Notices)
+{
+    var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/DeleteNotice");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
+
+function DeleteFileFromFolder(imgPath) {
+
+    $.ajax({
+        type: "POST",
+        url: "../AdminPanel/Notices.aspx/DeleteFileFromFolder",
+        data: '{imgPath: "' + imgPath + '"}',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: alert(1),
+        failure: function (response) {
+
+            // alert(response.d);
+        },
+        error: function (response) {
+
+            // alert(response.d);
+        }
+    });
+}
+
 function GetInsertedImgID(result)
 {
     var json = InsertAppImage(result);
@@ -120,7 +199,15 @@ function GetInsertedImgID(result)
 
 }
 
+function DeleteAppImage(AppImages)
+{
+    var data = "{'AppImgObj':" + JSON.stringify(AppImages) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/DeleteAppImage");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
 
+}
 
 function InsertAppImage(result)
 {
@@ -137,8 +224,6 @@ function InsertAppImage(result)
 
     //imageId
 }
-
-
 
 //Notice Type Dropdown
 function BindNoticeTypeDropDown() {
@@ -208,7 +293,6 @@ function FillNotice(Records)
     });
     }
 
-
 function GetNotices(Notices) {
     var ds = {};
     var table = {};
@@ -262,6 +346,8 @@ function BindControlsOnEdit(Notices)
             $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
 
             imageId = jsonResult.ImageID;
+            imgPath = jsonResult.URL;
+             
         });
 
          $("#h1Notice").text("Edit Notice");
@@ -277,7 +363,6 @@ function InsertNotice(Notices) {
     return table;
 }
 
-
 function ClearControls()
 {
     $("#txtNoticeName").text("");
@@ -287,7 +372,7 @@ function ClearControls()
     $("#hdfImageID").val("");
     $("#hdfNoticeID").val("");
     imageId = '';
-
+    imgPath = '';
     $("#h1Notice").text("Add Notice");
 }
 
