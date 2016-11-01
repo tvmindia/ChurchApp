@@ -1,5 +1,6 @@
 ﻿
 var imageId = '';
+//var ImageIDOnEdit = '';
 
 $("document").ready(function (e) {
     
@@ -54,8 +55,11 @@ $("document").ready(function (e) {
         {
             Notices.noticeId = NoticeID
         }
+
+
         InsertNotice(Notices);
         BindNotices();
+        ClearControls();
     });
 
     $('#btnCancel').click(function (e) {
@@ -178,10 +182,13 @@ function FillNotice(Records)
         //hdfNoticeID
 
         var url = Records.URL;
+        var fileName = "";
+
+        if (url != null && url != "") {
 
         var index = url.lastIndexOf('\\');
-        var fileName = url.substr(index + 1);
-
+         fileName = url.substr(index + 1);
+        }
         //var last = url.Split().Last();
 
        
@@ -192,7 +199,11 @@ function FillNotice(Records)
 
         $("#DivNoticeType1").append(html);
 
-        document.getElementById("img" + Records.ID).src = "../img/gallery/" + fileName;
+        if (fileName != "") {
+            document.getElementById("img" + Records.ID).src = "../img/gallery/" + fileName;
+        }
+
+        
         
     });
     }
@@ -250,7 +261,7 @@ function BindControlsOnEdit(Notices)
 
             $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
 
-             
+            imageId = jsonResult.ImageID;
         });
 
          $("#h1Notice").text("Edit Notice");
@@ -273,6 +284,11 @@ function ClearControls()
     $("#txtDescription").text("");
     $("#ddlNoticeType").select2("val", "");
 
+    $("#hdfImageID").val("");
+    $("#hdfNoticeID").val("");
+    imageId = '';
+
+    $("#h1Notice").text("Add Notice");
 }
 
 

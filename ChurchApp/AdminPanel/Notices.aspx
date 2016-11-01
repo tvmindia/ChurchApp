@@ -39,7 +39,7 @@
                  <h1>Notices</h1>
               
                  
-				<div class="priority high"><span>Notices : Type1</span></div>
+				<div class="priority high"><span>Latest Notices</span></div>
 
                  <div  id="DivNoticeType1">
 					<%--<div class="task high" id="IndividualNotice">
@@ -119,6 +119,10 @@
                                   <textarea tabindex="3" class="input-xlarge span10" id="txtDescription" name="Description" rows="4" placeholder=""></textarea>
 								</div>
 								</div>
+
+                        
+
+
 							<div class="control-group">
 							  <label class="control-label" for="fileInput">File input</label>
 							  <div class="controls">
@@ -132,6 +136,16 @@
 							  </div>
 							</div>      
 					
+
+                        <div class="control-group">
+                                                        <label class="control-label" for="image" style="visibility: hidden">Image</label>
+                                                        <div class="controls">
+                                                            <img id="ImgProduct" style="height: 100px; max-width: 100%; border: none" src="../img/No-Img_Chosen.png" />
+
+                                                        </div>
+                                                    </div>
+
+
                     
 							<div class="form-actions">
                                <a class="btn btn-primary" id="btnSave"  ><span></span>Save</a>
