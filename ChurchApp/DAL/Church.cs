@@ -724,6 +724,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertMassTiming]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
+                massTime = massTime.Replace(" ", "");
                 cmd.Parameters.Add("@Time", SqlDbType.Time, 7).Value = TimeSpan.Parse(massTime); 
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
@@ -768,7 +769,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massTimingID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
-                cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value = massTime;
+                massTime = massTime.Replace(" ", "");
+                cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value =TimeSpan.Parse(massTime);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
