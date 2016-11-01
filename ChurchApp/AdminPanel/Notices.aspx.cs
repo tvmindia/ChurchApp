@@ -132,7 +132,7 @@ namespace ChurchApp.AdminPanel
             string jsonResult = null;
             DataSet ds = null;
 
-            NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
+          //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
             ds = NoticeObj.GetNoticesByNoticeID();
 
             //Converting to Json

@@ -29,7 +29,7 @@
 					<div class="priority high"><span>Notices : Type1</span></div>
 
                  <div  id="DivNoticeType1">
-					<div class="task high">
+					<div class="task high" id="IndividualNotice">
 
                         <div class="span12" id="divulContainer">
 
@@ -60,9 +60,6 @@
 
                         </div>
 
-
-                        
-
 					</div>
                 </div>
              </div>
@@ -70,7 +67,7 @@
              <div  id="PriestEditDivBox" class="span6 noMarginLeft">
 
                  <div class="dark">
-					<h1>Add Notice</h1>
+					<h1 id="h1Notice">Add Notice</h1>
 
 
 					<div class="box-content">
@@ -118,7 +115,7 @@
 					
                     
 							<div class="form-actions">
-                               <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
+                               <a class="btn btn-primary" id="btnSave"  ><span></span>Save</a>
 							  <%--<button type="submit" id="btnSave" class="btn btn-primary">Save</button>--%>
 							    <button type="reset" class="btn btn-primary" id="btnCancel">Cancel</button>
                            <%--<asp:Button ID="btnUpload" class="btn btn-primary" runat="server" Text="Upload"  />--%>
@@ -130,8 +127,13 @@
 
                      </div>
                  <input id="hdfImageID" type="hidden" value="" />
+                <input id="hdfNoticeID" type="hidden" value="" />
+
+
+                 <%--<asp:HiddenField ID="hdfImgID" runat="server" />--%>
 				</div>
 		</div>
+         
     </div>
 
 
