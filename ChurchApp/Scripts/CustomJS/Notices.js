@@ -163,7 +163,9 @@ function FillNotice(Records)
         debugger;
         //hdfNoticeID
 
-        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '</span><br/>' + Records.Description + '</p></div> </li></ul></div><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
+        var url = Records.URL;
+     //   url = url.replace(/\+/g, ' ');
+        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" src=../ImageHandler/UploadHandler.ashx?url=' + url + ' /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '</span><br/>' + Records.Description + '</p></div> </li></ul></div><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
 
         $("#DivNoticeType1").append(html);
         

@@ -114,6 +114,9 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertAppImages]";
+
+                //url = url.Replace(@"\", "/");
+
                 cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
                 cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = type;
                 //cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
