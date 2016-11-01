@@ -17,6 +17,14 @@ namespace ChurchApp.ImageHandler
 
         public void ProcessRequest(HttpContext context)
         {
+            string url = context.Request.QueryString["url"];
+
+            if (url != string.Empty && url != null && url != "null")
+            {
+                context.Response.WriteFile(url); 
+            }
+            
+            else{
             string fname=string.Empty;
 
         if (context.Request.Files.Count > 0)
@@ -48,6 +56,7 @@ namespace ChurchApp.ImageHandler
 
                     //context.Response.ContentType = "text/plain";
             //context.Response.Write("Hello World");
+        }
         }
 
         public bool IsReusable

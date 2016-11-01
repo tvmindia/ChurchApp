@@ -38,8 +38,10 @@
 
                                     <div class="span3">
                                         <a href="#">
-									<img class="imgNotice" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
-								</a>
+									<img class="imgNotice" src="D:/ChurchAPP/ChurchAppWeb/ChurchApp/img/gallery/c1.png" alt="St.Thomas Church"/>
+								<%--"D:\ChurchAPP\ChurchAppWeb\ChurchApp\img\gallery\swipe-to-right.png"--%>
+                                        
+                                        </a>
 
                                     </div>
 

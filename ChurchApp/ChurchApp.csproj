@@ -113,6 +113,7 @@
     <Content Include="Font\glyphiconshalflings-regular.svg" />
     <Content Include="Font\glyphiconshalflings-regular.ttf" />
     <Content Include="Font\glyphiconshalflings-regular.woff" />
+    <Content Include="img\arrow.png" />
     <Content Include="img\church-black-silhouette-with-a-cross-on-topblack1616.png" />
     <Content Include="img\gallery\1.jpg" />
     <Content Include="img\gallery\2.jpg" />
@@ -124,6 +125,7 @@
     <Content Include="img\gallery\Cycle.jpg" />
     <Content Include="img\gallery\kozhipadan.jpg" />
     <Content Include="img\St_Thomas_Church,_Irinjalakuda.jpg" />
+    <Content Include="img\top_arr.png" />
     <Content Include="Login.aspx" />
     <Content Include="Master\AdminLayout.Master" />
     <Content Include="Font\fontawesome-webfont.eot" />
