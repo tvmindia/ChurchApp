@@ -75,6 +75,7 @@
     <Content Include="CSS\CustomCSS\DashBoard.css" />
     <Content Include="CSS\CustomCSS\Events.css" />
     <Content Include="CSS\CustomCSS\Families.css" />
+    <Content Include="CSS\CustomCSS\Gallery.css" />
     <Content Include="CSS\CustomCSS\Home.css" />
     <Content Include="CSS\CustomCSS\MassSchedules.css" />
     <Content Include="CSS\CustomCSS\Notice.css" />
@@ -123,6 +124,7 @@
     <Content Include="img\gallery\assist vicar.jpg" />
     <Content Include="img\gallery\Cycle.jpg" />
     <Content Include="img\gallery\kozhipadan.jpg" />
+    <Content Include="img\No-Img_Chosen.png" />
     <Content Include="img\St_Thomas_Church,_Irinjalakuda.jpg" />
     <Content Include="img\top_arr.png" />
     <Content Include="Login.aspx" />
@@ -134,6 +136,7 @@
     <Content Include="Font\FontAwesome.otf" />
     <Content Include="Scripts\CustomJS\Events.js" />
     <Content Include="Scripts\CustomJS\Families.js" />
+    <Content Include="Scripts\CustomJS\Gallery.js" />
     <Content Include="Scripts\CustomJS\MassSchedules.js" />
     <Content Include="Scripts\CustomJS\Notices.js" />
     <Content Include="Scripts\CustomJS\Notifications.js" />

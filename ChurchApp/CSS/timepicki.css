@@ -31,7 +31,7 @@ Author: senthil
 	width: 28%;
 	border: 1px solid #ccc;
 	margin: auto;
-	background: url(../images/arrow.png) no-repeat;
+	background: url(../img/arrow.png) no-repeat;
 	border-radius: 5px;
 }
 
@@ -88,4 +88,9 @@ a.reset_time {
 	float: left;
 	margin-top: 5px;
 	color: #000;
+}
+#circle
+{
+    background-color:#2d89ef;
+    cursor:pointer;
 }

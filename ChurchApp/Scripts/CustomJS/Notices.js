@@ -1,5 +1,6 @@
 ﻿
 var imageId = '';
+//var ImageIDOnEdit = '';
 
 $("document").ready(function (e) {
     
@@ -13,12 +14,16 @@ $("document").ready(function (e) {
     });
 
 
-    $(".high").click(function () {
+    $(".aViewDetails").click(function () {
         //do something
+        debugger;
+        var NoticeID = $(this).attr('id');
 
-        var NoticeID = $(this).siblings('#hdfNoticeID').val();
+        //var NoticeID = $(this).siblings('#hdfNoticeID').attr('id');
+        //NoticeID = $(this).parents().find('input[type=hidden]').attr('id');
 
-        NoticeID = $(this).find('input:hidden').attr('id');
+
+        //NoticeID = $(this).find('input:hidden').attr('id');
 
         $("#hdfNoticeID").val(NoticeID);
 
@@ -50,18 +55,28 @@ $("document").ready(function (e) {
         {
             Notices.noticeId = NoticeID
         }
+
+
         InsertNotice(Notices);
-       
+        BindNotices();
+        ClearControls();
     });
 
     $('#btnCancel').click(function (e) {
-      //  ClearControls();
+        ClearControls();
+
+    });
+
+    $('#btnAdd').click(function (e) {
+     
+        $("#PriestEditDivBox").show();
+
 
     });
 
    // BindControlsOnEdit();
 
-    $(function () {
+    //$(function () {
         $('#btnUpload').click(function () {
             
             var fileUpload = $("#UpNotice").get(0);
@@ -90,7 +105,7 @@ $("document").ready(function (e) {
                 }
             });
         });
-    })
+    //})
 
 });
 
@@ -147,6 +162,9 @@ function GetAllNoticeTypes(NoticeType) {
 
 // Bind Notices
 function BindNotices() {
+
+    debugger;
+
     var jsonResult = {};
     var Notices = new Object();
     jsonResult = GetNotices(Notices);
@@ -164,10 +182,28 @@ function FillNotice(Records)
         //hdfNoticeID
 
         var url = Records.URL;
+        var fileName = "";
+
+        if (url != null && url != "") {
+
+        var index = url.lastIndexOf('\\');
+         fileName = url.substr(index + 1);
+        }
+        //var last = url.Split().Last();
+
+       
      //   url = url.replace(/\+/g, ' ');
-        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" src=../ImageHandler/UploadHandler.ashx?url=' + url + ' /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '</span><br/>' + Records.Description + '</p></div> </li></ul></div><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
+        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img'+Records.ID+'  src=../ImageHandler/UploadHandler.ashx?url=' + url + ' /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
+
+        
 
         $("#DivNoticeType1").append(html);
+
+        if (fileName != "") {
+            document.getElementById("img" + Records.ID).src = "../img/gallery/" + fileName;
+        }
+
+        
         
     });
     }
@@ -204,6 +240,8 @@ function GetNoticesBynoticeID(Notices) {
 
 function BindControlsOnEdit(Notices)
 {
+
+    $("#PriestEditDivBox").show();
     var jsonResult = {};
     
     jsonResult = GetNoticesBynoticeID(Notices);
@@ -223,7 +261,7 @@ function BindControlsOnEdit(Notices)
 
             $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
 
-             
+            imageId = jsonResult.ImageID;
         });
 
          $("#h1Notice").text("Edit Notice");
@@ -246,6 +284,11 @@ function ClearControls()
     $("#txtDescription").text("");
     $("#ddlNoticeType").select2("val", "");
 
+    $("#hdfImageID").val("");
+    $("#hdfNoticeID").val("");
+    imageId = '';
+
+    $("#h1Notice").text("Add Notice");
 }
 
 
