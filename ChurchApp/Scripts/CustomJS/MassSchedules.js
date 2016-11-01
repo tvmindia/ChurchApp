@@ -8,11 +8,15 @@
         "bFilter": false,
         "bInfo":false
     });
-
+    $("#ddlDay").select2({
+        placeholder: "Select Day",
+        allowClear: true,
+    });
+    $("#ddlDay").val("").trigger("change");
     //--------------- *Save MassTiming* ----------------//
     $(".cancel").click(function (e) {
         $("#AddorEditSpan").text("Save");
-        $("#txtDay").val("");
+        $("#ddlDay").val("").trigger("change");
         $("#txtTime").val("");
     });
 
@@ -21,9 +25,10 @@
         var saveOrEdit = $("#AddorEditSpan").text();
         if (saveOrEdit == "Save")
         {
+           // hrsTo24hrormat();
             var result = "";
             var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
-            var day = $("#txtDay").val();
+            var day = $("#ddlDay").val();
             var time = $("#txtTime").val();
             time = time + ":00.0000000";
             var MassTimings = new Object();
@@ -33,6 +38,7 @@
             result = InsertMassTiming(MassTimings);
             if (result == "1") {
                 alert("Success");
+                BindAsyncAdminsTable();
             }
             else {
                 alert("Failure");
@@ -43,7 +49,7 @@
             var result = "";
             var churchId = $("#hdfChurchID").val();
             var massId = $("#hdfMassID").val();
-            var day = $("#txtDay").val();
+            var day = $("#ddlDay").val();
             var time = $("#txtTime").val();
             var MassTimings = new Object();
             MassTimings.massChurchId = churchId;
@@ -53,6 +59,7 @@
             result = UpdateMassTiming(MassTimings);
             if (result == "1") {
                 alert("Success");
+                BindAsyncAdminsTable();
             }
             else {
                 alert("Failure");
@@ -90,7 +97,7 @@
         result = DeleteMassTime(MassTimings);
         if (result == "1") {
             alert("Success");
-           
+            BindAsyncAdminsTable();
         }
         else {
             alert("Failure");
@@ -132,6 +139,21 @@
 });//end of document.ready
 
 //----------Insert MassTiming--------------//
+function hrsTo24hrormat()
+{
+    debugger;
+    var time = $("#txtTime").val();
+    var hours = Number(time.match(/^(\d+)/)[1]);
+    var minutes = Number(time.match(/:(\d+)/)[1]);
+    var AMPM = time.match(/\s(.*)$/)[1];
+    if(AMPM == "PM" && hours<12) hours = hours+12;
+    if(AMPM == "AM" && hours==12) hours = hours-12;
+    var sHours = hours.toString();
+    var sMinutes = minutes.toString();
+    if(hours<10) sHours = "0" + sHours;
+    if(minutes<10) sMinutes = "0" + sMinutes;
+    alert(sHours + ":" + sMinutes);
+}
 function DeleteMassTime(MassTimings)
 {
     debugger;
@@ -150,7 +172,7 @@ function BindMassScheduleTextBoxes(jsonResult)
     var jsonResultTime = jsonResult[0]["Time"];
     $("#hdfChurchID").val(churchId);
     $("#hdfMassID").val(massId);
-    $("#txtDay").val(day);
+    $("#ddlDay").val(day).trigger("change");
     var time = jsonResultTime.Hours + ":" + jsonResultTime.Minutes;
     var hours = time.split(":")[0].length;
     var minute = time.split(":")[1].length;

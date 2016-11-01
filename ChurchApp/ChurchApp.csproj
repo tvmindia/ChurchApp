@@ -151,6 +151,7 @@
     <Content Include="Scripts\dataTables.uikit.min.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\timepicki.js" />
     <Content Include="WebServices\WebService.asmx" />
     <Content Include="ImageHandler\UploadHandler.ashx" />
     <None Include="Web.Debug.config">

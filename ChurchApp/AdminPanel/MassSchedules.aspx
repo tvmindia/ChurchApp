@@ -55,13 +55,21 @@
 
                        <%-- Day--%>
 
-                     <div class="control-group">
-							
-								  <label class="control-label" for="focusedInput">Day</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtDay" type="text"/>
-								</div>
-								</div>
+                        <div class="control-group">
+
+                            <label class="control-label" for="focusedInput">Day</label>
+                            <div class="controls">
+                                <select id="ddlDay" name="DaySelect">
+                                    <option value="Sun">Sunday</option>
+                                    <option value="Mon">Monday</option>
+                                    <option value="Tue">Tuesday</option>
+                                    <option value="Wed">Wednesday</option>
+                                    <option value="Thur">Thursday</option>
+                                    <option value="Fri">Friday</option>
+                                    <option value="Sat">Saturday</option>
+                                </select>
+                            </div>
+                        </div>
 
                        <%-- Time--%>
 
