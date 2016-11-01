@@ -135,6 +135,7 @@
     <Content Include="Font\FontAwesome.otf" />
     <Content Include="Scripts\CustomJS\Events.js" />
     <Content Include="Scripts\CustomJS\Families.js" />
+    <Content Include="Scripts\CustomJS\Gallery.js" />
     <Content Include="Scripts\CustomJS\MassSchedules.js" />
     <Content Include="Scripts\CustomJS\Notices.js" />
     <Content Include="Scripts\CustomJS\Notifications.js" />
