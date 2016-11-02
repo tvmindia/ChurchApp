@@ -79,6 +79,7 @@ $("document").ready(function (e) {
             });
             $("#btnSave").show();
             $("#h1Notice").text("Edit Notice");
+            $("#DivFile").show();
         }
     });
 
@@ -272,6 +273,7 @@ function AddNewNotice()
     $("#lblNoticeDescription").hide();
     $("#lblNoticeName").hide();
     $("#NoticeEdit").hide();
+    $("#DivFile").show();
 }
 
 
@@ -525,6 +527,7 @@ function BindControlsOnEdit(Notices)
 
         $("#h1Notice").text("Details");
         $("#btnSave").hide();
+        $("#DivFile").hide();
     }
 }
 

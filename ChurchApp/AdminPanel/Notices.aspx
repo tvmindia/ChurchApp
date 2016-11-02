@@ -119,18 +119,21 @@
                         
 
 
-							<div class="control-group">
+							<div class="control-group" id="DivFile">
 							  <label class="control-label" for="fileInput">File input</label>
 							  <div class="controls">
+                                   <input type="file" id="UpNotice" />
+                                   </div>
+							</div> 
+
 								<%--<input class="input-file uniform_on" id="UpNotice" type="file" runat="server"/>--%>
-                                  <input type="file" id="UpNotice" />
+                                 
                                   
                                   <%--<asp:FileUpload ID="UpNotice" runat="server" />--%>
 
                                    <%--<a class="btn btn-primary" id="btnUpload"><span></span>Upload File</a>--%>
                                   <%--<input type="button" id="btnUpload" value="Upload Files"/>--%>
-							  </div>
-							</div>      
+							      
 					
 
                     <%--    <div class="control-group">
