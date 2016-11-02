@@ -18,10 +18,10 @@
 			</ul>
          
          <%--Alert boxes --%>
-               <div class="row-fluid" id="rowfluidDiv" style="display:none;">	
-				<div class="box span12">
+               <div id="rowfluidDiv" style="display:none;">	
+				
 
-                    <div class="box-content alerts">
+                 
 						<div class="alert alert-error" style="display:none;">
 						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
 							<strong>Operation Not Successfull.</strong> 
@@ -39,9 +39,9 @@
 							<h4 class="alert-heading">Warning!</h4>
 							<p>Best check yourself, you're not looking too good.</p>
 						</div>
-					</div>
+					
 
-                </div>
+              
             </div>
 				
 	    <%--Alert boxes --%>
@@ -57,7 +57,7 @@
 						
 						</div>
 					</div>
-					<div class="box-content">
+					<div class="box-content" id="massTimingTableBox">
 						<table id="massTimingTable" class="table table-striped table-bordered bootstrap-datatable">
 						  <thead>
 							  <tr>

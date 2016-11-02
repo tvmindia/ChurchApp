@@ -10,6 +10,27 @@
         $('#NewAlbumModel').modal('show');
     });
 
+    $('#newImage').click(function (e) {
+
+        $('#NewImageModel').modal('show');
+    });
+
+    $('#newVideoAlbum').click(function (e) {
+
+        $('#NewVideoAlbumModel').modal('show');
+    });
+
+    $('#newVideo').click(function (e) {
+
+        $('#NewVideoModel').modal('show');
+    });
+
+    
+
+    
+    
+
+
 
 
 });//end of document.ready

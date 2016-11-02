@@ -6,7 +6,8 @@
         "bPaginate": false,
         "bSort": false,
         "bFilter": false,
-        "bInfo": false
+        "bInfo": false,
+        "oLanguage":false
     });
     $("#ddlDay").select2({
         placeholder: "Select Day",
@@ -24,6 +25,8 @@
 
     $(".AddMass").click(function (e) {
         debugger;
+        $("#NoData").remove();
+        $('#massTimingTableBox').css("height", "auto");
         var saveOrEdit = $("#AddorEditSpan").text();
         if (saveOrEdit == "Save") {
 
@@ -406,8 +409,10 @@ function BindMassTimingTable(Records) {
     })
     if(Records.length==0)
     {
+        //$('.dataTables_empty').parent().parent().remove();
+        $('#massTimingTableBox').css("height", "210px");
         var img = document.createElement('img');
-        img.src = "../img/gallery/3.JPG";
+        img.src = "../img/nodata.jpg";
         img.id = "NoData";
         $("#massTimingTable").append(img);
     }
