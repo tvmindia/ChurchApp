@@ -23,6 +23,9 @@ $("document").ready(function (e) {
     $(".aViewDetails").click(function () {
         //do something
         debugger;
+
+        
+        $("#NoticeEdit").show();
         var NoticeID = $(this).attr('id');
 
         //var NoticeID = $(this).siblings('#hdfNoticeID').attr('id');
@@ -42,12 +45,53 @@ $("document").ready(function (e) {
 
     });
 
+    
+    $("#NoticeEdit").click(function ()
+    {
+        debugger;
+        alert(1);
+
+        var Notices = new Object();
+        Notices.noticeId = $("#hdfNoticeID").val();;
+
+        jsonResult = GetNoticesBynoticeID(Notices);
+
+        if (jsonResult != undefined) {
+            $.each(jsonResult, function (index, jsonResult) {
+                debugger;
+
+                $("#lblNoticeName").hide();
+
+                $("#lblNoticeDescription").hide();
+
+                //$("#lblNoticeType").hide();
+
+                $("#txtNoticeName").show();
+                $("#txtDescription").show();
+
+                $("#txtNoticeName").val(jsonResult.NoticeName);
+
+                $("#txtDescription").text(jsonResult.Description);
+
+                $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
+
+                
+            });
+            $("#btnSave").show();
+            $("#h1Notice").text("Edit Notice");
+            $("#DivFile").show();
+        }
+    });
+
     $('#btnSave').click(function (e) {
        
         debugger;
 
         var AppImgURL = '';
         var NoticeID = $("#hdfNoticeID").val();
+
+        //-----------------------INSERT-------------------//
+
         if (NoticeID == null || NoticeID == "")
         {
         var guid = createGuid();
@@ -93,9 +137,9 @@ $("document").ready(function (e) {
         Notices.description = $("#txtDescription").val();
         Notices.noticeType = $("#ddlNoticeType").val();
         // Notices.isDelete = 0;
-        if (imageId != null && imageId != "") {
-            Notices.imageId = imageId;
-        }
+        //if (imageId != null && imageId != "") {
+        //    Notices.imageId = imageId;
+        //}
 
         Notices.noticeId = guid;
         Notices.imageId = guid;
@@ -121,23 +165,59 @@ $("document").ready(function (e) {
 
         debugger;
 
-        //if (DeletedImgID != '') {
-        //    var AppImages = new Object();
-        //    AppImages.appImageId = DeletedImgID;
-        //    DeleteAppImage(AppImages);
+        
 
-        //    if (DeletedImgPath != '') {
-        //        DeleteFileFromFolder(DeletedImgPath);
-        //    }
+        }
+//-----------------------UPDATE-------------------//
+        else
+        {
+            var Notices = new Object();
+            Notices.noticeName = $("#txtNoticeName").val();
+            Notices.description = $("#txtDescription").val();
+            Notices.noticeType = $("#ddlNoticeType").val();
+            Notices.noticeId = $("#hdfNoticeID").val();;
+            Notices.imageId = $("#hdfNoticeID").val();;
 
-        //}
+            DeletedImgID = imageId;
+            DeletedImgPath = imgPath
 
-    }
+            var guid = createGuid();
+            if (((imagefile = $('#UpNotice')[0].files[0]) != undefined)) {
+                var formData = new FormData();
+                var tempFile;
+                if ((tempFile = $('#UpNotice')[0].files[0]) != undefined) {
+                    tempFile.name = guid;
+                    formData.append('NoticeAppImage', tempFile, tempFile.name);
+                    formData.append('GUID', guid);
+                }
+                formData.append('ActionTyp', 'NoticeAppImageInsert');
+                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                Notices.imageId = guid;
+            }
+
+            UpdateNotice(Notices);
+
+            if (DeletedImgID != '') {
+                var AppImages = new Object();
+                AppImages.appImageId = DeletedImgID;
+                DeleteAppImage(AppImages);
+
+                if (DeletedImgPath != '') {
+                    DeleteFileFromFolder(DeletedImgPath);
+                }
+
+            }
+
+
+        }
+
+
+
     });
 
     $('#btnCancel').click(function (e) {
         ClearControls();
-
+        $("#PriestEditDivBox").hide();
     });
 
     $('#btnDelete').click(function (e)
@@ -164,12 +244,9 @@ $("document").ready(function (e) {
 
     });
 
-    $('#btnAdd').click(function (e) {
+    //$('#btnAdd').click(function (e) {
      
-        $("#PriestEditDivBox").show();
-
-
-    });
+    //});
 
    // BindControlsOnEdit();
 
@@ -182,6 +259,33 @@ $("document").ready(function (e) {
     //})
 
 });
+
+function AddNewNotice()
+{
+    ClearControls();
+    $("#PriestEditDivBox").show();
+
+    $("#txtNoticeName").show();
+    $("#txtDescription").show();
+    $("#btnSave").show();
+    $("#h1Notice").text("Add Notice");
+
+    $("#lblNoticeDescription").hide();
+    $("#lblNoticeName").hide();
+    $("#NoticeEdit").hide();
+    $("#DivFile").show();
+}
+
+
+//Insert Notice
+function UpdateNotice(Notices) {
+    var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/UpdateNotice");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
 
 
 function createGuid() {
@@ -309,21 +413,49 @@ function FillNotice(Records)
         
         //src=../ImageHandler/UploadHandler.ashx?url=' + url + '
 
-        url = "../img/" + url;
-        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img' + Records.ID + '  src="../img/AppImages/6d782211-3b57-dfe2-d439-d56f4b62e906" /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
+         url = "../img/" + url;
+        //src = "../img/AppImages/6d782211-3b57-dfe2-d439-d56f4b62e906"
+        //var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img' + Records.ID + '   /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
 
-        
+         var html = '<div class="task high"><ul class="dashboard-list"><li class="Eventlist"><a href="#"><img class="Eventimage" id=img' + Records.ID + '/></a><strong>Title:</strong>' + Records.NoticeName + '<br/><strong>Type:</strong>' + Records.NoticeType + '<br/><strong>Description:</strong>' + Records.Description + '<div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
 
         $("#DivNoticeType1").append(html);
 
         if (url != "") {
-            document.getElementById("img" + Records.ID).src = url;
+            var c = document.getElementById("img" + Records.ID);
+            if (document.getElementById("img" + Records.ID) != null)
+            {
+                document.getElementById("img" + Records.ID).src = url;
+            }
+          
         }
 
-        
-        
     });
     }
+
+function GetServerMapPath(path)
+{
+    $.ajax({
+        url: "../AdminPanel/Notices.aspx/GetServerMapPath",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        data: path,
+        // dataType: "json",
+        success: function (result) {
+
+            debugger; 
+
+            alert(result);
+            return result;
+        },
+        error: function (err) {
+            // alert(err.statusText);
+        }
+    });
+
+}
+
 
 function GetNotices(Notices) {
     var ds = {};
@@ -366,23 +498,36 @@ function BindControlsOnEdit(Notices)
     {
         $.each(jsonResult, function (index, jsonResult)
         {
-            //$("#lblNoticeName").show();
-            //$("#txtNoticeName").hide();
-            //$("#txtNoticeName").text(jsonResult.NoticeName);
-            $("#txtNoticeName").val(jsonResult.NoticeName);
-            
-            //$("#lblNoticeDescription").show();
-            //$("#txtDescription").hide();
-            $("#txtDescription").text(jsonResult.Description);
+            $("#lblNoticeName").show();
+            $('#lblNoticeName').text(jsonResult.NoticeName);
+            $("#txtNoticeName").hide();
+
+            $("#lblNoticeDescription").show(); 
+            $("#txtDescription").hide();
+            $('#lblNoticeDescription').text(jsonResult.Description);
 
             $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
+           // $("#lblNoticeType").show();
+           
+           // $('#lblNoticeType').text(jsonResult.NoticeType);
+
+
+            //$("#txtNoticeName").text(jsonResult.NoticeName);
+            
+            //$("#txtNoticeName").val(jsonResult.NoticeName);
+
+            //$("#txtDescription").text(jsonResult.Description);
+
+            //$("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
 
             imageId = jsonResult.ImageID;
             imgPath = jsonResult.URL;
              
         });
 
-         $("#h1Notice").text("Edit Notice");
+        $("#h1Notice").text("Details");
+        $("#btnSave").hide();
+        $("#DivFile").hide();
     }
 }
 

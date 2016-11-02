@@ -570,18 +570,19 @@ namespace ChurchApp.WebServices
 
 
         [WebMethod]
-        public string GetNearByChurches(string latitude,string longtitude)
+        public string GetNearByChurches(string latitude,string longtitude,int churchcount,int maxdistance)
         {
-            DataTable dt = new DataTable();
-            String ChurchLat,ChurchLong,Source,Destination,distance;
+            DataTable dt, dt1 = new DataTable();
+            String ChurchLat,ChurchLong,Source,Destination,result;
 
             try
             {
                 ChurchApp.DAL.Church ChurchObj = new DAL.Church();
                 ChurchObj.longitude = longtitude;
                 ChurchObj.latitude = latitude;
-                dt = ChurchObj.GetNearByChurchDetails();
+                dt = ChurchObj.GetNearByChurchDetails(maxdistance);
                 DataColumn km = dt.Columns.Add("Distance", typeof(String));
+                DataColumn kmvval = dt.Columns.Add("Value", typeof(int));
 
                 for (int i=0;i<dt.Rows.Count;i++)
                 { 
@@ -590,10 +591,24 @@ namespace ChurchApp.WebServices
                      Destination = ChurchLat + ',' + ChurchLong;
                      Source = longtitude + ',' + latitude;
 
-                     distance = ChurchObj.DistanceMatrixRequest(Source, Destination);
-                     dt.Rows[i][5] = distance;
+                     result = ChurchObj.DistanceMatrixRequest(Source, Destination); //Finding distance using Google API
+                     string[] km_value = result.Split('|');                    
+                     dt.Rows[i][5] = km_value[0];
+                     dt.Rows[i][6] = km_value[1];
                 }
-
+                
+                //sorting the datatable with respect to distance 
+                  dt.DefaultView.Sort = "Value";
+                  dt= dt.DefaultView.ToTable();
+                  DataRow[] result1 = dt.Select("Value <= '"+ maxdistance * 1000 +"'");               
+                  dt = result1.CopyToDataTable();
+               
+                //filter  datatable with respect to churchcount
+                  dt1 = dt.Clone();
+                  for (int i = 0; i < churchcount; i++)
+                  {
+                      dt1.ImportRow(dt.Rows[i]);
+                  }
             }
             catch (Exception ex)
             {
@@ -603,7 +618,7 @@ namespace ChurchApp.WebServices
             {
 
             }
-            return getDbDataAsJSON(dt);
+            return getDbDataAsJSON(dt1);
         }
 
 

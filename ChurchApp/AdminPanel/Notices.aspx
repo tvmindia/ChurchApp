@@ -26,22 +26,16 @@
 
          <div class="row-fluid">
 
-             <div class="span12">
-
-             <div class="span6">
-                 <div class="span1"><a class="btn btn-primary" id="btnAdd"  ><span></span>Add Notice</a></div>
-
-             </div>
-               </div>
+            
 
              <div class="span6">
                     
                  <h1>Notices</h1>
               
+                 	<div class="priority high"><span>Latest Notices</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="AddNewNotice();">NEW <i class="glyph-icon icon-plus"></i></a></div>
+				<%--<div class="priority high"><span>Latest Notices</span></div>--%>
+
                  
-				<div class="priority high"><span>Latest Notices</span></div>
-
-
 
 
                  <div  id="DivNoticeType1">
@@ -54,7 +48,7 @@
 
                                     <div class="span3">
                                         <a href="#">
-									<img class="imgNotice" src="D:/ChurchAPP/ChurchAppWeb/ChurchApp/img/gallery/c1.png" alt="St.Thomas Church"/>
+									<img class="imgNotice" src="../img/AppImages/747515f2-501a-3f59-96ba-6fd122f83f61.jpg" alt="St.Thomas Church"/>
 								    
                                         </a>
 
@@ -83,7 +77,9 @@
                 
              </div>
              
-             <div  id="PriestEditDivBox" class="span6 noMarginLeft" style="display:none">
+             <div class="span1"></div>
+
+             <div  id="PriestEditDivBox" class="span5 noMarginLeft" style="display:none">
                
                  <div class="dark">
 					<h1 id="h1Notice">Add Notice</h1>
@@ -92,7 +88,7 @@
 					<div class="box-content">
 					   <div class="form-horizontal">
 				    <fieldset>
-
+                       <div id="NoticeEdit" > <a style="right:30px;position: fixed;"><i class="fa fa-pencil eventEdit"  aria-hidden="true"></i> Edit</a></div>
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Notice Name</label>
 								<div class="controls">
@@ -105,8 +101,8 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Notice Type</label>
 								<div class="controls">
-							    
-                                   <select  id="ddlNoticeType" >
+							   
+                                   <select  id="ddlNoticeType"  >
                                                    <option></option>        
                                                     </select>
 								</div>
@@ -123,18 +119,21 @@
                         
 
 
-							<div class="control-group">
+							<div class="control-group" id="DivFile">
 							  <label class="control-label" for="fileInput">File input</label>
 							  <div class="controls">
+                                   <input type="file" id="UpNotice" />
+                                   </div>
+							</div> 
+
 								<%--<input class="input-file uniform_on" id="UpNotice" type="file" runat="server"/>--%>
-                                  <input type="file" id="UpNotice" />
+                                 
                                   
                                   <%--<asp:FileUpload ID="UpNotice" runat="server" />--%>
 
-                                   <a class="btn btn-primary" id="btnUpload"><span></span>Upload File</a>
+                                   <%--<a class="btn btn-primary" id="btnUpload"><span></span>Upload File</a>--%>
                                   <%--<input type="button" id="btnUpload" value="Upload Files"/>--%>
-							  </div>
-							</div>      
+							      
 					
 
                     <%--    <div class="control-group">

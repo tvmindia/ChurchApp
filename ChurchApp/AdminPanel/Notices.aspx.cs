@@ -200,6 +200,47 @@ namespace ChurchApp.AdminPanel
 
         #endregion Insert Notice
 
+
+        #region  Update Notice
+
+        [System.Web.Services.WebMethod]
+        public static string UpdateNotice(ChurchApp.DAL.Notices NoticeObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            NoticeObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
+            //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
+            string status = null;
+            try
+            {
+                NoticeObj.updatedBy = "Shamila";
+                status = NoticeObj.UpdateNotice().ToString();
+                
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NoticeObj);
+
+        }
+
+        #endregion Update Notice
+
+        #region  Get Server Map Path
+
+        [System.Web.Services.WebMethod]
+        public static string GetServerMapPath(string Path)
+        {
+           string ServerPath = HttpContext.Current.Server.MapPath("~/img/" + Path);
+            return ServerPath;
+
+        }
+
+        #endregion Get Server Map Path
+
         #region  Insert App Image
 
         [System.Web.Services.WebMethod]
