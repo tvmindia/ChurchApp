@@ -26,6 +26,23 @@
         });
         return jsonResult;
     }
+    function ConvertJsonToDate(jsonDate) {
+        if (jsonDate != null) {
+            var dateString = jsonDate.substr(6);
+            var currentTime = new Date(parseInt(dateString));
+            var month = currentTime.getMonth();
+            var day = currentTime.getDate();
+            var year = currentTime.getFullYear();
+            var monthNames = [
+                          "Jan", "Feb", "Mar",
+                          "Apr", "May", "Jun", "Jul",
+                          "Aug", "Sep", "Oct",
+                          "Nov", "Dec"
+            ];
+            var result = day + '-' + monthNames[month] + '-' + year;
+            return result;
+        }
+    }
     function check() {
         debugger;
         var priestDetails = {};
@@ -133,7 +150,7 @@
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/kozhipadan.jpg"/></li>'
           + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
           + '<strong>Baptismal Name:</strong> ' + priestDetails.BaptismalName + ' <br/><strong>House Name:</strong> ' + priestDetails.Address + ' <br/><strong>Status:</strong> ' + priestDetails.Status+ '<br/>'
-          + '<strong>Date of Birth:</strong>' + priestDetails.DOB + '<br /><strong>Date of Ordination:</strong> ' + priestDetails.DateOrdination + '<br />'
+          + '<strong>Date of Birth:</strong>  ' + ConvertJsonToDate(priestDetails.DOB) + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
           + '<a href="#" style="color:saddlebrown;font-weight:700;" onclick="OpenPriestDetails('+ID+');">View more details</a>'
           + '</li></ul></div>');
         return html;
@@ -147,7 +164,7 @@
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/kozhipadan.jpg"/></li>'
           + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
           + '<strong>Baptismal Name:</strong> ' + priestDetails.BaptismalName + ' <br/><strong>House Name:</strong> ' + priestDetails.Address + ' <br/><strong>Status:</strong> ' + priestDetails.Status + '<br/>'
-          + '<strong>Date of Birth:</strong>' + priestDetails.DOB + '<br /><strong>Date of Ordination:</strong> ' + priestDetails.DateOrdination + '<br />'
+          + '<strong>Date of Birth:</strong>  ' + ConvertJsonToDate(priestDetails.DOB) + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
           + '<a href="#" style="color:saddlebrown;font-weight:700;" onclick="OpenPriestDetails('+ID+');">View more details</a>'
           + '</li></ul></div>');
         return html;
