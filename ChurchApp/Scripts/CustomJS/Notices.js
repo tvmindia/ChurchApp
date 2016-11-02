@@ -46,13 +46,14 @@ $("document").ready(function (e) {
        
         debugger;
 
+        var AppImgURL = '';
         var NoticeID = $("#hdfNoticeID").val();
-        if (NoticeID != null && NoticeID != "")
+        if (NoticeID == null || NoticeID == "")
         {
         var guid = createGuid();
 
-        DeletedImgID = imageId;
-        DeletedImgPath = imgPath
+        //DeletedImgID = imageId;
+        //DeletedImgPath = imgPath
 
         if (guid != null) {
 
@@ -61,18 +62,30 @@ $("document").ready(function (e) {
             var formData = new FormData();
             var imagefile, logoFile, img;
 
-            if ((imagefile = $('#btnUpload')[0].files[0]) != undefined) {
-                img = new Image();
-                var image  = $('#btnUpload')[0].files[0];
-                formData.append('BannerFile', image, imagefile.name);
-                formData.append('ActionTyp', 'BannerInsert');
-                var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+            //if ((imagefile = $('#UpNotice')[0].files[0]) != undefined) {
+            //    img = new Image();
+            //    var image = $('#UpNotice')[0].files[0];
+            //   // imagefile.name = guid;
+            //    formData.append('tempfile', image, imagefile.name);
+            //    formData.append('ActionTyp', 'BannerInsert');
+            //    var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
 
-                if (result == "1") {
+            //}
 
-                    //BindAllBannerImages();
-                }
+
+            if (((imagefile = $('#UpNotice')[0].files[0]) != undefined)) {
+                  var formData = new FormData();
+                    var tempFile;
+                    if ((tempFile = $('#UpNotice')[0].files[0]) != undefined) {
+                        tempFile.name = guid;
+                        formData.append('NoticeAppImage', tempFile, tempFile.name);
+                        formData.append('GUID', guid);
+                    }
+                    formData.append('ActionTyp', 'NoticeAppImageInsert');
+                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+
             }
+
         }
 
         var Notices = new Object();
@@ -85,6 +98,13 @@ $("document").ready(function (e) {
         }
 
         Notices.noticeId = guid;
+        Notices.imageId = guid;
+
+
+        //var AppImages = new Object();
+        //AppImages.url = AppImgURL;
+        //AppImages.appImageId = guid;
+        //InsertAppImage(AppImages);
 
         //if (NoticeID != null && NoticeID != "")
         //{
@@ -170,8 +190,6 @@ function createGuid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-
-
 function DeleteNotice(Notices)
 {
     var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
@@ -222,13 +240,10 @@ function DeleteAppImage(AppImages)
 
 }
 
-function InsertAppImage(result)
+function InsertAppImage(AppImages)
 {
     debugger;
    
-    var AppImages = new Object();
-    AppImages.url = result;
-
     var data = "{'AppImgObj':" + JSON.stringify(AppImages) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/InsertAppImage");
     var table = {};
@@ -267,7 +282,7 @@ function BindNotices() {
     var Notices = new Object();
     jsonResult = GetNotices(Notices);
     if (jsonResult != undefined) {
-       //FillNotice(jsonResult);
+       FillNotice(jsonResult);
     }
 }
 
@@ -278,27 +293,30 @@ function FillNotice(Records)
     $.each(Records, function (index, Records) {
         debugger;
         //hdfNoticeID
-
         var url = Records.URL;
-        var fileName = "";
+        //var fileName = "";
 
-        if (url != null && url != "") {
+        //if (url != null && url != "") {
 
-        var index = url.lastIndexOf('\\');
-         fileName = url.substr(index + 1);
-        }
+        //var index = url.lastIndexOf('\\');
+        // fileName = url.substr(index + 1);
+        //}
         //var last = url.Split().Last();
 
        
-     //   url = url.replace(/\+/g, ' ');
-        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img'+Records.ID+'  src=../ImageHandler/UploadHandler.ashx?url=' + url + ' /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
+        //   url = url.replace(/\+/g, ' ');
+        
+        //src=../ImageHandler/UploadHandler.ashx?url=' + url + '
+
+        url = "../img/" + url;
+        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img' + Records.ID + '  src="../img/AppImages/6d782211-3b57-dfe2-d439-d56f4b62e906" /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
 
         
 
         $("#DivNoticeType1").append(html);
 
-        if (fileName != "") {
-            document.getElementById("img" + Records.ID).src = "../img/gallery/" + fileName;
+        if (url != "") {
+            document.getElementById("img" + Records.ID).src = url;
         }
 
         

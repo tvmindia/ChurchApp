@@ -93,3 +93,8 @@
             height: 10px;
             z-index: 3;
         }
+#NoData {
+    position: absolute;
+    width: 515px;
+    height: 150px;
+}

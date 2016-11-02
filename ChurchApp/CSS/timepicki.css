@@ -89,8 +89,22 @@ a.reset_time {
 	margin-top: 5px;
 	color: #000;
 }
+.Okbtn {
+    background-color: #2d89ef;
+    cursor: pointer;
+    width: 65px !important;
+    height: 37px;
+    display:inline-block;
+    text-align:center;
+    border-radius: 40px;
+    position: absolute;
+    top: 55px;
+}
 #circle
 {
-    background-color:#2d89ef;
-    cursor:pointer;
+    position: absolute;
+    top: 7px;
+    left:21px;
+        color: #ffffff;
+    font-weight: 500;
 }
