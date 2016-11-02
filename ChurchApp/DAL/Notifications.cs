@@ -256,4 +256,169 @@ namespace ChurchApp.DAL
 
         #endregion Methods
     }
+    public class NotificationType : Notifications
+    {
+        #region NotificationType Methods
+
+        #region SelectNotificationType
+        /// <summary>
+        /// Select All NotificationType
+        /// </summary>
+        /// <returns>All NotificationType</returns>
+        public DataSet SelectNotificationType()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllNotificationType]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectNotificationType
+
+        #region InsertNotificationType
+        /// <summary>
+        /// Add New NotificationType
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string InsertNotificationType()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertNotificationType]";
+                cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = notificationType;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion InsertNotificationType
+
+        #region UpdateNotificationType
+        /// <summary>
+        /// Update NotificationType
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string UpdateNotificationType()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateNotificationType]";
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@NoticeType", SqlDbType.NVarChar, 20).Value = notificationType;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
+                outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion UpdateNotificationType
+
+        #region DeleteNotificationType
+        /// <summary>
+        /// Delete NotificationType
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string DeleteNotificationType()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteNotificationType]";
+                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = notificationType;
+                outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion DeleteNotificationType
+
+        #endregion NotificationType Methods
+    }
 }
