@@ -14,10 +14,20 @@ div.img:hover {
      opacity:0.6;
 
 }
+.addnewImage:hover
+{
+    opacity:0.6;
+}
+
 .addnewAlbum
 {
     height:100%;
     width:100%;
+}
+.addnewImage
+{
+ height:100%;
+ width:100%;
 }
 div.img img {
     width: 100%;
@@ -72,6 +82,29 @@ div.desc-fixed {
     background-color: #cfcfcf;
     color: white;
   
+}
+#chooseimage{
+    position: absolute;
+    left: 9%;
+    background-color: #cfcfcf;
+    color: white;
+    bottom:30px;
+}
+#chooseVideoAlbum
+{
+    position: absolute;
+    left: 9%;
+    background-color: #cfcfcf;
+    color: white;
+    bottom:30px;
+}
+#chooseVideo
+{
+    position: absolute;
+    left: 9%;
+    background-color: #cfcfcf;
+    color: white;
+    bottom:30px;
 }
 .thumb
 {
