@@ -21,6 +21,26 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string BaptisumName
+        {
+            get;
+            set;
+        }
+        public string Parish
+        {
+            get;
+            set;
+        }
+        public string Diocese
+        {
+            get;
+            set;
+        }
+        public string Status
+        {
+            get;
+            set;
+        }
         public string dob
         {
             get;
@@ -57,6 +77,11 @@ namespace ChurchApp.DAL
             set;
         }
         public string imageId
+        {
+            get;
+            set;
+        }
+        public string imagePath
         {
             get;
             set;
@@ -129,6 +154,65 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectPriests
+        #region SelectPriestsUsingPriestID
+        /// <summary>
+        /// Select All Priests
+        /// </summary>
+        /// <returns>All Priests</returns>
+        public void SelectPriestsUsingPriestID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetPriests]";
+                cmd.Parameters.Add("@priestID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(priestID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow dr = dt.Rows[0];
+                    priestID = dr["ID"].ToString();
+                    priestName = dr["Name"].ToString();
+                    BaptisumName = dr["BaptismalName"].ToString();
+                    Parish = dr["Parish"].ToString();
+                    Diocese = dr["Diocese"].ToString();
+                    Status = dr["Status"].ToString();
+                    churchID = dr["ChurchID"].ToString();
+                    dob=dr["DOB"].ToString();
+                    address=dr["Address"].ToString();
+                    mobile = dr["Mobile"].ToString();
+                    emailId = dr["Email"].ToString();
+                    imagePath = dr["URL"].ToString();
+                    about = dr["About"].ToString();
+                    dateOrdination = dr["DateOrdination"].ToString();
+                    designation = dr["Designation"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+           
+        }
+        #endregion SelectPriestsUsingPriestID
 
         #region InsertPriest
         /// <summary>

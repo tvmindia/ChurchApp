@@ -14,7 +14,15 @@ input[type=text]{
 textarea{
     width:80%!important;
 }
-
+select{
+    width:85%!important;
+}
+.choosepic{
+    font-size:32px;
+    font-weight:500;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:#9e5d5d
+}
 .priestimage{
 height: 133px;
     width: 133px;
