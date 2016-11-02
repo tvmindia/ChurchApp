@@ -38,8 +38,8 @@
                     
                  <h1>Notices</h1>
               
-                 
-				<div class="priority high"><span>Latest Notices</span></div>
+                 	<div class="priority high"><span>Latest Notices</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="OpenNewAdd();">NEW <i class="glyph-icon icon-plus"></i></a></div>
+				<%--<div class="priority high"><span>Latest Notices</span></div>--%>
 
 
 
