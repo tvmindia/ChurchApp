@@ -46,8 +46,9 @@ $("document").ready(function (e) {
        
         debugger;
 
+
         var NoticeID = $("#hdfNoticeID").val();
-        if (NoticeID != null && NoticeID != "")
+        if (NoticeID == null || NoticeID == "")
         {
         var guid = createGuid();
 
@@ -61,18 +62,30 @@ $("document").ready(function (e) {
             var formData = new FormData();
             var imagefile, logoFile, img;
 
-            if ((imagefile = $('#btnUpload')[0].files[0]) != undefined) {
-                img = new Image();
-                var image  = $('#btnUpload')[0].files[0];
-                formData.append('BannerFile', image, imagefile.name);
-                formData.append('ActionTyp', 'BannerInsert');
-                var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+            //if ((imagefile = $('#UpNotice')[0].files[0]) != undefined) {
+            //    img = new Image();
+            //    var image = $('#UpNotice')[0].files[0];
+            //   // imagefile.name = guid;
+            //    formData.append('tempfile', image, imagefile.name);
+            //    formData.append('ActionTyp', 'BannerInsert');
+            //    var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
 
-                if (result == "1") {
+            //}
 
-                    //BindAllBannerImages();
-                }
+
+            if (((imagefile = $('#UpNotice')[0].files[0]) != undefined)) {
+                  var formData = new FormData();
+                    var tempFile;
+                    if ((tempFile = $('#UpNotice')[0].files[0]) != undefined) {
+                        tempFile.name = guid;
+                        formData.append('tempfile', tempFile, tempFile.name);
+                        formData.append('GUID', guid);
+                    }
+                    formData.append('ActionTyp', 'NewsLetterTemplate');
+                    result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+
             }
+
         }
 
         var Notices = new Object();
@@ -85,6 +98,7 @@ $("document").ready(function (e) {
         }
 
         Notices.noticeId = guid;
+        Notices.imageId = guid;
 
         //if (NoticeID != null && NoticeID != "")
         //{

@@ -36,20 +36,21 @@ namespace ChurchApp.ImageHandler
 
                             case "tempfile":
                                     string fn = System.IO.Path.GetFileName(file.FileName);
-                                    string SaveLocation = HttpContext.Current.Server.MapPath("~/BoutiqueTemplates/");
+                                    string guid = context.Request.Form.GetValues("GUID")[0];
+                                    string SaveLocation = HttpContext.Current.Server.MapPath("~/img/AppImages/");
                                     try
                                     {
                                         HttpPostedFile postedFile = context.Request.Files["tempfile"];
-                                        if (Directory.Exists(SaveLocation))
-                                        {
-                                            postedFile.SaveAs(SaveLocation + @"\" + fn);
+                                        //if (Directory.Exists(SaveLocation))
+                                        //{
+                                            postedFile.SaveAs(SaveLocation + @"\" + guid);
                                             string fileName = postedFile.FileName;
 
                                             //  context.Response.Write(matchesImgSrc.Count);
-                                            TemplatePath = "~/BoutiqueTemplates/" + fileName;
+                                            TemplatePath = "~/AppImages/" + guid;
                                             TemplatePath=TemplatePath.Replace("~/", "");
 
-                                        }
+                                        //}
                                         context.Response.Write(TemplatePath);
 
                                     }
@@ -65,9 +66,9 @@ namespace ChurchApp.ImageHandler
                 } //end of if count
 
             }//try
-            catch (Exception)
+            catch (Exception e)
             {
-
+                throw e;
             }
 
 
