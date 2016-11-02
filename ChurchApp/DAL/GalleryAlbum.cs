@@ -109,7 +109,7 @@ namespace ChurchApp.DAL
         public string InsertGalleryAlbum()
         {
             dbConnection dcon = null;
-            SqlParameter outParam = null;
+            SqlParameter outParam = null,outIDparam=null;
             SqlCommand cmd = null;
             try
             {
@@ -126,8 +126,12 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outIDparam = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
+                outIDparam.Direction = ParameterDirection.Output;
                 outParam.Direction = ParameterDirection.Output;
+                
                 cmd.ExecuteNonQuery();
+                albumId = outIDparam.Value.ToString();
             }
             catch (Exception ex)
             {
@@ -300,7 +304,7 @@ namespace ChurchApp.DAL
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            SqlParameter outParam = null;
+            SqlParameter outParam = null,outParmid=null;
             try
             {
                 dcon = new dbConnection();
@@ -315,8 +319,11 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParmid = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
+                outParmid.Direction = ParameterDirection.Output;
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+                galleryItemID = outParmid.Value.ToString();
             }
             catch (Exception ex)
             {

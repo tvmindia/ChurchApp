@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <link href="../CSS/CustomCSS/Gallery.css" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Gallery.js"></script>
     <div id="content" class="span10">
         <ul class="breadcrumb" id="breadcrumbGallery">
@@ -173,7 +174,7 @@
 
 
 
-          <div class="row-fluid">
+            <div class="row-fluid">
              <div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon picture"></i><span class="break"></span> AlbumName Videos</h2>
@@ -207,11 +208,11 @@
 
                <!--Models used in this page-->
 	          <div class="modal hide fade" id="NewAlbumModel">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Create New Album</h3>
-		</div>
-		<div class="modal-body">
+		       <div class="modal-header">
+			   <button type="button" class="close" data-dismiss="modal">×</button>
+			   <h3>Create New Album</h3>
+		     </div>
+		      <div class="modal-body">
 
 
               <div class="form-horizontal">
@@ -228,14 +229,14 @@
 								</div>
                                 <div class="control-group">
                                                     <div class="controls">
-                                                        <output id="imageList" class="listClass"></output>
+                                                        <output id="imageListAlbum" class="listClass"></output>
                                                     </div>
                                                 </div>
 
                                 <div class="control-group">
 							  <label class="control-label" for="fileInput">File input</label>
 							  <div class="controls">
-								<input class="input-file uniform_on" multiple="multiple" id="ImageUploader" type="file"/>
+								<input class="input-file uniform_on" multiple="multiple" id="AlbumUploader" type="file"/>
 							  </div>
 							</div>       
                            
@@ -248,7 +249,7 @@
 		</div>
 		<div class="modal-footer">
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
+			<a href="#" class="btn btn-primary" id="btnSaveImageAlbum">Save changes</a>
 		</div>
 	</div>
               <div class="modal hide fade" id="NewImageModel">
@@ -268,7 +269,7 @@
                                 <div class="control-group" style="margin-top:20px">
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtAlbumName" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtImageName" type="text"/>
                          		</div>
 								</div>
                                 <div class="control-group">
@@ -297,7 +298,7 @@
 		</div>
 	</div>
 
-                <div class="modal hide fade" id="NewVideoAlbumModel">
+               <div class="modal hide fade" id="NewVideoAlbumModel">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h3>New Video Album</h3>
@@ -343,7 +344,7 @@
 		</div>
 	</div>
 
-         <div class="modal hide fade" id="NewVideoModel">
+              <div class="modal hide fade" id="NewVideoModel">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h3>New Video

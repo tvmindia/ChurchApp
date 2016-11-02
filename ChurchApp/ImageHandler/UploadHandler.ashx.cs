@@ -1,5 +1,6 @@
 ﻿
 #region Included Namespaces
+using ChurchApp.DAL;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -19,13 +20,9 @@ namespace ChurchApp.ImageHandler
 
         public void ProcessRequest(HttpContext context)
         {
-            ChurchApp.DAL.AppImages AppImgObj = new DAL.AppImages();
-
-
-            context.Response.ContentType = "text/plain";
+           context.Response.ContentType = "text/plain";
             try
             {
-
                 string AppImagePath = "";
                 string fileExtension = "";
                 if (context.Request.Files.Count > 0)
@@ -64,15 +61,40 @@ namespace ChurchApp.ImageHandler
                                         throw ex;
                                     }
                                     break;
+                            //Gallery
+                            case "AlbumImage":
+                                    GalleryAlbum GalAlbumObj = new GalleryAlbum();
+                                    GalAlbumObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
+                                    GalAlbumObj.albumName = "myalbum";
+                                    GalAlbumObj.albumType = "image";
+                                    GalAlbumObj.isDelete = "false";
+                                    GalAlbumObj.createdBy = "albert";
+                                    GalAlbumObj.InsertGalleryAlbum();
+                                    GalleryItems GalItemsObj = new GalleryItems();
+                                    GalItemsObj.albumId = GalAlbumObj.albumId;
+                                    GalItemsObj.url = "/albert/wonder";
+                                    GalItemsObj.itemType = "image";
+                                    GalItemsObj.createdBy = "albert";
+                                    GalItemsObj.InsertGalleryItem();
+                                    string SaveLocation1 = HttpContext.Current.Server.MapPath("~/img/AppImages/");
+                                    //HttpPostedFile postedFiles = context.Request.Files["AlbumImage"];
+                                    fileExtension = Path.GetExtension(file.FileName);
+                                    string fileName1 = GalItemsObj.galleryItemID + fileExtension;
+                                    file.SaveAs(SaveLocation1 + @"\" +fileName1);
+                                    AppImagePath = "~/AppImages/" + fileName1;
+                                    AppImagePath=AppImagePath.Replace("~/", "");
+                                    context.Response.Write(AppImagePath);
+                                    break;
 
                         }
                     }//end of loop
-
+                         
                      string result = "";
 
                     switch (context.Request.Form.GetValues("ActionTyp")[0])
                     {
                         case "NoticeAppImageInsert":
+                              AppImages AppImgObj = new AppImages();
                               AppImgObj.appImageId = context.Request.Form.GetValues("GUID")[0];
                               AppImgObj.url = AppImagePath;
                               AppImgObj.createdBy = "Shamila";
@@ -80,9 +102,7 @@ namespace ChurchApp.ImageHandler
                               result = AppImgObj.InsertAppImage().ToString();
                               context.Response.Write(AppImagePath);
 
-                              //context.Response.Write(",");
-                              //context.Response.Write(TemplatePath);
-                         
+                                                     
                             break;
 
                     }//end of switch
