@@ -1,5 +1,6 @@
 ﻿$("document").ready(function (e) {
     BindAsyncAdminsTable();
+    parent.$("#MassSchedule").addClass("active");
     $("#TxtTime").timepicki();
     $('#massTimingTable').dataTable({
 
