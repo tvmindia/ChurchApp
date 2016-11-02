@@ -9,7 +9,8 @@ var DeletedImgPath      =  '';
 //var ImageIDOnEdit = '';
 
 $("document").ready(function (e) {
-    
+    debugger;
+   
     BindNotices();
   //  BindNoticesOnEdit();
    
@@ -18,7 +19,6 @@ $("document").ready(function (e) {
         allowClear: true,
         data: BindNoticeTypeDropDown()
     });
-
 
     $(".aViewDetails").click(function () {
         //do something
@@ -42,10 +42,39 @@ $("document").ready(function (e) {
 
     });
 
-
     $('#btnSave').click(function (e) {
        
         debugger;
+
+        var NoticeID = $("#hdfNoticeID").val();
+        if (NoticeID != null && NoticeID != "")
+        {
+        var guid = createGuid();
+
+        DeletedImgID = imageId;
+        DeletedImgPath = imgPath
+
+        if (guid != null) {
+
+            var imgresult = "";
+            var _URL = window.URL || window.webkitURL;
+            var formData = new FormData();
+            var imagefile, logoFile, img;
+
+            if ((imagefile = $('#btnUpload')[0].files[0]) != undefined) {
+                img = new Image();
+                var image  = $('#btnUpload')[0].files[0];
+                formData.append('BannerFile', image, imagefile.name);
+                formData.append('ActionTyp', 'BannerInsert');
+                var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+
+                if (result == "1") {
+
+                    //BindAllBannerImages();
+                }
+            }
+        }
+
         var Notices = new Object();
         Notices.noticeName = $("#txtNoticeName").val();
         Notices.description = $("#txtDescription").val();
@@ -55,13 +84,16 @@ $("document").ready(function (e) {
             Notices.imageId = imageId;
         }
 
-        var NoticeID = $("#hdfNoticeID").val();
+        Notices.noticeId = guid;
 
-        if (NoticeID != null && NoticeID != "")
-        {
-            Notices.noticeId = NoticeID
-        }
-
+        //if (NoticeID != null && NoticeID != "")
+        //{
+        //    Notices.noticeId = NoticeID
+        //}
+        //else
+        //{
+        //    Notices.noticeId = guid;
+        //}
 
         InsertNotice(Notices);
         BindNotices();
@@ -69,18 +101,18 @@ $("document").ready(function (e) {
 
         debugger;
 
-        if (DeletedImgID != '') {
-            var AppImages = new Object();
-            AppImages.appImageId = DeletedImgID;
-            DeleteAppImage(AppImages);
+        //if (DeletedImgID != '') {
+        //    var AppImages = new Object();
+        //    AppImages.appImageId = DeletedImgID;
+        //    DeleteAppImage(AppImages);
 
-            if (DeletedImgPath != '') {
-                DeleteFileFromFolder(DeletedImgPath);
-            }
+        //    if (DeletedImgPath != '') {
+        //        DeleteFileFromFolder(DeletedImgPath);
+        //    }
 
-        }
+        //}
 
-
+    }
     });
 
     $('#btnCancel').click(function (e) {
@@ -122,41 +154,23 @@ $("document").ready(function (e) {
    // BindControlsOnEdit();
 
     //$(function () {
-    $('#btnUpload').click(function () {
-            debugger;
+    //$('#btnUpload').click(function () {
+    //        debugger;
 
-            DeletedImgID = imageId;
-            DeletedImgPath = imgPath
-
-            var fileUpload = $("#UpNotice").get(0);
-            var files = fileUpload.files;
-            var test = new FormData();
-            for (var i = 0; i < files.length; i++) {
-                test.append(files[i].name, files[i]);
-            }
-            $.ajax({
-                url: "../ImageHandler/UploadHandler.ashx",
-                type: "POST",
-                contentType: false,
-                processData: false,
-                data: test,
-                // dataType: "json",
-                success: function (result) {
-
-                    debugger;
-
-                    alert(result);
-
-                    GetInsertedImgID(result);
-                },
-                error: function (err) {
-                   // alert(err.statusText);
-                }
-            });
-        });
+        
+    //    });
     //})
 
 });
+
+function createGuid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+
 
 function DeleteNotice(Notices)
 {
@@ -166,7 +180,6 @@ function DeleteNotice(Notices)
     table = JSON.parse(jsonResult.d);
     return table;
 }
-
 
 function DeleteFileFromFolder(imgPath) {
 
@@ -254,7 +267,7 @@ function BindNotices() {
     var Notices = new Object();
     jsonResult = GetNotices(Notices);
     if (jsonResult != undefined) {
-       FillNotice(jsonResult);
+       //FillNotice(jsonResult);
     }
 }
 

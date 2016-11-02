@@ -19,39 +19,58 @@ namespace ChurchApp.ImageHandler
 
         public void ProcessRequest(HttpContext context)
         {
+            context.Response.ContentType = "text/plain";
+            try
+            {
 
-         string fname=string.Empty;
+                string TemplatePath = "";
+               
+                if (context.Request.Files.Count > 0)
+                {
 
-        if (context.Request.Files.Count > 0)
-        {
-        HttpFileCollection files = context.Request.Files;
-        for (int i = 0; i < files.Count; i++)
-        {
-        HttpPostedFile file = files[i];
-        
-        if (HttpContext.Current.Request.Browser.Browser.ToUpper() == "IE" || HttpContext.Current.Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
-        {
-        string[] testfiles = file.FileName.Split(new char[] { '\\' });
-        fname = testfiles[testfiles.Length - 1];
-        }
-        else
-        {
-        fname = file.FileName;
-        }
-        fname = Path.Combine(context.Server.MapPath("~/img/gallery"), fname);
-        file.SaveAs(fname);
-        }
-        }
+                    foreach (string s in context.Request.Files)
+                    {
+                        HttpPostedFile file = context.Request.Files[s];
+                        switch (s)
+                        {
 
-        context.Response.Write(fname);
+                            case "tempfile":
+                                    string fn = System.IO.Path.GetFileName(file.FileName);
+                                    string SaveLocation = HttpContext.Current.Server.MapPath("~/BoutiqueTemplates/");
+                                    try
+                                    {
+                                        HttpPostedFile postedFile = context.Request.Files["tempfile"];
+                                        if (Directory.Exists(SaveLocation))
+                                        {
+                                            postedFile.SaveAs(SaveLocation + @"\" + fn);
+                                            string fileName = postedFile.FileName;
 
-        //context.Response.ContentType = "text/plain";
-        //context.Response.Write("File Uploaded Successfully!");
+                                            //  context.Response.Write(matchesImgSrc.Count);
+                                            TemplatePath = "~/BoutiqueTemplates/" + fileName;
+                                            TemplatePath=TemplatePath.Replace("~/", "");
+
+                                        }
+                                        context.Response.Write(TemplatePath);
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        throw ex;
+                                    }
+                                    break;
+
+                        }
+                    }//end of loop
+
+                } //end of if count
+
+            }//try
+            catch (Exception)
+            {
+
+            }
 
 
-                    //context.Response.ContentType = "text/plain";
-            //context.Response.Write("Hello World");
-        
         }
 
         public bool IsReusable

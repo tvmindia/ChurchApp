@@ -129,6 +129,7 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertNotices]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(noticeId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@NoticeName", SqlDbType.NVarChar, 100).Value = noticeName;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar,-1).Value = description;

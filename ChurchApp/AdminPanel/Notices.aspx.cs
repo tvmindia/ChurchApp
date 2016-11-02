@@ -175,17 +175,17 @@ namespace ChurchApp.AdminPanel
             string status = null;
             try
             {
-                if (NoticeObj.noticeId == string.Empty || NoticeObj.noticeId == null )
-                {
+                //if (NoticeObj.noticeId == string.Empty || NoticeObj.noticeId == null )
+                //{
                     NoticeObj.createdBy = "Shamila";
                     status = NoticeObj.InsertNotice().ToString();
-                 }
+                 //}
 
-                else
-                {
-                    NoticeObj.updatedBy = "Shamila";
-                    status = NoticeObj.UpdateNotice().ToString();
-                }
+                //else
+                //{
+                //    NoticeObj.updatedBy = "Shamila";
+                //    status = NoticeObj.UpdateNotice().ToString();
+                //}
              }
             catch (Exception)
             {

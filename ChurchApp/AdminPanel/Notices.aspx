@@ -41,6 +41,9 @@
                  
 				<div class="priority high"><span>Latest Notices</span></div>
 
+
+
+
                  <div  id="DivNoticeType1">
 					<%--<div class="task high" id="IndividualNotice">
 
@@ -80,9 +83,6 @@
                 
              </div>
              
-              
-             
-
              <div  id="PriestEditDivBox" class="span6 noMarginLeft" style="display:none">
                
                  <div class="dark">
