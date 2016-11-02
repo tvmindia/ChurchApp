@@ -116,7 +116,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertAppImages]";
 
                 //url = url.Replace(@"\", "/");
-
+                cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(appImageId);
                 cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
                 cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = type;
                 //cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);

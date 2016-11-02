@@ -19,6 +19,9 @@ namespace ChurchApp.ImageHandler
 
         public void ProcessRequest(HttpContext context)
         {
+            ChurchApp.DAL.AppImages AppImgObj = new DAL.AppImages();
+
+
             context.Response.ContentType = "text/plain";
             try
             {
@@ -62,6 +65,26 @@ namespace ChurchApp.ImageHandler
 
                         }
                     }//end of loop
+
+                     string result = "";
+
+                    switch (context.Request.Form.GetValues("ActionTyp")[0])
+                    {
+                        case "NoticeAppImageInsert":
+                              AppImgObj.appImageId = context.Request.Form.GetValues("GUID")[0];
+                              AppImgObj.url = TemplatePath;
+                              AppImgObj.createdBy = "Shamila";
+
+                              result = AppImgObj.InsertAppImage().ToString();
+                              context.Response.Write(TemplatePath);
+
+                              //context.Response.Write(",");
+                              //context.Response.Write(TemplatePath);
+                         
+                            break;
+
+                    }//end of switch
+
 
                 } //end of if count
 
