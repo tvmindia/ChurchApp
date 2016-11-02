@@ -290,15 +290,24 @@ function BindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
     document.getElementById("massTimingsUpdate").style.display = "";
 }
 function hrsTo24hrormat() {
+    debugger;
+    var h = 0;
+    var addTime = 12;
     var time = $("#TxtTime").val();
-    var hours = time.split(":")[0];
-    var minutes = time.split(":")[1];
+    var hours = parseInt(time.split(":")[0]);
+    var minutes = parseInt(time.split(":")[1]);
     var AMPM = time.split(":")[2];
-    if (AMPM == "PM" && hours < 12) hours = hours + 12;
-    if (AMPM == "AM" && hours == 12) hours = hours - 12;
+    AMPM = AMPM.trim();
+    if (AMPM == "PM" && hours < 12) {
+        hours = parseInt(hours) + parseInt(addTime);
+    }
+    if (AMPM == "AM" && hours == 12) {
+        hours = parseInt(hours) - parseInt(addTime);
+    }
+    var h = hours;
     var sHours = hours.toString();
     var sMinutes = minutes.toString();
-    if (hours < 10) sHours = sHours;
+    if (h < 10) sHours = sHours;
     if (minutes < 10) sMinutes = sMinutes;
     return sHours + ":" + sMinutes;
 }
@@ -422,11 +431,11 @@ function timeTo12HrFormat(time) {   // Take a time in 24 hour format and format 
     var time_part_array = time.split(":");
     var ampm = 'AM';
 
-    if (time_part_array[0] >= 12) {
+    if (parseInt(time_part_array[0]) >= 12) {
         ampm = 'PM';
     }
 
-    if (time_part_array[0] > 12) {
+    if (parseInt(time_part_array[0]) > 12) {
         time_part_array[0] = time_part_array[0] - 12;
     }
 
