@@ -15,119 +15,62 @@
 				<li>Priests</li>
 				
 			</ul>
-
-
-
-        
-              
-				<div class="row-fluid">
-               
-                     
-                   
-				<div class="span6">
-					<h1>Current Vicars</h1>
-					
-					<div class="priority high"><span>Vicar</span></div>
-					
-					<div class="task high">
-                        <ul class="dashboard-list">
-						<li class="vicarlist">
-								<a href="#">
-									<img class="priestimage" src="../img/gallery/Cycle.jpg"/>
-								</a>
-								<%--<div class="priesteditdiv">
-                                <a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-								</div>--%>
-													
-								
-                                <strong>Name:</strong> BR. JOSEPH MANNULLIL, OFM<br/>
-								<strong>Since:</strong> 18-06-1961 <br/>
-								<strong>Status:</strong> Brother
-								 <div class="priesteditdiv">
-                                    	<a href="#" class="priestEdit">View Details</a>
-								</div>  		   
-								
-                                                       						
-							</li>
-                            </ul>
-					</div>
-
-                    <div class="task high">
-                        <ul class="dashboard-list">
-						<li class="vicarlist">
-								<a href="#">
-									<img class="priestimage" src="../img/gallery/assist%20vicar.jpg"/>
-								</a>
-								<%--<div class="priesteditdiv">
-                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-								</div>--%>
-													
-											   
-								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Status:</strong> Vicar
-                                <div class="priesteditdiv">
-                                    	<a href="#" class="priestEdit">View Details</a>
-								</div>  
-                                                       						
-							</li>
-                            </ul>
-					</div>
-
-                 
-                 
-                   
-
-
-				
-					
-					
-					
-				
-					
-					<div class="priority low"><span>Asst. Vicar</span></div>
-
+          <div class="row-fluid">
+          <div class="span6">
+			<h1>Current Vicars</h1>
+			<div class="priority high"><span>Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="OpenNewAdd();">NEW <i class="glyph-icon icon-plus"></i></a></div>
+			<div class="task high">
+             <ul class="dashboard-list vicarlist">
+				<li >
+				<img class="priestimage" src="../img/gallery/priest.png"/>
+                    </li>
+                 <li >
+                     <br />
+                     <br />
+                     <br />
+				<span style="font-size:32px;font-weight:500;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color:#647587"> No record Found</span> <br/>
+				  
+				</li>
+                </ul>
+                
+				</div>
+              <div id="assVicardiv">
+                    <div class="priority low"><span>Asst. Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" style="left:75%!important;" title="">NEW <i class="glyph-icon icon-plus"></i></a></div>
                     <div class="task low">
-
-                           <ul class="dashboard-list">
-						<li class="vicarlist">
-								<a href="#">
-									<img class="priestimage" src="../img/gallery/kozhipadan.jpg" alt="St.Thomas Church"/>
-								</a>
-								<%--<div class="priesteditdiv">
-                                    	<a href="#"><i class="fa fa-pencil priestEdit" aria-hidden="true"></i></a>
-								</div>--%>
-													
-												   
-								<strong>Name:</strong> Fr.Jacob Thunkuzhi<br/>
-								<strong>Ordination:</strong> Jul 25, 2012<br/>
-								<strong>Status:</strong> Vicar
-                                   <div class="priesteditdiv">
-                                    	<a href="#" class="priestEdit">View Details</a>
-								</div>                       						
-							</li>
-                            </ul>
+                    <ul class="dashboard-list vicarlist">
+				<li >
+				<img class="priestimage" src="../img/gallery/kozhipadan.jpg"/>
+                    </li>
+                 <li >
+				<span style="font-size:32px;font-weight:500;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color:#9e5d5d"> Fr.Varghees Kozhipadan</span> <br/>
+				<strong>Baptismal Name:</strong> Varghese <br/>
+                     <strong>House Name</strong> Kozhippadan <br/>
+				<strong>Status:</strong> Priest<br/>
+                     <strong>Date of Birth:</strong>  30-08-1982<br />
+                     <strong>Date of Ordination:</strong> 21-11-2009<br />
+                     <a href="#" style="color:saddlebrown;font-weight:700;">View more details</a>  <%-- left:75%;position:relative;--%>
+				</li>
+                </ul>
 					
 					</div>
-
-                       <div class="task low">
-
-                      <ul class="dashboard-list">
-						<li class="vicarlist">
-								<a href="#"><img class="priestimage" src="../img/gallery/assist%20vicar.jpg" alt="St.Thomas Church"/></a>
-								
-													
-												   
-								<strong>Name:</strong> Fr.Mathew Konkanianikal<br/>
-								<strong>Ordination:</strong> Jul 25, 2012<br/>
-								<strong>Status:</strong>Guest Vicar
-                                    <div class="priesteditdiv">
-                                    	<a href="#" class="priestEdit">View Details</a>
-								</div>                   						
-							</li>
-                            </ul>
+                  </div>
+                      <%-- <div class="task low">
+                           
+                      <ul class="dashboard-list vicarlist">
+				<li >
+				<img class="priestimage" src="../img/gallery/priest.png"/>
+                    </li>
+                 <li >
+				<span style="font-size:32px;font-weight:500;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color:#9e5d5d"> No record Found</span> <br/>
+				<strong>Baptismal Name:</strong> No record Found <br/>
+                     <strong>House Name</strong> No record Found <br/>
+				<strong>Status:</strong> No record Found<br/>
+                     <strong>Date of Birth:</strong> No record Found<br />
+                     <strong>Date of Ordination:</strong> No record Found   
+				</li>
+                </ul>
 					
-					</div>
+					</div>--%>
 					
 				
 					<div class="clearfix"></div>		
@@ -231,13 +174,126 @@
 				</div>
 				
 				</div>	
+                <div id="PriestEd" style="display:none;" class="span6 noMarginLeft">
+					<div class="dark">
+					<h1>Add Details</h1>
+					<div class="box-content">
+					<div class="form-horizontal">
+				    <fieldset>
+                    <a style="right:30px;position: fixed;"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>
+
+							<div class="control-group">
+							  <img class="priestimage" id="priestPreview" src="../img/gallery/priest.png"/>
+                               
+                                <input type="file" value="Choose Image" id="priestimg" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="showpreview(this);" />
+							</div>          
+                         <div class="control-group">
+								<label class="control-label" for="focusedInput">Name</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Name" id="txtPriestName" type="text"/>
+                                </div>
+								</div>
+                         <div class="control-group">
+								<label class="control-label" for="focusedInput">Baptismal Name</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Name" id="txtPriestBaptismName" type="text"/>
+                                </div>
+								</div>
+                        <div class="control-group">
+								<label class="control-label" for="focusedInput">Parish</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Name" id="txtParish" type="text"/>
+                                </div>
+								</div>
+                        <div class="control-group">
+								<label class="control-label" for="focusedInput">Diocese</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Name" id="txtDiocese" type="text"/>
+                                </div>
+								</div>
+                         <div class="control-group">
+							  <label class="control-label" for="date01">DOB</label>
+							  <div class="controls">
+								<input type="text" class="input-xlarge datepicker" id="priestDOB"/>
+							  </div>
+							</div>
+
+                         <div class="control-group">
+								<label class="control-label" for="focusedInput">About</label>
+								<div class="controls">
+								<textarea class="input-xlarge" id="txtAboutPriest" name="AboutPriest" rows="6" placeholder=""></textarea>
+								</div>
+								</div>
+
+                          <div class="control-group">
+							  <label class="control-label" for="date01">Ordination Date</label>
+							  <div class="controls">
+								<input type="text" class="input-xlarge datepicker" id="OrdinationDate"/>
+							  </div>
+							</div>
+
+                       
+						  <div class="control-group">
+								<label class="control-label" for="focusedInput">Designation</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Designation" id="txtDesignation" type="text" value=""/>
+								</div>
+								</div>
+
+                         <div class="control-group">
+								<label class="control-label" for="focusedInput">Address</label>
+								<div class="controls">
+								<textarea class="input-xlarge" id="txtAddress" name="Address" rows="6" placeholder=""></textarea></div>
+								</div>
+
+                         <div class="control-group">
+								<label class="control-label" for="focusedInput">Email</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Email" id="txtEmail" type="text" value=""/>
+								</div>
+								</div>
+
+                         <div class="control-group">
+								<label class="control-label" for="focusedInput">Mobile</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Email" id="txtMobile" type="text" value=""/>
+								</div>
+								</div>
+                        
+						
+							<div class="form-actions">
+							  <button type="submit" class="btn btn-primary">Save changes</button>
+							  <a href="Priests.aspx" type="reset" class="btn btn-primary">Cancel</a>
+							</div>
+						  </fieldset>
+					</div>   
+					</div>
+				
+				</div>
+				
+				</div>	
 						
 			</div>
                   
 					
 				
 			
-			
+		<script>
+		    function OpenNewAdd()
+		    {
+		        $('#PriestEd').show();
+		        $('#assVicardiv').hide();
+		    }
+		    function showpreview(input) {
+		        if (input.files && input.files[0]) {
+		            var reader = new FileReader();
+		            reader.onload = function (e) {
+		                $('#priestPreview').attr('src', e.target.result);
+		            }
+		            reader.readAsDataURL(input.files[0]);
+		        }
+		    }
+		</script>	
 
 
 
