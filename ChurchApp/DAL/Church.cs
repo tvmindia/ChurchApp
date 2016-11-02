@@ -535,12 +535,14 @@ namespace ChurchApp.DAL
                 var str2 = str1["elements"];
                 var str3 = str2[0];
                 var final = str3["distance"];
+                
                 string dist = final["text"].ToString();
+                string value = final["value"].ToString();
 
                 reader.Close();
                 dataStream.Close();
                 response.Close();
-                return dist;
+                return dist + '|' + value;
             }
             catch (Exception ex)
             {
