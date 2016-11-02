@@ -48,6 +48,9 @@ $("document").ready(function (e) {
 
         var AppImgURL = '';
         var NoticeID = $("#hdfNoticeID").val();
+
+        //-----------------------INSERT-------------------//
+
         if (NoticeID == null || NoticeID == "")
         {
         var guid = createGuid();
@@ -93,9 +96,9 @@ $("document").ready(function (e) {
         Notices.description = $("#txtDescription").val();
         Notices.noticeType = $("#ddlNoticeType").val();
         // Notices.isDelete = 0;
-        if (imageId != null && imageId != "") {
-            Notices.imageId = imageId;
-        }
+        //if (imageId != null && imageId != "") {
+        //    Notices.imageId = imageId;
+        //}
 
         Notices.noticeId = guid;
         Notices.imageId = guid;
@@ -121,18 +124,54 @@ $("document").ready(function (e) {
 
         debugger;
 
-        //if (DeletedImgID != '') {
-        //    var AppImages = new Object();
-        //    AppImages.appImageId = DeletedImgID;
-        //    DeleteAppImage(AppImages);
+        
 
-        //    if (DeletedImgPath != '') {
-        //        DeleteFileFromFolder(DeletedImgPath);
-        //    }
+        }
+//-----------------------UPDATE-------------------//
+        else
+        {
+            var Notices = new Object();
+            Notices.noticeName = $("#txtNoticeName").val();
+            Notices.description = $("#txtDescription").val();
+            Notices.noticeType = $("#ddlNoticeType").val();
+            Notices.noticeId = $("#hdfNoticeID").val();;
+            Notices.imageId = $("#hdfNoticeID").val();;
 
-        //}
+            DeletedImgID = imageId;
+            DeletedImgPath = imgPath
 
-    }
+            var guid = createGuid();
+            if (((imagefile = $('#UpNotice')[0].files[0]) != undefined)) {
+                var formData = new FormData();
+                var tempFile;
+                if ((tempFile = $('#UpNotice')[0].files[0]) != undefined) {
+                    tempFile.name = guid;
+                    formData.append('NoticeAppImage', tempFile, tempFile.name);
+                    formData.append('GUID', guid);
+                }
+                formData.append('ActionTyp', 'NoticeAppImageInsert');
+                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                Notices.imageId = guid;
+            }
+
+            UpdateNotice(Notices);
+
+            if (DeletedImgID != '') {
+                var AppImages = new Object();
+                AppImages.appImageId = DeletedImgID;
+                DeleteAppImage(AppImages);
+
+                if (DeletedImgPath != '') {
+                    DeleteFileFromFolder(DeletedImgPath);
+                }
+
+            }
+
+
+        }
+
+
+
     });
 
     $('#btnCancel').click(function (e) {
@@ -182,6 +221,17 @@ $("document").ready(function (e) {
     //})
 
 });
+
+//Insert Notice
+function UpdateNotice(Notices) {
+    var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/UpdateNotice");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
+
 
 function createGuid() {
     function s4() {
@@ -308,10 +358,9 @@ function FillNotice(Records)
         
         //src=../ImageHandler/UploadHandler.ashx?url=' + url + '
 
-        url = "../img/" + url;
-        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img' + Records.ID + '  src="../img/AppImages/6d782211-3b57-dfe2-d439-d56f4b62e906" /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
-
-        
+         url = "../img/" + url;
+        //src = "../img/AppImages/6d782211-3b57-dfe2-d439-d56f4b62e906"
+        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img' + Records.ID + '   /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
 
         $("#DivNoticeType1").append(html);
 
@@ -319,10 +368,32 @@ function FillNotice(Records)
             document.getElementById("img" + Records.ID).src = url;
         }
 
-        
-        
     });
     }
+
+function GetServerMapPath(path)
+{
+    $.ajax({
+        url: "../AdminPanel/Notices.aspx/GetServerMapPath",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        data: path,
+        // dataType: "json",
+        success: function (result) {
+
+            debugger; 
+
+            alert(result);
+            return result;
+        },
+        error: function (err) {
+            // alert(err.statusText);
+        }
+    });
+
+}
+
 
 function GetNotices(Notices) {
     var ds = {};
