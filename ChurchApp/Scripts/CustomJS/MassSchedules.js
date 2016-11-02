@@ -187,7 +187,6 @@
 
 //----------Insert MassTiming--------------//
 function ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
-    debugger;
     document.getElementById("massTimingUpdateTable").innerHTML = "";
     var ChurchMassID = "";
     var MassDay = "";
@@ -248,7 +247,6 @@ function BindTime(Time) {
     return timeArray;
 }
 function BindMassEditGrid(e) {
-    debugger;
     $('#rowfluidDiv').hide();
     $("#ddlDay").val("").trigger("change");
     $("#TxtTime").val("");
@@ -264,7 +262,6 @@ function BindMassEditGrid(e) {
     BindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
 }
 function BindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
-    debugger;
     document.getElementById("massTimingUpdateTable").innerHTML = "";
     var ChurchMassID = "";
     var MassDay = "";
@@ -302,7 +299,6 @@ function hrsTo24hrormat() {
     return sHours + ":" + sMinutes;
 }
 function DeleteMassTime(MassTimings) {
-    debugger;
     var data = "{'MassTimingsObj':" + JSON.stringify(MassTimings) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/MassSchedules.aspx/DeleteMassTiming");
     var table = {};
@@ -310,7 +306,6 @@ function DeleteMassTime(MassTimings) {
     return table;
 }
 function BindMassScheduleTextBoxes(jsonResult) {
-    debugger;
     var day = jsonResult[0]["Day"];
     var churchId = jsonResult[0]["ChurchID"];
     var massId = jsonResult[0]["ID"];
@@ -338,7 +333,6 @@ function BindMassScheduleTextBoxes(jsonResult) {
     $("#TxtTime").val(time);
 }
 function InsertMassTiming(MassTimings) {
-    debugger;
     var data = "{'MassTimingsObj':" + JSON.stringify(MassTimings) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/MassSchedules.aspx/InsertMassTiming");
     var table = {};
@@ -346,7 +340,6 @@ function InsertMassTiming(MassTimings) {
     return table;
 }
 function UpdateMassTiming(MassTimings) {
-    debugger;
     var data = "{'MassTimingsObj':" + JSON.stringify(MassTimings) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/MassSchedules.aspx/UpdateMassTiming");
     var table = {};
@@ -354,9 +347,8 @@ function UpdateMassTiming(MassTimings) {
     return table;
 }
 function BindMassTimingTable(Records) {
-
+    debugger;
     $("tbody#massTimingTableBody tr").remove();
-
     $.each(Records, function (index, Records) {
 
         if (Records.Time.includes(",") == true) {
@@ -412,6 +404,13 @@ function BindMassTimingTable(Records) {
 
         $("#massTimingTable").append(html);
     })
+    if(Records.length==0)
+    {
+        var img = document.createElement('img');
+        img.src = "../img/gallery/3.JPG";
+        img.id = "NoData";
+        $("#massTimingTable").append(img);
+    }
 }
 function timeTo12HrFormat(time) {   // Take a time in 24 hour format and format it in 12 hour format
     var time_part_array = time.split(":");
@@ -437,13 +436,13 @@ function BindAsyncAdminsTable() {
     var MassTimings = new Object();
     MassTimings.massChurchId = churchId;
     jsonResult = GetAllMassTimings(MassTimings);
+    debugger;
     if (jsonResult != undefined) {
         BindMassTimingTable(jsonResult);
     }
 
 }
 function selectMassTimeByMassID(MassTimings) {
-    debugger;
     var ds = {};
     var table = {};
     var data = "{'MassTimingsObj':" + JSON.stringify(MassTimings) + "}";
@@ -462,7 +461,6 @@ function GetAllMassTimings(MassTimings) {
 }
 
 function selectMassTimeByDay(MassTimings) {
-    debugger;
     var ds = {};
     var table = {};
     var data = "{'MassTimingsObj':" + JSON.stringify(MassTimings) + "}";

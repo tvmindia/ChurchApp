@@ -126,6 +126,7 @@
     <Content Include="img\gallery\kozhipadan.jpg" />
     <Content Include="img\gallery\priest.png" />
     <Content Include="img\No-Img_Chosen.png" />
+    <Content Include="img\nodata.jpg" />
     <Content Include="img\St_Thomas_Church,_Irinjalakuda.jpg" />
     <Content Include="img\top_arr.png" />
     <Content Include="Login.aspx" />
