@@ -19,18 +19,18 @@ namespace ChurchApp.DAL
 {
     public class Church
     {
-        Administrators administrators = new Administrators();
-        AppImages appImages = new AppImages();
-        GalleryAlbum galleryAlbum = new GalleryAlbum();
-        Members members = new Members();
-        Events events = new Events();
-        FamilyUnits familyUnits = new FamilyUnits();
-        Institutions institutions = new Institutions();
-        Notices notices = new Notices();
-        Notifications notifications = new Notifications();
-        Novenas novenas = new Novenas();
-        PiousOrg piousOrg = new PiousOrg();
-        Priest priest = new Priest();
+        public Administrators administrators = new Administrators();
+        public AppImages appImages = new AppImages();
+        public GalleryAlbum galleryAlbum = new GalleryAlbum();
+        public Members members = new Members();
+        public Events events = new Events();
+        public FamilyUnits familyUnits = new FamilyUnits();
+        public Institutions institutions = new Institutions();
+        public Notices notices = new Notices();
+        public Notifications notifications = new Notifications();
+        public Novenas novenas = new Novenas();
+        public PiousOrg piousOrg = new PiousOrg();
+        public Priest priest = new Priest();
 
         #region Public Properties
 
@@ -835,7 +835,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
                 massTime = massTime.Replace(" ", "");
-                cmd.Parameters.Add("@Time", SqlDbType.Time, 7).Value = TimeSpan.Parse(massTime); 
+                cmd.Parameters.Add("@Time", SqlDbType.Time, 7).Value = TimeSpan.Parse(massTime);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -880,7 +880,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
                 massTime = massTime.Replace(" ", "");
-                cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value =TimeSpan.Parse(massTime);
+                cmd.Parameters.Add("@Time", SqlDbType.Time, 7).Value = TimeSpan.Parse(massTime);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
@@ -962,6 +962,47 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[selectMassTimeByMassID]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massTimingID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion selectMassDetailsByMassID
+
+        #region selectMassDetailsByDay
+        /// <summary>
+        /// Select Mass Details By Day to bind grid
+        /// </summary>
+        /// <returns>Mass Details</returns>
+        public DataSet SelectMassTimingByDay()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            DataSet ds = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectMassTimingByChurchIdAndDay]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
+                cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
