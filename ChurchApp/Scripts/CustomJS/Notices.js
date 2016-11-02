@@ -23,6 +23,9 @@ $("document").ready(function (e) {
     $(".aViewDetails").click(function () {
         //do something
         debugger;
+
+        
+        $("#NoticeEdit").show();
         var NoticeID = $(this).attr('id');
 
         //var NoticeID = $(this).siblings('#hdfNoticeID').attr('id');
@@ -40,6 +43,43 @@ $("document").ready(function (e) {
 
       //  alert(NoticeID);
 
+    });
+
+    
+    $("#NoticeEdit").click(function ()
+    {
+        debugger;
+        alert(1);
+
+        var Notices = new Object();
+        Notices.noticeId = $("#hdfNoticeID").val();;
+
+        jsonResult = GetNoticesBynoticeID(Notices);
+
+        if (jsonResult != undefined) {
+            $.each(jsonResult, function (index, jsonResult) {
+                debugger;
+
+                $("#lblNoticeName").hide();
+
+                $("#lblNoticeDescription").hide();
+
+                //$("#lblNoticeType").hide();
+
+                $("#txtNoticeName").show();
+                $("#txtDescription").show();
+
+                $("#txtNoticeName").val(jsonResult.NoticeName);
+
+                $("#txtDescription").text(jsonResult.Description);
+
+                $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
+
+                
+            });
+            $("#btnSave").show();
+            $("#h1Notice").text("Edit Notice");
+        }
     });
 
     $('#btnSave').click(function (e) {
@@ -176,7 +216,7 @@ $("document").ready(function (e) {
 
     $('#btnCancel').click(function (e) {
         ClearControls();
-
+        $("#PriestEditDivBox").hide();
     });
 
     $('#btnDelete').click(function (e)
@@ -203,12 +243,9 @@ $("document").ready(function (e) {
 
     });
 
-    $('#btnAdd').click(function (e) {
+    //$('#btnAdd').click(function (e) {
      
-        $("#PriestEditDivBox").show();
-
-
-    });
+    //});
 
    // BindControlsOnEdit();
 
@@ -221,6 +258,22 @@ $("document").ready(function (e) {
     //})
 
 });
+
+function AddNewNotice()
+{
+    ClearControls();
+    $("#PriestEditDivBox").show();
+
+    $("#txtNoticeName").show();
+    $("#txtDescription").show();
+    $("#btnSave").show();
+    $("#h1Notice").text("Add Notice");
+
+    $("#lblNoticeDescription").hide();
+    $("#lblNoticeName").hide();
+    $("#NoticeEdit").hide();
+}
+
 
 //Insert Notice
 function UpdateNotice(Notices) {
@@ -360,12 +413,19 @@ function FillNotice(Records)
 
          url = "../img/" + url;
         //src = "../img/AppImages/6d782211-3b57-dfe2-d439-d56f4b62e906"
-        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img' + Records.ID + '   /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
+        //var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img' + Records.ID + '   /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
+
+         var html = '<div class="task high"><ul class="dashboard-list"><li class="Eventlist"><a href="#"><img class="Eventimage" id=img' + Records.ID + '/></a><strong>Title:</strong>' + Records.NoticeName + '<br/><strong>Type:</strong>' + Records.NoticeType + '<br/><strong>Description:</strong>' + Records.Description + '<div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
 
         $("#DivNoticeType1").append(html);
 
         if (url != "") {
-            document.getElementById("img" + Records.ID).src = url;
+            var c = document.getElementById("img" + Records.ID);
+            if (document.getElementById("img" + Records.ID) != null)
+            {
+                document.getElementById("img" + Records.ID).src = url;
+            }
+          
         }
 
     });
@@ -436,23 +496,35 @@ function BindControlsOnEdit(Notices)
     {
         $.each(jsonResult, function (index, jsonResult)
         {
-            //$("#lblNoticeName").show();
-            //$("#txtNoticeName").hide();
-            //$("#txtNoticeName").text(jsonResult.NoticeName);
-            $("#txtNoticeName").val(jsonResult.NoticeName);
-            
-            //$("#lblNoticeDescription").show();
-            //$("#txtDescription").hide();
-            $("#txtDescription").text(jsonResult.Description);
+            $("#lblNoticeName").show();
+            $('#lblNoticeName').text(jsonResult.NoticeName);
+            $("#txtNoticeName").hide();
+
+            $("#lblNoticeDescription").show(); 
+            $("#txtDescription").hide();
+            $('#lblNoticeDescription').text(jsonResult.Description);
 
             $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
+           // $("#lblNoticeType").show();
+           
+           // $('#lblNoticeType').text(jsonResult.NoticeType);
+
+
+            //$("#txtNoticeName").text(jsonResult.NoticeName);
+            
+            //$("#txtNoticeName").val(jsonResult.NoticeName);
+
+            //$("#txtDescription").text(jsonResult.Description);
+
+            //$("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
 
             imageId = jsonResult.ImageID;
             imgPath = jsonResult.URL;
              
         });
 
-         $("#h1Notice").text("Edit Notice");
+        $("#h1Notice").text("Details");
+        $("#btnSave").hide();
     }
 }
 
