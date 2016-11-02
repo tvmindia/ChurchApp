@@ -78,7 +78,7 @@ $("document").ready(function (e) {
                     var tempFile;
                     if ((tempFile = $('#UpNotice')[0].files[0]) != undefined) {
                         tempFile.name = guid;
-                        formData.append('tempfile', tempFile, tempFile.name);
+                        formData.append('NoticeAppImage', tempFile, tempFile.name);
                         formData.append('GUID', guid);
                     }
                     formData.append('ActionTyp', 'NoticeAppImageInsert');
@@ -190,8 +190,6 @@ function createGuid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-
-
 function DeleteNotice(Notices)
 {
     var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
@@ -284,7 +282,7 @@ function BindNotices() {
     var Notices = new Object();
     jsonResult = GetNotices(Notices);
     if (jsonResult != undefined) {
-       //FillNotice(jsonResult);
+       FillNotice(jsonResult);
     }
 }
 
@@ -295,27 +293,30 @@ function FillNotice(Records)
     $.each(Records, function (index, Records) {
         debugger;
         //hdfNoticeID
-
         var url = Records.URL;
-        var fileName = "";
+        //var fileName = "";
 
-        if (url != null && url != "") {
+        //if (url != null && url != "") {
 
-        var index = url.lastIndexOf('\\');
-         fileName = url.substr(index + 1);
-        }
+        //var index = url.lastIndexOf('\\');
+        // fileName = url.substr(index + 1);
+        //}
         //var last = url.Split().Last();
 
        
-     //   url = url.replace(/\+/g, ' ');
-        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img'+Records.ID+'  src=../ImageHandler/UploadHandler.ashx?url=' + url + ' /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
+        //   url = url.replace(/\+/g, ' ');
+        
+        //src=../ImageHandler/UploadHandler.ashx?url=' + url + '
+
+        url = "../img/" + url;
+        var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img' + Records.ID + '  src="../img/AppImages/6d782211-3b57-dfe2-d439-d56f4b62e906" /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
 
         
 
         $("#DivNoticeType1").append(html);
 
-        if (fileName != "") {
-            document.getElementById("img" + Records.ID).src = "../img/gallery/" + fileName;
+        if (url != "") {
+            document.getElementById("img" + Records.ID).src = url;
         }
 
         

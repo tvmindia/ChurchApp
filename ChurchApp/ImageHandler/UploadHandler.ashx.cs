@@ -26,8 +26,8 @@ namespace ChurchApp.ImageHandler
             try
             {
 
-                string TemplatePath = "";
-               
+                string AppImagePath = "";
+                string fileExtension = "";
                 if (context.Request.Files.Count > 0)
                 {
 
@@ -37,24 +37,26 @@ namespace ChurchApp.ImageHandler
                         switch (s)
                         {
 
-                            case "tempfile":
-                                    string fn = System.IO.Path.GetFileName(file.FileName);
+                            case "NoticeAppImage":
+                                   // string fn = System.IO.Path.GetFileName(file.FileName);
                                     string guid = context.Request.Form.GetValues("GUID")[0];
                                     string SaveLocation = HttpContext.Current.Server.MapPath("~/img/AppImages/");
                                     try
                                     {
-                                        HttpPostedFile postedFile = context.Request.Files["tempfile"];
+                                        HttpPostedFile postedFile = context.Request.Files["NoticeAppImage"];
                                         //if (Directory.Exists(SaveLocation))
                                         //{
-                                            postedFile.SaveAs(SaveLocation + @"\" + guid);
-                                            string fileName = postedFile.FileName;
+                                            fileExtension = Path.GetExtension(file.FileName);
+                                            string fileName = guid + fileExtension;
+                                            postedFile.SaveAs(SaveLocation + @"\" +fileName);
+                                            //string fileName = postedFile.FileName;
 
                                             //  context.Response.Write(matchesImgSrc.Count);
-                                            TemplatePath = "~/AppImages/" + guid;
-                                            TemplatePath=TemplatePath.Replace("~/", "");
+                                            AppImagePath = "~/AppImages/" + fileName;
+                                            AppImagePath=AppImagePath.Replace("~/", "");
 
                                         //}
-                                        context.Response.Write(TemplatePath);
+                                        context.Response.Write(AppImagePath);
 
                                     }
                                     catch (Exception ex)
@@ -72,11 +74,11 @@ namespace ChurchApp.ImageHandler
                     {
                         case "NoticeAppImageInsert":
                               AppImgObj.appImageId = context.Request.Form.GetValues("GUID")[0];
-                              AppImgObj.url = TemplatePath;
+                              AppImgObj.url = AppImagePath;
                               AppImgObj.createdBy = "Shamila";
 
                               result = AppImgObj.InsertAppImage().ToString();
-                              context.Response.Write(TemplatePath);
+                              context.Response.Write(AppImagePath);
 
                               //context.Response.Write(",");
                               //context.Response.Write(TemplatePath);
