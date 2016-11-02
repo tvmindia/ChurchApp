@@ -46,14 +46,14 @@ $("document").ready(function (e) {
        
         debugger;
 
-
+        var AppImgURL = '';
         var NoticeID = $("#hdfNoticeID").val();
         if (NoticeID == null || NoticeID == "")
         {
         var guid = createGuid();
 
-        DeletedImgID = imageId;
-        DeletedImgPath = imgPath
+        //DeletedImgID = imageId;
+        //DeletedImgPath = imgPath
 
         if (guid != null) {
 
@@ -81,8 +81,8 @@ $("document").ready(function (e) {
                         formData.append('tempfile', tempFile, tempFile.name);
                         formData.append('GUID', guid);
                     }
-                    formData.append('ActionTyp', 'NewsLetterTemplate');
-                    result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                    formData.append('ActionTyp', 'NoticeAppImageInsert');
+                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
 
             }
 
@@ -99,6 +99,12 @@ $("document").ready(function (e) {
 
         Notices.noticeId = guid;
         Notices.imageId = guid;
+
+
+        //var AppImages = new Object();
+        //AppImages.url = AppImgURL;
+        //AppImages.appImageId = guid;
+        //InsertAppImage(AppImages);
 
         //if (NoticeID != null && NoticeID != "")
         //{
@@ -236,13 +242,10 @@ function DeleteAppImage(AppImages)
 
 }
 
-function InsertAppImage(result)
+function InsertAppImage(AppImages)
 {
     debugger;
    
-    var AppImages = new Object();
-    AppImages.url = result;
-
     var data = "{'AppImgObj':" + JSON.stringify(AppImages) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/InsertAppImage");
     var table = {};
