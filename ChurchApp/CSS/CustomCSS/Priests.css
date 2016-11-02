@@ -8,15 +8,32 @@
 ul.dashboard-list li{
     padding:21px!important;
 }
+input[type=text]{
+    width:80%;
+}
+textarea{
+    width:80%!important;
+}
 
-ul.dashboard-list li .priestimage {
-    height: 158px;
+.priestimage{
+height: 133px;
     width: 133px;
     padding: 5px;
-    float: left;
+    /*float: left;
     margin-top: -6px;
     margin-right: 125px;
-    border: 1px solid #eee;
+    border: 1px solid #eee;*/
+    border-radius:50%;
+    
+}
+ul.dashboard-list li .priestimage {
+    height: 133px;
+    width: 133px;
+    padding: 5px;
+    /*float: left;
+    margin-top: -6px;
+    margin-right: 125px;
+    border: 1px solid #eee;*/
     border-radius:50%;
 }
 
@@ -32,12 +49,18 @@ ul.dashboard-list li .priestimage {
 .vicarlist{
     line-height:50px;
     -webkit-box-shadow:#4745b44d 3px 0px 25px -3px;
+    display:flex;
     
 }
-.priority.low{
-    padding:18px!important;
-}
-vicardetails{
+/*.priority.low{
+    padding-top:10px!important;
+}*/
+/*vicardetails{
     background-color:aqua;
-}
+}*/
+.btn-round{
+    border-radius:10%!important;
+    position: relative;
+    left: 80%;
 
+}

@@ -225,6 +225,74 @@ namespace ChurchApp.AdminPanel
 
         #endregion Insert App Image
 
+        #region Delete App Image
+
+        [System.Web.Services.WebMethod]
+        public static string DeleteAppImage(ChurchApp.DAL.AppImages AppImgObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            string status = null;
+            try
+            {
+                status = AppImgObj.DeleteAppImage();
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(AppImgObj);
+
+        }
+
+
+        #endregion Delete App Image
+
+        #region Delete From Server Folder
+
+        public static void DeleteFileFromFolder(string imgPath)
+        {
+            FileInfo file = new FileInfo(imgPath);
+            if (file.Exists)
+            {
+                file.Delete();
+            }
+        }
+
+        #endregion 
+
+        #region Delete Notice 
+
+        [System.Web.Services.WebMethod]
+        public static string DeleteNotice(ChurchApp.DAL.Notices NoticeObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            NoticeObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
+            //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
+            string status = null;
+            try
+            {
+                if (NoticeObj.noticeId != string.Empty || NoticeObj.noticeId != null)
+                {
+                   status = NoticeObj.DeleteNotice().ToString();
+                }
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NoticeObj);
+
+        }
+
+
+        #endregion Delete Notice
 
         #endregion Methods
 

@@ -565,5 +565,49 @@ namespace ChurchApp.WebServices
 
         #endregion My Church
 
+        #region Nearbychurch
+
+
+
+        [WebMethod]
+        public string GetNearByChurches(string latitude,string longtitude)
+        {
+            DataTable dt = new DataTable();
+            String ChurchLat,ChurchLong,Source,Destination,distance;
+
+            try
+            {
+                ChurchApp.DAL.Church ChurchObj = new DAL.Church();
+                ChurchObj.longitude = longtitude;
+                ChurchObj.latitude = latitude;
+                dt = ChurchObj.GetNearByChurchDetails();
+                DataColumn km = dt.Columns.Add("Distance", typeof(String));
+
+                for (int i=0;i<dt.Rows.Count;i++)
+                { 
+                     ChurchLat=dt.Rows[i][2].ToString();
+                     ChurchLong= dt.Rows[i][3].ToString();
+                     Destination = ChurchLat + ',' + ChurchLong;
+                     Source = longtitude + ',' + latitude;
+
+                     distance = ChurchObj.DistanceMatrixRequest(Source, Destination);
+                     dt.Rows[i][5] = distance;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+
+        #endregion Nearbychurch
+
     }
 }

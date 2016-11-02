@@ -7,6 +7,14 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 
+using System.Net;
+using System.Text;
+using System.IO;
+using System.Security.Cryptography;
+using System.Configuration;
+
+using System.Web.Script.Serialization;
+
 namespace ChurchApp.DAL
 {
     public class Church
@@ -439,7 +447,109 @@ namespace ChurchApp.DAL
 
         #endregion Get My Church Details
 
+        #region Get Near By  Church Details
+
+        public DataTable GetNearByChurchDetails()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetNearByChurches]";
+                cmd.Parameters.Add("@Latitude", SqlDbType.Float).Value = latitude;
+                cmd.Parameters.Add("@Longtitude", SqlDbType.Float).Value = longitude;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return dt;
+        }
+
+        #endregion Get My Church Details
+
+
+
+
         #endregion Church Methods
+
+        #region Mapdistance
+        public string DistanceMatrixRequest(string source, string Destination)
+        {
+            try
+            {
+                int alongroaddis = Convert.ToInt32(ConfigurationManager.AppSettings["alongroad"].ToString());
+                string keyString = ConfigurationManager.AppSettings["keyString"].ToString(); // passing API key
+                string clientID = ConfigurationManager.AppSettings["clientID"].ToString(); // passing client id
+
+                string urlRequest = "";
+                string travelMode = "Walking"; //Driving, Walking, Bicycling, Transit.
+                urlRequest = @"http://maps.googleapis.com/maps/api/distancematrix/json?origins=" + source + "&destinations=" + Destination + "&mode='" + travelMode + "'&sensor=false";
+                           
+
+                WebRequest request = WebRequest.Create(urlRequest);
+                request.Method = "POST";
+                string postData = "This is a test that posts this string to a Web server.";
+                byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = byteArray.Length;
+
+                Stream dataStream = request.GetRequestStream();
+                dataStream.Write(byteArray, 0, byteArray.Length);
+                dataStream.Close();
+
+                WebResponse response = request.GetResponse();
+                dataStream = response.GetResponseStream();
+
+                StreamReader reader = new StreamReader(dataStream);
+                string resp = reader.ReadToEnd();
+
+                JavaScriptSerializer js = new JavaScriptSerializer();
+
+
+                var result = js.Deserialize<dynamic>(resp);
+                var str = result["rows"];
+                var str1 = str[0];
+                var str2 = str1["elements"];
+                var str3 = str2[0];
+                var final = str3["distance"];
+                string dist = final["text"].ToString();
+
+                reader.Close();
+                dataStream.Close();
+                response.Close();
+                return dist;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }       
+
+        #endregion Mapdistance
     }
 
     public class ChurchDetails : Church
@@ -724,6 +834,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertMassTiming]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
+                massTime = massTime.Replace(" ", "");
                 cmd.Parameters.Add("@Time", SqlDbType.Time, 7).Value = TimeSpan.Parse(massTime); 
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
@@ -768,7 +879,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massTimingID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
                 cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
-                cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value = massTime;
+                massTime = massTime.Replace(" ", "");
+                cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value =TimeSpan.Parse(massTime);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);

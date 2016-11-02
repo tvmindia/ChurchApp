@@ -22,14 +22,27 @@
 				<li>Notices</li>
 			</ul>
          
+         
+
          <div class="row-fluid">
+
+             <div class="span12">
+
              <div class="span6">
+                 <div class="span1"><a class="btn btn-primary" id="btnAdd"  ><span></span>Add Notice</a></div>
+
+             </div>
+               </div>
+
+             <div class="span6">
+                    
                  <h1>Notices</h1>
-					
-					<div class="priority high"><span>Notices : Type1</span></div>
+              
+                 
+				<div class="priority high"><span>Latest Notices</span></div>
 
                  <div  id="DivNoticeType1">
-					<div class="task high" id="IndividualNotice">
+					<%--<div class="task high" id="IndividualNotice">
 
                         <div class="span12" id="divulContainer">
 
@@ -39,8 +52,7 @@
                                     <div class="span3">
                                         <a href="#">
 									<img class="imgNotice" src="D:/ChurchAPP/ChurchAppWeb/ChurchApp/img/gallery/c1.png" alt="St.Thomas Church"/>
-								<%--"D:\ChurchAPP\ChurchAppWeb\ChurchApp\img\gallery\swipe-to-right.png"--%>
-                                        
+								    
                                         </a>
 
                                     </div>
@@ -62,12 +74,17 @@
 
                         </div>
 
-					</div>
+					</div>--%>
                 </div>
+
+                
              </div>
+             
+              
+             
 
-             <div  id="PriestEditDivBox" class="span6 noMarginLeft">
-
+             <div  id="PriestEditDivBox" class="span6 noMarginLeft" style="display:none">
+               
                  <div class="dark">
 					<h1 id="h1Notice">Add Notice</h1>
 
@@ -102,6 +119,10 @@
                                   <textarea tabindex="3" class="input-xlarge span10" id="txtDescription" name="Description" rows="4" placeholder=""></textarea>
 								</div>
 								</div>
+
+                        
+
+
 							<div class="control-group">
 							  <label class="control-label" for="fileInput">File input</label>
 							  <div class="controls">
@@ -110,18 +131,28 @@
                                   
                                   <%--<asp:FileUpload ID="UpNotice" runat="server" />--%>
 
-                                   <a class="btn btn-primary" id="btnUpload"><span></span>Upload Files</a>
+                                   <a class="btn btn-primary" id="btnUpload"><span></span>Upload File</a>
                                   <%--<input type="button" id="btnUpload" value="Upload Files"/>--%>
 							  </div>
 							</div>      
 					
+
+                    <%--    <div class="control-group">
+                                                        <label class="control-label" for="image" style="visibility: hidden">Image</label>
+                                                        <div class="controls">
+                                                            <img id="ImgProduct" style="height: 100px; max-width: 100%; border: none" src="../img/No-Img_Chosen.png" />
+
+                                                        </div>
+                                                    </div>
+--%>
+
                     
 							<div class="form-actions">
                                <a class="btn btn-primary" id="btnSave"  ><span></span>Save</a>
 							  <%--<button type="submit" id="btnSave" class="btn btn-primary">Save</button>--%>
 							    <button type="reset" class="btn btn-primary" id="btnCancel">Cancel</button>
                            <%--<asp:Button ID="btnUpload" class="btn btn-primary" runat="server" Text="Upload"  />--%>
-                                
+                                 <a class="btn btn-primary" id="btnDelete"  ><span></span>Delete</a>
 							</div>
 						  </fieldset>
 					</div>   
