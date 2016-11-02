@@ -449,7 +449,7 @@ namespace ChurchApp.DAL
 
         #region Get Near By  Church Details
 
-        public DataTable GetNearByChurchDetails()
+        public DataTable GetNearByChurchDetails(int maxdistance)
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -465,6 +465,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[GetNearByChurches]";
                 cmd.Parameters.Add("@Latitude", SqlDbType.Float).Value = latitude;
                 cmd.Parameters.Add("@Longtitude", SqlDbType.Float).Value = longitude;
+                cmd.Parameters.Add("@maxdistance", SqlDbType.Int).Value = maxdistance;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 dt = new DataTable();

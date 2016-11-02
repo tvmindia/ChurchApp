@@ -580,7 +580,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.Church ChurchObj = new DAL.Church();
                 ChurchObj.longitude = longtitude;
                 ChurchObj.latitude = latitude;
-                dt = ChurchObj.GetNearByChurchDetails();
+                dt = ChurchObj.GetNearByChurchDetails(maxdistance);
                 DataColumn km = dt.Columns.Add("Distance", typeof(String));
                 DataColumn kmvval = dt.Columns.Add("Value", typeof(int));
 
