@@ -153,7 +153,14 @@
             churchId = massChurchID;
             MassTimings.massChurchId = massChurchID;
             MassTimings.massTimingID = MassID;
-            result = DeleteMassTime(MassTimings);
+            var deleteConirm = confirm("Want to delete?");
+            if (deleteConirm) {
+                result = DeleteMassTime(MassTimings);
+            }
+            else
+            {
+                return false;
+            }
             if (result == "1") {
                 BindAsyncAdminsTable();
                 var jsonResult = {};
@@ -221,7 +228,7 @@ function ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
     {
         document.getElementById("massTimingsUpdate").style.display = "none";
     }
-    
+    $("#TxtTime").val("");
 }
 function BindTime(Time) {
     var timeArray = [];
