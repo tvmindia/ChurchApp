@@ -76,6 +76,7 @@ namespace ChurchApp.ImageHandler
                                         SaveLocation = SaveLocation.Replace("~", "");
                                         postedFile.SaveAs(SaveLocation + @"\" + fileName);
                                         AppImagePath = "~/img/AppImages/" + fileName;
+                                        AppImagePath = AppImagePath.Replace("~", "");
                                         //Insert to table
                                         AppImages AppImgObj = new AppImages();
                                         AppImgObj.appImageId = context.Request.Form.GetValues("GUID")[0];
@@ -83,7 +84,7 @@ namespace ChurchApp.ImageHandler
                                         AppImgObj.createdBy = "Shamila";
                                         AppImgObj.InsertAppImage().ToString();
 
-                                        AppImagePath = AppImagePath.Replace("~", "");
+                                        
                                         context.Response.Write(AppImagePath);
 
                                     }
