@@ -179,6 +179,7 @@ namespace ChurchApp.AdminPanel
                 //{
                     NoticeObj.createdBy = "Shamila";
                     status = NoticeObj.InsertNotice().ToString();
+                    NoticeObj.status = status;
                  //}
 
                 //else
@@ -214,7 +215,7 @@ namespace ChurchApp.AdminPanel
             {
                 NoticeObj.updatedBy = "Shamila";
                 status = NoticeObj.UpdateNotice().ToString();
-                
+                NoticeObj.status = status;
             }
             catch (Exception)
             {
@@ -252,6 +253,7 @@ namespace ChurchApp.AdminPanel
             {
                 AppImgObj.createdBy = "Shamila";
                 status = AppImgObj.InsertAppImage();
+                
             }
             catch (Exception)
             {
@@ -318,6 +320,7 @@ namespace ChurchApp.AdminPanel
                 if (NoticeObj.noticeId != string.Empty || NoticeObj.noticeId != null)
                 {
                    status = NoticeObj.DeleteNotice().ToString();
+                   NoticeObj.status = status;
                 }
 
             }

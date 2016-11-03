@@ -159,12 +159,25 @@ $("document").ready(function (e) {
         //    Notices.noticeId = guid;
         //}
 
-        InsertNotice(Notices);
+        result = InsertNotice(Notices);
+
+        if (result.status == "1") {
+             $('#rowfluidDiv').show();
+            $('.alert-success').show();
+            $('.alert-success strong').text("Notice Added Successfully");
+           
+        }
+        if (result.status != "1") {
+            $('#rowfluidDiv').show();
+            $('.alert-error').show();
+            $('.alert-error strong').text("Saving Not Successful");
+        }
+
         BindNotices();
-        ClearControls();
+       // ClearControls();
 
         debugger;
-
+        SetControlsInNewNoticeFormat();
         
 
         }
@@ -197,21 +210,32 @@ $("document").ready(function (e) {
 
             UpdateNotice(Notices);
 
-            if (DeletedImgID != '') {
-                var AppImages = new Object();
-                AppImages.appImageId = DeletedImgID;
-                DeleteAppImage(AppImages);
+            if (result.status == "1")
+            {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Notice Edited Successfully");
 
-                if (DeletedImgPath != '') {
-                    DeleteFileFromFolder(DeletedImgPath);
+                if (DeletedImgID != '') {
+                    var AppImages = new Object();
+                    AppImages.appImageId = DeletedImgID;
+                    DeleteAppImage(AppImages);
+
+                    if (DeletedImgPath != '') {
+                        DeleteFileFromFolder(DeletedImgPath);
+                    }
                 }
 
             }
+            if (result.status != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text("Saving Not Successful");
+            }
 
+            SetControlsInNewNoticeFormat();
 
         }
-
-
 
     });
 
@@ -231,15 +255,24 @@ $("document").ready(function (e) {
 
       var DeletionStatus =  DeleteNotice(Notices);
 
-      //if (DeletionStatus.status == "1")
-      //{
+      if (DeletionStatus.status == "1")
+      {
+          $('#rowfluidDiv').show();
+          $('.alert-error').show();
+          $('.alert-error strong').text("Notice Deleted Successfully");
+
           var AppImages = new Object();
           AppImages.appImageId = imageId;
           DeleteAppImage(AppImages);
 
           DeleteFileFromFolder(imgPath);
-
-      //}
+      }
+      else
+      {
+          $('#rowfluidDiv').show();
+          $('.alert-error').show();
+          $('.alert-error strong').text("Deletion Not Successful");
+      }
 
 
     });
@@ -260,7 +293,8 @@ $("document").ready(function (e) {
 
 });
 
-function AddNewNotice()
+
+function SetControlsInNewNoticeFormat()
 {
     ClearControls();
     $("#PriestEditDivBox").show();
@@ -274,6 +308,11 @@ function AddNewNotice()
     $("#lblNoticeName").hide();
     $("#NoticeEdit").hide();
     $("#DivFile").show();
+}
+
+function AddNewNotice()
+{
+    SetControlsInNewNoticeFormat();
 }
 
 
