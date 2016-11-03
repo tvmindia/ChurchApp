@@ -5,6 +5,20 @@ div.img-fixed {
     border: 1px solid #ccc;
     
 }
+.DefaultCreateAlbum
+{
+position: absolute;
+border: 2px dotted black;
+width: 250px;
+height: 200px;
+top: 20px;
+}
+#newalbum
+{
+    position: relative;
+top: 112px;
+left: 74px;
+}
 div.img:hover {
     border: 1px solid #777;
     opacity:0.2;

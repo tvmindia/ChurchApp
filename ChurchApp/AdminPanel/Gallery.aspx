@@ -30,85 +30,16 @@
 						</div>
 					</div>
 					<div class="box-content">
-			     <div class="ImageAlbum-Gallery">
-                                <div class="responsive-fixed">
-                  <div class="img-fixed">
-                  <a href="#" id="newalbum">
-   
-                  <img src="../img/defaultalbumadd.jpg" class="addnewAlbum" alt="Trolltunga Norway"/>
-                  </a>
-   
-                   <div id="choose" ><span>Add New Album</span></div> 
-              </div>
-              </div>
-                               <div class="responsive">
-  <div class="img">
-    <a target="_blank" href="img_fjords.jpg">
-      <img src="../img/gallery/4.jpg" alt="Trolltunga Norway"/>
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-                               <div class="responsive">
-  <div class="img">
-    <a target="_blank" href="img_forest.jpg">
-      <img src="../img/gallery/3.jpg" alt="Forest" />
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-                               <div class="responsive">
-  <div class="img">
-    <a target="_blank" href="img_lights.jpg">
-      <img src="../img/gallery/2.jpg" alt="Northern Lights"/>
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-                               <div class="responsive">
-  <div class="img">
-    <a target="_blank" href="img_mountains.jpg">
-      <img src="../img/gallery/1.jpg" alt="Mountains" />
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-								
-
-                               <div class="responsive">
-  <div class="img">
-    <a target="_blank" href="img_fjords.jpg">
-      <img src="../img/gallery/4.jpg" alt="Trolltunga Norway" />
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-                               <div class="responsive">
-  <div class="img">
-    <a target="_blank" href="img_forest.jpg">
-      <img src="../img/gallery/3.jpg" alt="Forest" />
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-                               <div class="responsive">
-  <div class="img">
-    <a target="_blank" href="img_lights.jpg">
-      <img src="../img/gallery/2.jpg" alt="Northern Lights"/>
-    </a>
-    <div class="desc">Add a description of the image here</div>
-  </div>
-</div>
-                               <div class="responsive">
-                               <div class="img">
-                               <a target="_blank" href="img_mountains.jpg">
-                               <img src="../img/gallery/1.jpg" alt="Mountains"/>
-                                </a>
-                               <div class="desc">Add a description of the image h</div>
-                              </div>
-                              </div>
-                	  </div>
-					</div>
+			       <div class="ImageAlbum-Gallery">
+                    <div class="responsive-fixed">      
+                  <div class="DefaultCreateAlbum">
+                  <a href="#" id="newalbum">Create Album</a>
+                  </div>
+             
+                  </div>      
+                             
+                    </div>
+					
 				</div><!--/span-->
               </div>
               <div class="row-fluid">

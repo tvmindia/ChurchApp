@@ -9,9 +9,11 @@
        
         $('#NewAlbumModel').modal('show');
     });
-   
+    debugger;
+    BindGalleryImageAlbum();
+
     $('#btnSaveImageAlbum').click(function (e) {
-        debugger;
+      
         try
         {
             var imagefile;
@@ -19,7 +21,6 @@
             if ((imagefile = $('#AlbumUploader')[0].files.length > 0)) {
                 for (i = 0; i < $('#AlbumUploader')[0].files.length ; i++) {
                     formData.append('AlbumImage' + i, $('#AlbumUploader')[0].files[i], $('#AlbumUploader')[0].files[i].name);
-
                 }
                 formData.append('Album', 'GalleryImageAlbum');
                 formData.append('AlbumName', $("#txtAlbumName").val());
@@ -98,4 +99,55 @@ function handleFileSelect(evt) {
     catch (e) {
     
     }
+}
+
+
+
+function BindGalleryImageAlbum()
+{
+    try
+    {
+        var jsonResult = {};
+        var GalleryAlbum = new Object();
+        jsonResult = GetAllGalleryImageAlbumByChurchID(GalleryAlbum);
+        if (jsonResult != undefined) {
+            AppendImageAlbum(jsonResult);
+        }
+    }
+    catch(e)
+    {
+       
+    }
+}
+
+function AppendImageAlbum(Records)
+{
+        $('.dynamicImgAlbum').remove();
+        $.each(Records, function (index, Records) {
+            if (Records.URL == null)
+            {
+                var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" class="responsive dynamicImgAlbum"><div class="img"><a href="#"><img src="/img/defaultalbumadd.jpg" alt="Church"/></a><div class="desc">"'+Records.AlbumName+'"</div></div></div>';
+            }
+            else {
+                var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" class="responsive dynamicImgAlbum"><div class="img"><a href="#"><img src="' + Records.URL + '" alt="Church"/></a><div class="desc">"' + Records.AlbumName + '"</div></div></div>';
+            }
+       
+        $('.ImageAlbum-Gallery').append(html);
+        })
+ }
+
+function GetAllGalleryImageAlbumByChurchID(GalleryAlbum)
+{
+    var ds = {};
+    var table = {};
+    try {
+        
+        var data = "{'GalleryAlbumObj':" + JSON.stringify(GalleryAlbum) + "}";
+        ds = getJsonData(data, "../AdminPanel/Gallery.aspx/GetAllGalleryImageAlbumByChurchID");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+      
+    }
+    return table;
 }

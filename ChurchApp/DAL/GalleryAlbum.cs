@@ -101,6 +101,49 @@ namespace ChurchApp.DAL
         }
         #endregion SelectGalleryAlbums
 
+        #region GetAllGalleryImageAlbumByChurchID
+        /// <summary>
+        /// Get All Gallery Image Album by church ID
+        /// </summary>
+        /// <returns>Gallery Album</returns>
+        public DataSet GetAllGalleryImageAlbumByChurchID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            DataSet ds = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllGalleryImageAlbumByChurchID]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllGalleryImageAlbumByChurchID
+
+
+
+
         #region InsertGalleryAlbum
         /// <summary>
         /// Insert new gallery album
@@ -234,6 +277,7 @@ namespace ChurchApp.DAL
         #endregion GalleryAlbum Methods
     }
     public class GalleryItems : GalleryAlbum
+
     {
 
         public GalleryItems()
