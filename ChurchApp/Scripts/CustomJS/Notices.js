@@ -30,35 +30,24 @@ $("document").ready(function (e) {
         data: BindNoticeTypeDropDown()
     });
 
-    $(".aViewDetails").click(function () {
-        //do something
-        debugger;
+    //$(".aViewDetails").click(function () {
 
-        
-        $("#NoticeEdit").show();
-        var NoticeID = $(this).attr('id');
-
-        //var NoticeID = $(this).siblings('#hdfNoticeID').attr('id');
-        //NoticeID = $(this).parents().find('input[type=hidden]').attr('id');
-
-
-        //NoticeID = $(this).find('input:hidden').attr('id');
-
-        $("#hdfNoticeID").val(NoticeID);
-
-        var Notices = new Object();
-        Notices.noticeId = NoticeID;
-
-        BindControlsOnEdit(Notices);
-
-      //  alert(NoticeID);
-
-    });
+    //});
 
     $("#NoticeEdit").click(function ()
     {
         debugger;
-        alert(1);
+       
+
+        $("#lblStartDate").hide();
+        $("#dateStartDate").show();
+        $("#lblExpiryDate").hide();
+        $("#dateExpiryDate").show();
+
+        document.getElementById("rdoNotificationNo").disabled = false;
+        document.getElementById("rdoNotificationYes").disabled = false;
+
+        $('#ddlNoticeType').removeAttr('disabled');
 
         var Notices = new Object();
         Notices.noticeId = $("#hdfNoticeID").val();;
@@ -81,6 +70,7 @@ $("document").ready(function (e) {
                 $("#txtNoticeName").val(jsonResult.NoticeName);
 
                 $("#txtDescription").text(jsonResult.Description);
+                $("#txtDescription").val(jsonResult.Description);
 
                 $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
 
@@ -136,7 +126,7 @@ $("document").ready(function (e) {
                     }
                     formData.append('ActionTyp', 'NoticeAppImageInsert');
                     AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    Notices.imageId = guid;
+                    
             }
 
         }
@@ -151,7 +141,7 @@ $("document").ready(function (e) {
         //}
 
         Notices.noticeId = guid;
-       
+        Notices.imageId = guid;
 
 
         //var AppImages = new Object();
@@ -209,7 +199,7 @@ $("document").ready(function (e) {
             Notices.description = $("#txtDescription").val();
             Notices.noticeType = $("#ddlNoticeType").val();
             Notices.noticeId = $("#hdfNoticeID").val();;
-            Notices.imageId = $("#hdfNoticeID").val();;
+            Notices.imageId = imageId;
 
             DeletedImgID = imageId;
             DeletedImgPath = imgPath
@@ -253,7 +243,8 @@ $("document").ready(function (e) {
                 $('.alert-error strong').text("Saving Not Successful");
             }
 
-            SetControlsInNewNoticeFormat();
+            BindNotices();
+           SetControlsInNewNoticeFormat();
 
         }
 
@@ -291,8 +282,8 @@ $("document").ready(function (e) {
       if (DeletionStatus.status == "1")
       {
           $('#rowfluidDiv').show();
-          $('.alert-error').show();
-          $('.alert-error strong').text("Notice Deleted Successfully");
+          $('.alert-success').show();
+          $('.alert-success strong').text("Notice Deleted Successfully");
 
           var AppImages = new Object();
           AppImages.appImageId = imageId;
@@ -306,6 +297,9 @@ $("document").ready(function (e) {
           $('.alert-error').show();
           $('.alert-error strong').text("Deletion Not Successful");
       }
+
+      BindNotices();
+      SetControlsInNewNoticeFormat();
 
         }
         else
@@ -345,10 +339,24 @@ function SetControlsInNewNoticeFormat()
     $("#lblNoticeName").hide();
     $("#NoticeEdit").hide();
     $("#DivFile").show();
+
+    $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
+
+    $("#btnDelete").hide();
+
+    document.getElementById("rdoNotificationNo").disabled = false;
+    document.getElementById("rdoNotificationYes").disabled = false;
+
+    $('#ddlNoticeType').removeAttr('disabled');
 }
 
 function AddNewNotice()
 {
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+
     SetControlsInNewNoticeFormat();
     $("#divNotificationDates").hide();
 
@@ -366,8 +374,6 @@ function UpdateNotice(Notices) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
-
-
 
 function createGuid() {
     function s4() {
@@ -393,7 +399,7 @@ function DeleteFileFromFolder(imgPath) {
         data: '{imgPath: "' + imgPath + '"}',
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: alert(1),
+        success: imgPath,
         failure: function (response) {
 
             // alert(response.d);
@@ -411,8 +417,6 @@ function GetInsertedImgID(result)
 
     imageId = json.appImageId;
     $("#hdfImageID").val(imageId);
-
-    alert(imageId);
 
 }
 
@@ -472,45 +476,52 @@ function BindNotices() {
     }
 }
 
+function EditOnClick(id)
+{
+    debugger;
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+    $("#btnDelete").show();
+    $("#NoticeEdit").show();
+   // var NoticeID = $(this).attr('id');
+    var NoticeID = id
+    $("#hdfNoticeID").val(NoticeID);
+
+    var Notices = new Object();
+    Notices.noticeId = NoticeID;
+
+    BindControlsOnEdit(Notices);
+
+    $('#ddlNoticeType').attr('disabled', 'disabled');
+
+}
+
+
 function FillNotice(Records)
 {
     $('#DivNoticeType1').html('');
 
     $.each(Records, function (index, Records) {
         debugger;
-        //hdfNoticeID
+      
         var url = Records.URL;
-        //var fileName = "";
-
-        //if (url != null && url != "") {
-
-        //var index = url.lastIndexOf('\\');
-        // fileName = url.substr(index + 1);
-        //}
-        //var last = url.Split().Last();
-
-       
-        //   url = url.replace(/\+/g, ' ');
         
-        //src=../ImageHandler/UploadHandler.ashx?url=' + url + '
-
-         url = "../img/" + url;
-        //src = "../img/AppImages/6d782211-3b57-dfe2-d439-d56f4b62e906"
         //var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img' + Records.ID + '   /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
 
-         var html = '<div class="task high"><ul class="dashboard-list"><li class="Eventlist"><a href="#"><img class="Eventimage" id=img' + Records.ID + '/></a><strong>Title:</strong>' + Records.NoticeName + '<br/><strong>Type:</strong>' + Records.NoticeType + '<br/><strong>Description:</strong>' + Records.Description + '<div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
+         var html = '<div class="task high"><ul class="dashboard-list"><li class="Eventlist"><a href="#"><img class="Eventimage" id=img' + Records.ID + ' src=' + url + '/></a><strong>Title:</strong>' + Records.NoticeName + '<br/><strong>Type:</strong>' + Records.NoticeType + '<br/><strong>Description:</strong>' + Records.Description + '<div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div> </li></ul><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
 
         $("#DivNoticeType1").append(html);
 
         if (url != "") {
-            var c = document.getElementById("img" + Records.ID);
-            if (document.getElementById("img" + Records.ID) != null)
+            var imgControl = document.getElementById("img" + Records.ID);
+            if (imgControl != null)
             {
                 document.getElementById("img" + Records.ID).src = url;
+                $('#img' + Records.ID).attr('src', url);
             }
-          
         }
-
     });
 
     if (Records.length == 0) {
@@ -535,9 +546,7 @@ function GetServerMapPath(path)
         success: function (result) {
 
             debugger; 
-
-            alert(result);
-            return result;
+return result;
         },
         error: function (err) {
             // alert(err.statusText);
@@ -576,6 +585,17 @@ function GetNoticesBynoticeID(Notices) {
     return table;
 }
 
+function showpreview(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#NoticePreview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
 function BindControlsOnEdit(Notices)
 {
 
@@ -597,6 +617,27 @@ function BindControlsOnEdit(Notices)
             $('#lblNoticeDescription').text(jsonResult.Description);
 
             $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
+
+            if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined)
+            {
+                $("#rdoNotificationNo").parent().removeClass('checked');
+                $('#rdoNotificationYes').parent().addClass('checked');
+                $("#lblStartDate").show();
+                $("#dateStartDate").hide();
+                $("#lblStartDate").text(jsonResult.StartDate)
+                $("#lblExpiryDate").show();
+                $("#dateExpiryDate").hide();
+                $("#lblExpiryDate").text(jsonResult.ExpiryDate)
+            }
+            debugger;
+            url = jsonResult.URL;
+            $('#imgNotices').attr('src', url);
+
+            //$('#imgNotices').attr('src', "../img/No-Img_Chosen.png")
+
+            document.getElementById("rdoNotificationNo").disabled = true;
+            document.getElementById("rdoNotificationYes").disabled = true;
+
            // $("#lblNoticeType").show();
            
            // $('#lblNoticeType').text(jsonResult.NoticeType);
@@ -643,7 +684,9 @@ function InsertNotification(Notification) {
 function ClearControls()
 {
     $("#txtNoticeName").text("");
+    $("#txtNoticeName").val("");
     $("#txtDescription").text("");
+    $("#txtDescription").val("");
     $("#ddlNoticeType").select2("val", "");
 
     $("#hdfImageID").val("");
@@ -651,6 +694,9 @@ function ClearControls()
     imageId = '';
     imgPath = '';
     $("#h1Notice").text("Add Notice");
+
+    $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
+  
 }
 
 
