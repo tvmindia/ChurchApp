@@ -194,13 +194,13 @@ namespace ChurchApp.DAL
                     Diocese = dr["Diocese"].ToString();
                     Status = dr["Status"].ToString();
                     churchID = dr["ChurchID"].ToString();
-                    dob=dr["DOB"].ToString();
+                    dob = (DateTime.Parse(dr["DOB"].ToString().ToString()).ToString("dd-MM-yyyy"));
                     address=dr["Address"].ToString();
                     mobile = dr["Mobile"].ToString();
                     emailId = dr["Email"].ToString();
                     imagePath = dr["URL"].ToString();
                     about = dr["About"].ToString();
-                    dateOrdination = dr["DateOrdination"].ToString();
+                    dateOrdination = (DateTime.Parse(dr["DateOrdination"].ToString()).ToString("dd-MM-yyyy"));
                     designation = dr["Designation"].ToString();
                 }
 
@@ -316,7 +316,7 @@ namespace ChurchApp.DAL
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();

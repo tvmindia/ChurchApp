@@ -73,23 +73,23 @@
 
             result = InsertPriest(Priest);
 
-            if (result.status == "1") {
+            if (result.result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
-                $('.alert-success strong').text("Notice Added Successfully");
+                $('.alert-success strong').text("Priest Added Successfully");
 
             }
-            if (result.status != "1") {
+            if (result.result != "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
                 $('.alert-error strong').text("Saving Not Successful");
             }
 
-            BindNotices();
+            //BindNotices();
             // ClearControls();
 
             debugger;
-            SetControlsInNewNoticeFormat();
+            //SetControlsInNewNoticeFormat();
 
 
         }
@@ -130,10 +130,10 @@
 
             result = UpdatePriest(Priest);
 
-            if (result.status == "1") {
+            if (result.result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
-                $('.alert-success strong').text("Notice Edited Successfully");
+                $('.alert-success strong').text("Priest Edited Successfully");
 
                 //if (DeletedImgID != '') {
                 //    var AppImages = new Object();
@@ -146,13 +146,13 @@
                 //}
 
             }
-            if (result.status != "1") {
+            if (result.result != "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
                 $('.alert-error strong').text("Saving Not Successful");
             }
 
-            SetControlsInNewNoticeFormat();
+            //SetControlsInNewNoticeFormat();
 
         }
 
@@ -374,11 +374,11 @@
         var ID = "'" + priestDetails.ID + "'";
         var html = ('<div class="priority high"><span>Vicar</span></div>'
           + '<div class="task high">'
-          + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/kozhipadan.jpg"/></li>'
+          + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + priestDetails.URL + '"/></li>'
           + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
           + '<strong>Baptismal Name:</strong> ' + priestDetails.BaptismalName + ' <br/><strong>House Name:</strong> ' + priestDetails.Address + ' <br/><strong>Status:</strong> ' + priestDetails.Status+ '<br/>'
           + '<strong>Date of Birth:</strong>  ' + ConvertJsonToDate(priestDetails.DOB) + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
-          + '<a href="#" style="color:saddlebrown;font-weight:700;" onclick="OpenPriestDetails('+ID+');">View more details</a>'
+          + '<a style="color:saddlebrown;font-weight:700;" onclick="OpenPriestDetails('+ID+');">View more details</a>'
           + '</li></ul></div>');
         return html;
        
@@ -386,13 +386,11 @@
     function HtmlBindWithAsst(priestDetails, i) {
         debugger;
         var ID ="'"+priestDetails.ID+"'";
-        var html = ('<div class="priority low"><span>Asst Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" style="left:72%!important;" title="" onclick=OpenNewAdd("Asst")>Add NEW <i class="glyph-icon icon-plus"></i></a></div>'
-          + '<div class="task low">'
-          + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/kozhipadan.jpg"/></li>'
+        var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + priestDetails.URL + '"/></li>'
           + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
           + '<strong>Baptismal Name:</strong> ' + priestDetails.BaptismalName + ' <br/><strong>House Name:</strong> ' + priestDetails.Address + ' <br/><strong>Status:</strong> ' + priestDetails.Status + '<br/>'
           + '<strong>Date of Birth:</strong>  ' + ConvertJsonToDate(priestDetails.DOB) + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
-          + '<a href="#" style="color:saddlebrown;font-weight:700;" onclick="OpenPriestDetails('+ID+');">View more details</a>'
+          + '<a style="color:saddlebrown;font-weight:700;" onclick="OpenPriestDetails('+ID+');">View more details</a>'
           + '</li></ul></div>');
         return html;
 
@@ -410,9 +408,7 @@
     }
     function HtmlBindAsstVicar() {
         debugger;
-        var html = ('<div class="priority low"><span>Asst Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" style="left:72%!important;" title="" onclick=OpenNewAdd("Asst")>Add NEW <i class="glyph-icon icon-plus"></i></a></div>'
-          + '<div class="task low">'
-          + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/priest.png"/></li>'
+        var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/priest.png"/></li>'
           + '<li ><br /><br /><br />'
           + '<span style="color:#647587!important" class="choosepic"> No record Found</span> <br/>'
           + '</li></ul></div>');
