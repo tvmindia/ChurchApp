@@ -361,7 +361,9 @@ namespace ChurchApp.AdminPanel
             finally
             {
             }
-            return jsSerializer.Serialize(NotificationObj);
+           // return jsSerializer.Serialize(NotificationObj);
+
+            return status;
         }
 
 

@@ -108,7 +108,7 @@
 
              <div  id="PriestEditDivBox" class="span5 noMarginLeft" style="display:none">
                
-                 <div class="dark" >
+                 <div class="dark">
 					<h1 id="h1Notice">Add Notice</h1>
 
 
@@ -164,23 +164,30 @@
                           <div class="control-group">
 							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
+                                  <label class="control-label" for="focusedInput" id="lblStartDate" style="display:none"></label>
 								<input type="text" class="input-xlarge datepicker" id="dateStartDate"/>
 							  </div>
 							</div>
 
                           <div class="control-group">
-							  <label class="control-label" for="date01">Expiry Date</label>
+							  <label class="control-label" for="date01">Expiry Date</label> 
 							  <div class="controls">
+                                   <label class="control-label" for="focusedInput" id="lblExpiryDate" style="display:none"></label>
 								<input type="text" class="input-xlarge datepicker" id="dateExpiryDate"/>
 							  </div>
 							</div>
                             </div>
 
 
-							<div class="control-group" id="DivFile">
+							<div class="control-group" >
 							  <label class="control-label" for="fileInput">Notice Image</label>
+
+                                
+
 							  <div class="controls">
-                                   <input type="file" id="UpNotice" />
+                                    <img class="imgNotices" id="NoticePreview" src="../img/No-Img_Chosen.png" />
+                                  <%--onchange="showpreview(this);"--%>
+                               <div id="DivFile">    <input type="file" id="UpNotice" value="Choose Image" onchange="showpreview(this);" /></div>
                                    </div>
 							</div> 
 
