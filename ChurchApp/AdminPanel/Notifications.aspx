@@ -2,6 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+    <link href="../CSS/CustomCSS/Notifications.css" rel="stylesheet" />
+     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Notifications.js"></script>
     <div id="content" class="span10">
         <ul class="breadcrumb">
@@ -20,120 +22,27 @@
                      
 				
 				<div class="span7">
-					<h1>Events</h1>
+					<h1>Notifications</h1>
 					
-					<div class="priority high"><span>Latest Events</span></div>
+					<div class="priority high"><span>Latest Notifications</span></div>
 					
-					<div class="task high">
-                        <ul class="dashboard-list">
-						<li class="Eventlist">
-								<a href="#">
-									<img class="Eventimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
-								</a>
-								<%--<div class="Eventeditdiv">
-                                    	<a href="#"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>
-								</div>--%>
-													
-												   
-								<strong>Name:</strong> Festival 2016<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Expiry Date:</strong> Jul 25, 2012
-                               <div class="Eventeditdiv">
-                                    	<a href="#">View Details</a>
-								</div> 
-                                                       						
-							</li>
-                            </ul>
+					<div id="NewNotificationGrid">
+
 					</div>
-
-                   		<div class="task high">
-                        <ul class="dashboard-list">
-						<li class="Eventlist">
-								<a href="#">
-									<img class="Eventimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
-								</a>
-								<%--<div class="Eventeditdiv">
-                                    	<a href="#"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>
-								</div>--%>
-													
-												   
-								<strong>Name:</strong> Festival 2016<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Expiry Date:</strong> Jul 25, 2012
-                            <div class="Eventeditdiv">
-                                    	<a href="#">View Details</a>
-								</div> 
-                                                       						
-							</li>
-                            </ul>
-					</div>
-
-                 
-                 
-                   
-
-
-				
+               
 					
-					
-					
-				
-					
-					<div class="priority low"><span>Old Events</span></div>
+					<div class="priority low"><span>Old Notifications</span></div>
 
-                    <div class="task low">
+                  <div id="OldNotificationGrid">
 
-                           <ul class="dashboard-list">
-						<li class="Eventlist">
-								<a href="#">
-									<img class="Eventimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
-								</a>
-								<%--<div class="Eventeditdiv">
-                                    	<a href="#"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>
-								</div>--%>
-													
-												   
-								<strong>Name:</strong> Festival 2016<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Expiry Date:</strong> Jul 25, 2012 
-                                <div class="Eventeditdiv">
-                                    	<a href="#">View Details</a>
-								</div>                       						
-							</li>
-                            </ul>
-					
-					</div>
-
-                       <div class="task low">
-
-                    <ul class="dashboard-list">
-						<li class="Eventlist">
-								<a href="#">
-									<img class="Eventimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
-								</a>
-								<%--<div class="Eventeditdiv">
-                                    	<a href="#"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>
-								</div>--%>
-													
-												   
-								<strong>Name:</strong> Festival 2016<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Expiry Date:</strong> Jul 25, 2012
-                            <div class="Eventeditdiv">
-                                    	<a href="#">View Details</a>
-								</div> 
-                                                       						
-							</li>
-                            </ul>
-					
-					</div>
+                  </div>
 					
 				
 					<div class="clearfix"></div>		
 					
 				</div>
 				
-				<div id="EventEditDivBox" class="span5 noMarginLeft">
+				<div id="NotificationEditDivBox" class="span5 noMarginLeft">
 					
 					<div class="dark">
 					
@@ -143,10 +52,10 @@
 				    <fieldset>
                       
 					
-                        <a style="right:30px;position: fixed;"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>
+                        <a style="right:30px;position: fixed;"><i class="fa fa-pencil NotificationEdit" aria-hidden="true"></i> Edit</a>
 							  
                          <div class="control-group" style="margin-top:20px">
-								<label class="control-label" for="focusedInput">Event Name</label>
+								<label class="control-label" for="focusedInput">Notification Name</label>
 								<div class="controls">
 								  <%--<input class="input-large focused" name="Name" id="txtEventName" type="text"/>--%>
                                     <label class="control-label" for="focusedInput">Fest of St. Francies of Assisi</label>

@@ -27,7 +27,7 @@ namespace ChurchApp.DAL
         public FamilyUnits familyUnits = new FamilyUnits();
         public Institutions institutions = new Institutions();
         public Notices notices = new Notices();
-        public Notifications notifications = new Notifications();
+        public Notification notifications = new Notification();
         public Novenas novenas = new Novenas();
         public PiousOrg piousOrg = new PiousOrg();
         public Priest priest = new Priest();
