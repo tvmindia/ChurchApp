@@ -139,16 +139,23 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertNotifications]";
                 cmd.Parameters.Add("@Type", SqlDbType.NVarChar,20).Value = notificationType;
-                cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
+                if (linkID!=null && linkID !=string.Empty)
+                {
+                    cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
+                }    
+                else
+                {
+                    cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Empty;
+                }
                 cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
                 if (startDate != null && startDate != string.Empty)
                 {
-                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate); 
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = DateTime.Parse(startDate); 
                 }
                 if (expiryDate != null && expiryDate != string.Empty)
                 {
-                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(expiryDate);
+                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value =DateTime.Parse(expiryDate);
                 }
                 
               //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
@@ -198,8 +205,14 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
                 cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
-                cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(expiryDate);
+                if(startDate!=null && startDate !=string.Empty)
+                {
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
+                }
+                if(expiryDate!=null && expiryDate!=string.Empty)
+                {
+                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(expiryDate);
+                }                
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;

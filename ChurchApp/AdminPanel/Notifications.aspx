@@ -19,7 +19,7 @@
 				<div class="span7">
 					<h1>Notifications</h1>
 					
-					<div class="priority high"><span>Latest Notifications</span></div>
+					<div class="priority high"><span>Latest Notifications</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="AddNotification();">NEW <i class="glyph-icon icon-plus"></i></a></div>
 					
 					<div id="NewNotificationGrid">
 
@@ -41,13 +41,13 @@
 					
 					<div class="dark">
 					
-					<h1>Details</h1>
+					<h1 id="detailsHeading"></h1>
 						<div class="box-content">
 					   <div class="form-horizontal">
 				    <fieldset>
                       
 					
-                        <a style="right:30px;position: fixed;"><i class="fa fa-pencil NotificationEdit" aria-hidden="true"></i> Edit</a>
+                        <a class="NotificationEdit" style="right:30px;position: fixed;"><i class="fa fa-pencil NotificationEdit" aria-hidden="true"></i> Edit</a>
 							  
                          <div class="control-group" style="margin-top:20px">
 								<label class="control-label" for="focusedInput">Caption</label>
@@ -63,7 +63,7 @@
 								<label class="control-label" for="focusedInput">Notification Type</label>
 								
                             <div class="controls">
-                                 <label class="control-label" for="focusedInput" id="lblType"></label>
+                                
                                 <select id="ddlType" name="NotificationType">
                                     <option></option>
                                 </select>
@@ -75,7 +75,8 @@
 								<label class="control-label" for="focusedInput">Description</label>
 								<div class="controls">
 								 <label class="control-label" for="focusedInput" id="lblDescription">Caption</label>
-								  <input class="input-large focused" name="Description" id="txtDescription" type="text" />
+                                     <textarea tabindex="3" class="input-xlarge span10" id="txtDescription" name="Description" rows="4" placeholder=""></textarea>
+								  <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
 								</div>
 								</div>
 
@@ -113,7 +114,7 @@
 
 
                         
-					     <div class="control-group">
+					     <div class="control-group" id="isDeleteDiv">
 								<label class="control-label">IsDelete</label>
 								<div class="controls">
 								  <label class="radio">
@@ -130,8 +131,9 @@
                         
 						
 							<div class="form-actions">
-							  <a class="btn btn-primary save">Save changes</a>
-							  <a class="btn btn-primary">Cancel</a>
+							  <a class="btn btn-primary Save">Save</a>
+                                <a class="btn btn-primary Delete">Delete</a>
+							  <a class="btn btn-primary Cancel">Cancel</a>
 							</div>
 						  </fieldset>
 					</div>   

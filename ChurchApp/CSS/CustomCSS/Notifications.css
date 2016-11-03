@@ -41,6 +41,19 @@ border-radius:8%;
     position:absolute;
     left: 550px;
 }
+.btn-round{
+    border-radius:10%!important;
+    position: relative;
+    left: 70%!important;
 
+}
+.NotificationEdit
+{
+    cursor:pointer;
+}
+ul.dashboard-list li {
+    padding: 0px 0 !important;
+    line-height: 45px !important;
+}
 
 
