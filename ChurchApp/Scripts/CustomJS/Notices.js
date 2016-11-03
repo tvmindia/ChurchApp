@@ -11,6 +11,16 @@ var DeletedImgPath      =  '';
 $("document").ready(function (e) {
     debugger;
    
+    $("#rdoNotificationYes").click(function () {
+
+        $("#divNotificationDates").show();
+    });
+
+    $("#rdoNotificationNo").click(function () {
+
+        $("#divNotificationDates").hide();
+    });
+
     BindNotices();
   //  BindNoticesOnEdit();
    
@@ -45,7 +55,6 @@ $("document").ready(function (e) {
 
     });
 
-    
     $("#NoticeEdit").click(function ()
     {
         debugger;
@@ -127,7 +136,7 @@ $("document").ready(function (e) {
                     }
                     formData.append('ActionTyp', 'NoticeAppImageInsert');
                     AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-
+                    Notices.imageId = guid;
             }
 
         }
@@ -142,7 +151,7 @@ $("document").ready(function (e) {
         //}
 
         Notices.noticeId = guid;
-        Notices.imageId = guid;
+       
 
 
         //var AppImages = new Object();
@@ -159,12 +168,36 @@ $("document").ready(function (e) {
         //    Notices.noticeId = guid;
         //}
 
-        InsertNotice(Notices);
+        result = InsertNotice(Notices);
+
+        if (result.status == "1") {
+             $('#rowfluidDiv').show();
+            $('.alert-success').show();
+            $('.alert-success strong').text("Notice Added Successfully");
+           
+            if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+            {
+                //var Notification = new Object();
+                //Notification.notificationType = NotificationTypeCode;
+                //Notification.linkID = guid;
+                //Notification.caption = $("#txtNoticeName").val();
+                //Notification.description = $("#txtDescription").val();
+
+                //InsertNotification(Notification);
+               
+            } 
+        }
+        if (result.status != "1") {
+            $('#rowfluidDiv').show();
+            $('.alert-error').show();
+            $('.alert-error strong').text("Saving Not Successful");
+        }
+
         BindNotices();
-        ClearControls();
+       // ClearControls();
 
         debugger;
-
+        SetControlsInNewNoticeFormat();
         
 
         }
@@ -195,34 +228,58 @@ $("document").ready(function (e) {
                 Notices.imageId = guid;
             }
 
-            UpdateNotice(Notices);
+            result = UpdateNotice(Notices);
 
-            if (DeletedImgID != '') {
-                var AppImages = new Object();
-                AppImages.appImageId = DeletedImgID;
-                DeleteAppImage(AppImages);
+            if (result.status == "1")
+            {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Notice Edited Successfully");
 
-                if (DeletedImgPath != '') {
-                    DeleteFileFromFolder(DeletedImgPath);
+                if (DeletedImgID != '') {
+                    var AppImages = new Object();
+                    AppImages.appImageId = DeletedImgID;
+                    DeleteAppImage(AppImages);
+
+                    if (DeletedImgPath != '') {
+                        DeleteFileFromFolder(DeletedImgPath);
+                    }
                 }
 
             }
+            if (result.status != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text("Saving Not Successful");
+            }
 
+            SetControlsInNewNoticeFormat();
 
         }
 
-
-
     });
 
-    $('#btnCancel').click(function (e) {
+    $('#btnCancel').click(function (e)
+    {
         ClearControls();
         $("#PriestEditDivBox").hide();
+
+        $('#rowfluidDiv').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+
     });
 
     $('#btnDelete').click(function (e)
     {
         debugger;
+
+        var deleteConirm = confirm("Want to delete?");
+        debugger;
+
+        if (deleteConirm) {
+           
+            debugger;
 
         var NoticeID = $("#hdfNoticeID").val();
 
@@ -231,17 +288,30 @@ $("document").ready(function (e) {
 
       var DeletionStatus =  DeleteNotice(Notices);
 
-      //if (DeletionStatus.status == "1")
-      //{
+      if (DeletionStatus.status == "1")
+      {
+          $('#rowfluidDiv').show();
+          $('.alert-error').show();
+          $('.alert-error strong').text("Notice Deleted Successfully");
+
           var AppImages = new Object();
           AppImages.appImageId = imageId;
           DeleteAppImage(AppImages);
 
           DeleteFileFromFolder(imgPath);
+      }
+      else
+      {
+          $('#rowfluidDiv').show();
+          $('.alert-error').show();
+          $('.alert-error strong').text("Deletion Not Successful");
+      }
 
-      //}
-
-
+        }
+        else
+        {
+            return false;
+        }
     });
 
     //$('#btnAdd').click(function (e) {
@@ -260,7 +330,8 @@ $("document").ready(function (e) {
 
 });
 
-function AddNewNotice()
+
+function SetControlsInNewNoticeFormat()
 {
     ClearControls();
     $("#PriestEditDivBox").show();
@@ -274,6 +345,16 @@ function AddNewNotice()
     $("#lblNoticeName").hide();
     $("#NoticeEdit").hide();
     $("#DivFile").show();
+}
+
+function AddNewNotice()
+{
+    SetControlsInNewNoticeFormat();
+    $("#divNotificationDates").hide();
+
+    $("#rdoNotificationYes").parent().removeClass('checked');
+    $('#rdoNotificationNo').parent().addClass('checked');
+
 }
 
 
@@ -431,6 +512,15 @@ function FillNotice(Records)
         }
 
     });
+
+    if (Records.length == 0) {
+        //$('.dataTables_empty').parent().parent().remove();
+        var img = document.createElement('img');
+        img.src = "../img/nodata.jpg";
+        img.id = "NoData";
+        $("#DivNoticeType1").append(img);
+    }
+
     }
 
 function GetServerMapPath(path)
@@ -539,6 +629,16 @@ function InsertNotice(Notices) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
+
+//Insert Notification
+function InsertNotification(Notification) {
+    var data = "{'NotificationObj':" + JSON.stringify(Notification) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/InsertNotice");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
 
 function ClearControls()
 {

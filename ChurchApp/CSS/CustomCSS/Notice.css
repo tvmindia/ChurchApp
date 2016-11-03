@@ -39,7 +39,7 @@ ul.dashboard-list li .imgNotice {
 .btn-round{
     border-radius:10%!important;
     position: relative;
-    left: 75%!important;
+    left: 70%!important;
 
 }
 /*//*/
@@ -75,4 +75,14 @@ border-radius:8%;
 
 .Eventlist{
     line-height:67px;
+}
+
+#divNotificationDates
+{
+    display:none;
+}
+
+.dark
+{
+    top:10px;
 }

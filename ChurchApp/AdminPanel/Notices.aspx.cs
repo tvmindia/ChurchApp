@@ -96,6 +96,8 @@ namespace ChurchApp.AdminPanel
             string jsonResult = null;
             DataSet ds = null;
             NoticeObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
+
+          //  NoticeObj.churchId = "5e8b02fe-5a1b-4817-b10e-9f54c0dd5d2b";
             ds = NoticeObj.SelectNotices();
 
             //Converting to Json
@@ -179,6 +181,7 @@ namespace ChurchApp.AdminPanel
                 //{
                     NoticeObj.createdBy = "Shamila";
                     status = NoticeObj.InsertNotice().ToString();
+                    NoticeObj.status = status;
                  //}
 
                 //else
@@ -200,7 +203,6 @@ namespace ChurchApp.AdminPanel
 
         #endregion Insert Notice
 
-
         #region  Update Notice
 
         [System.Web.Services.WebMethod]
@@ -214,7 +216,7 @@ namespace ChurchApp.AdminPanel
             {
                 NoticeObj.updatedBy = "Shamila";
                 status = NoticeObj.UpdateNotice().ToString();
-                
+                NoticeObj.status = status;
             }
             catch (Exception)
             {
@@ -252,6 +254,7 @@ namespace ChurchApp.AdminPanel
             {
                 AppImgObj.createdBy = "Shamila";
                 status = AppImgObj.InsertAppImage();
+                
             }
             catch (Exception)
             {
@@ -318,6 +321,7 @@ namespace ChurchApp.AdminPanel
                 if (NoticeObj.noticeId != string.Empty || NoticeObj.noticeId != null)
                 {
                    status = NoticeObj.DeleteNotice().ToString();
+                   NoticeObj.status = status;
                 }
 
             }
@@ -334,6 +338,34 @@ namespace ChurchApp.AdminPanel
 
 
         #endregion Delete Notice
+
+        #region Insert Notification
+
+        [System.Web.Services.WebMethod]
+        public static string InsertNotification(ChurchApp.DAL.Notification NotificationObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            NotificationObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
+            string status = null;
+            try
+            {
+                NotificationObj.createdBy = "Shamila";
+                status = NotificationObj.InsertNotification().ToString();
+               // NotificationObj.status = status;
+              
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NotificationObj);
+        }
+
+
+        #endregion  Insert Notification
 
         #endregion Methods
 
