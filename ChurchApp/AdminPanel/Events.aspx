@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <link href="../CSS/CustomCSS/Events.css" rel="stylesheet" />
+
     <script src="../Scripts/CustomJS/Events.js"></script>
 
      <div id="content" class="span10">

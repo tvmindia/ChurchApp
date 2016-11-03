@@ -1,3 +1,9 @@
 ﻿$("document").ready(function (e) {
-    alert();
+
+    $('.Eventeditdiv').click(function (e) {
+        e.preventDefault();
+        $('#EventEditDivBox').show();
+
+    });
+
 });
