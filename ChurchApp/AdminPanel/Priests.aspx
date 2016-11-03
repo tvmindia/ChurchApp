@@ -19,7 +19,7 @@
 			<h1>Current Vicars</h1>
             <div id="VicarDivDisplay">
             <div id="VicarDefault">
-            <div class="priority high"><span>Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="OpenNewAdd();">NEW <i class="glyph-icon icon-plus"></i></a></div>
+            <div class="priority high"><span>Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="OpenNewAdd('Vicar');">NEW <i class="glyph-icon icon-plus"></i></a></div>
 			<div class="task high">
              <ul class="dashboard-list vicarlist">
 				<li >
@@ -40,7 +40,7 @@
 			
             <div id="assVicardiv">
             <div id="AsstVicarDefault">
-            <div class="priority low"><span>Asst Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" style="left:75%!important;" title="" onclick="OpenNewAdd();">NEW <i class="glyph-icon icon-plus"></i></a></div>
+            <div class="priority low"><span>Asst Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" style="left:75%!important;" title="" onclick="OpenNewAdd('Asst');">NEW <i class="glyph-icon icon-plus"></i></a></div>
 			<div class="task low">
              <ul class="dashboard-list vicarlist">
 				<li >
@@ -102,7 +102,7 @@
 				<div class="box-content">
 				<div class="form-horizontal">
 				    <fieldset>
-                    <a style="right:30px;position: fixed;"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>
+                    <a class="btn-setting" style="right:30px;position: fixed;" href="#"><i class="fa fa-pencil eventEdit" aria-hidden="true" id="iconEditPriest" onclick="editPriestDetails(this);"></i></a>
                         <div class="control-group">
 							  <img class="priestimage" id="priestDetailPreview" src="../img/gallery/priest.png"/>
 							</div> 
@@ -195,11 +195,11 @@
               <!---------------------  Add New Priest and Edit details ----------------------------->
                 <div id="PriestEd" style="display:none;" class="span6 noMarginLeft">
 					<div class="dark">
-					<h1>Add Details</h1>
+					<h1 id="HeadDetails">Add Details</h1>
 					<div class="box-content">
 					<div class="form-horizontal">
 				    <fieldset>
-                    <a style="right:30px;position: fixed;"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>
+                    <%--<a style="right:30px;position: fixed;"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>--%>
 
 							<div class="control-group">
 							  <img class="priestimage" id="priestPreview" src="../img/gallery/priest.png"/>
@@ -254,8 +254,8 @@
 								<label class="control-label" for="focusedInput">Status</label>
 								<div class="controls">
                                     <select id="ddlstatus">
-                                        <option value="vicar">Vicar</option>
-                                        <option value="asst vicar">Asst Vicar</option>
+                                        <option value="Vicar">Vicar</option>
+                                        <option value="Asst Vicar">Asst Vicar</option>
                                     </select>
 								</div>
 								</div> 
@@ -289,7 +289,7 @@
                         
 						
 							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Save changes</button>
+							  <button type="submit" class="btn btn-primary" name="" id="btnSavePriest">Save changes</button>
 							  <a href="Priests.aspx" type="reset" class="btn btn-primary">Cancel</a>
 							</div>
 						  </fieldset>

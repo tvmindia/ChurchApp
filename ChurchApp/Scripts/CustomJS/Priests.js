@@ -80,6 +80,22 @@
         }
         
     }
+    function ClearFields()
+    {
+        $(':input').each(function () {
+
+            if (this.type == 'text' || this.type == 'textarea' || this.type=='file') {
+                this.value = '';
+            }
+            else if (this.type == 'radio' || this.type == 'checkbox') {
+                this.checked = false;
+            }
+            else if (this.type == 'select-one' || this.type == 'select-multiple') {
+                this.value = 'All';
+            }
+        });
+
+    }
     //Check if Priest Exist for church and obtain the details
     function GetPriestUsingChurchID(ChurchID) {
         debugger;
@@ -103,9 +119,22 @@
         table = JSON.parse(ds.d);
         return table;
     }
-    function OpenNewAdd() {
-        $('#PriestEd').show();
+    function OpenNewAdd(Tag) {
+        debugger;
+        ClearFields();
+        if (Tag == "Asst")
+        {
+            document.getElementById('HeadDetails').innerText = "Add New Asst Vicar";
+            $('#btnSavePriest').attr('name','Asst');
+        }
+        if (Tag == "Vicar")
+        {
+            document.getElementById('HeadDetails').innerText = "Add New Vicar";
+            $('#btnSavePriest').attr('name','Vicar');
+        }
         $('#PriestShowDetails').hide();
+        $('#PriestEd').show();
+        
     }
     function OpenPriestDetails(priestID) {
         debugger;
@@ -131,6 +160,31 @@
         document.getElementById('lblDesignation').innerText = PriestRow.designation;
         document.getElementById('lblStatus').innerText = PriestRow.Status;
         $('#priestDetailPreview').attr('src', PriestRow.imagePath);
+        $('#iconEditPriest').attr('name', PriestRow.priestID);
+        
+    }
+    function editPriestDetails(this_obj)
+    {
+        var priestid = $(this_obj).attr('name');
+        var PriestRow = {};
+        PriestRow = GetPriestDetailsUsingPiestID(priestid);
+        $('#txtPriestName').val(PriestRow.priestName);
+        $('#txtPriestBaptismName').val(PriestRow.BaptisumName);
+        $('#txtParish').val(PriestRow.Parish);
+        $('#txtDiocese').val(PriestRow.Diocese);
+        $('#priestDOB').val(PriestRow.dob);
+        $('#txtAboutPriest').val(PriestRow.about);
+        $('#OrdinationDate').val(PriestRow.dateOrdination);
+        $('#ddlstatus').val(PriestRow.Status).change();
+        $('#txtDesignation').val(PriestRow.designation);
+        $('#txtAddress').val(PriestRow.address);
+        $('#txtEmail').val(PriestRow.emailId);
+        $('#txtMobile').val(PriestRow.mobile);
+        $('#priestPreview').attr('src', PriestRow.imagePath);
+        document.getElementById('HeadDetails').innerText = "Edit Details";
+        $('#btnSavePriest').attr('priestID', priestid);
+        $('#PriestShowDetails').hide();
+        $('#PriestEd').show();
     }
     function showpreview(input) {
         if (input.files && input.files[0]) {
@@ -159,7 +213,7 @@
     function HtmlBindWithAsst(priestDetails, i) {
         debugger;
         var ID ="'"+priestDetails.ID+"'";
-        var html = ('<div class="priority low"><span>Asst Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" style="left:75%!important;" title="">NEW <i class="glyph-icon icon-plus"></i></a></div>'
+        var html = ('<div class="priority low"><span>Asst Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" style="left:72%!important;" title="" onclick=OpenNewAdd("Asst")>Add NEW <i class="glyph-icon icon-plus"></i></a></div>'
           + '<div class="task low">'
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/kozhipadan.jpg"/></li>'
           + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
@@ -172,7 +226,7 @@
     }
     function HtmlBindVicar() {
         debugger;
-        var html = ('<div class="priority high"><span>Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="OpenNewAdd();">NEW <i class="glyph-icon icon-plus"></i></a></div>'
+        var html = ('<div class="priority high"><span>Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick=OpenNewAdd("Vicar")>NEW <i class="glyph-icon icon-plus"></i></a></div>'
           + '<div class="task high">'
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/priest.png"/></li>'
           + '<li ><br /><br /><br />'
@@ -183,7 +237,7 @@
     }
     function HtmlBindAsstVicar() {
         debugger;
-        var html = ('<div class="priority low"><span>Asst Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" style="left:75%!important;" title="">NEW <i class="glyph-icon icon-plus"></i></a></div>'
+        var html = ('<div class="priority low"><span>Asst Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" style="left:72%!important;" title="" onclick=OpenNewAdd("Asst")>Add NEW <i class="glyph-icon icon-plus"></i></a></div>'
           + '<div class="task low">'
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/priest.png"/></li>'
           + '<li ><br /><br /><br />'
