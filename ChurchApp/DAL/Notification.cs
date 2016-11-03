@@ -8,7 +8,7 @@ using System.Web;
 
 namespace ChurchApp.DAL
 {
-    public class Notifications
+    public class Notification
     {
         #region Public Properties
         public string notificationID
@@ -256,7 +256,7 @@ namespace ChurchApp.DAL
 
         #endregion Methods
     }
-    public class NotificationType : Notifications
+    public class NotificationType : Notification
     {
         #region NotificationType Methods
 
