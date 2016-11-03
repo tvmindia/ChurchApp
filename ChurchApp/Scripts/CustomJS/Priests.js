@@ -7,7 +7,156 @@
     //$('.priestEdit').click(function (e) {
     //    e.preventDefault();
     //    $('#PriestEditDivBox').show();
-       
+    $('#btnSavePriest').click(function (e) {
+
+        debugger;
+
+        var AppImgURL = '';
+        var priestID = $("#hdfPriestID").val();
+
+        //-----------------------INSERT-------------------//
+
+        if (priestID == null || priestID == "") {
+            var guid = createGuid();
+
+            //DeletedImgID = imageId;
+            //DeletedImgPath = imgPath
+
+            if (guid != null) {
+
+                var imgresult = "";
+                var _URL = window.URL || window.webkitURL;
+                var formData = new FormData();
+                var imagefile, logoFile, img;
+
+                //if ((imagefile = $('#UpNotice')[0].files[0]) != undefined) {
+                //    img = new Image();
+                //    var image = $('#UpNotice')[0].files[0];
+                //   // imagefile.name = guid;
+                //    formData.append('tempfile', image, imagefile.name);
+                //    formData.append('ActionTyp', 'BannerInsert');
+                //    var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+
+                //}
+
+
+                if (((imagefile = $('#priestimg')[0].files[0]) != undefined)) {
+                    var formData = new FormData();
+                    var tempFile;
+                    if ((tempFile = $('#priestimg')[0].files[0]) != undefined) {
+                        tempFile.name = guid;
+                        formData.append('NoticeAppImage', tempFile, tempFile.name);
+                        formData.append('GUID', guid);
+                    }
+                    formData.append('ActionTyp', 'NoticeAppImageInsert');
+                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+
+                }
+
+            }
+
+            var Priest = new Object();
+            Priest.priestName = $('#txtPriestName').val();
+            Priest.BaptisumName = $('#txtPriestBaptismName').val();
+            Priest.Parish = $('#txtParish').val();
+            Priest.Diocese = $('#txtDiocese').val();
+            Priest.Status = $('#ddlstatus').val();
+            Priest.dob = $('#priestDOB').val();
+            Priest.about = $('#txtAboutPriest').val();
+            Priest.dateOrdination = $('#OrdinationDate').val();
+            Priest.designation = $('#txtDesignation').val();
+            Priest.address = $('#txtAddress').val();
+            Priest.emailId = $('#txtEmail').val();
+            Priest.mobile = $('#txtMobile').val();
+            Priest.imageId = guid;
+            Priest.priestID = guid;
+
+            result = InsertPriest(Priest);
+
+            if (result.status == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Notice Added Successfully");
+
+            }
+            if (result.status != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text("Saving Not Successful");
+            }
+
+            BindNotices();
+            // ClearControls();
+
+            debugger;
+            SetControlsInNewNoticeFormat();
+
+
+        }
+            //-----------------------UPDATE-------------------//
+        else {
+            var Priest = new Object();
+            Priest.priestName = $('#txtPriestName').val();
+            Priest.BaptisumName = $('#txtPriestBaptismName').val();
+            Priest.Parish = $('#txtParish').val();
+            Priest.Diocese = $('#txtDiocese').val();
+            Priest.Status = $('#ddlstatus').val();
+            Priest.dob = $('#priestDOB').val();
+            Priest.about = $('#txtAboutPriest').val();
+            Priest.dateOrdination = $('#OrdinationDate').val();
+            Priest.designation = $('#txtDesignation').val();
+            Priest.address = $('#txtAddress').val();
+            Priest.emailId = $('#txtEmail').val();
+            Priest.mobile = $('#txtMobile').val();
+            Priest.imageId = $("#hdfPriestID").val();
+            Priest.priestID = $("#hdfPriestID").val();
+            
+           // DeletedImgID = imageId;
+           // DeletedImgPath = imgPath
+            debugger;
+            var guid = createGuid();
+            if (((imagefile = $('#priestimg')[0].files[0]) != undefined)) {
+                var formData = new FormData();
+                var tempFile;
+                if ((tempFile = $('#priestimg')[0].files[0]) != undefined) {
+                    tempFile.name = guid;
+                    formData.append('NoticeAppImage', tempFile, tempFile.name);
+                    formData.append('GUID', guid);
+                }
+                formData.append('ActionTyp', 'NoticeAppImageInsert');
+                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                Priest.imageId = guid;
+            }
+
+            result = UpdatePriest(Priest);
+
+            if (result.status == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Notice Edited Successfully");
+
+                //if (DeletedImgID != '') {
+                //    var AppImages = new Object();
+                //    AppImages.appImageId = DeletedImgID;
+                //    DeleteAppImage(AppImages);
+
+                //    if (DeletedImgPath != '') {
+                //        DeleteFileFromFolder(DeletedImgPath);
+                //    }
+                //}
+
+            }
+            if (result.status != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text("Saving Not Successful");
+            }
+
+            SetControlsInNewNoticeFormat();
+
+        }
+
+    });
 
     });
     function getJsonData(data, page) {
@@ -122,6 +271,7 @@
     function OpenNewAdd(Tag) {
         debugger;
         ClearFields();
+        $('#hdfPriestID').val('');
         if (Tag == "Asst")
         {
             document.getElementById('HeadDetails').innerText = "Add New Asst Vicar";
@@ -182,9 +332,32 @@
         $('#txtMobile').val(PriestRow.mobile);
         $('#priestPreview').attr('src', PriestRow.imagePath);
         document.getElementById('HeadDetails').innerText = "Edit Details";
-        $('#btnSavePriest').attr('priestID', priestid);
+        $('#hdfPriestID').val( priestid);
         $('#PriestShowDetails').hide();
         $('#PriestEd').show();
+    }
+    
+    function createGuid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+
+    //Insert Priest
+    function InsertPriest(Priest) {
+        var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/InsertPriest");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+    function UpdatePriest(Priest) {
+        var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/UpdatePriest");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
     }
     function showpreview(input) {
         if (input.files && input.files[0]) {

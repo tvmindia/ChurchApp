@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <link href="../CSS/CustomCSS/Priests.css" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Priests.js"></script>
       <div id="content" class="span10">
        <ul class="breadcrumb">
@@ -287,9 +288,9 @@
 								</div>
 								</div>
                         
-						
+						<input type="hidden" id="hdfPriestID" />
 							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary" name="" id="btnSavePriest">Save changes</button>
+							  <a class="btn btn-primary" name="" id="btnSavePriest">Save changes</a>
 							  <a href="Priests.aspx" type="reset" class="btn btn-primary">Cancel</a>
 							</div>
 						  </fieldset>
