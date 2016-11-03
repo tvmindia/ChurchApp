@@ -43,23 +43,16 @@
                         formData.append('AlbumImage'+i, $('#AlbumUploader')[0].files[i], $('#AlbumUploader')[0].files[i].name);
                        
                     }
+                    formData.append('Album', 'GalleryImageAlbum');
+                    formData.append('AlbumName', $("#txtAlbumName").val());
+                    formData.append('churchId', '41f453f6-62a4-4f80-8fc5-1124e6074287');
+                    formData.append('createdby','Albert');
                 }
-
-               
-                    //formData.append('ActionTyp', 'NoticeAppImageInsert');
+              
+                
                     AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
 
-               
-
-           
-
-
-
-
-
-
-       
-    });
+          });
 
 
 

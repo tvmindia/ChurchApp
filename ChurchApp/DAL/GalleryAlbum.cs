@@ -235,6 +235,11 @@ namespace ChurchApp.DAL
     }
     public class GalleryItems : GalleryAlbum
     {
+
+        public GalleryItems()
+        {
+            galleryItemID = Guid.NewGuid().ToString();
+        }
         #region Public Properties
         public string galleryItemID
         {
@@ -304,7 +309,7 @@ namespace ChurchApp.DAL
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            SqlParameter outParam = null,outParmid=null;
+            SqlParameter outParam = null;
             try
             {
                 dcon = new dbConnection();
@@ -313,17 +318,17 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertGalleryItems]";
+                cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(galleryItemID);
                 cmd.Parameters.Add("@AlbumId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
                 cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
                 cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = itemType;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
-                outParmid = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
-                outParmid.Direction = ParameterDirection.Output;
+              
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
-                galleryItemID = outParmid.Value.ToString();
+            
             }
             catch (Exception ex)
             {

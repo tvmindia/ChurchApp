@@ -27,32 +27,63 @@ namespace ChurchApp.ImageHandler
                 string fileExtension = "";
                 if (context.Request.Files.Count > 0)
                 {
+                   
 
-                    foreach (string s in context.Request.Files)
+                    #region Album
+                    //This is for multi image upload purpose
+                    if (context.Request.Form.GetValues("Album")!=null)
                     {
-                        HttpPostedFile file = context.Request.Files[s];
-                        switch (s)
+                        switch (context.Request.Form.GetValues("Album")[0])
                         {
+                            case "GalleryImageAlbum":
+                                GalleryAlbum GalAlbumObj = new GalleryAlbum();
+                                GalAlbumObj.churchId = context.Request.Form.GetValues("churchId")[0];
+                                GalAlbumObj.albumName = context.Request.Form.GetValues("AlbumName")[0];
+                                GalAlbumObj.albumType = "image";
+                                GalAlbumObj.isDelete = "False";
+                                GalAlbumObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                GalAlbumObj.InsertGalleryAlbum();
+                                foreach (string content in context.Request.Files)
+                                {
+                                    HttpPostedFile file = context.Request.Files[content];
+                                    fileExtension = Path.GetExtension(file.FileName);
+                                    GalleryItems GalItemsObj = new GalleryItems();
+                                    GalItemsObj.albumId = GalAlbumObj.albumId;
+                                    GalItemsObj.url = "~/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension;
+                                    GalItemsObj.itemType = "image";
+                                    GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                    GalItemsObj.InsertGalleryItem();
+                                    file.SaveAs(HttpContext.Current.Server.MapPath("~/img/AppImages/") + @"\" + GalItemsObj.galleryItemID + fileExtension);
+                                }//end of foreach
+                                break;
+                        }
+                    }
+                    #endregion Album
+                    #region ActionTyp
+                    //This is for single image upload purpose
+                    if (context.Request.Form.GetValues("ActionTyp")!= null)
+                    {
+                        switch (context.Request.Form.GetValues("ActionTyp")[0])
+                        {
+                            case "NoticeAppImageInsert":
 
-                            case "NoticeAppImage":
-                                   // string fn = System.IO.Path.GetFileName(file.FileName);
                                     string guid = context.Request.Form.GetValues("GUID")[0];
                                     string SaveLocation = HttpContext.Current.Server.MapPath("~/img/AppImages/");
                                     try
                                     {
                                         HttpPostedFile postedFile = context.Request.Files["NoticeAppImage"];
-                                        //if (Directory.Exists(SaveLocation))
-                                        //{
-                                            fileExtension = Path.GetExtension(file.FileName);
-                                            string fileName = guid + fileExtension;
-                                            postedFile.SaveAs(SaveLocation + @"\" +fileName);
-                                            //string fileName = postedFile.FileName;
+                                        fileExtension = Path.GetExtension(postedFile.FileName);
+                                        string fileName = guid + fileExtension;
+                                        postedFile.SaveAs(SaveLocation + @"\" + fileName);
+                                        AppImagePath = "~/img/AppImages/" + fileName;
+                                        //Insert to table
+                                        AppImages AppImgObj = new AppImages();
+                                        AppImgObj.appImageId = context.Request.Form.GetValues("GUID")[0];
+                                        AppImgObj.url = AppImagePath;
+                                        AppImgObj.createdBy = "Shamila";
+                                        AppImgObj.InsertAppImage().ToString();
 
-                                            //  context.Response.Write(matchesImgSrc.Count);
-                                            AppImagePath = "~/AppImages/" + fileName;
-                                            AppImagePath=AppImagePath.Replace("~/", "");
-
-                                        //}
+                                        AppImagePath = AppImagePath.Replace("~/", "");
                                         context.Response.Write(AppImagePath);
 
                                     }
@@ -60,53 +91,16 @@ namespace ChurchApp.ImageHandler
                                     {
                                         throw ex;
                                     }
-                                    break;
-                            //Gallery
-                            case "AlbumImage":
-                                    GalleryAlbum GalAlbumObj = new GalleryAlbum();
-                                    GalAlbumObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
-                                    GalAlbumObj.albumName = "myalbum";
-                                    GalAlbumObj.albumType = "image";
-                                    GalAlbumObj.isDelete = "false";
-                                    GalAlbumObj.createdBy = "albert";
-                                    GalAlbumObj.InsertGalleryAlbum();
-                                    GalleryItems GalItemsObj = new GalleryItems();
-                                    GalItemsObj.albumId = GalAlbumObj.albumId;
-                                    GalItemsObj.url = "/albert/wonder";
-                                    GalItemsObj.itemType = "image";
-                                    GalItemsObj.createdBy = "albert";
-                                    GalItemsObj.InsertGalleryItem();
-                                    string SaveLocation1 = HttpContext.Current.Server.MapPath("~/img/AppImages/");
-                                    //HttpPostedFile postedFiles = context.Request.Files["AlbumImage"];
-                                    fileExtension = Path.GetExtension(file.FileName);
-                                    string fileName1 = GalItemsObj.galleryItemID + fileExtension;
-                                    file.SaveAs(SaveLocation1 + @"\" +fileName1);
-                                    AppImagePath = "~/AppImages/" + fileName1;
-                                    AppImagePath=AppImagePath.Replace("~/", "");
-                                    context.Response.Write(AppImagePath);
-                                    break;
+                            break;
+                             //Add another action type here as next case
+
 
                         }
-                    }//end of loop
-                         
-                     string result = "";
+                  
 
-                    switch (context.Request.Form.GetValues("ActionTyp")[0])
-                    {
-                        case "NoticeAppImageInsert":
-                              AppImages AppImgObj = new AppImages();
-                              AppImgObj.appImageId = context.Request.Form.GetValues("GUID")[0];
-                              AppImgObj.url = AppImagePath;
-                              AppImgObj.createdBy = "Shamila";
 
-                              result = AppImgObj.InsertAppImage().ToString();
-                              context.Response.Write(AppImagePath);
-
-                                                     
-                            break;
-
-                    }//end of switch
-
+                    }
+                    #endregion ActionTyp
 
                 } //end of if count
 
@@ -114,6 +108,10 @@ namespace ChurchApp.ImageHandler
             catch (Exception e)
             {
                 throw e;
+            }
+            finally
+            {
+
             }
 
 
