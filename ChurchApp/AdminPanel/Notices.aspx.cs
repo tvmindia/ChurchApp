@@ -203,7 +203,6 @@ namespace ChurchApp.AdminPanel
 
         #endregion Insert Notice
 
-
         #region  Update Notice
 
         [System.Web.Services.WebMethod]
@@ -339,6 +338,34 @@ namespace ChurchApp.AdminPanel
 
 
         #endregion Delete Notice
+
+        #region Insert Notification
+
+        [System.Web.Services.WebMethod]
+        public static string InsertNotification(ChurchApp.DAL.Notification NotificationObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            NotificationObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
+            string status = null;
+            try
+            {
+                NotificationObj.createdBy = "Shamila";
+                status = NotificationObj.InsertNotification().ToString();
+               // NotificationObj.status = status;
+              
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NotificationObj);
+        }
+
+
+        #endregion  Insert Notification
 
         #endregion Methods
 

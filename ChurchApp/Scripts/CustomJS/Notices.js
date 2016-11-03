@@ -11,6 +11,16 @@ var DeletedImgPath      =  '';
 $("document").ready(function (e) {
     debugger;
    
+    $("#rdoNotificationYes").click(function () {
+
+        $("#divNotificationDates").show();
+    });
+
+    $("#rdoNotificationNo").click(function () {
+
+        $("#divNotificationDates").hide();
+    });
+
     BindNotices();
   //  BindNoticesOnEdit();
    
@@ -126,7 +136,7 @@ $("document").ready(function (e) {
                     }
                     formData.append('ActionTyp', 'NoticeAppImageInsert');
                     AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-
+                    Notices.imageId = guid;
             }
 
         }
@@ -141,7 +151,7 @@ $("document").ready(function (e) {
         //}
 
         Notices.noticeId = guid;
-        Notices.imageId = guid;
+       
 
 
         //var AppImages = new Object();
@@ -165,6 +175,17 @@ $("document").ready(function (e) {
             $('.alert-success').show();
             $('.alert-success strong').text("Notice Added Successfully");
            
+            if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+            {
+                //var Notification = new Object();
+                //Notification.notificationType = NotificationTypeCode;
+                //Notification.linkID = guid;
+                //Notification.caption = $("#txtNoticeName").val();
+                //Notification.description = $("#txtDescription").val();
+
+                //InsertNotification(Notification);
+               
+            } 
         }
         if (result.status != "1") {
             $('#rowfluidDiv').show();
@@ -329,6 +350,11 @@ function SetControlsInNewNoticeFormat()
 function AddNewNotice()
 {
     SetControlsInNewNoticeFormat();
+    $("#divNotificationDates").hide();
+
+    $("#rdoNotificationYes").parent().removeClass('checked');
+    $('#rdoNotificationNo').parent().addClass('checked');
+
 }
 
 
@@ -603,6 +629,16 @@ function InsertNotice(Notices) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
+
+//Insert Notification
+function InsertNotification(Notification) {
+    var data = "{'NotificationObj':" + JSON.stringify(Notification) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/InsertNotice");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
 
 function ClearControls()
 {

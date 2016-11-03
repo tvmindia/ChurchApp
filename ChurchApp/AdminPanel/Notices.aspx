@@ -108,7 +108,7 @@
 
              <div  id="PriestEditDivBox" class="span5 noMarginLeft" style="display:none">
                
-                 <div class="dark" style="top:10px">
+                 <div class="dark" >
 					<h1 id="h1Notice">Add Notice</h1>
 
 
@@ -148,21 +148,37 @@
                                <label class="control-label">Want to Add Notification?</label>
 								<div class="controls">
 								  <label class="radio">
-									<input type="radio" name="IsnotificationNeeded" id="rdoNotificationYes" value="true"/>
+									<input type="radio" name="IsnotificationNeeded" id="rdoNotificationYes" value="Yes"/>
 									Yes
 								  </label>
 								
 								  <label class="radio">
-									<input type="radio" name="IsnotificationNeeded" id="rdoNotificationNo" value="false" checked=""/>
+									<input type="radio" name="IsnotificationNeeded" id="rdoNotificationNo" value="No"  checked=""/>
 									No
 								  </label>
 								</div>
 							  </div>
 
+                        <div id="divNotificationDates">
+
+                          <div class="control-group">
+							  <label class="control-label" for="date01">Start Date</label>
+							  <div class="controls">
+								<input type="text" class="input-xlarge datepicker" id="dateStartDate"/>
+							  </div>
+							</div>
+
+                          <div class="control-group">
+							  <label class="control-label" for="date01">Expiry Date</label>
+							  <div class="controls">
+								<input type="text" class="input-xlarge datepicker" id="dateExpiryDate"/>
+							  </div>
+							</div>
+                            </div>
 
 
 							<div class="control-group" id="DivFile">
-							  <label class="control-label" for="fileInput">File input</label>
+							  <label class="control-label" for="fileInput">Notice Image</label>
 							  <div class="controls">
                                    <input type="file" id="UpNotice" />
                                    </div>

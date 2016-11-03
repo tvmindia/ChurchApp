@@ -76,3 +76,13 @@ border-radius:8%;
 .Eventlist{
     line-height:67px;
 }
+
+#divNotificationDates
+{
+    display:none;
+}
+
+.dark
+{
+    top:10px;
+}
