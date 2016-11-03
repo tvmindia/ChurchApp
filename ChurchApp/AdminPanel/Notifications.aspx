@@ -15,16 +15,11 @@
 				<li>Notifications</li>
 			</ul>
          
-
-
-        		<div class="row-fluid">
-               
-                     
-				
+        		<div class="row-fluid">				
 				<div class="span7">
 					<h1>Notifications</h1>
 					
-					<div class="priority high"><span>Latest Notifications</span></div>
+					<div class="priority high"><span>Latest Notifications</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="AddNotification();">NEW <i class="glyph-icon icon-plus"></i></a></div>
 					
 					<div id="NewNotificationGrid">
 
@@ -46,48 +41,58 @@
 					
 					<div class="dark">
 					
-					<h1>Details</h1>
+					<h1 id="detailsHeading"></h1>
 						<div class="box-content">
 					   <div class="form-horizontal">
 				    <fieldset>
                       
 					
-                        <a style="right:30px;position: fixed;"><i class="fa fa-pencil NotificationEdit" aria-hidden="true"></i> Edit</a>
+                        <a class="NotificationEdit" style="right:30px;position: fixed;"><i class="fa fa-pencil NotificationEdit" aria-hidden="true"></i> Edit</a>
 							  
                          <div class="control-group" style="margin-top:20px">
-								<label class="control-label" for="focusedInput">Notification Name</label>
+								<label class="control-label" for="focusedInput">Caption</label>
 								<div class="controls">
 								  <%--<input class="input-large focused" name="Name" id="txtEventName" type="text"/>--%>
-                                    <label class="control-label" for="focusedInput">Fest of St. Francies of Assisi</label>
+                                    <label class="control-label" for="focusedInput" id="lblCaption"></label>
+								  <input class="input-large focused" name="Caption" id="txtCaption" type="text" />
 								</div>
 								</div>
                         
 
                          <div class="control-group">
+								<label class="control-label" for="focusedInput">Notification Type</label>
+								
+                            <div class="controls">
+                                
+                                <select id="ddlType" name="NotificationType">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+								
+
+                        <div class="control-group">
 								<label class="control-label" for="focusedInput">Description</label>
 								<div class="controls">
-								<label class="control-label" for="focusedInput">The Cathedral Church of the eparchy of Irinjalakuda got its present existence under the nomenclature and the Canonical Status as Cathedral in the Wake of the Origin of the New Eparchy. This was effected by the amalgamation of the two independent and important parishes of the locality, namely, St. George’s Forane Church and St. Mary’s church, which amicably situated side by side for about a century. Each had its several institutions and properties as well as high resources. St. George Church is chronologically prior as it was established in 1845 AD. This originated at the request of the Christian merchants who migrated to Irinjalakuda during the regime of Rama Varma Thampuran (known as “Sakthan Thampuran” – 1790-1805) the king of Kochi. He invited the Christian merchants from the neighboring ancient Catholic regions such as Velayanad, Mapranam, Kalparambu etc. in view of trade and industry. Thus a small Church was constructed here, then known as Kombarakunnu under the guidance of the Parish Priest of Mapranam Church. Later they tried for building a spacious Church. However, in 1874 the so-called “Mellus Schism” affected the area and the majority succumbed to it. But a ministry resisted and tried to continue in the papal allegiance. With that view they constructed a new and better Church in 1880 and dedicated to the Blessed Virgin Mary (ST. Mary’s Church). Gradually several religious, educational and charitable institutions came up and flourished in the area. Though the Mellusian group got away from that influence and rejoined the Papal allegiance, both the Churches remained side by side as separate Catholic Parishes without territorial limits. They cherished Concord and Cordiality. In 1944 St. George Church was raised to the Status of a Forane Church.</label>
+								 <label class="control-label" for="focusedInput" id="lblDescription">Caption</label>
+                                     <textarea tabindex="3" class="input-xlarge span10" id="txtDescription" name="Description" rows="4" placeholder=""></textarea>
+								  <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
 								</div>
 								</div>
 
                           <div class="control-group">
 							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
-								<label  class="control-label" for="date01">02/16/12</label>
-							  </div>
-							</div>
-
-                          <div class="control-group">
-							  <label class="control-label" for="date01">End Date</label>
-							  <div class="controls">
-								<label class="control-label" for="date01">02/16/12</label>
+								 <label class="control-label" for="date01" id="lblStartDate">Caption</label>
+								  <input class="input-large focused" name="StartDate" id="txtStartDate" type="text" />
 							  </div>
 							</div>
 
                           <div class="control-group">
 							  <label class="control-label" for="date01">Expiry Date</label>
 							  <div class="controls">
-								<label class="control-label" for="date01">02/16/12</label>
+								 <label class="control-label" for="date01" id="lblExpiryDate">Caption</label>
+								  <input class="input-large focused" name="ExpiryDate" id="txtExpiryDate" type="text" />
 							  </div>
 							</div>
 
@@ -109,7 +114,7 @@
 
 
                         
-					     <div class="control-group">
+					     <div class="control-group" id="isDeleteDiv">
 								<label class="control-label">IsDelete</label>
 								<div class="controls">
 								  <label class="radio">
@@ -126,8 +131,9 @@
                         
 						
 							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Save changes</button>
-							  <button type="reset" class="btn btn-primary">Cancel</button>
+							  <a class="btn btn-primary Save">Save</a>
+                                <a class="btn btn-primary Delete">Delete</a>
+							  <a class="btn btn-primary Cancel">Cancel</a>
 							</div>
 						  </fieldset>
 					</div>   
@@ -141,5 +147,6 @@
 
 
     </div>
-
+    <input type="hidden" id="hdfNotificationID" />
+    <input type="hidden" id="hdfChurchID" />
 </asp:Content>

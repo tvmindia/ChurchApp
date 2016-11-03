@@ -139,16 +139,23 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertNotifications]";
                 cmd.Parameters.Add("@Type", SqlDbType.NVarChar,20).Value = notificationType;
-                cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
+                if (linkID!=null && linkID !=string.Empty)
+                {
+                    cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
+                }    
+                else
+                {
+                    cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Empty;
+                }
                 cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
                 if (startDate != null && startDate != string.Empty)
                 {
-                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate); 
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = DateTime.Parse(startDate); 
                 }
                 if (expiryDate != null && expiryDate != string.Empty)
                 {
-                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(expiryDate);
+                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value =DateTime.Parse(expiryDate);
                 }
                 
               //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
@@ -198,8 +205,14 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
                 cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
-                cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(expiryDate);
+                if(startDate!=null && startDate !=string.Empty)
+                {
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
+                }
+                if(expiryDate!=null && expiryDate!=string.Empty)
+                {
+                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(expiryDate);
+                }                
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
@@ -261,6 +274,47 @@ namespace ChurchApp.DAL
             return outParam.Value.ToString();
         }
         #endregion DeleteNotification
+
+        #region SelectNotificationByID
+        /// <summary>
+        /// Select Notifications By ChurchID and ID
+        /// </summary>
+        /// <returns>Notification</returns>
+        public DataSet SelectNotificationByID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectNotificationByID]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectNotificationByID
 
         #endregion Methods
     }

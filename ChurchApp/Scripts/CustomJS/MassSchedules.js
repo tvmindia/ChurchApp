@@ -194,9 +194,45 @@
         }
     });
 
+    var $eventDaySelect = $("#ddlDay");
+    $eventDaySelect.on("change", function (e) {
+        debugger;
+        if ($("#ddlDay").val() != null)
+        {
+            BindGridOnDaySelect();
+        }
+       
+       
+    });
+
 });//end of document.ready
 
 //----------Insert MassTiming--------------//
+
+function BindGridOnDaySelect()
+{
+    var jsonResult = {};
+    var MassTimings = new Object();
+    MassTimings.massChurchId = $("#hdfChurchID").val();
+    MassTimings.day = $("#ddlDay").val();
+    jsonResult = selectMassTimeByDay(MassTimings);
+    var length = jsonResult.length;
+    var MassID = new Array();
+    var massChurchID = "";
+    var Day = "";
+    var Time = new Array();
+    for (var i = 0; i < length; i++) {
+        var ID = jsonResult[i]["ID"];
+        massChurchID = jsonResult[i]["ChurchID"];
+        Day = jsonResult[i]["Day"];
+        var MassTime = jsonResult[i]["Time"];
+        MassID.push(ID);
+        Time.push(MassTime);
+    }
+    Time = BindTime(Time)
+    ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
+}
+
 function ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
     document.getElementById("massTimingUpdateTable").innerHTML = "";
     var ChurchMassID = "";
@@ -454,6 +490,7 @@ function timeTo12HrFormat(time) {   // Take a time in 24 hour format and format 
 
 function BindAsyncAdminsTable() {
     var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
+    $("#hdfChurchID").val(churchId);
     var jsonResult = {};
     var MassTimings = new Object();
     MassTimings.massChurchId = churchId;

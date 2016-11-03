@@ -51,7 +51,8 @@ namespace ChurchApp.ImageHandler
                                     GalItemsObj.itemType = "image";
                                     GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                     GalItemsObj.InsertGalleryItem();
-                                    file.SaveAs(HttpContext.Current.Server.MapPath("~/img/AppImages/") + @"\" + GalItemsObj.galleryItemID + fileExtension);
+                                    string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/AppImages/")).Replace("~", "");
+                                    file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
                                 }//end of foreach
                                 break;
                         }
@@ -72,8 +73,10 @@ namespace ChurchApp.ImageHandler
                                         HttpPostedFile postedFile = context.Request.Files["NoticeAppImage"];
                                         fileExtension = Path.GetExtension(postedFile.FileName);
                                         string fileName = guid + fileExtension;
+                                        SaveLocation = SaveLocation.Replace("~", "");
                                         postedFile.SaveAs(SaveLocation + @"\" + fileName);
                                         AppImagePath = "~/img/AppImages/" + fileName;
+                                        AppImagePath = AppImagePath.Replace("~", "");
                                         //Insert to table
                                         AppImages AppImgObj = new AppImages();
                                         AppImgObj.appImageId = context.Request.Form.GetValues("GUID")[0];
@@ -81,7 +84,7 @@ namespace ChurchApp.ImageHandler
                                         AppImgObj.createdBy = "Shamila";
                                         AppImgObj.InsertAppImage().ToString();
 
-                                        AppImagePath = AppImagePath.Replace("~/", "");
+                                        
                                         context.Response.Write(AppImagePath);
 
                                     }

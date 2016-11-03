@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -111,6 +112,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string result
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Methods
@@ -188,13 +194,13 @@ namespace ChurchApp.DAL
                     Diocese = dr["Diocese"].ToString();
                     Status = dr["Status"].ToString();
                     churchID = dr["ChurchID"].ToString();
-                    dob=dr["DOB"].ToString();
+                    dob = (DateTime.Parse(dr["DOB"].ToString().ToString()).ToString("dd-MM-yyyy"));
                     address=dr["Address"].ToString();
                     mobile = dr["Mobile"].ToString();
                     emailId = dr["Email"].ToString();
                     imagePath = dr["URL"].ToString();
                     about = dr["About"].ToString();
-                    dateOrdination = dr["DateOrdination"].ToString();
+                    dateOrdination = (DateTime.Parse(dr["DateOrdination"].ToString()).ToString("dd-MM-yyyy"));
                     designation = dr["Designation"].ToString();
                 }
 
@@ -232,16 +238,26 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertPriest]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(priestID);
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar,150).Value = priestName;
-                cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = Convert.ToDateTime(dob);
+                cmd.Parameters.Add("@BaptismName", SqlDbType.NVarChar, 150).Value = BaptisumName;
+                cmd.Parameters.Add("@Parish", SqlDbType.NVarChar, 150).Value = Parish;
+                cmd.Parameters.Add("@Diocese", SqlDbType.NVarChar, 150).Value = Diocese;
+                cmd.Parameters.Add("@Status", SqlDbType.NVarChar, 150).Value = Status;
+                cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = DateTime.Parse(dob);
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
-                cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = Convert.ToDateTime(dateOrdination);
+                cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = DateTime.Parse(dateOrdination);
                 cmd.Parameters.Add("@Designation", SqlDbType.NVarChar, 150).Value = designation;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar,255).Value = emailId;
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = mobile;
+                cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = true;
+                cmd.Parameters.Add("@IsDeleted", SqlDbType.Bit).Value = false;
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                if (imageId != string.Empty && imageId != null)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                }
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -283,17 +299,24 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdatePriest]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(priestID);
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = priestName;
-                cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = Convert.ToDateTime(dob);
+                cmd.Parameters.Add("@BaptismName", SqlDbType.NVarChar, 150).Value = BaptisumName;
+                cmd.Parameters.Add("@Parish", SqlDbType.NVarChar, 150).Value = Parish;
+                cmd.Parameters.Add("@Diocese", SqlDbType.NVarChar, 150).Value = Diocese;
+                cmd.Parameters.Add("@Status", SqlDbType.NVarChar, 150).Value = Status;
+                cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = DateTime.Parse(dob);
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
-                cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = Convert.ToDateTime(dateOrdination);
+                cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = DateTime.Parse(dateOrdination);
                 cmd.Parameters.Add("@Designation", SqlDbType.NVarChar, 150).Value = designation;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = emailId;
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = mobile;
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                if (imageId != string.Empty && imageId != null)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                }
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
