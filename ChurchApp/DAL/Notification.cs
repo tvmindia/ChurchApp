@@ -142,9 +142,17 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
                 cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
-                cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(expiryDate);
-                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
+                if (startDate != null && startDate != string.Empty)
+                {
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate); 
+                }
+                if (expiryDate != null && expiryDate != string.Empty)
+                {
+                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(expiryDate);
+                }
+                
+              //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
+                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(true);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
