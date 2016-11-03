@@ -45,7 +45,6 @@ $("document").ready(function (e) {
 
     });
 
-    
     $("#NoticeEdit").click(function ()
     {
         debugger;
@@ -208,7 +207,7 @@ $("document").ready(function (e) {
                 Notices.imageId = guid;
             }
 
-            UpdateNotice(Notices);
+            result = UpdateNotice(Notices);
 
             if (result.status == "1")
             {
@@ -239,14 +238,27 @@ $("document").ready(function (e) {
 
     });
 
-    $('#btnCancel').click(function (e) {
+    $('#btnCancel').click(function (e)
+    {
         ClearControls();
         $("#PriestEditDivBox").hide();
+
+        $('#rowfluidDiv').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+
     });
 
     $('#btnDelete').click(function (e)
     {
         debugger;
+
+        var deleteConirm = confirm("Want to delete?");
+        debugger;
+
+        if (deleteConirm) {
+           
+            debugger;
 
         var NoticeID = $("#hdfNoticeID").val();
 
@@ -274,7 +286,11 @@ $("document").ready(function (e) {
           $('.alert-error strong').text("Deletion Not Successful");
       }
 
-
+        }
+        else
+        {
+            return false;
+        }
     });
 
     //$('#btnAdd').click(function (e) {
@@ -470,6 +486,15 @@ function FillNotice(Records)
         }
 
     });
+
+    if (Records.length == 0) {
+        //$('.dataTables_empty').parent().parent().remove();
+        var img = document.createElement('img');
+        img.src = "../img/nodata.jpg";
+        img.id = "NoData";
+        $("#DivNoticeType1").append(img);
+    }
+
     }
 
 function GetServerMapPath(path)

@@ -108,7 +108,7 @@
 
              <div  id="PriestEditDivBox" class="span5 noMarginLeft" style="display:none">
                
-                 <div class="dark">
+                 <div class="dark" style="top:10px">
 					<h1 id="h1Notice">Add Notice</h1>
 
 
@@ -144,6 +144,21 @@
 								</div>
 
                         
+                               <div class="control-group">
+                               <label class="control-label">Want to Add Notification?</label>
+								<div class="controls">
+								  <label class="radio">
+									<input type="radio" name="IsnotificationNeeded" id="rdoNotificationYes" value="true"/>
+									Yes
+								  </label>
+								
+								  <label class="radio">
+									<input type="radio" name="IsnotificationNeeded" id="rdoNotificationNo" value="false" checked=""/>
+									No
+								  </label>
+								</div>
+							  </div>
+
 
 
 							<div class="control-group" id="DivFile">
