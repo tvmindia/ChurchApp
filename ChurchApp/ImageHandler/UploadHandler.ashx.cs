@@ -27,8 +27,6 @@ namespace ChurchApp.ImageHandler
                 string fileExtension = "";
                 if (context.Request.Files.Count > 0)
                 {
-                   
-
                     #region Album
                     //This is for multi image upload purpose
                     if (context.Request.Form.GetValues("Album")!=null)

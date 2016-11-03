@@ -12,47 +12,28 @@
    
     $('#btnSaveImageAlbum').click(function (e) {
         debugger;
+        try
+        {
+            var imagefile;
+            var formData = new FormData();
+            if ((imagefile = $('#AlbumUploader')[0].files.length > 0)) {
+                for (i = 0; i < $('#AlbumUploader')[0].files.length ; i++) {
+                    formData.append('AlbumImage' + i, $('#AlbumUploader')[0].files[i], $('#AlbumUploader')[0].files[i].name);
 
-        var AppImgURL = '';
-        var ID = $("#hdfID").val();
-     //   if (NoticeID == null || NoticeID == "") {
-            //var guid = createGuid();
-
-            //  if (guid != null) {
-
-                var imgresult = "";
-                //var _URL = window.URL || window.webkitURL;
-                var formData = new FormData();
-                var imagefile;
-
-                //if ((imagefile = $('#UpNotice')[0].files[0]) != undefined) {
-                //    img = new Image();
-                //    var image = $('#UpNotice')[0].files[0];
-                //   // imagefile.name = guid;
-                //    formData.append('tempfile', image, imagefile.name);
-                //    formData.append('ActionTyp', 'BannerInsert');
-                //    var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
-
-        //}
-                var formData = new FormData();
-                var tempFile;
-                var i=0;
-                if ((imagefile = $('#AlbumUploader')[0].files.length > 0)) {
-                    for (i = 0; i < $('#AlbumUploader')[0].files.length ; i++)
-                    {
-                        formData.append('AlbumImage'+i, $('#AlbumUploader')[0].files[i], $('#AlbumUploader')[0].files[i].name);
-                       
-                    }
-                    formData.append('Album', 'GalleryImageAlbum');
-                    formData.append('AlbumName', $("#txtAlbumName").val());
-                    formData.append('churchId', '41f453f6-62a4-4f80-8fc5-1124e6074287');
-                    formData.append('createdby','Albert');
                 }
-              
-                
-                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                formData.append('Album', 'GalleryImageAlbum');
+                formData.append('AlbumName', $("#txtAlbumName").val());
+                formData.append('churchId', '41f453f6-62a4-4f80-8fc5-1124e6074287');
+                formData.append('createdby', 'Albert');
+            }
+           postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+        }
+        catch(e)
+        {
 
-          });
+        }
+      
+    });
 
 
 
