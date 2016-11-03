@@ -36,5 +36,11 @@ border-radius:8%;
 .Notificationlist{
     line-height:67px;
 }
+.aViewDetails
+{
+    position:absolute;
+    left: 550px;
+}
+
 
 
