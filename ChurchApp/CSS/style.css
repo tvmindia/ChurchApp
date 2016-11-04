@@ -2129,7 +2129,8 @@ fieldset[disabled] .btn-link:focus {
 
 .table th,
 .table td {
-  border-top: 1px solid #eee;	
+  border-top: 1px solid #eee;
+  text-align:center;	
 }
 
 .table-bordered {
