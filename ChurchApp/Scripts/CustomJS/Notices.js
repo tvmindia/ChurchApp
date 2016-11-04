@@ -459,10 +459,25 @@ function EditOnClick(id) {
             url = jsonResult.URL;
             $('#NoticePreviewOnView').attr('src', url);
             
-             imageId = jsonResult.ImageID;
+            imageId = jsonResult.ImageID;
             imgPath = jsonResult.URL;
-            $('#lblNoticeDescriptionOnView').text(jsonResult.Description);
-            
+           
+            debugger;
+            if (jsonResult.Description == null || jsonResult.Description == "" || jsonResult.Description == undefined)
+            {
+                //$("#NoticePreviewOnView").css('width', '300px!important');
+                $('#NoticePreviewOnView').width(600);
+                $('#NoticePreviewOnView').height('auto');
+                $('#lblNoticeDescriptionOnView').text("");
+            }
+
+            else
+            {
+                $('#NoticePreviewOnView').height(200);
+                $('#NoticePreviewOnView').width(150);
+                $('#lblNoticeDescriptionOnView').text(jsonResult.Description);
+            }
+
         });
         }
 
