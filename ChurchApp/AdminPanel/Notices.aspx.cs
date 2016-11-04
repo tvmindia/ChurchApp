@@ -93,11 +93,15 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetNotices(ChurchApp.DAL.Notices  NoticeObj)
         {
+
+            DAL.Security.UserAuthendication UA;
+
+            DAL.Const Const = new DAL.Const();
+             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
             string jsonResult = null;
             DataSet ds = null;
-            NoticeObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
-
-          //  NoticeObj.churchId = "5e8b02fe-5a1b-4817-b10e-9f54c0dd5d2b";
+            NoticeObj.churchId = UA.ChurchID;
             ds = NoticeObj.SelectNotices();
 
             //Converting to Json

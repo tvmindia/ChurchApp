@@ -169,3 +169,10 @@ border: 1px solid #eee;
 height: 200px;
 width: 150px;
 }
+
+ #lblAlreadyNotificationSend{
+     color:red;
+     font-style:italic;
+   width:100%;
+   display:none;
+ }

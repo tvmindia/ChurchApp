@@ -58,7 +58,7 @@
                     <div class="box-header">
                         <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Latest Notices</h2>
                         <div class="box-icon">
-                            <%--<a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="AddNewNotice();">NEW <i class="glyph-icon icon-plus"></i></a>--%>
+                            <a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="AddNewNoticeFormat();">NEW <i class="glyph-icon icon-plus"></i></a>
                             <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 
                         </div>
@@ -160,7 +160,9 @@
                                 </div>
 
                                 <div id="divNotificationDates">
-
+                                     <div class="control-group">
+                                    <label class="control-label" id="lblAlreadyNotificationSend" >Already Notification added</label>
+                                         </div>
                                     <div class="control-group">
                                         <label class="control-label" for="date01">Start Date</label>
                                         <div class="controls">

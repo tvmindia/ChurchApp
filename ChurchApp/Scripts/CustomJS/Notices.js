@@ -6,6 +6,7 @@ var DeletedImgID = '';
 var DeletedImgPath = '';
 var NotificationTypeCode = 'ntc';
 
+
 //var ImageIDOnEdit = '';
 
 $("document").ready(function (e) {
@@ -40,7 +41,6 @@ $("document").ready(function (e) {
         //NoticeValidation();
         var IsValid = true;
         if (IsValid) {
-
 
             debugger;
             if ($("#ddlNoticeType").val() != "" && $("#ddlNoticeType").val() != null) {
@@ -150,9 +150,18 @@ $("document").ready(function (e) {
 
                     BindNotices();
                     // ClearControls();
+                    $("#hdfNoticeID").val(Notices.noticeId);
+
+                    if (((imagefile = $('#UpNotice')[0].files[0]) != undefined)) {
+                        imageId = Notices.imageId;
+                        imgPath = AppImgURL;
+
+                        DeletedImgID = imageId;
+                        DeletedImgPath = imgPath;
+                    }
 
                     debugger;
-                    SetControlsInNewNoticeFormat();
+                 //   SetControlsInNewNoticeFormat();
 
 
                 }
@@ -226,7 +235,21 @@ $("document").ready(function (e) {
                     }
 
                     BindNotices();
-                    SetControlsInNewNoticeFormat();
+                    $("#hdfNoticeID").val(Notices.noticeId);
+
+                    if (((imagefile = $('#UpNotice')[0].files[0]) != undefined))
+                    {
+                        imageId = Notices.imageId;
+                        imgPath = AppImgURL;
+
+                        DeletedImgID = imageId;
+                        DeletedImgPath = imgPath;
+
+                    }
+
+                   
+
+                  //  SetControlsInNewNoticeFormat();
 
                 }
             }
@@ -238,13 +261,23 @@ $("document").ready(function (e) {
     });
 
     $('#btnCancel').click(function (e) {
-        ClearControls();
-        $("#PriestEditDivBox").hide();
+       
+      //  $("#PriestEditDivBox").hide();
 
         $('#rowfluidDiv').hide();
         $('.alert-success').hide();
         $('.alert-error').hide();
 
+        var NoticeID = $("#hdfNoticeID").val();
+
+        if (NoticeID == null || NoticeID == "") //Add
+        {
+            AddNewNoticeFormat();
+        }
+        else//Edit
+        {
+            EditOnClick(NoticeID);
+        }
     });
 
     $('#btnDelete').click(function (e) {
@@ -309,7 +342,6 @@ $("document").ready(function (e) {
 
 function FixedEditClick()
 {
-   
     $("#lblStartDate").hide();
     $("#dateStartDate").show();
     $("#lblExpiryDate").hide();
@@ -338,6 +370,9 @@ function FixedEditClick()
     Notices.noticeId = $("#hdfNoticeID").val();;
 
     jsonResult = GetNoticesBynoticeID(Notices);
+    $("#rdoNotificationYes").parent().removeClass('checked');
+    $('#rdoNotificationNo').parent().addClass('checked');
+
 
     if (jsonResult != undefined) {
         $.each(jsonResult, function (index, jsonResult) {
@@ -359,20 +394,22 @@ function FixedEditClick()
 
             $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
 
+           
             if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
-                $("#rdoNotificationNo").parent().removeClass('checked');
-                $('#rdoNotificationYes').parent().addClass('checked');
-                $("#lblStartDate").show();
-                $("#dateStartDate").hide();
-                $("#lblStartDate").text(jsonResult.StartDate)
-                $("#lblExpiryDate").show();
-                $("#dateExpiryDate").hide();
-                $("#lblExpiryDate").text(jsonResult.ExpiryDate)
+                //$("#rdoNotificationNo").parent().removeClass('checked');
+                //$('#rdoNotificationYes').parent().addClass('checked');
+                //$("#lblStartDate").show();
+                //$("#dateStartDate").hide();
+                //$("#lblStartDate").text(jsonResult.StartDate)
+                //$("#lblExpiryDate").show();
+                //$("#dateExpiryDate").hide();
+                //$("#lblExpiryDate").text(jsonResult.ExpiryDate)
+                $("#lblAlreadyNotificationSend").show();
             }
             else {
-                $("#rdoNotificationYes").parent().removeClass('checked');
-                $('#rdoNotificationNo').parent().addClass('checked');
-
+                //$("#rdoNotificationYes").parent().removeClass('checked');
+                //$('#rdoNotificationNo').parent().addClass('checked');
+                $("#lblAlreadyNotificationSend").hide();
             }
             debugger;
             url = jsonResult.URL;
@@ -391,13 +428,17 @@ function FixedEditClick()
 //--- Edit click of each notice
 function EditOnClick(id) {
     debugger;
+   
+
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
      $("#NoticeEdit").show();
      $("#btnDelete").hide();
      $("#divView").show();
-    var NoticeID = id
+     $("#divNotificationDates").hide();
+    
+     var NoticeID = id;
     $("#hdfNoticeID").val(NoticeID);
 
     var Notices = new Object();
@@ -530,9 +571,11 @@ function SetControlsInNewNoticeFormat() {
     document.getElementById("rdoNotificationYes").disabled = false;
 
     $('#ddlNoticeType').removeAttr('disabled');
+    $("#lblAlreadyNotificationSend").hide();
 }
 
-function AddNewNotice() {
+function AddNewNoticeFormat() {
+    $("#divView").hide();
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -544,6 +587,16 @@ function AddNewNotice() {
     $("#rdoNotificationYes").parent().removeClass('checked');
     $('#rdoNotificationNo').parent().addClass('checked');
 
+    $("#divnoticeName").show();
+    $("#divNoticeType").show();
+    $("#DivFile").show();
+    $("#divNoticeDescription").show();
+    $("#divNotification").show();
+    $("#DivImg").show();
+    $("#divNotification").show();
+    $("#lblAlreadyNotificationSend").hide();
+
+    $("#btnCancel").show();
 }
 
 
@@ -789,7 +842,7 @@ function ClearControls() {
     $("#h1Notice").text("Add Notice");
 
     $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
-
+   
 }
 
 function NoticeValidation() {
