@@ -65,12 +65,12 @@
                     </div>
                     <div class="box-content" id="DivNoticeType1">
 
-                        <div class="accordion">
+                      <%--  <div class="accordion">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
 
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">Unit #1</a>
-                                    <%--<a href="#" class="unitViewDetails">View Details</a>--%>
+                                    
                                 </div>
                                 <div class="accordion-body collapse in">
                                     <div class="accordion-inner">
@@ -81,7 +81,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div>--%>
 
 
                     </div>

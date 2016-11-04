@@ -95,6 +95,7 @@
     <Content Include="CSS\jquery.gritter.css" />
     <Content Include="CSS\jquery.iphone.toggle.css" />
     <Content Include="CSS\jquery.noty.css" />
+    <Content Include="CSS\lightbox.css" />
     <Content Include="CSS\noty_theme_default.css" />
     <Content Include="CSS\select2.min.css" />
     <Content Include="CSS\style-forms.css" />
@@ -160,6 +161,7 @@
     <Content Include="Scripts\dataTables.uikit.js" />
     <Content Include="Scripts\dataTables.uikit.min.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
+    <Content Include="Scripts\lightbox.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\timepicki.js" />
     <Content Include="WebServices\WebService.asmx" />
