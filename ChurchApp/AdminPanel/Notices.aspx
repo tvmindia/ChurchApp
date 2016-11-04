@@ -10,6 +10,9 @@
     <script src="../Scripts/CustomJS/Notices.js"></script>
     <link href="../CSS/CustomCSS/Notice.css" rel="stylesheet" />
 
+   <%-- <link href="../CSS/lightbox.css" rel="stylesheet" />
+    <script src="../Scripts/lightbox.js"></script>--%>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <form id="frm1" runat="server">
@@ -196,7 +199,10 @@
 
                                  <div class="accordion-body collapse in">
                                     <div class="accordion-inner">
-                                        <img class="Eventimage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
+<%--<a class="btn btn-toolbar" style="border:1px solid white" href="../img/No-Img_Chosen.png"  ><i class="icon-zoom-in"></i></a>--%>
+                                       
+                                    <img class="Eventimage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
+
                                          <label  for="focusedInput" id="lblNoticeDescriptionOnView" ></label>
                                     </div>
 

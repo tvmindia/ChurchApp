@@ -458,8 +458,8 @@ function EditOnClick(id) {
 
             url = jsonResult.URL;
             $('#NoticePreviewOnView').attr('src', url);
-
-            imageId = jsonResult.ImageID;
+            
+             imageId = jsonResult.ImageID;
             imgPath = jsonResult.URL;
             $('#lblNoticeDescriptionOnView').text(jsonResult.Description);
             
