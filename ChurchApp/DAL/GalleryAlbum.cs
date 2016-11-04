@@ -140,7 +140,7 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion GetAllGalleryImageAlbumByChurchID
-
+     
 
 
 
@@ -165,7 +165,6 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@AlbumName", SqlDbType.NVarChar, 100).Value = albumName;
                 cmd.Parameters.Add("@AlbumType", SqlDbType.NVarChar, 20).Value = albumType;
-                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);

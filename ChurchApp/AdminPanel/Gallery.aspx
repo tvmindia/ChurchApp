@@ -7,18 +7,20 @@
     <script src="../Scripts/CustomJS/Gallery.js"></script>
     <div id="content" class="span10">
         <ul class="breadcrumb" id="breadcrumbGallery">
-				 <li>
+				 <li class="home">
 					<i class="icon-home"></i>
 					<a href="../AdminPanel/Home.aspx">Home</a> 
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</li>
-				<li>Gallery</li>
+				<li class="Gallery">
+                    <i class="icon-home"></i> Gallery</li>
 			</ul>
+       
 
 
 
 
-              <div class="row-fluid">
+              <div class="row-fluid" id="divImageAlbum">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon picture"></i><span class="break"></span> Albums</h2>
@@ -32,9 +34,9 @@
 					<div class="box-content">
 			       <div class="ImageAlbum-Gallery">
                     <div class="responsive-fixed">      
-                  <div class="DefaultCreateAlbum">
-                  <a href="#" id="newalbum">Create Album</a>
-                  </div>
+                  
+                     
+                      <a href="#" data-rel="tooltip" data-original-title="Create New Album" id="newalbum">Create Album<i class="halflings-icon plus"></i></a>
              
                   </div>      
                              
@@ -42,27 +44,25 @@
 					
 				</div><!--/span-->
               </div>
-              <div class="row-fluid">
+              </div> 
+
+              <div class="row-fluid" id="divImages">
                 	<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon picture"></i><span class="break"></span>AlbumName Images</h2>
+						<h2><i class="halflings-icon picture"></i><span class="break"></span><span id="ImageDivTitle">Album Images</span></h2>
 						<div class="box-icon">
-							<a href="#" id="toggle-fullscreen1" class="hidden-phone hidden-tablet"><i class="halflings-icon fullscreen"></i></a>
 							
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 						<div class="Image-Gallery">
                         <div class="responsive-fixed">
-                        <div class="img-fixed">
-                         <a href="#" id="newImage">
-                        <img src="../img/defaultalbumadd.jpg" class="addnewImage" alt="Trolltunga Norway"/>
-                        </a>
-                        <div id="chooseimage" ><span>Add New Image</span></div> 
-                     </div>
-                    </div>
+                        
+                          
+                           <a href="#" data-rel="tooltip" data-original-title="Add More Images" id="newimage">Add More<i class="halflings-icon plus"></i></a>
+                
+               
+                       </div>
 
 
 
@@ -74,7 +74,10 @@
 
                </div>
 
-              <div class="row-fluid">
+
+
+
+              <div class="row-fluid" id="divVideoAlbum">
              <div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon picture"></i><span class="break"></span> Video Album</h2>
@@ -102,10 +105,7 @@
 					</div>
 				</div><!--/span-->
 			</div>
-
-
-
-            <div class="row-fluid">
+              <div class="row-fluid" id="divVideos">
              <div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon picture"></i><span class="break"></span> AlbumName Videos</h2>
@@ -327,7 +327,7 @@
 
 
 
+    
+
     </div>
-
-
 </asp:Content>

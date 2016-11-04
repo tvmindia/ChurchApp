@@ -3,25 +3,36 @@
 }
 div.img-fixed {
     border: 1px solid #ccc;
-    
+ }
+div.Albimg
+{
+     border: 1px solid #ccc;
 }
 .DefaultCreateAlbum
 {
-position: absolute;
+position: relative;
 border: 2px dotted black;
 width: 250px;
-height: 200px;
-top: 20px;
+height: 215px;
+background: #efefef;
 }
 #newalbum
 {
-    position: relative;
-top: 112px;
-left: 74px;
+position: relative;
+top: 0px;
+left: 70px;
 }
+#newimage
+{
+position: relative;
+top: 0px;
+left: 89px;
+}
+
 div.img:hover {
     border: 1px solid #777;
     opacity:0.2;
+    
    
 }
 .addnewAlbum:hover{
@@ -52,6 +63,7 @@ div.img img {
 div.desc {
     padding: 15px;
     text-align: center;
+    border: 2px solid #777;
 }
 div.desc-fixed {
     padding: 15px;
@@ -62,7 +74,7 @@ div.desc-fixed {
 }*/
 
 .responsive {
-    padding: 5px 6px;
+    padding: 5px 5px;
     /*float: left;*/
     width: 23%;
     display: inline-flex;
@@ -70,10 +82,13 @@ div.desc-fixed {
 
 .responsive-fixed
 {
-    padding: 5px 6px;
-    width: 23%;
-    /*height: auto;*/
-    display: inline-flex;
+padding: 37px 16px;
+display: inline-flex;
+position: relative;
+border: 2px dotted black;
+width: 250px;
+height: auto;
+background: #efefef;
 }
 
 @media only screen and (max-width: 700px){
@@ -137,4 +152,6 @@ padding-top: 10px;
     width: 750px;
     margin-left: -400px;
 }
+
+
 
