@@ -24,7 +24,7 @@ namespace ChurchApp.AdminPanel
             string jsonResult = null;
             DataSet ds = null;
             ChurchApp.DAL.Church churchObj=new DAL.Church();
-            ds = NotificationsObj.SelectNotifications();
+            ds = NotificationsObj.SelectNewNotifications();
            // ds = N
 
             //Converting to Json
@@ -141,5 +141,50 @@ namespace ChurchApp.AdminPanel
             return status;
         }
         #endregion UpdateNotification
+
+        #region DeleteNotification
+        [System.Web.Services.WebMethod]
+        public static string DeleteNotification(Notification NotificationsObj)
+        {
+            string status = null;
+            status = NotificationsObj.DeleteNotification();
+            return status;
+        }
+        #endregion DeleteNotification
+
+        #region SelectOldNotifications
+        [System.Web.Services.WebMethod]
+        public static string SelectOldNotifications(Notification NotificationsObj)
+        {
+            string jsonResult = null;
+            DataSet ds = null;
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            ds = NotificationsObj.SelectOldtNotifications();
+            // ds = N
+
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+
+            }
+
+
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult;
+        }
+        #endregion SelectOldNotifications
     }
 }
