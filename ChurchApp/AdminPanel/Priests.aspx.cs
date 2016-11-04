@@ -1,4 +1,9 @@
-﻿using ChurchApp.DAL;
+﻿#region Author
+//CreatedBy: Thomson Varkey
+//CreatedOn: 04-11-2016
+#endregion Author
+#region Namespace
+using ChurchApp.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,17 +12,23 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+#endregion Namespace
+#region MainClass
 namespace ChurchApp.AdminPanel
 {
     public partial class Priests : System.Web.UI.Page
     {
-        
+
+        #region Pageload
         protected void Page_Load(object sender, EventArgs e)
         {
           
         }
-        #region GetAllProductMainImages
+        #endregion Pageload
+
+        #region WebMethod
+
+        #region GetAllpriest Details
         [System.Web.Services.WebMethod]
         public static string GetPriestsDetails(Priest priestObj)
         {
@@ -55,9 +66,14 @@ namespace ChurchApp.AdminPanel
             }
             return jsSerializer.Serialize("");
         }
-        #endregion GetAllProductMainImages
+        #endregion GetAllpriest Details
 
         #region GetPriestUsingPriestID
+        /// <summary>
+        /// Get Priest Details Using priestID
+        /// </summary>
+        /// <param name="priestObj"></param>
+        /// <returns></returns>
         [System.Web.Services.WebMethod]
         public static string GetPriestsDetailsUsingPriestID(Priest priestObj)
         {
@@ -77,7 +93,11 @@ namespace ChurchApp.AdminPanel
         #endregion GetPriestUsingPriestID
 
         #region  Insert Priest
-
+        /// <summary>
+        /// Insert Priest Details
+        /// </summary>
+        /// <param name="PriestObj"></param>
+        /// <returns></returns>
         [System.Web.Services.WebMethod]
         public static string InsertPriest(ChurchApp.DAL.Priest PriestObj)
         {
@@ -104,9 +124,13 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Insert Priest
-        //UpdatePriest
-        #region  Update Priest
 
+        #region  Update Priest
+        /// <summary>
+        /// Update Priest Details
+        /// </summary>
+        /// <param name="PriestObj"></param>
+        /// <returns></returns>
         [System.Web.Services.WebMethod]
         public static string UpdatePriest(ChurchApp.DAL.Priest PriestObj)
         {
@@ -133,5 +157,7 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Update Priest
+        #endregion WebMethod
     }
 }
+#endregion MainClass

@@ -127,7 +127,7 @@
 					
 					</div>--%>
 					
-				<div id="PriestShowDetails" style="display:none;" class="span6 noMarginLeft">
+				<div id="PriestShowDetails" style="display:none;margin-top:4%;" class="span6 noMarginLeft">
 				<div class="dark">
 				<h1>Details</h1>
 				<div class="box-content">
@@ -224,7 +224,7 @@
 				
 				</div>	
               <!---------------------  Add New Priest and Edit details ----------------------------->
-                <div id="PriestEd" style="display:none;" class="span6 noMarginLeft">
+                <div id="PriestEd" style="display:none;margin-top:4%;" class="span6 noMarginLeft">
 					<div class="dark">
 					<h1 id="HeadDetails">Add Details</h1>
 					<div class="box-content">

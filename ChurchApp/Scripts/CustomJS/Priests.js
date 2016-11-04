@@ -1,12 +1,7 @@
 ﻿$(document).ready(function () {
-    
-
-    
+    //////////----------Function for check priest details and bind 
     check();
-
-    //$('.priestEdit').click(function (e) {
-    //    e.preventDefault();
-    //    $('#PriestEditDivBox').show();
+    //////////-----------Main button event for Save, Update
     $('#btnSavePriest').click(function (e) {
 
         debugger;
@@ -28,17 +23,6 @@
                 var _URL = window.URL || window.webkitURL;
                 var formData = new FormData();
                 var imagefile, logoFile, img;
-
-                //if ((imagefile = $('#UpNotice')[0].files[0]) != undefined) {
-                //    img = new Image();
-                //    var image = $('#UpNotice')[0].files[0];
-                //   // imagefile.name = guid;
-                //    formData.append('tempfile', image, imagefile.name);
-                //    formData.append('ActionTyp', 'BannerInsert');
-                //    var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
-
-                //}
-
 
                 if (((imagefile = $('#priestimg')[0].files[0]) != undefined)) {
                     var formData = new FormData();
@@ -158,7 +142,9 @@
 
     });
 
-    });
+});
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////---------Json data transfer
     function getJsonData(data, page) {
         var jsonResult = {};
         var req = $.ajax({
@@ -175,6 +161,8 @@
         });
         return jsonResult;
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////****************** Function For changing jason date format to local
     function ConvertJsonToDate(jsonDate) {
         if (jsonDate != null) {
             var dateString = jsonDate.substr(6);
@@ -192,8 +180,9 @@
             return result;
         }
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////*********************** Function for binding priest list vicar and asst vicar
     function check() {
-        debugger;
         var priestDetails = {};
         var elems = $();
         var elemsAsst = $();
@@ -229,6 +218,8 @@
         }
         
     }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////***************************** Clear fields 
     function ClearFields()
     {
         $(':input').each(function () {
@@ -257,8 +248,8 @@
         table = JSON.parse(ds.d);
         return table;
     }
+    // Get the priest details using the priest ID for view more details
     function GetPriestDetailsUsingPiestID(priestID) {
-        debugger;
         var ds = {};
         var table = {};
         var Priest = new Object();
@@ -268,8 +259,8 @@
         table = JSON.parse(ds.d);
         return table;
     }
+    // Create new vicar and new Asst Vicar section
     function OpenNewAdd(Tag) {
-        debugger;
         ClearFields();
         $('#hdfPriestID').val('');
         if (Tag == "Asst")
@@ -286,14 +277,14 @@
         $('#PriestEd').show();
         
     }
+    //Onclick function for view priest details
     function OpenPriestDetails(priestID) {
-        debugger;
         BindDetails(priestID);
         $('#PriestShowDetails').show();
         $('#PriestEd').hide();
     }
+//Bind Details to view
     function BindDetails(priestID) {
-        debugger;
         var PriestRow = {};
         PriestRow = GetPriestDetailsUsingPiestID(priestID);
         
@@ -313,6 +304,7 @@
         $('#iconEditPriest').attr('name', PriestRow.priestID);
         
     }
+// Bind Details for edit
     function editPriestDetails(this_obj)
     {
         var priestid = $(this_obj).attr('name');
@@ -336,7 +328,7 @@
         $('#PriestShowDetails').hide();
         $('#PriestEd').show();
     }
-    
+    // Create Guid
     function createGuid() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -352,6 +344,7 @@
         table = JSON.parse(jsonResult.d);
         return table;
     }
+    // Update Priest
     function UpdatePriest(Priest) {
         var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
         jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/UpdatePriest");
@@ -359,6 +352,7 @@
         table = JSON.parse(jsonResult.d);
         return table;
     }
+    // Show Picture preview for file upload
     function showpreview(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -368,6 +362,7 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+    // Html code for binding Vicar with details
     function HtmlBindProductWithOffer(priestDetails, i)
     {
         debugger;
@@ -383,6 +378,7 @@
         return html;
        
     }
+    // Html code for binding Asst Vicar details
     function HtmlBindWithAsst(priestDetails, i) {
         debugger;
         var ID ="'"+priestDetails.ID+"'";
@@ -395,6 +391,7 @@
         return html;
 
     }
+// Html code for no record found for vicar
     function HtmlBindVicar() {
         debugger;
         var html = ('<div class="priority high"><span>Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick=OpenNewAdd("Vicar")>NEW <i class="glyph-icon icon-plus"></i></a></div>'
@@ -406,6 +403,7 @@
         return html;
 
     }
+// Html code for no record found for Asst Vicar
     function HtmlBindAsstVicar() {
         debugger;
         var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/priest.png"/></li>'
