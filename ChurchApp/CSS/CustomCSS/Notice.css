@@ -39,8 +39,8 @@ ul.dashboard-list li .imgNotice {
 .btn-round{
     border-radius:10%!important;
     position: relative;
-    left: 70%!important;
-
+    left: 10%!important;
+   
 }
 /*//*/
 
@@ -89,4 +89,83 @@ border-radius:8%;
 
 #NoticePreview{
     width:38%;height:100%;
+}
+
+#PriestEditDivBox
+{
+    display:none
+}
+.accordion-heading {
+    
+    background-color: #e0e5ea;
+    line-height: 10px;
+}
+.NoticeViewDetails
+{
+    position:absolute;
+    right:25px;
+  
+}
+.NoticeViewDetails a {
+    color: #337ab7 !important;
+}
+/*.unitViewDetails
+{
+  position: relative;
+top: -18px;
+color: #337ab7 !important;
+left: 82%;
+}*/
+
+.accordion-inner p{
+    /*white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 2000px;*/
+ 
+  overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+
+
+}
+
+.Eventimage {
+height: 80px;
+width: 100px;
+padding: 1px;
+float: left;
+margin-top: -6px;
+margin-right: 35px;
+border: 1px solid #eee;
+
+}
+
+#divView
+{
+    display:none;
+}
+.NoticeEdit
+{
+    right: 5px; position: fixed;
+}
+
+
+/*#NoticePreviewOnView
+{
+    width:40%;
+    height:100%;
+}
+
+#lblNoticeDescriptionOnView
+{
+    width:100%
+}*/
+
+ #NoticePreviewOnView 
+{
+height: 200px;
+width: 150px;
 }
