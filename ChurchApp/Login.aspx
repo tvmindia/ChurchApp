@@ -46,44 +46,43 @@
 
 </head>
 <body>
-    <form id="form1" runat="server">
-    <div>
-        <div class="container-fluid-full">
+   <div class="container-fluid-full">
 		<div class="row-fluid">
 					
-			<div class="row-fluid">
-				<div class="login-box">
-					<div class="icons">
+			<div class="row-fluid" id="loginRowFluid">
+				<div class="login-box" id="LoginBoxDiv">
+                    <input id="Hidden1" runat="server" type="hidden" />
+					<%--<div class="icons">
 						<a href="index.html"><i class="halflings-icon home"></i></a>
 						<a href="#"><i class="halflings-icon cog"></i></a>
-					</div>
+					</div>--%>
 					<h2>Login to your account</h2>
-					
+					<form class="form-horizontal" runat="server">
 						
 							
 							<div class="input-prepend" title="Username">
 								<span class="add-on"><i class="halflings-icon user"></i></span>
-								<input class="input-large span10" name="username" id="username" type="text" placeholder="type username"/>
+								<input class="input-large span10" name="username" id="username"  runat="server" type="text" placeholder="Username"/>
 							</div>
 							<div class="clearfix"></div>
 
 							<div class="input-prepend" title="Password">
 								<span class="add-on"><i class="halflings-icon lock"></i></span>
-								<input class="input-large span10" name="password" id="password" type="password" placeholder="type password"/>
+								<input class="input-large span10" name="password" id="password" runat="server" type="password" placeholder="Password"/>
 							</div>
 							<div class="clearfix"></div>
 							
-							<label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>
+							  <asp:Label class="errormsg"  ID="lblmsg" runat="server" Text=""></asp:Label>
 
 							<div class="button-login">	
-								<button type="submit" class="btn btn-primary">Login</button>
+								<button type="submit" id="btnlogin" class="btn btn-primary loginbtn">Login</button>
 							</div>
 							<div class="clearfix"></div>
-					
-					<hr>
+					</form>
+				 
 					<h3>Forgot Password?</h3>
 					<p>
-						No problem, <a href="#">click here</a> to get a new password.
+						No problem, <a href="#" onclick="ForgotPassword()">click here</a> to get a new password.
 					</p>	
 				</div><!--/span-->
 			</div><!--/row-->
@@ -101,7 +100,6 @@
 
 
     
-    </div>
-    </form>
+    <script src="Scripts/CustomJS/Login.js"></script>
 </body>
 </html>

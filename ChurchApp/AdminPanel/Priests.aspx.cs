@@ -40,7 +40,7 @@ namespace ChurchApp.AdminPanel
 
             if (priestObj.churchID != "")
             {
-               // productObj.BoutiqueID = UA.BoutiqueID;
+               // productObj.ChurchID = UA.ChurchID;
                 DataSet ds = null;
                 ds = priestObj.SelectPriests();
                
