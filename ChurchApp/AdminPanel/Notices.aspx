@@ -63,8 +63,8 @@
                         <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Latest Notices</h2>
                          
                         <div class="box-icon">
-                             <a class="btnNew" title="" onclick="AddNewNoticeFormat();"><i>+</i></a>
-                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
+                             <a class="btnNew" title="" onclick="AddNewNoticeFormat();"><i title="Add New Notice">+</i></a>
+                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%> 
 
                         </div>
                     </div>
