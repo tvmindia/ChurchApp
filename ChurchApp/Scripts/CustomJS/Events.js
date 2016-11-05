@@ -25,6 +25,12 @@ $("document").ready(function (e) {
     $('#btnCancel').click(function (e)
     {
         ClearControls();
+
+        if ($("#hdfEventID").val() != "")
+        {
+            EditOnClick($("#hdfEventID").val());
+        }
+
     });
 
 
@@ -119,13 +125,7 @@ function FixedEditClick()
     SetControlsInEditableFormat();
     $("#h1Event").text("Edit Event");
 
-    $("#EventEditDivBox").show();
-    $("#EditContent").show();
-    $("#divView").hide();
-
-    $("#btnSave").show();
-    $("#btnCancel").show();
-    $("#btnDelete").show();
+   
 
     var Events = new Object();
     Events.eventId = $("#hdfEventID").val();
@@ -166,6 +166,7 @@ function SetControlsInNewEventFormat()
 
     $("#h1Event").text("New Event");
 
+    $("#EventEditDivBox").show();
     $("#EditContent").show();
     $("#divView").hide();
 
@@ -173,25 +174,35 @@ function SetControlsInNewEventFormat()
     $("#btnCancel").show();
     $("#btnDelete").hide();
 
+    $("#hdfEventID").val("");
+
 
 }
 
 function SetControlsInViewFormat()
 {
-    $("#lblEventName").show();
-    $("#lblDescription").show();
-    $("#lblStartDate").show();
-    $("#lblEndDate").show();
-    $("#lblExpiryDate").show();
+    //$("#lblEventName").show();
+    //$("#lblDescription").show();
+    //$("#lblStartDate").show();
+    //$("#lblEndDate").show();
+    //$("#lblExpiryDate").show();
 
-    $("#txtEventName").hide();
-    $("#txtDescription").hide();
-    $("#dateStartDate").hide();
-    $("#dateEndDate").hide();
-    $("#dateExpiryDate").hide();
+    //$("#txtEventName").hide();
+    //$("#txtDescription").hide();
+    //$("#dateStartDate").hide();
+    //$("#dateEndDate").hide();
+    //$("#dateExpiryDate").hide();
+
+    $("#EventEditDivBox").show();
+    $("#EditContent").hide();
+    $("#divView").show();
 
 
-    $("#btnDelete").show();
+    $("#btnSave").hide();
+    $("#btnCancel").hide();
+    $("#btnDelete").hide();
+
+
 }
 
 function SetControlsInEditableFormat()
@@ -208,25 +219,27 @@ function SetControlsInEditableFormat()
     $("#dateEndDate").show();
     $("#dateExpiryDate").show();
 
+    $("#EventEditDivBox").show();
+    $("#EditContent").show();
+    $("#divView").hide();
+
+    $("#btnSave").show();
+    $("#btnCancel").show();
+    $("#btnDelete").show();
+
 }
 
 //Edit
 
 function EditOnClick(id)
 {
-    $("#EventEditDivBox").show();
-    $("#EditContent").hide();
-    $("#divView").show();
-
-
-    $("#btnSave").hide();
-    $("#btnCancel").hide();
-    $("#btnDelete").hide();
-
+    SetControlsInViewFormat();
 
     var Events = new Object();
     Events.eventId = id;
 
+    if (id != "" && id != null) {
+    
     $("#hdfEventID").val(id);
 
     var jsonResult = {};
@@ -261,7 +274,7 @@ function EditOnClick(id)
 
         });
     }
-
+}
 }
 
 function GetEventsByEventID(Events) {
