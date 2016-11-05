@@ -90,7 +90,7 @@
                     </div>
                 </div>
 
-                <div class="box span7" id="PriestEditDivBox">
+                <div class="box span7" id="NoticeEditDivBox">
                     <div class="box-header" >
                         <h2 id="h1Notice"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Add Notice</h2>
                         <div class="box-icon">
@@ -201,7 +201,7 @@
                                     <div class="accordion-inner">
 <%--<a class="btn btn-toolbar" style="border:1px solid white" href="../img/No-Img_Chosen.png"  ><i class="icon-zoom-in"></i></a>--%>
                                        
-                                    <img class="Eventimage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
+                                    <img class="noticeImage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
 
                                          <label  for="focusedInput" id="lblNoticeDescriptionOnView" ></label>
                                     </div>

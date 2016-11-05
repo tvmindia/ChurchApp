@@ -36,20 +36,28 @@ namespace ChurchApp.AdminPanel
 
         #endregion Page Load
 
-        #region Image Upload
-
-        protected void UploadFile(object sender, EventArgs e)
-        {
-           // string fileName = Path.GetFileName(UpNotice.FileName);
-            //UpNotice.PostedFile.SaveAs(Server.MapPath("~/img/gallery") + fileName);
-           
-        }
-
-        #endregion Image Upload
-
         #endregion Events
 
         #region Methods
+
+
+        //-------------* General  Methods *--------------//
+
+        #region Delete From Server Folder
+
+        public static void DeleteFileFromFolder(string imgPath)
+        {
+            FileInfo file = new FileInfo(imgPath);
+            if (file.Exists)
+            {
+                file.Delete();
+            }
+        }
+
+        #endregion 
+
+
+        //-------------* Notice  Methods *--------------//
 
         #region Get Notice Types
 
@@ -239,6 +247,44 @@ namespace ChurchApp.AdminPanel
 
         #endregion Update Notice
 
+        #region Delete Notice
+
+        [System.Web.Services.WebMethod]
+        public static string DeleteNotice(ChurchApp.DAL.Notices NoticeObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            NoticeObj.churchId = UA.ChurchID;
+            string status = null;
+            try
+            {
+                if (NoticeObj.noticeId != string.Empty || NoticeObj.noticeId != null)
+                {
+                    status = NoticeObj.DeleteNotice().ToString();
+                    NoticeObj.status = status;
+                }
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NoticeObj);
+
+        }
+
+
+        #endregion Delete Notice
+
+
+        //-------------* AppImage  Methods *--------------//
+
         #region  Get Server Map Path
 
         [System.Web.Services.WebMethod]
@@ -317,54 +363,8 @@ namespace ChurchApp.AdminPanel
 
         #endregion Delete App Image
 
-        #region Delete From Server Folder
 
-        public static void DeleteFileFromFolder(string imgPath)
-        {
-            FileInfo file = new FileInfo(imgPath);
-            if (file.Exists)
-            {
-                file.Delete();
-            }
-        }
-
-        #endregion 
-
-        #region Delete Notice 
-
-        [System.Web.Services.WebMethod]
-        public static string DeleteNotice(ChurchApp.DAL.Notices NoticeObj)
-        {
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            NoticeObj.churchId = UA.ChurchID;
-            string status = null;
-            try
-            {
-                if (NoticeObj.noticeId != string.Empty || NoticeObj.noticeId != null)
-                {
-                   status = NoticeObj.DeleteNotice().ToString();
-                   NoticeObj.status = status;
-                }
-
-            }
-            catch (Exception)
-            {
-                status = "500";//Exception of foreign key
-            }
-            finally
-            {
-            }
-            return jsSerializer.Serialize(NoticeObj);
-
-        }
-
-
-        #endregion Delete Notice
-
+        //-------------* Notification  Methods *--------------//
         #region Insert Notification
 
         [System.Web.Services.WebMethod]
@@ -399,6 +399,7 @@ namespace ChurchApp.AdminPanel
 
         #endregion  Insert Notification
 
+       
         #endregion Methods
 
     }
