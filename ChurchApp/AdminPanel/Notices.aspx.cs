@@ -36,20 +36,28 @@ namespace ChurchApp.AdminPanel
 
         #endregion Page Load
 
-        #region Image Upload
-
-        protected void UploadFile(object sender, EventArgs e)
-        {
-           // string fileName = Path.GetFileName(UpNotice.FileName);
-            //UpNotice.PostedFile.SaveAs(Server.MapPath("~/img/gallery") + fileName);
-           
-        }
-
-        #endregion Image Upload
-
         #endregion Events
 
         #region Methods
+
+
+        //-------------* General  Methods *--------------//
+
+        #region Delete From Server Folder
+
+        public static void DeleteFileFromFolder(string imgPath)
+        {
+            FileInfo file = new FileInfo(imgPath);
+            if (file.Exists)
+            {
+                file.Delete();
+            }
+        }
+
+        #endregion 
+
+
+        //-------------* Notice  Methods *--------------//
 
         #region Get Notice Types
 
@@ -93,11 +101,13 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetNotices(ChurchApp.DAL.Notices  NoticeObj)
         {
+            DAL.Security.UserAuthendication UA;
+             DAL.Const Const = new DAL.Const();
+             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
             string jsonResult = null;
             DataSet ds = null;
-            NoticeObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
-
-          //  NoticeObj.churchId = "5e8b02fe-5a1b-4817-b10e-9f54c0dd5d2b";
+            NoticeObj.churchId = UA.ChurchID;
             ds = NoticeObj.SelectNotices();
 
             //Converting to Json
@@ -134,9 +144,7 @@ namespace ChurchApp.AdminPanel
         {
             string jsonResult = null;
             DataSet ds = null;
-
-          //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
-            ds = NoticeObj.GetNoticesByNoticeID();
+             ds = NoticeObj.GetNoticesByNoticeID();
 
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -172,14 +180,18 @@ namespace ChurchApp.AdminPanel
         public static string InsertNotice(ChurchApp.DAL.Notices NoticeObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            NoticeObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
-          //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            NoticeObj.churchId = UA.ChurchID;
             string status = null;
             try
             {
                 //if (NoticeObj.noticeId == string.Empty || NoticeObj.noticeId == null )
                 //{
-                    NoticeObj.createdBy = "Shamila";
+                    NoticeObj.createdBy = UA.userName;
                     status = NoticeObj.InsertNotice().ToString();
                     NoticeObj.status = status;
                  //}
@@ -209,12 +221,16 @@ namespace ChurchApp.AdminPanel
         public static string UpdateNotice(ChurchApp.DAL.Notices NoticeObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            NoticeObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
-            //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
-            string status = null;
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            NoticeObj.churchId = UA.ChurchID;
+             string status = null;
             try
             {
-                NoticeObj.updatedBy = "Shamila";
+                NoticeObj.createdBy = UA.userName;
                 status = NoticeObj.UpdateNotice().ToString();
                 NoticeObj.status = status;
             }
@@ -231,6 +247,44 @@ namespace ChurchApp.AdminPanel
 
         #endregion Update Notice
 
+        #region Delete Notice
+
+        [System.Web.Services.WebMethod]
+        public static string DeleteNotice(ChurchApp.DAL.Notices NoticeObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            NoticeObj.churchId = UA.ChurchID;
+            string status = null;
+            try
+            {
+                if (NoticeObj.noticeId != string.Empty || NoticeObj.noticeId != null)
+                {
+                    status = NoticeObj.DeleteNotice().ToString();
+                    NoticeObj.status = status;
+                }
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NoticeObj);
+
+        }
+
+
+        #endregion Delete Notice
+
+
+        //-------------* AppImage  Methods *--------------//
+
         #region  Get Server Map Path
 
         [System.Web.Services.WebMethod]
@@ -238,6 +292,13 @@ namespace ChurchApp.AdminPanel
         {
            string ServerPath = HttpContext.Current.Server.MapPath("~/img/" + Path);
             return ServerPath;
+
+            //var sPath = System.Web.Hosting.HostingEnvironment.MapPath("/img/AppImages/aba60090-7315-3442-6fa3-a9c6dcaaab71.jpg/");
+
+            //if (File.Exists(sPath))
+            //{
+            //    File.Delete(sPath);
+            //}
 
         }
 
@@ -250,9 +311,17 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             string status = null;
+
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+
+
             try
             {
-                AppImgObj.createdBy = "Shamila";
+                AppImgObj.createdBy = UA.userName;
                 status = AppImgObj.InsertAppImage();
                 
             }
@@ -294,62 +363,23 @@ namespace ChurchApp.AdminPanel
 
         #endregion Delete App Image
 
-        #region Delete From Server Folder
 
-        public static void DeleteFileFromFolder(string imgPath)
-        {
-            FileInfo file = new FileInfo(imgPath);
-            if (file.Exists)
-            {
-                file.Delete();
-            }
-        }
-
-        #endregion 
-
-        #region Delete Notice 
-
-        [System.Web.Services.WebMethod]
-        public static string DeleteNotice(ChurchApp.DAL.Notices NoticeObj)
-        {
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            NoticeObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
-            //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
-            string status = null;
-            try
-            {
-                if (NoticeObj.noticeId != string.Empty || NoticeObj.noticeId != null)
-                {
-                   status = NoticeObj.DeleteNotice().ToString();
-                   NoticeObj.status = status;
-                }
-
-            }
-            catch (Exception)
-            {
-                status = "500";//Exception of foreign key
-            }
-            finally
-            {
-            }
-            return jsSerializer.Serialize(NoticeObj);
-
-        }
-
-
-        #endregion Delete Notice
-
+        //-------------* Notification  Methods *--------------//
         #region Insert Notification
 
         [System.Web.Services.WebMethod]
         public static string InsertNotification(ChurchApp.DAL.Notification NotificationObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            NotificationObj.churchId = "99311E06-65DD-471E-904E-04702F2C4FB0";
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            NotificationObj.churchId = UA.ChurchID;
             string status = null;
             try
             {
-                NotificationObj.createdBy = "Shamila";
+                NotificationObj.createdBy = UA.userName;
                 status = NotificationObj.InsertNotification().ToString();
                // NotificationObj.status = status;
               
@@ -369,6 +399,7 @@ namespace ChurchApp.AdminPanel
 
         #endregion  Insert Notification
 
+       
         #endregion Methods
 
     }

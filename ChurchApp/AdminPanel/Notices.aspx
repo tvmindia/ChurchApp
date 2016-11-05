@@ -10,6 +10,9 @@
     <script src="../Scripts/CustomJS/Notices.js"></script>
     <link href="../CSS/CustomCSS/Notice.css" rel="stylesheet" />
 
+   <%-- <link href="../CSS/lightbox.css" rel="stylesheet" />
+    <script src="../Scripts/lightbox.js"></script>--%>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <form id="frm1" runat="server">
@@ -58,19 +61,19 @@
                     <div class="box-header">
                         <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Latest Notices</h2>
                         <div class="box-icon">
-                            <%--<a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="AddNewNotice();">NEW <i class="glyph-icon icon-plus"></i></a>--%>
+                            <a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="AddNewNoticeFormat();">NEW <i class="glyph-icon icon-plus"></i></a>
                             <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 
                         </div>
                     </div>
                     <div class="box-content" id="DivNoticeType1">
 
-                        <div class="accordion">
+                      <%--  <div class="accordion">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
 
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">Unit #1</a>
-                                    <%--<a href="#" class="unitViewDetails">View Details</a>--%>
+                                    
                                 </div>
                                 <div class="accordion-body collapse in">
                                     <div class="accordion-inner">
@@ -81,13 +84,13 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div>--%>
 
 
                     </div>
                 </div>
 
-                <div class="box span7" id="PriestEditDivBox">
+                <div class="box span7" id="NoticeEditDivBox">
                     <div class="box-header" >
                         <h2 id="h1Notice"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Add Notice</h2>
                         <div class="box-icon">
@@ -160,7 +163,9 @@
                                 </div>
 
                                 <div id="divNotificationDates">
-
+                                     <div class="control-group">
+                                    <label class="control-label" id="lblAlreadyNotificationSend" >Already Notification added</label>
+                                         </div>
                                     <div class="control-group">
                                         <label class="control-label" for="date01">Start Date</label>
                                         <div class="controls">
@@ -194,7 +199,10 @@
 
                                  <div class="accordion-body collapse in">
                                     <div class="accordion-inner">
-                                        <img class="Eventimage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
+<%--<a class="btn btn-toolbar" style="border:1px solid white" href="../img/No-Img_Chosen.png"  ><i class="icon-zoom-in"></i></a>--%>
+                                       
+                                    <img class="noticeImage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
+
                                          <label  for="focusedInput" id="lblNoticeDescriptionOnView" ></label>
                                     </div>
 

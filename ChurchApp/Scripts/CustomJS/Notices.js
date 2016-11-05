@@ -1,16 +1,16 @@
 ﻿
-var imageId = '';
-var imgPath = '';
+//Global Variables
+var imageId = '';                   //Stores imageid of uploaded image
+var imgPath = '';                   //Stores path of uploaded image
 
-var DeletedImgID = '';
-var DeletedImgPath = '';
-var NotificationTypeCode = 'ntc';
+var DeletedImgID = '';              //While changing the uploaded image with new , previous one should get deleted, So imageid to be deleted is stored in this variable
+var DeletedImgPath = '';            //While changing the uploaded image with new , previous one should get deleted from folde, So imag path to be deleted is stored in this variable
+var NotificationTypeCode = 'ntc';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
+//--------------------------------//
 
-//var ImageIDOnEdit = '';
 
 $("document").ready(function (e) {
-    debugger;
-
+   
     $("#rdoNotificationYes").click(function () {
 
         $("#divNotificationDates").show();
@@ -22,7 +22,6 @@ $("document").ready(function (e) {
     });
 
     BindNotices();
-    //  BindNoticesOnEdit();
 
     $("#ddlNoticeType").select2({
         placeholder: "Choose Types",
@@ -30,17 +29,10 @@ $("document").ready(function (e) {
         data: BindNoticeTypeDropDown()
     });
 
-    //$(".aViewDetails").click(function () {
-
-    //});
-
-    //$("#NoticeEdit").click(function () {});
-
     $('#btnSave').click(function (e) {
         //NoticeValidation();
         var IsValid = true;
         if (IsValid) {
-
 
             debugger;
             if ($("#ddlNoticeType").val() != "" && $("#ddlNoticeType").val() != null) {
@@ -64,17 +56,6 @@ $("document").ready(function (e) {
                         var formData = new FormData();
                         var imagefile, logoFile, img;
 
-                        //if ((imagefile = $('#UpNotice')[0].files[0]) != undefined) {
-                        //    img = new Image();
-                        //    var image = $('#UpNotice')[0].files[0];
-                        //   // imagefile.name = guid;
-                        //    formData.append('tempfile', image, imagefile.name);
-                        //    formData.append('ActionTyp', 'BannerInsert');
-                        //    var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
-
-                        //}
-
-
                         if (((imagefile = $('#UpNotice')[0].files[0]) != undefined)) {
                             var formData = new FormData();
                             var tempFile;
@@ -85,37 +66,16 @@ $("document").ready(function (e) {
                             }
                             formData.append('ActionTyp', 'NoticeAppImageInsert');
                             AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-
                         }
-
                     }
 
                     var Notices = new Object();
                     Notices.noticeName = $("#txtNoticeName").val();
                     Notices.description = $("#txtDescription").val();
                     Notices.noticeType = $("#ddlNoticeType").val();
-                    // Notices.isDelete = 0;
-                    //if (imageId != null && imageId != "") {
-                    //    Notices.imageId = imageId;
-                    //}
-
+                    
                     Notices.noticeId = guid;
                     Notices.imageId = guid;
-
-
-                    //var AppImages = new Object();
-                    //AppImages.url = AppImgURL;
-                    //AppImages.appImageId = guid;
-                    //InsertAppImage(AppImages);
-
-                    //if (NoticeID != null && NoticeID != "")
-                    //{
-                    //    Notices.noticeId = NoticeID
-                    //}
-                    //else
-                    //{
-                    //    Notices.noticeId = guid;
-                    //}
 
                     result = InsertNotice(Notices);
 
@@ -137,9 +97,7 @@ $("document").ready(function (e) {
                             if ($('#dateExpiryDate').val() != "") {
                                 Notification.expiryDate = $('#dateExpiryDate').val();
                             }
-
                             InsertNotification(Notification);
-
                         }
                     }
                     if (result.status != "1") {
@@ -150,10 +108,18 @@ $("document").ready(function (e) {
 
                     BindNotices();
                     // ClearControls();
+                    $("#hdfNoticeID").val(Notices.noticeId);
+
+                    if (((imagefile = $('#UpNotice')[0].files[0]) != undefined)) {
+                        imageId = Notices.imageId;
+                        imgPath = AppImgURL;
+
+                        DeletedImgID = imageId;
+                        DeletedImgPath = imgPath;
+                    }
 
                     debugger;
-                    SetControlsInNewNoticeFormat();
-
+                 //   SetControlsInNewNoticeFormat();
 
                 }
                     //-----------------------UPDATE-------------------//
@@ -214,9 +180,7 @@ $("document").ready(function (e) {
                             }
 
                             InsertNotification(Notification);
-
                         }
-
 
                     }
                     if (result.status != "1") {
@@ -226,7 +190,18 @@ $("document").ready(function (e) {
                     }
 
                     BindNotices();
-                    SetControlsInNewNoticeFormat();
+                    $("#hdfNoticeID").val(Notices.noticeId);
+
+                    if (((imagefile = $('#UpNotice')[0].files[0]) != undefined))
+                    {
+                        imageId = Notices.imageId;
+                        imgPath = AppImgURL;
+
+                        DeletedImgID = imageId;
+                        DeletedImgPath = imgPath;
+                    }
+
+                  //  SetControlsInNewNoticeFormat();
 
                 }
             }
@@ -238,13 +213,23 @@ $("document").ready(function (e) {
     });
 
     $('#btnCancel').click(function (e) {
-        ClearControls();
-        $("#PriestEditDivBox").hide();
+       
+        //  $("#NoticeEditDivBox").hide();
 
         $('#rowfluidDiv').hide();
         $('.alert-success').hide();
         $('.alert-error').hide();
 
+        var NoticeID = $("#hdfNoticeID").val();
+
+        if (NoticeID == null || NoticeID == "") //Add
+        {
+            AddNewNoticeFormat();
+        }
+        else//Edit
+        {
+            EditOnClick(NoticeID);
+        }
     });
 
     $('#btnDelete').click(function (e) {
@@ -290,272 +275,11 @@ $("document").ready(function (e) {
         }
     });
 
-    //$('#btnAdd').click(function (e) {
-
-    //});
-
-    // BindControlsOnEdit();
-
-    //$(function () {
-    //$('#btnUpload').click(function () {
-    //        debugger;
-
-
-    //    });
-    //})
-
 });
+//------------End of document ready----------------//
 
 
-function FixedEditClick()
-{
-   
-    $("#lblStartDate").hide();
-    $("#dateStartDate").show();
-    $("#lblExpiryDate").hide();
-    $("#dateExpiryDate").show();
-
-
-    $("#divView").hide();
-
-    $("#divnoticeName").show();
-    $("#divNoticeType").show();
-    $("#DivFile").show();
-    $("#divNoticeDescription").show();
-    $("#divNotification").show();
-    $("#DivImg").show();
-    $("#divNotification").show();
-
-    $("#btnDelete").show();
-    $("#btnCancel").show();
-
-    document.getElementById("rdoNotificationNo").disabled = false;
-    document.getElementById("rdoNotificationYes").disabled = false;
-
-    $('#ddlNoticeType').removeAttr('disabled');
-
-    var Notices = new Object();
-    Notices.noticeId = $("#hdfNoticeID").val();;
-
-    jsonResult = GetNoticesBynoticeID(Notices);
-
-    if (jsonResult != undefined) {
-        $.each(jsonResult, function (index, jsonResult) {
-            debugger;
-
-            $("#lblNoticeName").hide();
-
-            $("#lblNoticeDescription").hide();
-
-            //$("#lblNoticeType").hide();
-
-            $("#txtNoticeName").show();
-            $("#txtDescription").show();
-
-            $("#txtNoticeName").val(jsonResult.NoticeName);
-
-            $("#txtDescription").text(jsonResult.Description);
-            $("#txtDescription").val(jsonResult.Description);
-
-            $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
-
-            if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
-                $("#rdoNotificationNo").parent().removeClass('checked');
-                $('#rdoNotificationYes').parent().addClass('checked');
-                $("#lblStartDate").show();
-                $("#dateStartDate").hide();
-                $("#lblStartDate").text(jsonResult.StartDate)
-                $("#lblExpiryDate").show();
-                $("#dateExpiryDate").hide();
-                $("#lblExpiryDate").text(jsonResult.ExpiryDate)
-            }
-            else {
-                $("#rdoNotificationYes").parent().removeClass('checked');
-                $('#rdoNotificationNo').parent().addClass('checked');
-
-            }
-            debugger;
-            url = jsonResult.URL;
-            $('#NoticePreview').attr('src', url);
-
-
-
-        });
-        $("#btnSave").show();
-        $("#h1Notice").text("Edit Notice");
-        $("#DivFile").show();
-    }
-}
-
-
-//--- Edit click of each notice
-function EditOnClick(id) {
-    debugger;
-    $('#rowfluidDiv').hide();
-    $('.alert-success').hide();
-    $('.alert-error').hide();
-     $("#NoticeEdit").show();
-     $("#btnDelete").hide();
-     $("#divView").show();
-    var NoticeID = id
-    $("#hdfNoticeID").val(NoticeID);
-
-    var Notices = new Object();
-    Notices.noticeId = NoticeID;
-
-    //BindControlsOnEdit(Notices);
-    //$('#ddlNoticeType').attr('disabled', 'disabled');
-
-    $("#PriestEditDivBox").show();
-    var jsonResult = {};
-
-    jsonResult = GetNoticesBynoticeID(Notices);
-
-    if (jsonResult != undefined) {
-        $.each(jsonResult, function (index, jsonResult) {
-            $("#h1Notice").text(jsonResult.NoticeName);
-
-            url = jsonResult.URL;
-            $('#NoticePreviewOnView').attr('src', url);
-
-            imageId = jsonResult.ImageID;
-            imgPath = jsonResult.URL;
-            $('#lblNoticeDescriptionOnView').text(jsonResult.Description);
-            
-        });
-        }
-
-    $("#btnSave").hide();
-    $("#btnCancel").hide();
-
-        $("#divnoticeName").hide();
-        $("#divNoticeType").hide();
-        $("#DivFile").hide();
-        $("#DivImg").hide();
-        $("#divNotification").hide();
-        $("#divNoticeDescription").hide();
-}
-
-function BindControlsOnEdit(Notices) {
-
-    $("#PriestEditDivBox").show();
-
-    var jsonResult = {};
-
-    jsonResult = GetNoticesBynoticeID(Notices);
-
-    if (jsonResult != undefined) {
-        $.each(jsonResult, function (index, jsonResult) {
-            $("#lblNoticeName").show();
-            $('#lblNoticeName').text(jsonResult.NoticeName);
-            $("#txtNoticeName").hide();
-
-            $("#h1Notice").text(jsonResult.NoticeName);
-
-            $("#lblNoticeDescription").show();
-            $("#txtDescription").hide();
-            $('#lblNoticeDescription').text(jsonResult.Description);
-
-            $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
-
-            if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
-                $("#rdoNotificationNo").parent().removeClass('checked');
-                $('#rdoNotificationYes').parent().addClass('checked');
-                $("#lblStartDate").show();
-                $("#dateStartDate").hide();
-                $("#lblStartDate").text(jsonResult.StartDate)
-                $("#lblExpiryDate").show();
-                $("#dateExpiryDate").hide();
-                $("#lblExpiryDate").text(jsonResult.ExpiryDate)
-            }
-            else {
-                $("#rdoNotificationYes").parent().removeClass('checked');
-                $('#rdoNotificationNo').parent().addClass('checked');
-
-            }
-            debugger;
-            url = jsonResult.URL;
-            $('#NoticePreview').attr('src', url);
-
-            //$('#imgNotices').attr('src', "../img/No-Img_Chosen.png")
-
-            document.getElementById("rdoNotificationNo").disabled = true;
-            document.getElementById("rdoNotificationYes").disabled = true;
-
-            // $("#lblNoticeType").show();
-
-            // $('#lblNoticeType').text(jsonResult.NoticeType);
-
-
-            //$("#txtNoticeName").text(jsonResult.NoticeName);
-
-            //$("#txtNoticeName").val(jsonResult.NoticeName);
-
-            //$("#txtDescription").text(jsonResult.Description);
-
-            //$("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
-
-            imageId = jsonResult.ImageID;
-            imgPath = jsonResult.URL;
-
-        });
-
-
-        $("#btnSave").hide();
-        $("#DivFile").hide();
-    }
-}
-
-
-
-function SetControlsInNewNoticeFormat() {
-    ClearControls();
-    $("#PriestEditDivBox").show();
-
-    $("#txtNoticeName").show();
-    $("#txtDescription").show();
-    $("#btnSave").show();
-    $("#h1Notice").text("Add Notice");
-
-    $("#lblNoticeDescription").hide();
-    $("#lblNoticeName").hide();
-    $("#NoticeEdit").hide();
-    $("#DivFile").show();
-
-    $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
-
-    $("#btnDelete").hide();
-
-    document.getElementById("rdoNotificationNo").disabled = false;
-    document.getElementById("rdoNotificationYes").disabled = false;
-
-    $('#ddlNoticeType').removeAttr('disabled');
-}
-
-function AddNewNotice() {
-    $('#rowfluidDiv').hide();
-    $('.alert-success').hide();
-    $('.alert-error').hide();
-
-
-    SetControlsInNewNoticeFormat();
-    $("#divNotificationDates").hide();
-
-    $("#rdoNotificationYes").parent().removeClass('checked');
-    $('#rdoNotificationNo').parent().addClass('checked');
-
-}
-
-
-//Insert Notice
-function UpdateNotice(Notices) {
-    var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
-    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/UpdateNotice");
-    var table = {};
-    table = JSON.parse(jsonResult.d);
-    return table;
-}
-
+//General
 function createGuid() {
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -563,62 +287,17 @@ function createGuid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-function DeleteNotice(Notices) {
-    var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
-    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/DeleteNotice");
-    var table = {};
-    table = JSON.parse(jsonResult.d);
-    return table;
-}
-
-function DeleteFileFromFolder(imgPath) {
-
-    $.ajax({
-        type: "POST",
-        url: "../AdminPanel/Notices.aspx/DeleteFileFromFolder",
-        data: '{imgPath: "' + imgPath + '"}',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: imgPath,
-        failure: function (response) {
-
-            // alert(response.d);
-        },
-        error: function (response) {
-
-            // alert(response.d);
+function showpreview(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#NoticePreview').attr('src', e.target.result);
         }
-    });
+        reader.readAsDataURL(input.files[0]);
+    }
 }
+//--------------------------------//
 
-function GetInsertedImgID(result) {
-    var json = InsertAppImage(result);
-
-    imageId = json.appImageId;
-    $("#hdfImageID").val(imageId);
-
-}
-
-function DeleteAppImage(AppImages) {
-    var data = "{'AppImgObj':" + JSON.stringify(AppImages) + "}";
-    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/DeleteAppImage");
-    var table = {};
-    table = JSON.parse(jsonResult.d);
-    return table;
-
-}
-
-function InsertAppImage(AppImages) {
-    debugger;
-
-    var data = "{'AppImgObj':" + JSON.stringify(AppImages) + "}";
-    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/InsertAppImage");
-    var table = {};
-    table = JSON.parse(jsonResult.d);
-    return table;
-
-    //imageId
-}
 
 //Notice Type Dropdown
 function BindNoticeTypeDropDown() {
@@ -639,6 +318,8 @@ function GetAllNoticeTypes(NoticeType) {
     table = JSON.parse(ds.d);
     return table;
 }
+//--------------------------------//
+
 
 // Bind Notices
 function BindNotices() {
@@ -652,7 +333,6 @@ function BindNotices() {
         FillNotice(jsonResult);
     }
 }
-
 
 function FillNotice(Records) {
     $('#DivNoticeType1').html('');
@@ -668,9 +348,9 @@ function FillNotice(Records) {
 
         var html = '<div class="task high"><ul class="dashboard-list"><li class="Eventlist"><a href="#"><img class="Eventimage" id=img' + Records.ID + ' src=' + url + '/></a><span class="spnNoticeName">' + Records.NoticeName + '<br/></span><strong>Type : </strong>' + Records.NoticeType + '<br/>' + Records.Description + '<div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div> </li></ul><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
 
-        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NoticeName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="Eventimage" id=img' + Records.ID + ' src=' + url + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NoticeName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="Noticeimage" id=img' + Records.ID + ' src=' + url + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="NoticeEditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
 
-
+        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NoticeName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + ' src=' + url + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
         $("#DivNoticeType1").append(html);
 
         if (url != "") {
@@ -692,27 +372,6 @@ function FillNotice(Records) {
 
 }
 
-function GetServerMapPath(path) {
-    $.ajax({
-        url: "../AdminPanel/Notices.aspx/GetServerMapPath",
-        type: "POST",
-        contentType: false,
-        processData: false,
-        data: path,
-        // dataType: "json",
-        success: function (result) {
-
-            debugger;
-            return result;
-        },
-        error: function (err) {
-            // alert(err.statusText);
-        }
-    });
-
-}
-
-
 function GetNotices(Notices) {
     var ds = {};
     var table = {};
@@ -721,36 +380,8 @@ function GetNotices(Notices) {
     table = JSON.parse(ds.d);
     return table;
 }
+//--------------------------------//
 
-//Notice  Edit 
-function BindNoticesOnEdit() {
-    var jsonResult = {};
-    var Notices = new Object();
-    Notices.noticeId = "3172b77c-97e6-4acb-85a7-4508d27269b0";
-    jsonResult = GetNoticesBynoticeID(Notices);
-    if (jsonResult != undefined) {
-        //  FillOrderTable(jsonResult);
-    }
-}
-
-function GetNoticesBynoticeID(Notices) {
-    var ds = {};
-    var table = {};
-    var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
-    ds = getJsonData(data, "../AdminPanel/Notices.aspx/GetNoticeDetailsByNoticeID");
-    table = JSON.parse(ds.d);
-    return table;
-}
-
-function showpreview(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#NoticePreview').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
 //Insert Notice
 function InsertNotice(Notices) {
@@ -759,37 +390,6 @@ function InsertNotice(Notices) {
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
-}
-
-//Insert Notification
-function InsertNotification(Notification) {
-    debugger;
-
-    var data = "{'NotificationObj':" + JSON.stringify(Notification) + "}";
-    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/InsertNotification");
-    var table = {};
-    table = JSON.parse(jsonResult.d);
-    return table;
-}
-
-function ClearControls() {
-    $("#txtNoticeName").text("");
-    $("#txtNoticeName").val("");
-    $("#txtDescription").text("");
-    $("#txtDescription").val("");
-    $("#ddlNoticeType").select2("val", "");
-
-    $('#dateStartDate').val("");
-    $("#dateExpiryDate").val("");
-
-    $("#hdfImageID").val("");
-    $("#hdfNoticeID").val("");
-    imageId = '';
-    imgPath = '';
-    $("#h1Notice").text("Add Notice");
-
-    $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
-
 }
 
 function NoticeValidation() {
@@ -837,8 +437,379 @@ function NoticeValidation() {
 
 
 }
+//--------------------------------//
 
 
+//Update Notice
+function UpdateNotice(Notices) {
+    var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/UpdateNotice");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
+function GetNoticesBynoticeID(Notices) {
+    var ds = {};
+    var table = {};
+    var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notices.aspx/GetNoticeDetailsByNoticeID");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function BindControlsOnEdit(Notices) {
+
+    $("#NoticeEditDivBox").show();
+
+    var jsonResult = {};
+
+    jsonResult = GetNoticesBynoticeID(Notices);
+
+    if (jsonResult != undefined) {
+        $.each(jsonResult, function (index, jsonResult) {
+            $("#lblNoticeName").show();
+            $('#lblNoticeName').text(jsonResult.NoticeName);
+            $("#txtNoticeName").hide();
+
+            $("#h1Notice").text(jsonResult.NoticeName);
+
+            $("#lblNoticeDescription").show();
+            $("#txtDescription").hide();
+            $('#lblNoticeDescription').text(jsonResult.Description);
+
+            $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
+
+            if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
+                $("#rdoNotificationNo").parent().removeClass('checked');
+                $('#rdoNotificationYes').parent().addClass('checked');
+                $("#lblStartDate").show();
+                $("#dateStartDate").hide();
+                $("#lblStartDate").text(jsonResult.StartDate)
+                $("#lblExpiryDate").show();
+                $("#dateExpiryDate").hide();
+                $("#lblExpiryDate").text(jsonResult.ExpiryDate)
+            }
+            else {
+                $("#rdoNotificationYes").parent().removeClass('checked');
+                $('#rdoNotificationNo').parent().addClass('checked');
+
+            }
+            debugger;
+            url = jsonResult.URL;
+            $('#NoticePreview').attr('src', url);
+
+            document.getElementById("rdoNotificationNo").disabled = true;
+            document.getElementById("rdoNotificationYes").disabled = true;
+
+            imageId = jsonResult.ImageID;
+            imgPath = jsonResult.URL;
+
+        });
+
+
+        $("#btnSave").hide();
+        $("#DivFile").hide();
+    }
+}
+//--------------------------------//
+
+
+//Deletion
+function DeleteNotice(Notices) {
+    var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/DeleteNotice");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
+function DeleteFileFromFolder(imgPath) {
+
+    $.ajax({
+        type: "POST",
+        url: "../AdminPanel/Notices.aspx/DeleteFileFromFolder",
+        data: '{imgPath: "' + imgPath + '"}',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: imgPath,
+        failure: function (response) {
+
+            // alert(response.d);
+        },
+        error: function (response) {
+
+            // alert(response.d);
+        }
+    });
+}
+
+function DeleteAppImage(AppImages) {
+    var data = "{'AppImgObj':" + JSON.stringify(AppImages) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/DeleteAppImage");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+
+}
+//--------------------------------//
+
+
+//Insert Notification
+function InsertNotification(Notification) {
+    debugger;
+
+    var data = "{'NotificationObj':" + JSON.stringify(Notification) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/InsertNotification");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+//--------------------------------//
+
+
+//Edit
+//--- while select a notice , ther will appear a fixed edit icon ,its click functionality is given below
+function FixedEditClick() {
+    $("#lblStartDate").hide();
+    $("#dateStartDate").show();
+    $("#lblExpiryDate").hide();
+    $("#dateExpiryDate").show();
+
+
+    $("#divView").hide();
+
+    $("#divnoticeName").show();
+    $("#divNoticeType").show();
+    $("#DivFile").show();
+    $("#divNoticeDescription").show();
+    $("#divNotification").show();
+    $("#DivImg").show();
+    $("#divNotification").show();
+
+    $("#btnDelete").show();
+    $("#btnCancel").show();
+
+    document.getElementById("rdoNotificationNo").disabled = false;
+    document.getElementById("rdoNotificationYes").disabled = false;
+
+    $('#ddlNoticeType').removeAttr('disabled');
+
+    var Notices = new Object();
+    Notices.noticeId = $("#hdfNoticeID").val();;
+
+    jsonResult = GetNoticesBynoticeID(Notices);
+    $("#rdoNotificationYes").parent().removeClass('checked');
+    $('#rdoNotificationNo').parent().addClass('checked');
+
+
+    if (jsonResult != undefined) {
+        $.each(jsonResult, function (index, jsonResult) {
+            debugger;
+
+            $("#lblNoticeName").hide();
+
+            $("#lblNoticeDescription").hide();
+
+            //$("#lblNoticeType").hide();
+
+            $("#txtNoticeName").show();
+            $("#txtDescription").show();
+
+            $("#txtNoticeName").val(jsonResult.NoticeName);
+
+            $("#txtDescription").text(jsonResult.Description);
+            $("#txtDescription").val(jsonResult.Description);
+
+            $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
+
+
+            if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
+                //$("#rdoNotificationNo").parent().removeClass('checked');
+                //$('#rdoNotificationYes').parent().addClass('checked');
+                //$("#lblStartDate").show();
+                //$("#dateStartDate").hide();
+                //$("#lblStartDate").text(jsonResult.StartDate)
+                //$("#lblExpiryDate").show();
+                //$("#dateExpiryDate").hide();
+                //$("#lblExpiryDate").text(jsonResult.ExpiryDate)
+                $("#lblAlreadyNotificationSend").show();
+            }
+            else {
+                //$("#rdoNotificationYes").parent().removeClass('checked');
+                //$('#rdoNotificationNo').parent().addClass('checked');
+                $("#lblAlreadyNotificationSend").hide();
+            }
+            debugger;
+            url = jsonResult.URL;
+            $('#NoticePreview').attr('src', url);
+
+
+
+        });
+        $("#btnSave").show();
+        $("#h1Notice").text("Edit Notice");
+        $("#DivFile").show();
+    }
+}
+
+//--- Edit click of each notice
+function EditOnClick(id) {
+    debugger;
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $("#NoticeEdit").show();
+    $("#btnDelete").hide();
+    $("#divView").show();
+    $("#divNotificationDates").hide();
+
+    var NoticeID = id;
+    $("#hdfNoticeID").val(NoticeID);
+
+    var Notices = new Object();
+    Notices.noticeId = NoticeID;
+
+    //BindControlsOnEdit(Notices);
+    //$('#ddlNoticeType').attr('disabled', 'disabled');
+
+    $("#NoticeEditDivBox").show();
+    var jsonResult = {};
+
+    jsonResult = GetNoticesBynoticeID(Notices);
+
+    if (jsonResult != undefined) {
+        $.each(jsonResult, function (index, jsonResult) {
+            $("#h1Notice").text(jsonResult.NoticeName);
+
+            url = jsonResult.URL;
+            $('#NoticePreviewOnView').attr('src', url);
+
+            imageId = jsonResult.ImageID;
+            imgPath = jsonResult.URL;
+
+            debugger;
+            if (jsonResult.Description == null || jsonResult.Description == "" || jsonResult.Description == undefined) {
+                //$("#NoticePreviewOnView").css('width', '300px!important');
+                $('#NoticePreviewOnView').width(600);
+                $('#NoticePreviewOnView').height('auto');
+                $('#lblNoticeDescriptionOnView').text("");
+            }
+
+            else {
+                $('#NoticePreviewOnView').height(200);
+                $('#NoticePreviewOnView').width(150);
+                $('#lblNoticeDescriptionOnView').text(jsonResult.Description);
+            }
+
+        });
+    }
+
+    $("#btnSave").hide();
+    $("#btnCancel").hide();
+
+    $("#divnoticeName").hide();
+    $("#divNoticeType").hide();
+    $("#DivFile").hide();
+    $("#DivImg").hide();
+    $("#divNotification").hide();
+    $("#divNoticeDescription").hide();
+}
+//--------------------------------//
+
+
+// Clear Control Functions
+function SetControlsInNewNoticeFormat() {
+    ClearControls();
+    $("#NoticeEditDivBox").show();
+
+    $("#txtNoticeName").show();
+    $("#txtDescription").show();
+    $("#btnSave").show();
+    $("#h1Notice").text("Add Notice");
+
+    $("#lblNoticeDescription").hide();
+    $("#lblNoticeName").hide();
+    $("#NoticeEdit").hide();
+    $("#DivFile").show();
+
+    $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
+
+    $("#btnDelete").hide();
+
+    document.getElementById("rdoNotificationNo").disabled = false;
+    document.getElementById("rdoNotificationYes").disabled = false;
+
+    $('#ddlNoticeType').removeAttr('disabled');
+    $("#lblAlreadyNotificationSend").hide();
+}
+
+function AddNewNoticeFormat() {
+    $("#divView").hide();
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+    SetControlsInNewNoticeFormat();
+    $("#divNotificationDates").hide();
+
+    $("#rdoNotificationYes").parent().removeClass('checked');
+    $('#rdoNotificationNo').parent().addClass('checked');
+
+    $("#divnoticeName").show();
+    $("#divNoticeType").show();
+    $("#DivFile").show();
+    $("#divNoticeDescription").show();
+    $("#divNotification").show();
+    $("#DivImg").show();
+    $("#divNotification").show();
+    $("#lblAlreadyNotificationSend").hide();
+
+    $("#btnCancel").show();
+}
+
+function ClearControls() {
+    $("#txtNoticeName").text("");
+    $("#txtNoticeName").val("");
+    $("#txtDescription").text("");
+    $("#txtDescription").val("");
+    $("#ddlNoticeType").select2("val", "");
+
+    $('#dateStartDate').val("");
+    $("#dateExpiryDate").val("");
+
+    $("#hdfImageID").val("");
+    $("#hdfNoticeID").val("");
+    imageId = '';
+    imgPath = '';
+    $("#h1Notice").text("Add Notice");
+
+    $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
+
+}
+//--------------------------------//
+
+
+//Not using now
+function GetServerMapPath(path) {
+    $.ajax({
+        url: "../AdminPanel/Notices.aspx/GetServerMapPath",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        data: path,
+        // dataType: "json",
+        success: function (result) {
+
+            debugger;
+            return result;
+        },
+        error: function (err) {
+            // alert(err.statusText);
+        }
+    });
+
+}
 
 
 

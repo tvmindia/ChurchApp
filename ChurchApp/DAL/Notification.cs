@@ -80,12 +80,12 @@ namespace ChurchApp.DAL
 
         #region Methods
 
-        #region SelectNotifications
+        #region SelectNewNotifications
         /// <summary>
-        /// Select All Notifications By ChurchID
+        /// Select Top 10 New Notifications By ChurchID
         /// </summary>
-        /// <returns>All Notifications</returns>
-        public DataSet SelectNotifications()
+        /// <returns>Top 10 New Notifications</returns>
+        public DataSet SelectNewNotifications()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -98,7 +98,7 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllNotifications]";
+                cmd.CommandText = "[SelectTopNewNotifications]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
@@ -118,7 +118,7 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion SelectNotifications
+        #endregion SelectNewNotifications
 
         #region InsertNotification
         /// <summary>
@@ -216,7 +216,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -315,6 +315,46 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectNotificationByID
+
+        #region SelecOldtNotifications
+        /// <summary>
+        /// Select Top 10 Old Notifications By ChurchID
+        /// </summary>
+        /// <returns>Top 10 Old Notifications</returns>
+        public DataSet SelectOldtNotifications()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectOldNotifications]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelecOldtNotifications
 
         #endregion Methods
     }

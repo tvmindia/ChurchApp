@@ -38,7 +38,6 @@ namespace ChurchApp.ImageHandler
                                 GalAlbumObj.churchId = context.Request.Form.GetValues("churchId")[0];
                                 GalAlbumObj.albumName = context.Request.Form.GetValues("AlbumName")[0];
                                 GalAlbumObj.albumType = "image";
-                                GalAlbumObj.isDelete = "False";
                                 GalAlbumObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                 GalAlbumObj.InsertGalleryAlbum();
                                 foreach (string content in context.Request.Files)
@@ -47,11 +46,11 @@ namespace ChurchApp.ImageHandler
                                     fileExtension = Path.GetExtension(file.FileName);
                                     GalleryItems GalItemsObj = new GalleryItems();
                                     GalItemsObj.albumId = GalAlbumObj.albumId;
-                                    GalItemsObj.url = "~/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension;
+                                    GalItemsObj.url = "/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension;
                                     GalItemsObj.itemType = "image";
                                     GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                     GalItemsObj.InsertGalleryItem();
-                                    string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/AppImages/")).Replace("~", "");
+                                    string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/AppImages/"));
                                     file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
                                 }//end of foreach
                                 break;
