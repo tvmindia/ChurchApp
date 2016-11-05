@@ -110,7 +110,7 @@
             <%--<div id="assVicardiv">
             <div id="AsstVicarDefault">--%>
             <div class="priority low" style="margin-top:4%!important;"><span>Asst Vicar</span><a class="btnNew" style="left:80%!important;" title="ADD NEW" onclick="OpenNewAdd('Asst');"><i class="material-icons">+</i></a></div>
-			<div class="task low">
+			<div class="task low" id="AsstVicartask">
                  <div id="assVicardiv">
             <div id="AsstVicarDefault">
              <ul class="dashboard-list vicarlist">
@@ -363,7 +363,7 @@
 						<input type="hidden" id="hdfPriestID" />
 							<div class="form-actions">
 							  <a class="btn btn-primary" name="" id="btnSavePriest">Save changes</a>
-							  <a href="Priests.aspx" type="reset" class="btn btn-primary">Cancel</a>
+							  <a id="btnCancelPriest" class="btn btn-primary">Cancel</a>
 							</div>
 						  </fieldset>
 					</div>   
