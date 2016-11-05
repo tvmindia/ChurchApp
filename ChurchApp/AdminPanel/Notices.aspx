@@ -204,8 +204,10 @@
 <%--<a class="btn btn-toolbar" style="border:1px solid white" href="../img/No-Img_Chosen.png"  ><i class="icon-zoom-in"></i></a>--%>
                                        
                                     <img class="noticeImage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
-
+                                        <span class="NoticeViewDetails" style="margin-bottom:0px" id="spnNoticeType"></span>
+                                        <br />
                                          <label  for="focusedInput" id="lblNoticeDescriptionOnView" ></label>
+                                         
                                     </div>
 
                                 </div>

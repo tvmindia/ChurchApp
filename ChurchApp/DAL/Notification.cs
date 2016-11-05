@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -159,7 +160,7 @@ namespace ChurchApp.DAL
                 }
                 
               //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
-                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(true);
+                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
@@ -207,11 +208,11 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
                 if(startDate!=null && startDate !=string.Empty)
                 {
-                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
+                    cmd.Parameters.Add("@StartDate", SqlDbType.Date).Value = DateTime.Parse(startDate);
                 }
                 if(expiryDate!=null && expiryDate!=string.Empty)
                 {
-                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(expiryDate);
+                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.Date).Value = DateTime.Parse(expiryDate);
                 }                
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
