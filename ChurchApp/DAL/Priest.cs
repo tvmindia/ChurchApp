@@ -160,6 +160,46 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectPriests
+
+        #region SelectPriestsAutocomplete
+        /// <summary>
+        /// Select All Priests
+        /// </summary>
+        /// <returns>All Priests</returns>
+        public DataTable SelectPriestsAutocomplete()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetPriestsAutocomplete]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+        #endregion SelectPriestsAutocomplete
+
         #region SelectPriestsUsingPriestID
         /// <summary>
         /// Select All Priests

@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     //////////----------Function for check priest details and bind 
     check();
+    ////////----------function Autocomplete for filter priest name
+    AutoComplete();
     $('#btnCancelPriest').click(function (e) {
         $('#PriestEd').hide();
         $('#PriestShowDetails').show();
@@ -154,6 +156,59 @@
     });
 
 });
+
+function AutoComplete()
+{
+    debugger;
+    var ac=null;
+    ac = GetPriest();
+
+    var length= ac.length;
+    var projects = new Array();
+    for (i=0;i<length;i++)
+    {  
+        var name= ac[i].split('🏠');
+        projects.push({  value : name[0], label: name[0], desc: name[1]})   
+    }
+              
+    $("#txtPriestName").autocomplete({
+        maxResults: 10,
+        source: function(request, response) {
+            debugger;
+            //--- Search by name or description(file no , mobile no, address) , by accessing matched results with search term and setting this result to the source for autocomplete
+            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+            var matching = $.grep(projects, function (value) {
+
+                var name = value.value;
+                var  label= value.label;
+                var desc= value.desc;
+
+                return matcher.test(name) || matcher.test(desc);
+            });
+            var results = matching; // Matched set of result is set to variable 'result'
+
+            response(results.slice(0, this.options.maxResults));
+        },
+        focus: function( event, ui ) {
+            $("#txtPriestName").val(ui.item.label);
+                       
+            return false;
+        },
+        select: function( event, ui ) {
+            debugger;
+
+            //var FileName =    ui.item.desc.split('|')[0].split('📰')[1];
+            // var Address =  ui.item.desc.split('|')[1];
+            var priestID = ui.item.desc;
+
+            OpenPriestDetails(priestID);
+            //document.getElementById('<%=Errorbox.ClientID %>').style.display = "none";
+
+
+            return false;
+        }
+    })
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////---------Json data transfer
     function getJsonData(data, page) {
@@ -256,6 +311,15 @@
         Priest.ChurchID = ChurchID;
         var data = "{'priestObj':" + JSON.stringify(Priest) + "}";
         ds = getJsonData(data, "../AdminPanel/Priests.aspx/GetPriestsDetails");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    function GetPriest() {
+        var ds = {};
+        var table = {};
+        var Priest = new Object();
+        var data = "{'priestObj':" + JSON.stringify(Priest) + "}";
+        ds = getJsonData(data, "../AdminPanel/Priests.aspx/GetPriest");
         table = JSON.parse(ds.d);
         return table;
     }
