@@ -75,3 +75,8 @@ ul.dashboard-list li .priestimage {
     left: 80%;
 
 }
+.ui-autocomplete {
+    font-size: 14px;
+    font-weight:400;
+    font-family: 'Californian FB';
+}
