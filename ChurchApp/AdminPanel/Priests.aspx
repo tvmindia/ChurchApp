@@ -5,6 +5,46 @@
     <link href="../CSS/CustomCSS/Priests.css" rel="stylesheet" />
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Priests.js"></script>
+   <%--<style>
+       
+       .btnNew {
+           -webkit-border-radius: 58;
+           -moz-border-radius: 58;
+           border-radius: 58px;
+           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+           color: #ffffff;
+           font-size: 20px;
+           background: #F44336;
+           padding: 8px 17px 8px 17px;
+           text-decoration: none;
+           position:relative;
+           cursor:pointer;
+       }
+
+       .btnNew:hover {
+           background: #eb5347;
+           color:lightsteelblue;
+           text-decoration: none;
+       }
+       .btnEdit {
+           -webkit-border-radius: 58;
+           -moz-border-radius: 58;
+           border-radius: 58px;
+           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+           color: #ffffff;
+           font-size: 20px;
+           background: #21a01b;
+           padding: 8px 10px 8px 13px;
+           text-decoration: none;
+           cursor:pointer;
+       }
+
+       .btnEdit:hover {
+           background: green;
+           color:whitesmoke;
+           text-decoration: none;
+       }
+   </style>--%>
       <div id="content" class="span10">
        <ul class="breadcrumb">
                 <li>
@@ -48,7 +88,7 @@
 			<h1>Current Vicars</h1>
             <div id="VicarDivDisplay">
             <div id="VicarDefault">
-            <div class="priority high"><span>Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="OpenNewAdd('Vicar');">NEW <i class="glyph-icon icon-plus"></i></a></div>
+            <div class="priority high"><span>Vicar</span><a href="#" class="btnNew" style="left:80%!important;" title="ADD NEW" onclick="OpenNewAdd('Vicar');"><i class="material-icons">+</i></a></div>
 			<div class="task high">
              <ul class="dashboard-list vicarlist">
 				<li >
@@ -69,7 +109,7 @@
 			
             <%--<div id="assVicardiv">
             <div id="AsstVicarDefault">--%>
-            <div class="priority low"><span>Asst Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" style="left:75%!important;" title="" onclick="OpenNewAdd('Asst');">NEW <i class="glyph-icon icon-plus"></i></a></div>
+            <div class="priority low" style="margin-top:4%!important;"><span>Asst Vicar</span><a class="btnNew" style="left:80%!important;" title="ADD NEW" onclick="OpenNewAdd('Asst');"><i class="material-icons">+</i></a></div>
 			<div class="task low">
                  <div id="assVicardiv">
             <div id="AsstVicarDefault">
@@ -133,7 +173,8 @@
 				<div class="box-content">
 				<div class="form-horizontal">
 				    <fieldset>
-                    <a class="btn-setting" style="right:30px;position: fixed;" href="#"><i class="fa fa-pencil eventEdit" aria-hidden="true" id="iconEditPriest" onclick="editPriestDetails(this);"></i></a>
+                        <%--<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">+</i></a>--%>
+                    <a class="btnEdit" style="right:40px;position: fixed;" title="EDIT" id="iconEditPriest" onclick="editPriestDetails(this);"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
                         <div class="control-group">
 							  <img class="priestimage" id="priestDetailPreview" src="../img/gallery/priest.png"/>
 							</div> 
@@ -285,6 +326,7 @@
 								<label class="control-label" for="focusedInput">Status</label>
 								<div class="controls">
                                     <select id="ddlstatus">
+                                        <option value="-1" selected disabled">Select status</option>
                                         <option value="Vicar">Vicar</option>
                                         <option value="Asst Vicar">Asst Vicar</option>
                                     </select>
