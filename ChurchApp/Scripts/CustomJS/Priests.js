@@ -1,6 +1,11 @@
 ﻿$(document).ready(function () {
     //////////----------Function for check priest details and bind 
     check();
+    $('#btnCancelPriest').click(function (e) {
+        $('#PriestEd').hide();
+        $('#PriestShowDetails').show();
+
+    });
     //////////-----------Main button event for Save, Update
     $('#btnSavePriest').click(function (e) {
 
@@ -74,6 +79,10 @@
 
             debugger;
             //SetControlsInNewNoticeFormat();
+            $('#assVicardiv').remove();
+            debugger;
+            $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+            check();
 
 
         }
@@ -135,9 +144,11 @@
                 $('.alert-error').show();
                 $('.alert-error strong').text("Saving Not Successful");
             }
-
+            $('#assVicardiv').remove();
+            debugger;
+            $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
             //SetControlsInNewNoticeFormat();
-
+            check();
         }
 
     });
@@ -368,14 +379,14 @@
     {
         debugger;
         var ID = "'" + priestDetails.ID + "'";
-        var html = ('<div class="priority high"><span>Vicar</span></div>'
+        var html = ('<div id="VicarDefault"><div class="priority high"><span>Vicar</span></div>'
           + '<div class="task high">'
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + priestDetails.URL + '"/></li>'
           + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
           + '<strong>Baptismal Name:</strong> ' + priestDetails.BaptismalName + ' <br/><strong>House Name:</strong> ' + priestDetails.Address + ' <br/><strong>Status:</strong> ' + priestDetails.Status+ '<br/>'
           + '<strong>Date of Birth:</strong>  ' + ConvertJsonToDate(priestDetails.DOB) + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
           + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenPriestDetails(' + ID + ');">View more details</a>'
-          + '</li></ul></div>');
+          + '</li></ul></div></div>');
         return html;
        
     }
@@ -395,12 +406,12 @@
 // Html code for no record found for vicar
     function HtmlBindVicar() {
         debugger;
-        var html = ('<div class="priority high"><span>Vicar</span><a class="btnNew" style="left:80%!important;" title="ADD NEW" onclick=OpenNewAdd("Vicar")><i class="material-icons">+</i></a></div>'
+        var html = ('<div id="VicarDefault"><div class="priority high"><span>Vicar</span><a class="btnNew" style="left:80%!important;" title="ADD NEW" onclick=OpenNewAdd("Vicar")><i class="material-icons">+</i></a></div>'
           + '<div class="task high">'
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/priest.png"/></li>'
           + '<li ><br /><br /><br />'
           + '<span style="color:#647587!important" class="choosepic"> No record Found</span> <br/>'
-          + '</li></ul></div>');
+          + '</li></ul></div></div>');
         return html;
 
     }
