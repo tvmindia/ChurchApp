@@ -6,6 +6,7 @@
         $('#NotificationEditDivBox').show();
 
     });
+
     $(".Delete").click(function () {
         var result = "";
         var churchId = $("#hdfChurchID").val();
@@ -22,7 +23,9 @@
                 $('.alert-success').show();
                 $('.alert-success strong').text("Deleted Successfully");
                 BindAsyncNotificationTable();
+                BindAsynOldNotificationTable();
                 $('#NotificationEditDivBox').hide();
+                $("#NotificationDetails").hide();
             }
             else
             {
@@ -38,31 +41,27 @@
     $(".Cancel").click(function () {
         $("#NotificationEditDivBox").hide();
         $("#detailsHeading").text("");
+        $('#rowfluidDiv').hide();
     });
-
+    $("#cancelDetail").click(function () {
+        $("#NotificationDetails").hide();
+    });
     $(".aViewDetails").live({
 
         click: function (e) {// Delete button click
-            debugger;
-          
+            debugger;         
             $('#rowfluidDiv').hide();
-            $(".NotificationEdit").css("display", "");
-            $("#isDeleteDiv").css("display", "");
+            $("#btnContainer").show();
             $(".Save").hide();
             $(".Delete").show();
-            $("#detailsHeading").text("Details");
-            $("#NotificationEditDivBox").show();
+            $(".Cancel").show();
             var NotificationID = $(this).attr('id');
             $("#hdfNotificationID").val(NotificationID.replace('/', ""));
-
             var churchID = $("#hdfChurchID").val();
-
             var Notification = new Object();
             Notification.notificationID = NotificationID;
             Notification.churchId = churchID;
-
-            BindControlsOnViewDetails(Notification);
-          
+            BindControlsOnViewDetails(Notification);         
         }
     });
 
@@ -70,19 +69,28 @@
         debugger;
         $('#rowfluidDiv').hide();
         $(".Save").show();
+        $("#NotificationDetails").hide();
+        $("#NotificationEditDivBox").show();
         $("#detailsHeading").text("Edit Notification");
-        var caption = $("#lblCaption").text();
-        var description = $("#lblDescription").text();
-        var startDate = $("#lblStartDate").text();
-        var expiryDate = $("#lblExpiryDate").text();
+        var type = $("#hdfType").val();
+        $("#ddlType").val(type).trigger("change");
+        var caption = $("#captionHeading").text();
+        var description = $("#desc").text();
+        var startDate = $("#sDate").text();
+        if (startDate.includes(":")) {
+            startDate = startDate.split(":")[1];
+        }
+        var expiryDate = $("#eDate").text();
+        if (expiryDate.includes(":")) {
+            expiryDate = expiryDate.split(":")[1];
+        }
         HideAllLabels();
         ShowAllTextBoxes();
         $("#txtCaption").val(caption);
         $("#txtDescription").val(description);
         $("#txtStartDate").val(startDate);
         $("#txtExpiryDate").val(expiryDate);
-        $("#optDeleteYes").parent().removeClass('checked');
-        $('#optDeleteNo').parent().addClass('checked');
+        $(".NotificationEdit").css("display", "none");
     });
     $(".Save").click(function () {
         debugger;
@@ -91,7 +99,16 @@
         var type = $("#ddlType").val();
         var description = $("#txtDescription").val();
         var startDate = $("#txtStartDate").val();
+        if (startDate.includes(","))
+        {
+            startDate = startDate.split(":")[1];
+        }
+        //startDate = startDate.split("-")[1] + "-" + startDate.split("-")[0] + "-" + startDate.split("-")[2];
         var expiryDate = $("#txtExpiryDate").val();
+        if (expiryDate.includes(","))
+        {
+            expiryDate = expiryDate.split(":")[1];
+        }       
         var churchId = $("#hdfChurchID").val();
         var notificationID = $("#hdfNotificationID").val();
         var linkID = $("#LinkID").val().replace('/', "");
@@ -99,7 +116,7 @@
         Notifications.caption = caption;
         Notifications.notificationType = type;
         Notifications.description = description;
-        Notifications.startDate = startDate;
+        Notifications.startDate =startDate;
         Notifications.expiryDate = expiryDate;
         Notifications.churchId = churchId;
         Notifications.linkID = linkID;
@@ -110,6 +127,7 @@
             result = InsertNotification(Notifications);
             if (result == "1") {
                 BindAsyncNotificationTable();
+                BindAsynOldNotificationTable();
                 $("#NotificationEditDivBox").hide();
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
@@ -126,6 +144,7 @@
             result = UpdateNotification(Notifications);
             if (result == "1") {
                 BindAsyncNotificationTable();
+                BindAsynOldNotificationTable();
                 $("#NotificationEditDivBox").hide();
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
@@ -198,19 +217,17 @@ function AddNotification()
 {
     $(".NotificationEdit").css("display", "none");
     $("#detailsHeading").text("Add Notification");
+    $("#NotificationDetails").hide();
     $("#NotificationEditDivBox").show();
     ShowAllTextBoxes()
     HideAllLabels();
     $(".Save").show();
     $(".Delete").hide();
-    $("#isDeleteDiv").css("display", "none")
     $("#ddlType").select2("val", "");
     $("#txtCaption").val("");
     $("#txtDescription").val("");
     $("#txtStartDate").val("");
     $("#txtExpiryDate").val("");
-    $("#optDeleteYes").parent().removeClass('checked');
-    $('#optDeleteNo').parent().addClass('checked');
     $('#rowfluidDiv').hide();
     RemoveCaptionCustomization();
 }
@@ -239,13 +256,14 @@ function BindControlsOnViewDetails(Records)
 
             var ExpiryDate = new Date(parseInt(jsonResult.ExpiryDate.substr(6)));
             ExpiryDate = formattedDate(ExpiryDate);
-
-            $("#lblCaption").text(jsonResult.Caption);
-            $("#lblDescription").text(jsonResult.Description);
-            $("#lblStartDate").text(startDate);
-            $("#lblExpiryDate").text(ExpiryDate);
-            $("#ddlType").val(jsonResult.Type).trigger("change");
-            DetailsView();
+            $("#hdfType").val(jsonResult.Type);
+            $("#captionHeading").text(jsonResult.Caption);
+            $("#desc").text(jsonResult.Description);
+            $("#sDate").text("StartDate:" + startDate);
+            $("#eDate").text("ExpiryDate:" + ExpiryDate);
+            $("#NotificationDetails").show();
+            $("#NotificationEditDivBox").hide();
+            $(".NotificationEdit").css("display", "");
         });
     }
 
@@ -298,11 +316,11 @@ function BindGetAllNotificationTable(Records)
         var expiryDate = formattedDate(expiryDate);
         if (Records.Type == "evt")
         {
-            var html = '<div class="task high" id="taskDiv" ><ul class="dashboard-list"><li class="Notificationlist"><a><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a><strong>' + Records.Caption + '</strong><span class="aViewDetails">Expiry Date:' + expiryDate + '</span><br/>' + desc + '<a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div>'
+            var html = '<ul class="dashboard-list"><li class="Notificationlist"><div class="accordion-heading"><a><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a>' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></div><br/>' + desc + '<a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/>'
         }
         if (Records.Type == "ntc")
         {
-            var html = '<div class="task high" id="taskDiv"><ul class="dashboard-list"><li class="Notificationlist"><a><i class="fa fa-sticky-note" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a><strong>' + Records.Caption + '</strong><span class="aViewDetails">Expiry Date:' + expiryDate + '</span><br/>' + desc + '<a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div>'
+            var html = '<ul class="dashboard-list"><li class="Notificationlist"><div class="accordion-heading"><a><i class="fa fa-sticky-note" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a>' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></div><br/>' + desc + '<a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/>'
         }
 
        
@@ -314,8 +332,6 @@ function BindGetAllNotificationTable(Records)
 
     }
 }
-
-
 function BindGetOldNotificationTable(Records) {
     $("#OldNotificationGrid").html('');
     debugger;
@@ -326,10 +342,10 @@ function BindGetOldNotificationTable(Records) {
         var expiryDate = new Date(parseInt(Records.ExpiryDate.substr(6)));
         var expiryDate = formattedDate(expiryDate);
         if (Records.Type == "evt") {
-            var html = '<div class="task high" id="taskDiv" style="border-left: 2px solid #78cd51;" ><ul class="dashboard-list"><li class="Notificationlist"><a><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a><strong>' + Records.Caption + '</strong><span class="aViewDetails">Expiry Date:' + expiryDate + '</span><br/>' + desc + '<a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div>'
+            var html = '<div class="task high" id="taskDiv" style="border-left: 2px solid #78cd51; padding-left: 5px;" ><ul class="dashboard-list"><li class="Notificationlist"><div class="accordion-heading"><a><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a>' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></div><br/><span class="Desc">' + desc + '</span><a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div>'
         }
         if (Records.Type == "ntc") {
-            var html = '<div class="task high" id="taskDiv" style="border-left: 2px solid #78cd51;"><ul class="dashboard-list"><li class="Notificationlist"><a><i class="fa fa-sticky-note" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a><strong>' + Records.Caption + '</strong><span class="aViewDetails">Expiry Date:' + expiryDate + '</span><br/' + desc + '><a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div>'
+            var html = '<div class="task high" id="taskDiv" style="border-left: 2px solid #78cd51; padding-left: 5px;"><ul class="dashboard-list"><li class="Notificationlist"><div class="accordion-heading"><a><i class="fa fa-sticky-note" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a>' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></div><br/' + desc + '><a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div>'
         }
 
 
@@ -340,7 +356,6 @@ function BindGetOldNotificationTable(Records) {
 
     }
 }
-
 function GetAllNotifications(Notifications) {
     var ds = {};
     var table = {};
@@ -349,7 +364,6 @@ function GetAllNotifications(Notifications) {
     table = JSON.parse(ds.d);
     return table;
 }
-
 function GetOldNotifications(Notifications) {
     var ds = {};
     var table = {};
@@ -396,7 +410,7 @@ function formattedDate(date) {
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
 
-    return [day,month ,year].join('/');
+    return [day, month, year].join('/');
 }
 
 

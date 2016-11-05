@@ -1,5 +1,11 @@
 ﻿
-
+body
+{
+    line-height: 20px;
+    color: #333;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
 #NotificationEditDivBox
 {
     display:none;
@@ -8,6 +14,8 @@ ul.dashboard-list li{
     box-shadow: #4745b44d 3px 0px 25px -3px;
     padding: 69px 0;
     line-height: 52px;
+    font-size: 14px;
+    line-height: 35px !important;
 }
 
 .priority.low{
@@ -22,6 +30,7 @@ margin-top: -6px;
 margin-right: 35px;
 border: 1px solid #eee;
 border-radius:8%;
+border-bottom: 1px solid #fee2b7 !important;
 }
 
 .task .Notificationeditdiv {
@@ -40,6 +49,11 @@ border-radius:8%;
 {
     position:absolute;
     left: 550px;
+    color: steelblue;
+}
+.expiryDate{
+     position:absolute;
+    left: 500px;
 }
 .btn-round{
     border-radius:10%!important;
@@ -63,13 +77,41 @@ ul.dashboard-list li {
     text-align: center;
 }
 
-/*#CaptionDivClass
+.GridCaption
 {
-    
-    text-align:left;
-    min-width:25px;
+    background-color:#fee2b7;
 }
-#lblCaptionClass
-{
-font:bold;
-}*/
+ul.dashboard-list li:last-child {
+    line-height: 22px !important;
+}
+.task {
+    box-shadow: 1px 1px 5px #fee2b7;
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 1px;
+  
+}
+ .accordion-toggle
+ {
+     pointer-events: none;
+   cursor: default;
+ }
+ .accordion-heading {
+    background-color: #e0e5ea;
+    line-height: 25px;
+    padding-left: 2px;
+}
+ p {
+    margin: 0 0 10px;
+}
+ .Desc
+ {
+     
+ }
+ .btnNew
+ {
+     margin-left: 450px;
+ }
+ ul.dashboard-list li {
+    padding: 0px 0 !important;
+    line-height: 22px !important;
+}
