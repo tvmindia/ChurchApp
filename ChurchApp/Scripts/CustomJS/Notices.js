@@ -702,6 +702,14 @@ function EditOnClick(id) {
                 $('#lblNoticeDescriptionOnView').text(jsonResult.Description);
             }
 
+            if ((jsonResult.NoticeType != null && jsonResult.NoticeType != "" && jsonResult.Description != undefined))
+            {  $('#spnNoticeType').text(jsonResult.NoticeType);
+            }
+            else
+            {
+                $('#spnNoticeType').text("");
+            }
+
         });
     }
 
