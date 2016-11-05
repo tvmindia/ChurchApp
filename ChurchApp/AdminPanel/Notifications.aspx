@@ -48,13 +48,15 @@
 				<div class="span7">
 					<h1>Notifications</h1>
 					
-					<div class="priority high"><span>Latest Notifications</span><a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="AddNotification();">NEW <i class="glyph-icon icon-plus"></i></a></div>
-					
+					<div class="priority high"><span>Latest Notifications</span><a class="btnNew" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
+					<div class="task high" style="padding-left: 5px;" >
+                        
 					<div id="NewNotificationGrid">
 
 					</div>
-               
-					
+             
+                      
+					</div>
 					<div class="priority low"><span>Old Notifications</span></div>
 
                   <div id="OldNotificationGrid">
@@ -65,7 +67,26 @@
 					<div class="clearfix"></div>		
 					
 				</div>
-				
+				<br />
+                      <div id="NotificationDetails" class="span5 noMarginLeft" >
+                        <div class="dark">
+                            <div class="box-content">
+                                <div class="form-horizontal">
+                        <h1 id="captionHeading" style="background-color:#f1f1f1;"></h1>
+                         <a class="NotificationEdit" style="right:30px;position: fixed;display:none;"><i class="fa fa-pencil NotificationEdit" aria-hidden="true"></i> Edit</a>
+                            <label id="desc"></label>
+                            <label id="sDate"></label>
+                            <label id="eDate"></label>
+                                    <div class="form-actions" id="btnContainer" style="display:none;">
+							  <a class="btn btn-primary Save">Save</a>
+                                <a class="btn btn-primary Delete">Delete</a>
+							  <a class="btn btn-primary Cancel" id="cancelDetail">Cancel</a>
+							</div>
+                                    </div>
+                                </div>
+                       </div>
+                    </div>
+
 				<div id="NotificationEditDivBox" class="span5 noMarginLeft">
 					
 					<div class="dark">
@@ -78,8 +99,8 @@
 					
                         <a class="NotificationEdit" style="right:30px;position: fixed;"><i class="fa fa-pencil NotificationEdit" aria-hidden="true"></i> Edit</a>
 							  
-                         <div class="control-group" style="margin-top:20px">
-								<label class="control-label" for="focusedInput" id="lblCaptionH">Caption</label>
+                         <div class="control-group" style="margin-top:20px" id="lblCaptionH">
+								<label class="control-label" for="focusedInput" >Caption</label>
 								<div class="controls">
 								  <%--<input class="input-large focused" name="Name" id="txtEventName" type="text"/>--%>
                                     <label class="control-label" for="focusedInput" id="lblCaption"></label>
@@ -88,8 +109,8 @@
 								</div>
                         
 
-                         <div class="control-group">
-								<label class="control-label" for="focusedInput" id="lblTypeH">Notification Type</label>
+                         <div class="control-group" id="lblTypeH">
+								<label class="control-label" for="focusedInput" >Notification Type</label>
 								
                             <div class="controls">
                                 
@@ -100,8 +121,8 @@
                         </div>
 								
 
-                        <div class="control-group">
-								<label class="control-label" for="focusedInput" id="lblDescH">Description</label>
+                        <div class="control-group" id="lblDescH">
+								<label class="control-label" for="focusedInput" >Description</label>
 								<div class="controls">
 								 <label class="control-label" for="focusedInput" id="lblDescription"></label>
                                      <textarea tabindex="3" class="input-xlarge span10" id="txtDescription" name="Description" rows="4" placeholder=""></textarea>
@@ -109,43 +130,22 @@
 								</div>
 								</div>
 
-                          <div class="control-group">
-							  <label class="control-label" for="date01" id="lblStartH">Start Date</label>
+                          <div class="control-group"  id="lblStartH">
+							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
 								 <label class="control-label" for="date01" id="lblStartDate"></label>
 								  <input  class="input-xlarge datepicker" name="StartDate" id="txtStartDate" type="text" />
 							  </div>
 							</div>
 
-                          <div class="control-group">
-							  <label class="control-label" for="date01" id="lblExpiryH">Expiry Date</label>
+                          <div class="control-group" id="lblExpiryH">
+							  <label class="control-label" for="date01" >Expiry Date</label>
 							  <div class="controls">
 								 <label class="control-label" for="date01" id="lblExpiryDate">Caption</label>
 								  <input  class="input-xlarge datepicker" name="ExpiryDate" id="txtExpiryDate" type="text" />
 							  </div>
 							</div>
 
-                       
-					  
-
-
-                        
-					     <div class="control-group" id="isDeleteDiv">
-								<label class="control-label">IsDelete</label>
-								<div class="controls">
-								  <label class="radio">
-									<input type="radio" name="Delete" id="optDeleteYes" value="Yes" checked=""/>
-									Yes
-								  </label>
-							
-								  <label class="radio">
-									<input type="radio" name="Delete" id="optDeleteNo" value="No"/>
-									No
-								  </label>
-								</div>
-							  </div>
-                        
-						
 							<div class="form-actions">
 							  <a class="btn btn-primary Save">Save</a>
                                 <a class="btn btn-primary Delete">Delete</a>
@@ -159,14 +159,7 @@
 				
 				</div>	
 
-                    <div id="NotificationDetails">
-                        <h1 id="captionHeading"></h1>
-                       
-                            <label id="desc"></label>
-                            <label id="sDate"></label>
-                            <label id="eDate"></label>
-                       
-                    </div>
+                  
 						
 			</div>
 
@@ -174,4 +167,5 @@
     </div>
     <input type="hidden" id="hdfNotificationID" />
     <input type="hidden" id="hdfChurchID" />
+    <input type="hidden" id="hdfType" />
 </asp:Content>

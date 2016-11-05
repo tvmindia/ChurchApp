@@ -98,7 +98,7 @@
    <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <style>
-        @font-face {font-family: TiquesFont;src: url(/fonts/trench.100.otf);}
+        @font-face {font-family: TiquesFont;src: url(/Font/trench.100.otf);}
 .BoutiqueNAm{font-family:TiquesFont;font-size:30px;}
     </style>
 </head>

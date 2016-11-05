@@ -5,7 +5,7 @@
     <link href="../CSS/CustomCSS/Events.css" rel="stylesheet" />
 
     <script src="../Scripts/CustomJS/Events.js"></script>
-
+    <script src="../Scripts/CustomJS/Common.js"></script>
      <div id="content" class="span10">
         <ul class="breadcrumb">
              <li>
@@ -17,142 +17,95 @@
 				
 			</ul>
 
+                <%--Alert boxes --%>
+            <div id="rowfluidDiv" style="display: none;">
+
+                <div class="alert alert-error" style="display: none;">
+                    <%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+                    <strong>Operation Not Successfull.</strong>
+                </div>
+                <div class="alert alert-success" style="display: none;">
+                    <%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+                    <strong>Successfull.</strong>
+                </div>
+                <div class="alert alert-info" style="display: none;">
+                    <%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+                    <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+                </div>
+                <div class="alert alert-block" style="display: none;">
+                    <%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+                    <h4 class="alert-heading">Warning!</h4>
+                    <p>Best check yourself, you're not looking too good.</p>
+                </div>
+
+            </div>
+
+            <%--END : Alert boxes --%>
 
          	<div class="row-fluid">
                
-                     
-				
-				<div class="span7">
-					<h1>Events</h1>
-					
-					<div class="priority high"><span>Latest Events</span></div>
-					
-					<div class="task high">
-                        <ul class="dashboard-list">
-						<li class="Eventlist">
-								<a href="#">
-									<img class="Eventimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
-								</a>
-								<%--<div class="Eventeditdiv">
-                                    	<a href="#"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>
-								</div>--%>
-													
-												   
-								<strong>Name:</strong> Festival 2016<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Expiry Date:</strong> Jul 25, 2012
-                               <div class="Eventeditdiv">
-                                    	<a href="#">View Details</a>
-								</div> 
-                                                       						
-							</li>
-                            </ul>
-					</div>
+                 <div class="box span5">
+                  
+                    <div class="box-header">
+                        <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Latest Events</h2>
+                         
+                        <div class="box-icon">
+                             <a class="btnNew" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Notice">+</i></a>
+                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%> 
 
-                   		<div class="task high">
-                        <ul class="dashboard-list">
-						<li class="Eventlist">
-								<a href="#">
-									<img class="Eventimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
-								</a>
-								<%--<div class="Eventeditdiv">
-                                    	<a href="#"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>
-								</div>--%>
-													
-												   
-								<strong>Name:</strong> Festival 2016<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Expiry Date:</strong> Jul 25, 2012
-                            <div class="Eventeditdiv">
-                                    	<a href="#">View Details</a>
-								</div> 
-                                                       						
-							</li>
-                            </ul>
-					</div>
+                        </div>
+                    </div>
+                    <div class="box-content" id="DivNoticeType1">
 
-                 
-                 
-                   
+                      <%--  <div class="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">Unit #1</a>
+                                    
+                                </div>
+                                <div class="accordion-body collapse in">
+                                    <div class="accordion-inner">
+                                        <img class="Eventimage" src="../img/AppImages/747515f2-501a-3f59-96ba-6fd122f83f61.jpg" alt="St.Thomas Church" /><p>In your heart, do you wish your friends knew about God’s love–and how He cared about us so much that He sent His son to earth to give His life for us? The good news is, as a student you have neat way to share your Christian faith: Bring Your Bible to School Day! On this day, thousands of students just like you will bring their Bible to school and talk about it with friends during free time.  To learn more about this event, ask your parents to go to the website with you: BringYourBible.org</p>
+                                        <span class="NoticeViewDetails"><a href="#">View Details</a></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>--%>
 
 
-				
-					
-					
-					
-				
-					
-					<div class="priority low"><span>Old Events</span></div>
+                    </div>
+                </div>
 
-                    <div class="task low">
 
-                           <ul class="dashboard-list">
-						<li class="Eventlist">
-								<a href="#">
-									<img class="Eventimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
-								</a>
-								<%--<div class="Eventeditdiv">
-                                    	<a href="#"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>
-								</div>--%>
-													
-												   
-								<strong>Name:</strong> Festival 2016<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Expiry Date:</strong> Jul 25, 2012 
-                                <div class="Eventeditdiv">
-                                    	<a href="#">View Details</a>
-								</div>                       						
-							</li>
-                            </ul>
+				<div id="EventEditDivBox" class="span7 noMarginLeft">
 					
-					</div>
+                      <div class="box-header" >
+                        <h2 id="h1Event"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Add Event</h2>
+                        <div class="box-icon">
 
-                       <div class="task low">
+                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
 
-                    <ul class="dashboard-list">
-						<li class="Eventlist">
-								<a href="#">
-									<img class="Eventimage" src="../img/St_Thomas_Church,_Irinjalakuda.jpg" alt="St.Thomas Church"/>
-								</a>
-								<%--<div class="Eventeditdiv">
-                                    	<a href="#"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>
-								</div>--%>
-													
-												   
-								<strong>Name:</strong> Festival 2016<br/>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br/>
-								<strong>Expiry Date:</strong> Jul 25, 2012
-                            <div class="Eventeditdiv">
-                                    	<a href="#">View Details</a>
-								</div> 
-                                                       						
-							</li>
-                            </ul>
-					
-					</div>
-					
-				
-					<div class="clearfix"></div>		
-					
-				</div>
-				
-				<div id="EventEditDivBox" class="span5 noMarginLeft">
-					
-					<div class="dark">
-					
-					<h1>Details</h1>
+                        </div>
+                    </div>
 						<div class="box-content">
 					   <div class="form-horizontal">
 				    <fieldset>
-                      
-					
-                        <a style="right:30px;position: fixed;"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>
+                        <a id="NoticeEdit"  class="btnEdit" onclick="FixedEditClick()" style=" right: 1px; position: fixed;" ><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
+                       <%--<a style="right:30px;position: fixed;" onclick="FixedEditClick()"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>--%>
+					<div id="EditContent">
+                       
 							  
                          <div class="control-group" style="margin-top:20px">
 								<label class="control-label" for="focusedInput">Event Name</label>
 								<div class="controls">
 								  <%--<input class="input-large focused" name="Name" id="txtEventName" type="text"/>--%>
-                                    <label class="control-label" for="focusedInput">Fest of St. Francies of Assisi</label>
+                                    <input class="input-large focused" name="Caption" id="txtEventName" type="text" />
+                                    
+                                     <label class="control-label" for="focusedInput" id="lblEventName"></label>
+                                   
 								</div>
 								</div>
                         
@@ -160,32 +113,39 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Description</label>
 								<div class="controls">
-								<label class="control-label" for="focusedInput">The Cathedral Church of the eparchy of Irinjalakuda got its present existence under the nomenclature and the Canonical Status as Cathedral in the Wake of the Origin of the New Eparchy. This was effected by the amalgamation of the two independent and important parishes of the locality, namely, St. George’s Forane Church and St. Mary’s church, which amicably situated side by side for about a century. Each had its several institutions and properties as well as high resources. St. George Church is chronologically prior as it was established in 1845 AD. This originated at the request of the Christian merchants who migrated to Irinjalakuda during the regime of Rama Varma Thampuran (known as “Sakthan Thampuran” – 1790-1805) the king of Kochi. He invited the Christian merchants from the neighboring ancient Catholic regions such as Velayanad, Mapranam, Kalparambu etc. in view of trade and industry. Thus a small Church was constructed here, then known as Kombarakunnu under the guidance of the Parish Priest of Mapranam Church. Later they tried for building a spacious Church. However, in 1874 the so-called “Mellus Schism” affected the area and the majority succumbed to it. But a ministry resisted and tried to continue in the papal allegiance. With that view they constructed a new and better Church in 1880 and dedicated to the Blessed Virgin Mary (ST. Mary’s Church). Gradually several religious, educational and charitable institutions came up and flourished in the area. Though the Mellusian group got away from that influence and rejoined the Papal allegiance, both the Churches remained side by side as separate Catholic Parishes without territorial limits. They cherished Concord and Cordiality. In 1944 St. George Church was raised to the Status of a Forane Church.</label>
-								</div>
+                                     <textarea tabindex="10" class="input-xlarge span10" id="txtDescription" name="Description" rows="25" placeholder=""></textarea>
+								<label class="control-label" id="lblDescription" for="focusedInput"></label>
+								
+                                </div>
 								</div>
 
                           <div class="control-group">
 							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
-								<label  class="control-label" for="date01">02/16/12</label>
+                                   <input type="text" class="input-xlarge datepicker" id="dateStartDate" />
+								<label  class="control-label" for="date01" id="lblStartDate"></label>
+                                    
 							  </div>
 							</div>
 
                           <div class="control-group">
 							  <label class="control-label" for="date01">End Date</label>
 							  <div class="controls">
-								<label class="control-label" for="date01">02/16/12</label>
+                                    <input type="text" class="input-xlarge datepicker" id="dateEndDate" />
+								<label class="control-label" for="date01" id="lblEndDate"></label>
+                                
 							  </div>
 							</div>
 
                           <div class="control-group">
 							  <label class="control-label" for="date01">Expiry Date</label>
 							  <div class="controls">
-								<label class="control-label" for="date01">02/16/12</label>
+                                    <input type="text" class="input-xlarge datepicker" id="dateExpiryDate" />
+								<label class="control-label" for="date01" id="lblExpiryDate"></label>
+                                
 							  </div>
 							</div>
 
-                       
 					     <div class="control-group">
 								<label class="control-label">Auto Hide</label>
 								<div class="controls">
@@ -201,9 +161,32 @@
 								</div>
 							  </div>
 
+                        </div>
 
-                        
-					     <div class="control-group">
+                        <div id="divView">
+
+                                     <div class="accordion">
+                            <div class="accordion-group">
+                                
+                                 <div class="accordion-body collapse in">
+                                    <div class="accordion-inner">
+
+                                    <img class="eventImage" id="eventPreviewOnView" src="../img/No-Img_Chosen.png" />
+                                        
+                                         <label  for="focusedInput" id="lblEventDescriptionOnView" ></label>
+                                         
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                                </div>
+
+					    <%-- <div class="control-group">
 								<label class="control-label">IsDelete</label>
 								<div class="controls">
 								  <label class="radio">
@@ -216,33 +199,30 @@
 									No
 								  </label>
 								</div>
-							  </div>
+							  </div>--%>
                         
 						
 							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Save changes</button>
-							  <button type="reset" class="btn btn-primary">Cancel</button>
+                                  <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
+                                  <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a> 
+                                  <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
+							 
 							</div>
 						  </fieldset>
 					</div>   
 					</div>
 				
-				</div>
+				
 				
 				</div>	
 						
 			</div>
 
 
-
-         
-        
-
-
-
-
     </div>
 
+     <input id="hdfImageID" type="hidden" value="" />
+                <input id="hdfEventID" type="hidden" value="" />
 
 
 

@@ -1,39 +1,91 @@
 ﻿
 
-#EventEditDivBox
-{
-    display:none;
-}
-ul.dashboard-list li{
-    box-shadow: #4745b44d 3px 0px 25px -3px;
-    padding: 69px 0;
-    line-height: 52px;
+
+
+#NoticePreview{
+    width:38%;height:100%;
 }
 
-.priority.low{
-    margin-top: 25px!important;
+#EventEditDivBox
+{
+    display:none
 }
-ul.dashboard-list li .Eventimage {
-height: 208px;
-width: 325px;
+
+.accordion-heading {
+    
+    background-color: #e0e5ea;
+    line-height: 10px;
+}
+
+.eventViewDetails
+{
+    position:absolute;
+    right:25px;
+  
+}
+
+.eventViewDetails a {
+    color: #337ab7 !important;
+}
+
+.accordion-inner p{
+    /*white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 2000px;*/
+ 
+  overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+
+
+}
+
+.eventImage {
+height: 80px;
+width: 100px;
 padding: 1px;
 float: left;
 margin-top: -6px;
 margin-right: 35px;
 border: 1px solid #eee;
-border-radius:8%;
+
 }
 
-.task .Eventeditdiv {
-    display: inline-block;
-    float: right;
-    width: 15%;
-    padding: 10px 10px 10px 0px;
-    font-size: 12px;
-    text-align: right;
+#divView
+{
+    display:none;
 }
 
-.Eventlist{
-    line-height:67px;
+.NoticeEdit
+{
+    right: 5px; position: fixed;
 }
 
+ #NoticePreviewOnView 
+{
+height: 200px;
+width: 150px;
+}
+
+ #lblAlreadyNotificationSend{
+     color:red;
+     font-style:italic;
+   width:100%;
+   display:none;
+ }
+
+ .accordion-toggle
+ {
+     pointer-events: none;
+   cursor: default;
+ }
+
+  .btn-round{
+    border-radius:10%!important;
+    position: relative;
+    left: 10%!important;
+   
+}

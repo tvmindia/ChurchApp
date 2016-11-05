@@ -1,68 +1,14 @@
 ﻿body {
 }
 
-       
-ul.dashboard-list li .imgNotice {
-    height: 158px;
-    width: 100%;
-    padding: 1px;
-    float: left;
-    margin-top: -6px;
-    margin-right: 125px;
-    border: 1px solid #eee;
-     /*border-left: 2px solid rgba(250,96,61,1);*/
-}
-
-
-.liNoticeList{
-    line-height:50px;
-}
-
-.pContainerNotice
+/*.unitViewDetails
 {
-    height:158px!important
-}
+  position: relative;
+top: -18px;
+color: #337ab7 !important;
+left: 82%;
+}*/
 
-.spanNoticeTitle
-{
-    font-weight:bold;
-    color:#FA603D;
-}
-
-#divulContainer
-{
-    border-left: 2px solid rgba(250,96,61,1);
-    border-bottom: 1px solid #f9f9f9;
-    margin-bottom: 1px;
-}
-
-.btn-round{
-    border-radius:10%!important;
-    position: relative;
-    left: 10%!important;
-   
-}
-/*//*/
-
-ul.dashboard-list li{
-    box-shadow: #4745b44d 3px 0px 25px -3px;
-    padding: 69px 0;
-    line-height: 52px;
-}
-
-.priority.low{
-    margin-top: 25px!important;
-}
-ul.dashboard-list li .Eventimage {
-height: 200px;
-width: 100px;
-padding: 1px;
-float: left;
-margin-top: -6px;
-margin-right: 35px;
-border: 1px solid #eee;
-border-radius:8%;
-}
 
 .task .Eventeditdiv {
     display: inline-block;
@@ -73,49 +19,40 @@ border-radius:8%;
     text-align: right;
 }
 
-.Eventlist{
+/*.Eventlist{
     line-height:67px;
-}
+}*/
 
 #divNotificationDates
 {
     display:none;
 }
 
-.dark
-{
-    top:10px;
-}
-
 #NoticePreview{
     width:38%;height:100%;
 }
 
-#PriestEditDivBox
+#NoticeEditDivBox
 {
     display:none
 }
+
 .accordion-heading {
     
     background-color: #e0e5ea;
     line-height: 10px;
 }
+
 .NoticeViewDetails
 {
     position:absolute;
     right:25px;
   
 }
+
 .NoticeViewDetails a {
     color: #337ab7 !important;
 }
-/*.unitViewDetails
-{
-  position: relative;
-top: -18px;
-color: #337ab7 !important;
-left: 82%;
-}*/
 
 .accordion-inner p{
     /*white-space: nowrap;
@@ -132,7 +69,7 @@ display: -webkit-box;
 
 }
 
-.Eventimage {
+.noticeImage {
 height: 80px;
 width: 100px;
 padding: 1px;
@@ -147,22 +84,11 @@ border: 1px solid #eee;
 {
     display:none;
 }
+
 .NoticeEdit
 {
     right: 5px; position: fixed;
 }
-
-
-/*#NoticePreviewOnView
-{
-    width:40%;
-    height:100%;
-}
-
-#lblNoticeDescriptionOnView
-{
-    width:100%
-}*/
 
  #NoticePreviewOnView 
 {
@@ -182,3 +108,10 @@ width: 150px;
      pointer-events: none;
    cursor: default;
  }
+
+ .btn-round{
+    border-radius:10%!important;
+    position: relative;
+    left: 10%!important;
+   
+}

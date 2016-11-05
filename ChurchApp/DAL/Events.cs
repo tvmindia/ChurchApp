@@ -125,6 +125,46 @@ namespace ChurchApp.DAL
         }
         #endregion SelectEvents
 
+        #region Get Events By EventID
+        /// <summary>
+        /// GetEventsByEventID
+        /// </summary>
+        /// <returns>All Events</returns>
+        public DataSet GetEventsByEventID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetEventsByEventID]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(eventId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion Get Events By EventID
+
         #region InsertEvent
         /// <summary>
         /// Add New Event

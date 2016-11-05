@@ -58,11 +58,13 @@
             <div class="row-fluid">
 
                 <div class="box span5">
+                  
                     <div class="box-header">
                         <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Latest Notices</h2>
+                         
                         <div class="box-icon">
-                            <a href="#" class="btn btn-lg btn-round btn-primary" title="" onclick="AddNewNoticeFormat();">NEW <i class="glyph-icon icon-plus"></i></a>
-                            <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                             <a class="btnNew" title="" onclick="AddNewNoticeFormat();"><i title="Add New Notice">+</i></a>
+                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%> 
 
                         </div>
                     </div>
@@ -90,19 +92,19 @@
                     </div>
                 </div>
 
-                <div class="box span7" id="PriestEditDivBox">
+                <div class="box span7" id="NoticeEditDivBox">
                     <div class="box-header" >
                         <h2 id="h1Notice"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Add Notice</h2>
                         <div class="box-icon">
 
-                            <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
 
                         </div>
                     </div>
                     <div class="box-content">
                         <div class="form-horizontal">
                             <fieldset>
-                                <div id="NoticeEdit" style=" right: 30px; position: fixed;" onclick="FixedEditClick()"><a href="#" ><i class="fa fa-pencil eventEdit" aria-hidden="true" ></i>Edit</a></div>
+                                <a id="NoticeEdit"  class="btnEdit" onclick="FixedEditClick()" style=" right: 1px; position: fixed;" ><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
                                 
                                 <%--Notice Name--%>
                                 <div class="control-group" id="divnoticeName">
@@ -201,9 +203,11 @@
                                     <div class="accordion-inner">
 <%--<a class="btn btn-toolbar" style="border:1px solid white" href="../img/No-Img_Chosen.png"  ><i class="icon-zoom-in"></i></a>--%>
                                        
-                                    <img class="Eventimage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
-
+                                    <img class="noticeImage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
+                                        <span class="NoticeViewDetails" style="margin-bottom:0px" id="spnNoticeType"></span>
+                                        <br />
                                          <label  for="focusedInput" id="lblNoticeDescriptionOnView" ></label>
+                                         
                                     </div>
 
                                 </div>
