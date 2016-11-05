@@ -8,6 +8,14 @@ div.Albimg
 {
      border: 1px solid #ccc;
 }
+
+.dynamicImgAlbum
+{
+    background-image: url('smiley.gif');
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
 .DefaultCreateAlbum
 {
 position: relative;
@@ -55,15 +63,20 @@ div.img:hover {
  width:100%;
 }
 div.img img {
-    width: 100%;
-    height: auto;
+ width: 100%;
+ height: auto;
 }
-
-
 div.desc {
-    padding: 15px;
-    text-align: center;
-    border: 2px solid #777;
+padding: 15px;
+text-align: center;
+background-color: #419dc6;
+opacity: 0.6;
+color: black;
+font-size: 22px;
+margin-top: 40%;
+position: relative;
+font-weight: 900;
+text-shadow: 7px 6px 4px;
 }
 div.desc-fixed {
     padding: 15px;
@@ -103,6 +116,7 @@ background: #efefef;
         width: 100%;
     }
 }
+
 #choose
 {
     position: absolute;
@@ -137,21 +151,35 @@ background: #efefef;
 }
 .thumb
 {
-height: 140px;
-width: 245px;
-padding-left: 10px;
-padding-top: 10px;
+height: 240px;
+width: 226px;
+/*padding-left: 10px;
+padding-top: 10px;*/
+border: 1px solid #000;
+margin: 10px 5px 0 0;
 }
 
 .modal 
-{
-    position: fixed;
+{   position: fixed;
     top: 10%;
     left: 50%;
     z-index: 1050;
     width: 750px;
-    margin-left: -400px;
+    margin-left: -25%/*-200px*/;
 }
+.span4{
+    height: 250px!important;
+    margin:4px!important;
+    border: 2px dotted black;
+    background-color: lightgray;
+}
+#previewdiv
+{
+    border: 3px solid #0085ff;
+}
+
+
+
 
 
 
