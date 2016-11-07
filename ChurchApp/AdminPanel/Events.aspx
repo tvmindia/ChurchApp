@@ -109,7 +109,19 @@
 								</div>
 								</div>
                         
+                         <%--Image--%>
+                                <div class="control-group " id="DivImg">
+                                    <%--<label class="control-label" for="fileInput">Notice Image</label>--%>
 
+                                    <div class="controls">
+                                        <img class="imgNotices" id="NoticePreview" src="../img/No-Img_Chosen.png" />
+                                        <%--onchange="showpreview(this);"--%>
+                                        <div id="DivFile" >
+                                            <input type="file" id="UpEvent" value="Choose Image" onchange="showpreview(this);" /></div>
+                                    </div>
+                                </div>
+
+                       
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Description</label>
 								<div class="controls">
@@ -127,7 +139,7 @@
                                     
 							  </div>
 							</div>
-
+                       
                           <div class="control-group">
 							  <label class="control-label" for="date01">End Date</label>
 							  <div class="controls">
@@ -150,12 +162,12 @@
 								<label class="control-label">Auto Hide</label>
 								<div class="controls">
 								  <label class="radio">
-									<input type="radio" name="Hide" id="optHideYes" value="Yes" checked=""/>
+									<input type="radio" name="rdoHide" id="optHideYes" value="Yes" checked=""/>
 									Yes
 								  </label>
 								
 								  <label class="radio">
-									<input type="radio" name="Hide" id="optHideNo" value="No"/>
+									<input type="radio" name="rdoHide" id="optHideNo" value="No"/>
 									No
 								  </label>
 								</div>

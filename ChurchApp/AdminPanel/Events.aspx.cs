@@ -37,8 +37,6 @@ namespace ChurchApp.AdminPanel
 
         #region Methods
 
-        //--------------- * General Methods *-------------//
-
         //--------------- * Church Event Methods *-------------//
 
         #region Get Events
@@ -118,6 +116,133 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Get Events By EventID
+
+        #region Insert Event
+
+        [System.Web.Services.WebMethod]
+        public static string InsertEvent(ChurchApp.DAL.Events EventsObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            EventsObj.churchId = UA.ChurchID;
+            string status = null;
+            try
+            {
+                EventsObj.createdBy = UA.userName;
+                status = EventsObj.InsertEvent().ToString();
+               
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(status);
+
+        }
+
+
+        #endregion Insert Event
+
+        #region Update Event
+
+        [System.Web.Services.WebMethod]
+        public static string UpdateEvent(ChurchApp.DAL.Events EventsObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            EventsObj.churchId = UA.ChurchID;
+            string status = null;
+            try
+            {
+                EventsObj.updatedBy = UA.userName;
+                status = EventsObj.UpdateEvent().ToString();
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(status);
+
+        }
+
+
+        #endregion Update Event
+
+        #region Delete Event
+
+        [System.Web.Services.WebMethod]
+        public static string DeleteEvent(ChurchApp.DAL.Events EventsObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            EventsObj.churchId = UA.ChurchID;
+            string status = null;
+            try
+            {
+                EventsObj.updatedBy = UA.userName;
+                status = EventsObj.DeleteEvent().ToString();
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(status);
+
+        }
+
+
+        #endregion Delete Event
+
+
+        //-------------* AppImage  Methods *--------------//
+
+        #region Delete App Image
+
+        [System.Web.Services.WebMethod]
+        public static string DeleteAppImage(ChurchApp.DAL.AppImages AppImgObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            string status = null;
+            try
+            {
+                status = AppImgObj.DeleteAppImage();
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(AppImgObj);
+
+        }
+
+
+        #endregion Delete App Image
 
         #endregion Methods
 
