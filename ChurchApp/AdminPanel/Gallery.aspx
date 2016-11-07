@@ -15,11 +15,6 @@
 				<li class="Gallery">
                     <i class="icon-home"></i> Gallery</li>
 			</ul>
-       
-
-
-
-
               <div class="row-fluid" id="divImageAlbum">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
@@ -33,19 +28,18 @@
 					</div>
 					<div class="box-content">
 			       <div class="ImageAlbum-Gallery">
-                    <div class="responsive-fixed">      
+                    <div class="span4">      
                   
                      
-                      <a href="#" data-rel="tooltip" data-original-title="Create New Album" id="newalbum">Create Album<i class="halflings-icon plus"></i></a>
+                      <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 38%;position: relative;" id="newalbum">Create Album</></a>
              
-                  </div>      
+                   </div>      
                              
                     </div>
 					
 				</div><!--/span-->
               </div>
               </div> 
-
               <div class="row-fluid" id="divImages">
                 	<div class="box span12">
 					<div class="box-header" data-original-title>
@@ -56,13 +50,9 @@
 					</div>
 					<div class="box-content">
 						<div class="Image-Gallery">
-                        <div class="responsive-fixed">
-                        
-                          
-                           <a href="#" data-rel="tooltip" data-original-title="Add More Images" id="newimage">Add More<i class="halflings-icon plus"></i></a>
-                
-               
-                       </div>
+                        <div class="span4">
+                       <a data-rel="tooltip" data-original-title="Add More Images" style="top: 67%;left: 38%;position: relative;" id="newimage">Add  More</></a>
+                        </div>
 
 
 
@@ -73,10 +63,6 @@
 			     	</div><!--/span-->
 
                </div>
-
-
-
-
               <div class="row-fluid" id="divVideoAlbum">
              <div class="box span12">
 					<div class="box-header" data-original-title>
@@ -138,50 +124,46 @@
 
 
                <!--Models used in this page-->
-	          <div class="modal hide fade" id="NewAlbumModel">
+	    <div class="modal hide fade" id="NewAlbumModel">
 		       <div class="modal-header">
 			   <button type="button" class="close" data-dismiss="modal">×</button>
 			   <h3>Create New Album</h3>
-		     </div>
-		      <div class="modal-body">
-
-
-              <div class="form-horizontal">
-				    <fieldset>
-                      
-					
-                     
-							  
+		        </div>
+		       <div class="modal-body">
+                        <div class="span10">
+                         <div class="form-horizontal">
+				             
                                 <div class="control-group" style="margin-top:20px">
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtAlbumName" type="text"/>
+                                    <input class="input-file" multiple="multiple" id="AlbumUploader" style="display:none" name="AlbumUploader[]" type="file"/>
                          		</div>
 								</div>
-                                <div class="control-group">
-                                                    <div class="controls">
-                                                        <output id="imageListAlbum" class="listClass"></output>
-                                                    </div>
-                                                </div>
+                          
+                              
+                                </div>
+                        </div>
+                        <div class="span10" id="previewdiv">
+                            
+                               
+                            <output id="imageListAlbum" class=""> 
+                                <span class="span4">
+                                <a onclick="BtnImageUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnupload">Choose Image</a>
+                                </span>
 
-                                <div class="control-group">
-							  <label class="control-label" for="fileInput">File input</label>
-							  <div class="controls">
-								<input class="input-file uniform_on" multiple="multiple" id="AlbumUploader" type="file"/>
-							  </div>
-							</div>       
-                           
-                      
-						  </fieldset>
-					</div>  
+                            </output>
+                                  
+                        </div>
 
+           	</div>  
 
-			
-		</div>
-		<div class="modal-footer">
+            <div class="modal-footer">
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
 			<a href="#" class="btn btn-primary" id="btnSaveImageAlbum">Save changes</a>
-		</div>
+		    </div>
+		    </div>
+		
 	</div>
               <div class="modal hide fade" id="NewImageModel">
 		<div class="modal-header">
@@ -189,15 +171,9 @@
 			<h3>New Image</h3>
 		</div>
 		<div class="modal-body">
-
-
-              <div class="form-horizontal">
+                     <div class="form-horizontal">
 				    <fieldset>
-                      
-					
-                     
-							  
-                                <div class="control-group" style="margin-top:20px">
+                      <div class="control-group" style="margin-top:20px">
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtImageName" type="text"/>
