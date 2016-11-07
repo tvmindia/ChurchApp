@@ -19,11 +19,16 @@ namespace ChurchApp.AdminPanel
 {
     public partial class Priests : System.Web.UI.Page
     {
+        public string ChurchIDScript = null;
 
         #region Pageload
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            ChurchIDScript = null;
+            ChurchIDScript = UA.ChurchID; 
         }
         #endregion Pageload
 

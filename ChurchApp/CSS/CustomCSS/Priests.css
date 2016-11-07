@@ -14,7 +14,7 @@ input[type=text]{
 textarea{
     width:80%!important;
 }
-select{
+#PriestEd select{
     width:85%!important;
 }
 .choosepic{
@@ -80,3 +80,4 @@ ul.dashboard-list li .priestimage {
     font-weight:400;
     font-family: 'Californian FB';
 }
+
