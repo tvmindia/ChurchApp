@@ -28,11 +28,14 @@
 					</div>
 					<div class="box-content">
 			       <div class="ImageAlbum-Gallery">
-                       <div style="height: 238px!important;border: 2px dotted black;background-color: #e8f7ff;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
-                       <img src="../img/Plussymbol.png" class="centerPlus"/>
-                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;" id="newalbum">Create Album</></a>
-                       </div>
-                 </div>
+                    <div class="span4">      
+                  
+                     
+                      <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 38%;position: relative;" id="newalbum">Create Album</></a>
+             
+                   </div>      
+                             
+                    </div>
 					
 				</div><!--/span-->
               </div>
@@ -47,22 +50,19 @@
 					</div>
 					<div class="box-content">
 						<div class="Image-Gallery">
-                       
-                        <div style="height: 238px!important;border: 2px dotted black;background-color: #e8f7ff;width: 20%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
-                          <img src="../img/Plussymbol.png" class="centerPlus"/>
+                        <div class="span4">
                        <a data-rel="tooltip" data-original-title="Add More Images" style="top: 67%;left: 38%;position: relative;" id="newimage">Add  More</></a>
                         </div>
 
 
 
 
-				    	</div>
+					</div>
                         </div>
                         
 			     	</div><!--/span-->
 
                </div>
-
               <div class="row-fluid" id="divVideoAlbum">
              <div class="box span12">
 					<div class="box-header" data-original-title>

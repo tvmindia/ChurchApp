@@ -6,7 +6,7 @@ var imgPath = '';                   //Stores path of uploaded image
 
 var DeletedImgID = '';              //While changing the uploaded image with new , previous one should get deleted, So imageid to be deleted is stored in this variable
 var DeletedImgPath = '';            //While changing the uploaded image with new , previous one should get deleted from folde, So imag path to be deleted is stored in this variable
-//var NotificationTypeCode = 'ntc';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
+var NotificationTypeCode = 'ntc';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
 //--------------------------------//
 
 
@@ -583,14 +583,6 @@ function showpreview(input) {
             $('#NoticePreview').attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
-    }
-}
-
-function SetExpiryDate()
-{
-    var EndDate = $("#dateEndDate").val();
-    if (EndDate != "" && EndDate != null && EndDate != undefined) {
-        $("#dateExpiryDate").val(EndDate);
     }
 }
 //--------------------------------//

@@ -78,7 +78,6 @@
 		<script src="../Scripts/jquery.imagesloaded.js"></script>
 	
 		<script src="../Scripts/jquery.masonry.min.js"></script>
-
 	
 		<script src="../Scripts/jquery.knob.modified.js"></script>
 	
@@ -101,7 +100,6 @@
     <style>
         @font-face {font-family: TiquesFont;src: url(/Font/trench.100.otf);}
 .BoutiqueNAm{font-family:TiquesFont;font-size:30px;}
-
 img{
     object-fit:cover!important;
 }
