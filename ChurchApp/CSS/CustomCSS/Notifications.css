@@ -45,15 +45,20 @@ border-bottom: 1px solid #fee2b7 !important;
 .Notificationlist{
     line-height:67px;
 }
-.aViewDetails
+.aViewDetails,.aViewMore,.aOldViewMore
 {
-    position:absolute;
-    left: 550px;
+    margin-left: 420px;
     color: steelblue;
+    cursor:pointer;
+}
+.aBack,.aOldBack
+{
+    color: steelblue;
+    cursor:pointer;
 }
 .expiryDate{
      position:absolute;
-    left: 500px;
+    left: 405px;
 }
 .btn-round{
     border-radius:10%!important;
@@ -96,10 +101,15 @@ ul.dashboard-list li:last-child {
    cursor: default;
  }
  .accordion-heading {
+    
+    background-color: #e0e5ea;
+    line-height: 10px;
+}
+ /*.accordion-heading {
     background-color: #e0e5ea;
     line-height: 25px;
     padding-left: 2px;
-}
+}*/
  p {
     margin: 0 0 10px;
 }
@@ -109,9 +119,60 @@ ul.dashboard-list li:last-child {
  }
  .btnNew
  {
-     margin-left: 450px;
+     margin-left: 345px;
  }
  ul.dashboard-list li {
     padding: 0px 0 !important;
     line-height: 22px !important;
+}
+ .accordion-inner p{
+    /*white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 2000px;*/
+ 
+  overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+
+
+}
+ .latestNotifications
+ {
+    background-color: #ffefec;
+    height: 30px;
+}
+ .OldNotifications
+ {
+     background-color: #f1f9ed;
+    height: 30px;
+ }
+.latest {
+    background-color: #fa603d;
+    text-align: center;
+    color: white;
+    font-size: 17px;
+}
+.Old
+{
+      background-color:#78cd51;
+    /*padding: 2px 2px 7px 2px;*/
+     padding: 1px 0px 1px 1px !important;
+    text-align: center;
+    color: white;
+}
+.priority.high span {
+    background: #FA603D;
+    color: #fff;
+    font-size: 17px;
+    padding: 1px 0px 1px 1px !important;
+}
+.circlebtn{
+padding: 8px 10px 8px 13px;
+}
+#txtDescription
+{
+    width:335px;
 }

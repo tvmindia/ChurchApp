@@ -21,32 +21,46 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllNotifications(Notification NotificationsObj)
         {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string jsonResult = null;
             DataSet ds = null;
             ChurchApp.DAL.Church churchObj=new DAL.Church();
-            ds = NotificationsObj.SelectNewNotifications();
-           // ds = N
-
-            //Converting to Json
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                if (UA != null)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    NotificationsObj.churchId = UA.ChurchID;
+                    ds = NotificationsObj.SelectNewNotifications();
+                    // ds = N
+
+                    //Converting to Json
+                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+
                     }
-                    parentRow.Add(childRow);
+
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
                 }
-
             }
-
-
-            jsonResult = jsSerializer.Serialize(parentRow);
+           catch(Exception ex)
+            {
+                throw ex;
+            }
 
             return jsonResult;
         }
@@ -56,33 +70,49 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetNotificationByID(Notification NotificationsObj)
         {
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string jsonResult = null;
             DataSet ds = null;
             ChurchApp.DAL.Church churchObj = new DAL.Church();
-            ds = NotificationsObj.SelectNotificationByID();
-            // ds = N
-
-            //Converting to Json
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                if(UA!=null)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    NotificationsObj.churchId = UA.ChurchID;
+                    ds = NotificationsObj.SelectNotificationByID();
+                    // ds = N
+
+                    //Converting to Json
+                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+
                     }
-                    parentRow.Add(childRow);
+
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
+
                 }
-
             }
-
-
-            jsonResult = jsSerializer.Serialize(parentRow);
-
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
             return jsonResult;
         }
         #endregion GetNotificationByID
@@ -91,8 +121,22 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string InsertNotification(Notification NotificationsObj)
         {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string status = null;
-            status = NotificationsObj.InsertNotification();
+            try
+            {
+                if(UA!=null)
+                {
+                    NotificationsObj.churchId = UA.ChurchID;
+                    status = NotificationsObj.InsertNotification();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
             return status;
         }
         #endregion InsertNotification
@@ -101,33 +145,47 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllNotificationType(NotificationType NotificationTypeObj)
         {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string jsonResult = null;
             DataSet ds = null;
             ChurchApp.DAL.Church churchObj = new DAL.Church();
-            ds = NotificationTypeObj.SelectNotificationType();
-            // ds = N
-
-            //Converting to Json
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                if(UA!=null)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    NotificationTypeObj.churchId = UA.ChurchID;
+                    ds = NotificationTypeObj.SelectNotificationType();
+                    // ds = N
+
+                    //Converting to Json
+                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+
                     }
-                    parentRow.Add(childRow);
+
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
                 }
-
             }
-
-
-            jsonResult = jsSerializer.Serialize(parentRow);
-
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
             return jsonResult;
         }
         #endregion GetAllNotificationType
@@ -136,8 +194,23 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string UpdateNotification(Notification NotificationsObj)
         {
+             DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string status = null;
-            status = NotificationsObj.UpdateNotification();
+            try
+            {
+                if(UA!=null)
+                {
+                    NotificationsObj.churchId = UA.ChurchID;
+                    status = NotificationsObj.UpdateNotification();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+           
             return status;
         }
         #endregion UpdateNotification
@@ -146,8 +219,23 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteNotification(Notification NotificationsObj)
         {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string status = null;
-            status = NotificationsObj.DeleteNotification();
+            try
+            {
+                if(UA!=null)
+                {
+                    NotificationsObj.churchId = UA.ChurchID;
+                    status = NotificationsObj.DeleteNotification();
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
             return status;
         }
         #endregion DeleteNotification
@@ -156,35 +244,147 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string SelectOldNotifications(Notification NotificationsObj)
         {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string jsonResult = null;
             DataSet ds = null;
             ChurchApp.DAL.Church churchObj = new DAL.Church();
-            ds = NotificationsObj.SelectOldtNotifications();
-            // ds = N
-
-            //Converting to Json
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                if(UA!=null)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    NotificationsObj.churchId = UA.ChurchID;
+                    ds = NotificationsObj.SelectOldtNotifications();
+                    // ds = N
+
+                    //Converting to Json
+                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+
                     }
-                    parentRow.Add(childRow);
+
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
                 }
-
             }
-
-
-            jsonResult = jsSerializer.Serialize(parentRow);
-
+            catch(Exception ex)
+            {
+                throw ex;
+            }
             return jsonResult;
         }
         #endregion SelectOldNotifications
+
+        #region SelectAllOldNotifications
+        [System.Web.Services.WebMethod]
+        public static string SelectAllOldNotifications(Notification NotificationsObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string jsonResult = null;
+            DataSet ds = null;
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            try
+            {
+                if (UA != null)
+                {
+                    NotificationsObj.churchId = UA.ChurchID;
+                    ds = NotificationsObj.SelectAllOldNotifications();
+                }
+
+                // ds = N
+
+                //Converting to Json
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+
+                }
+
+
+                jsonResult = jsSerializer.Serialize(parentRow);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+            return jsonResult;
+        }
+        #endregion SelectAllOldNotifications
+
+        #region SelectAllNewNotifications
+        [System.Web.Services.WebMethod]
+        public static string SelectAllNewNotifications(Notification NotificationsObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string jsonResult = null;
+            DataSet ds = null;
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            try
+            {
+                if(UA!=null)
+                {
+                    NotificationsObj.churchId = UA.ChurchID;
+                    ds = NotificationsObj.SelectAllNewNotifications();
+                }
+                // ds = N
+
+                //Converting to Json
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+
+                }
+
+
+                jsonResult = jsSerializer.Serialize(parentRow);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+           
+            return jsonResult;
+        }
+        #endregion SelectAllNewNotifications
     }
 }
