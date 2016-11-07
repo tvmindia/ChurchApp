@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+   <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootpag/1.0.4/jquery.bootpag.js" ></script>--%>
     <link href="../CSS/CustomCSS/Notifications.css" rel="stylesheet" />
      <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Notifications.js"></script>
@@ -45,35 +46,46 @@
 	    <%--Alert boxes --%>
 
         		<div class="row-fluid">				
-				<div class="span7">
-					<h1>Notifications</h1>
-					
-					<div class="priority high"><span>Latest Notifications</span><a class="btnNew" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
-					<div class="task high" style="padding-left: 5px;" >
-                        
-					<div id="NewNotificationGrid">
+				<div class="span6">
+					<%--<h1>Notifications</h1>--%>
+					<div>
+					<%--<div class="priority high">--%>
+                        <div class="priority high"><span class="latest">Latest Notifications</span><a class="btnNew" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
+                        <br />
+					<%--</div>--%>
+					<%--<div class="task high" style="padding-left: 5px;" >--%>
+                     
+	<div id="NewNotificationGrid">
 
 					</div>
-             
-                      
-					</div>
-					<div class="priority low"><span>Old Notifications</span></div>
+                    
+				
+                      <a class="aBack" style="display:none;">Back To Notifications</a>
+                      <a class="aViewMore">View All>>></a>
+                        <div id="pagination-here"></div>
+                        </div>
+					<%--</div>--%>
+					<%--<div class="priority low">--%>
+                        <div class="priority low"><span class="Old">Old Notifications</span></div>
+                    <br />
+				<%--	</div>--%>
 
                   <div id="OldNotificationGrid">
 
                   </div>
-					
-				
+				 <a class="aOldBack" style="display:none;">Back To Notifications</a>
+				 <a class="aOldViewMore">View All>>></a>
+                   
 					<div class="clearfix"></div>		
 					
 				</div>
 				<br />
-                      <div id="NotificationDetails" class="span5 noMarginLeft" >
+                      <div id="NotificationDetails" class="span6 noMarginLeft" >
                         <div class="dark">
                             <div class="box-content">
                                 <div class="form-horizontal">
                         <h1 id="captionHeading" style="background-color:#f1f1f1;"></h1>
-                         <a class="NotificationEdit" style="right:30px;position: fixed;display:none;"><i class="fa fa-pencil NotificationEdit" aria-hidden="true"></i> Edit</a>
+                         <a class="circlebtn circlebtn-success NotificationEdit" style="right:1px;position: fixed;display:none;"><i class="halflings-icon white pencil NotificationEdit" aria-hidden="true"></i></a>
                             <label id="desc"></label>
                             <label id="sDate"></label>
                             <label id="eDate"></label>
@@ -87,7 +99,7 @@
                        </div>
                     </div>
 
-				<div id="NotificationEditDivBox" class="span5 noMarginLeft">
+				<div id="NotificationEditDivBox" class="span6 noMarginLeft">
 					
 					<div class="dark">
 					
@@ -125,7 +137,7 @@
 								<label class="control-label" for="focusedInput" >Description</label>
 								<div class="controls">
 								 <label class="control-label" for="focusedInput" id="lblDescription"></label>
-                                     <textarea tabindex="3" class="input-xlarge span10" id="txtDescription" name="Description" rows="4" placeholder=""></textarea>
+                                     <textarea tabindex="10" class="input-xlarge span10" id="txtDescription" name="Description" rows="30" placeholder=""></textarea>
 								  <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
 								</div>
 								</div>
@@ -168,4 +180,5 @@
     <input type="hidden" id="hdfNotificationID" />
     <input type="hidden" id="hdfChurchID" />
     <input type="hidden" id="hdfType" />
+    <input type="hidden" id="hdfEditID" />
 </asp:Content>
