@@ -50,7 +50,7 @@
                         <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Latest Events</h2>
                          
                         <div class="box-icon">
-                             <a class="btnNew" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Notice">+</i></a>
+                             <a class="btnNew" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Event">+</i></a>
                             <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%> 
 
                         </div>
@@ -93,7 +93,7 @@
 						<div class="box-content">
 					   <div class="form-horizontal">
 				    <fieldset>
-                        <a id="NoticeEdit"  class="btnEdit" onclick="FixedEditClick()" style=" right: 1px; position: fixed;" ><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
+                        <a id="NoticeEdit"  class="btnEdit" onclick="FixedEditClick()" style=" right: 1px; position: fixed;" ><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Event" ></i></a>
                        <%--<a style="right:30px;position: fixed;" onclick="FixedEditClick()"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>--%>
 					<div id="EditContent">
                        
@@ -143,7 +143,7 @@
                           <div class="control-group">
 							  <label class="control-label" for="date01">End Date</label>
 							  <div class="controls">
-                                    <input type="text" class="input-xlarge datepicker" id="dateEndDate" />
+                                    <input type="text" class="input-xlarge datepicker" id="dateEndDate" onblur="SetExpiryDate()" />
 								<label class="control-label" for="date01" id="lblEndDate"></label>
                                 
 							  </div>
