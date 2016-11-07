@@ -39,7 +39,7 @@ $("document").ready(function (e) {
 
     $('#btnSave').click(function (e)
     {
-        alert($('input[name=rdoHide]:checked').val());
+        
         debugger;
 
         var Events = new Object();
@@ -50,14 +50,16 @@ $("document").ready(function (e) {
         Events.eventExpiryDate = $("#dateExpiryDate").val();
         //Events.imageId =
 
+        Events.isAutoHide = true;
 
-        if ($('input[name=rdoHide]:checked').val() == true) //Add Notification
+
+        if ($('input[name=rdoHide]:checked').val() == "False") //Add Notification
         {
-            Events.isAutoHide = true;
+            Events.isAutoHide = false;
         }
         else
         {
-            Events.isAutoHide = false;
+            Events.isAutoHide = true;
         }
 
         var guid = createGuid();
@@ -104,7 +106,7 @@ $("document").ready(function (e) {
                 $('.alert-success').show();
                 $('.alert-success strong').text("Event Edited Successfully");
 
-                if (DeletedImgID != '') {
+                if (DeletedImgID != '' && (((imagefile = $('#UpEvent')[0].files[0]) != undefined))) {
                     var AppImages = new Object();
                     AppImages.appImageId = DeletedImgID;
                     DeleteAppImage(AppImages);
@@ -141,6 +143,7 @@ $("document").ready(function (e) {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
                 $('.alert-success strong').text("Event Added Successfully");
+                $("#hdfEventID").val(guid);
             }
 
             else {
@@ -165,6 +168,8 @@ $("document").ready(function (e) {
     $('#btnDelete').click(function (e)
     {
         var deleteConirm = confirm("Want to delete?");
+
+        debugger;
 
         if (deleteConirm)
         {
@@ -282,6 +287,10 @@ function ClearControls()
     $("#lblExpiryDate").text("");
     $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
 
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
 }
 
 function FixedEditClick()
@@ -370,6 +379,11 @@ function SetControlsInNewEventFormat()
     $("#hdfEventID").val("");
 
     $("#NoticeEdit").hide();
+
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
 }
 
 function SetControlsInViewFormat()
@@ -426,6 +440,11 @@ function SetControlsInEditableFormat()
 //Edit
 function EditOnClick(id)
 {
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+
     SetControlsInViewFormat();
 
     var Events = new Object();
@@ -450,6 +469,9 @@ function EditOnClick(id)
 
             imageId = jsonResult.ImageID;
             imgPath = jsonResult.URL;
+
+            DeletedImgID = imageId;
+            DeletedImgPath = imgPath;
 
             debugger;
             if (jsonResult.Descrtiption == null || jsonResult.Descrtiption == "" || jsonResult.Descrtiption == undefined) {
@@ -505,7 +527,7 @@ function UpdateEvent(Events) {
 
 
 //Delete
-function DeleteEvent()
+function DeleteEvent(Events)
 {
     var ds = {};
     var table = {};

@@ -155,7 +155,7 @@ $("document").ready(function (e) {
                         $('.alert-success').show();
                         $('.alert-success strong').text("Notice Edited Successfully");
 
-                        if (DeletedImgID != '') {
+                        if (DeletedImgID != '' && (((imagefile = $('#UpNotice')[0].files[0]) != undefined))) {
                             var AppImages = new Object();
                             AppImages.appImageId = DeletedImgID;
                             DeleteAppImage(AppImages);
