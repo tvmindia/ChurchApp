@@ -173,16 +173,15 @@ margin: 10px 5px 0 0;
    
     
 }
-.span4{
+#previewdiv .span4{
    
     margin:4px!important;
+    height:180px!important;
+
    
     
 }
-#previewdiv
-{
-    border: 3px solid #0085ff;
-}
+
 .center-block {
     display: block;
     margin-left: auto;
@@ -217,5 +216,14 @@ left: 122px;
 height: 37px;
 width: 37px;
 }
-
+.centerPluschooseimage
+{
+    text-align: center;
+display: block;
+position: absolute;
+height: 37px;
+width: 37px;
+top: 163px;
+left: 113px;
+}
 

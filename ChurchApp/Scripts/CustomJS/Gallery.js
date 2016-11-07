@@ -68,7 +68,7 @@
 
             //breadcrumb handling
             $(".Gallery").remove();//removes gallery
-            $("#breadcrumbGallery").append('<li class="Gallery"><i class="icon-home"></i><a href="../AdminPanel/Gallery.aspx"> Gallery </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> Pictures</li>');
+            $("#breadcrumbGallery").append('<li class="Gallery"><i class="icon-home"></i><a href="../AdminPanel/Gallery.aspx"> Gallery </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + albname + '</li>');
             
             BindImages(imgalbid);
           
@@ -86,7 +86,8 @@
 
 
 
-    $('#newImage').click(function (e) {
+    $('#newimage').click(function (e) {
+        debugger;
 
         $('#NewImageModel').modal('show');
     });

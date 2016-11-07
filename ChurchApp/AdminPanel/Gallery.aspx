@@ -148,9 +148,11 @@
                             
                                
                             <output id="imageListAlbum" class=""> 
-                                <span class="span4">
-                                <a onclick="BtnImageUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnupload">Choose Image</a>
-                                </span>
+                       <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
+                       <img src="../img/Plussymbol.png" class="centerPluschooseimage"/>
+                        <a onclick="BtnImageUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnupload">Choose Image</a>
+                       </span>
+                                
 
                             </output>
                                   
@@ -171,31 +173,20 @@
 			<h3>New Image</h3>
 		</div>
 		<div class="modal-body">
-                     <div class="form-horizontal">
-				    <fieldset>
-                      <div class="control-group" style="margin-top:20px">
-								<label class="control-label" for="focusedInput">Name</label>
-								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtImageName" type="text"/>
-                         		</div>
-								</div>
-                                <div class="control-group">
-                                                    <div class="controls">
-                                                        <output id="imageList" class="listClass"></output>
-                                                    </div>
-                                                </div>
+                   
+            <div class="span10" id="previewdivinimages">
+                            
+                               
+                            <output id="imageListAlbuminimages" class=""> 
+                       <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
+                       <img src="../img/Plussymbol.png" class="centerPluschooseimage"/>
+                        <a onclick="BtnImageUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnuploadimages">Choose Image</a>
+                       </span>
+                                
 
-                                <div class="control-group">
-							  <label class="control-label" for="fileInput">File input</label>
-							  <div class="controls">
-								<input class="input-file uniform_on" multiple="multiple" id="ImageUploader" type="file"/>
-							  </div>
-							</div>       
-                           
-                      
-						  </fieldset>
-					</div>  
-
+                            </output>
+                                  
+                        </div>
 
 			
 		</div>
