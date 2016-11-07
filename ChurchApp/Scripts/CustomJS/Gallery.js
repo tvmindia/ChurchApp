@@ -101,15 +101,14 @@
         $('#NewVideoModel').modal('show');
     });
 
-    
+  
 
-    
-    
+  
 
-
-
-
+ 
 });//end of document.ready
+
+
 
 function BtnImageUpload()
 {
@@ -176,7 +175,7 @@ function AppendImageAlbum(Records)
         $.each(Records, function (index, Records) {
             var imgurl = Records.URL;
            
-            var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span4 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+            var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span3 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
            
           
        
@@ -234,14 +233,13 @@ function GetAllImageByAlbumID(GalleryItems)
 }
 
 function AppendImages(Records) {
-    $('.dynamicImages').remove();
+    $('.masonry-thumb').remove();
+   // var fixeddiv = '<div class="masonry-thumb" style="height: 246px!important;border: 2px dotted black;background-color: #e8f7ff;"><a data-rel="tooltip" data-original-title="Add More Images" style="top: 67%;left: 38%;position: relative;" id="newimage">Add  More</></a></div>';
+   // $('.Image-Gallery').append(fixeddiv);
     $.each(Records, function (index, Records) {
-        if (Records.URL == null) {
-            var html = '<div AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="span4 dynamicImages"><div class="img"><a href="#"><img src="/img/defaultalbumadd.jpg" alt="Church"/></a></div></div>';
-          }
-        else {
-            var html = '<div AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="span4 dynamicImages"><div class="img"><a href="#"><img src="' + Records.URL + '" alt="Church"/></a></div></div>';
-        }
-        $('.Image-Gallery').append(html);
+          // var html = '<div AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="span4 dynamicImages"><a href="#"><img class="center-block" src="' + Records.URL + '" alt="Church"/></a></div>';
+        // var html = '<div AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="span4"><a style="background:url(img/gallery/photo1.jpg)" href="#"><img class="grayscale" src="' + Records.URL + '" alt="Sample Image 1"></a></div>'
+        var html = '<img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/>'
+       $('.Image-Gallery').append(html);
     })
 }

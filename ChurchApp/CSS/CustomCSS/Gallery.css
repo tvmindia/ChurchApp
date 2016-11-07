@@ -167,19 +167,55 @@ margin: 10px 5px 0 0;
     width: 750px;
     margin-left: -25%/*-200px*/;
 }
-.span4{
+.span3{
     height: 250px!important;
     margin:4px!important;
-    border: 2px dotted black;
-    background-color: lightgray;
+   
+    
+}
+.span4{
+   
+    margin:4px!important;
+   
+    
 }
 #previewdiv
 {
     border: 3px solid #0085ff;
 }
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*width: 250px;*/
+    width:auto;
+    height: 246px;
+ }
+.dynamicImages
+{
+     height: auto;
+}
 
+.attnimages
+{
+    width: 20%;
+    display: block;
+    float: left;
+    height:250px;
+    padding-left: 5px;
+    padding-bottom:8px;
+    object-fit: cover;
+}
 
-
-
+.centerPlus
+{
+text-align: center;
+display: block;
+position: absolute;
+top: 124px;
+left: 122px;
+height: 37px;
+width: 37px;
+}
 
 

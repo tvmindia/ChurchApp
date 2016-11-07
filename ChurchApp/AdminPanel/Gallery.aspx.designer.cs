@@ -13,5 +13,6 @@ namespace ChurchApp.AdminPanel
 
     public partial class Gallery
     {
+
     }
 }
