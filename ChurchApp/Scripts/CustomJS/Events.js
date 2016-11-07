@@ -31,6 +31,7 @@ $("document").ready(function (e) {
             EditOnClick($("#hdfEventID").val());
         }
 
+        $("#NoticeEdit").hide();
     });
 
 
@@ -121,6 +122,10 @@ function ClearControls()
 function FixedEditClick()
 {
     debugger;
+
+    
+   
+
     ClearControls();
     SetControlsInEditableFormat();
     $("#h1Event").text("Edit Event");
@@ -176,7 +181,7 @@ function SetControlsInNewEventFormat()
 
     $("#hdfEventID").val("");
 
-
+    $("#NoticeEdit").hide();
 }
 
 function SetControlsInViewFormat()
@@ -202,7 +207,7 @@ function SetControlsInViewFormat()
     $("#btnCancel").hide();
     $("#btnDelete").hide();
 
-
+    $("#NoticeEdit").show();
 }
 
 function SetControlsInEditableFormat()

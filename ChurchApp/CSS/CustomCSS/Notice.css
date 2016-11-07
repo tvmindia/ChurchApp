@@ -43,7 +43,7 @@ left: 82%;
     line-height: 10px;
 }
 
-.NoticeViewDetails
+.eventViewDetails
 {
     position:absolute;
     right:25px;
@@ -90,7 +90,7 @@ border: 1px solid #eee;
     right: 5px; position: fixed;
 }
 
- #NoticePreviewOnView 
+ #eventPreviewOnView 
 {
 height: 200px;
 width: 150px;
