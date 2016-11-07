@@ -70,6 +70,11 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllpriest Details
 
         #region Getpriest DetailsAutocomplete
+        /// <summary>
+        /// Autocomplete textbox method which create string of priests
+        /// </summary>
+        /// <param name="priestObj"></param>
+        /// <returns></returns>
         [System.Web.Services.WebMethod]
         public static string GetPriest(Priest priestObj)
         {
@@ -123,7 +128,10 @@ namespace ChurchApp.AdminPanel
         public static string InsertPriest(ChurchApp.DAL.Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            PriestObj.churchID = "99311E06-65DD-471E-904E-04702F2C4FB0";
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            PriestObj.churchID = UA.ChurchID;
             //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
             string status = null;
             try

@@ -40,7 +40,7 @@
            color: #ffffff;
            font-size: 20px;
            background: #F44336;
-           padding: 8px 17px 8px 17px;
+           padding: 5px 14px 5px 14px;
            text-decoration: none;
            position:relative;
            cursor:pointer;
@@ -3076,14 +3076,16 @@ ul.messagesList li span.date {
 .priority.high {
 	background: #FFEFEC; /* rgba(250,96,61,.1); */
 	margin-bottom: 1px;
+    height: 31px;
+    border-bottom: 1.5px solid #FA603D;
 }
 
 .priority.high span {
 	background: #FA603D; /* rgba(250,96,61,1); */
 	padding: 2px 10px;
 	color: #fff;
-	display: inline-block;
-	font-size: 12px;
+	/*display: inline-block;*/
+	font-size: 17px;
 }
 
 .priority.medium {
@@ -3102,14 +3104,17 @@ ul.messagesList li span.date {
 .priority.low {
 	background: #F1F9ED; /* rgba(120,205,81,.1); */
 	margin-bottom: 1px;
+    margin-top: 4% !important;
+    height: 31px;
+    border-bottom: 1.5px solid #78cd51;
 }
 
 .priority.low span {
 	background: #78CD51; /* rgba(120,205,81,1); */
 	padding: 2px 10px;
 	color: #fff;
-	display: inline-block;
-	font-size: 12px;
+	/*display: inline-block;*/
+	font-size: 17px;
 }
 
 .task {
@@ -3123,6 +3128,7 @@ ul.messagesList li span.date {
 
 .task.high {
 	border-left: 2px solid #FA603D; /* rgba(250,96,61,1); */
+    margin-top:3%!important;
 }
 
 .task.medium {
@@ -3131,6 +3137,7 @@ ul.messagesList li span.date {
 
 .task.low {
 	border-left: 2px solid #78CD51; /* rgba(120,205,81,1); */
+    margin-top:3%!important;
 }
 
 .task .desc {

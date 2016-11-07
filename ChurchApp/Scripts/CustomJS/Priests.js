@@ -76,11 +76,6 @@
                 $('.alert-error strong').text("Saving Not Successful");
             }
 
-            //BindNotices();
-            // ClearControls();
-
-            debugger;
-            //SetControlsInNewNoticeFormat();
             $('#assVicardiv').remove();
             debugger;
             $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
