@@ -116,6 +116,7 @@
     <Content Include="Font\glyphiconshalflings-regular.ttf" />
     <Content Include="Font\glyphiconshalflings-regular.woff" />
     <Content Include="img\arrow.png" />
+    <Content Include="img\bgChurch.jpg" />
     <Content Include="img\church-black-silhouette-with-a-cross-on-topblack1616.png" />
     <Content Include="img\gallery\1.jpg" />
     <Content Include="img\gallery\2.jpg" />

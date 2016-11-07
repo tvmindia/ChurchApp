@@ -13,44 +13,19 @@
     {
         var priestID = $("#hdfPriestID").val();
         var Priest = new Object();
-        Priest.priestName = $('#txtPriestName').val();
-        Priest.BaptisumName = $('#txtPriestBaptismName').val();
-        Priest.Parish = $('#txtParish').val();
-        Priest.Diocese = $('#txtDiocese').val();
-        Priest.Status = $('#ddlstatus').val();
-        Priest.dob = $('#priestDOB').val();
-        Priest.about = $('#txtAboutPriest').val();
-        Priest.dateOrdination = $('#OrdinationDate').val();
-        Priest.designation = $('#txtDesignation').val();
-        Priest.address = $('#txtAddress').val();
-        Priest.emailId = $('#txtEmail').val();
-        Priest.mobile = $('#txtMobile').val();
-        Priest.imageId = $("#hdfPriestID").val();
+        Priest.churchID = null;
         Priest.priestID = $("#hdfPriestID").val();
 
         // DeletedImgID = imageId;
         // DeletedImgPath = imgPath
         debugger;
-        var guid = createGuid();
-        if (((imagefile = $('#priestimg')[0].files[0]) != undefined)) {
-            var formData = new FormData();
-            var tempFile;
-            if ((tempFile = $('#priestimg')[0].files[0]) != undefined) {
-                tempFile.name = guid;
-                formData.append('NoticeAppImage', tempFile, tempFile.name);
-                formData.append('GUID', guid);
-            }
-            formData.append('ActionTyp', 'NoticeAppImageInsert');
-            AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-            Priest.imageId = guid;
-        }
-
-        result = UpdatePriest(Priest);
+        
+        result = DeletePriest(Priest);
 
         if (result.result == "1") {
             $('#rowfluidDiv').show();
             $('.alert-success').show();
-            $('.alert-success strong').text("Priest Edited Successfully");
+            $('.alert-success strong').text("Priest Deleted Successfully");
 
             //if (DeletedImgID != '') {
             //    var AppImages = new Object();
@@ -66,13 +41,15 @@
         if (result.result != "1") {
             $('#rowfluidDiv').show();
             $('.alert-error').show();
-            $('.alert-error strong').text("Saving Not Successful");
+            $('.alert-error strong').text("Deleting Not Successful");
         }
         $('#assVicardiv').remove();
         debugger;
         $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
         //SetControlsInNewNoticeFormat();
         check();
+        $('#PriestEd').hide();
+        $('#PriestShowDetails').hide();
     });
     //////////-----------Main button event for Save, Update
     $('#btnSavePriest').click(function (e) {
@@ -490,6 +467,15 @@ function AutoComplete()
         table = JSON.parse(jsonResult.d);
         return table;
     }
+//Delete Priest
+    function DeletePriest(Priest) {
+        var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/DeletePriest");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+    
     // Show Picture preview for file upload
     function showpreview(input) {
         if (input.files && input.files[0]) {
