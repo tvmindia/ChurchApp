@@ -211,33 +211,33 @@
 							</div>
 
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">About</label>
+								<label class="control-label" for="focusedInput">About :</label>
 								<div class="controls">
 								<label class="control-label" for="focusedInput" id="lblAbout"></label></div>
 								</div>
 
                           <div class="control-group">
-							  <label class="control-label" for="date01">Ordination Date</label>
+							  <label class="control-label" for="date01">Ordination Date:</label>
 							  <div class="controls">
 								<label class="control-label" for="date01" id="lblOrdination"></label>
 							  </div>
 							</div>
                         <div class="control-group">
-								<label class="control-label" for="focusedInput">Status</label>
+								<label class="control-label" for="focusedInput">Status:</label>
 								<div class="controls">
                                    <label class="control-label" for="Status" id="lblStatus"></label> 
 								</div>
 								</div> 
                        
 						  <div class="control-group">
-								<label class="control-label" for="focusedInput">Designation</label>
+								<label class="control-label" for="focusedInput">Designation:</label>
 								<div class="controls">
 								  <label class="control-label" for="focusedInput" id="lblDesignation"></label>
 								</div>
 								</div>
 
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Address</label>
+								<label class="control-label" for="focusedInput">Address:</label>
 								<div class="controls">
 								<label class="control-label" for="focusedInput" id="lblAddress"></label>
 
@@ -245,14 +245,14 @@
 								</div>
 
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Email</label>
+								<label class="control-label" for="focusedInput">Email:</label>
 								<div class="controls">
 								  <label class="control-label" for="focusedInput" id="lblEmail"></label>
 								</div>
 								</div>
 
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Mobile</label>
+								<label class="control-label" for="focusedInput">Mobile:</label>
 								<div class="controls">
 								  <label class="control-label" for="focusedInput" id="lblMobile"></label>
 								</div>
