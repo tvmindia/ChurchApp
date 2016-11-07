@@ -88,7 +88,7 @@
 			<h1>Current Vicars</h1>
             <div id="VicarDivDisplay">
             <div id="VicarDefault">
-            <div class="priority high"><span>Vicar</span><a href="#" class="btnNew" style="left:80%!important;" title="ADD NEW" onclick="OpenNewAdd('Vicar');"><i class="material-icons">+</i></a></div>
+            <div class="priority high"><span>Vicar</span><a class="btnNew" style="left:83%!important;" title="ADD NEW" onclick="OpenNewAdd('Vicar');"><i class="material-icons">+</i></a></div>
 			<div class="task high">
              <ul class="dashboard-list vicarlist">
 				<li >

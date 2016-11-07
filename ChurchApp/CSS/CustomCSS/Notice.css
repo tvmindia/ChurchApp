@@ -90,7 +90,7 @@ border: 1px solid #eee;
     right: 5px; position: fixed;
 }
 
- #eventPreviewOnView 
+ #NoticePreviewOnView 
 {
 height: 200px;
 width: 150px;
@@ -114,4 +114,11 @@ width: 150px;
     position: relative;
     left: 10%!important;
    
+}
+
+ .NoticeViewDetails
+{
+    position:absolute;
+    right:25px;
+  
 }

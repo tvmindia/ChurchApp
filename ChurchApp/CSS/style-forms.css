@@ -892,8 +892,8 @@ legend + .control-group {
   float: left;
   width: 160px;
   padding-top: 5px;
-  /*text-align: left;/*right*/
-  text-align: center;
+  text-align: left;/*right
+  /*text-align: center;*/
   font-size: medium;
   font-weight: 600;
 }

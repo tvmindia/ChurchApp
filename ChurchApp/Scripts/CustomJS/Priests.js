@@ -8,6 +8,49 @@
         $('#PriestShowDetails').show();
 
     });
+    ///////////-----------Delete button Event
+    $('#btnDelete').click(function (e)
+    {
+        var priestID = $("#hdfPriestID").val();
+        var Priest = new Object();
+        Priest.churchID = null;
+        Priest.priestID = $("#hdfPriestID").val();
+
+        // DeletedImgID = imageId;
+        // DeletedImgPath = imgPath
+        debugger;
+        
+        result = DeletePriest(Priest);
+
+        if (result.result == "1") {
+            $('#rowfluidDiv').show();
+            $('.alert-success').show();
+            $('.alert-success strong').text("Priest Deleted Successfully");
+
+            //if (DeletedImgID != '') {
+            //    var AppImages = new Object();
+            //    AppImages.appImageId = DeletedImgID;
+            //    DeleteAppImage(AppImages);
+
+            //    if (DeletedImgPath != '') {
+            //        DeleteFileFromFolder(DeletedImgPath);
+            //    }
+            //}
+
+        }
+        if (result.result != "1") {
+            $('#rowfluidDiv').show();
+            $('.alert-error').show();
+            $('.alert-error strong').text("Deleting Not Successful");
+        }
+        $('#assVicardiv').remove();
+        debugger;
+        $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+        //SetControlsInNewNoticeFormat();
+        check();
+        $('#PriestEd').hide();
+        $('#PriestShowDetails').hide();
+    });
     //////////-----------Main button event for Save, Update
     $('#btnSavePriest').click(function (e) {
 
@@ -249,6 +292,7 @@ function AutoComplete()
         var elemsAsst = $();
         var elemsEmtyVicar = $();
         var elemsEmtyAsstVicar = $();
+        //<%=listFilter %>;
         priestDetails = GetPriestUsingChurchID('99311e06-65dd-471e-904e-04702f2c4fb0');
         if (priestDetails.length == 0)
         {
@@ -423,6 +467,15 @@ function AutoComplete()
         table = JSON.parse(jsonResult.d);
         return table;
     }
+//Delete Priest
+    function DeletePriest(Priest) {
+        var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/DeletePriest");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+    
     // Show Picture preview for file upload
     function showpreview(input) {
         if (input.files && input.files[0]) {
@@ -465,7 +518,7 @@ function AutoComplete()
 // Html code for no record found for vicar
     function HtmlBindVicar() {
         debugger;
-        var html = ('<div id="VicarDefault"><div class="priority high"><span>Vicar</span><a class="btnNew" style="left:80%!important;" title="ADD NEW" onclick=OpenNewAdd("Vicar")><i class="material-icons">+</i></a></div>'
+        var html = ('<div id="VicarDefault"><div class="priority high"><span>Vicar</span><a class="btnNew" style="left:83%!important;" title="ADD NEW" onclick=OpenNewAdd("Vicar")><i class="material-icons">+</i></a></div>'
           + '<div class="task high">'
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/priest.png"/></li>'
           + '<li ><br /><br /><br />'

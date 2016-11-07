@@ -19,11 +19,16 @@ namespace ChurchApp.AdminPanel
 {
     public partial class Priests : System.Web.UI.Page
     {
+        public string ChurchIDScript = null;
 
         #region Pageload
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            ChurchIDScript = null;
+            ChurchIDScript = UA.ChurchID; 
         }
         #endregion Pageload
 
@@ -186,6 +191,32 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Update Priest
+        #region DeletePriest
+        [System.Web.Services.WebMethod]
+        public static string DeletePriest(ChurchApp.DAL.Priest PriestObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            //PriestObj.churchID = "99311E06-65DD-471E-904E-04702F2C4FB0";
+            //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
+            string status = null;
+            try
+            {
+                PriestObj.createdBy = "Thomson";
+                status = PriestObj.DeletePriest().ToString();
+                PriestObj.result = status;
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(PriestObj);
+
+        }
+        #endregion DeletePriest
         #endregion WebMethod
     }
 }
