@@ -54,6 +54,22 @@ namespace ChurchApp.ImageHandler
                                     file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
                                 }//end of foreach
                                 break;
+
+                            case "AddMoreImages":
+                                foreach (string content in context.Request.Files)
+                                {
+                                    HttpPostedFile file = context.Request.Files[content];
+                                    fileExtension = Path.GetExtension(file.FileName);
+                                    GalleryItems GalItemsObj = new GalleryItems();
+                                    GalItemsObj.albumId = context.Request.Form.GetValues("AlbumID")[0];
+                                    GalItemsObj.url = "/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension;
+                                    GalItemsObj.itemType = "image";
+                                    GalItemsObj.createdBy = "Albert Thomson";
+                                    GalItemsObj.InsertGalleryItem();
+                                    string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/AppImages/"));
+                                    file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
+                                }//end of foreach
+                                break;
                         }
                     }
                     #endregion Album

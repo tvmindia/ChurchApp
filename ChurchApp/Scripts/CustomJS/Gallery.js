@@ -36,6 +36,9 @@
                 formData.append('createdby', 'Albert');
                 postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                 BindGalleryImageAlbum();
+                //modal close
+                $('.close').click();
+
             }
             else
             {
@@ -46,6 +49,9 @@
                     InsertImageAlbum(GalleryAlbum);
                 }
                 BindGalleryImageAlbum();
+                //modal close
+                $('.close').click();
+
             }
           
         }
@@ -56,20 +62,23 @@
       
     });
 
-
     $('#btnMoreImagesAdd').click(function (e) {
         debugger
         try {
             var imagefile=null;
-
-            if ((imagefile = $('#imageUploader')[0].files.length > 0)) {
+            var albid = $('#hdfAlbumID').val();
+            if ((imagefile = $('#imageUploader')[0].files.length > 0)&&(albid!="")) {
                 var formData = new FormData();
                 for (i = 0; i < $('#imageUploader')[0].files.length ; i++) {
                     formData.append('AlbumImage' + i, $('#imageUploader')[0].files[i], $('#imageUploader')[0].files[i].name);
                 }
-                formData.append('Album', 'GalleryImageAlbum');
+                formData.append('Album', 'AddMoreImages');
+                formData.append('AlbumID', albid);
                 postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-               // BindGalleryImageAlbum();
+                BindImages(albid);
+                //modal close
+                $('.close').click();
+                               
             }
          }
         catch (e) {
@@ -91,6 +100,7 @@
             var imgalbid = $(this).attr('albumid');
             var albname = $(this).attr('AlbumName');
             document.getElementById("ImageDivTitle").innerHTML = albname;
+            $("#hdfAlbumID").val(imgalbid);
             //breadcrumb handling
             $(".Gallery").remove();//removes gallery
             $("#breadcrumbGallery").append('<li class="Gallery"><i class="icon-home"></i><a href="../AdminPanel/Gallery.aspx"> Gallery </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + albname + '</li>');
@@ -103,6 +113,20 @@
     });
 
 
+    
+    $('#EditImageAlbum').click(function (e) {
+        debugger
+        try {
+            var albid = $('#hdfAlbumID').val();
+            EditImageBind(albid);
+          
+           
+        }
+        catch (e) {
+
+        }
+
+    });
 
 
     $('#newimage').click(function (e) {
@@ -263,6 +287,21 @@ function BindImages(imgalbid)
     }
     
 }
+function EditImageBind(imgalbid)
+{
+    try {
+        var jsonResult = {};
+        var GalleryItems = new Object();
+        GalleryItems.albumId = imgalbid;
+        jsonResult = GetAllImageByAlbumID(GalleryItems);
+        if (jsonResult != undefined) {
+            AppendEditImages(jsonResult);
+        }
+    }
+    catch (e) {
+
+    }
+}
 function GetAllImageByAlbumID(GalleryItems)
 {
     var ds = {};
@@ -292,6 +331,21 @@ function AppendImages(Records) {
         var html = '<img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/>'
         }
        
+        $('.Image-Gallery').append(html);
+    })
+}
+
+function AppendEditImages(Records) {
+    $('.attnimages').remove();
+    $.each(Records, function (index, Records) {
+        if (Records.URL == null)
+        {
+            var html = '<div><span class="fa fa-trash change" aria-hidden="true"></span><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="/img/defaultalbumadd.jpg" alt="Sample Image 1"/></div>';
+        }
+        else
+        {
+            var html = '<div><span class="fa fa-trash change" aria-hidden="true"></span><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></div>';
+        }
         $('.Image-Gallery').append(html);
     })
 }

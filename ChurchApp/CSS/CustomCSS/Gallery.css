@@ -67,7 +67,7 @@ div.img img {
  height: auto;
 }
 div.desc {
-padding: 15px;
+/*padding: 15px;
 text-align: center;
 background-color: #419dc6;
 opacity: 0.6;
@@ -76,7 +76,22 @@ font-size: 22px;
 margin-top: 40%;
 position: relative;
 font-weight: 900;
-text-shadow: 7px 6px 4px;
+text-shadow: 7px 6px 4px;*/
+
+   padding: 15px;
+text-align: center;
+background-color: #fff;
+   
+    color: black;
+font-size: 18px;
+margin-top: 70%;
+position: relative;
+font-weight: 300;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+    
+
 }
 div.desc-fixed {
     padding: 15px;
@@ -208,24 +223,8 @@ margin: 10px 5px 0 0;
     object-fit: cover;
 }
 
-/*.centerPlus
+.btnEdit
 {
-text-align: center;
-display: block;
-position: absolute;
-top: 124px;
-left: 122px;
-height: 37px;
-width: 37px;
+    font-size: 14px;
+    padding: 8px 9px 4px 11px;
 }
-.centerPluschooseimage
-{
-    text-align: center;
-display: block;
-position: absolute;
-height: 37px;
-width: 37px;
-top: 94px;
-left: 92px;
-}*/
-
