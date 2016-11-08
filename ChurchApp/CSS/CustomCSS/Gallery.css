@@ -177,9 +177,11 @@ margin: 10px 5px 0 0;
    
     margin:4px!important;
     height:180px!important;
-
-   
-    
+}
+#previewdivinimages .span4
+{
+     margin:4px!important;
+    height:180px!important;
 }
 
 .center-block {
@@ -197,7 +199,7 @@ margin: 10px 5px 0 0;
 
 .attnimages
 {
-    width: 20%;
+    width: 19%;
     display: block;
     float: left;
     height:250px;
@@ -206,7 +208,7 @@ margin: 10px 5px 0 0;
     object-fit: cover;
 }
 
-.centerPlus
+/*.centerPlus
 {
 text-align: center;
 display: block;
@@ -223,7 +225,7 @@ display: block;
 position: absolute;
 height: 37px;
 width: 37px;
-top: 163px;
-left: 113px;
-}
+top: 94px;
+left: 92px;
+}*/
 

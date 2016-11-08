@@ -6,7 +6,7 @@
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Gallery.js"></script>
     <div id="content" class="span10">
-        <ul class="breadcrumb" id="breadcrumbGallery">
+              <ul class="breadcrumb" id="breadcrumbGallery">
 				 <li class="home">
 					<i class="icon-home"></i>
 					<a href="../AdminPanel/Home.aspx">Home</a> 
@@ -28,16 +28,16 @@
 					</div>
 					<div class="box-content">
 			       <div class="ImageAlbum-Gallery">
-                    <div class="span4">      
-                  
-                     
-                      <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 38%;position: relative;" id="newalbum">Create Album</></a>
-             
-                   </div>      
-                             
-                    </div>
+                   <div style="height: 238px!important;border: 2px dotted black;background-color: #e8f7ff;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                   <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
+                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;" id="newalbum">Create Album</></a>
+
+                   </div>
+                   
+                       </div>      
+                   
 					
-				</div><!--/span-->
+				    </div><!--/span-->
               </div>
               </div> 
               <div class="row-fluid" id="divImages">
@@ -50,8 +50,11 @@
 					</div>
 					<div class="box-content">
 						<div class="Image-Gallery">
-                        <div class="span4">
-                       <a data-rel="tooltip" data-original-title="Add More Images" style="top: 67%;left: 38%;position: relative;" id="newimage">Add  More</></a>
+                             <div style="height: 238px!important;border: 2px dotted black;background-color: #e8f7ff;width: 20%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                         <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 129px;left: 112px;" src="../img/Plussymbol.png"/>
+                            <a data-rel="tooltip" data-original-title="Add More Images" style="top: 67%;left: 34%;position: relative;" id="newimage">Add  More</></a>
+                           </div>
+                      
                         </div>
 
 
@@ -62,7 +65,7 @@
                         
 			     	</div><!--/span-->
 
-               </div>
+            
               <div class="row-fluid" id="divVideoAlbum">
              <div class="box span12">
 					<div class="box-header" data-original-title>
@@ -124,7 +127,7 @@
 
 
                <!--Models used in this page-->
-	    <div class="modal hide fade" id="NewAlbumModel">
+	           <div class="modal hide fade" id="NewAlbumModel">
 		       <div class="modal-header">
 			   <button type="button" class="close" data-dismiss="modal">×</button>
 			   <h3>Create New Album</h3>
@@ -149,7 +152,7 @@
                                
                             <output id="imageListAlbum" class=""> 
                        <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
-                       <img src="../img/Plussymbol.png" class="centerPluschooseimage"/>
+                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 167px;left: 109px;" src="../img/Plussymbol.png"/>
                         <a onclick="BtnImageUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnupload">Choose Image</a>
                        </span>
                                 
@@ -166,21 +169,37 @@
 		    </div>
 		    </div>
 		
-	</div>
+	       
               <div class="modal hide fade" id="NewImageModel">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h3>New Image</h3>
 		</div>
 		<div class="modal-body">
+
+
+              <div class="span10">
+                         <div class="form-horizontal">
+				             
+                                <div class="control-group" style="margin-top:20px">
+							
+								<div class="controls">
+								 
+                                    <input class="input-file" multiple="multiple" id="imageUploader" style="display:none" name="imageUploader[]" type="file"/>
+                         		</div>
+								</div>
+                          
+                              
+                                </div>
+                        </div>
                    
             <div class="span10" id="previewdivinimages">
                             
                                
-                            <output id="imageListAlbuminimages" class=""> 
+                            <output id="imageListimages" class=""> 
                        <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
-                       <img src="../img/Plussymbol.png" class="centerPluschooseimage"/>
-                        <a onclick="BtnImageUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnuploadimages">Choose Image</a>
+                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 142px;left: 109px;" src="../img/Plussymbol.png"/>
+                        <a onclick="BtnImageAddNew();" class="" style="top:67%;left:28%;position:relative"  id="btnuploadimages">Choose Image</a>
                        </span>
                                 
 
@@ -192,7 +211,7 @@
 		</div>
 		<div class="modal-footer">
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
+			<a href="#" id="btnMoreImagesAdd" class="btn btn-primary">Save changes</a>
 		</div>
 	</div>
 
