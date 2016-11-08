@@ -6,6 +6,7 @@ var imgPath = '';                   //Stores path of uploaded image
 var DeletedImgID = '';              //While changing the uploaded image with new , previous one should get deleted, So imageid to be deleted is stored in this variable
 var DeletedImgPath = '';            //While changing the uploaded image with new , previous one should get deleted from folde, So imag path to be deleted is stored in this variable
 var NotificationTypeCode = 'ntc';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
+
 //--------------------------------//
 
 
@@ -66,6 +67,7 @@ $("document").ready(function (e) {
                             }
                             formData.append('ActionTyp', 'NoticeAppImageInsert');
                             AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                            Notices.imageId = guid;
                         }
                     }
 
@@ -75,7 +77,7 @@ $("document").ready(function (e) {
                     Notices.noticeType = $("#ddlNoticeType").val();
                     
                     Notices.noticeId = guid;
-                    Notices.imageId = guid;
+                   
 
                     result = InsertNotice(Notices);
 
@@ -215,6 +217,8 @@ $("document").ready(function (e) {
     $('#btnCancel').click(function (e) {
        
         //  $("#NoticeEditDivBox").hide();
+        debugger;
+
 
         $('#rowfluidDiv').hide();
         $('.alert-success').hide();
@@ -222,14 +226,17 @@ $("document").ready(function (e) {
 
         var NoticeID = $("#hdfNoticeID").val();
 
-        if (NoticeID == null || NoticeID == "") //Add
+        if (NoticeID == null || NoticeID == "" ) //Add
         {
             AddNewNoticeFormat();
         }
         else//Edit
         {
+            
             EditOnClick(NoticeID);
         }
+
+        $('#UpNotice')[0].files[0] = null;
     });
 
     $('#btnDelete').click(function (e) {
@@ -341,24 +348,22 @@ function FillNotice(Records) {
         debugger;
 
         var url = Records.URL;
-
-        //var html = '<div class="task high"> <div class="span12" id="divulContainer"><ul class="dashboard-list"><li class="liNoticeList"><div class="span3"><a href="#"><img class="imgNotice" id=img' + Records.ID + '   /></a></div><div class="span9"><p class="pContainerNotice"><span style="font-weight:bold;color:#FA603D;">' + Records.NoticeName + '&nbsp;<a href="#" class="aViewDetails" id=' + Records.ID + '>View Details</a></span><br/>' + Records.Description + '</p></div> </li></ul></div>  <input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
-
-        // var html = '<div class="task high"><ul class="dashboard-list"><li class="Eventlist"><a href="#"><img class="Eventimage" id=img' + Records.ID + ' src=' + url + '/></a><strong>Title:</strong><span class="spnNoticeName">' + Records.NoticeName + '<br/></span><strong>Type:</strong>' + Records.NoticeType + '<br/><strong>Description:</strong>' + Records.Description + '<div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div> </li></ul><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
-
-        var html = '<div class="task high"><ul class="dashboard-list"><li class="Eventlist"><a href="#"><img class="Eventimage" id=img' + Records.ID + ' src=' + url + '/></a><span class="spnNoticeName">' + Records.NoticeName + '<br/></span><strong>Type : </strong>' + Records.NoticeType + '<br/>' + Records.Description + '<div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div> </li></ul><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div>'
-
-        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NoticeName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="Noticeimage" id=img' + Records.ID + ' src=' + url + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="NoticeEditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
-
+      
         var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NoticeName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + ' src=' + url + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
         $("#DivNoticeType1").append(html);
 
         if (url != "") {
-            var imgControl = document.getElementById("img" + Records.ID);
-            if (imgControl != null) {
-                document.getElementById("img" + Records.ID).src = url;
-                $('#img' + Records.ID).attr('src', url);
-            }
+           
+               $('#img' + Records.ID).attr('src', url);
+           
+        }
+
+        if (url == null)
+
+         {
+            url = "../img/No-Img_Chosen.png";
+            $('#img' + Records.ID).attr('src', url);
+           
         }
     });
 
@@ -571,6 +576,9 @@ function InsertNotification(Notification) {
 //Edit
 //--- while select a notice , ther will appear a fixed edit icon ,its click functionality is given below
 function FixedEditClick() {
+
+    $('#UpNotice')[0].files[0] = null;
+
     $("#lblStartDate").hide();
     $("#dateStartDate").show();
     $("#lblExpiryDate").hide();
@@ -681,9 +689,18 @@ function EditOnClick(id) {
     if (jsonResult != undefined) {
         $.each(jsonResult, function (index, jsonResult) {
             $("#h1Notice").text(jsonResult.NoticeName);
-
+            debugger;
             url = jsonResult.URL;
-            $('#NoticePreviewOnView').attr('src', url);
+
+            if (url == null) {
+                url = "../img/No-Img_Chosen.png";
+                $('#NoticePreviewOnView').attr('src', url);
+
+            }
+            else {
+                $('#NoticePreviewOnView').attr('src', url);
+            }
+           
 
             imageId = jsonResult.ImageID;
             imgPath = jsonResult.URL;
@@ -722,6 +739,7 @@ function EditOnClick(id) {
     $("#DivImg").hide();
     $("#divNotification").hide();
     $("#divNoticeDescription").hide();
+  
 }
 //--------------------------------//
 
@@ -753,6 +771,7 @@ function SetControlsInNewNoticeFormat() {
 }
 
 function AddNewNoticeFormat() {
+
     $("#divView").hide();
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
@@ -793,6 +812,10 @@ function ClearControls() {
     $("#h1Notice").text("Add Notice");
 
     $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
+
+    $('#UpNotice')[0].files[0] = null;
+
+    
 
 }
 //--------------------------------//

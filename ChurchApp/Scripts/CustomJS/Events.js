@@ -7,6 +7,9 @@ var imgPath = '';                   //Stores path of uploaded image
 var DeletedImgID = '';              //While changing the uploaded image with new , previous one should get deleted, So imageid to be deleted is stored in this variable
 var DeletedImgPath = '';            //While changing the uploaded image with new , previous one should get deleted from folde, So imag path to be deleted is stored in this variable
 //var NotificationTypeCode = 'ntc';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
+
+
+
 //--------------------------------//
 
 
@@ -46,17 +49,17 @@ $("document").ready(function (e) {
         Events.endDate = $("#dateEndDate").val();
         Events.eventExpiryDate = $("#dateExpiryDate").val();
         //Events.imageId =
+       
 
-        Events.isAutoHide = true;
-
-
-        if ($('input[name=rdoHide]:checked').val() == "False") //Add Notification
+        Events.isAutoHide = $("#hdfIsAutoHide").val();
+       //False
+        
+       if ($('input[name=rdoHide]:checked').val() == "No") //Add Notification
         {
-            Events.isAutoHide = false;
+           Events.isAutoHide = false;
+         
         }
-        else {
-            Events.isAutoHide = true;
-        }
+      
 
         var guid = createGuid();
 
@@ -320,6 +323,8 @@ function ClearControls() {
     $('.alert-success').hide();
     $('.alert-error').hide();
 
+    $('#UpEvent')[0].files[0] = null;
+
 }
 
 function FixedEditClick() {
@@ -359,15 +364,18 @@ function FixedEditClick() {
             if (jsonResult.EventExpiryDate != null && jsonResult.EventExpiryDate != "") {
                 $("#dateExpiryDate").val(ConvertJsonToDate(jsonResult.EventExpiryDate));
             }
-
+            
             if (jsonResult.IsAutoHide == true) {
                 $('#optHideYes').parent().addClass('checked');
                 $("#optHideNo").parent().removeClass('checked');
-
+                $("#hdfIsAutoHide").val(true)
+               
             }
             else {
                 $('#optHideNo').parent().addClass('checked');
                 $("#optHideYes").parent().removeClass('checked');
+
+                $("#hdfIsAutoHide").val(false)
             }
 
         });
@@ -462,7 +470,7 @@ function SetControlsInEditableFormat() {
 }
 //--------------------------------//
 
-//Edit
+//Edit -- view only
 function EditOnClick(id) {
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
@@ -610,8 +618,10 @@ function showpreview(input) {
 }
 
 function SetExpiryDate() {
+
+    debugger;
     var EndDate = $("#dateEndDate").val();
-    if (EndDate != "" && EndDate != null && EndDate != undefined) {
+    if (EndDate != "" && EndDate != null && EndDate != undefined && $("#hdfEventID").val() == "") {
         $("#dateExpiryDate").val(EndDate);
     }
 }
