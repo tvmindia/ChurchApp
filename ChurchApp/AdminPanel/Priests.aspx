@@ -257,6 +257,12 @@
 								  <label class="control-label" for="focusedInput" id="lblMobile"></label>
 								</div>
 								</div>
+                        <div class="form-actions">
+                              <input type="hidden" id="hdnAddPriestID" />
+							  <a class="btn btn-primary" name="" style="display:none;" id="btnAddPriest">ADD NOW</a>
+                            <a class="btn btn-primary" id="bthCancelDetails">CANCEL</a>
+							  
+							</div>
 						  </fieldset>
 					</div>   
 					</div>

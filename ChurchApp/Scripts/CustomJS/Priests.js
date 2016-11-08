@@ -8,6 +8,42 @@
         $('#PriestShowDetails').show();
 
     });
+    $('#bthCancelDetails').click(function (e) {
+        $('#PriestEd').show();
+        $('#PriestShowDetails').hide();
+        ClearFields();
+    });
+    $('#btnAddPriest').click(function (e) {
+        debugger;
+        var status=$(this).attr('name');
+        var priestID = $('#hdnAddPriestID').val();
+        if(priestID!=null||priestID!="")
+        {
+            var Priest = new Object();
+            Priest.priestID = priestID;
+            Priest.Status = status;
+            result = UpdateChurchIDPriest(Priest);
+
+            if (result.result == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Priest Added Successfully");
+
+            }
+            if (result.result != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text("Operation was Not Successful");
+            }
+            $('#assVicardiv').remove();
+            debugger;
+            $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+            check();
+            $('#PriestEd').hide();
+            $('#PriestShowDetails').hide();
+            ClearFields();
+        }
+    });
     ///////////-----------Delete button Event
     $('#btnDelete').click(function (e)
     {
@@ -197,7 +233,6 @@
 
 function AutoComplete()
 {
-    debugger;
     var ac=null;
     ac = GetPriest();
 
@@ -212,7 +247,6 @@ function AutoComplete()
     $("#txtPriestName").autocomplete({
         maxResults: 10,
         source: function(request, response) {
-            debugger;
             //--- Search by name or description(file no , mobile no, address) , by accessing matched results with search term and setting this result to the source for autocomplete
             var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
             var matching = $.grep(projects, function (value) {
@@ -233,13 +267,14 @@ function AutoComplete()
             return false;
         },
         select: function( event, ui ) {
-            debugger;
 
             //var FileName =    ui.item.desc.split('|')[0].split('📰')[1];
             // var Address =  ui.item.desc.split('|')[1];
             var priestID = ui.item.desc;
-
+            $('#hdnAddPriestID').val(priestID);
             OpenPriestDetails(priestID);
+            $('#iconEditPriest').hide();
+            $('#btnAddPriest').show();
             //document.getElementById('<%=Errorbox.ClientID %>').style.display = "none";
 
 
@@ -329,7 +364,7 @@ function AutoComplete()
     {
         $(':input').each(function () {
 
-            if (this.type == 'text' || this.type == 'textarea' || this.type=='file') {
+            if (this.type == 'text' || this.type == 'textarea' || this.type=='file'||this.type=='hidden') {
                 this.value = '';
             }
             else if (this.type == 'radio' || this.type == 'checkbox') {
@@ -381,12 +416,14 @@ function AutoComplete()
         if (Tag == "Asst")
         {
             document.getElementById('HeadDetails').innerText = "Add New Asst Vicar";
-            $('#btnSavePriest').attr('name','Asst');
+            $('#btnSavePriest').attr('name', 'Asst');
+            $('#btnAddPriest').attr('name', 'Asst');
         }
         if (Tag == "Vicar")
         {
             document.getElementById('HeadDetails').innerText = "Add New Vicar";
-            $('#btnSavePriest').attr('name','Vicar');
+            $('#btnSavePriest').attr('name', 'Vicar');
+            $('#btnAddPriest').attr('name', 'Vicar');
         }
         $('#PriestShowDetails').hide();
         $('#PriestEd').show();
@@ -396,7 +433,9 @@ function AutoComplete()
     function OpenPriestDetails(priestID) {
         BindDetails(priestID);
         $('#PriestShowDetails').show();
+        $('#iconEditPriest').show();
         $('#PriestEd').hide();
+        $('btnAddPriest').hide();
     }
 //Bind Details to view
     function BindDetails(priestID) {
@@ -463,6 +502,14 @@ function AutoComplete()
     function UpdatePriest(Priest) {
         var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
         jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/UpdatePriest");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+    //Add ChurchID Priest
+    function UpdateChurchIDPriest(Priest) {
+        var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/UpdateChurchIDPriest");
         var table = {};
         table = JSON.parse(jsonResult.d);
         return table;

@@ -416,6 +416,48 @@ namespace ChurchApp.DAL
         }
         #endregion DeletePriest
 
+        #region UpdateChurchIDPriest
+        /// <summary>
+        /// Update ChurchID for seleted Priest
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string UpdateChurchIDPriest()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateChurchIDPriest]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(priestID);
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
+                cmd.Parameters.Add("@Status", SqlDbType.NVarChar, 50).Value = Status;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion UpdateChurchIDPriest
+
         #endregion Methods
     }
 }

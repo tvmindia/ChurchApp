@@ -217,6 +217,44 @@ namespace ChurchApp.AdminPanel
 
         }
         #endregion DeletePriest
+
+        #region DeletePriest
+        [System.Web.Services.WebMethod]
+        public static string UpdateChurchIDPriest(ChurchApp.DAL.Priest PriestObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                //PriestObj.Status
+                if (PriestObj.Status=="Asst")
+                {
+                    PriestObj.Status = "Asst Vicar";
+                }
+                if (PriestObj.Status == "Vicar")
+                {
+                    PriestObj.Status = "Vicar";
+                }
+                PriestObj.churchID = UA.ChurchID;
+                PriestObj.createdBy = "Thomson";
+                status = PriestObj.UpdateChurchIDPriest().ToString();
+                PriestObj.result = status;
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(PriestObj);
+
+        }
+        #endregion DeletePriest
         #endregion WebMethod
     }
 }
