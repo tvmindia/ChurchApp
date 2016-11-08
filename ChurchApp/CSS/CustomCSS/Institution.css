@@ -1,0 +1,93 @@
+﻿ul.dashboard-list li{
+    padding:21px!important;
+}
+input[type=text]{
+    width:80%;
+}
+textarea{
+    width:80%!important;
+}
+#PriestEd select{
+    width:85%!important;
+}
+.choosepic{
+    font-size:32px;
+    font-weight:500;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:#9e5d5d
+}
+.priestimage{
+height: 133px;
+    width: 133px;
+    padding: 5px;
+    /*float: left;
+    margin-top: -6px;
+    margin-right: 125px;
+    border: 1px solid #eee;*/
+    border-radius:10%;
+    
+}
+ul.dashboard-list li .priestimage {
+    height: 133px;
+    width: 133px;
+    padding: 5px;
+    /*float: left;
+    margin-top: -6px;
+    margin-right: 125px;
+    border: 1px solid #eee;*/
+    border-radius:10%;
+}
+
+.task .priesteditdiv {
+    display: inline-block;
+    float: right;
+    width: 15%;
+    padding: 10px 10px 10px 0px;
+    font-size: 12px;
+    text-align: right;
+}
+
+.vicarlist{
+    line-height:50px;
+    /**//*-webkit-box-shadow:#4745b44d 3px 0px 25px -3px;*/
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:  0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);          
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    display:flex;
+    
+}
+div.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+div.accordion.active
+{
+    background-color: #FA603D!important;
+}
+div.accordion:hover {
+    background-color: #FA603D!important;
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.6s ease-in-out;
+    opacity: 0;
+    /*border-left:1.5px solid #FA603D;*/
+}
+
+div.panel.show {
+    opacity: 1;
+    max-height: 500px;
+}

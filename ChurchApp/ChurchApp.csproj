@@ -77,6 +77,7 @@
     <Content Include="CSS\CustomCSS\Families.css" />
     <Content Include="CSS\CustomCSS\Gallery.css" />
     <Content Include="CSS\CustomCSS\Home.css" />
+    <Content Include="CSS\CustomCSS\Institution.css" />
     <Content Include="CSS\CustomCSS\MassSchedules.css" />
     <Content Include="CSS\CustomCSS\Notice.css" />
     <Content Include="CSS\CustomCSS\Notifications.css" />
@@ -184,6 +185,7 @@
     <Content Include="img\gallery\6.jpg" />
     <Content Include="img\gallery\assist vicar.jpg" />
     <Content Include="img\gallery\Cycle.jpg" />
+    <Content Include="img\gallery\Institution.jpg" />
     <Content Include="img\gallery\kozhipadan.jpg" />
     <Content Include="img\gallery\priest.png" />
     <Content Include="img\No-Img_Chosen.png" />
