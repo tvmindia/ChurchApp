@@ -155,7 +155,9 @@
                           <div class="control-group">
 							  <label class="control-label" for="date01">End Date</label>
 							  <div class="controls">
-                                    <input type="text" class="input-xlarge datepicker" id="dateEndDate" onblur="SetExpiryDate()" />
+                                  <%--onblur="SetExpiryDate()"--%>
+
+                                    <input type="text" class="input-xlarge datepicker" id="dateEndDate" onblur="SetExpiryDate()"  />
 								<label class="control-label" for="date01" id="lblEndDate"></label>
                                 
 							  </div>
@@ -164,7 +166,7 @@
                           <div class="control-group">
 							  <label class="control-label" for="date01">Expiry Date</label>
 							  <div class="controls">
-                                    <input type="text" class="input-xlarge datepicker" id="dateExpiryDate" />
+                                    <input type="text" class="input-xlarge datepicker" id="dateExpiryDate" onfocus="SetExpiryDate()" />
 								<label class="control-label" for="date01" id="lblExpiryDate"></label>
                                 
 							  </div>
@@ -248,7 +250,7 @@
      <input id="hdfImageID" type="hidden" value="" />
                 <input id="hdfEventID" type="hidden" value="" />
 
-
+     <input id="hdfIsAutoHide" type="hidden" value="" />
 
 
 

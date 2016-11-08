@@ -190,7 +190,12 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = Convert.ToDateTime(endDate);
                 cmd.Parameters.Add("@EventExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(eventExpiryDate);
                 cmd.Parameters.Add("@IsAutoHide", SqlDbType.Bit).Value = Convert.ToBoolean(true);
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+
+                if (imageId != string.Empty && imageId != null)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId); 
+                }
+                
                // cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;

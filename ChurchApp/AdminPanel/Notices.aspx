@@ -253,10 +253,8 @@
 
                                 <div class="form-actions">
                                     <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
-                                    <%--<button type="submit" id="btnSave" class="btn btn-primary">Save</button>--%>
-                                    <button type="reset" class="btn btn-primary" id="btnCancel">Cancel</button>
-                                    <%--<asp:Button ID="btnUpload" class="btn btn-primary" runat="server" Text="Upload"  />--%>
-                                    <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
+                                     <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
+                                   <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
                                 </div>
                             </fieldset>
                         </div>
@@ -265,7 +263,7 @@
 
                 <input id="hdfImageID" type="hidden" value="" />
                 <input id="hdfNoticeID" type="hidden" value="" />
-
+                
 
                 <%--<asp:HiddenField ID="hdfImgID" runat="server" />--%>
             </div>
