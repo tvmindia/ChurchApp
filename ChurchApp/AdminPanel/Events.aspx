@@ -50,14 +50,14 @@
                         <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Latest Events</h2>
                          
                         <div class="box-icon">
-                             <a class="btnNew" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Notice">+</i></a>
+                             <a class="btnNew" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Event">+</i></a>
                             <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%> 
 
                         </div>
                     </div>
                     <div class="box-content" id="DivNoticeType1">
 
-                      <%--  <div class="accordion">
+                        <div class="accordion">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
 
@@ -66,14 +66,26 @@
                                 </div>
                                 <div class="accordion-body collapse in">
                                     <div class="accordion-inner">
-                                        <img class="Eventimage" src="../img/AppImages/747515f2-501a-3f59-96ba-6fd122f83f61.jpg" alt="St.Thomas Church" /><p>In your heart, do you wish your friends knew about God’s love–and how He cared about us so much that He sent His son to earth to give His life for us? The good news is, as a student you have neat way to share your Christian faith: Bring Your Bible to School Day! On this day, thousands of students just like you will bring their Bible to school and talk about it with friends during free time.  To learn more about this event, ask your parents to go to the website with you: BringYourBible.org</p>
-                                        <span class="NoticeViewDetails"><a href="#">View Details</a></span>
+                                       
+                                        <img class="eventImage" src="../img/AppImages/747515f2-501a-3f59-96ba-6fd122f83f61.jpg" alt="St.Thomas Church" />
+
+                                         <span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >nov 1 2016</span>&nbsp;
+                                         <span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >nov 1 2016</span>&nbsp;
+                                         <span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >nov 1 2016</span>&nbsp;
+
+                                        <br />
+
+
+                                        <p>In your heart, do you wish your friends knew about God’s love–and how He cared about us so much that He sent His son to earth to give His life for us? The good news is, as a student you have neat way to share your Christian faith: Bring Your Bible to School Day! On this day, thousands of students just like you will bring their Bible to school and talk about it with friends during free time.  To learn more about this event, ask your parents to go to the website with you: BringYourBible.org</p>
+                                        <span class="eventViewDetails"><a href="#">View Details</a></span>
+                                        
+                                         
                                     </div>
 
                                 </div>
                             </div>
 
-                        </div>--%>
+                        </div>
 
 
                     </div>
@@ -93,7 +105,7 @@
 						<div class="box-content">
 					   <div class="form-horizontal">
 				    <fieldset>
-                        <a id="NoticeEdit"  class="btnEdit" onclick="FixedEditClick()" style=" right: 1px; position: fixed;" ><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
+                        <a id="NoticeEdit"  class="btnEdit" onclick="FixedEditClick()" style=" right: 1px; position: fixed;" ><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Event" ></i></a>
                        <%--<a style="right:30px;position: fixed;" onclick="FixedEditClick()"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>--%>
 					<div id="EditContent">
                        
@@ -102,7 +114,7 @@
 								<label class="control-label" for="focusedInput">Event Name</label>
 								<div class="controls">
 								  <%--<input class="input-large focused" name="Name" id="txtEventName" type="text"/>--%>
-                                    <input class="input-large focused" name="Caption" id="txtEventName" type="text" />
+                                    <input class="input-large focused" name="Caption" id="txtEventName" type="text" style="width:70%" />
                                     
                                      <label class="control-label" for="focusedInput" id="lblEventName"></label>
                                    
@@ -125,7 +137,7 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Description</label>
 								<div class="controls">
-                                     <textarea tabindex="10" class="input-xlarge span10" id="txtDescription" name="Description" rows="25" placeholder=""></textarea>
+                                     <textarea tabindex="10" class="input-xlarge span10" id="txtDescription" name="Description" rows="25" placeholder="" style="width:70%"></textarea>
 								<label class="control-label" id="lblDescription" for="focusedInput"></label>
 								
                                 </div>
@@ -143,7 +155,7 @@
                           <div class="control-group">
 							  <label class="control-label" for="date01">End Date</label>
 							  <div class="controls">
-                                    <input type="text" class="input-xlarge datepicker" id="dateEndDate" />
+                                    <input type="text" class="input-xlarge datepicker" id="dateEndDate" onblur="SetExpiryDate()" />
 								<label class="control-label" for="date01" id="lblEndDate"></label>
                                 
 							  </div>

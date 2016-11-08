@@ -6,7 +6,7 @@ var imgPath = '';                   //Stores path of uploaded image
 
 var DeletedImgID = '';              //While changing the uploaded image with new , previous one should get deleted, So imageid to be deleted is stored in this variable
 var DeletedImgPath = '';            //While changing the uploaded image with new , previous one should get deleted from folde, So imag path to be deleted is stored in this variable
-var NotificationTypeCode = 'ntc';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
+//var NotificationTypeCode = 'ntc';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
 //--------------------------------//
 
 
@@ -21,31 +21,28 @@ $("document").ready(function (e) {
 
     BindEvents();
 
-    $('#btnCancel').click(function (e)
-    {
+    $('#btnCancel').click(function (e) {
         ClearControls();
 
-        if ($("#hdfEventID").val() != "")
-        {
+        if ($("#hdfEventID").val() != "") {
             EditOnClick($("#hdfEventID").val());
         }
         else {
             $("#NoticeEdit").hide();
         }
-      
+
         $("#optHideNo").parent().removeClass('checked');
         $('#optHideYes').parent().addClass('checked');
     });
 
-    $('#btnSave').click(function (e)
-    {
-        
+    $('#btnSave').click(function (e) {
+
         debugger;
 
         var Events = new Object();
-        Events.eventName =  $("#txtEventName").val();
+        Events.eventName = $("#txtEventName").val();
         Events.description = $("#txtDescription").val();
-        Events.startDate =  $("#dateStartDate").val();
+        Events.startDate = $("#dateStartDate").val();
         Events.endDate = $("#dateEndDate").val();
         Events.eventExpiryDate = $("#dateExpiryDate").val();
         //Events.imageId =
@@ -57,8 +54,7 @@ $("document").ready(function (e) {
         {
             Events.isAutoHide = false;
         }
-        else
-        {
+        else {
             Events.isAutoHide = true;
         }
 
@@ -86,8 +82,7 @@ $("document").ready(function (e) {
                 AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                 Events.imageId = guid;
             }
-            else
-            {
+            else {
                 if ($("#hdfEventID").val() != "" && $("#hdfEventID").val() != null) {
                     Events.imageId = imageId;
                 }
@@ -95,10 +90,9 @@ $("document").ready(function (e) {
 
         }
 
-        if ($("#hdfEventID").val() != "" &&  $("#hdfEventID").val() != null)
-        {
+        if ($("#hdfEventID").val() != "" && $("#hdfEventID").val() != null) {
             Events.eventId = $("#hdfEventID").val();
-           
+
             var UpdationStatus = UpdateEvent(Events);
 
             if (UpdationStatus == "1") {
@@ -135,8 +129,7 @@ $("document").ready(function (e) {
             }
 
         }
-        else
-        {
+        else {
             var InsertionStatus = InsertEvent(Events);
 
             if (InsertionStatus == "1") {
@@ -165,14 +158,12 @@ $("document").ready(function (e) {
 
     });
 
-    $('#btnDelete').click(function (e)
-    {
+    $('#btnDelete').click(function (e) {
         var deleteConirm = confirm("Want to delete?");
 
         debugger;
 
-        if (deleteConirm)
-        {
+        if (deleteConirm) {
             var EventID = $("#hdfEventID").val()
 
             var Events = new Object();
@@ -227,8 +218,47 @@ function FillEvents(Records) {
         debugger;
 
         var url = Records.URL;
+        var html = '';
 
-        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+        if (Records.StartDate == null && Records.EndDate == null && Records.EventExpiryDate == null) {
+            html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+        }
+
+        else {
+            if (Records.StartDate != null && Records.EndDate != null && Records.EventExpiryDate != null) {
+
+                html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+            }
+
+            else {
+                if (Records.StartDate != null && Records.EndDate != null) {
+                    html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+                }
+
+                if (Records.StartDate != null && Records.EventExpiryDate != null) {
+                    html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+                }
+
+                if (Records.EndDate != null && Records.EventExpiryDate != null) {
+                    html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+                }
+            }
+
+
+
+
+        }
+
+
+
+
+        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >nov 1 2016</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >nov 1 2016</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >nov 1 2016</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+
+        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >nov 1 2016</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >nov 1 2016</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >nov 1 2016</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+
+
+
+        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
         $("#DivNoticeType1").append(html);
 
         if (url != "") {
@@ -265,8 +295,7 @@ function GetEvents(Events) {
 
 
 //Clear Controls
-function ClearControls()
-{
+function ClearControls() {
     $(':input').each(function () {
 
         if (this.type == 'text' || this.type == 'textarea' || this.type == 'file') {
@@ -293,8 +322,7 @@ function ClearControls()
 
 }
 
-function FixedEditClick()
-{
+function FixedEditClick() {
     debugger;
 
     ClearControls();
@@ -327,7 +355,7 @@ function FixedEditClick()
             if (jsonResult.EndDate != null && jsonResult.EndDate != "") {
                 $("#dateEndDate").val(ConvertJsonToDate(jsonResult.EndDate));
             }
-          
+
             if (jsonResult.EventExpiryDate != null && jsonResult.EventExpiryDate != "") {
                 $("#dateExpiryDate").val(ConvertJsonToDate(jsonResult.EventExpiryDate));
             }
@@ -335,7 +363,7 @@ function FixedEditClick()
             if (jsonResult.IsAutoHide == true) {
                 $('#optHideYes').parent().addClass('checked');
                 $("#optHideNo").parent().removeClass('checked');
-                
+
             }
             else {
                 $('#optHideNo').parent().addClass('checked');
@@ -347,8 +375,7 @@ function FixedEditClick()
 
 }
 
-function SetControlsInNewEventFormat()
-{
+function SetControlsInNewEventFormat() {
     ClearControls();
 
     $("#lblEventName").hide();
@@ -362,7 +389,7 @@ function SetControlsInNewEventFormat()
     $("#dateStartDate").show();
     $("#dateEndDate").show();
     $("#dateExpiryDate").show();
-    
+
     $("#optHideNo").parent().removeClass('checked');
     $('#optHideYes').parent().addClass('checked');
 
@@ -386,8 +413,7 @@ function SetControlsInNewEventFormat()
 
 }
 
-function SetControlsInViewFormat()
-{
+function SetControlsInViewFormat() {
     //$("#lblEventName").show();
     //$("#lblDescription").show();
     //$("#lblStartDate").show();
@@ -412,8 +438,7 @@ function SetControlsInViewFormat()
     $("#NoticeEdit").show();
 }
 
-function SetControlsInEditableFormat()
-{
+function SetControlsInEditableFormat() {
     $("#lblEventName").hide();
     $("#lblDescription").hide();
     $("#lblStartDate").hide();
@@ -438,8 +463,7 @@ function SetControlsInEditableFormat()
 //--------------------------------//
 
 //Edit
-function EditOnClick(id)
-{
+function EditOnClick(id) {
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -451,45 +475,45 @@ function EditOnClick(id)
     Events.eventId = id;
 
     if (id != "" && id != null) {
-    
-    $("#hdfEventID").val(id);
 
-    var jsonResult = {};
+        $("#hdfEventID").val(id);
 
-    jsonResult = GetEventsByEventID(Events);
+        var jsonResult = {};
 
-    if (jsonResult != undefined) {
-        $.each(jsonResult, function (index, jsonResult) {
-            $("#h1Event").text(jsonResult.EventName);
+        jsonResult = GetEventsByEventID(Events);
 
-            debugger;
+        if (jsonResult != undefined) {
+            $.each(jsonResult, function (index, jsonResult) {
+                $("#h1Event").text(jsonResult.EventName);
 
-            url = jsonResult.URL;
-            $('#eventPreviewOnView').attr('src', url);
+                debugger;
 
-            imageId = jsonResult.ImageID;
-            imgPath = jsonResult.URL;
+                url = jsonResult.URL;
+                $('#eventPreviewOnView').attr('src', url);
 
-            DeletedImgID = imageId;
-            DeletedImgPath = imgPath;
+                imageId = jsonResult.ImageID;
+                imgPath = jsonResult.URL;
 
-            debugger;
-            if (jsonResult.Descrtiption == null || jsonResult.Descrtiption == "" || jsonResult.Descrtiption == undefined) {
-                //$("#NoticePreviewOnView").css('width', '300px!important');
-                $('#eventPreviewOnView').width(600);
-                $('#eventPreviewOnView').height('auto');
-                $('#lblEventDescriptionOnView').text("");
-            }
+                DeletedImgID = imageId;
+                DeletedImgPath = imgPath;
 
-            else {
-                $('#eventPreviewOnView').height(200);
-                $('#eventPreviewOnView').width(150);
-                $('#lblEventDescriptionOnView').text(jsonResult.Descrtiption);
-            }
+                debugger;
+                if (jsonResult.Descrtiption == null || jsonResult.Descrtiption == "" || jsonResult.Descrtiption == undefined) {
+                    //$("#NoticePreviewOnView").css('width', '300px!important');
+                    $('#eventPreviewOnView').width(600);
+                    $('#eventPreviewOnView').height('auto');
+                    $('#lblEventDescriptionOnView').text("");
+                }
 
-        });
+                else {
+                    $('#eventPreviewOnView').height(200);
+                    $('#eventPreviewOnView').width(150);
+                    $('#lblEventDescriptionOnView').text(jsonResult.Descrtiption);
+                }
+
+            });
+        }
     }
-}
 }
 
 function GetEventsByEventID(Events) {
@@ -527,8 +551,7 @@ function UpdateEvent(Events) {
 
 
 //Delete
-function DeleteEvent(Events)
-{
+function DeleteEvent(Events) {
     var ds = {};
     var table = {};
     var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
@@ -583,6 +606,13 @@ function showpreview(input) {
             $('#NoticePreview').attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function SetExpiryDate() {
+    var EndDate = $("#dateEndDate").val();
+    if (EndDate != "" && EndDate != null && EndDate != undefined) {
+        $("#dateExpiryDate").val(EndDate);
     }
 }
 //--------------------------------//

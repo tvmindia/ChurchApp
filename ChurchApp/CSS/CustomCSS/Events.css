@@ -89,3 +89,21 @@ width: 150px;
     left: 10%!important;
    
 }
+
+  .accordion-inner
+  {
+     height:110px;
+  }
+
+  .spnDates
+  {
+      font-size:10px;font-weight:100
+  }
+
+  .spnDateValues
+  {
+       font-size:10px;
+       font-weight:100;
+       color:#4a96ac!important;
+       /*#7b91a6*/
+  }
