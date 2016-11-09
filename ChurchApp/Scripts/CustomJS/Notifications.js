@@ -6,6 +6,8 @@
         $('#NotificationEditDivBox').show();
 
     });
+
+    //---------------- * View More Link Click of Latest Notifications * -------------------//
     $(".aViewMore").live({
 
         click: function (e) {
@@ -19,6 +21,8 @@
             BindAsyncNotificationTableForAll();
         }
     });
+
+    //---------------- * Back To Notification Link Click of Latest Notifications * -------------------//
     $(".aBack").live({
 
         click: function (e) {
@@ -34,6 +38,8 @@
             $(".aOldViewMore").show();
         }
     });
+
+    //---------------- * View More Link Click of Old Notifications * -------------------//
     $(".aOldBack").live({
 
         click: function (e) {
@@ -49,6 +55,8 @@
             $(".aOldViewMore").show();
         }
     });
+
+    //---------------- * Back To Notification Link Click of Old Notifications * -------------------//
     $(".aOldViewMore").live({
 
         click: function (e) {
@@ -63,6 +71,8 @@
             $(".aOldViewMore").hide();
         }
     });
+
+    //---------------- * Delete Notification * -------------------//
     $(".Delete").click(function () {
         debugger;
         var result = "";
@@ -95,33 +105,44 @@
             return false;
         }
     });
+
+    //---------------- * Cancel btn click of Notification * -------------------//
     $(".Cancel").click(function () {
-        //$("#NotificationEditDivBox").hide();
-        //$("#detailsHeading").text("");
-        //$('#rowfluidDiv').hide();
         debugger;
         $('#rowfluidDiv').hide();
+        $(".dark").css("margin-top", "0px");
         $("#btnContainer").show();
         $(".Save").hide();
         $(".Delete").hide();
         $(".Cancel").hide();
         var NotificationID = $("#hdfEditID").val();
-        $("#hdfNotificationID").val(NotificationID.replace('/', ""));
-        var churchID = $("#hdfChurchID").val();
-        var Notification = new Object();
-        Notification.notificationID = NotificationID;
-        Notification.churchId = churchID;
-        BindControlsOnViewDetails(Notification);
+        if (NotificationID == "")
+        {
+            $("#NotificationEditDivBox").hide();
+        }
+        else
+        {
+            $("#hdfNotificationID").val(NotificationID.replace('/', ""));
+            var churchID = $("#hdfChurchID").val();
+            var Notification = new Object();
+            Notification.notificationID = NotificationID;
+            Notification.churchId = churchID;
+            BindControlsOnViewDetails(Notification);
+        }
+       
     });
+
     $("#cancelDetail").click(function () {
         $("#NotificationDetails").hide();
     });
-    $(".aViewDetails").live({
 
-        click: function (e) {// Delete button click
+
+    $(".aViewDetails").live({
+        click: function (e) {
             debugger;         
             $('#rowfluidDiv').hide();
             $("#btnContainer").show();
+            $(".dark").css("margin-top", "0px");
             $(".Save").hide();
             $(".Delete").hide();
             $(".Cancel").hide();
@@ -141,6 +162,7 @@
         $('#rowfluidDiv').hide();
         $(".Save").show();
         $(".Delete").show();
+        $(".dark").css("margin-top", "0px");
         $(".Cancel").show();
         $("#NotificationDetails").hide();
         $("#NotificationEditDivBox").show();
@@ -167,17 +189,27 @@
     });
     $(".Save").click(function () {
         debugger;
+        //var value = BranchValidation();
+        //if (value == true)
+        //{
+        //    alert("true");
+        //}
+        //else
+        //{
+        //    alert("false");
+        //}
         var result = "";
         var caption = $("#txtCaption").val();
         var type = $("#ddlType").val();
         var description = $("#txtDescription").val();
         var startDate = $("#txtStartDate").val();
+      
         if (startDate.includes(","))
         {
             startDate = startDate.split(":")[1];
         }
-        //startDate = startDate.split("-")[1] + "-" + startDate.split("-")[0] + "-" + startDate.split("-")[2];
         var expiryDate = $("#txtExpiryDate").val();
+       
         if (expiryDate.includes(","))
         {
             expiryDate = expiryDate.split(":")[1];
@@ -199,49 +231,129 @@
         Notifications.linkID = linkID;
         Notifications.notificationID = notificationID;
         var addOrEdit = $("#detailsHeading").text();
-        if (addOrEdit == "Add Notification")
-        {
-            result = InsertNotification(Notifications);
-            if (result == "1") {
-                BindAsyncNotificationTable();
-                BindAsynOldNotificationTable();
-                $("#NotificationEditDivBox").hide();
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Added Successfully");
+        debugger;
+        if (type != "" && type != null) {
+            if (startDate != "" && startDate != null) {
+
+                if (expiryDate != "" && expiryDate != null) {
+
+                    if (caption != "" && caption != null) {
+                        if (addOrEdit == "Add Notification") {
+                            result = InsertNotification(Notifications);
+                            if (result == "1") {
+                                BindAsyncNotificationTable();
+                                BindAsynOldNotificationTable();
+                                $("#NotificationEditDivBox").hide();
+                                $('#rowfluidDiv').show();
+                                $('.alert-success').show();
+                                $('.alert-success strong').text("Added Successfully");
+                            }
+                            else {
+                                $('#rowfluidDiv').show();
+                                $('.alert-error').show();
+                                $('.alert-error strong').text("Error..!!!");
+                            }
+                        }
+                        else {
+                            result = UpdateNotification(Notifications);
+                            if (result == "1") {
+                                BindAsyncNotificationTable();
+                                BindAsynOldNotificationTable();
+                                //$("#NotificationEditDivBox").hide();
+                                $(".dark").css("margin-top", "30px");
+                                $('#rowfluidDiv').show();
+                                $('.alert-success').show();
+                                $('.alert-success strong').text("Updated Successfully");
+                            }
+                            else {
+                                $('#rowfluidDiv').show();
+                                $('.alert-error').show();
+                                $('.alert-error strong').text("Error..!!!");
+                            }
+                        }
+
+                    }
+                    else {
+                        alert("Please add a caption");
+                    }
+                }
+                else {
+                    alert("Please select expiry date");
+                }
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                alert("Please select start date");
             }
         }
         else
         {
-            result = UpdateNotification(Notifications);
-            if (result == "1") {
-                BindAsyncNotificationTable();
-                BindAsynOldNotificationTable();
-                $("#NotificationEditDivBox").hide();
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Updated Successfully");
-            }
-            else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
-            }
+            alert("Please select notification type");
         }
        
     });
     $("#ddlType").select2({
-        placeholder: "Choose Types",
+        placeholder: "Choose Type ",
         allowClear: true,
         data: BindNotificationDropDown()
     });
 });
 //end of document.ready()
+
+function BranchValidation() {
+    debugger;
+
+   // $('#Displaydiv2').remove();
+    var caption = $("#txtCaption");
+    var type = $("#ddlType");
+    var description = $("#txtDescription");
+    var startDate = $("#txtStartDate");
+    var endDate = $("#txtExpiryDate");
+    var container = [
+        { id: caption[0].id, name: caption[0].name, Value: caption[0].value },
+        { id: type[0].id, name: type[0].name, Value: type[0].value },
+        { id: description[0].id, name: description[0].name, Value: description[0].value },
+        { id: startDate[0].id, name: startDate[0].name, Value: startDate[0].value },
+        { id: endDate[0].id, name: endDate[0].name, Value: endDate[0].value },
+    ];
+
+    var j = 0;
+    //var Errorbox = document.getElementById('ErrorBox2');
+    //var divs = document.createElement('div');
+    //divs.setAttribute("id", "NotificationEditDivBox");
+    //Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+           // Errorbox.style.borderRadius = "5px";
+           // Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+           // Errorbox.style.paddingLeft = "30px";
+
+        }
+    }
+
+    if (j == '1') {
+
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+        $('.alert-error strong').append(p);
+        $(".dark").css("margin-top", "30px");
+        return false;
+    }
+    if (j == '0') {
+        $('#rowfluidDiv').hide();
+        //BranchAddValidation();
+        return true;
+    }
+}
 
 function DetailsView()
 {
@@ -296,9 +408,11 @@ function AddNotification()
     $("#detailsHeading").text("Add Notification");
     $("#NotificationDetails").hide();
     $("#NotificationEditDivBox").show();
+    $(".dark").css("margin-top", "0px");
     ShowAllTextBoxes()
     HideAllLabels();
     $(".Save").show();
+    $(".Cancel").show();
     $(".Delete").hide();
     $("#ddlType").select2("val", "");
     $("#txtCaption").val("");

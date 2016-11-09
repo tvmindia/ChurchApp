@@ -79,12 +79,21 @@
 					<div class="clearfix"></div>		
 					
 				</div>
-				<br />
-                      <div id="NotificationDetails" class="span6 noMarginLeft" >
+				<%--<br />--%>
+                      <div id="NotificationDetails" class="span6 noMarginLeft"  style="display:none;">
                         <div class="dark">
                             <div class="box-content">
                                 <div class="form-horizontal">
-                        <h1 id="captionHeading" style="background-color:#f1f1f1;"></h1>
+                        <%--<h1 id="captionHeading" style="background-color:#f1f1f1;"></h1>--%>
+                                      
+                                       <div class="box-header" >
+<h2 id="captionHeading"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span></h2>
+                        <div class="box-icon">
+
+                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
+
+                        </div>
+                    </div>
                          <a class="circlebtn circlebtn-success NotificationEdit" style="right:1px;position: fixed;display:none;"><i class="halflings-icon white pencil NotificationEdit" aria-hidden="true"></i></a>
                             <label id="desc"></label>
                             <label id="sDate"></label>
@@ -102,8 +111,15 @@
 				<div id="NotificationEditDivBox" class="span6 noMarginLeft">
 					
 					<div class="dark">
-					
-					<h1 id="detailsHeading"></h1>
+					      <div class="box-header" >
+                        <h2 id="detailsHeading"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span></h2>
+                        <div class="box-icon">
+
+                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
+
+                        </div>
+                    </div>
+					<%--<h1 id="detailsHeading"></h1>--%>
 						<div class="box-content">
 					   <div class="form-horizontal">
 				    <fieldset>
@@ -137,7 +153,7 @@
 								<label class="control-label" for="focusedInput" >Description</label>
 								<div class="controls">
 								 <label class="control-label" for="focusedInput" id="lblDescription"></label>
-                                     <textarea tabindex="10" class="input-xlarge span10" id="txtDescription" name="Description" rows="30" placeholder=""></textarea>
+                                     <textarea tabindex="10" class="input-xlarge span10" id="txtDescription" name="Description" rows="30" placeholder="Enter your description here..."></textarea>
 								  <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
 								</div>
 								</div>
@@ -146,7 +162,7 @@
 							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
 								 <label class="control-label" for="date01" id="lblStartDate"></label>
-								  <input  class="input-xlarge datepicker" name="StartDate" id="txtStartDate" type="text" />
+								  <input  class="input-xlarge datepicker" name="StartDate" id="txtStartDate" type="text" placeholder="dd/mm/yyyy"/>
 							  </div>
 							</div>
 
@@ -154,7 +170,7 @@
 							  <label class="control-label" for="date01" >Expiry Date</label>
 							  <div class="controls">
 								 <label class="control-label" for="date01" id="lblExpiryDate">Caption</label>
-								  <input  class="input-xlarge datepicker" name="ExpiryDate" id="txtExpiryDate" type="text" />
+								  <input  class="input-xlarge datepicker" name="ExpiryDate" id="txtExpiryDate" type="text" placeholder="dd/mm/yyyy"/>
 							  </div>
 							</div>
 
