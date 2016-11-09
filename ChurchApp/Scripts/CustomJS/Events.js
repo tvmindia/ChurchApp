@@ -8,7 +8,7 @@ var DeletedImgID = '';              //While changing the uploaded image with new
 var DeletedImgPath = '';            //While changing the uploaded image with new , previous one should get deleted from folde, So imag path to be deleted is stored in this variable
 var NotificationTypeCode = 'evt';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
 
-
+var IsAlreadyNotified = false;
 
 //--------------------------------//
 
@@ -21,6 +21,14 @@ $("document").ready(function (e) {
         $('#EventEditDivBox').show();
 
     });
+
+    $("#rdoNotificationYes").click(function () {
+        if (IsAlreadyNotified) {
+            $("#lblAlreadyNotificationSend").show();
+        }
+       
+    });
+
 
     BindEvents();
 
@@ -377,7 +385,8 @@ function ClearControls() {
     $("#rdoNotificationYes").parent().removeClass('checked');
     $('#rdoNotificationNo').parent().addClass('checked');
 
-
+    $("#lblAlreadyNotificationSend").hide();
+    IsAlreadyNotified = false;
 }
 
 function SetControlsInNewEventFormat() {
@@ -467,7 +476,8 @@ function SetControlsInEditableFormat() {
     $("#rdoNotificationYes").parent().removeClass('checked');
     $('#rdoNotificationNo').parent().addClass('checked');
 
-
+    $("#lblAlreadyNotificationSend").hide();
+    IsAlreadyNotified = false;
 }
 //--------------------------------//
 
@@ -599,7 +609,13 @@ function FixedEditClick() {
 
                 $("#hdfIsAutoHide").val(false)
             }
+            if (jsonResult.EventName != null && jsonResult.EventName != undefined) {
+                IsAlreadyNotified = true;
+            }
+            else {
 
+                IsAlreadyNotified = false;
+            }
         });
     }
     RemoveStyle();

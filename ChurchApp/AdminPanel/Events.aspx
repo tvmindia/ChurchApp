@@ -206,6 +206,10 @@
                                             No
                                         </label>
                                     </div>
+
+                                    <div class="control-group">
+                                    <label class="control-label" id="lblAlreadyNotificationSend" >Already Notification added</label>
+                                         </div>
                                 </div>
 
 
