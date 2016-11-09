@@ -190,3 +190,18 @@ padding: 8px 10px 8px 13px;
     background-color: #ffefec;
     border-bottom: 1px solid #fa603d;
 }
+.spnDates
+  {
+      font-size:10px;font-weight:100
+  }
+
+.spnDateValues {
+    font-size: 10px;
+    font-weight: 100;
+    color: #4a96ac !important;
+    /*#7b91a6*/
+}
+.spanDiv
+{
+   padding-left: 290px;
+}
