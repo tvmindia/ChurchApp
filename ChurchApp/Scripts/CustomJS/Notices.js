@@ -31,8 +31,8 @@ $("document").ready(function (e) {
     });
 
     $('#btnSave').click(function (e) {
-        //NoticeValidation();
-        var IsValid = true;
+        $('#rowfluidDiv').show();
+        var IsValid = NoticeValidation();
         if (IsValid) {
 
             debugger;
@@ -45,6 +45,8 @@ $("document").ready(function (e) {
                 //-----------------------INSERT-------------------//
 
                 if (NoticeID == null || NoticeID == "") {
+
+                    var Notices = new Object();
                     var guid = createGuid();
 
                     //DeletedImgID = imageId;
@@ -71,14 +73,13 @@ $("document").ready(function (e) {
                         }
                     }
 
-                    var Notices = new Object();
+                  
                     Notices.noticeName = $("#txtNoticeName").val();
                     Notices.description = $("#txtDescription").val();
                     Notices.noticeType = $("#ddlNoticeType").val();
                     
-                    Notices.noticeId = guid;
+                   // Notices.noticeId = guid;
                    
-
                     result = InsertNotice(Notices);
 
                     if (result.status == "1") {
@@ -110,7 +111,7 @@ $("document").ready(function (e) {
 
                     BindNotices();
                     // ClearControls();
-                    $("#hdfNoticeID").val(Notices.noticeId);
+                    $("#hdfNoticeID").val(result.noticeId);
 
                     if (((imagefile = $('#UpNotice')[0].files[0]) != undefined)) {
                         imageId = Notices.imageId;
@@ -237,6 +238,8 @@ $("document").ready(function (e) {
         }
 
         $('#UpNotice')[0].files[0] = null;
+
+        RemoveStyle();
     });
 
     $('#btnDelete').click(function (e) {
@@ -282,6 +285,11 @@ $("document").ready(function (e) {
         }
     });
 
+    $('input:text').click(
+    function () {
+        RemoveStyle();
+    });
+
 });
 //------------End of document ready----------------//
 
@@ -302,6 +310,58 @@ function showpreview(input) {
         }
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+function RemoveStyle() {
+    debugger;
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
+}
+
+function NoticeValidation() {
+    debugger;
+    $('#Displaydiv').remove();
+    var Name = $('#txtNoticeName');
+    //   var Description = $('#txtDescription');
+
+    var container = [
+        { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
+      //  ,{ id: Description[0].id, name: Description[0].name, Value: Description[0].value }
+
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+        if (container[i].Value == "") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+    }
+
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+        divs.appendChild(p);
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox').hide();
+        return true;
+    }
+
+
 }
 //--------------------------------//
 
@@ -395,52 +455,6 @@ function InsertNotice(Notices) {
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
-}
-
-function NoticeValidation() {
-    debugger;
-    $('#Displaydiv').remove();
-    var Name = $('#txtNoticeName');
-    var Description = $('#txtDescription');
-
-    var container = [
-        { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
-        { id: Description[0].id, name: Description[0].name, Value: Description[0].value }
-
-    ];
-
-    var j = 0;
-    var Errorbox = document.getElementById('ErrorBox');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv");
-    Errorbox.appendChild(divs);
-    for (var i = 0; i < container.length; i++) {
-        if (container[i].Value == "") {
-            j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
-            var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
-            txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
-        }
-    }
-
-    if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-        divs.appendChild(p);
-        return false;
-    }
-    if (j == '0') {
-        $('#ErrorBox').hide();
-        return true;
-    }
-
-
 }
 //--------------------------------//
 
@@ -631,34 +645,29 @@ function FixedEditClick() {
 
             $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
 
-
             if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
-                //$("#rdoNotificationNo").parent().removeClass('checked');
-                //$('#rdoNotificationYes').parent().addClass('checked');
-                //$("#lblStartDate").show();
-                //$("#dateStartDate").hide();
-                //$("#lblStartDate").text(jsonResult.StartDate)
-                //$("#lblExpiryDate").show();
-                //$("#dateExpiryDate").hide();
-                //$("#lblExpiryDate").text(jsonResult.ExpiryDate)
                 $("#lblAlreadyNotificationSend").show();
             }
             else {
-                //$("#rdoNotificationYes").parent().removeClass('checked');
-                //$('#rdoNotificationNo').parent().addClass('checked');
-                $("#lblAlreadyNotificationSend").hide();
+                 $("#lblAlreadyNotificationSend").hide();
             }
             debugger;
             url = jsonResult.URL;
-            $('#NoticePreview').attr('src', url);
-
-
-
+           
+            if (url == null) {
+                url = "../img/No-Img_Chosen.png";
+                $('#NoticePreview').attr('src', url);
+            }
+            else {
+                $('#NoticePreview').attr('src', url);
+            }
         });
         $("#btnSave").show();
         $("#h1Notice").text("Edit Notice");
         $("#DivFile").show();
     }
+
+    RemoveStyle();
 }
 
 //--- Edit click of each notice
@@ -740,6 +749,7 @@ function EditOnClick(id) {
     $("#divNotification").hide();
     $("#divNoticeDescription").hide();
   
+    RemoveStyle();
 }
 //--------------------------------//
 

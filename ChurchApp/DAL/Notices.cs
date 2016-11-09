@@ -125,7 +125,7 @@ namespace ChurchApp.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
-            
+            SqlParameter outParam1 = null;
             try   
             {
                 dcon = new dbConnection();
@@ -134,7 +134,7 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertNotices]";
-                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(noticeId);
+               // cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(noticeId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@NoticeName", SqlDbType.NVarChar, 100).Value = noticeName;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar,-1).Value = description;
@@ -151,6 +151,9 @@ namespace ChurchApp.DAL
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
 
+                outParam1 = cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier);
+                outParam1.Direction = ParameterDirection.Output;
+               
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -163,6 +166,11 @@ namespace ChurchApp.DAL
                 {
                     dcon.DisconectDB();
                 }
+            }
+
+            if (outParam1.Value != null)
+            {
+                noticeId = outParam1.Value.ToString();
             }
 
             return outParam.Value.ToString();

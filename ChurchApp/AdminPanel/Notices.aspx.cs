@@ -31,7 +31,6 @@ namespace ChurchApp.AdminPanel
         
         protected void Page_Load(object sender, EventArgs e)
         {
-          
         }
 
         #endregion Page Load
@@ -44,13 +43,21 @@ namespace ChurchApp.AdminPanel
         //-------------* General  Methods *--------------//
 
         #region Delete From Server Folder
-
+          [System.Web.Services.WebMethod]
         public static void DeleteFileFromFolder(string imgPath)
         {
-            FileInfo file = new FileInfo(imgPath);
+            if (imgPath.Contains('/'))
+            {
+            string imgName = imgPath.Split('/').Last();
+
+            string ServerPath = HttpContext.Current.Server.MapPath("~/img/AppImages/" + imgName);
+
+            FileInfo file = new FileInfo(ServerPath);
             if (file.Exists)
             {
                 file.Delete();
+            }
+
             }
         }
 

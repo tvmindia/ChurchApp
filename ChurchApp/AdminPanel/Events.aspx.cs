@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -36,6 +37,30 @@ namespace ChurchApp.AdminPanel
         #endregion  Events
 
         #region Methods
+
+
+        //-------------* General  Methods *--------------//
+
+        #region Delete From Server Folder
+        [System.Web.Services.WebMethod]
+        public static void DeleteFileFromFolder(string imgPath)
+        {
+            if (imgPath.Contains('/'))
+            {
+                string imgName = imgPath.Split('/').Last();
+
+                string ServerPath = HttpContext.Current.Server.MapPath("~/img/AppImages/" + imgName);
+
+                FileInfo file = new FileInfo(ServerPath);
+                if (file.Exists)
+                {
+                    file.Delete();
+                }
+
+            }
+        }
+
+        #endregion 
 
         //--------------- * Church Event Methods *-------------//
 
@@ -134,7 +159,7 @@ namespace ChurchApp.AdminPanel
             {
                 EventsObj.createdBy = UA.userName;
                 status = EventsObj.InsertEvent().ToString();
-               
+                EventsObj.Status = status;
             }
             catch (Exception)
             {
@@ -143,7 +168,7 @@ namespace ChurchApp.AdminPanel
             finally
             {
             }
-            return jsSerializer.Serialize(status);
+            return jsSerializer.Serialize(EventsObj);
 
         }
 

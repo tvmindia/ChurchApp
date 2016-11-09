@@ -36,31 +36,36 @@ $("document").ready(function (e) {
 
         $("#optHideNo").parent().removeClass('checked');
         $('#optHideYes').parent().addClass('checked');
+
+        RemoveStyle();
     });
 
     $('#btnSave').click(function (e) {
-
+        $('#rowfluidDiv').show();
         debugger;
+        var IsValid = EventValidation();
 
+        if (IsValid) {
+    
         var Events = new Object();
         Events.eventName = $("#txtEventName").val();
         Events.description = $("#txtDescription").val();
         Events.startDate = $("#dateStartDate").val();
         Events.endDate = $("#dateEndDate").val();
         Events.eventExpiryDate = $("#dateExpiryDate").val();
-        //Events.imageId =
-       
-
         Events.isAutoHide = $("#hdfIsAutoHide").val();
-       //False
         
-       if ($('input[name=rdoHide]:checked').val() == "No") //Add Notification
+        if ($("#hdfIsAutoHide").val() == "") {
+            Events.isAutoHide = true;
+        }
+
+
+        if ($('input[name=rdoHide]:checked').val() == "No") //Add Notification
         {
-           Events.isAutoHide = false;
+            Events.isAutoHide = false;
          
         }
-      
-
+        $("#hdfIsAutoHide").val(Events.isAutoHide);
         var guid = createGuid();
 
         //DeletedImgID = imageId;
@@ -135,11 +140,11 @@ $("document").ready(function (e) {
         else {
             var InsertionStatus = InsertEvent(Events);
 
-            if (InsertionStatus == "1") {
+            if (InsertionStatus.Status == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
                 $('.alert-success strong').text("Event Added Successfully");
-                $("#hdfEventID").val(guid);
+                $("#hdfEventID").val(InsertionStatus.eventId);
             }
 
             else {
@@ -158,7 +163,7 @@ $("document").ready(function (e) {
                 DeletedImgPath = imgPath;
             }
         }
-
+    }
     });
 
     $('#btnDelete').click(function (e) {
@@ -197,6 +202,11 @@ $("document").ready(function (e) {
         }
 
     });
+
+    $('input:text').click(
+   function () {
+       RemoveStyle();
+   });
 
 });//end of document.ready
 
@@ -253,15 +263,7 @@ function FillEvents(Records) {
         }
 
 
-
-
-        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >nov 1 2016</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >nov 1 2016</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >nov 1 2016</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
-
-        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >nov 1 2016</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >nov 1 2016</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >nov 1 2016</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
-
-
-
-        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+        //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
         $("#DivNoticeType1").append(html);
 
         if (url != "") {
@@ -271,6 +273,13 @@ function FillEvents(Records) {
                 $('#img' + Records.ID).attr('src', url);
             }
         }
+        if (url == null) {
+            url = "../img/No-Img_Chosen.png";
+            $('#img' + Records.ID).attr('src', url);
+
+        }
+
+
     });
 
     if (Records.length == 0) {
@@ -324,62 +333,6 @@ function ClearControls() {
     $('.alert-error').hide();
 
     $('#UpEvent')[0].files[0] = null;
-
-}
-
-function FixedEditClick() {
-    debugger;
-
-    ClearControls();
-    SetControlsInEditableFormat();
-    $("#h1Event").text("Edit Event");
-
-    var Events = new Object();
-    Events.eventId = $("#hdfEventID").val();
-
-    var jsonResult = {};
-
-    jsonResult = GetEventsByEventID(Events);
-
-    if (jsonResult != undefined) {
-        $.each(jsonResult, function (index, jsonResult) {
-            debugger;
-            $("#txtEventName").val(jsonResult.EventName);
-            $("#txtDescription").val(jsonResult.Descrtiption);
-
-            url = jsonResult.URL;
-            $('#NoticePreview').attr('src', url);
-
-            imageId = jsonResult.ImageID;
-            imgPath = url;
-
-            if (jsonResult.StartDate != null && jsonResult.StartDate != "") {
-                $("#dateStartDate").val(ConvertJsonToDate(jsonResult.StartDate));
-            }
-
-            if (jsonResult.EndDate != null && jsonResult.EndDate != "") {
-                $("#dateEndDate").val(ConvertJsonToDate(jsonResult.EndDate));
-            }
-
-            if (jsonResult.EventExpiryDate != null && jsonResult.EventExpiryDate != "") {
-                $("#dateExpiryDate").val(ConvertJsonToDate(jsonResult.EventExpiryDate));
-            }
-            
-            if (jsonResult.IsAutoHide == true) {
-                $('#optHideYes').parent().addClass('checked');
-                $("#optHideNo").parent().removeClass('checked');
-                $("#hdfIsAutoHide").val(true)
-               
-            }
-            else {
-                $('#optHideNo').parent().addClass('checked');
-                $("#optHideYes").parent().removeClass('checked');
-
-                $("#hdfIsAutoHide").val(false)
-            }
-
-        });
-    }
 
 }
 
@@ -497,7 +450,15 @@ function EditOnClick(id) {
                 debugger;
 
                 url = jsonResult.URL;
-                $('#eventPreviewOnView').attr('src', url);
+               
+                if (url == null) {
+                    url = "../img/No-Img_Chosen.png";
+                    $('#eventPreviewOnView').attr('src', url);
+                }
+                else {
+                    $('#eventPreviewOnView').attr('src', url);
+
+                }
 
                 imageId = jsonResult.ImageID;
                 imgPath = jsonResult.URL;
@@ -531,6 +492,69 @@ function GetEventsByEventID(Events) {
     ds = getJsonData(data, "../AdminPanel/Events.aspx/GetEventsByEventID");
     table = JSON.parse(ds.d);
     return table;
+}
+
+function FixedEditClick() {
+    debugger;
+
+    ClearControls();
+    SetControlsInEditableFormat();
+    $("#h1Event").text("Edit Event");
+
+    var Events = new Object();
+    Events.eventId = $("#hdfEventID").val();
+
+    var jsonResult = {};
+
+    jsonResult = GetEventsByEventID(Events);
+
+    if (jsonResult != undefined) {
+        $.each(jsonResult, function (index, jsonResult) {
+            debugger;
+            $("#txtEventName").val(jsonResult.EventName);
+            $("#txtDescription").val(jsonResult.Descrtiption);
+
+            url = jsonResult.URL;
+
+            if (url == null) {
+                url = "../img/No-Img_Chosen.png";
+                $('#NoticePreview').attr('src', url);
+            }
+            else {
+                $('#NoticePreview').attr('src', url);
+            }
+
+            imageId = jsonResult.ImageID;
+            imgPath = url;
+
+            if (jsonResult.StartDate != null && jsonResult.StartDate != "") {
+                $("#dateStartDate").val(ConvertJsonToDate(jsonResult.StartDate));
+            }
+
+            if (jsonResult.EndDate != null && jsonResult.EndDate != "") {
+                $("#dateEndDate").val(ConvertJsonToDate(jsonResult.EndDate));
+            }
+
+            if (jsonResult.EventExpiryDate != null && jsonResult.EventExpiryDate != "") {
+                $("#dateExpiryDate").val(ConvertJsonToDate(jsonResult.EventExpiryDate));
+            }
+
+            if (jsonResult.IsAutoHide == true) {
+                $('#optHideYes').parent().addClass('checked');
+                $("#optHideNo").parent().removeClass('checked');
+                $("#hdfIsAutoHide").val(true)
+
+            }
+            else {
+                $('#optHideNo').parent().addClass('checked');
+                $("#optHideYes").parent().removeClass('checked');
+
+                $("#hdfIsAutoHide").val(false)
+            }
+
+        });
+    }
+    RemoveStyle();
 }
 //--------------------------------//
 
@@ -624,5 +648,57 @@ function SetExpiryDate() {
     if (EndDate != "" && EndDate != null && EndDate != undefined && $("#hdfEventID").val() == "") {
         $("#dateExpiryDate").val(EndDate);
     }
+}
+
+function EventValidation() {
+    debugger;
+    $('#Displaydiv').remove();
+    var Name = $('#txtEventName');
+    //   var Description = $('#txtDescription');
+
+    var container = [
+        { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
+      //  ,{ id: Description[0].id, name: Description[0].name, Value: Description[0].value }
+
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+        if (container[i].Value == "") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+    }
+
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+        divs.appendChild(p);
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox').hide();
+        return true;
+    }
+
+
+}
+
+function RemoveStyle() {
+    debugger;
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
 }
 //--------------------------------//

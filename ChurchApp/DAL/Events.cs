@@ -81,6 +81,13 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+
+        public string Status
+        {
+            get;
+            set;
+        }
+
         #endregion Public Properties
 
         #region Methods
@@ -175,6 +182,7 @@ namespace ChurchApp.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
+            SqlParameter outParam1 = null;
             try
             {
                 dcon = new dbConnection();
@@ -186,9 +194,23 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 100).Value = eventName;
                 cmd.Parameters.Add("@Descrtiption", SqlDbType.NVarChar,-1).Value = description;
-                cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
-                cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = Convert.ToDateTime(endDate);
-                cmd.Parameters.Add("@EventExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(eventExpiryDate);
+
+                if (startDate != string.Empty && startDate != null)
+                {
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
+                }
+
+                if (endDate != string.Empty && endDate != null)
+                {
+                    cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = Convert.ToDateTime(endDate);
+
+                }
+
+                if (eventExpiryDate != string.Empty && eventExpiryDate != null)
+                {
+                    cmd.Parameters.Add("@EventExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(eventExpiryDate);
+                }
+
                 cmd.Parameters.Add("@IsAutoHide", SqlDbType.Bit).Value = Convert.ToBoolean(true);
 
                 if (imageId != string.Empty && imageId != null)
@@ -202,6 +224,10 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
+
+                outParam1 = cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier);
+                outParam1.Direction = ParameterDirection.Output;
+
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -215,6 +241,13 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
+
+            if (outParam1.Value != null)
+            {
+                eventId = outParam1.Value.ToString();
+            }
+
+
             return outParam.Value.ToString();
         }
         #endregion InsertEvent
@@ -241,11 +274,29 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 100).Value = eventName;
                 cmd.Parameters.Add("@Descrtiption", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
-                cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = Convert.ToDateTime(endDate);
-                cmd.Parameters.Add("@EventExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(eventExpiryDate);
+                if (startDate != string.Empty && startDate != null)
+                {
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
+                }
+                if (endDate != string.Empty && endDate != null)
+                {
+                    cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = Convert.ToDateTime(endDate);
+                }
+                if (eventExpiryDate != string.Empty && eventExpiryDate != null)
+                {
+                    cmd.Parameters.Add("@EventExpiryDate", SqlDbType.DateTime).Value = Convert.ToDateTime(eventExpiryDate);
+                }
+
+                //if (isAutoHide == string.Empty)
+                //{
+                //    isAutoHide = "true";
+                //}
+
                 cmd.Parameters.Add("@IsAutoHide", SqlDbType.Bit).Value = Convert.ToBoolean(isAutoHide);
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                if (imageId != string.Empty && imageId != null)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                }
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;

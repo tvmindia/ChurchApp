@@ -29,7 +29,10 @@
             <%--Alert boxes --%>
             <div id="rowfluidDiv" style="display: none;">
 
-
+                <div class="alert alert-block" id="ErrorBox" style="display: none; background-color: #fdeaea !important; color: #ca6f74 !important; border: 1px solid #f27b81 !important;">
+                                    <div id="Displaydiv">
+                                    </div>
+                                </div>
 
                 <div class="alert alert-error" style="display: none;">
                     <%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
@@ -68,6 +71,9 @@
 
                         </div>
                     </div>
+
+                     
+
                     <div class="box-content" id="DivNoticeType1">
 
                       <%--  <div class="accordion">
