@@ -267,6 +267,42 @@ namespace ChurchApp.AdminPanel
 
         #endregion Delete App Image
 
+        //-------------* Notification  Methods *--------------//
+        #region Insert Notification
+
+        [System.Web.Services.WebMethod]
+        public static string InsertNotification(ChurchApp.DAL.Notification NotificationObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            NotificationObj.churchId = UA.ChurchID;
+            string status = null;
+            try
+            {
+                NotificationObj.createdBy = UA.userName;
+                status = NotificationObj.InsertNotification().ToString();
+                // NotificationObj.status = status;
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            // return jsSerializer.Serialize(NotificationObj);
+
+            return status;
+        }
+
+
+        #endregion  Insert Notification
+
+
         #endregion Methods
 
 
