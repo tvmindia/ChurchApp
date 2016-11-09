@@ -176,3 +176,17 @@ padding: 8px 10px 8px 13px;
 {
     width:335px;
 }
+.alert
+{
+    line-height:10px !important;
+}
+#viewAllLatest
+{
+    background-color:#f1f9ed;
+    border-bottom: 1px solid #78cd51;
+}
+#viewAllLatest
+{
+    background-color: #ffefec;
+    border-bottom: 1px solid #fa603d;
+}

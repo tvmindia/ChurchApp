@@ -13,12 +13,12 @@
         click: function (e) {
             $(".low").hide();
             $("#OldNotificationGrid").hide();
-            $(".aOldViewMore").hide();
-            $(".aViewMore").hide();
             $(".aBack").show();
             $(".aOldBack").hide();
-            $("#NotificationDetails").hide();
+            //$("#NotificationDetails").hide();
             BindAsyncNotificationTableForAll();
+            $(".aOldViewMore").hide();
+            $(".aViewMore").hide();
         }
     });
 
@@ -28,14 +28,14 @@
         click: function (e) {
             BindAsyncNotificationTable();
             BindAsynOldNotificationTable();
-            $("#NotificationDetails").hide();
+           // $("#NotificationDetails").hide();
             $("#OldNotificationGrid").show();
             $("#NewNotificationGrid").show();
             $(".high").show();
             $(".low").show();
             $(".aBack").hide();
             $(".aViewMore").show();
-            $(".aOldViewMore").show();
+           // $(".aOldViewMore").show();
         }
     });
 
@@ -45,7 +45,7 @@
         click: function (e) {
             BindAsyncNotificationTable();
             BindAsynOldNotificationTable();
-            $("#NotificationDetails").hide();
+          //  $("#NotificationDetails").hide();
             $("#OldNotificationGrid").show();
             $("#NewNotificationGrid").show();
             $(".high").show();
@@ -63,8 +63,8 @@
             $(".high").hide();
             $("#NewNotificationGrid").hide();
             $(".aViewMore").hide();
-            $(".aBack").show();
-            $("#NotificationDetails").hide();
+            //$(".aBack").hide();
+          //  $("#NotificationDetails").hide();
             BindAsynOldNotificationTableForAll();
             $(".aBack").hide();
             $(".aOldBack").show();

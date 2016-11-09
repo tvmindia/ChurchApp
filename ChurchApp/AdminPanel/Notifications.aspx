@@ -59,9 +59,11 @@
 
 					</div>
                     
-				
-                      <a class="aBack" style="display:none;">Back To Notifications</a>
-                      <a class="aViewMore">View All>>></a>
+				<div id="viewAllLatest">
+                     <a class="aBack" style="display:none;">Back To Notifications</a>
+                      <a class="aViewMore" >View All Latest>></a>
+				</div>
+                      
                         <div id="pagination-here"></div>
                         </div>
 					<%--</div>--%>
@@ -73,8 +75,11 @@
                   <div id="OldNotificationGrid">
 
                   </div>
-				 <a class="aOldBack" style="display:none;">Back To Notifications</a>
-				 <a class="aOldViewMore">View All>>></a>
+                    <div id="viewAllOld">
+                        <a class="aOldBack" style="display:none;">Back To Notifications</a>
+				 <a class="aOldViewMore" >View All Old>></a>
+                    </div>
+				 
                    
 					<div class="clearfix"></div>		
 					
