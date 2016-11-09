@@ -13,12 +13,12 @@
         click: function (e) {
             $(".low").hide();
             $("#OldNotificationGrid").hide();
-            $(".aOldViewMore").hide();
-            $(".aViewMore").hide();
             $(".aBack").show();
             $(".aOldBack").hide();
-            $("#NotificationDetails").hide();
+            //$("#NotificationDetails").hide();
             BindAsyncNotificationTableForAll();
+            $(".aOldViewMore").hide();
+            $(".aViewMore").hide();
         }
     });
 
@@ -28,14 +28,14 @@
         click: function (e) {
             BindAsyncNotificationTable();
             BindAsynOldNotificationTable();
-            $("#NotificationDetails").hide();
+           // $("#NotificationDetails").hide();
             $("#OldNotificationGrid").show();
             $("#NewNotificationGrid").show();
             $(".high").show();
             $(".low").show();
             $(".aBack").hide();
             $(".aViewMore").show();
-            $(".aOldViewMore").show();
+           // $(".aOldViewMore").show();
         }
     });
 
@@ -45,7 +45,7 @@
         click: function (e) {
             BindAsyncNotificationTable();
             BindAsynOldNotificationTable();
-            $("#NotificationDetails").hide();
+          //  $("#NotificationDetails").hide();
             $("#OldNotificationGrid").show();
             $("#NewNotificationGrid").show();
             $(".high").show();
@@ -63,8 +63,8 @@
             $(".high").hide();
             $("#NewNotificationGrid").hide();
             $(".aViewMore").hide();
-            $(".aBack").show();
-            $("#NotificationDetails").hide();
+            //$(".aBack").hide();
+          //  $("#NotificationDetails").hide();
             BindAsynOldNotificationTableForAll();
             $(".aBack").hide();
             $(".aOldBack").show();
@@ -360,12 +360,17 @@ function DetailsView()
     debugger;
     var caption = $("#lblCaption").text();
     var description = $("#lblDescription").text();
+    if (description.length > 200)
+    {
+        description = description.substring(0, 197);
+        description = description + "...";
+    }
     var startDate = $("#lblStartDate").text();
     var expiryDate = $("#lblExpiryDate").text();
     $("#captionHeading").val(caption);
     $("#desc").val(description);
-    $("#sDate").val("Start Date:"+startDate);
-    $("#eDate").val("Expiry Date:"+expiryDate);
+    $("#sDate").val(startDate);
+    $("#eDate").val(expiryDate);
     $("#NotificationDetails").show();
     $("#NotificationEditDivBox").hide();
 }
@@ -439,25 +444,43 @@ function BindControlsOnViewDetails(Records)
     HideAllTextBoxes();
     ShowAllLabels();
     var jsonResult = {};
+    var description = "";
     jsonResult = GetNotificationByID(Records);
     if (jsonResult != undefined) {
         $.each(jsonResult, function (index, jsonResult) {
             var startDate = new Date(parseInt(jsonResult.StartDate.substr(6)));
             startDate = formattedDate(startDate);
-
+            debugger;
             var ExpiryDate = new Date(parseInt(jsonResult.ExpiryDate.substr(6)));
             ExpiryDate = formattedDate(ExpiryDate);
             $("#hdfType").val(jsonResult.Type);
             $("#captionHeading").text(jsonResult.Caption);
-            $("#desc").text(jsonResult.Description);
-            $("#sDate").text("Start Date : " + startDate);
-            $("#eDate").text("Expiry Date : " + ExpiryDate);
+            description = jsonResult.Description;
+            if (description.length > 200) {
+                description = description.substring(0, 197);
+                description = description + "...";
+            }
+            $("#desc").text(description);
+            startDate = getFormattedDate(startDate);
+            $("#sDate").text(startDate);
+            ExpiryDate = getFormattedDate(ExpiryDate);
+            $("#eDate").text( ExpiryDate);
             $("#NotificationDetails").show();
             $("#NotificationEditDivBox").hide();
             $(".NotificationEdit").css("display", "");
         });
     }
 
+}
+function getFormattedDate(input) {
+    debugger;
+    var pattern = /(.*?)\/(.*?)\/(.*?)$/;
+    var result = input.replace(pattern, function (match, p1, p2, p3) {
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return p2 + " " + months[(p1 - 1)] + " " + p3;
+    
+    });
+    return result;
 }
 function GetNotificationByID(Records)
 {
@@ -542,12 +565,12 @@ function BindGetAllNotificationTable(Records)
         if (Records.Type == "evt")
         {
             //var html = '<ul class="dashboard-list"><li class="Notificationlist"><div class="accordion-heading"><a><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a>' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></div><br/>' + desc + '<a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/>'
-            var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' class="aViewDetails" >View Details</a></div></span><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div></div></div></div>'
+            var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;' + Records.Caption + '<span class="expiryDate">Expiry Date:' + getFormattedDate(expiryDate) + '</span></a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' class="aViewDetails" >View Details</a></div></span><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div></div></div></div>'
         }
         if (Records.Type == "ntc")
         {
            // var html = '<ul class="dashboard-list"><li class="Notificationlist"><div class="accordion-heading"><a><i class="fa fa-sticky-note" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a>' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></div><br/>' + desc + '<a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/>'
-            var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' class="aViewDetails" >View Details</a></div></span><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div></div></div></div>'
+            var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;' + Records.Caption + '<span class="expiryDate">Expiry Date:' + getFormattedDate(expiryDate) + '</span></a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' class="aViewDetails" >View Details</a></div></span><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div></div></div></div>'
         }
        
         $("#NewNotificationGrid").append(html);
@@ -583,11 +606,11 @@ function BindGetOldNotificationTable(Records) {
         var expiryDate = formattedDate(expiryDate);
         if (Records.Type == "evt") {
            // var html = '<div class="task high" id="taskDiv" style="border-left: 2px solid #78cd51; padding-left: 5px;" ><ul class="dashboard-list"><li class="Notificationlist"><div class="accordion-heading"><a><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a>' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></div><br/><span class="Desc">' + desc + '</span><a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div>'
-            var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + '  class="aViewDetails" >View Details</a></div></span><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div></div></div></div>'
+            var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;' + Records.Caption + '<span class="expiryDate">Expiry Date:' + getFormattedDate(expiryDate) + '</span></a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + '  class="aViewDetails" >View Details</a></div></span><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div></div></div></div>'
         }
         if (Records.Type == "ntc") {
            // var html = '<div class="task high" id="taskDiv" style="border-left: 2px solid #78cd51; padding-left: 5px;"><ul class="dashboard-list"><li class="Notificationlist"><div class="accordion-heading"><a><i class="fa fa-sticky-note" aria-hidden="true"></i><span class="hidden-tablet navtitle"></span></a>' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></div><br/' + desc + '><a id=' + Records.ID + ' href="#" class="aViewDetails">View Details</a></div> </li></ul><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div>'
-            var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;' + Records.Caption + '<span class="expiryDate">Expiry Date:' + expiryDate + '</span></a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' class="aViewDetails" >View Details</a></div></span><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div></div></div></div>'
+            var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;' + Records.Caption + '<span class="expiryDate">Expiry Date:' + getFormattedDate(expiryDate) + '</span></a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' class="aViewDetails" >View Details</a></div></span><input id=NotificationID type="hidden" value=' + Records.ID + '/><input id=LinkID type="hidden" value=' + Records.LinkID + '/></div></div></div></div>'
         }
 
 
@@ -686,7 +709,7 @@ function formattedDate(date) {
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
 
-    return [day, month, year].join('/');
+    return [month, day, year].join('/');
 }
 
 

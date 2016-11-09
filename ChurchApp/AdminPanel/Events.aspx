@@ -192,6 +192,27 @@
 								</div>
 							  </div>
 
+                         <%--Notification(Radio) --%>
+                                <div class="control-group" id="divNotification">
+                                    <label class="control-label">Want to Add Mobile Notification?</label>
+                                    <div class="controls">
+                                        <label class="radio">
+                                            <input type="radio" name="IsnotificationNeeded" id="rdoNotificationYes" value="Yes" />
+                                            Yes
+                                        </label>
+
+                                        <label class="radio">
+                                            <input type="radio" name="IsnotificationNeeded" id="rdoNotificationNo" value="No" checked="" />
+                                            No
+                                        </label>
+                                    </div>
+
+                                    <div class="control-group">
+                                    <label class="control-label" id="lblAlreadyNotificationSend" >Already Notification added</label>
+                                         </div>
+                                </div>
+
+
                         </div>
 
                         <div id="divView">

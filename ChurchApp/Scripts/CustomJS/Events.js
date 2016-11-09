@@ -6,9 +6,9 @@ var imgPath = '';                   //Stores path of uploaded image
 
 var DeletedImgID = '';              //While changing the uploaded image with new , previous one should get deleted, So imageid to be deleted is stored in this variable
 var DeletedImgPath = '';            //While changing the uploaded image with new , previous one should get deleted from folde, So imag path to be deleted is stored in this variable
-//var NotificationTypeCode = 'ntc';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
+var NotificationTypeCode = 'evt';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
 
-
+var IsAlreadyNotified = false;
 
 //--------------------------------//
 
@@ -21,6 +21,16 @@ $("document").ready(function (e) {
         $('#EventEditDivBox').show();
 
     });
+
+    $("#rdoNotificationYes").click(function () {
+        if (IsAlreadyNotified) {
+            $("#lblAlreadyNotificationSend").show();
+        }
+        else {
+            $("#lblAlreadyNotificationSend").hide();
+        }
+    });
+
 
     BindEvents();
 
@@ -36,6 +46,9 @@ $("document").ready(function (e) {
 
         $("#optHideNo").parent().removeClass('checked');
         $('#optHideYes').parent().addClass('checked');
+
+        $("#rdoNotificationYes").parent().removeClass('checked');
+        $('#rdoNotificationNo').parent().addClass('checked');
 
         RemoveStyle();
     });
@@ -118,6 +131,24 @@ $("document").ready(function (e) {
                     }
                 }
 
+                if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+                {
+                    var Notification = new Object();
+                    Notification.notificationType = NotificationTypeCode;
+                    Notification.linkID = Events.eventId;
+                    Notification.caption = Events.eventName;
+                    Notification.description = Events.description;
+                    if ($('#dateStartDate').val() != "") {
+                        Notification.startDate = $('#dateStartDate').val();
+                    }
+                    if ($('#dateExpiryDate').val() != "") {
+                        Notification.expiryDate = $('#dateExpiryDate').val();
+                    }
+
+                    InsertNotification(Notification);
+                }
+
+
             }
 
             else {
@@ -145,6 +176,25 @@ $("document").ready(function (e) {
                 $('.alert-success').show();
                 $('.alert-success strong').text("Event Added Successfully");
                 $("#hdfEventID").val(InsertionStatus.eventId);
+
+                if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+                {
+                    var Notification = new Object();
+                    Notification.notificationType = NotificationTypeCode;
+                    Notification.linkID = InsertionStatus.eventId;
+                    Notification.caption = Events.eventName;
+                    Notification.description = Events.description;
+                    if ($('#dateStartDate').val() != "") {
+                        Notification.startDate = $('#dateStartDate').val();
+                    }
+                    if ($('#dateExpiryDate').val() != "") {
+                        Notification.expiryDate = $('#dateExpiryDate').val();
+                    }
+
+                    InsertNotification(Notification);
+                }
+
+
             }
 
             else {
@@ -334,6 +384,11 @@ function ClearControls() {
 
     $('#UpEvent')[0].files[0] = null;
 
+    $("#rdoNotificationYes").parent().removeClass('checked');
+    $('#rdoNotificationNo').parent().addClass('checked');
+
+    $("#lblAlreadyNotificationSend").hide();
+    IsAlreadyNotified = false;
 }
 
 function SetControlsInNewEventFormat() {
@@ -420,6 +475,11 @@ function SetControlsInEditableFormat() {
     $("#btnCancel").show();
     $("#btnDelete").show();
 
+    $("#rdoNotificationYes").parent().removeClass('checked');
+    $('#rdoNotificationNo').parent().addClass('checked');
+
+    $("#lblAlreadyNotificationSend").hide();
+    IsAlreadyNotified = false;
 }
 //--------------------------------//
 
@@ -551,7 +611,13 @@ function FixedEditClick() {
 
                 $("#hdfIsAutoHide").val(false)
             }
+            if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
+                IsAlreadyNotified = true;
+            }
+            else {
 
+                IsAlreadyNotified = false;
+            }
         });
     }
     RemoveStyle();
@@ -623,6 +689,20 @@ function DeleteAppImage(AppImages) {
 //--------------------------------//
 
 
+//Insert Notification
+function InsertNotification(Notification) {
+    debugger;
+
+    var data = "{'NotificationObj':" + JSON.stringify(Notification) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Events.aspx/InsertNotification");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+//--------------------------------//
+
+
+
 //General
 function createGuid() {
     function s4() {
@@ -662,6 +742,20 @@ function EventValidation() {
 
     ];
 
+    if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+    {
+        var StartDate = $('#dateStartDate');
+        var Expirydate = $('#dateExpiryDate');
+
+        container = [
+        { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
+        , { id: StartDate[0].id, name: StartDate[0].name, Value: StartDate[0].value }
+         , { id: Expirydate[0].id, name: Expirydate[0].name, Value: Expirydate[0].value }
+        ];
+
+    }
+
+
     var j = 0;
     var Errorbox = document.getElementById('ErrorBox');
     var divs = document.createElement('div');
@@ -673,7 +767,7 @@ function EventValidation() {
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
             Errorbox.style.paddingLeft = "30px";
