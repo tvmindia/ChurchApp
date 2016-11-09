@@ -322,14 +322,16 @@ function GetAllImageByAlbumID(GalleryItems)
 function AppendImages(Records) {
     $('.attnimages').remove();
     $.each(Records, function (index, Records) {
-        if (Records.URL == null)
-        {
-            var html = '<img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="/img/defaultalbumadd.jpg" alt="Sample Image 1"/>'
-        }
-        else
-        {
-        var html = '<img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/>'
-        }
+        //if (Records.URL == null)
+        //{
+        //    var html = '<img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="/img/defaultalbumadd.jpg" alt="Sample Image 1"/>'
+        //}
+        //else
+        //{
+            var html = '<a class="example-image-link" href="' + Records.URL + '" data-lightbox="example-set" data-title="Click anywhere  close."><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></a>'
+            // var html = '<img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/>'
+           // '<a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-6.jpg" data-lightbox="example-set" data-title="Click anywhere outside the image or the X to the right to close."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-6.jpg" alt="" /></a>';
+       // }
        
         $('.Image-Gallery').append(html);
     })

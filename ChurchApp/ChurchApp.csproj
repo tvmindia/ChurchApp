@@ -97,6 +97,7 @@
     <Content Include="CSS\jquery.iphone.toggle.css" />
     <Content Include="CSS\jquery.noty.css" />
     <Content Include="CSS\lightbox.css" />
+    <Content Include="CSS\lightbox.min.css" />
     <Content Include="CSS\noty_theme_default.css" />
     <Content Include="CSS\select2.min.css" />
     <Content Include="CSS\style-forms.css" />
@@ -177,6 +178,7 @@
     <Content Include="img\arrow.png" />
     <Content Include="img\bgChurch.jpg" />
     <Content Include="img\church-black-silhouette-with-a-cross-on-topblack1616.png" />
+    <Content Include="img\close.png" />
     <Content Include="img\gallery\1.jpg" />
     <Content Include="img\gallery\2.jpg" />
     <Content Include="img\gallery\3.JPG" />
@@ -188,8 +190,13 @@
     <Content Include="img\gallery\Institution.jpg" />
     <Content Include="img\gallery\kozhipadan.jpg" />
     <Content Include="img\gallery\priest.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\More.png" />
+    <Content Include="img\next.png" />
     <Content Include="img\No-Img_Chosen.png" />
     <Content Include="img\nodata.jpg" />
+    <Content Include="img\Plussymbol.png" />
+    <Content Include="img\prev.png" />
     <Content Include="img\St_Thomas_Church,_Irinjalakuda.jpg" />
     <Content Include="img\top_arr.png" />
     <Content Include="Login.aspx" />
@@ -222,6 +229,7 @@
     <Content Include="Scripts\dataTables.uikit.js" />
     <Content Include="Scripts\dataTables.uikit.min.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
+    <Content Include="Scripts\lightbox-plus-jquery.min.js" />
     <Content Include="Scripts\lightbox.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\timepicki.js" />
