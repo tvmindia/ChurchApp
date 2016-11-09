@@ -301,7 +301,7 @@ function template_functions(){
 	$('a[href="#"][data-top!=true]').click(function(e){
 		e.preventDefault();
 	});
-	
+
 	/* ---------- Text editor ---------- */
 	$('.cleditor').cleditor();
 	
