@@ -26,7 +26,9 @@ $("document").ready(function (e) {
         if (IsAlreadyNotified) {
             $("#lblAlreadyNotificationSend").show();
         }
-       
+        else {
+            $("#lblAlreadyNotificationSend").hide();
+        }
     });
 
 
@@ -609,7 +611,7 @@ function FixedEditClick() {
 
                 $("#hdfIsAutoHide").val(false)
             }
-            if (jsonResult.EventName != null && jsonResult.EventName != undefined) {
+            if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
                 IsAlreadyNotified = true;
             }
             else {
