@@ -190,6 +190,7 @@
     <Content Include="img\gallery\Institution.jpg" />
     <Content Include="img\gallery\kozhipadan.jpg" />
     <Content Include="img\gallery\priest.png" />
+    <Content Include="img\invalid.png" />
     <Content Include="img\loading.gif" />
     <Content Include="img\More.png" />
     <Content Include="img\next.png" />
@@ -499,7 +500,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>11767</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
