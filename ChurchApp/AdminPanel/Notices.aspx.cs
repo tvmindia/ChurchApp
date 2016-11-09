@@ -39,7 +39,6 @@ namespace ChurchApp.AdminPanel
 
         #region Methods
 
-
         //-------------* General  Methods *--------------//
 
         #region Delete From Server Folder
@@ -62,7 +61,6 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion 
-
 
         //-------------* Notice  Methods *--------------//
 
@@ -196,18 +194,10 @@ namespace ChurchApp.AdminPanel
             string status = null;
             try
             {
-                //if (NoticeObj.noticeId == string.Empty || NoticeObj.noticeId == null )
-                //{
                     NoticeObj.createdBy = UA.userName;
                     status = NoticeObj.InsertNotice().ToString();
                     NoticeObj.status = status;
-                 //}
-
-                //else
-                //{
-                //    NoticeObj.updatedBy = "Shamila";
-                //    status = NoticeObj.UpdateNotice().ToString();
-                //}
+               
              }
             catch (Exception)
             {
@@ -289,27 +279,7 @@ namespace ChurchApp.AdminPanel
 
         #endregion Delete Notice
 
-
         //-------------* AppImage  Methods *--------------//
-
-        #region  Get Server Map Path
-
-        [System.Web.Services.WebMethod]
-        public static string GetServerMapPath(string Path)
-        {
-           string ServerPath = HttpContext.Current.Server.MapPath("~/img/" + Path);
-            return ServerPath;
-
-            //var sPath = System.Web.Hosting.HostingEnvironment.MapPath("/img/AppImages/aba60090-7315-3442-6fa3-a9c6dcaaab71.jpg/");
-
-            //if (File.Exists(sPath))
-            //{
-            //    File.Delete(sPath);
-            //}
-
-        }
-
-        #endregion Get Server Map Path
 
         #region  Insert App Image
 
@@ -370,7 +340,6 @@ namespace ChurchApp.AdminPanel
 
         #endregion Delete App Image
 
-
         //-------------* Notification  Methods *--------------//
         #region Insert Notification
 
@@ -406,7 +375,20 @@ namespace ChurchApp.AdminPanel
 
         #endregion  Insert Notification
 
-       
+       //--Below events or methods are  Not Using now
+
+        #region  Get Server Map Path
+
+        [System.Web.Services.WebMethod]
+        public static string GetServerMapPath(string Path)
+        {
+            string ServerPath = HttpContext.Current.Server.MapPath("~/img/" + Path);
+            return ServerPath;
+
+        }
+
+        #endregion Get Server Map Path
+
         #endregion Methods
 
     }

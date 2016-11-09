@@ -38,7 +38,6 @@ namespace ChurchApp.AdminPanel
 
         #region Methods
 
-
         //-------------* General  Methods *--------------//
 
         #region Delete From Server Folder
@@ -240,7 +239,6 @@ namespace ChurchApp.AdminPanel
 
 
         #endregion Delete Event
-
 
         //-------------* AppImage  Methods *--------------//
 

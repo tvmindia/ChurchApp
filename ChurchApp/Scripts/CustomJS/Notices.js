@@ -91,7 +91,7 @@ $("document").ready(function (e) {
                         {
                             var Notification = new Object();
                             Notification.notificationType = NotificationTypeCode;
-                            Notification.linkID = Notices.noticeId;
+                            Notification.linkID = result.noticeId;
                             Notification.caption = Notices.noticeName;
                             Notification.description = Notices.description;
                             if ($('#dateStartDate').val() != "") {
