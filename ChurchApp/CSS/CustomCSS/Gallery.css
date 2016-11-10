@@ -228,3 +228,23 @@ margin: 10px 5px 0 0;
     font-size: 14px;
     padding: 8px 9px 4px 11px;
 }
+
+
+
+.image
+{    
+    position:relative;
+    left:5px;
+    top:0;
+}
+.text
+{
+   z-index: 100;
+position: relative;
+color: white;
+font-size: 24px;
+font-weight: bold;
+left: 24%;
+top: -19%;
+color: red;
+}

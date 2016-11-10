@@ -100,9 +100,16 @@
                         </div>
                     </div>
                          <a class="circlebtn circlebtn-success NotificationEdit" style="right:1px;position: fixed;display:none;"><i class="halflings-icon white pencil NotificationEdit" aria-hidden="true"></i></a>
-                            <label id="desc"></label>
-                            <label id="sDate"></label>
-                            <label id="eDate"></label>
+                           <br /><div class="spanDiv">
+                                <span class="spnDates">Start : </span>  <span class="spnDateValues" id="sDate">nov 1 2016</span>&nbsp;
+                                     <span class="spnDates">Expire : </span>  <span class="spnDateValues" id="eDate">nov 1 2016</span>&nbsp;
+                                 </div>
+                                   
+                                     <%--<label id="sDate"></label>--%>
+                            <%--<label id="eDate"></label>--%>
+                                    <br />
+                                     <label id="desc"></label>
+                           
                                     <div class="form-actions" id="btnContainer" style="display:none;">
 							  <a class="btn btn-primary Save">Save</a>
                                 <a class="btn btn-primary Delete">Delete</a>
@@ -158,7 +165,7 @@
 								<label class="control-label" for="focusedInput" >Description</label>
 								<div class="controls">
 								 <label class="control-label" for="focusedInput" id="lblDescription"></label>
-                                     <textarea tabindex="10" class="input-xlarge span10" id="txtDescription" name="Description" rows="30" placeholder="Enter your description here..."></textarea>
+                                     <textarea tabindex="10" class="input-xlarge span10" id="txtDescription" maxlength="200" name="Description" rows="5" placeholder="Enter your description here..."></textarea>
 								  <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
 								</div>
 								</div>

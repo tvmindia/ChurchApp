@@ -3,15 +3,16 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <link href="../CSS/CustomCSS/Gallery.css" rel="stylesheet" />
-    <link href="../CSS/lightbox.min.css" rel="stylesheet" />
-     <script src="../Scripts/lightbox-plus-jquery.min.js"></script>
+  <%--  <link href="../CSS/lightbox.min.css" rel="stylesheet" />--%>
+    <%-- <script src="../Scripts/lightbox-plus-jquery.min.js"></script>--%>
+    <link href="../CSS/lightbox.css" rel="stylesheet" />
+    <script src="../Scripts/lightbox.js"></script>
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Gallery.js"></script>
     <style>
         .change{
             position:absolute!important;
-            width:10px;
-
+            width:100%!important;
         }
     </style>
     <div id="content" class="span10">
