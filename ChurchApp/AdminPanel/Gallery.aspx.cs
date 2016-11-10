@@ -99,5 +99,18 @@ namespace ChurchApp.AdminPanel
 
         }
         #endregion InsertImageAlbum
+
+
+        #region DeleteImageItem
+        [System.Web.Services.WebMethod]
+        public static string DeleteImageItem(GalleryItems GalleryItemsObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            GalleryItemsObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
+            GalleryItemsObj.DeleteGalleryItem();
+            return jsSerializer.Serialize(GalleryItemsObj);
+        }
+
+        #endregion DeleteImageItem
     }
 }

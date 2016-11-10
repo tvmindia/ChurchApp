@@ -407,11 +407,27 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[DeleteGalleryItems]";
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(galleryItemID);
-                cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
+               // cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
-            }
+                if(outParam.Value.ToString()=="1")
+                {
+                    try
+                        {
+                            System.IO.File.Delete(HttpContext.Current.Server.MapPath(url));
+                         
+                        }
+                        catch (System.IO.IOException e)
+                        {
+                            throw e;
+                           
+                        }
+                    }
+                }
+
+
+            
             catch (Exception ex)
             {
                 throw ex;

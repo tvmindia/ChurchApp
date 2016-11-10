@@ -1,4 +1,5 @@
 ﻿$("document").ready(function (e) {
+ 
     $('#divImages').hide();
     $('#divVideos').hide();
 
@@ -91,36 +92,26 @@
 
     });
    
-    $('.Alb').click(function (e) {
-        debugger;
+    //$('.Alb').click(function (e) {
+    //    debugger;
 
-        try
-        {
-            $('#divImageAlbum').hide();
-            $('#divVideoAlbum').hide();
-            $('#divVideos').hide();
-            $('#divImages').show();
-           // editedrow = $(this).closest('div');
-            var imgalbid = $(this).attr('albumid');
-            var albname = $(this).attr('AlbumName');
-            document.getElementById("ImageDivTitle").innerHTML = albname;
-            $("#hdfAlbumID").val(imgalbid);
-            //breadcrumb handling
-            $(".Gallery").remove();//removes gallery
-            $("#breadcrumbGallery").append('<li class="Gallery"><i class="icon-home"></i><a href="../AdminPanel/Gallery.aspx"> Gallery </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + albname + '</li>');
-            BindImages(imgalbid);
-           }
-        catch (e) {
+      
+    //});
+   
 
-        }
-        return false;
-    });
+
+
+  
 
 
     
     $('#EditImageAlbum').click(function (e) {
         debugger
         try {
+            $('#divAddMore').hide();
+            $('#EditImageAlbum').hide();
+            $('#RefreshImageAlbum').show();
+            
             var albid = $('#hdfAlbumID').val();
             EditImageBind(albid);
           
@@ -132,6 +123,26 @@
 
     });
 
+    $('#RefreshImageAlbum').click(function (e) {
+        debugger
+        try {
+            $('#divAddMore').show();
+            $('#RefreshImageAlbum').hide();
+            $('#EditImageAlbum').show();
+
+            var albid = $('#hdfAlbumID').val();
+            $('.EditDiv').remove();
+            BindImages(albid);
+
+
+        }
+        catch (e) {
+
+        }
+
+    });
+
+    
 
     $('#newimage').click(function (e) {
         debugger;
@@ -153,6 +164,40 @@
     });
 
 });//end of document.ready
+
+
+function deleteImage(obj)
+{
+    debugger;
+   
+    var imgid = $(obj).attr('imageid');
+    var albid = $(obj).attr('AlbumID');
+    var GalleryItems = new Object();
+    if(imgid!="")
+    {
+        var r = confirm("Are You Sure to Delete?");
+        if (r == true)
+        {
+            GalleryItems.galleryItemID = imgid;
+            GalleryItems.url = $(obj).attr('URL');
+            DeleteImageItem(GalleryItems);
+            EditImageBind(albid);
+        }
+       
+    }
+    
+}
+
+
+
+function DeleteImageItem(GalleryItems) {
+var data = "{'GalleryItemsObj':" + JSON.stringify(GalleryItems) + "}";
+jsonResult = getJsonData(data, "../AdminPanel/Gallery.aspx/DeleteImageItem");
+var table = {};
+table = JSON.parse(jsonResult.d);
+return table;
+}
+
 
 function BtnImageUpload()
 {
@@ -252,12 +297,44 @@ function AppendImageAlbum(Records)
     $('.Alb').remove();
         $.each(Records, function (index, Records) {
             var imgurl = Records.URL;
-         
+            if (imgurl == null)
+            {
+                var html = '<div style="background-image: url(/img/AppImages/b7c2c20a-0eff-4d14-b598-2945ba1d3ef6.jpg)!important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb"><a alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+            }
+            else
+            {
+                var html = '<div style="background-image: url(/img/AppImages/b7c2c20a-0eff-4d14-b598-2945ba1d3ef6.jpg)!important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+            }
             // var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span4 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
-            var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+            
         $('.ImageAlbum-Gallery').append(html);
         })
- }
+}
+
+function ViewImages(obj)
+{
+    debugger;
+    try {
+        $('#divImageAlbum').hide();
+        $('#divVideoAlbum').hide();
+        $('#divVideos').hide();
+        $('#divImages').show();
+        // editedrow = $(this).closest('div');
+       
+        var imgalbid = $(obj).attr('albumid');
+        var albname = $(obj).attr('AlbumName');
+        document.getElementById("ImageDivTitle").innerHTML = albname;
+        $("#hdfAlbumID").val(imgalbid);
+        //breadcrumb handling
+        $(".Gallery").remove();//removes gallery
+        $("#breadcrumbGallery").append('<li class="Gallery"><i class="icon-home"></i><a href="../AdminPanel/Gallery.aspx"> Gallery </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + albname + '</li>');
+        BindImages(imgalbid);
+    }
+    catch (e) {
+
+    }
+    
+}
 
 function GetAllGalleryImageAlbumByChurchID(GalleryAlbum)
 {
@@ -333,11 +410,12 @@ function AppendImages(Records) {
 
 function AppendEditImages(Records) {
     $('.attnimages').remove();
+    $('.EditDiv').remove();
     $.each(Records, function (index, Records) {
        
         //var html = '<div><span class="fa fa-trash change" aria-hidden="true"></span><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></div>';
         //var html = '<div><span class="change">Delete</span><div style="position: relative !important;"><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></div></div>';
-        var html = '<div class="attnimages"><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="image" src="' + Records.URL + '" alt="Sample Image 1"/><a href="#" class="text">Delete</a><div>';
+        var html = '<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="' + Records.URL + '" alt="Sample Image 1"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteImage(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
         $('.Image-Gallery').append(html);
     })
 }
