@@ -20,4 +20,40 @@ color: #04273B!important;
     color: #004e96!important;
 }
 
+/*Paging styles (view more, back etc styles)*/
+
+
+.aViewMore,.aOldViewMore
+{
+    margin-left: 380px;
+    color: steelblue;
+    cursor:pointer;
+}
+
+#viewAllLatest
+{
+    background-color: #ffefec;
+    border-bottom: 1px solid #fa603d;
+}
+
+.aBack,.aOldBack
+{
+    color: steelblue;
+    cursor:pointer;
+}
+
+
+
+.spnDates
+  {
+      font-size:10px;font-weight:100
+  }
+
+.spnDateValues {
+    font-size: 10px!important;
+    font-weight: 400!important;
+    color: #ea8e0d !important; 
+    /*color: #4a96ac !important;*/
+    /*#7b91a6*/
+}
 

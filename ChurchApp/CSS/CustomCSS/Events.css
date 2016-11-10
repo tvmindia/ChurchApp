@@ -1,7 +1,4 @@
 ﻿
-
-
-
 #NoticePreview{
     width:38%;height:100%;
 }
@@ -64,47 +61,51 @@ border: 1px solid #eee;
     right: 5px; position: fixed;
 }
 
- #NoticePreviewOnView 
+#NoticePreviewOnView 
 {
 height: 200px;
 width: 150px;
 }
 
- #lblAlreadyNotificationSend{
+#lblAlreadyNotificationSend{
      color:red;
      font-style:italic;
    width:100%;
    display:none;
  }
 
- .accordion-toggle
+.accordion-toggle
  {
      pointer-events: none;
    cursor: default;
  }
 
-  .btn-round{
+.btn-round{
     border-radius:10%!important;
     position: relative;
     left: 10%!important;
    
 }
 
-  .accordion-inner
+.accordion-inner
   {
      height:110px;
   }
 
-  .spnDates
-  {
-      font-size:10px;font-weight:100
-  }
+/*----------------------------*/
 
-.spnDateValues {
-    font-size: 10px;
-    font-weight: 100;
-    color: #4a96ac !important;
-    /*#7b91a6*/
+.priority.high span {
+   
+    padding: 1px 0px 1px 1px !important;
 }
 
- 
+ .btnNew
+ {
+     margin-left: 345px;
+ }
+
+/*#viewAllLatest
+{
+    background-color:#f1f9ed;
+    border-bottom: 1px solid #78cd51;
+}*/
