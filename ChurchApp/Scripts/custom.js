@@ -309,7 +309,7 @@ function template_functions(){
 	$('.datepicker').datepicker({
 	    changeMonth: true,
 	    changeYear: true,
-	    dateFormat: 'dd-mm-yy'
+	    dateFormat: 'dd-M-yy'
 	});
 	
 	/* ---------- Notifications ---------- */

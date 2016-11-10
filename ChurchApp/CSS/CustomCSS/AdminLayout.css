@@ -20,4 +20,73 @@ color: #04273B!important;
     color: #004e96!important;
 }
 
+/*-----------Paging styles (view more, back etc styles)------------*/
 
+
+.aViewMore,.aOldViewMore
+{
+    margin-left: 380px;
+    color: steelblue;
+    cursor:pointer;
+}
+
+#viewAllLatest
+{
+    background-color: #ffefec;
+    border-bottom: 1px solid #fa603d;
+}
+
+.aBack,.aOldBack
+{
+    color: steelblue;
+    cursor:pointer;
+}
+
+
+/*------------Date display Styles--------------*/
+.spnDates
+  {
+      font-size:10px;font-weight:100
+  }
+
+.spnDateValues {
+    font-size: 10px!important;
+    font-weight: 400!important;
+    color: #ea8e0d !important; 
+    /*color: #4a96ac !important;*/
+    /*#7b91a6*/
+}
+
+/*------------Accordion Styles--------------*/
+
+.accordion-heading {
+    
+    background-color: #e0e5ea;
+    line-height: 10px;
+}
+
+.accordion-inner p{
+    /*white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 2000px;*/
+ 
+  overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+
+
+}
+
+.accordion-inner
+  {
+     height:110px;
+  }
+
+.accordion-toggle
+ {
+     pointer-events: none;
+   cursor: default;
+ }
