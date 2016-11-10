@@ -62,6 +62,7 @@ $("document").ready(function (e) {
 
     $("#rdoNotificationNo").click(function () {
         $("#DivNotificationContent").hide();
+        $("#lblAlreadyNotificationSend").hide();
 
     });
 
@@ -293,11 +294,16 @@ $("document").ready(function (e) {
     $(".aViewMore").live({
 
         click: function (e) {
+
+            debugger;
+
+            BindAllLatestEvents();
+
           $(".aBack").show();
           $(".aViewMore").hide();
 
-          $(".aViewMore").style.display = "none!important";
-          BindAllLatestEvents();
+        //  $(".aViewMore").style.display = "none!important";
+         
 
           $("#divOldEvents").hide();
 
@@ -308,14 +314,17 @@ $("document").ready(function (e) {
         }
     });
 
+
     //BACK Click of LATEST Events
     $(".aBack").live({
 
         click: function (e) {
           
+            BindEvents();
+
             $(".aBack").hide();
             $(".aViewMore").show();
-            BindEvents();
+            
             $("#divOldEvents").show();
 
             $('#rowfluidDiv').hide();
@@ -334,7 +343,7 @@ $("document").ready(function (e) {
             
             $(".aOldBack").show();
             $(".aOldViewMore").hide();
-            $(".aOldViewMore").style.display = "none!important";
+          //  $(".aOldViewMore").style.display = "none!important";
 
             BindAllOldEvents();
             $("#divLatestEvents").hide();
@@ -499,6 +508,7 @@ function FillOldEvents(Records) {
 
     if (Records.length > 5) {
         $(".aOldViewMore").show();
+
        
     }
     else {
@@ -617,6 +627,8 @@ function FillEvents(Records) {
     debugger;
     if (Records.length > 5) {
         $(".aViewMore").show();
+
+       // $(".aViewMore").style.display = "";
     }
     else {
         $(".aViewMore").hide();

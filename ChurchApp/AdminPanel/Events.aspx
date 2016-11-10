@@ -97,7 +97,7 @@
 
                     <div id="viewAllLatest">
                         <a class="aBack" style="display: none;">Back To Events</a>
-                        <a class="aViewMore">View All Latest>></a>
+                        <a class="aViewMore" id="aViewMore">View All Latest>></a>
                     </div>
 
                         </div>
