@@ -125,7 +125,8 @@
             <div id="EventEditDivBox" class="span6 noMarginLeft">
 
                 <div class="box-header">
-                    <h2 id="h1Event"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Add Event</h2>
+                    <h2 ><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="h1Event"> Event</span><a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()" ><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a></h2>
+                   
                     <div class="box-icon">
 
                         <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
@@ -134,7 +135,7 @@
                 <div class="box-content">
                     <div class="form-horizontal">
                         <fieldset>
-                            <a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()" style="right: 1px; position: fixed;"><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a>
+                            
                             <%--<a style="right:30px;position: fixed;" onclick="FixedEditClick()"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>--%>
                             <div id="EditContent">
 
@@ -187,7 +188,7 @@
                                     <div class="controls">
                                         <%--onblur="SetExpiryDate()"--%>
 
-                                        <input type="text" class="input-xlarge datepicker" id="dateEndDate" onblur="SetExpiryDate()" />
+                                        <input type="text" class="input-xlarge datepicker" id="dateEndDate" onchange="SetExpiryDate()"  />
                                         <label class="control-label" for="date01" id="lblEndDate"></label>
 
                                     </div>
@@ -196,7 +197,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="date01">Expiry Date</label>
                                     <div class="controls">
-                                        <input type="text" class="input-xlarge datepicker" id="dateExpiryDate" onfocus="SetExpiryDate()" />
+                                        <input type="text" class="input-xlarge datepicker" id="dateExpiryDate"  />
                                         <label class="control-label" for="date01" id="lblExpiryDate"></label>
 
                                     </div>
@@ -234,6 +235,15 @@
 
                                     <div class="control-group">
                                         <label class="control-label" id="lblAlreadyNotificationSend">Already Notification added</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="control-group" id="DivNotificationContent">
+                                    <label class="control-label" for="focusedInput">Notification Content</label>
+                                    <div class="controls">
+                                        <textarea tabindex="10" class="input-xlarge span10" id="txtnotificationCOntent" name="Description" rows="5" placeholder="" style="width: 70%"></textarea>
+                                        
                                     </div>
                                 </div>
 

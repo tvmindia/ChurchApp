@@ -452,7 +452,7 @@ namespace ChurchApp.DAL
                 //{
                 //    isAutoHide = "true";
                 //}
-
+                var c = Convert.ToBoolean(isAutoHide);
                 cmd.Parameters.Add("@IsAutoHide", SqlDbType.Bit).Value = Convert.ToBoolean(isAutoHide);
                 if (imageId != string.Empty && imageId != null)
                 {

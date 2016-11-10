@@ -62,7 +62,9 @@ namespace ChurchApp.AdminPanel
         #endregion 
 
         //--------------- * Church Event Methods *-------------//
-        
+
+        #region LATEST Events
+
         //Top5
         #region Get Events
 
@@ -103,7 +105,7 @@ namespace ChurchApp.AdminPanel
 
         #endregion Get Events   // TOP 5
 
-        //All Latest
+        //All LATEST
         #region Get All Latest Events
 
         [System.Web.Services.WebMethod]
@@ -143,6 +145,9 @@ namespace ChurchApp.AdminPanel
 
         #endregion Get All Latest Events //All Latest
 
+        #endregion Latest Events
+
+        #region OLD Events
 
         //Top5
         #region Get Old Events
@@ -184,6 +189,7 @@ namespace ChurchApp.AdminPanel
 
         #endregion Get Old Events   // TOP 5
 
+        //All OLD
         #region Get All Old Events
 
         [System.Web.Services.WebMethod]
@@ -222,6 +228,8 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Get All Old Events   // TOP 5
+
+        #endregion OLD Events
 
         #region Get Events By EventID
 
