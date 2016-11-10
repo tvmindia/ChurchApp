@@ -67,19 +67,23 @@
         try {
             var imagefile=null;
             var albid = $('#hdfAlbumID').val();
-            if ((imagefile = $('#imageUploader')[0].files.length > 0)&&(albid!="")) {
-                var formData = new FormData();
-                for (i = 0; i < $('#imageUploader')[0].files.length ; i++) {
-                    formData.append('AlbumImage' + i, $('#imageUploader')[0].files[i], $('#imageUploader')[0].files[i].name);
+            if ($('#imageListimages').children().length > 1)
+            {
+                if ((imagefile = $('#imageUploader')[0].files.length > 0) && (albid != "")) {
+                    var formData = new FormData();
+                    for (i = 0; i < $('#imageUploader')[0].files.length ; i++) {
+                        formData.append('AlbumImage' + i, $('#imageUploader')[0].files[i], $('#imageUploader')[0].files[i].name);
+                    }
+                    formData.append('Album', 'AddMoreImages');
+                    formData.append('AlbumID', albid);
+                    postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                    BindImages(albid);
+                    //modal close
+                    $('.close').click();
+
                 }
-                formData.append('Album', 'AddMoreImages');
-                formData.append('AlbumID', albid);
-                postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                BindImages(albid);
-                //modal close
-                $('.close').click();
-                               
             }
+            
          }
         catch (e) {
 
@@ -322,32 +326,18 @@ function GetAllImageByAlbumID(GalleryItems)
 function AppendImages(Records) {
     $('.attnimages').remove();
     $.each(Records, function (index, Records) {
-        //if (Records.URL == null)
-        //{
-        //    var html = '<img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="/img/defaultalbumadd.jpg" alt="Sample Image 1"/>'
-        //}
-        //else
-        //{
-            var html = '<a class="example-image-link" href="' + Records.URL + '" data-lightbox="example-set" data-title="Click anywhere  close."><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></a>'
-            // var html = '<img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/>'
-           // '<a class="example-image-link" href="http://lokeshdhakar.com/projects/lightbox2/images/image-6.jpg" data-lightbox="example-set" data-title="Click anywhere outside the image or the X to the right to close."><img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-6.jpg" alt="" /></a>';
-       // }
-       
-        $('.Image-Gallery').append(html);
+         var html = '<a class="example-image-link" href="' + Records.URL + '" data-lightbox="example-set" data-title="Click anywhere to close."><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></a>'
+         $('.Image-Gallery').append(html);
     })
 }
 
 function AppendEditImages(Records) {
     $('.attnimages').remove();
     $.each(Records, function (index, Records) {
-        if (Records.URL == null)
-        {
-            var html = '<div><span class="fa fa-trash change" aria-hidden="true"></span><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="/img/defaultalbumadd.jpg" alt="Sample Image 1"/></div>';
-        }
-        else
-        {
-            var html = '<div><span class="fa fa-trash change" aria-hidden="true"></span><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></div>';
-        }
+       
+        //var html = '<div><span class="fa fa-trash change" aria-hidden="true"></span><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></div>';
+        //var html = '<div><span class="change">Delete</span><div style="position: relative !important;"><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></div></div>';
+        var html = '<div class="attnimages"><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="image" src="' + Records.URL + '" alt="Sample Image 1"/><a href="#" class="text">Delete</a><div>';
         $('.Image-Gallery').append(html);
     })
 }

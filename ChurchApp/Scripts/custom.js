@@ -301,7 +301,7 @@ function template_functions(){
 	$('a[href="#"][data-top!=true]').click(function(e){
 		e.preventDefault();
 	});
-	
+
 	/* ---------- Text editor ---------- */
 	$('.cleditor').cleditor();
 	
@@ -309,7 +309,7 @@ function template_functions(){
 	$('.datepicker').datepicker({
 	    changeMonth: true,
 	    changeYear: true,
-	    dateFormat: 'dd-mm-yy'
+	    dateFormat: 'dd-M-yy'
 	});
 	
 	/* ---------- Notifications ---------- */

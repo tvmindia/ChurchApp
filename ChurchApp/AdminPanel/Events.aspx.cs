@@ -62,7 +62,8 @@ namespace ChurchApp.AdminPanel
         #endregion 
 
         //--------------- * Church Event Methods *-------------//
-
+        
+        //Top5
         #region Get Events
 
         [System.Web.Services.WebMethod]
@@ -75,7 +76,7 @@ namespace ChurchApp.AdminPanel
             string jsonResult = null;
             DataSet ds = null;
             EventsObj.churchId = UA.ChurchID;
-            ds = EventsObj.SelectEvents();
+            ds = EventsObj.GetLatestEvents();
 
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -100,7 +101,127 @@ namespace ChurchApp.AdminPanel
             return jsonResult;
         }
 
-        #endregion Get Events
+        #endregion Get Events   // TOP 5
+
+        //All Latest
+        #region Get All Latest Events
+
+        [System.Web.Services.WebMethod]
+        public static string GetAllLatestEvents(ChurchApp.DAL.Events EventsObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            string jsonResult = null;
+            DataSet ds = null;
+            EventsObj.churchId = UA.ChurchID;
+            ds = EventsObj.GetAllLatestEvents();
+
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult;
+        }
+
+        #endregion Get All Latest Events //All Latest
+
+
+        //Top5
+        #region Get Old Events
+
+        [System.Web.Services.WebMethod]
+        public static string GetOldEvents(ChurchApp.DAL.Events EventsObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            string jsonResult = null;
+            DataSet ds = null;
+            EventsObj.churchId = UA.ChurchID;
+            ds = EventsObj.SelectOldEvents();
+
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult;
+        }
+
+        #endregion Get Old Events   // TOP 5
+
+        #region Get All Old Events
+
+        [System.Web.Services.WebMethod]
+        public static string GetAllOldEvents(ChurchApp.DAL.Events EventsObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            string jsonResult = null;
+            DataSet ds = null;
+            EventsObj.churchId = UA.ChurchID;
+            ds = EventsObj.SelectAllOldEvents();
+
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult;
+        }
+
+        #endregion Get All Old Events   // TOP 5
 
         #region Get Events By EventID
 

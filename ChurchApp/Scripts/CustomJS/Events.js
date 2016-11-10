@@ -33,6 +33,7 @@ $("document").ready(function (e) {
 
 
     BindEvents();
+    BindOldEvents();
 
     $('#btnCancel').click(function (e) {
         ClearControls();
@@ -253,15 +254,225 @@ $("document").ready(function (e) {
 
     });
 
+    //---------------- * View More Link Click of Latest Events * -------------------//
+    $(".aViewMore").live({
+
+        click: function (e) {
+          $(".aBack").show();
+          $(".aViewMore").hide();
+          BindAllLatestEvents();
+
+          $("#divOldEvents").hide();
+        }
+    });
+
+    //---------------- * Back To Notification Link Click of Latest Events * -------------------//
+    $(".aBack").live({
+
+        click: function (e) {
+          
+            $(".aBack").hide();
+            $(".aViewMore").show();
+            BindEvents();
+            $("#divOldEvents").show();
+        }
+    });
+
+
+    //---------------- * View More Link Click of Old Events * -------------------//
+    $(".aOldBack").live({
+
+        click: function (e) {
+            $(".aOldBack").hide();
+            $(".aOldViewMore").show();
+            BindOldEvents();
+
+            $("#divLatestEvents").show();
+            BindEvents();
+        }
+    });
+
+    //---------------- * Back To Notification Link Click of Old Events * -------------------//
+    $(".aOldViewMore").live({
+
+        click: function (e) {
+            
+            $(".aOldBack").show();
+            $(".aOldViewMore").hide();
+
+            BindAllOldEvents();
+            $("#divLatestEvents").hide();
+        }
+    });
+
+
     $('input:text').click(
-   function () {
+    function () {
        RemoveStyle();
    });
 
 });//end of document.ready
 
+//Bind All latest events
+function BindAllLatestEvents() {
 
-// Bind Events
+    debugger;
+
+    var jsonResult = {};
+    var Events = new Object();
+    jsonResult = GetAllLatestEvents(Events);
+    if (jsonResult != undefined) {
+        FillEvents(jsonResult);
+    }
+}
+
+function GetAllLatestEvents(Events) {
+
+    debugger;
+
+    var ds = {};
+    var table = {};
+    var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+    ds = getJsonData(data, "../AdminPanel/Events.aspx/GetAllLatestEvents");
+    table = JSON.parse(ds.d);
+    return table;
+}
+//--------------------------------//
+
+
+//Bind old Events - Top5
+function BindOldEvents() {
+
+    debugger;
+
+    var jsonResult = {};
+    var Events = new Object();
+    jsonResult = GetOldEvents(Events);
+    if (jsonResult != undefined) {
+        FillOldEvents(jsonResult);
+    }
+}
+
+function GetOldEvents(Events) {
+
+    debugger;
+
+    var ds = {};
+    var table = {};
+    var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+    ds = getJsonData(data, "../AdminPanel/Events.aspx/GetOldEvents");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function FillOldEvents(Records) {
+    $('#OldEventsGrid').html('');
+
+    $.each(Records, function (index, Records) {
+        debugger;
+
+        var url = Records.URL;
+        var html = '';
+
+        if (Records.StartDate == null && Records.EndDate == null && Records.EventExpiryDate == null) {
+            html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+        }
+
+        else {
+            if (Records.StartDate != null && Records.EndDate != null && Records.EventExpiryDate != null) {
+
+                html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+            }
+
+            else {
+
+                if (Records.StartDate != null && (Records.EndDate == null && Records.EventExpiryDate == null)) {
+                    html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+                }
+
+
+
+                if (Records.StartDate != null && Records.EndDate != null) {
+                    html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+                }
+
+                if (Records.StartDate != null && Records.EventExpiryDate != null) {
+                    html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+                }
+
+                if (Records.EndDate != null && Records.EventExpiryDate != null) {
+                    html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+                }
+            }
+
+
+
+
+        }
+
+
+        //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+        $("#OldEventsGrid").append(html);
+
+        if (url != "") {
+            var imgControl = document.getElementById("img" + Records.ID);
+            if (imgControl != null) {
+                document.getElementById("img" + Records.ID).src = url;
+                $('#img' + Records.ID).attr('src', url);
+            }
+        }
+        if (url == null) {
+            url = "../img/No-Img_Chosen.png";
+            $('#img' + Records.ID).attr('src', url);
+
+        }
+
+
+    });
+
+    if (Records.length == 0) {
+        //$('.dataTables_empty').parent().parent().remove();
+        var img = document.createElement('img');
+        img.src = "../img/nodata.jpg";
+        img.id = "NoData";
+        $("#OldEventsGrid").append(img);
+    }
+
+}
+
+//--------------------------------//
+
+
+//Bind All old
+function BindAllOldEvents() {
+
+    debugger;
+
+    var jsonResult = {};
+    var Events = new Object();
+    jsonResult = GetAllOldEvents(Events);
+    if (jsonResult != undefined) {
+        FillOldEvents(jsonResult);
+    }
+}
+
+function GetAllOldEvents(Events) {
+
+    debugger;
+
+    var ds = {};
+    var table = {};
+    var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+    ds = getJsonData(data, "../AdminPanel/Events.aspx/GetAllOldEvents");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+//--------------------------------//
+
+
+
+// Bind Latest Events - Top5
 function BindEvents() {
 
     debugger;
@@ -294,6 +505,13 @@ function FillEvents(Records) {
             }
 
             else {
+
+                if (Records.StartDate != null &&( Records.EndDate == null && Records.EventExpiryDate == null)) {
+                    html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+                }
+
+
+
                 if (Records.StartDate != null && Records.EndDate != null) {
                     html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
                 }
