@@ -10,9 +10,8 @@
     <script src="../Scripts/CustomJS/Notices.js"></script>
     <link href="../CSS/CustomCSS/Notice.css" rel="stylesheet" />
 
-   <%-- <link href="../CSS/lightbox.css" rel="stylesheet" />
+    <%-- <link href="../CSS/lightbox.css" rel="stylesheet" />
     <script src="../Scripts/lightbox.js"></script>--%>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <form id="frm1" runat="server">
@@ -30,29 +29,23 @@
             <div id="rowfluidDiv" style="display: none;">
 
                 <div class="alert alert-block" id="ErrorBox" style="display: none; background-color: #fdeaea !important; color: #ca6f74 !important; border: 1px solid #f27b81 !important;">
-                                    <div id="Displaydiv">
-                                    </div>
-                                </div>
+                    <div id="Displaydiv">
+                    </div>
+                </div>
 
                 <div class="alert alert-error" style="display: none;">
-                    <%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
                     <strong>Operation Not Successfull.</strong>
                 </div>
                 <div class="alert alert-success" style="display: none;">
-                    <%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
                     <strong>Successfull.</strong>
                 </div>
                 <div class="alert alert-info" style="display: none;">
-                    <%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
                     <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
                 </div>
                 <div class="alert alert-block" style="display: none;">
-                    <%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
                     <h4 class="alert-heading">Warning!</h4>
                     <p>Best check yourself, you're not looking too good.</p>
                 </div>
-
-
 
             </div>
 
@@ -60,58 +53,52 @@
 
             <div class="row-fluid">
 
-                <div class="box span5">
-                  
-                    <div class="box-header">
-                        <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Latest Notices</h2>
-                         
-                        <div class="box-icon">
-                             <a class="btnNew" title="" onclick="AddNewNoticeFormat();"><i title="Add New Notice">+</i></a>
-                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%> 
+                <div class=" span5">
+
+                <div>
+                    <div id="divLatestEvents">
+                        <div class="priority high">
+                            <span class="latest">Latest Notices</span>
+                           <a class="btnNew" title="" onclick="AddNewNoticeFormat();"><i title="Add New Notice">+</i></a>
 
                         </div>
-                    </div>
+                        <%--class="box-content"--%> 
+                        <div id="DivNoticeType1">
 
-                     
+                        </div>
 
-                    <div class="box-content" id="DivNoticeType1">
-
-                      <%--  <div class="accordion">
-                            <div class="accordion-group">
-                                <div class="accordion-heading">
-
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">Unit #1</a>
-                                    
-                                </div>
-                                <div class="accordion-body collapse in">
-                                    <div class="accordion-inner">
-                                        <img class="Eventimage" src="../img/AppImages/747515f2-501a-3f59-96ba-6fd122f83f61.jpg" alt="St.Thomas Church" /><p>In your heart, do you wish your friends knew about God’s love–and how He cared about us so much that He sent His son to earth to give His life for us? The good news is, as a student you have neat way to share your Christian faith: Bring Your Bible to School Day! On this day, thousands of students just like you will bring their Bible to school and talk about it with friends during free time.  To learn more about this event, ask your parents to go to the website with you: BringYourBible.org</p>
-                                        <span class="NoticeViewDetails"><a href="#">View Details</a></span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>--%>
-
+                        <div id="viewAllLatest">
+                            <a class="aBack" style="display: none;">Back</a>
+                            <a class="aViewMore" id="aViewMore">View All>></a>
+                        </div>
 
                     </div>
+
+                  
                 </div>
 
+            </div>
+
+
+
                 <div class="box span7" id="NoticeEditDivBox">
-                    <div class="box-header" >
-                        <h2 id="h1Notice"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Add Notice</h2>
+                    <div class="box-header">
+                         <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="h1Notice">Event</span><a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Notice"></i></a></h2>
+
+                        <%--<h2 id="h1Notice"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Add Notice</h2>--%>
                         <div class="box-icon">
 
                             <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
-
                         </div>
                     </div>
-                    <div class="box-content">
+
+                    <%--class="box-content"--%>
+                    <div >
                         <div class="form-horizontal">
                             <fieldset>
-                                <a id="NoticeEdit"  class="btnEdit" onclick="FixedEditClick()" style=" right: 1px; position: fixed;" ><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
-                                
+
+                                <%--<a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()" style="right: 1px; position: fixed;"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>--%>
+
                                 <%--Notice Name--%>
                                 <div class="control-group" id="divnoticeName">
                                     <label class="control-label" for="focusedInput">Notice Name</label>
@@ -132,15 +119,16 @@
                                     </div>
                                 </div>
 
-                                 <%--Image--%>
+                                <%--Image--%>
                                 <div class="control-group " id="DivImg">
                                     <%--<label class="control-label" for="fileInput">Notice Image</label>--%>
 
                                     <div class="controls">
                                         <img class="imgNotices" id="NoticePreview" src="../img/No-Img_Chosen.png" />
                                         <%--onchange="showpreview(this);"--%>
-                                        <div id="DivFile" >
-                                            <input type="file" id="UpNotice" value="Choose Image" onchange="showpreview(this);" /></div>
+                                        <div id="DivFile">
+                                            <input type="file" id="UpNotice" value="Choose Image" onchange="showpreview(this);" />
+                                        </div>
                                     </div>
                                 </div>
 
@@ -171,9 +159,9 @@
                                 </div>
 
                                 <div id="divNotificationDates">
-                                     <div class="control-group">
-                                    <label class="control-label" id="lblAlreadyNotificationSend" >Already Notification added</label>
-                                         </div>
+                                    <div class="control-group">
+                                        <label class="control-label" id="lblAlreadyNotificationSend">Already Notification added</label>
+                                    </div>
                                     <div class="control-group">
                                         <label class="control-label" for="date01">Start Date</label>
                                         <div class="controls">
@@ -190,13 +178,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                               <div id="divView">
 
-                                     <div class="accordion">
-                            <div class="accordion-group">
-                                
-                             <%--   <div class="accordion-body collapse in">
+                                <div id="divView">
+
+                                    <div class="accordion">
+                                        <div class="accordion-group">
+
+                                            <%--   <div class="accordion-body collapse in">
                                     <div class="accordion-inner">
                                         <img  id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
                                         <label  for="focusedInput" id="lblNoticeDescriptionOnView" ></label>
@@ -205,27 +193,27 @@
 
                                 </div>--%>
 
-                                 <div class="accordion-body collapse in">
-                                    <div class="accordion-inner">
-<%--<a class="btn btn-toolbar" style="border:1px solid white" href="../img/No-Img_Chosen.png"  ><i class="icon-zoom-in"></i></a>--%>
-                                       
-                                    <img class="noticeImage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
-                                        <span class="NoticeViewDetails" style="margin-bottom:0px" id="spnNoticeType"></span>
-                                        <br />
-                                         <label  for="focusedInput" id="lblNoticeDescriptionOnView" ></label>
-                                         
+                                            <div class="accordion-body collapse in">
+                                                <div class="accordion-inner">
+                                                    <%--<a class="btn btn-toolbar" style="border:1px solid white" href="../img/No-Img_Chosen.png"  ><i class="icon-zoom-in"></i></a>--%>
+
+                                                    <img class="noticeImage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
+                                                    <span class="NoticeViewDetails" style="margin-bottom: 0px" id="spnNoticeType"></span>
+                                                    <br />
+                                                    <label for="focusedInput" id="lblNoticeDescriptionOnView"></label>
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
                                     </div>
 
-                                </div>
 
 
-                            </div>
-
-                        </div>
-
-
-
-<%--                                 
+                                    <%--                                 
                                 <div class="span12">
                                     <div style="height:100px;margin-top:20px">        </div>
                                 </div>
@@ -233,7 +221,6 @@
 
                                  
                                 <div class="span12">  </div>--%>
-
                                 </div>
 
 
@@ -259,8 +246,8 @@
 
                                 <div class="form-actions">
                                     <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
-                                     <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
-                                   <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
+                                    <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
+                                    <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
                                 </div>
                             </fieldset>
                         </div>
@@ -269,7 +256,7 @@
 
                 <input id="hdfImageID" type="hidden" value="" />
                 <input id="hdfNoticeID" type="hidden" value="" />
-                
+
 
                 <%--<asp:HiddenField ID="hdfImgID" runat="server" />--%>
             </div>

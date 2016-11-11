@@ -90,3 +90,12 @@ display: -webkit-box;
      pointer-events: none;
    cursor: default;
  }
+.accordion {
+    margin-bottom: 6px;
+}
+
+
+#DivNoticeType1
+{
+    margin-top: 6px!important;
+}

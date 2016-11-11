@@ -115,6 +115,46 @@ namespace ChurchApp.DAL
         }
         #endregion SelectNotices
 
+        #region Select Latest Notices
+        /// <summary>
+        /// Get All Notices By ChurchId
+        /// </summary>
+        /// <returns>All Notices</returns>
+        public DataSet SelectLatestNotices()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetLatestNotices]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion Select Latest Notices
+
         #region InsertNotice
         /// <summary>
         /// Add New Notice

@@ -27,19 +27,15 @@
             </div>
 
             <div class="alert alert-error" style="display: none;">
-                <%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
                 <strong>Operation Not Successfull.</strong>
             </div>
             <div class="alert alert-success" style="display: none;">
-                <%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
                 <strong>Successfull.</strong>
             </div>
             <div class="alert alert-info" style="display: none;">
-                <%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
                 <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
             </div>
             <div class="alert alert-block" style="display: none;">
-                <%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
                 <h4 class="alert-heading">Warning!</h4>
                 <p>Best check yourself, you're not looking too good.</p>
             </div>
@@ -54,64 +50,33 @@
 
                 <div>
                     <div id="divLatestEvents">
-                    <div class="priority high">
-                        <span class="latest">Latest Events</span>
-                        <a class="btnNew" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Event">+</i></a>
+                        <div class="priority high">
+                            <span class="latest">Latest Events</span>
+                            <a class="btnNew" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Event">+</i></a>
 
-                    </div>
-                    <br />
-                    <div class="box-content" id="DivNoticeType1">
-
-                        <div class="accordion">
-                            <div class="accordion-group">
-                                <div class="accordion-heading">
-
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">Unit #1</a>
-
-                                </div>
-                                <div class="accordion-body collapse in">
-                                    <div class="accordion-inner">
-
-                                        <img class="eventImage" src="../img/AppImages/747515f2-501a-3f59-96ba-6fd122f83f61.jpg" alt="St.Thomas Church" />
-
-                                        <span class="spnDates" id="spnStartDate">Start : </span><span class="spnDateValues">nov 1 2016</span>&nbsp;
-                                         <span class="spnDates" id="spnEndDate">End : </span><span class="spnDateValues">nov 1 2016</span>&nbsp;
-                                         <span class="spnDates" id="spnExpiredate">Expire : </span><span class="spnDateValues">nov 1 2016</span>&nbsp;
-
-                                        <br />
-
-
-                                        <p>In your heart, do you wish your friends knew about God’s love–and how He cared about us so much that He sent His son to earth to give His life for us? The good news is, as a student you have neat way to share your Christian faith: Bring Your Bible to School Day! On this day, thousands of students just like you will bring their Bible to school and talk about it with friends during free time.  To learn more about this event, ask your parents to go to the website with you: BringYourBible.org</p>
-                                        <span class="eventViewDetails"><a href="#">View Details</a></span>
-
-
-                                    </div>
-
-                                </div>
-                            </div>
+                        </div>
+                       
+                        <div  id="DivNoticeType1">
 
                         </div>
 
-
-                    </div>
-
-                    <div id="viewAllLatest">
-                        <a class="aBack" style="display: none;">Back To Events</a>
-                        <a class="aViewMore" id="aViewMore">View All Latest>></a>
-                    </div>
-
+                        <div id="viewAllLatest">
+                            <a class="aBack" style="display: none;">Back</a>
+                            <a class="aViewMore" id="aViewMore">View All>></a>
                         </div>
+
+                    </div>
 
                     <%--<div id="pagination-here"></div>--%>
                     <div id="divOldEvents">
-                    <div class="priority low"><span class="Old">Old Events</span></div>
-                    <br />
-                    <div id="OldEventsGrid">
-                    </div>
-                    <div id="viewAllOld">
-                        <a class="aOldBack" style="display: none;">Back To Events</a>
-                        <a class="aOldViewMore">View All Old>></a>
-                    </div>
+                        <div class="priority low"><span class="Old">Old Events</span></div>
+                       
+                        <div id="OldEventsGrid">
+                        </div>
+                        <div id="viewAllOld">
+                            <a class="aOldBack" style="display: none;">Back</a>
+                            <a class="aOldViewMore">View All>></a>
+                        </div>
                     </div>
                 </div>
 
@@ -125,8 +90,8 @@
             <div id="EventEditDivBox" class="span6 noMarginLeft">
 
                 <div class="box-header">
-                    <h2 ><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="h1Event"> Event</span><a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()" ><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a></h2>
-                   
+                    <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="h1Event">Event</span><a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a></h2>
+
                     <div class="box-icon">
 
                         <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
@@ -135,7 +100,7 @@
                 <div class="box-content">
                     <div class="form-horizontal">
                         <fieldset>
-                            
+
                             <%--<a style="right:30px;position: fixed;" onclick="FixedEditClick()"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>--%>
                             <div id="EditContent">
 
@@ -188,7 +153,7 @@
                                     <div class="controls">
                                         <%--onblur="SetExpiryDate()"--%>
 
-                                        <input type="text" class="input-xlarge datepicker" id="dateEndDate" onchange="SetExpiryDate()"  />
+                                        <input type="text" class="input-xlarge datepicker" id="dateEndDate" onchange="SetExpiryDate()" />
                                         <label class="control-label" for="date01" id="lblEndDate"></label>
 
                                     </div>
@@ -197,7 +162,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="date01">Expiry Date</label>
                                     <div class="controls">
-                                        <input type="text" class="input-xlarge datepicker" id="dateExpiryDate"  />
+                                        <input type="text" class="input-xlarge datepicker" id="dateExpiryDate" />
                                         <label class="control-label" for="date01" id="lblExpiryDate"></label>
 
                                     </div>
@@ -243,7 +208,7 @@
                                     <label class="control-label" for="focusedInput">Notification Content</label>
                                     <div class="controls">
                                         <textarea tabindex="10" class="input-xlarge span10" id="txtnotificationCOntent" name="Description" rows="5" placeholder="" style="width: 70%"></textarea>
-                                        
+
                                     </div>
                                 </div>
 

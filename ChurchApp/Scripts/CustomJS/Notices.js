@@ -12,6 +12,9 @@ var NotificationTypeCode = 'ntc';   //If notification is adding , notification t
 
 $("document").ready(function (e) {
    
+   
+    BindLatestNotices();
+
     $("#rdoNotificationYes").click(function () {
 
         $("#divNotificationDates").show();
@@ -21,8 +24,6 @@ $("document").ready(function (e) {
 
         $("#divNotificationDates").hide();
     });
-
-    BindNotices();
 
     $("#ddlNoticeType").select2({
         placeholder: "Choose Types",
@@ -288,6 +289,54 @@ $("document").ready(function (e) {
         }
     });
 
+    //------------- * LATEST Events view more,Back  *------------//
+
+    //VIEW MORE Click Click of LATEST Events
+    $(".aViewMore").live({
+
+        click: function (e) {
+
+            debugger;
+
+            BindNotices();
+
+            $(".aBack").show();
+            $(".aViewMore").hide();
+
+            //  $(".aViewMore").style.display = "none!important";
+
+
+           // $("#divOldEvents").hide();
+
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+
+        }
+    });
+
+
+    //BACK Click of LATEST Events
+    $(".aBack").live({
+
+        click: function (e) {
+
+            BindLatestNotices();
+
+            $(".aBack").hide();
+            $(".aViewMore").show();
+
+           // $("#divOldEvents").show();
+
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+
+        }
+    });
+
+
+
     $('input:text').click(
     function () {
         RemoveStyle();
@@ -414,6 +463,15 @@ function BindNotices() {
     jsonResult = GetNotices(Notices);
     if (jsonResult != undefined) {
         FillNotice(jsonResult);
+
+        if (jsonResult.length > 5) {
+            $(".aViewMore").show();
+
+            // $(".aViewMore").style.display = "";
+        }
+        else {
+            $(".aViewMore").hide();
+        }
     }
 }
 
@@ -425,7 +483,7 @@ function FillNotice(Records) {
 
         var url = Records.URL;
       
-        var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NoticeName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + ' src=' + url + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+        var html = '<div class="accordion Card"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NoticeName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + ' src=' + url + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
         $("#DivNoticeType1").append(html);
 
         if (url != "") {
@@ -462,6 +520,41 @@ function GetNotices(Notices) {
     return table;
 }
 //--------------------------------//
+
+
+// Bind Latest Notices
+function BindLatestNotices() {
+
+    debugger;
+
+    var jsonResult = {};
+    var Notices = new Object();
+    jsonResult = GetLatestNotices(Notices);
+    if (jsonResult != undefined) {
+        FillNotice(jsonResult);
+       
+        if (jsonResult.length >= 5) {
+            $(".aViewMore").show();
+
+            // $(".aViewMore").style.display = "";
+        }
+        else {
+            $(".aViewMore").hide();
+        }
+
+    }
+}
+
+function GetLatestNotices(Notices) {
+    var ds = {};
+    var table = {};
+    var data = "{'NoticeObj':" + JSON.stringify(Notices) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notices.aspx/GetLatestNotices");
+    table = JSON.parse(ds.d);
+    return table;
+}
+//--------------------------------//
+
 
 
 //Insert Notice

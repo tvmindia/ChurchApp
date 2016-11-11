@@ -65,7 +65,7 @@ namespace ChurchApp.AdminPanel
 
         #region LATEST Events
 
-        //Top6
+        //Top 5
         #region Get Events
 
         [System.Web.Services.WebMethod]
@@ -149,7 +149,7 @@ namespace ChurchApp.AdminPanel
 
         #region OLD Events
 
-        //Top6
+        //Top 5
         #region Get Old Events
 
         [System.Web.Services.WebMethod]
