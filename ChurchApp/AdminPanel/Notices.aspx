@@ -177,6 +177,15 @@
                                             <input type="text" class="input-xlarge datepicker" id="dateExpiryDate" />
                                         </div>
                                     </div>
+
+                                    <div class="control-group" id="DivNotificationContent">
+                                    <label class="control-label" for="focusedInput">Notification Content</label>
+                                    <div class="controls">
+                                        <textarea tabindex="10" class="input-xlarge span10" id="txtnotificationCOntent" name="Description" rows="5" placeholder="" style="width: 70%"></textarea>
+
+                                    </div>
+                                </div>
+
                                 </div>
 
                                 <div id="divView">

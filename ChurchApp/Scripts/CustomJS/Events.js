@@ -24,11 +24,31 @@ $("document").ready(function (e) {
 
     //--Limit Notification Content 
     $('#txtnotificationCOntent').keypress(function (e) {
-
+        debugger;
         if (this.value.length == MaxCharacterLimit) {
             e.preventDefault();
-        } 
+            $("#lblAlreadyNotificationSend").show();
+            $("#lblAlreadyNotificationSend").text("Maximum " + MaxCharacterLimit + " characters");
+        }
+
+        else
+        {
+            $("#lblAlreadyNotificationSend").text("Already Notification added");
+            $("#lblAlreadyNotificationSend").hide();
+
+        }
     });
+
+    $('#txtnotificationCOntent').keydown(function (e) {
+        if (this.value.length == MaxCharacterLimit) {
+            $("#lblAlreadyNotificationSend").text("Already Notification added");
+            $("#lblAlreadyNotificationSend").hide();
+        }
+
+    });
+
+
+
 
     $("#rdoNotificationYes").click(function () {
 
@@ -36,6 +56,7 @@ $("document").ready(function (e) {
 
         if (IsAlreadyNotified) {
             $("#lblAlreadyNotificationSend").show();
+            $("#lblAlreadyNotificationSend").text("Already Notification added");
         }
         else {
             $("#lblAlreadyNotificationSend").hide();
