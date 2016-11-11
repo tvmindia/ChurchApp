@@ -108,9 +108,37 @@ namespace ChurchApp.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             GalleryItemsObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
             GalleryItemsObj.DeleteGalleryItem();
+            
             return jsSerializer.Serialize(GalleryItemsObj);
         }
 
         #endregion DeleteImageItem
+
+        #region DeleteAlbumItem
+        [System.Web.Services.WebMethod]
+        public static string DeleteAlbumItem(GalleryItems GalleryItemsObj)
+        {
+            DataSet ds = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            GalleryItemsObj.GalleryAlbObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
+            ds=GalleryItemsObj.SelectGalleryItems();
+            if(ds!=null)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    GalleryItemsObj.galleryItemID = dr["ID"].ToString();
+                    GalleryItemsObj.url = dr["URL"].ToString();
+                    GalleryItemsObj.DeleteGalleryItem();
+                }
+                GalleryItemsObj.GalleryAlbObj.DeleteGalleryAlbum();
+            }
+        
+           
+
+
+            return jsSerializer.Serialize(GalleryItemsObj);
+        }
+
+        #endregion DeleteAlbumItem
     }
 }

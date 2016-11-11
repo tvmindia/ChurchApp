@@ -252,7 +252,7 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[DeleteGalleryAlbum]";
-                cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
+                cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -278,7 +278,8 @@ namespace ChurchApp.DAL
     public class GalleryItems : GalleryAlbum
 
     {
-
+        public GalleryAlbum GalleryAlbObj;
+      
         public GalleryItems()
         {
             galleryItemID = Guid.NewGuid().ToString();
@@ -322,7 +323,7 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetAllGalleryItems]";
-                cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
+                cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(GalleryAlbObj.albumId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -442,6 +443,8 @@ namespace ChurchApp.DAL
             return outParam.Value.ToString();
         }
         #endregion DeleteGalleryItem
+
+    
 
         #endregion GalleryItem Methods
     }
