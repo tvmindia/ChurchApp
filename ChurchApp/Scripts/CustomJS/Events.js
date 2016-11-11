@@ -47,9 +47,6 @@ $("document").ready(function (e) {
 
     });
 
-
-
-
     $("#rdoNotificationYes").click(function () {
 
         debugger;
@@ -896,6 +893,8 @@ function GetEventsByEventID(Events) {
 
 function FixedEditClick() {
     debugger;
+
+    $('#NoticeEdit').hide();
 
     ClearControls();
     SetControlsInEditableFormat();
