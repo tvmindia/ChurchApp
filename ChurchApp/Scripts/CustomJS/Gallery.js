@@ -161,7 +161,23 @@
 
     });
 
-    
+    $('#RefreshAlbum').click(function (e) {
+        debugger
+        try {
+            $('#divCreateAlbum').show();
+            $('#RefreshAlbum').hide();
+            $('#EditAlbum').show();
+
+            $('.Alb').remove();
+            BindGalleryImageAlbum();
+
+
+        }
+        catch (e) {
+
+        }
+
+    });
 
     $('#newimage').click(function (e) {
         debugger;

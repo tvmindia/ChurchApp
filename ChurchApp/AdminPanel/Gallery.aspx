@@ -32,7 +32,7 @@
 						<div class="box-icon">
 							<a id="toggle-fullscreen" class="hidden-phone hidden-tablet btnEdit"><i class="halflings-icon white fullscreen"></i></a>
 					        <a class="btnEdit" style="position: relative; top: -1px;  right: 0px;" title="Edit" id="EditAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
-                                <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
+                            <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
                             <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>
 							
 						</div>
