@@ -72,47 +72,36 @@ namespace ChurchApp.AdminPanel
 
         #endregion Get All Patrons
 
-        #region GetAllGalleryImageAlbumByChurchID
+        #region Add New Patron
+
         [System.Web.Services.WebMethod]
-        public static string GetAllGalleryImageAlbumByChurchID(GalleryAlbum GalleryAlbumObj)
+        public static string InsertPatron(ChurchApp.DAL.PatronMaster PatrnObj)
         {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
             DAL.Security.UserAuthendication UA;
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
 
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            DataSet ds = null;
+           string status = null;
             try
             {
-                GalleryAlbumObj.churchId = UA.ChurchID;
-                GalleryAlbumObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
-
-
-                ds = GalleryAlbumObj.GetAllGalleryImageAlbumByChurchID();
-                //Converting to Json
-                Dictionary<string, object> childRow;
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in ds.Tables[0].Columns)
-                        {
-                            childRow.Add(col.ColumnName, row[col]);
-                        }
-                        parentRow.Add(childRow);
-                    }
-                }
+                PatrnObj.createdBy = UA.userName;
+                status = PatrnObj.InsertPatronMaster();
+             
             }
-            catch (Exception ex)
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
             {
             }
-            return jsSerializer.Serialize(parentRow);
+            return jsSerializer.Serialize(PatrnObj);
 
         }
 
-        #endregion GetAllGalleryImageAlbumByChurchID
+        #endregion Add New Patron
 
         #endregion Methods
 

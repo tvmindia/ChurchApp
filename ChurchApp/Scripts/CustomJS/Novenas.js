@@ -16,18 +16,120 @@ function BindPatrons() {
 function FillPatrons(Records)
 {
     debugger;
+    $('#DivSaints').html('');
+   // var TotalRecords = Records.length+1;
+    var TotalRecords = Records.length;
+    var RecordsToBeProcessed = TotalRecords;
+    var NoOfRows = 0;
+    var SpanValue = 0;
+    if (TotalRecords%6 == 0) {
+        NoOfRows = TotalRecords / 6;
+       
+    }
+    else {
+        NoOfRows = parseInt(TotalRecords / 6) + 1
+    }
+
+    if (TotalRecords <= 6) {
+        NoOfRows = 1;
+    }
+
+   var html = '';
+    SpanValue = "span2";
+   
+    var ul = '<ul class="thumbnails">'
+
+    var ObjUl;
+
+    var i = 1;
+
     $.each(Records, function (index, Records) {
-
-        debugger;
-
-
         var imgurl = Records.URL;
-      
-        var html = '<div style="background-image: url('+imgurl+')!important;" onclick="ViewImages(this)"  class="span3 Alb Card imgSaints"><a alt="Church"></a></div>';
-        
-      
-        $('.ImageAlbum-Gallery').append(html);
+
+        if (imgurl == null) {
+            imgurl = "../img/gallery/priest.png";
+        }
+
+        debugger
+        if (RecordsToBeProcessed > 0 ) {
+          
+            //if (i==1) {
+            //    index = index + 1;
+            //}
+
+            if (index < 6) {
+
+                if (RecordsToBeProcessed == TotalRecords) {
+                    ObjUl = $('<ul></ul>');
+                    ObjUl.addClass("thumbnails");
+                    i = i + 1;
+
+                } 
+
+                ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>');
+                RecordsToBeProcessed = RecordsToBeProcessed - 1;
+            }
+
+            else {
+                if (i<= NoOfRows) {
+                    $('#DivSaints').append(ObjUl);
+                    ObjUl = $('<ul></ul>');
+                    ObjUl.addClass("thumbnails");
+                    i = i + 1;
+                }
+
+                ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>');
+                RecordsToBeProcessed = RecordsToBeProcessed - 1;
+
+            }
+
+            //if (index < 6) {
+            //html = html + '<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>';
+
+            //ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>');
+
+            //RecordsToBeProcessed = RecordsToBeProcessed - 1;
+
+            //}
+           
+            //else
+            //{
+            //    $('#DivSaints').append(ObjUl);
+
+            //    ObjUl = $('<ul></ul>');
+            //    ObjUl.addClass("thumbnails");  
+            //    ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>');
+            //    RecordsToBeProcessed = RecordsToBeProcessed - 1;
+            //  //  html = html + '<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>';
+            //}
+        }
     })
+    $('#DivSaints').append(ObjUl);
+  //  $('#DivSaints').append(ul+html+'</ul>');
+  
+
+
+    //$('ul .thumbnails').append(html);
+
+    //for (var i = 0; i < TotalRecords; i++) {
+    //    var div = '<div  class="span12"><ul class="thumbnails">';
+
+    //    if (RecordsToBeProcessed > 0) {
+    //        var imgurl = Records.URL;
+    //        html = $div.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records[i].Name + '  </strong><p>' + Records[i].Description + '</p> </div> </li> ');
+
+
+    //        RecordsToBeProcessed = RecordsToBeProcessed - 1;
+    //    }
+    //}
+
+    //html = div + html + '</ul> </div>';
+    //if (html != '') {
+    //    $('#DivSaints').append(html);
+    //}
+
+
+    
 }
 
 function AppendImageAlbum(Records) {
