@@ -14,7 +14,31 @@
 			</ul>
          
 
+         <div class="row-fluid" id="divImageAlbum">
+				<div class="box span12">
+					<div class="box-header" data-original-title>
+						<h2><i class="halflings-icon picture"></i><span class="break"></span> Albums</h2>
+						<div class="box-icon">
+							<a href="#" id="toggle-fullscreen" class="hidden-phone hidden-tablet"><i class="halflings-icon fullscreen"></i></a>
+							
+							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+							
+						</div>
+					</div>
+					<div class="box-content">
+			       <div class="ImageAlbum-Gallery">
+                   <div style="height: 238px!important;border: 2px dotted black;background-color: #fefefe;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                   <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
+                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;" id="newalbum">Create Album</></a>
 
+                   </div>
+                   
+                       </div>      
+                   
+					
+				    </div><!--/span-->
+              </div>
+              </div>
 
 
 

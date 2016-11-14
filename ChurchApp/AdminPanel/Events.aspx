@@ -90,7 +90,7 @@
             <div id="EventEditDivBox" class="span6 noMarginLeft">
 
                 <div class="box-header">
-                    <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="h1Event">Event</span><a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a></h2>
+                    <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="h1Event" style="position:absolute">Event</span><a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a></h2>
 
                     <div class="box-icon">
 

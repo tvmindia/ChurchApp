@@ -99,3 +99,16 @@ display: -webkit-box;
 {
     margin-top: 6px!important;
 }
+
+#NoticeEdit{
+    /*margin: 0px 5px;*/
+    position:relative;
+        left: 481px;
+    
+}
+
+box-header {
+   
+    line-height: 16px;
+    
+}

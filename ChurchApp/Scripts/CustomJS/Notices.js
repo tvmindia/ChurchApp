@@ -746,6 +746,7 @@ function InsertNotification(Notification) {
 //--- while select a notice , ther will appear a fixed edit icon ,its click functionality is given below
 function FixedEditClick() {
 
+    $('#NoticeEdit').hide();
     $('#UpNotice')[0].files[0] = null;
 
     $("#lblStartDate").hide();
@@ -829,6 +830,7 @@ function FixedEditClick() {
 //--- Edit click of each notice
 function EditOnClick(id) {
     debugger;
+
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();

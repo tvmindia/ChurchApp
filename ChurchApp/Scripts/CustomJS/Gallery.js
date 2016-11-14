@@ -98,9 +98,26 @@
       
     //});
    
+    
 
 
+    $('#EditAlbum').click(function (e) {
+        debugger
+        try {
+            $('#divCreateAlbum').hide();
+            $('#EditAlbum').hide();
+            $('#RefreshAlbum').show();
 
+            
+            EditBindGalleryImageAlbum();
+
+
+        }
+        catch (e) {
+
+        }
+
+    });
   
 
 
@@ -122,6 +139,8 @@
         }
 
     });
+
+
 
     $('#RefreshImageAlbum').click(function (e) {
         debugger
@@ -168,7 +187,7 @@
 
 function deleteImage(obj)
 {
-    debugger;
+   
    
     var imgid = $(obj).attr('imageid');
     var albid = $(obj).attr('AlbumID');
@@ -198,6 +217,34 @@ table = JSON.parse(jsonResult.d);
 return table;
 }
 
+function deleteAlbum(albobj)
+{
+    debugger;
+    //var imgid = $(obj).attr('imageid');
+    var albid = $(albobj).attr('AlbumID');
+    var GalleryItems = new Object();
+    var GalleryAlbum = new Object();
+    GalleryAlbum.albumId = albid;
+    if (albid != "") {
+        var r = confirm("Are You Sure to Delete Album?");
+        if (r == true) {
+          
+           GalleryItems.GalleryAlbObj = GalleryAlbum;
+           DeleteAlbumItem(GalleryItems);
+
+           EditBindGalleryImageAlbum();
+        }
+
+    }
+}
+
+function DeleteAlbumItem(GalleryItems) {
+    var data = "{'GalleryItemsObj':" + JSON.stringify(GalleryItems) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Gallery.aspx/DeleteAlbumItem");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
 
 function BtnImageUpload()
 {
@@ -291,6 +338,19 @@ function BindGalleryImageAlbum()
        
     }
 }
+function EditBindGalleryImageAlbum() {
+    try {
+        var jsonResult = {};
+        var GalleryAlbum = new Object();
+        jsonResult = GetAllGalleryImageAlbumByChurchID(GalleryAlbum);
+        if (jsonResult != undefined) {
+            EditAppendImageAlbum(jsonResult);
+        }
+    }
+    catch (e) {
+
+    }
+}
 
 function AppendImageAlbum(Records)
 {
@@ -299,16 +359,34 @@ function AppendImageAlbum(Records)
             var imgurl = Records.URL;
             if (imgurl == null)
             {
-                var html = '<div style="background-image: url(/img/AppImages/b7c2c20a-0eff-4d14-b598-2945ba1d3ef6.jpg)!important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb Card"><a alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+                var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb Card"><a alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
             }
             else
             {
-                var html = '<div style="background-image: url(/img/AppImages/b7c2c20a-0eff-4d14-b598-2945ba1d3ef6.jpg)!important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb Card"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+                var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb Card"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
             }
             // var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span4 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
             
         $('.ImageAlbum-Gallery').append(html);
         })
+}
+
+function EditAppendImageAlbum(Records) {
+    $('.Alb').remove();
+    $.each(Records, function (index, Records) {
+        var imgurl = Records.URL;
+        if (imgurl == null) {
+            //var html = '<div class="span3 Alb"><a AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteImage(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i> alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+            var html = '<div class="span3 Alb"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;opacity: 0.3;" class="dynamicImgAlbum span12"></div><a AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="circlebtn circlebtn-danger" style="z-index: 1;position: relative;font-size: 16px;font-weight: bold;left: 46%;top: -56%;cursor: pointer;" onclick="deleteAlbum(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div class="span12" style="padding: 15px;text-align: center;background-color: #fff;color: black;font-size: 18px;margin-top: -30%;position: relative;font-weight: 300;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-left: 0!important;">' + Records.AlbumName + '</div></div>';
+        }
+        else {
+            var html = '<div class="span3 Alb"><div style="background-image: url(' + imgurl + ')!important;height:247px;opacity: 0.3;" class="dynamicImgAlbum span12"></div><a AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="circlebtn circlebtn-danger" style="z-index: 1;position: relative;font-size: 16px;font-weight: bold;left: 46%;top: -56%;cursor: pointer;" onclick="deleteAlbum(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div class="span12" style="padding: 15px;text-align: center;background-color: #fff;color: black;font-size: 18px;margin-top: -30%;position: relative;font-weight: 300;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-left: 0;!important">' + Records.AlbumName + '</div></div>';
+        }
+        //<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="' + Records.URL + '" alt="Sample Image 1"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteImage(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
+        // var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span4 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+      
+        $('.ImageAlbum-Gallery').append(html);
+    })
 }
 
 function ViewImages(obj)
@@ -357,7 +435,9 @@ function BindImages(imgalbid)
     try {
         var jsonResult = {};
         var GalleryItems = new Object();
-        GalleryItems.albumId = imgalbid;
+        var GalleryAlbum = new Object();
+        GalleryAlbum.albumId = imgalbid;
+        GalleryItems.GalleryAlbObj = GalleryAlbum;
         jsonResult = GetAllImageByAlbumID(GalleryItems);
         if (jsonResult != undefined) {
             AppendImages(jsonResult);
@@ -373,7 +453,9 @@ function EditImageBind(imgalbid)
     try {
         var jsonResult = {};
         var GalleryItems = new Object();
-        GalleryItems.albumId = imgalbid;
+        var GalleryAlbum = new Object();
+        GalleryAlbum.albumId = imgalbid;
+        GalleryItems.GalleryAlbObj = GalleryAlbum;
         jsonResult = GetAllImageByAlbumID(GalleryItems);
         if (jsonResult != undefined) {
             AppendEditImages(jsonResult);
