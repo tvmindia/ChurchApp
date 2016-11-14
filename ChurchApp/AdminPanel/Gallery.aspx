@@ -101,11 +101,13 @@
                         <div id="chooseVideoAlbum" ><span>Add New Album</span></div> 
 
                            
-                     </div>
-                    </div>
+                       </div>
+                      </div>
                         
-                             <video src="demo.mp4" controls autoplay >HTML5 Video is required for this example</video> 
-														
+                            
+                         <video controls="controls"  width="320" height="240" src="../vid/mosco.mp4">HTML5 is required to play</video>		
+                           <video controls="controls"  width="320" height="240" src="../vid/mosco.mp4">HTML5 is required to play</video>		
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/lNG0B9Bkj8g" frameborder="0" allowfullscreen></iframe>	
 		                </div>
 					</div>
 				</div><!--/span-->
