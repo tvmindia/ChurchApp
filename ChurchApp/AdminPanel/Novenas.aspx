@@ -3,6 +3,14 @@
     <script src="../Scripts/CustomJS/Novenas.js"></script>
     <script src="../Scripts/CustomJS/Common.js"></script>
     <link href="../CSS/CustomCSS/Novenas.css" rel="stylesheet" />
+
+    <style>
+
+        #DivSaints ul{
+    display:ruby!important;
+}
+    </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 
@@ -29,16 +37,19 @@
 						</div>
 					</div>
 					<div class="box-content">
-			       <div class="ImageAlbum-Gallery">
+			       <div class="span12" id="DivSaints" >
 
-                       <div class="span12">
+                       
+                        <div id="divAddSaint">
+                   <img class="PlusImg" src="../img/Plussymbol.png"/>
+                    <a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint">Add New Saint</></a>
 
+                   </div>
 
-                       <div id="divAdminDetals" class="panel span12">
-                            <ul class="thumbnails">
-                            <li class="span3">
+<%--                            <ul class="thumbnails">
+                            <li class="span2">
                             <div class="thumbnail">
-                            <img src="../img/gallery/priest.png" alt=""/>
+                            <img src="../img/gallery/priest.png" class="img-polaroid" alt=""/>
                             <address>
                             <strong>
                             Dr. Thomson Kattingal
@@ -47,14 +58,66 @@
                             </address>
                             </div>
                             </li>
-                               
-                           </ul>
-                           
-                     
+                            <li class="span2">
+                            <div class="thumbnail">
+                            <img src="../img/gallery/priest.png" alt="">
+                            <address>
+                            <strong>
+                            Dr. Thomson Kattingal
+                            </strong>
+                            <p>Manger<br />9996532452</p>
+                            </address>
                             </div>
+                            </li>
+                            <li class="span2">
+                            <div class="thumbnail">
+                            <img src="../img/gallery/priest.png" alt="">
+                            <address>
+                            <strong>
+                            Dr. Thomson Kattingal
+                            </strong>
+                           <p>Manger<br />9996532452</p>
+                           </address>
+                           </div>
+                          <li class="span2">
+                          <div class="thumbnail">
+                          <img src="../img/gallery/priest.png" alt="">
+                          <address>
+                          <strong>
+                          Dr. Thomson Kattingal
+                          </strong>
+                         <p>Manger<br />9996532452</p>
 
+                          </address>
+                          </div>
+                          </li>
+                          <li class="span2">
+                          <div class="thumbnail">
+                         <img src="../img/gallery/priest.png" alt="">
+                         <address>
+                         <strong>
+                         Dr. Thomson Kattingal
+                         </strong>
+                         <p>Manger<br />9996532452</p>
+
+                         </address>
+                         </div>
+                         </li>
+                        <li class="span2">
+                        <div class="thumbnail">
+                        <img src="../img/gallery/priest.png" alt="">
+                        <address>
+                        <strong>
+                        Dr. Thomson Kattingal
+                        </strong>
+                        <p>Manger<br />9996532452</p>
+
+                       </address>
                        </div>
-                 
+                            </li>
+ 
+                       </ul>--%>
+
                    
                    </div>      
                    

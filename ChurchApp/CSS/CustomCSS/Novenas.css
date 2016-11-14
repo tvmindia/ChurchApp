@@ -1,32 +1,47 @@
 ﻿body {
 }
 
-.span3{
-    height: 250px!important;
-    margin:4px!important;
+.img-polaroid
+{
+height:200px;
+width:90%
 }
-
-ul.dashboard-list li .priestimage {
-    /*height: 133px;*/
-    width: 70%;
-    padding: 5px;
-    /*float: left;
-    margin-top: -6px;
-    margin-right: 125px;
-    border: 1px solid #eee;*/
-    /*border-radius:50%;*/
-}
-
-
-
-.vicarlist{
-    line-height:50px;
-    /**//*-webkit-box-shadow:#4745b44d 3px 0px 25px -3px;*/
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow:  0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);          
-    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-    display:flex;
+#DivSaints ul{
+    display:ruby!important;
     
+}
+
+.thumbnail p{
+    /*white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 2000px;*/
+ 
+  overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+
+
+}
+
+.thumbnail
+{
+    height:270px;
+}
+
+
+#divAddSaint{
+    height: 238px!important;border: 2px dotted black;background-color: #fefefe;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;
+}
+
+.PlusImg{
+    text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;
+}
+
+#aNewSaint{
+    top: 67%;left: 29%;position: relative;
 }
 
 
