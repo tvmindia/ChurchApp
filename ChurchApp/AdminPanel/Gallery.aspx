@@ -92,22 +92,19 @@
 					</div>
 					<div class="box-content">
 						<div class="VideoAlbum-gallery">
-								
-			           <div class="responsive-fixed">
-                        <div class="img-fixed">
-                         <a href="#" id="newVideoAlbum">
-                        <img src="../img/defaultalbumadd.jpg" class="addnewImage" alt="Trolltunga Norway"/>
-                        </a>
-                        <div id="chooseVideoAlbum" ><span>Add New Album</span></div> 
 
+                         <div id="divCreateVideoAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fefefe;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                   <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
+                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;" id="newVideoalbum">Create Album</></a>
+
+                   </div>
+								
+			        
                            
-                       </div>
-                      </div>
-                        
                             
-                         <video controls="controls"  width="320" height="240" src="../vid/mosco.mp4">HTML5 is required to play</video>		
+                       <%--  <video controls="controls"  width="320" height="240" src="../vid/AH-64D%20Apache%20.mp4">HTML5 is required to play</video>		
                            <video controls="controls"  width="320" height="240" src="../vid/mosco.mp4">HTML5 is required to play</video>		
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/lNG0B9Bkj8g" frameborder="0" allowfullscreen></iframe>	
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/lNG0B9Bkj8g" frameborder="0" allowfullscreen></iframe>	--%>
 		                </div>
 					</div>
 				</div><!--/span-->
@@ -120,7 +117,7 @@
 							<a href="#" id="" class="hidden-phone hidden-tablet"><i class="halflings-icon fullscreen"></i></a>
 							
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+						
 						</div>
 					</div>
 					<div class="box-content">
@@ -158,7 +155,7 @@
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtAlbumName" type="text"/>
-                                    <input class="input-file" multiple="multiple" id="AlbumUploader" style="display:none" name="AlbumUploader[]" type="file"/>
+                                    <input class="input-file" multiple="multiple" id="AlbumUploader" style="display:none" name="AlbumUploader[]" accept="image/*" type="file"/>
                          		</div>
 								</div>
                           
@@ -203,7 +200,7 @@
 							
 								<div class="controls">
 								 
-                                    <input class="input-file" multiple="multiple" id="imageUploader" style="display:none" name="imageUploader[]" type="file"/>
+                                    <input class="input-file" multiple="multiple" id="imageUploader" style="display:none" name="imageUploader[]" accept="image/*" type="file"/>
                          		</div>
 								</div>
                           
@@ -240,42 +237,41 @@
 		</div>
 		<div class="modal-body">
 
-
-              <div class="form-horizontal">
-				    <fieldset>
-                      
-					
-                     
-							  
+              <div class="span10">
+                         <div class="form-horizontal">
+				             
                                 <div class="control-group" style="margin-top:20px">
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtVideoAlbumName" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtVidAlbumName" type="text"/>
+                                    <input class="input-file" id="AlbumVidUploader" style="display:none" name="AlbumVidUploader[]" accept="video/*" type="file"/>
                          		</div>
 								</div>
-                                <div class="control-group">
-                                                    <div class="controls">
-                                                        <output id="imageListVideoAlbum" class="listClass"></output>
-                                                    </div>
-                                                </div>
+                          
+                              
+                                </div>
+                        </div>
+                        <div class="span10" id="previewVideodiv">
+                            
+                               
+                            <output id="imageListVideoAlbum" class=""> 
+                       <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
+                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 167px;left: 109px;" src="../img/Plussymbol.png"/>
+                        <a onclick="BtnVideoUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnuploadVideoAlb">Choose Videos</a>
+                       </span>
+                                
 
-                                <div class="control-group">
-							  <label class="control-label" for="fileInput">File input</label>
-							  <div class="controls">
-								<input class="input-file uniform_on" multiple="multiple" id="ImageUploader" type="file"/>
-							  </div>
-							</div>       
-                           
-                      
-						  </fieldset>
-					</div>  
+                            </output>
+                                  
+                        </div>
+         
 
 
 			
 		</div>
 		<div class="modal-footer">
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
+			<a href="#" id="BtnVideoAlbumSave" class="btn btn-primary">Save</a>
 		</div>
 	</div>
 
@@ -291,28 +287,24 @@
 
               <div class="form-horizontal">
 				    <fieldset>
-                      
-					
-                     
-							  
-                                <div class="control-group" style="margin-top:20px">
-								<label class="control-label" for="focusedInput">Name</label>
-								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtVideoName" type="text"/>
-                         		</div>
-								</div>
-                                <div class="control-group">
-                                                    <div class="controls">
-                                                        <output id="imageListVideo" class="listClass"></output>
-                                                    </div>
-                                                </div>
+                    <div class="control-group" style="margin-top:20px">
+	         		<label class="control-label" for="focusedInput">Name</label>
+					<div class="controls">
+			     	  <input class="input-large focused" name="Name" id="txtVideoName" type="text"/>
+                 	</div>
+				    </div>
+                    <div class="control-group">
+                      <div class="controls">
+                       <output id="imageListVideo" class="listClass"></output>
+                      </div>
+                    </div>
 
-                                <div class="control-group">
-							  <label class="control-label" for="fileInput">File input</label>
-							  <div class="controls">
-								<input class="input-file uniform_on" multiple="multiple" id="VideoUploader" type="file"/>
-							  </div>
-							</div>       
+                    <div class="control-group">
+					 <label class="control-label" for="fileInput">File input</label>
+					 <div class="controls">
+					 <input class="input-file uniform_on" multiple="multiple" id="VideoUploader" type="file"/>
+					 </div>
+					</div>       
                            
                       
 						  </fieldset>

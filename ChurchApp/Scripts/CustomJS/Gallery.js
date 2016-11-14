@@ -4,12 +4,11 @@
     $('#divVideos').hide();
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
-
         // Great success! All the File APIs are supported.     
         document.getElementById('AlbumUploader').addEventListener('change', handleFileSelect, false);
         document.getElementById('imageUploader').addEventListener('change', handleFileSelectInImages, false);
-        
-    }
+        document.getElementById('AlbumVidUploader').addEventListener('change', handleFileVideoAlbum, false);
+     }
    
     $('#newalbum').click(function (e) {
        
@@ -92,11 +91,46 @@
 
     });
    
-    //$('.Alb').click(function (e) {
-    //    debugger;
+    $('#BtnVideoAlbumSave').click(function (e) {
+        debugger;
+        alert("vid save");
 
+        try {
+            var videofile;
+
+            if ((videofile = $('#AlbumVidUploader')[0].files.length > 0)) {
+                var formData = new FormData();
+             
+                formData.append('AlbumVideo', $('#AlbumVidUploader')[0].files[0], $('#AlbumVidUploader')[0].files[0].name);
+              
+                //formData.append('Album', 'GalleryVideoAlbum');
+                //formData.append('AlbumName', $("#txtAlbumName").val());
+                //formData.append('churchId', '41f453f6-62a4-4f80-8fc5-1124e6074287');
+                //formData.append('createdby', 'Albert');
+                postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+               // BindGalleryImageAlbum();
+                //modal close
+                $('.close').click();
+
+            }
+            //else {
+            //    if ($("#txtAlbumName").val() != "") {
+            //        var GalleryAlbum = new Object();
+            //        GalleryAlbum.albumName = $("#txtAlbumName").val();
+            //        InsertImageAlbum(GalleryAlbum);
+            //    }
+            //    BindGalleryImageAlbum();
+            //    //modal close
+            //    $('.close').click();
+
+            //}
+
+        }
+        catch (e) {
+
+        }
       
-    //});
+    });
    
     
 
@@ -188,7 +222,8 @@
 
     });
 
-    $('#newVideoAlbum').click(function (e) {
+    $('#newVideoalbum').click(function (e) {
+      
 
         $('#NewVideoAlbumModel').modal('show');
     });
@@ -272,6 +307,11 @@ function BtnImageAddNew()
     $('#imageUploader').click();
 }
 
+
+function BtnVideoUpload()
+{
+    $('#AlbumVidUploader').click();
+}
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
 
@@ -330,6 +370,13 @@ function handleFileSelectInImages(evt) {
     }
 }
 
+
+function handleFileVideoAlbum(evt)
+{
+    debugger;
+    var files = evt.target.files; // FileList object
+    alert('Loaded file is:'+files[0].name);
+ }
 function InsertImageAlbum(GalleryAlbum) {
     var data = "{'GalleryAlbumObj':" + JSON.stringify(GalleryAlbum) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Gallery.aspx/InsertImageAlbum");
@@ -337,6 +384,8 @@ function InsertImageAlbum(GalleryAlbum) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
+
+
 
 function BindGalleryImageAlbum()
 {
@@ -517,3 +566,23 @@ function AppendEditImages(Records) {
         $('.Image-Gallery').append(html);
     })
 }
+
+//Videos
+
+function GetAllGalleryVideoAlbumByChurchID(GalleryAlbum) {
+    var ds = {};
+    var table = {};
+    try {
+
+        var data = "{'GalleryAlbumObj':" + JSON.stringify(GalleryAlbum) + "}";
+        ds = getJsonData(data, "../AdminPanel/Gallery.aspx/GetAllGalleryVideoAlbumByChurchID");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+
+//Videos

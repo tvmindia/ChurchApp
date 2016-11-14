@@ -273,6 +273,42 @@ namespace ChurchApp.DAL
         }
         #endregion DeleteGalleryAlbum
 
+        #region GetAllGalleryVideoAlbumByChurchID
+        public DataSet GetAllGalleryVideoAlbumByChurchID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            DataSet ds = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllGalleryVideoAlbumByChurchID]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllGalleryVideoAlbumByChurchID
+
         #endregion GalleryAlbum Methods
     }
     public class GalleryItems : GalleryAlbum
