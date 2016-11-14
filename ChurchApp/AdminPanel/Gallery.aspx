@@ -76,6 +76,9 @@
                         </div>
                         
 			     	</div><!--/span-->
+
+
+
               <div class="row-fluid" id="divVideoAlbum">
              <div class="box span12">
 					<div class="box-header" data-original-title>
@@ -96,9 +99,12 @@
                         <img src="../img/defaultalbumadd.jpg" class="addnewImage" alt="Trolltunga Norway"/>
                         </a>
                         <div id="chooseVideoAlbum" ><span>Add New Album</span></div> 
+
+                           
                      </div>
                     </div>
-
+                        
+                             <video src="demo.mp4" controls autoplay >HTML5 Video is required for this example</video> 
 														
 		                </div>
 					</div>
