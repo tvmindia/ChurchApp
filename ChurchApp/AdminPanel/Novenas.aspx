@@ -2,24 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="../Scripts/CustomJS/Novenas.js"></script>
     <script src="../Scripts/CustomJS/Common.js"></script>
-    <%--<link href="../CSS/CustomCSS/Gallery.css" rel="stylesheet" />--%>
-
-    <style>
-
-
-.span3{
-    height: 250px!important;
-    margin:4px!important;
-   
-    
-}
-
-
-
-
-    </style>
-
-
+    <link href="../CSS/CustomCSS/Novenas.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 
@@ -47,11 +30,31 @@
 					</div>
 					<div class="box-content">
 			       <div class="ImageAlbum-Gallery">
-                 <%--  <div style="height: 238px!important;border: 2px dotted black;background-color: #fefefe;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
-                   <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
-                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;" id="newalbum">Create Album</></a>
 
-                   </div>--%>
+                       <div class="span12">
+
+
+                       <div id="divAdminDetals" class="panel span12">
+                            <ul class="thumbnails">
+                            <li class="span3">
+                            <div class="thumbnail">
+                            <img src="../img/gallery/priest.png" alt=""/>
+                            <address>
+                            <strong>
+                            Dr. Thomson Kattingal
+                            </strong>
+                            <p>Manger<br />9996532452</p>
+                            </address>
+                            </div>
+                            </li>
+                               
+                           </ul>
+                           
+                     
+                            </div>
+
+                       </div>
+                 
                    
                    </div>      
                    
@@ -63,9 +66,5 @@
 
 
     </div>
-
-
-
-
 
 </asp:Content>
