@@ -36,7 +36,7 @@
               
             </div>
 			  <%--Alert boxes --%>
-             <div class="row-fluid">
+               <div class="row-fluid">
               <%-- Div Institution list --%>
                 <div class="span6">
 			   <h1>Institutions</h1>
@@ -71,10 +71,10 @@
 				    <fieldset>
                     <a class="btnEdit" style="right:40px;position: fixed;" title="EDIT" id="iconEditPriest" onclick="EditInstitute();"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
                          <div class="control-group span12" style="margin-top:20px;width:100%!important">
-							  <img class="priestimage" id="priestDetailPreview" src="../img/gallery/Institution.jpg"/>
+							  <img class="priestimage" id="instituteDetailPreview" src="../img/gallery/Institution.jpg"/>
 							</div> 
                         <div class="control-group span12" >
-						<label class="labelName" for="focusedInput" id="lblName">Amaljyothi Institute of science and technology</label>
+						<label class="labelName" for="focusedInput" id="lblInstituteName">Amaljyothi Institute of science and technology</label>
 					    </div>
                         <%-- Accordion Show details general information --%>
                          <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
@@ -97,8 +97,8 @@
                             <dd><label id="lblFounder">Bishop Andrews Thazhathu</label></dd>
                                 <dt>Founded</dt>
                             <dd><label id="lblFounded">01 Jun 2000</label></dd>
-                                <dt>Location</dt>
-                            <dd><label id="lblLocation">0001.239.678.567.45</label></dd>
+                                <dt>Email</dt>
+                            <dd><label id="lblEmail">0001.239.678.567.45</label></dd>
                             </dl>
                             
 						</div>	       
@@ -110,7 +110,7 @@
                                 <dt>phone2</dt>
                             <dd><label id="lblPhone2">04885223517</label></dd>
                                 <dt>Mobile</dt>
-                            <dd><label>9567677766</label></dd>
+                            <dd><label id="lblMobile">9567677766</label></dd>
                             </dl>
                         </div>
                         </div>
@@ -255,18 +255,18 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">History</label>
 								<div class="controls">
-								<textarea class="input-xlarge" id="txtHistory" name="AboutPriest" rows="6" placeholder=""></textarea>
+								<textarea class="input-xlarge" id="txtHistory" name="" rows="6" placeholder=""></textarea>
 								</div>
 								</div>
 
                          
                        
-						  <div class="control-group">
+						 <%-- <div class="control-group">
 								<label class="control-label" for="focusedInput">Location:</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Designation" id="txtLocation" type="text" value=""/>
+								  <input class="input-large focused" name="" id="txtLocation" type="text" value=""/>
 								</div>
-								</div>
+								</div>--%>
 
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Email</label>
@@ -341,8 +341,9 @@
 				</div>	
 						
 			  </div>
-         <%-- Modal Insert Administration Faculties --%>
-          <div class="modal hide fade" id="modelAddAdmin">
+         </div>
+              <%-- Modal Insert Administration Faculties --%>
+               <div class="modal hide fade" id="modelAddAdmin">
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h3>Add New Administrator</h3>
@@ -393,23 +394,7 @@
 		</div>
 	      </div>
     <script>
-    var acc = document.getElementsByClassName("accordion");
-    var i;
-
-    for (i = 0; i < acc.length; i++) {
-    acc[i].onclick = function(){
-        this.classList.toggle("active");
-        this.nextElementSibling.classList.toggle("show");
-    }
-    }
-    function EditInstitute() {
-        $('#InstituteShow').hide();
-        $('#InstituteEdit').show();
-    }
-    function NewInstitute() {
-        $('#InstituteEdit').hide();
-        $('#InstituteShow').show();
-    }
+   
     </script>
 
 
