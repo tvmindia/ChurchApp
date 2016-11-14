@@ -46,6 +46,31 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string Mobile
+        {
+            get;
+            set;
+        }
+        public string Email
+        {
+            get;
+            set;
+        }
+        public string Website
+        {
+            get;
+            set;
+        }
+        public string Founded
+        {
+            get;
+            set;
+        }
+        public string Founder
+        {
+            get;
+            set;
+        }
         public string imageId
         {
             get;
@@ -72,6 +97,16 @@ namespace ChurchApp.DAL
             set;
         }
         public DateTime updatedDate
+        {
+            get;
+            set;
+        }
+        public string results
+        {
+            get;
+            set;
+        }
+        public string imagepath
         {
             get;
             set;
@@ -120,6 +155,65 @@ namespace ChurchApp.DAL
         }
         #endregion SelectInstitutions
 
+        #region SelectInstitutionusing InstituteID
+        /// <summary>
+        /// Select All Priests
+        /// </summary>
+        /// <returns>All Priests</returns>
+        public void SelectInstituteUsingID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetInstitute]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(institutionID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow dr = dt.Rows[0];
+                    institutionID = dr["ID"].ToString();
+                    name = dr["Name"].ToString();
+                    description=dr["Desc"].ToString();
+                    address = dr["Address"].ToString();
+                    Founder = dr["Founder"].ToString();
+                    Email = dr["Email"].ToString();
+                    phone1=dr["Phone1"].ToString();
+                    phone2=dr["Phone2"].ToString();
+                    Website = dr["Website"].ToString();
+                    Founded = (DateTime.Parse(dr["Founded"].ToString().ToString()).ToString("dd-MM-yyyy"));
+                    Mobile = dr["Mobile"].ToString();
+                    churchId = dr["ChurchID"].ToString();
+                    imagepath = dr["URL"].ToString();
+                    albumId = dr["AlbumID"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+
+        }
+        #endregion SelectInstitutionusing InstituteID
+
         #region InsertInstitution
         /// <summary>
         /// Add New Institution
@@ -138,14 +232,35 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertInstitution]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(institutionID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar,250).Value = name;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar,-1).Value = name;
                 cmd.Parameters.Add("@desc", SqlDbType.NVarChar, -1).Value = description;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar,-1).Value = address;
                 cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1;
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2;
-                cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
+                cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website;
+                cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = DateTime.Parse(Founded);
+                cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
+                if(albumId!=null)
+                {
+                   cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value= Guid.Parse(albumId);
+                }
+                else
+                {
+                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = albumId;
+                }
+                
+                if(imageId!=null)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                }
+                else
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = imageId;
+                }                
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -187,13 +302,33 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateInstitution]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(institutionID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 250).Value = name;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, -1).Value = name;
                 cmd.Parameters.Add("@desc", SqlDbType.NVarChar, -1).Value = description;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
                 cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1;
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2;
-                cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
+                cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website;
+                cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = DateTime.Parse(Founded);
+                cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
+                if (albumId != null)
+                {
+                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
+                }
+                else
+                {
+                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = albumId;
+                }
+
+                if (imageId != null)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                }
+                else
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = imageId;
+                } 
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);

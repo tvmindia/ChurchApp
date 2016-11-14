@@ -3,6 +3,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <link href="../CSS/CustomCSS/Institution.css" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js"></script>
+    <script src="../Scripts/CustomJS/Institution.js"></script>
      <div id="content" class="span10">
         <ul class="breadcrumb">
 				 <li>
@@ -40,10 +42,10 @@
               <%-- Div Institution list --%>
                 <div class="span6">
 			   <h1>Institutions</h1>
-               <div id="VicarDivDisplay">
-               <div id="VicarDefault">
                <div class="priority high"><span>Institutions</span><a class="btnNew" style="left:75%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   <div class="task high">
+                    <div id="Institutediv">
+            <div id="InstituteDefault">
                <ul class="dashboard-list vicarlist">
 				<li >
 				<img class="priestimage" src="../img/gallery/Institution.jpg"/>
@@ -56,11 +58,11 @@
 				  
 				</li>
                 </ul>
-                
+                </div>
+                    
+                        </div>
 				</div>
                 </div>
-            </div>
-			</div>
                
 			  <%-- Show details portion for institution --%>	
 				<div id="InstituteShow" style="margin-top:4%;display:none;" class="span6 noMarginLeft">
@@ -77,7 +79,7 @@
 						<label class="labelName" for="focusedInput" id="lblInstituteName">Amaljyothi Institute of science and technology</label>
 					    </div>
                         <%-- Accordion Show details general information --%>
-                         <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
+                         <div class="control-group accordion span12" id="divGendetailsacc" style="background-color:#FFEFEC;margin-bottom:0px!important;">
                            <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro'"> General Information</span>
                         </div>
                         <%-- Div general information details --%>
@@ -116,7 +118,7 @@
                         </div>
                             <address>
                              <strong>Website</strong><br/>
-                             <a href="#" id="aWebsite">Follow Us</a>
+                             <a href="" target="_blank" id="aWebsite">More Details</a>
 							</address> 
                             </div>
                         <%-- Accordion details admonostration information --%>
@@ -217,7 +219,7 @@
                     <%--<a class="btnEdit" style="right:30px;position: absolute;" onclick="EditInstitute();"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>--%>
                         <div class="control-group span12">
 					    <img class="priestimage" id="priestPreview" src="../img/gallery/Institution.jpg"/>
-                         <input type="file" value="Choose Image" id="priestimg" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="showpreview(this);" />
+                         <input type="file" value="Choose Image" id="instituteimg" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="showpreview(this);" />
 							</div>
                         <%-- Accordion general information --%>        
                         <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
@@ -327,7 +329,7 @@
                         <%-- End div Administrator information --%>
 						<input type="hidden" id="hdnInstutID" />
 							<div class="form-actions span12">
-							  <a class="btn btn-primary" name="" id="btnSavePriest">Save changes</a>
+							  <a class="btn btn-primary" name="" id="btnSaveInstitute">Save changes</a>
                                 <a id="btnCancelPriest" class="btn btn-primary">Cancel</a>
                                 <a class="btn btn-primary" name="" id="btnDelete">Delete</a>
 							  
@@ -394,7 +396,16 @@
 		</div>
 	      </div>
     <script>
-   
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].onclick = function () {
+                debugger;
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+            }
+        }
     </script>
 
 

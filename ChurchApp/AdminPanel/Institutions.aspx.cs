@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -13,5 +15,130 @@ namespace ChurchApp.AdminPanel
         {
 
         }
+        #region  Insert Institution
+        /// <summary>
+        /// Insert Institution Details
+        /// </summary>
+        /// <param name="InstituteObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string InserInstitute(ChurchApp.DAL.Institutions InstituteObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            InstituteObj.churchId = UA.ChurchID;
+            string status = null;
+            try
+            {
+                InstituteObj.createdBy = UA.userName;
+                status = InstituteObj.InsertInstitution().ToString();
+                InstituteObj.results = status;
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(InstituteObj);
+
+        }
+
+        #endregion Insert Institution
+
+        #region  Update Institution
+        /// <summary>
+        /// Update Institution Details
+        /// </summary>
+        /// <param name="InstituteObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string UpdateInstitution(ChurchApp.DAL.Institutions InstituteObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            InstituteObj.churchId = UA.ChurchID;
+            string status = null;
+            try
+            {
+                InstituteObj.createdBy =UA.userName;
+                status = InstituteObj.UpdateInstitution().ToString();
+                InstituteObj.results = status;
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(InstituteObj);
+
+        }
+
+        #endregion Update Institution
+
+        #region GetAllInstitute Details
+        [System.Web.Services.WebMethod]
+        public static string GetInstituteList(ChurchApp.DAL.Institutions InstituteObj)
+        {
+            
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            
+                InstituteObj.churchId = UA.ChurchID;
+                DataSet ds = null;
+                ds = InstituteObj.SelectInstitutions();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+        }
+        #endregion GetAllInstitute Details
+
+        #region GetPriestUsingPriestID
+        /// <summary>
+        /// Get Priest Details Using priestID
+        /// </summary>
+        /// <param name="InstituteObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string GetInstituteDetailsUsingID(ChurchApp.DAL.Institutions InstituteObj)
+        {
+            //    DAL.Security.UserAuthendication UA;
+            //    UIClasses.Const Const = new UIClasses.Const();
+            //    UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            if (InstituteObj.institutionID != "")
+            {
+                InstituteObj.SelectInstituteUsingID();
+
+            }
+            return jsSerializer.Serialize(InstituteObj);
+        }
+        #endregion GetPriestUsingPriestID
     }
 }
