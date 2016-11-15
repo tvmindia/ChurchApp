@@ -21,7 +21,7 @@
                 <a href="../AdminPanel/Home.aspx">Home</a>
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
             </li>
-            <li>Novenas</li>
+            <li class="Novena">Novenas</li>
         </ul>
 
 

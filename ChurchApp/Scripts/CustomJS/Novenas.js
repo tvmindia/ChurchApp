@@ -165,9 +165,9 @@ function ViewIndividualPatron(obj)
     var SaintName = $(obj).attr('SaintName');
 
     document.getElementById("spnSaint").innerHTML = SaintName;
-    //  alert($(obj).attr('SaintName'));(\'' + Records.ID + '\')
-    $("#breadcrumbNovena").append('<i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + SaintName + '</li>');
-
+    $(".Novena").remove();//removes novena li from breadcrumb
+    
+    $("#breadcrumbNovena").append('<li><a href="../AdminPanel/Novenas.aspx"> Novenas </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + SaintName + '</li>');
 }
 
 //General
