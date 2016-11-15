@@ -125,8 +125,41 @@ body {
  {
       position: absolute;
     right: 65px;
+    padding: 8px 10px 8px 13px;
  }
   .btnNew
  {
      left: 250px;
  }
+div.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 6px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    text-shadow:none!important;
+}
+
+div.accordion.active, div.accordion:hover {
+    background-color: #FA603D!important;
+    color:white!important;
+}
+
+div.accordion:after {
+    content: '\02795'!important;
+    font-size: 15px;
+    color: #777;
+    float: right;
+    margin-left: 10px!important;
+    margin-top:11px!important;
+}
+
+div.accordion.active:after {
+    content: "\2796"!important;
+}
+

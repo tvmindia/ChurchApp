@@ -53,9 +53,16 @@ $(document).ready(function () {
             if(jsonResult!=undefined)
             {
                 $("#InstituteShow").css("display", "");
+                $(".FamiliesEdit").css("display", "");
                 BindGetAllFamilyMemeberData(jsonResult);
             }
 
+        }
+    })
+    $(".FamiliesEdit").live({
+        click:function(e)
+        {
+            
         }
     })
     $(".icon-chevron-down").live({
@@ -165,6 +172,7 @@ function BindFamilyUnitMemebrs()
     FamilyUnits.unitName = $("#hdfUnitName").val();
     jsonResult = GetAllFamilyUnitMembers(FamilyUnits);
     if (jsonResult != undefined) {
+        $(".FamiliesEdit").css("display", "");
         BindGetAllFamilyUnitMemeberData(jsonResult);
     }
 }
@@ -199,8 +207,9 @@ function BindGetAllFamilyUnitMemeberData(Records)
 function AddFamilyUnit()
 {
     debugger;
-    $("#divAdminDetals").css("display", "none");
-    $("#unitHeading").text("Add Family Unit");
+    $("#InstituteShow").css("display", "none");
+    $("#FamilyAddDiv").css("display", "");
+    $("#unitHeading").text("Add Details");
 }
 function GetAllFamilyUnitMembers(FamilyUnits)
 {
@@ -216,7 +225,7 @@ function BindFamilyTable(Records)
     $(".panel-body").remove();
     var length = Records.length;
     $.each(Records, function (index, Records) {
-        var html = '<div class="panel-body animated zoomOut"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">' + Records.FamilyName + '<i class="family icon-list-alt" aria-hidden="true" title="Family Details" id="'+Records.ID+'"></i><i class="more-less icon-chevron-down" style="visibility:hidden;" aria-hidden="true"></i></a></div>'
+        var html = '<div class="panel-body animated zoomOut"><a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">' + Records.FamilyName + '<i class="family icon-list-alt" aria-hidden="true" title="Family Details"  id="' + Records.ID + '"></i><i class="more-less icon-chevron-down" style="visibility:hidden;" aria-hidden="true"></i></a></div>'
         $("#" + unitID).append(html);
     });
 }
