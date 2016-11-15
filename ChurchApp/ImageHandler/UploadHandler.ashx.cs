@@ -98,6 +98,24 @@ namespace ChurchApp.ImageHandler
                                 }//end of foreach
                                
                             break;
+                            case "AddMoreVideos":
+                            foreach (string content in context.Request.Files)
+                            {
+                                HttpPostedFile file = context.Request.Files[content];
+                                fileExtension = Path.GetExtension(file.FileName);
+                                GalleryItems GalItemsObj = new GalleryItems();
+                                GalItemsObj.albumId = context.Request.Form.GetValues("AlbumID")[0];
+                                GalItemsObj.url = "/vid/" + GalItemsObj.galleryItemID + fileExtension;
+                                GalItemsObj.itemType = "video";
+                                GalItemsObj.createdBy = "Albert Thomson";
+                                GalItemsObj.InsertGalleryItem();
+                                string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
+                                file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
+
+                                CreateThumbnailForVideo(GalItemsObj.galleryItemID, fileExtension);
+
+                            }//end of foreach
+                            break;
                         }
                     }
                     #endregion Album
