@@ -592,7 +592,7 @@ function AppendVideoAlbum(Records) {
         }
         // var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span4 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
 
-        $('.ImageAlbum-Gallery').append(html);
+        $('.VideoAlbum-gallery').append(html);
     })
 }
 
