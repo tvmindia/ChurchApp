@@ -100,15 +100,11 @@
 
             if ((videofile = $('#AlbumVidUploader')[0].files.length > 0)) {
                 var formData = new FormData();
-             
                 formData.append('AlbumVideo', $('#AlbumVidUploader')[0].files[0], $('#AlbumVidUploader')[0].files[0].name);
-              
-                //formData.append('Album', 'GalleryVideoAlbum');
-                //formData.append('AlbumName', $("#txtAlbumName").val());
-                //formData.append('churchId', '41f453f6-62a4-4f80-8fc5-1124e6074287');
-                //formData.append('createdby', 'Albert');
+                formData.append('Album', 'GalleryVideoAlbum');
+                formData.append('AlbumName', $("#txtAlbumName").val());
                 postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-               // BindGalleryImageAlbum();
+                BindGalleryImageAlbum();dfdfdf
                 //modal close
                 $('.close').click();
 
@@ -569,11 +565,42 @@ function AppendEditImages(Records) {
 
 //Videos
 
+function BindGalleryVideoAlbum() {
+    try {
+        var jsonResult = {};
+        var GalleryAlbum = new Object();
+        jsonResult = GetAllGalleryVideoAlbumByChurchID(GalleryAlbum);
+        if (jsonResult != undefined) {
+            AppendVideoAlbum(jsonResult);
+        }
+    }
+    catch (e) {
+
+    }
+}
+
+
+function AppendVideoAlbum(Records) {
+    $('.VidAlb').remove();
+    $.each(Records, function (index, Records) {
+        var vidurl = Records.URL;
+        if (vidurl == null) {
+            var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 VidAlb Card"><a alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+            
+        }
+        else {
+            var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 VidAlb Card"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+        }
+        // var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span4 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+
+        $('.ImageAlbum-Gallery').append(html);
+    })
+}
+
 function GetAllGalleryVideoAlbumByChurchID(GalleryAlbum) {
     var ds = {};
     var table = {};
     try {
-
         var data = "{'GalleryAlbumObj':" + JSON.stringify(GalleryAlbum) + "}";
         ds = getJsonData(data, "../AdminPanel/Gallery.aspx/GetAllGalleryVideoAlbumByChurchID");
         table = JSON.parse(ds.d);
