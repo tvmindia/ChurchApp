@@ -3,12 +3,6 @@
     debugger;
     BindPatrons();
 
-    //Add New Saint HyperLink Click
-    $('#aNewSaint').click(function (e) {
-
-       $('#NewSaintModel').modal('show');
-    });
-
     //Save - New Saint
     $('#btnSaveInModal').click(function (e) {
         // var IsValid = NewSaintValidation();
@@ -47,7 +41,7 @@
             {
                 BindPatrons();
                 $('#NewSaintModel').modal('hide');
-               
+                //$('#btnCloseInModal').click();
             }
         }
     });
@@ -107,10 +101,10 @@ function FillPatrons(Records)
                 if (RecordsToBeProcessed ==( TotalRecords-1)) {
                     ObjUl = $('<ul></ul>');
                     ObjUl.addClass("thumbnails");
-                     ObjUl.append('<div id="divAddSaint" class=' + SpanValue + '><img class="PlusImg" src="../img/Plussymbol.png"/><a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint">Add New Saint</></a></div><li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' +(Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
+                    ObjUl.append('<div id="divAddSaint" class=' + SpanValue + '><img class="PlusImg" src="../img/Plussymbol.png"/><a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint" onclick="OpenNewSaintModal()">Add New Saint</></a></div><li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\' /><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
                 } 
                 else {
-                    ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' +(Records.Name != null ? Records.Name : "") + '  </strong><p>' +(Records.Description != null ? Records.Description : "")+ '</p> </div> </li>');
+                    ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\'/><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
                 }
                
                 RecordsToBeProcessed = RecordsToBeProcessed - 1;
@@ -128,7 +122,7 @@ function FillPatrons(Records)
                     ObjUl = $('<ul></ul>');
                     ObjUl.addClass("thumbnails");
                 }
-                ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
+                ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\'/><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
                 RecordsToBeProcessed = RecordsToBeProcessed - 1;
                    }
         }
@@ -157,6 +151,24 @@ function InsertPatron(PatronMaster) {
 }
 //--------------------------------//
 
+//Add New Saint HyperLink Click
+function OpenNewSaintModal() {
+    $('#NewSaintModel').modal('show');
+}
+
+function ViewIndividualPatron(obj)
+{
+
+    debugger;
+    $('#DivSaints').hide();
+    $('#DivIndividualPatron').show();
+    var SaintName = $(obj).attr('SaintName');
+
+    document.getElementById("spnSaint").innerHTML = SaintName;
+    //  alert($(obj).attr('SaintName'));(\'' + Records.ID + '\')
+    $("#breadcrumbNovena").append('<i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + SaintName + '</li>');
+
+}
 
 //General
 function createGuid() {
@@ -178,5 +190,4 @@ function showpreview(input) {
     }
 }
 //--------------------------------//
-
 

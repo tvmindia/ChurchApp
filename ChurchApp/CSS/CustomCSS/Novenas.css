@@ -4,7 +4,8 @@
 .img-polaroid
 {
 height:200px;
-width:90%
+width:90%;
+cursor:pointer;
 }
 #DivSaints ul{
     display:ruby!important;
@@ -33,7 +34,7 @@ display: -webkit-box;
 
 
 #divAddSaint{
-    height: 270px!important;border: 2px dotted black;background-color: #fefefe;display: block;float: left;padding-left: 5px;padding-bottom:8px;
+    height: 275px!important;border: 2px dotted black;background-color: #fefefe;display: block;float: left;padding-left: 5px;padding-bottom:8px;
 }
 
 .PlusImg{
@@ -55,6 +56,11 @@ display: -webkit-box;
 #NameDiv
 {
     height:70px
+}
+
+#DivIndividualPatron
+{
+    display:none;
 }
 /*-------------------------------------------*/
 

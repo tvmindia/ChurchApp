@@ -15,7 +15,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 
     <div id="content" class="span10">
-        <ul class="breadcrumb">
+        <ul class="breadcrumb" id="breadcrumbNovena">
             <li>
                 <i class="icon-home"></i>
                 <a href="../AdminPanel/Home.aspx">Home</a>
@@ -28,7 +28,7 @@
         <div class="row-fluid" id="divImageAlbum">
             <div class="box span12">
                 <div class="box-header">
-                    <h2><i class="halflings-icon picture"></i><span class="break"></span>Saints</h2>
+                    <h2><i class="halflings-icon picture"></i><span class="break" id="spnSaint">Saints</span></h2>
                     <div class="box-icon">
                         <a href="#" id="toggle-fullscreen" class="hidden-phone hidden-tablet"><i class="halflings-icon fullscreen"></i></a>
 
@@ -61,6 +61,9 @@
                        </ul>--%>
                     </div>
 
+                    <div class="span12" id="DivIndividualPatron"  >
+                        fsgfsgfsgfs
+                    </div>
 
                 </div>
                 <!--/span-->
@@ -75,12 +78,7 @@
                         <div class="form-horizontal">
                             <div class="span12">
                                 <div class="span1"></div>
-                                <div class="span5">
-                                    <div id="imgDiv">
-                                        <img id="imgSaint" src="../img/No-Img_Chosen.png" />
-                                    </div>
-                                    <input type="file" id="UpSaint" value="Choose Image" onchange="showpreview(this);" />
-                                </div>
+
                                 <div class="span6">
                                     <div id="NameDiv">
                                         <label for="name">Saint Name</label><input name="Caption" id="txtSaintName" type="text" />
@@ -88,13 +86,21 @@
                                     <label for="name">Description</label><textarea id="txtSaintDescription" name="Description" rows="3" placeholder=""></textarea>
                                 </div>
 
+                                <div class="span5">
+                                    <div id="imgDiv">
+                                        <img id="imgSaint" src="../img/No-Img_Chosen.png" />
+                                    </div>
+                                    <input type="file" id="UpSaint" value="Choose Image" onchange="showpreview(this);" />
+                                </div>
+                                
+
                                 <%--<div class="span1"></div>--%>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-primary" id="btnSaveInModal">Save</a>
-                        <a href="#" class="btn" data-dismiss="modal">Close</a>
+                        <a href="#" class="btn" data-dismiss="modal" id="btnCloseInModal">Close</a>
 
                     </div>
 
