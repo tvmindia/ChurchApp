@@ -108,6 +108,47 @@ namespace ChurchApp.DAL
 
         #endregion SelectAdmins
 
+        #region SelectRoles
+        /// <summary>
+        /// Get All Administrators
+        /// </summary>
+        /// <returns>All Administrators</returns>
+        public DataSet SelectRoles()
+        {
+            dbConnection dcon = null;
+            SqlDataAdapter sda = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllRoles]";
+                cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar,10).Value = orgType;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+
+        #endregion SelectRoles
+
         #region InsertAdministrator
         /// <summary>
         /// Insert new administrator
