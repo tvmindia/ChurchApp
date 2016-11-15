@@ -51,6 +51,13 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+
+        public string Status
+        {
+            get;
+            set;
+        }
+
         #endregion Public Properties
 
         #region Methods
@@ -113,8 +120,15 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertPatronMaster]";
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = patronMasterName;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
+                if (description != null && description != string.Empty)
+                {
+                    cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
+                }
+                if (imageID != null && imageID != string.Empty)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
+                }
+               
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);

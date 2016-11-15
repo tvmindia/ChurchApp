@@ -41,9 +41,20 @@ display: -webkit-box;
 }
 
 #aNewSaint{
-    top: 67%;left: 29%;position: relative;cursor:pointer
+    top: 67%;left: 29%;position: relative;cursor:pointer;color: #337ab7 !important;
 }
 
-
+#imgDiv
+{
+    height:150px
+}
+#imgSaint
+{
+    height:95%
+}
+#NameDiv
+{
+    height:70px
+}
 /*-------------------------------------------*/
 

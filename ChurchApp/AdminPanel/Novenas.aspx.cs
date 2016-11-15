@@ -88,7 +88,7 @@ namespace ChurchApp.AdminPanel
             {
                 PatrnObj.createdBy = UA.userName;
                 status = PatrnObj.InsertPatronMaster();
-             
+                PatrnObj.Status = status;
             }
             catch (Exception)
             {

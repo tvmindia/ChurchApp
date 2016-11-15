@@ -3,15 +3,59 @@
     debugger;
     BindPatrons();
 
+    //Add New Saint HyperLink Click
     $('#aNewSaint').click(function (e) {
 
-        $('#NewSaintModel').modal('show');
-
+       $('#NewSaintModel').modal('show');
     });
 
+    //Save - New Saint
+    $('#btnSaveInModal').click(function (e) {
+        // var IsValid = NewSaintValidation();
 
-});
+        debugger;
 
+        var PatronMaster = new Object();
+        PatronMaster.patronMasterName = $("#txtSaintName").val();
+        PatronMaster.description = $("#txtSaintDescription").val();
+
+        var guid = createGuid();
+
+        if (guid != null) {
+
+            var imgresult = "";
+            var _URL = window.URL || window.webkitURL;
+            var formData = new FormData();
+            var imagefile;
+
+            if (((imagefile = $('#UpSaint')[0].files[0]) != undefined)) {
+                var formData = new FormData();
+                var tempFile;
+                if ((tempFile = $('#UpSaint')[0].files[0]) != undefined) {
+                    tempFile.name = guid;
+                    formData.append('NoticeAppImage', tempFile, tempFile.name);
+                    formData.append('GUID', guid);
+                }
+                formData.append('ActionTyp', 'NoticeAppImageInsert');
+                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                PatronMaster.imageID = guid;
+            }
+
+              result = InsertPatron(PatronMaster);
+
+            if (result.Status == 1)
+            {
+                BindPatrons();
+                $('#NewSaintModel').modal('hide');
+               
+            }
+        }
+    });
+    
+}); //End of Document ready
+
+
+//Bind Patrons
 function BindPatrons() {
         var jsonResult = {};
         var PatronMaster = new Object();
@@ -20,7 +64,6 @@ function BindPatrons() {
             FillPatrons(jsonResult);
         }
 }
-
 function FillPatrons(Records)
 {
     debugger;
@@ -49,7 +92,7 @@ function FillPatrons(Records)
 
     var ObjUl;
 
-    var i = 1;
+    //var i = 1;
 
     $.each(Records, function (index, Records) {
         var imgurl = Records.URL;
@@ -70,28 +113,45 @@ function FillPatrons(Records)
                 if (RecordsToBeProcessed ==( TotalRecords-1)) {
                     ObjUl = $('<ul></ul>');
                     ObjUl.addClass("thumbnails");
-                    i = i + 1;
-                    ObjUl.append('<div id="divAddSaint" class='+SpanValue+'><img class="PlusImg" src="../img/Plussymbol.png"/><a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint">Add New Saint</></a></div><li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>');
+                    //i = i + 1;
+                    ObjUl.append('<div id="divAddSaint" class=' + SpanValue + '><img class="PlusImg" src="../img/Plussymbol.png"/><a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint">Add New Saint</></a></div><li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' +(Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
                 } 
                 else {
-                    ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>');
+                    ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' +(Records.Name != null ? Records.Name : "") + '  </strong><p>' +(Records.Description != null ? Records.Description : "")+ '</p> </div> </li>');
                 }
                
                 RecordsToBeProcessed = RecordsToBeProcessed - 1;
             }
 
             else {
-                if (i <= NoOfRows) {
-
-                 //   var div = '   <div id="divAddSaint"><img class="PlusImg" src="../img/Plussymbol.png"/><a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint">Add New Saint</></a></div>';
-
-                     $('#DivSaints').append(ObjUl);
+                //if (i < NoOfRows) {
+                debugger;
+                if (index == 5) {
+                    $('#DivSaints').append(ObjUl);
                     ObjUl = $('<ul></ul>');
                     ObjUl.addClass("thumbnails");
-                    i = i + 1;
+                    //i = i + 1;
+                }
+                 
+                //(i == 2 && index % 5 == 0) ||
+                if ( ( index+1) % 6 == 0) {
+                    $('#DivSaints').append(ObjUl);
+                    ObjUl = $('<ul></ul>');
+                    ObjUl.addClass("thumbnails");
+                    //i = i + 1;
                 }
 
-                ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>');
+
+                //if (index%5 == 0) {
+                // //   var div = '   <div id="divAddSaint"><img class="PlusImg" src="../img/Plussymbol.png"/><a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint">Add New Saint</></a></div>';
+
+                //     $('#DivSaints').append(ObjUl);
+                //    ObjUl = $('<ul></ul>');
+                //    ObjUl.addClass("thumbnails");
+                //    i = i + 1;
+                //}
+
+                ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
                 RecordsToBeProcessed = RecordsToBeProcessed - 1;
 
             }
@@ -149,23 +209,6 @@ function FillPatrons(Records)
 
     
 }
-
-function AppendImageAlbum(Records) {
-    $('.Alb').remove();
-    $.each(Records, function (index, Records) {
-        var imgurl = Records.URL;
-        if (imgurl == null) {
-            var html = '<div style="background-image: url(/img/AppImages/b7c2c20a-0eff-4d14-b598-2945ba1d3ef6.jpg)!important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb Card"><a alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
-        }
-        else {
-            var html = '<div style="background-image: url(/img/AppImages/b7c2c20a-0eff-4d14-b598-2945ba1d3ef6.jpg)!important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb Card"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
-        }
-        // var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span4 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
-
-        $('.ImageAlbum-Gallery').append(html);
-    })
-}
-
 function GetAllPatrons(PatronMaster) {
     var ds = {};
     var table = {};
@@ -175,3 +218,38 @@ function GetAllPatrons(PatronMaster) {
    
     return table;
 }
+//--------------------------------//
+
+//Insert Patron
+function InsertPatron(PatronMaster) {
+    var data = "{'PatrnObj':" + JSON.stringify(PatronMaster) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Novenas.aspx/InsertPatron");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+//--------------------------------//
+
+
+//General
+function createGuid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+function NewSaintValidation() {
+
+}
+function showpreview(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#imgSaint').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+//--------------------------------//
+
+
