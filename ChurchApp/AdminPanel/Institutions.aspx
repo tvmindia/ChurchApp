@@ -363,8 +363,7 @@
 					  <div class="input-prepend span6">
                        <span class="add-on"><i class="icon-briefcase"></i></span>
                        <select class="span12" id="ddlRole">
-                           <option value="1">Principal</option>
-                           <option value="2">Manager</option>
+                           <option value="-1" selected disabled">Select Position</option>
                        </select>
                        </div>
 					  </div> 
@@ -401,7 +400,6 @@
 
         for (i = 0; i < acc.length; i++) {
             acc[i].onclick = function () {
-                debugger;
                 this.classList.toggle("active");
                 this.nextElementSibling.classList.toggle("show");
             }

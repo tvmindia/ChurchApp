@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     BindInstituteslist();
+    BindSelect();
     $('#btnSaveInstitute').click(function (e) {
 
         debugger;
@@ -133,6 +134,28 @@
         BindInstituteslist();
     });
 });
+function BindSelect()
+{
+    debugger;
+    var selectRow = {};
+    selectRow = GetRoles();
+    for (var i = 0; i < selectRow.length; i++) {
+        $('#ddlRole').append($('<option>',
+        {
+            value: selectRow[i].Order,
+            text: selectRow[i].Position
+        }));
+    }
+}
+function GetRoles() {
+    var ds = {};
+    var table = {};
+    var Administrators = new Object();
+    var data = "{'AdminObj':" + JSON.stringify(Administrators) + "}";
+    ds = getJsonData(data, "../AdminPanel/Institutions.aspx/GetRoles");
+    table = JSON.parse(ds.d);
+    return table;
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////*********************** Function for binding priest list vicar and asst vicar
 function BindInstituteslist() {
