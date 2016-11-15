@@ -18,6 +18,7 @@
              <div class="box span6">
 					<div class="box-header" data-original-title>
 						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Family Units</h2>
+                        <a class="btnNew" title="ADD NEW" onclick="AddFamilyUnit();"><i>+</i></a>
 						<div class="box-icon">
 						
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -434,18 +435,6 @@
 				</div>	
              </div>
 
-
-
-
-
-
-
-
-         
-
-
-
-
-
     </div>
+    <input type="hidden" value="" id="hdfUnitName" />
 </asp:Content>
