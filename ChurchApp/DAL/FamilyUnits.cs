@@ -274,6 +274,47 @@ namespace ChurchApp.DAL
 
         #region Families Methods
 
+        #region SelectFamilyMembers
+        /// <summary>
+        /// Select All Families based on churchId and UnitId
+        /// </summary>
+        /// <returns>All Families</returns>
+        public DataSet SelectFamilyMembers()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectFamilyMembers]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyUnitsObj.churchId);
+                cmd.Parameters.Add("@FamilyID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectFamilyMembers
+
         #region SelectFamilies
         /// <summary>
         /// Select All Families based on churchId and UnitId
