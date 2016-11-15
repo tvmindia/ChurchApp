@@ -127,79 +127,22 @@
                         </div>
                         <%-- Div administration information details --%>
                          <div id="divAdminDetals" class="panel span12">
-                            <ul class="thumbnails">
+                             <div id="AdminCards">
+                                  <ul class="thumbnails">
                             <li class="span4">
-                            <div class="thumbnail">
-                            <img src="../img/gallery/priest.png" alt="">
-                            <address>
-                            <strong>
-                            Dr. Thomson Kattingal
-                            </strong>
-                            <p>Manger<br />9996532452</p>
-                            </address>
-                            </div>
+                              
+                               <div class="thumbnail" style="opacity:0.7;">
+                               <img src="../img/gallery/priest.png" alt=""/>
+                                <address>
+                                    <br/>
+                                    <strong><br/><br/>No Records Found</strong>
+                                    <br/>
+                                </address>                
+                              </div>
                             </li>
-                            <li class="span4">
-                            <div class="thumbnail">
-                            <img src="../img/gallery/priest.png" alt="">
-                            <address>
-                            <strong>
-                            Dr. Thomson Kattingal
-                            </strong>
-                            <p>Manger<br />9996532452</p>
-                            </address>
-                            </div>
-                            </li>
-                            <li class="span4">
-                            <div class="thumbnail">
-                            <img src="../img/gallery/priest.png" alt="">
-                            <address>
-                            <strong>
-                            Dr. Thomson Kattingal
-                            </strong>
-                           <p>Manger<br />9996532452</p>
-                           </address>
-                           </div>
-                           </ul>
-                           <ul class="thumbnails">
-                          <li class="span4">
-                          <div class="thumbnail">
-                          <img src="../img/gallery/priest.png" alt="">
-                          <address>
-                          <strong>
-                          Dr. Thomson Kattingal
-                          </strong>
-                         <p>Manger<br />9996532452</p>
-
-                          </address>
-                          </div>
-                          </li>
-                          <li class="span4">
-                          <div class="thumbnail">
-                         <img src="../img/gallery/priest.png" alt="">
-                         <address>
-                         <strong>
-                         Dr. Thomson Kattingal
-                         </strong>
-                         <p>Manger<br />9996532452</p>
-
-                         </address>
-                         </div>
-                         </li>
-                        <li class="span4">
-                        <div class="thumbnail">
-                        <img src="../img/gallery/priest.png" alt="">
-                        <address>
-                        <strong>
-                        Dr. Thomson Kattingal
-                        </strong>
-                        <p>Manger<br />9996532452</p>
-
-                       </address>
-                       </div>
-                            </li>
- 
-                       </ul>
+                            </ul>
+                             </div>
+                            
                      
                             </div>
                         </fieldset>
@@ -381,7 +324,8 @@
                        <input class="span12" id="txtMobile" type="text"/>
                        </div>
 					  </div> 
-                      
+                      <input id="hdnInstituteID" type="hidden" />
+                           <input id="hdnAdminID" type="hidden" />
                           
 					  </div> 
                     </fieldset>
@@ -390,8 +334,8 @@
 
 		</div>
 		  <div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
+			<a class="btn" data-dismiss="modal">Close</a>
+			<a id="btnAddAdmin" class="btn btn-primary">Save changes</a>
 		</div>
 	      </div>
     <script>

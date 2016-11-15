@@ -62,7 +62,26 @@ namespace ChurchApp.DAL
             get;
             set;
         }
-
+        public string imageID
+        {
+            get;
+            set;
+        }
+        public string results
+        {
+            get;
+            set;
+        }
+        public string Name
+        {
+            get;
+            set;
+        }
+        public string Phone
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Admin Methods
@@ -72,7 +91,7 @@ namespace ChurchApp.DAL
         /// Get All Administrators
         /// </summary>
         /// <returns>All Administrators</returns>
-        public DataSet SelectAdmins()
+        public DataSet SelectAdminsINST()
         {
             dbConnection dcon = null;
             SqlDataAdapter sda = null;
@@ -85,8 +104,9 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllAdministrators]";
+                cmd.CommandText = "[GetAllAdministratorsINST]";
                 cmd.Parameters.Add("@ChurchId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.Parameters.Add("@OrgId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(orgId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -167,11 +187,29 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertAdministrator]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(adminId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar, 100).Value = orgType;
                 cmd.Parameters.Add("@OrgID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(orgId);
                 cmd.Parameters.Add("@DesigID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(desigId);
-                cmd.Parameters.Add("@MembID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(memberId);
+                if(memberId!=null)
+                {
+                    cmd.Parameters.Add("@MembID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(memberId);
+                }
+                else
+                {
+                    cmd.Parameters.Add("@MembID", SqlDbType.UniqueIdentifier).Value = memberId;
+                }
+                if (imageID != null)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
+                }
+                else
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = imageID;
+                }
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = Name;
+                cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 20).Value = Phone;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);

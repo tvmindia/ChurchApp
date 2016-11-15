@@ -1,6 +1,132 @@
 ﻿$(document).ready(function () {
     BindInstituteslist();
     BindSelect();
+    $('#btnAddAdmin').click(function (e) {
+        debugger;
+
+        var AppImgURL = '';
+        var AdminID = $('#hdnAdminID').val();
+        var InstituteID = $('#hdnInstituteID').val();
+
+        //-----------------------INSERT-------------------//
+
+        if (AdminID == null || AdminID == "") {
+                var guid = createGuid();
+            
+            
+            
+
+            if (guid != null) {
+
+                var imgresult = "";
+                var _URL = window.URL || window.webkitURL;
+                var formData = new FormData();
+                var imagefile, logoFile, img;
+
+                if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
+                    var formData = new FormData();
+                    var tempFile;
+                    if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
+                        tempFile.name = guid;
+                        formData.append('NoticeAppImage', tempFile, tempFile.name);
+                        formData.append('GUID', guid);
+                    }
+                    formData.append('ActionTyp', 'NoticeAppImageInsert');
+                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+
+                }
+
+            }
+
+            var Administrators = new Object();
+            Administrators.desigId = $('#ddlRole').val();
+            Administrators.Name = $('#txtName').val();
+            Administrators.Phone = $('#txtMobile').val();
+            Administrators.orgId = InstituteID;
+            Administrators.imageID = guid;
+            Administrators.adminId = guid;
+            //Administrators.Name = ('#ddlRole').innerHTML;
+            $("#hdnAdminID").val(guid);
+            result = InsertAdministrator(Administrators);
+
+            if (result.results == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Administrator Added Successfully");
+
+            }
+            if (result.results != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text("Saving Not Successful");
+            }
+
+
+        }
+            //-----------------------UPDATE-------------------//
+        else {
+            var Administrators = new Object();
+            Administrators.name = $('#txtInstituteName').val();
+            Administrators.address = $('#txtAddress').val();
+            Administrators.Founder = $('#txtFounder').val();
+            Administrators.Mobile = $('#txtMob').val();
+            Administrators.imageId = $("#hdnInstutID").val();
+            Administrators.institutionID = $("#hdnInstutID").val();
+
+
+            // DeletedImgID = imageId;
+            // DeletedImgPath = imgPath
+            debugger;
+            var guid = createGuid();
+            if (((imagefile = $('#instituteimg')[0].files[0]) != undefined)) {
+                var formData = new FormData();
+                var tempFile;
+                if ((tempFile = $('#instituteimg')[0].files[0]) != undefined) {
+                    tempFile.name = guid;
+                    formData.append('NoticeAppImage', tempFile, tempFile.name);
+                    formData.append('GUID', guid);
+                }
+                formData.append('ActionTyp', 'NoticeAppImageInsert');
+                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                Priest.imageId = guid;
+            }
+
+            result = UpdateInstitute(Priest);
+
+            if (result.results == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Institution Edited Successfully");
+
+                //if (DeletedImgID != '') {
+                //    var AppImages = new Object();
+                //    AppImages.appImageId = DeletedImgID;
+                //    DeleteAppImage(AppImages);
+
+                //    if (DeletedImgPath != '') {
+                //        DeleteFileFromFolder(DeletedImgPath);
+                //    }
+                //}
+
+            }
+            if (result.results != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text("Saving Not Successful");
+            }
+            //$('#assVicardiv').remove();
+            //debugger;
+            //$("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+            //SetControlsInNewNoticeFormat();
+            //check();
+            
+        }
+        $('#modelAddAdmin ').modal('hide');
+        $('#txtName').val('');
+        $('#txtMobile').val('');
+        $('#ddlRole').val('-1').change();
+        $("#hdnAdminID").val('');
+    });
     $('#btnSaveInstitute').click(function (e) {
 
         debugger;
@@ -134,6 +260,7 @@
         BindInstituteslist();
     });
 });
+
 function BindSelect()
 {
     debugger;
@@ -142,7 +269,7 @@ function BindSelect()
     for (var i = 0; i < selectRow.length; i++) {
         $('#ddlRole').append($('<option>',
         {
-            value: selectRow[i].Order,
+            value: selectRow[i].ID,
             text: selectRow[i].Position
         }));
     }
@@ -188,6 +315,24 @@ function HtmlBindInstitutions(InstituteDetails, i) {
     return html;
 
 }
+function HtmlBindCards(AdminDetails, i) {
+    debugger;
+    var ID = "'" + AdminDetails.ID + "'";
+    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '"/>'
+      + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address></div>'
+      + '</li></ul>');
+    return html;
+
+}
+function HtmlBindCardsEmpty() {
+    debugger;
+    //var ID = "'" + AdminDetails.ID + "'";
+    var html = ('<ul class="thumbnails span4" style="opacity:0.7;"><li class="span12"><div class="thumbnail"><img class="img-rounded" src="../img/gallery/priest.png" alt=""/>'
+      + '<address><br/><strong><br/><br/>No Records Found</strong></br></address></div>'
+      + '</li></ul>');
+    return html;
+
+}
 //Onclick function for view Institution details
 function OpenInstituteDetails(intituteID) {
     debugger;
@@ -217,7 +362,29 @@ function BindDetails(intituteID) {
     $('#instituteDetailPreview').attr('src', InstituteRow.imagepath);
     $('#aWebsite').attr('href', InstituteRow.Website);
     $('#iconEditInstitute').attr('name', InstituteRow.institutionID);
+    BindCard(intituteID);
 
+}
+function BindCard(ID)
+{
+    debugger;
+    var AdminDetails = {};
+    var elems = $();
+    AdminDetails = BindAdminCard(ID);;
+    if (AdminDetails.length == 0) {
+        //return;
+        $('#AdminCards').empty();
+        elems = elems.add(HtmlBindCardsEmpty());
+        $('#AdminCards').append(elems);
+    }
+    else {
+        for (var i = 0; i < AdminDetails.length; i++) {
+            $('#AdminCards').empty();
+            elems = elems.add(HtmlBindCards(AdminDetails[i]));
+            $('#AdminCards').append(elems);
+        }
+
+    }
 }
 // Bind Details for edit
 function EditInstitute(this_obj) {
@@ -236,7 +403,9 @@ function EditInstitute(this_obj) {
     $('#txtWebsite').val(InstituteRow.Website);
     $('#priestPreview').attr('src', InstituteRow.imagepath);
     document.getElementById('HeadDetails').innerText = "Edit Details";
-    $('#hdfPriestID').val(intituteID);
+    $('#hdnInstutID').val(InstituteRow.institutionID);
+    $('#hdnInstituteID').val(InstituteRow.institutionID);
+
     $('#InstituteShow').hide();
     $('#InstituteEdit').show();
     if (!$("#EditGenDetails").hasClass("active")) {
@@ -259,6 +428,17 @@ function ClearFields() {
     });
 
 }
+
+function BindAdminCard(ID) {
+    var ds = {};
+    var table = {};
+    var Administrators = new Object();
+    Administrators.orgId = ID;
+    var data = "{'AdminObj':" + JSON.stringify(Administrators) + "}";
+    ds = getJsonData(data, "../AdminPanel/Institutions.aspx/GetAdministrators");
+    table = JSON.parse(ds.d);
+    return table;
+}
 // Get the Institution details using the InstitutionID for view more details
 function GetInstituteDetailsUsingID(intituteID) {
     var ds = {};
@@ -268,6 +448,13 @@ function GetInstituteDetailsUsingID(intituteID) {
     var data = "{'InstituteObj':" + JSON.stringify(Institutions) + "}";
     ds = getJsonData(data, "../AdminPanel/Institutions.aspx/GetInstituteDetailsUsingID");
     table = JSON.parse(ds.d);
+    return table;
+}
+function InsertAdministrator(Administrators) {
+    var data = "{'AdminObj':" + JSON.stringify(Administrators) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Institutions.aspx/InsertAdministrator");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
     return table;
 }
 //Check if Institution Exist for church and obtain the details

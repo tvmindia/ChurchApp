@@ -88,6 +88,10 @@ div.accordion.active:after {
 
 #divAdminInfo ul{
     display:ruby!important;
+    
+}
+#divAdminDetals ul{
+    display:ruby!important;
 }
 div.panel {
     padding: 0 18px;
