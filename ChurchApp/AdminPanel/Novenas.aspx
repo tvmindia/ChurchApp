@@ -123,10 +123,116 @@
                    
 					
 				    </div><!--/span-->
+
+                      <!--Models used in this page-->
+	           <div class="modal hide fade" id="NewSaintModel">
+		       <div class="modal-header">
+			   <button type="button" class="close" data-dismiss="modal">×</button>
+			   <h3>Add New Saint</h3>
+		        </div>
+		       <div class="modal-body">
+
+                    <div class="form-horizontal">
+
+                         <div class="span12">
+                              <div class="span5">
+                                  <img class="imgNotices" id="NoticePreview" src="../img/No-Img_Chosen.png" />
+                                   <input type="file" id="UpNotice" value="Choose Image" onchange="showpreview(this);" />
+                              </div>
+                             <div class="span6">
+
+                                <label for="name">Saint Name</label><input  name="Caption" id="txtSaintName" type="text" style="width:100%" />
+                                 
+                                <label for="name">Description</label><textarea   id="txtSaintDescription" name="Description" rows="3" placeholder="" style="width:100%" ></textarea>
+                         </div>
+
+
+
+                        <%--<div class="span10">
+
+                              <div class="span4">
+                                        <label for="name">Saint Name</label><input class="input-large focused" name="Caption" id="txtSaintName" type="text" />
+                                    </div>
+
+                            <div class="span2"></div>
+                                    <div class="span4">
+                                        <label for="name">Description</label>
+                                         <textarea tabindex="10" class="input-xlarge span10" id="txtSaintDescription" name="Description" rows="2" placeholder=""></textarea>
+                                        
+                                    </div>
+
+                        </div>--%>
+                      <%--  <div class="span10">
+
+                            <div class="span4">
+                                        <label for="name">Image</label> <input type="file" id="UpNotice" value="Choose Image" onchange="showpreview(this);" />
+                                    </div>
+
+                            <div class="span2"></div>
+                                    <div class="span4">
+                                        <label for="name">.</label><img class="imgNotices" id="NoticePreview" src="../img/No-Img_Chosen.png" />
+                                    </div>
+
+
+                        </div>--%>
+                        
+                        </div>
+
+
+                      <%--  <div class="span10">
+                         <div class="form-horizontal">
+				             
+                                  
+                                
+
+                                <div class="control-group" style="margin-top:20px">
+								<label class="control-label" for="focusedInput">Name</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Name" id="txtAlbumName" type="text"/>
+                                    <input class="input-file" multiple="multiple" id="AlbumUploader" style="display:none" name="AlbumUploader[]" type="file"/>
+                         		</div>
+								</div>
+                          
+                              
+                                </div>
+                        </div>
+                        <div class="span10" id="previewdiv">
+                            
+                               
+                            <output id="imageListAlbum" class=""> 
+                       <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
+                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 167px;left: 109px;" src="../img/Plussymbol.png"/>
+                        <a onclick="BtnImageUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnupload">Choose Image</a>
+                       </span>
+                                
+
+                            </output>
+                                  
+                        </div>--%>
+
+           	</div>  
+
+            <div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a>
+			<a href="#" class="btn btn-primary" id="btnSaveImageAlbum">Save changes</a>
+		    </div>
+		    </div>
+		
+
+
+
+
+
+
+
+
+
+
+
               </div>
               </div>
 
-
+             </div>
 
     </div>
 

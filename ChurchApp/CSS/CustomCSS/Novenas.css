@@ -33,15 +33,15 @@ display: -webkit-box;
 
 
 #divAddSaint{
-    height: 238px!important;border: 2px dotted black;background-color: #fefefe;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;
+    height: 270px!important;border: 2px dotted black;background-color: #fefefe;display: block;float: left;padding-left: 5px;padding-bottom:8px;
 }
 
 .PlusImg{
-    text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;
+    text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 135px;left: 85px;
 }
 
 #aNewSaint{
-    top: 67%;left: 29%;position: relative;
+    top: 67%;left: 29%;position: relative;cursor:pointer
 }
 
 

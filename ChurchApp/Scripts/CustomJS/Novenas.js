@@ -2,6 +2,14 @@
 {
     debugger;
     BindPatrons();
+
+    $('#aNewSaint').click(function (e) {
+
+        $('#NewSaintModel').modal('show');
+
+    });
+
+
 });
 
 function BindPatrons() {
@@ -18,8 +26,8 @@ function FillPatrons(Records)
     debugger;
     $('#DivSaints').html('');
    // var TotalRecords = Records.length+1;
-    var TotalRecords = Records.length;
-    var RecordsToBeProcessed = TotalRecords;
+    var TotalRecords = Records.length+1;
+    var RecordsToBeProcessed = Records.length;
     var NoOfRows = 0;
     var SpanValue = 0;
     if (TotalRecords%6 == 0) {
@@ -57,22 +65,27 @@ function FillPatrons(Records)
             //    index = index + 1;
             //}
 
-            if (index < 6) {
+            if (index < 5) {
 
-                if (RecordsToBeProcessed == TotalRecords) {
+                if (RecordsToBeProcessed ==( TotalRecords-1)) {
                     ObjUl = $('<ul></ul>');
                     ObjUl.addClass("thumbnails");
                     i = i + 1;
-
+                    ObjUl.append('<div id="divAddSaint" class='+SpanValue+'><img class="PlusImg" src="../img/Plussymbol.png"/><a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint">Add New Saint</></a></div><li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>');
                 } 
-
-                ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>');
+                else {
+                    ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid"/><strong>  ' + Records.Name + '  </strong><p>' + Records.Description + '</p> </div> </li>');
+                }
+               
                 RecordsToBeProcessed = RecordsToBeProcessed - 1;
             }
 
             else {
-                if (i<= NoOfRows) {
-                    $('#DivSaints').append(ObjUl);
+                if (i <= NoOfRows) {
+
+                 //   var div = '   <div id="divAddSaint"><img class="PlusImg" src="../img/Plussymbol.png"/><a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint">Add New Saint</></a></div>';
+
+                     $('#DivSaints').append(ObjUl);
                     ObjUl = $('<ul></ul>');
                     ObjUl.addClass("thumbnails");
                     i = i + 1;
@@ -105,6 +118,11 @@ function FillPatrons(Records)
         }
     })
     $('#DivSaints').append(ObjUl);
+
+   
+
+
+
   //  $('#DivSaints').append(ul+html+'</ul>');
   
 
