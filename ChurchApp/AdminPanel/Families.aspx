@@ -25,57 +25,11 @@
 						
 						</div>
 					</div>
-					<div class="box-content" id="FamilyUnitsTableBox">
-				
-
-	
+					<div class="box-content" id="FamilyUnitsTableBox">	
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
-
 	</div><!-- panel-group -->
-	
-	
-
-
 					</div>
 				</div>
-   <%-- <div class="span6">
-  <div class="box-header" data-original-title>
-						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Family Units</h2>
-						<div class="box-icon">
-						
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-						
-						</div>
-					</div>
-     <div class="accordion" id="accordion2">
-<div class="accordion-group">
-<div class="accordion-heading">
-   
-<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">Unit #1</a>
-     <a href="#" class="unitViewDetails">View Details</a>
-       
-    </div>
-    <div id="collapseOne" class="accordion-body collapse in">
-      <div class="accordion-inner">Family1<span class="familyViewDetails"><a href="#">View Details</a></span></div>
-      <div class="accordion-inner">Family1<span class="familyViewDetails"><a href="#">View Details</a></span></div>
-       <div class="accordion-inner">Family1<span class="familyViewDetails"><a href="#">View Details</a></span></div>
-    
-    </div>
-  </div>
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">Unit #2</a>
-         <a href="#" class="unitViewDetails">View Details</a>
-    </div>
-    <div id="collapseTwo" class="accordion-body collapse">
-       <div class="accordion-inner">Family1<span class="familyViewDetails"><a href="#">View Details</a></span></div>
-    </div>
-  </div>
-</div>
-  
-</div><!--span6-->--%>
-
                <%-- Show details portion for institution --%>	
 				<div id="InstituteShow" class="span6 noMarginLeft" style="display:none">
 				<div class="dark">
@@ -90,84 +44,10 @@
 				<div class="box-content">
 				<div class="form-horizontal">
 				    
-                  
+                   <a class="circlebtn circlebtn-success FamiliesEdit" style="right:1px;position: fixed;display:none;"><i class="halflings-icon white pencil FamiliesEdit" aria-hidden="true"></i></a>
                         <%-- Div administration information details --%>
                          <div id="divAdminDetals" class="panel span12">
-                            <%--<ul class="thumbnails">
-                            <li class="span4">
-                            <div class="thumbnail">
-                            <img src="../img/gallery/priest.png" alt="">
-                            <address>
-                            <strong>
-                            Dr.paul
-                            </strong>
-                            <p>Manger<br />676756756</p>
-                            </address>
-                            </div>
-                            </li>
-                            <li class="span4">
-                            <div class="thumbnail">
-                            <img src="../img/gallery/priest.png" alt="">
-                            <address>
-                            <strong>
-                            Dr.paul
-                            </strong>
-                            <p>Manger<br />676756756</p>
-                            </address>
-                            </div>
-                            </li>
-                            <li class="span4">
-                            <div class="thumbnail">
-                            <img src="../img/gallery/priest.png" alt="">
-                            <address>
-                            <strong>
-                            Dr.paul
-                            </strong>
-                           <p>Manger<br />676756756</p>
-                           </address>
-                           </div>
-                                </li>
-                           </ul>--%>
-                         <%--  <ul class="thumbnails">
-                          <li class="span4">
-                          <div class="thumbnail">
-                          <img src="../img/gallery/priest.png" alt="">
-                          <address>
-                          <strong>
-                        Dr.paul
-                          </strong>
-                         <p>Manger<br />676756756</p>
-
-                          </address>
-                          </div>
-                          </li>
-                          <li class="span4">
-                          <div class="thumbnail">
-                         <img src="../img/gallery/priest.png" alt="">
-                         <address>
-                         <strong>
-                        Dr.paul
-                         </strong>
-                         <p>Manger<br />676756756</p>
-
-                         </address>
-                         </div>
-                         </li>
-                        <li class="span4">
-                        <div class="thumbnail">
-                        <img src="../img/gallery/priest.png" alt="">
-                        <address>
-                        <strong>
-                        Dr.paul
-                        </strong>
-                        <p>Manger<br />676756756</p>
-
-                       </address>
-                       </div>
-                            </li>
- 
-                       </ul>--%>
-                     
+                           
                             </div>
                       
 					</div>   
@@ -176,18 +56,54 @@
 				</div>
 				
 				</div>	
-              <!---------------------  Add New Priest and Edit details ----------------------------->
-                <div id="InstituteEdit" style="display:none;margin-top:4%;" class="span6 noMarginLeft">
+           
+						
+	<div id="FamilyEditDivBox" class="span6 noMarginLeft">
+					
 					<div class="dark">
-					<h1 id="HeadDetails">Add Details</h1>
+					
+					<h1>Edit</h1>
+						<div class="box-content">
+					   <div class="form-horizontal">
+				    <fieldset>
+                        
+					
+
+							<div class="control-group">
+							  <label class="control-label" for="focusedInput">Family Name</label>
+							  <div class="controls">
+								<input class="input-large focused" id="txtFamilyName" type="text"/>
+							  </div>
+							</div>          
+               						
+							<div class="form-actions">
+							  <button type="submit" class="btn btn-primary">Save changes</button>
+							  <button type="reset" class="btn btn-primary">Cancel</button>
+							</div>
+						  </fieldset>
+					</div>   
+					</div>
+				
+				</div>
+				
+				</div>	
+
+             <!---------------------  Add New Family and Edit details ----------------------------->
+                <div id="FamilyAddDiv" style="display:none;margin-top:1%" class="span6 noMarginLeft">
+                   
+					<div class="dark">	
+                         	<div class="box-header" data-original-title>
+						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break">Add Details</span></h2>
+						<div class="box-icon">
+						
+							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+						
+						</div>
+					</div>			
 					<div class="box-content">
 					<div class="form-horizontal">
 				    <fieldset>
-                    <%--<a class="btnEdit" style="right:30px;position: absolute;" onclick="EditInstitute();"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>--%>
-                        <div class="control-group span12">
-					    <img class="priestimage" id="priestPreview" src="../img/gallery/Institution.jpg"/>
-                         <input type="file" value="Choose Image" id="priestimg" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="showpreview(this);" />
-							</div>
+              
                         <%-- Accordion general information --%>        
                         <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
                            <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro';"> General Information</span>
@@ -308,36 +224,6 @@
 				</div>
 				
 				</div>	
-						
-	<div id="FamilyEditDivBox" class="span6 noMarginLeft">
-					
-					<div class="dark">
-					
-					<h1>Edit</h1>
-						<div class="box-content">
-					   <div class="form-horizontal">
-				    <fieldset>
-                        
-					
-
-							<div class="control-group">
-							  <label class="control-label" for="focusedInput">Family Name</label>
-							  <div class="controls">
-								<input class="input-large focused" id="txtFamilyName" type="text"/>
-							  </div>
-							</div>          
-               						
-							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Save changes</button>
-							  <button type="reset" class="btn btn-primary">Cancel</button>
-							</div>
-						  </fieldset>
-					</div>   
-					</div>
-				
-				</div>
-				
-				</div>	
 
     <div id="UnitEditDivBox" class="span6 noMarginLeft">
 					
@@ -433,8 +319,22 @@
 				</div>
 				
 				</div>	
+
+                
              </div>
 
     </div>
     <input type="hidden" value="" id="hdfUnitName" />
+        <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].onclick = function () {
+                debugger;
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+            }
+        }
+    </script>
 </asp:Content>
