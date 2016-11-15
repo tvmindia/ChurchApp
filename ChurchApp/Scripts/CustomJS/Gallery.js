@@ -102,10 +102,9 @@
                 var formData = new FormData();
                 formData.append('AlbumVideo', $('#AlbumVidUploader')[0].files[0], $('#AlbumVidUploader')[0].files[0].name);
                 formData.append('Album', 'GalleryVideoAlbum');
-                formData.append('AlbumName', $("#txtAlbumName").val());
+                formData.append('AlbumName', $("#txtVidAlbumName").val());
                 postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                BindGalleryImageAlbum();dfdfdf
-                //modal close
+                BindGalleryVideoAlbum(); 
                 $('.close').click();
 
             }

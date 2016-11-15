@@ -1,6 +1,7 @@
 ﻿
 #region Included Namespaces
 using ChurchApp.DAL;
+using NReco.VideoConverter;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -91,6 +92,9 @@ namespace ChurchApp.ImageHandler
                                     GalItemsObj.InsertGalleryItem();
                                     string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
                                     file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
+
+                                    CreateThumbnailForVideo(GalItemsObj.galleryItemID,fileExtension);
+
                                 }//end of foreach
                                
                             break;
@@ -155,6 +159,17 @@ namespace ChurchApp.ImageHandler
             }
 
 
+        }
+        
+        public bool CreateThumbnailForVideo(string vidid,string ext)
+        {
+            string frametime;
+            var ffProbe = new NReco.VideoInfo.FFProbe();
+            var videoInfo = ffProbe.GetMediaInfo(HttpContext.Current.Server.MapPath("~/vid/")+vidid+ext);
+            frametime = (videoInfo.Duration.TotalSeconds / 2).ToString();
+            var ffMpeg = new FFMpegConverter();
+            ffMpeg.GetVideoThumbnail(HttpContext.Current.Server.MapPath("~/vid/") + vidid + ext, HttpContext.Current.Server.MapPath("~/vid/Poster/") + vidid + ".jpg", float.Parse(frametime));
+            return true;
         }
 
         public bool IsReusable
