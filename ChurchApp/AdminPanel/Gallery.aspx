@@ -113,8 +113,8 @@
               <div class="row-fluid" id="divVideos">
              <div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon picture"></i><span class="break"></span> AlbumName Videos</h2>
-						<div class="box-icon">
+						<h2><i class="halflings-icon picture"></i><span class="break"></span><span id="VideoDivTitle">AlbumName Videos</span></h2>
+                       <div class="box-icon">
 							<a href="#" id="" class="hidden-phone hidden-tablet"><i class="halflings-icon fullscreen"></i></a>
 							
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -122,16 +122,12 @@
 						</div>
 					</div>
 					<div class="box-content">
-						<div class="VideoAlbum-gallery">
-								
-			           <div class="responsive-fixed">
-                        <div class="img-fixed">
-                         <a href="#" id="newVideo">
-                        <img src="../img/defaultalbumadd.jpg" class="addnewImage" alt="Trolltunga Norway"/>
-                        </a>
-                        <div id="chooseVideo" ><span>Add New Album</span></div> 
-                     </div>
-                    </div>
+						<div class="Video-gallery">
+		                 <div id="divAddMoreVideos" style="height: 224px!important;border: 2px dotted black;background-color: #fefefe;width: 27.624%;display: block;float: left;padding-left: 8px;padding-bottom:8px;margin-left:18px;">
+                         <img style="text-align: center;display: block;position: relative;height: 47px;width: 43px;top: 93px;left: 40%;" src="../img/Plussymbol.png"/>
+                            <a data-rel="tooltip" data-original-title="Add more videos" style="top: 44%;left: 38%;position: relative;" id="newvideo">Add More</></a>
+                           </div>
+			        
 
 														
 		                </div>
@@ -184,9 +180,7 @@
 			<a href="#" class="btn btn-primary" id="btnSaveImageAlbum">Save changes</a>
 		    </div>
 		    </div>
-		
-	       
-              <div class="modal hide fade" id="NewImageModel">
+               <div class="modal hide fade" id="NewImageModel">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h3>New Image</h3>
@@ -285,38 +279,41 @@
 		</div>
 		<div class="modal-body">
 
+                <div class="span10">
+                         <div class="form-horizontal">
+				             
+                                <div class="control-group" style="margin-top:20px">
+								<label class="control-label" for="focusedInput">Name</label>
+								<div class="controls">
+								 
+                                    <input class="input-file" id="VideoUploader" style="display:none" name="VidepUploader[]" accept="video/*" type="file"/>
+                         		</div>
+								</div>
+                          
+                              
+                                </div>
+                        </div>
+                        <div class="span10" id="previewupVideodiv">
+                            
+                               
+                            <output id="imageListVideo" class=""> 
+                       <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
+                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 167px;left: 109px;" src="../img/Plussymbol.png"/>
+                        <a onclick="BtnMoreVideoUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnuploadVideo">Choose Videos</a>
+                       </span>
+                                
 
-              <div class="form-horizontal">
-				    <fieldset>
-                    <div class="control-group" style="margin-top:20px">
-	         		<label class="control-label" for="focusedInput">Name</label>
-					<div class="controls">
-			     	  <input class="input-large focused" name="Name" id="txtVideoName" type="text"/>
-                 	</div>
-				    </div>
-                    <div class="control-group">
-                      <div class="controls">
-                       <output id="imageListVideo" class="listClass"></output>
-                      </div>
-                    </div>
-
-                    <div class="control-group">
-					 <label class="control-label" for="fileInput">File input</label>
-					 <div class="controls">
-					 <input class="input-file uniform_on" multiple="multiple" id="VideoUploader" type="file"/>
-					 </div>
-					</div>       
-                           
-                      
-						  </fieldset>
-					</div>  
+                            </output>
+                                  
+                        </div>
+           
 
 
 			
 		</div>
 		<div class="modal-footer">
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
+			<a href="#" id="btnMoreVideoSave" class="btn btn-primary">Save changes</a>
 		</div>
 	</div>
               <!--End Models used in this page-->
