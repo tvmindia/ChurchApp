@@ -42,7 +42,7 @@
               <%-- Div Institution list --%>
                 <div class="span6">
 			   <h1>Institutions</h1>
-               <div class="priority high"><span>Institutions</span><a class="btnNew" style="left:75%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+               <div class="priority high"><span style="visibility:hidden">Institutions</span><a class="btnNew" style="left:75%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   <div class="task high">
                     <div id="Institutediv">
             <div id="InstituteDefault">
@@ -71,7 +71,7 @@
 				<div class="box-content">
 				<div class="form-horizontal">
 				    <fieldset>
-                    <a class="btnEdit" style="right:40px;position: fixed;" title="EDIT" id="iconEditPriest" onclick="EditInstitute();"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
+                    <a class="btnEdit" style="right:40px;position: fixed;" title="EDIT" id="iconEditInstitute" onclick="EditInstitute(this);"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
                          <div class="control-group span12" style="margin-top:20px;width:100%!important">
 							  <img class="priestimage" id="instituteDetailPreview" src="../img/gallery/Institution.jpg"/>
 							</div> 
@@ -117,8 +117,8 @@
                         </div>
                         </div>
                             <address>
-                             <strong>Website</strong><br/>
-                             <a href="" target="_blank" id="aWebsite">More Details</a>
+                             <strong style="visibility:hidden;">Website</strong><br/>
+                             <a href="#" target="_blank" id="aWebsite">Visit official website</a>
 							</address> 
                             </div>
                         <%-- Accordion details admonostration information --%>
@@ -222,12 +222,12 @@
                          <input type="file" value="Choose Image" id="instituteimg" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="showpreview(this);" />
 							</div>
                         <%-- Accordion general information --%>        
-                        <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
+                        <div class="control-group accordion span12" id="EditGenDetails" style="background-color:#FFEFEC;margin-bottom:0px!important;">
                            <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro';"> General Information</span>
                         </div>
                         <%-- Accordion end  --%>
                         <%-- Div General information --%>
-                        <div class="panel span12" style="margin-top:10px!important;">  
+                        <div class="panel span12" id="EditGen" style="margin-top:10px!important;">  
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Name:</label>
 								<div class="controls">

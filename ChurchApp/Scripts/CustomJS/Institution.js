@@ -79,8 +79,6 @@
             Institutions.phone1 = $('#txtPhone1').val();
             Institutions.phone2 = $('#txtPhone2').val();
             Institutions.Mobile = $('#txtMob').val();
-            //Institutions.emailId = $('#txtEmail').val();
-            //Institutions.mobile = $('#txtMobile').val();
             Institutions.imageId = $("#hdnInstutID").val();
             Institutions.institutionID = $("#hdnInstutID").val();
             
@@ -153,7 +151,8 @@ function BindInstituteslist() {
 
     }
 }
-// Html code for binding Asst Vicar details
+
+// Html code for binding Institution details
 function HtmlBindInstitutions(InstituteDetails, i) {
     debugger;
     var ID = "'" + InstituteDetails.ID + "'";
@@ -166,7 +165,7 @@ function HtmlBindInstitutions(InstituteDetails, i) {
     return html;
 
 }
-//Onclick function for view priest details
+//Onclick function for view Institution details
 function OpenInstituteDetails(intituteID) {
     debugger;
     BindDetails(intituteID);
@@ -182,7 +181,7 @@ function OpenInstituteDetails(intituteID) {
 function BindDetails(intituteID) {
     var InstituteRow = {};
     InstituteRow = GetInstituteDetailsUsingID(intituteID);
-
+    ClearFields();
     document.getElementById('lblInstituteName').innerText = InstituteRow.name;
     document.getElementById('lblAddress').innerText = InstituteRow.address;
     document.getElementById('lblHistory').innerText = InstituteRow.description;
@@ -194,7 +193,33 @@ function BindDetails(intituteID) {
     document.getElementById('lblMobile').innerText = InstituteRow.Mobile;
     $('#instituteDetailPreview').attr('src', InstituteRow.imagepath);
     $('#aWebsite').attr('href', InstituteRow.Website);
+    $('#iconEditInstitute').attr('name', InstituteRow.institutionID);
 
+}
+// Bind Details for edit
+function EditInstitute(this_obj) {
+    var intituteID = $(this_obj).attr('name');
+    var InstituteRow = {};
+    InstituteRow = GetInstituteDetailsUsingID(intituteID);;
+    $('#txtInstituteName').val(InstituteRow.name);
+    $('#txtAddress').val(InstituteRow.address);
+    $('#txtHistory').val(InstituteRow.description);
+    $('#txtFounder').val(InstituteRow.Founder);
+    $('#txtFounded').val(InstituteRow.Founded);
+    $('#txtEmail').val(InstituteRow.Email);
+    $('#txtPhone1').val(InstituteRow.phone1);
+    $('#txtPhone2').val(InstituteRow.phone2);
+    $('#txtMob').val(InstituteRow.Mobile);
+    $('#txtWebsite').val(InstituteRow.Website);
+    $('#priestPreview').attr('src', InstituteRow.imagepath);
+    document.getElementById('HeadDetails').innerText = "Edit Details";
+    $('#hdfPriestID').val(intituteID);
+    $('#InstituteShow').hide();
+    $('#InstituteEdit').show();
+    if (!$("#EditGenDetails").hasClass("active")) {
+        $('#EditGenDetails').toggleClass("active");
+        $('#EditGen').toggleClass("show");
+    }
 }
 function ClearFields() {
     $(':input').each(function () {
@@ -211,7 +236,7 @@ function ClearFields() {
     });
 
 }
-// Get the priest details using the priest ID for view more details
+// Get the Institution details using the InstitutionID for view more details
 function GetInstituteDetailsUsingID(intituteID) {
     var ds = {};
     var table = {};
@@ -222,7 +247,7 @@ function GetInstituteDetailsUsingID(intituteID) {
     table = JSON.parse(ds.d);
     return table;
 }
-//Check if Priest Exist for church and obtain the details
+//Check if Institution Exist for church and obtain the details
 function GetInstitutionListChurchID() {
     debugger;
     var ds = {};
@@ -258,12 +283,11 @@ function UpdateInstitute(Institutions) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
-function EditInstitute() {
-    $('#InstituteShow').hide();
-    $('#InstituteEdit').show();
-}
+//Add New Institution
 function NewInstitute() {
     ClearFields();
+    $('#priestPreview').attr('src', '../img/gallery/Institution.jpg');
+    document.getElementById('HeadDetails').innerText = "Add Institution";
     $('#InstituteEdit').show();
     $('#InstituteShow').hide();
 }
