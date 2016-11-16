@@ -10,7 +10,15 @@ namespace ChurchApp.DAL
 {
     public class Members
     {
+        public Family familyObj;
+
         #region Public Properties
+
+        public string familyID
+        {
+            get;
+            set;
+        }
         public string memberId
         {
             get;
@@ -135,11 +143,15 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertMembers]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@FamilyName", SqlDbType.NVarChar, 250).Value = familyName;
-                cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 100).Value = familyName;
+                cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 100).Value = firstName;
                 cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 100).Value = lastName;
                 cmd.Parameters.Add("@Contact", SqlDbType.NVarChar, 20).Value = contact;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                if(imageId!=null && imageId!="")
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                }
+                cmd.Parameters.Add("@FamilyID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyID);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
