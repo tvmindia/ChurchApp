@@ -150,7 +150,7 @@ namespace ChurchApp.AdminPanel
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            AdminObj.orgType = "INST";
+            //AdminObj.orgType = "INST";
             //InstituteObj.churchId = UA.ChurchID;
             DataSet ds = null;
             ds = AdminObj.SelectRoles();

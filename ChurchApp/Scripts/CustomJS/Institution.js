@@ -278,6 +278,7 @@ function GetRoles() {
     var ds = {};
     var table = {};
     var Administrators = new Object();
+    Administrators.orgType = "INST";
     var data = "{'AdminObj':" + JSON.stringify(Administrators) + "}";
     ds = getJsonData(data, "../AdminPanel/Institutions.aspx/GetRoles");
     table = JSON.parse(ds.d);
@@ -333,6 +334,16 @@ function HtmlBindCardsEmpty() {
     return html;
 
 }
+//HtmlEditBindCards
+function HtmlEditBindCards(AdminDetails, i) {
+    debugger;
+    var ID = "'" + AdminDetails.ID + "'";
+    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '"/>'
+      + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address><i class="icon-edit"></i><i class="icon-trash"></i></div>'
+      + '</li></ul>');
+    return html;
+
+}
 //Onclick function for view Institution details
 function OpenInstituteDetails(intituteID) {
     debugger;
@@ -374,7 +385,7 @@ function BindCard(ID)
     if (AdminDetails.length == 0) {
         //return;
         $('#AdminCards').empty();
-        $('#EditdivAppend').empty();
+        //$('#EditdivAppend').empty();
         elems = elems.add(HtmlBindCardsEmpty());
         $('#AdminCards').append(elems);
     }
@@ -384,7 +395,7 @@ function BindCard(ID)
             $('#EditdivAppend').empty();
             elems = elems.add(HtmlBindCards(AdminDetails[i]));
             $('#AdminCards').append(elems);
-            $('#EditdivAppend').append(elems);
+            //$('#EditdivAppend').append(elems);
         }
 
     }
@@ -408,12 +419,35 @@ function EditInstitute(this_obj) {
     document.getElementById('HeadDetails').innerText = "Edit Details";
     $('#hdnInstutID').val(InstituteRow.institutionID);
     $('#hdnInstituteID').val(InstituteRow.institutionID);
-
+    BindEditCard(intituteID)
     $('#InstituteShow').hide();
     $('#InstituteEdit').show();
     if (!$("#EditGenDetails").hasClass("active")) {
         $('#EditGenDetails').toggleClass("active");
         $('#EditGen').toggleClass("show");
+    }
+}
+function BindEditCard(ID) {
+    debugger;
+    var AdminDetails = {};
+    var elems = $();
+    AdminDetails = BindAdminCard(ID);;
+    if (AdminDetails.length == 0) {
+        //return;
+        //$('#AdminCards').empty();
+        $('#EditdivAppend').empty();
+       // elems = elems.add(HtmlBindCardsEmpty());
+       // $('#AdminCards').append(elems);
+    }
+    else {
+        for (var i = 0; i < AdminDetails.length; i++) {
+           // $('#AdminCards').empty();
+            $('#EditdivAppend').empty();
+            elems = elems.add(HtmlEditBindCards(AdminDetails[i]));
+            //$('#AdminCards').append(elems);
+            $('#EditdivAppend').append(elems);
+        }
+
     }
 }
 function ClearFields() {

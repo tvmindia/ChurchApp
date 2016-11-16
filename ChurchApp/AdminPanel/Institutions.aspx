@@ -258,7 +258,7 @@
                             <li class="span12" style="position: relative;height:229px;">
                                <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
                                <div class="thumbnail" style="position:relative!important;top: -33px;opacity:0.7;">
-                               <img class="img-rounded" style="height:159px" src="../img/gallery/priest.png" alt=""/>
+                               <img class="img-rounded" style="height:179px" src="../img/gallery/priest.png" alt=""/>
                                 <address>
                                     <br/>
                                     <strong><br/><br/>No Records Found</strong>
