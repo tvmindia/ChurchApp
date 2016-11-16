@@ -255,6 +255,8 @@ namespace ChurchApp.DAL
         }
         #endregion DeleteNovena
 
+        //------
+
         #region Get Novenas By patronID
         /// <summary>
         /// To Get Novenas By patronID
@@ -274,7 +276,7 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetNovenaDetailsByPatronID]";
-                cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = patronId;
+                cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 dt = new DataTable();
@@ -295,6 +297,44 @@ namespace ChurchApp.DAL
         }
 
         #endregion Get Novenas By patronID
+
+        #region GetNovenaDetailsByNovenaID
+
+        public DataTable GetNovenaDetailsByNovenaID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetNovenaDetailsByNovenaID]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(novenaId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+
+        #endregion GetNovenaDetailsByNovenaID
 
         #endregion Novenas Methods
     }

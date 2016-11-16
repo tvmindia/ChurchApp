@@ -35,6 +35,46 @@ namespace ChurchApp.AdminPanel
 
         #region Methods
 
+        //-------------Patron 
+
+        #region Get patron ID And Name (To Bind Patron Dropdown)
+
+        [System.Web.Services.WebMethod]
+        public static string GetAllPatronIdAndName(PatronMaster PatrnObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            DataSet ds = null;
+            try
+            {
+                ds = PatrnObj.GetPatronIDAndName();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return jsSerializer.Serialize(parentRow);
+
+
+        }
+
+
+        #endregion Get patron ID And Name
+
         #region Get All Patrons
 
         [System.Web.Services.WebMethod]
@@ -102,6 +142,79 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Add New Patron
+
+
+        //----------- Novena
+
+        #region GetNovenaDetailsByPatronID
+
+        [System.Web.Services.WebMethod]
+        public static string GetNovenasByPatronID(ChurchApp.DAL.Novenas NovenaObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            DataTable dt = null;
+            try
+            {
+                dt = NovenaObj.GetNovenaDetailsByPatronID();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return jsSerializer.Serialize(parentRow);
+        }
+
+        #endregion GetNovenaDetailsByPatronID
+
+        #region GetNovenaDetailsByNovenaID
+
+        [System.Web.Services.WebMethod]
+        public static string GetNovenaDetailsByNovenaID(ChurchApp.DAL.Novenas NovenaObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            DataTable dt = null;
+            try
+            {
+                dt = NovenaObj.GetNovenaDetailsByNovenaID();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return jsSerializer.Serialize(parentRow);
+        }
+
+        #endregion GetNovenaDetailsByNovenaID
 
         #endregion Methods
 

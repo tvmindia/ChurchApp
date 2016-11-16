@@ -1,6 +1,6 @@
 ﻿body {
 }
-
+/*----------Priest------------*/
 .img-polaroid
 {
 height:200px;
@@ -23,7 +23,6 @@ text-overflow: ellipsis;
 display: -webkit-box;
 -webkit-line-clamp: 2;
 -webkit-box-orient: vertical;
-
 
 }
 
@@ -62,5 +61,169 @@ display: -webkit-box;
 {
     display:none;
 }
-/*-------------------------------------------*/
 
+.NovenaImage
+{
+    height: 120px!important;
+width: 200px!important;
+padding: 1px!important;
+float: left!important;
+margin-top: -6px!important;
+margin-right: 35px!important;
+border: 1px solid #eee!important;
+
+}
+.novenaViewDetails
+{
+    position:absolute;
+    right:25px;
+}
+
+
+.novenaViewDetails a {
+    color: #337ab7 !important;
+}
+
+/*----------------Novena Bind---------------------------*/
+
+.pPriestDesc
+{
+  overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+
+}
+
+
+ul.dashboard-list li{
+    padding:21px!important;
+}
+
+.NovenaCaption{
+    font-size:23px!important;
+    font-weight:500;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:#9e5d5d
+}
+
+.NovenaList{
+    line-height:50px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:  0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);          
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    display:flex;
+  
+}
+
+ .btnNew
+ {
+     margin-left: 60%
+ }
+
+ aNovenaViewMore
+ {
+     color:saddlebrown!important;
+     font-weight:700!important;
+     cursor:pointer!important;
+     text-decoration: underline!important;
+ }
+
+ /*-------------New Novena---------------*/
+
+ #DivNewNovena
+ {
+    display:none
+ }
+
+ #imgNewNovena {
+    width: 38%;
+    height: 100%;
+}
+
+ #divStartDate
+ {
+     display:none;
+ }
+ #divEndDate
+ {
+     display:none;
+ }
+
+.form-actions{
+    padding-left:2px!important;
+}
+
+#DivViewFormat
+{
+    display:none;
+}
+ /*------------Time picker-----------*/
+ #circle {
+    position: absolute;
+    top: 7px;
+    left: 21px;
+    color: #ffffff;
+    font-weight: 500;
+}
+  .time,
+        .mins,
+        .meridian {
+            width: 60px;
+            float: left;
+            margin: 0px 10px;
+            font-size: 20px;
+            color: #2d2e2e;
+            font-family: 'arial';
+            font-weight: 700;
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
+            padding: 18px;
+            width: 28%;
+            border: 1px solid #ccc;
+            background: url(../img/arrow.png) no-repeat;
+            border-radius: 5px;
+        }
+
+        .next {
+            background-position: 50% 150%;
+        }
+
+        .prev {
+            background-position: 50% -50%;
+        }
+
+        .time_pick {
+            position: relative;
+        }
+
+        /*input{ float:left;}*/
+
+        .timepicker_wrap {
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 2;
+            display: none;
+            width: 100%;
+            box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.35);
+            background: #f6f6f6;
+            border: 1px solid #ccc;
+            float: left;
+            position: absolute;
+            top: 27px;
+            left: 0px;
+            height: 145px;
+        }
+         .arrow_top {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: url(../img/top_arr.png) no-repeat;
+            width: 18px;
+            height: 10px;
+            z-index: 3;
+        }
