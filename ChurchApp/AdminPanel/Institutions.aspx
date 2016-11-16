@@ -247,7 +247,7 @@
                         </div>
                         <%-- End general information --%>
                         <%-- Accordion div for Administrator information --%>
-                        <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
+                        <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;" id="divAccoAdmininfo">
                            <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro';">Administration Information</span>
                         </div>
                         <%-- End Accordion --%>
@@ -256,12 +256,12 @@
                          <%-----Default card with button for Adding new administrator -----%>
                             <ul class="thumbnails span4">
                             <li class="span12" style="position: relative;height:229px;">
-                               <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
+                               <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;color:black!important;background:white!important;" title="ADD" onclick="OpenAdminModal()"><i style="font-size:48px;">+</i></a>
                                <div class="thumbnail" style="position:relative!important;top: -33px;opacity:0.7;">
                                <img class="img-rounded" style="height:179px" src="../img/gallery/priest.png" alt=""/>
                                 <address>
                                     <br/>
-                                    <strong><br/><br/>No Records Found</strong>
+                                    <strong><br/>No Records Found<br/></strong>
                                     <br/>
                                 </address>                
                               </div>
@@ -301,7 +301,7 @@
 				    <fieldset>
                        <div class="span12"> 
                        <div class="control-group">
-                       <img src="../img/gallery/priest.png" class="img-rounded"/>
+                       <img id="AdminPicPreview" src="../img/gallery/priest.png" style="max-height:159px" class="img-rounded"/>
                        <input class="" id="fluImage" type="file"/>
                        </div>
                       <div class="control-group">
