@@ -335,6 +335,7 @@ namespace ChurchApp.DAL
         {
             get;
             set;
+
         }
         #endregion Public Properties
 
@@ -453,6 +454,10 @@ namespace ChurchApp.DAL
                     try
                         {
                             System.IO.File.Delete(HttpContext.Current.Server.MapPath(url));
+                            if(itemType=="video")//delete thumbnail
+                            {
+                             System.IO.File.Delete(HttpContext.Current.Server.MapPath("/vid/Poster/"+galleryItemID+".jpg"));
+                            }
                          
                         }
                         catch (System.IO.IOException e)

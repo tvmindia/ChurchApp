@@ -63,7 +63,7 @@ left: 82%;
 		border-radius: 0;
 		color: #212121;
 		background-color: #FAFAFA;
-		border-color: #EEEEEE;
+		border:1px solid #eeeeee;
 	}
 
 	.panel-title {
@@ -101,6 +101,7 @@ body {
     line-height: 30px;
     background-color:#eeeeee;
     border-bottom:2px solid #ffffff;
+    margin-left: 12px;
 }
  .big-blue {
     width: 200px;
@@ -110,7 +111,7 @@ body {
  .unitDetails
  {
       position: absolute;
-    right: 65px;
+    right: 85px;
  }
  .FamilyDetails
  {
@@ -119,7 +120,7 @@ body {
  .family
  {
      position: absolute;
-    right: 65px;
+    right: 85px;
  }
  .circlebtn
  {
@@ -162,4 +163,34 @@ div.accordion:after {
 div.accordion.active:after {
     content: "\2796"!important;
 }
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.6s ease-in-out;
+    opacity: 0;
+}
+.familyAdd
+{
+ position: absolute;
+    right: 65px;
+}
+
+div.panel.show {
+    opacity: 1;
+    max-height: 1500px;  
+}
+.row-fluid [class*="span"]
+{
+    margin-left:-1.435897%!important;
+}
+.row-fluid .span4 {
+    width: 34.623932%;
+}
+.img-rounded
+{
+/*margin-left: 155px !important;*/
+}
+
 
