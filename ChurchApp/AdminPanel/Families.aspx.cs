@@ -16,6 +16,8 @@ namespace ChurchApp.AdminPanel
         {
 
         }
+
+        //<--------------------- Family Unit Methods----------------------------->//
         #region GetAllFamilyUnits
         [System.Web.Services.WebMethod]
         public static string GetAllFamilyUnits(FamilyUnits familyUnitsObj)
@@ -113,6 +115,32 @@ namespace ChurchApp.AdminPanel
             return jsonResult;
         }
         #endregion GetAllFamilyUnitMembers
+
+        #region InsertFamilyUnit
+        [System.Web.Services.WebMethod]
+        public static string InsertFamilyUnit(FamilyUnits familyUnitsObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                if (UA != null)
+                {
+                    familyUnitsObj.churchId = UA.ChurchID;
+                    status = familyUnitsObj.InsertFamilyUnit();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+        #endregion InsertFamilyUnit
+
+        //<-----------------------------Family Methods----------------------------->//
 
         #region GetAllFamilys
         [System.Web.Services.WebMethod]
@@ -213,5 +241,34 @@ namespace ChurchApp.AdminPanel
             return jsonResult;
         }
         #endregion GetAllFamilyMembers
+
+        #region InsertFamily
+        [System.Web.Services.WebMethod]
+        public static string InsertFamily(Members memberObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                if (UA != null)
+                {
+                    memberObj.churchId = UA.ChurchID;
+                    memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
+                    memberObj.familyID = memberObj.familyObj.InsertFamily();
+                    if (memberObj.familyID != null && memberObj.familyID != "")
+                    {
+                        status = memberObj.InsertMember();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+        #endregion InsertFamily
     }
 }

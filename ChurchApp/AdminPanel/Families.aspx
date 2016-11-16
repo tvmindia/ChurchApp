@@ -18,7 +18,7 @@
              <div class="box span6">
 					<div class="box-header" data-original-title>
 						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Family Units</h2>
-                        <a class="btnNew" title="ADD NEW" onclick="AddFamilyUnit();"><i>+</i></a>
+                        <%--<a class="btnNew" title="ADD NEW FAMILY UNIT" onclick="AddFamilyUnit();"><i>+</i></a>--%>
 						<div class="box-icon">
 						
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -46,7 +46,7 @@
 				    
                    <a class="circlebtn circlebtn-success FamiliesEdit" style="right:1px;position: fixed;display:none;"><i class="halflings-icon white pencil FamiliesEdit" aria-hidden="true"></i></a>
                         <%-- Div administration information details --%>
-                         <div id="divAdminDetals" class="panel span12">
+                         <div id="divAdminDetals" class="panel span12" style="min-height:50px !important;max-height:1500px !important;opacity:1!important;">
                            
                             </div>
                       
@@ -57,43 +57,12 @@
 				
 				</div>	
            
-						
-	<div id="FamilyEditDivBox" class="span6 noMarginLeft">
-					
-					<div class="dark">
-					
-					<h1>Edit</h1>
-						<div class="box-content">
-					   <div class="form-horizontal">
-				    <fieldset>
-                        
-					
-
-							<div class="control-group">
-							  <label class="control-label" for="focusedInput">Family Name</label>
-							  <div class="controls">
-								<input class="input-large focused" id="txtFamilyName" type="text"/>
-							  </div>
-							</div>          
-               						
-							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Save changes</button>
-							  <button type="reset" class="btn btn-primary">Cancel</button>
-							</div>
-						  </fieldset>
-					</div>   
-					</div>
-				
-				</div>
-				
-				</div>	
-
              <!---------------------  Add New Family and Edit details ----------------------------->
                 <div id="FamilyAddDiv" style="display:none;margin-top:1%" class="span6 noMarginLeft">
                    
 					<div class="dark">	
                          	<div class="box-header" data-original-title>
-						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break">Add Details</span></h2>
+						<h2 id="AddHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span></h2>
 						<div class="box-icon">
 						
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -104,101 +73,59 @@
 					<div class="form-horizontal">
 				    <fieldset>
               
-                        <%-- Accordion general information --%>        
-                        <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
-                           <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro';"> General Information</span>
-                        </div>
-                        <%-- Accordion end  --%>
                         <%-- Div General information --%>
-                        <div class="panel span12" style="margin-top:10px!important;">  
-                         <div class="control-group">
-								<label class="control-label" for="focusedInput">Name:</label>
+                        
+                        <div class="panel span12" id="familyAddDiv"  style="margin-top:10px!important;">  
+                         <div class="control-group" id="firstNameDiv">
+								<label class="control-label" for="focusedInput">First Name:</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtInstituteName" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtFirstName" type="text"/>
                                 </div>
 								</div>
-                         <div class="control-group">
+                              <div class="control-group" id="lastNameDiv">
+								<label class="control-label" for="focusedInput">Last Name:</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Name" id="txtLastName" type="text"/>
+                                </div>
+								</div>
+                                 <div class="control-group" id="familyNameDiv">
+								<label class="control-label" for="focusedInput">Family Name:</label>
+								<div class="controls">
+								  <input type="text" class="input-large focused" id="txtFamilyName"/>
+                                </div>
+								</div>
+                        
+                                <div class="control-group">
+								<label class="control-label" for="focusedInput">Unit Name:</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Name" id="txtUnitName" type="text"/>
+                                </div>
+								</div>
+                             <div class="control-group" id="phoneDiv">
+								<label class="control-label" for="focusedInput">Phone</label>
+								<div class="controls">
+								  <input class="input-large focused" name="phone1" id="txtPhone" type="text" value=""/>
+								</div>
+								</div>
+                         <div class="control-group" id="addressDiv">
 								<label class="control-label" for="focusedInput">Address:</label>
 								<div class="controls">
 								  <textarea class="input-xlarge" id="txtAddress" name="AboutPriest" rows="3" placeholder=""></textarea>
                                 </div>
-								</div>
-                        <div class="control-group">
-								<label class="control-label" for="focusedInput">Founder:</label>
-								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtFounder" type="text"/>
-                                </div>
-								</div>
-                        <div class="control-group">
-								<label class="control-label" for="focusedInput">Founded:</label>
-								<div class="controls">
-								  <input type="text" class="input-xlarge datepicker" id="txtFounded"/>
-                                </div>
-								</div>
-                        
+								</div>                       
 
-                         <div class="control-group">
-								<label class="control-label" for="focusedInput">History</label>
-								<div class="controls">
-								<textarea class="input-xlarge" id="txtHistory" name="" rows="6" placeholder=""></textarea>
-								</div>
-								</div>
-
-                         
-                       
-						 <%-- <div class="control-group">
-								<label class="control-label" for="focusedInput">Location:</label>
-								<div class="controls">
-								  <input class="input-large focused" name="" id="txtLocation" type="text" value=""/>
-								</div>
-								</div>--%>
-
-                         <div class="control-group">
-								<label class="control-label" for="focusedInput">Email</label>
-								<div class="controls">
-								  <input class="input-large focused" name="Email" id="txtEmail" type="text" value=""/>
-								</div>
-								</div>
-                            <div class="control-group">
-								<label class="control-label" for="focusedInput">Website</label>
-								<div class="controls">
-								  <input class="input-large focused" name="website" id="txtWebsite" type="text" value=""/>
-								</div>
-								</div>
-                         <div class="control-group">
-								<label class="control-label" for="focusedInput">Phone1</label>
-								<div class="controls">
-								  <input class="input-large focused" name="phone1" id="txtPhone1" type="text" value=""/>
-								</div>
-								</div>
-                        <div class="control-group">
-								<label class="control-label" for="focusedInput">Phone2</label>
-								<div class="controls">
-								  <input class="input-large focused" name="phone2" id="txtPhone2" type="text" value=""/>
-								</div>
-								</div>
-                            <div class="control-group">
-								<label class="control-label" for="focusedInput">Mobile</label>
-								<div class="controls">
-								  <input class="input-large focused" name="mobile" id="txtMob" type="text" value=""/>
-								</div>
-								</div>
-                        
                         </div>
+                
                         <%-- End general information --%>
-                        <%-- Accordion div for Administrator information --%>
-                        <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
-                           <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro';">Administration Information</span>
-                        </div>
-                        <%-- End Accordion --%>
+                 
                         <%-- Div for Administrator information --%>
                         <div id="divAdminInfo" class="panel span12" style="margin-top:10px!important;">
                          <%-----Default card with button for Adding new administrator -----%>
-                            <ul class="thumbnails">
-                            <li class="span4" style="position: relative;height:229px;">
-                               <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
+                            <ul class="thumbnails span4">
+                            <li class="span12" style="position: relative;height:229px;">
+                               <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
                                <div class="thumbnail" style="position:relative!important;top: -33px;opacity:0.7;">
-                               <img src="../img/gallery/priest.png" alt=""/>
+                               <img class="img-rounded" style="height:159px" src="../img/gallery/priest.png" alt=""/>
                                 <address>
                                     <br/>
                                     <strong><br/><br/>No Records Found</strong>
@@ -212,8 +139,8 @@
                         <%-- End div Administrator information --%>
 						<input type="hidden" id="hdnInstutID" />
 							<div class="form-actions span12">
-							  <a class="btn btn-primary" name="" id="btnSavePriest">Save changes</a>
-                                <a id="btnCancelPriest" class="btn btn-primary">Cancel</a>
+							  <a class="btn btn-primary Save" name="" id="btnSavePriest">Save</a>
+                                <a id="btnCancelPriest" class="btn btn-primary Cancel">Cancel</a>
                                 <a class="btn btn-primary" name="" id="btnDelete">Delete</a>
 							  
 							</div>
@@ -225,106 +152,65 @@
 				
 				</div>	
 
-    <div id="UnitEditDivBox" class="span6 noMarginLeft">
-					
-					<div class="dark">
-					
-					<h1>Edit</h1>
-						<div class="box-content">
-					   <div class="form-horizontal">
-				    <fieldset>
-                        
-					
-
-							<div class="control-group">
-							  <label class="control-label" for="focusedInput">Unit Name</label>
-							  <div class="controls">
-								<input class="input-large focused" id="txtUnitName" type="text"/>
-							  </div>
-							</div>          
-               						
-							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Save changes</button>
-							  <button type="reset" class="btn btn-primary">Cancel</button>
-							</div>
-						  </fieldset>
-					</div>   
-					</div>
-				
-				</div>
-				
-				</div>	
-
-
-    <div id="FamilyViewDivBox" class="span6 noMarginLeft">
-					
-					<div class="dark">
-					
-					<h1>Details</h1>
-						<div class="box-content">
-					   <div class="form-horizontal">
-				    <fieldset>
-                        <div class="Familyeditdiv">
-                        <a href="#"><i class="fa fa-pencil familyEdit" aria-hidden="true"></i></a>
-					    </div>
-					
-
-							<div class="control-group">
-							  <label class="control-label" for="focusedInput">Family Name</label>
-							  <div class="controls">
-							  <label class="control-label" for="focusedInput">Family Name</label>
-							  </div>
-							</div>          
-               						
-							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Save changes</button>
-							  <button type="reset" class="btn btn-primary">Cancel</button>
-							</div>
-						  </fieldset>
-					</div>   
-					</div>
-				
-				</div>
-				
-				</div>	
-
-     <div id="UnitViewDivBox" class="span6 noMarginLeft">
-					
-					<div class="dark">
-					
-					<h1>Details</h1>
-						<div class="box-content">
-					   <div class="form-horizontal">
-				    <fieldset>
-                        <div class="Uniteditdiv">
-                        <a href="#"><i class="fa fa-pencil unitEdit" aria-hidden="true"></i></a>
-					    </div>
-					
-
-							<div class="control-group">
-							  <label class="control-label" for="focusedInput">Unit Name</label>
-							  <div class="controls">
-							  <label class="control-label" for="focusedInput">St.Ignatious Unit</label>
-							  </div>
-							</div>          
-               						
-							<div class="form-actions">
-							  <button type="submit" class="btn btn-primary">Save changes</button>
-							  <button type="reset" class="btn btn-primary">Cancel</button>
-							</div>
-						  </fieldset>
-					</div>   
-					</div>
-				
-				</div>
-				
-				</div>	
+    
 
                 
              </div>
 
     </div>
+     <%-- Modal Insert Administration Faculties --%>
+               <div class="modal hide fade" id="modelAddAdmin">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Add New Administrator</h3>
+		  </div>
+		  <div class="modal-body">
+            <div class="form-horizontal">
+				    <fieldset>
+                       <div class="span12"> 
+                       <div class="control-group">
+                       <img src="../img/gallery/priest.png" class="img-rounded"/>
+                      <%-- <input class="" id="fluImage" type="file"/>--%>
+                       </div>
+                      <div class="control-group">
+                      <label class="control-label" for="inputIcon">Designation</label>
+					  <div class="input-prepend span6">
+                       <span class="add-on"><i class="icon-briefcase"></i></span>
+                       <select class="span12" id="ddlRole">
+                           <option value="-1" selected disabled">Select Position</option>
+                       </select>
+                       </div>
+					  </div> 
+                      <div class="control-group">
+                      <label class="control-label" for="inputIcon">Name</label>
+					  <div class="input-prepend span6">
+                       <span class="add-on"><i class="icon-user"></i></span>
+                       <input class="span12" id="txtName" type="text"/>
+                       </div>
+					  </div>     
+                        <div class="control-group">
+                            <label class="control-label" for="inputIcon">Mobile</label>
+					  <div class="input-prepend span6">
+                       <span class="add-on"><i class="icon-book"></i></span>
+                       <input class="span12" id="txtMobile" type="text"/>
+                       </div>
+					  </div> 
+                      <input id="hdnInstituteID" type="hidden" />
+                           <input id="hdnAdminID" type="hidden" />
+                          
+					  </div> 
+                    </fieldset>
+                
+					</div>
+
+		</div>
+		  <div class="modal-footer">
+			<a class="btn" data-dismiss="modal">Close</a>
+			<a id="btnAddAdmin" class="btn btn-primary">Save changes</a>
+		</div>
+	      </div>
     <input type="hidden" value="" id="hdfUnitName" />
+    <input type="hidden" value="" id="hdfUnitID" />
         <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
