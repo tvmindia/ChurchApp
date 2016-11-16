@@ -246,6 +246,7 @@
     <Content Include="Scripts\jquery.dataTables.js" />
     <Content Include="Scripts\lightbox-plus-jquery.min.js" />
     <Content Include="Scripts\lightbox.js" />
+    <Content Include="Scripts\progressbar.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\timepicki.js" />
     <Content Include="vid\AH-64D Apache .mp4" />

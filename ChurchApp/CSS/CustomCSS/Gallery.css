@@ -80,7 +80,7 @@ font-weight: 900;
 text-shadow: 7px 6px 4px;*/
 
    padding: 15px;
-text-align: center;
+text-align: left;
 background-color: #fff;
    
     color: black;
@@ -272,8 +272,9 @@ cursor:pointer;
 .VidContainer
 {
     width:30.624%!important;
-    margin-left: 8px!important;
+    margin-left: 0px!important;
     display: block;
     float: left;
     margin-top: 4px;
+    padding-left: 18px;
 }
