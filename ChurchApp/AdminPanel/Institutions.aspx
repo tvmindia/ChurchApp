@@ -254,11 +254,11 @@
                         <%-- Div for Administrator information --%>
                         <div id="divAdminInfo" class="panel span12" style="margin-top:10px!important;">
                          <%-----Default card with button for Adding new administrator -----%>
-                            <ul class="thumbnails">
-                            <li class="span4" style="position: relative;height:229px;">
-                               <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
+                            <ul class="thumbnails span4">
+                            <li class="span12" style="position: relative;height:229px;">
+                               <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
                                <div class="thumbnail" style="position:relative!important;top: -33px;opacity:0.7;">
-                               <img src="../img/gallery/priest.png" alt=""/>
+                               <img class="img-rounded" style="height:159px" src="../img/gallery/priest.png" alt=""/>
                                 <address>
                                     <br/>
                                     <strong><br/><br/>No Records Found</strong>
@@ -267,6 +267,9 @@
                               </div>
                             </li>
                             </ul>
+                            <div id="EditdivAppend">
+
+                            </div>
                             <%-- End Default card add new --%>
                         </div>
                         <%-- End div Administrator information --%>

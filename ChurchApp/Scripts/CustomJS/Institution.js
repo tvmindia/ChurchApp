@@ -374,14 +374,17 @@ function BindCard(ID)
     if (AdminDetails.length == 0) {
         //return;
         $('#AdminCards').empty();
+        $('#EditdivAppend').empty();
         elems = elems.add(HtmlBindCardsEmpty());
         $('#AdminCards').append(elems);
     }
     else {
         for (var i = 0; i < AdminDetails.length; i++) {
             $('#AdminCards').empty();
+            $('#EditdivAppend').empty();
             elems = elems.add(HtmlBindCards(AdminDetails[i]));
             $('#AdminCards').append(elems);
+            $('#EditdivAppend').append(elems);
         }
 
     }
