@@ -64,18 +64,27 @@ left: 82%;
 		color: #212121;
 		background-color: #FAFAFA;
 		border:1px solid #eeeeee;
+        height: 30px;
 	}
 
 	.panel-title {
 		font-size: 14px;
+        position: absolute;
+        margin-top: 0px;
 	}
 
 	.panel-title > a {
 		display: block;
 		padding: 15px;
 		text-decoration: none;
+        color:#535358;
 	}
-
+    .panel-title > a:hover
+    {
+        text-decoration:underline;
+        color:#337ab7;
+        font-size:15px;
+    }
 	.more-less {
 		float: right;
 		color: #212121;
@@ -130,67 +139,60 @@ body {
  }
   .btnNew
  {
-     left: 250px;
+     left: 0px !important;
  }
-div.accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 6px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    transition: 0.4s;
-    text-shadow:none!important;
-}
-
-div.accordion.active, div.accordion:hover {
-    background-color: #FA603D!important;
-    color:white!important;
-}
-
-div.accordion:after {
-    content: '\02795'!important;
-    font-size: 15px;
-    color: #777;
-    float: right;
-    margin-left: 10px!important;
-    margin-top:11px!important;
-}
-
-div.accordion.active:after {
-    content: "\2796"!important;
-}
-div.panel {
-    padding: 0 18px;
-    background-color: white;
-    max-height: 0;
-    overflow: hidden;
-    transition: 0.6s ease-in-out;
-    opacity: 0;
-}
 .familyAdd
 {
  position: absolute;
     right: 65px;
 }
 
-div.panel.show {
-    opacity: 1;
-    max-height: 1500px;  
+.thumbnail>img
+{
+    height:130px !important;
 }
 .row-fluid [class*="span"]
 {
     margin-left:-1.435897%!important;
 }
-.row-fluid .span4 {
+/*.row-fluid .span4 {
     width: 34.623932%;
+}*/
+h4 {
+    line-height: 0px;
 }
-.img-rounded
+img
 {
-/*margin-left: 155px !important;*/
+    height:65px;
 }
-
+div#faMemberHeaderDiv {
+    margin-left: -5px;
+}
+img#NoData
+{
+    height:165px !important;
+}
+h4#familyLink>a:hover {
+    text-decoration: underline;
+    color:#337ab7;
+    font-size:15px;
+}
+.unitLink
+{
+        margin-top: -7px;
+}
+i#faUser {
+    padding-right: 10px;
+}
+.NavUnits
+{
+ cursor:pointer;   
+}
+.row-fluid .span4 {
+    width: 25.623932%;
+}
+.thumbnail {
+    border:none !important;
+    padding:0px !important;
+}
 

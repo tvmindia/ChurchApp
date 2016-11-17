@@ -270,5 +270,56 @@ namespace ChurchApp.AdminPanel
             return status;
         }
         #endregion InsertFamily
+
+        //<-----------------------------Family Member Methods----------------------------->//
+        #region GetFamilyMember
+        [System.Web.Services.WebMethod]
+        public static string GetFamilyMember(Members memberObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string jsonResult = null;
+            DataSet ds = null;
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            try
+            {
+                if (UA != null)
+                {
+                    memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
+                    // familyUnitsObj.familyObj.unitId
+                    ds = memberObj.SelectFamilyMember();
+                    // ds = N
+
+                    //Converting to Json
+                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+
+                    }
+
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return jsonResult;
+        }
+        #endregion GetFamilyMember
     }
 }
