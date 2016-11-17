@@ -57,7 +57,7 @@
 
         <div class="row-fluid" id="divImageAlbum">
             <div class="box span12">
-                <div class="box-header">
+                <div class="box-header" id="DivBoxHeader">
                     <h2><i class="halflings-icon picture"></i><span class="break" id="spnSaint">Saints</span></h2>
 
                     <div class="box-icon">
@@ -94,7 +94,7 @@
                     <div class="span12" id="DivIndividualPatron">
                         <div id="divLatestNovenas" class="span5">
                             <div class="priority high">
-                                <span class="latest">Latest Novenas</span>
+                                <span class="latest"></span>
                                 <a class="btnNew" onclick="SetControlsInNovenaFormat();"><i title="Add New Novena">+</i></a>
 
                             </div>
@@ -237,9 +237,9 @@
 
                                         <%--View Frormat--%>
 
-                                        <div id="DivViewFormat">
+                                        <div id="DivViewFormat" class="span12" >
 
-                                            <div id="divGenDetals" class="panel span12">
+                                           
 
                                                 <%--                           
                        <address>
@@ -247,21 +247,22 @@
                            <p><label id="lblAddress">Kottayam Kerala</label> </p>
                        </address>--%>
 
-                                                <div class="span6">
+                                                <div class="span3">
                                                     <img id="imgNovenaView" class="Preview" src="../img/No-Img_Chosen.png" />
                                                 </div>
 
-                                                <div class="span6">
+                                                <div class="span7" >
+
                                                     <dl>
                                                         <dt>Church</dt>
-                                                        <dd>
-                                                            <label id="lblChurchName"></label></dd>
+                                                        <dd> <label id="lblChurchName"></label>
+                                                           </dd>
                                                         <dt>Start</dt>
-                                                        <dd>
-                                                            <label id="lblStartDate"></label></dd>
+                                                        <dd> <label id="lblStartDate"></label>
+                                                           </dd>
                                                         <dt>End</dt>
-                                                        <dd>
-                                                            <label id="lblEndDate"></label></dd>
+                                                        <dd><label id="lblEndDate"></label>
+                                                           </dd>
                                                     </dl>
                                                 </div>
 
@@ -278,18 +279,19 @@
                                                 <div>
                                                 </div>
 
-                                            </div>
+                                           
                                         </div>
 
-                                        <div class="form-actions">
+                                       
+
+                                    </fieldset>
+                                </div>
+                                 <div class="form-actions">
                                             <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
                                             <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
                                             <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
 
                                         </div>
-
-                                    </fieldset>
-                                </div>
                             </div>
 
 
@@ -329,6 +331,8 @@
                                 <%--<div class="span1"></div>--%>
                             </div>
                         </div>
+
+                        
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-primary" id="btnSaveInModal">Save</a>
