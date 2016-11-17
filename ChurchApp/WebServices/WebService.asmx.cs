@@ -238,9 +238,9 @@ namespace ChurchApp.WebServices
 
             try
             {
-                ChurchApp.DAL.ChurchDetails chrchDetailobj = new DAL.ChurchDetails();
-                chrchDetailobj.churchId = ChurchID;
-                dt = chrchDetailobj.SelectChurchDetails().Tables[0];
+                ChurchApp.DAL.MassTimings chrchDetailobj = new DAL.MassTimings();
+                chrchDetailobj.massChurchId = ChurchID;
+                dt = chrchDetailobj.GetMassTimingsForApp();
 
             }
             catch (Exception ex)
