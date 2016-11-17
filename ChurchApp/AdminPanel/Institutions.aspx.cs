@@ -67,7 +67,7 @@ namespace ChurchApp.AdminPanel
             string status = null;
             try
             {
-                InstituteObj.createdBy =UA.userName;
+                InstituteObj.updatedBy =UA.userName;
                 status = InstituteObj.UpdateInstitution().ToString();
                 InstituteObj.results = status;
 
@@ -209,7 +209,43 @@ namespace ChurchApp.AdminPanel
 
         #endregion Insert Administrator
 
-        #region GetPriestUsingPriestID
+        #region  Update Administrator
+        /// <summary>
+        /// Update Institution Details
+        /// </summary>
+        /// <param name="AdminObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string UpdateAdministrator(ChurchApp.DAL.Administrators AdminObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            AdminObj.churchId = UA.ChurchID;
+            string status = null;
+            try
+            {
+                AdminObj.updatedBy = UA.userName;
+                AdminObj.orgType = "INST";
+                status = AdminObj.UpdateAdministrator().ToString();
+                AdminObj.results = status;
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(AdminObj);
+
+        }
+
+        #endregion Update Administrator
+
+        #region GetAllAdministrator
         /// <summary>
         /// Get Priest Details Using priestID
         /// </summary>
@@ -242,6 +278,47 @@ namespace ChurchApp.AdminPanel
             }
             return jsSerializer.Serialize(parentRow);
         }
-        #endregion GetPriestUsingPriestID
+        #endregion GetAllAdministrator
+
+        #region GetAdministratorDetailsUsing ID
+        /// <summary>
+        /// Get Priest Details Using priestID
+        /// </summary>
+        /// <param name="AdminObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string GetAdminDetails(ChurchApp.DAL.Administrators AdminObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            AdminObj.churchId = UA.ChurchID;
+
+            if (AdminObj.adminId != "")
+            {
+                AdminObj.SelectAdminUsingID();
+
+            }
+            return jsSerializer.Serialize(AdminObj);
+        }
+        #endregion GetAdministratorDetailsUsing ID
+
+        #region DeleteAdministrator
+        [System.Web.Services.WebMethod]
+        public static string DeleteAdministrator(ChurchApp.DAL.Administrators AdminObj)
+        {
+            string status=null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            AdminObj.churchId = UA.ChurchID;
+            status=AdminObj.DeleteAdministrator();
+            AdminObj.results = status;
+            return jsSerializer.Serialize(AdminObj);
+        }
+
+        #endregion DeleteAdministrator
     }
 }

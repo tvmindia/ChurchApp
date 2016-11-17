@@ -7,6 +7,7 @@
     <%-- <script src="../Scripts/lightbox-plus-jquery.min.js"></script>--%>
     <link href="../CSS/lightbox.css" rel="stylesheet" />
     <script src="../Scripts/lightbox.js"></script>
+   <script src="../Scripts/progressbar.js"></script>
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Gallery.js"></script>
     <style>
@@ -83,12 +84,12 @@
               <div class="row-fluid" id="divVideoAlbum">
              <div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon picture"></i><span class="break"></span> Video Album</h2>
+						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span> Video Album</h2>
 						<div class="box-icon">
-							<a href="#" id="" class="hidden-phone hidden-tablet"><i class="halflings-icon fullscreen"></i></a>
-							
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+						<a id="toggle-fullscreenvid" class="hidden-phone hidden-tablet btnEdit"><i class="halflings-icon white fullscreen"></i></a>
+					        <a class="btnEdit" style="position: relative; top: -1px;  right: 0px;" title="Edit" id="EditVideoAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
+                            <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshVideoAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
+                            <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
@@ -113,11 +114,10 @@
               <div class="row-fluid" id="divVideos">
              <div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon picture"></i><span class="break"></span><span id="VideoDivTitle">AlbumName Videos</span></h2>
+						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span><span id="VideoDivTitle">AlbumName Videos</span></h2>
                        <div class="box-icon">
-							<a href="#" id="" class="hidden-phone hidden-tablet"><i class="halflings-icon fullscreen"></i></a>
-							
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+							<a class="btnEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditVideo"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
+                            <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshVideo"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
 						
 						</div>
 					</div>
@@ -260,7 +260,7 @@
                                   
                         </div>
          
-
+              <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:67px;" id="progressbarUploadinVidAlbum"></div>  
 
 			
 		</div>
@@ -283,8 +283,7 @@
                          <div class="form-horizontal">
 				             
                                 <div class="control-group" style="margin-top:20px">
-								<label class="control-label" for="focusedInput">Name</label>
-								<div class="controls">
+							    <div class="controls">
 								 
                                     <input class="input-file" id="VideoUploader" style="display:none" name="VidepUploader[]" accept="video/*" type="file"/>
                          		</div>
@@ -298,13 +297,15 @@
                                
                             <output id="imageListVideo" class=""> 
                        <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
-                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 167px;left: 109px;" src="../img/Plussymbol.png"/>
-                        <a onclick="BtnMoreVideoUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnuploadVideo">Choose Videos</a>
+                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 133px;left: 109px;" src="../img/Plussymbol.png"/>
+                        <a onclick="BtnMoreVideoUploads();" class="" style="top:62%;left:28%;position:relative"  id="btnuploadVideo">Choose Videos</a>
                        </span>
                                 
 
                             </output>
-                                  
+
+
+                            <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:29px;" id="progressbarUpload"></div>                                  
                         </div>
            
 
@@ -312,8 +313,9 @@
 			
 		</div>
 		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" id="btnMoreVideoSave" class="btn btn-primary">Save changes</a>
+			
+			<a href="#" id="btnMoreVideoSave" class="btn btn-primary">Save</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
 		</div>
 	</div>
               <!--End Models used in this page-->
