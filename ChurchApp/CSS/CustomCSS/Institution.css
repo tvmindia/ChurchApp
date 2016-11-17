@@ -11,7 +11,7 @@ textarea{
     width:85%!important;
 }
 .choosepic{
-    font-size:32px;
+    font-size:23px!important;
     font-weight:500;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color:#9e5d5d
@@ -87,6 +87,10 @@ div.accordion.active:after {
 }
 
 #divAdminInfo ul{
+    display:ruby!important;
+    
+}
+#divAdminDetals ul{
     display:ruby!important;
 }
 div.panel {

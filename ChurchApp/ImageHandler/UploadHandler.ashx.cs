@@ -1,6 +1,7 @@
 ﻿
 #region Included Namespaces
 using ChurchApp.DAL;
+using NReco.VideoConverter;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -25,7 +26,7 @@ namespace ChurchApp.ImageHandler
             {
                 string AppImagePath = "";
                 string fileExtension = "";
-                if (context.Request.Files.Count > 0)
+                 if (context.Request.Files.Count > 0)
                 {
                     #region Album
                     //This is for multi image upload purpose
@@ -70,6 +71,51 @@ namespace ChurchApp.ImageHandler
                                     file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
                                 }//end of foreach
                                 break;
+
+                            case "GalleryVideoAlbum":
+                                GalleryAlbum GalAlbumObjForVideo = new GalleryAlbum();
+                                GalAlbumObjForVideo.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
+                                GalAlbumObjForVideo.albumName = context.Request.Form.GetValues("AlbumName")[0];
+                                GalAlbumObjForVideo.albumType = "video";
+                                GalAlbumObjForVideo.createdBy = "Albert Thomson";
+                                GalAlbumObjForVideo.InsertGalleryAlbum();
+
+                                  foreach (string content in context.Request.Files)
+                                  {
+                                    HttpPostedFile file = context.Request.Files[content];
+                                    fileExtension = Path.GetExtension(file.FileName);
+                                    GalleryItems GalItemsObj = new GalleryItems();
+                                    GalItemsObj.albumId = GalAlbumObjForVideo.albumId;
+                                    GalItemsObj.url = "/vid/" + GalItemsObj.galleryItemID + fileExtension;
+                                    GalItemsObj.itemType = "video";
+                                    GalItemsObj.createdBy = "Albert Thomson";
+                                    GalItemsObj.InsertGalleryItem();
+                                    string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
+                                    file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
+
+                                    CreateThumbnailForVideo(GalItemsObj.galleryItemID,fileExtension);
+
+                                }//end of foreach
+                               
+                            break;
+                            case "AddMoreVideos":
+                            foreach (string content in context.Request.Files)
+                            {
+                                HttpPostedFile file = context.Request.Files[content];
+                                fileExtension = Path.GetExtension(file.FileName);
+                                GalleryItems GalItemsObj = new GalleryItems();
+                                GalItemsObj.albumId = context.Request.Form.GetValues("AlbumID")[0];
+                                GalItemsObj.url = "/vid/" + GalItemsObj.galleryItemID + fileExtension;
+                                GalItemsObj.itemType = "video";
+                                GalItemsObj.createdBy = "Albert Thomson";
+                                GalItemsObj.InsertGalleryItem();
+                                string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
+                                file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
+
+                                CreateThumbnailForVideo(GalItemsObj.galleryItemID, fileExtension);
+
+                            }//end of foreach
+                            break;
                         }
                     }
                     #endregion Album
@@ -131,6 +177,17 @@ namespace ChurchApp.ImageHandler
             }
 
 
+        }
+        
+        public bool CreateThumbnailForVideo(string vidid,string ext)
+        {
+            string frametime;
+            var ffProbe = new NReco.VideoInfo.FFProbe();
+            var videoInfo = ffProbe.GetMediaInfo(HttpContext.Current.Server.MapPath("~/vid/")+vidid+ext);
+            frametime = (videoInfo.Duration.TotalSeconds / 2).ToString();
+            var ffMpeg = new FFMpegConverter();
+            ffMpeg.GetVideoThumbnail(HttpContext.Current.Server.MapPath("~/vid/") + vidid + ext, HttpContext.Current.Server.MapPath("~/vid/Poster/") + vidid + ".jpg", float.Parse(frametime));
+            return true;
         }
 
         public bool IsReusable

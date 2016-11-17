@@ -487,8 +487,8 @@ namespace ChurchApp.WebServices
             try
             {
                 ChurchApp.DAL.Family fmlyObj  = new DAL.Family();
-                fmlyObj.churchId = ChurchID;
-                fmlyObj.unitId = UnitID;
+                fmlyObj.familyUnitsObj.churchId = ChurchID;
+                fmlyObj.familyUnitsObj.unitId = UnitID;
                 dt=  fmlyObj.SelectFamilies().Tables[0];
             }
             catch (Exception ex)

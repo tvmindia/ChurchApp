@@ -79,19 +79,19 @@ position: relative;
 font-weight: 900;
 text-shadow: 7px 6px 4px;*/
 
-   padding: 15px;
-text-align: center;
+   padding: 8px;
+text-align: left;
 background-color: #fff;
-   
-    color: black;
-font-size: 18px;
+ 
+color: #073674;
+font-size: 14px;
 margin-top: 70%;
 position: relative;
-font-weight: 300;
+font-weight: 600;
 white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
-    transform: rotate(-2deg);
+transform: rotate(-2deg);
 
 }
 div.desc-fixed {
@@ -269,3 +269,12 @@ top: -49%;
 cursor:pointer;
 }
 
+.VidContainer
+{
+    width:30.624%!important;
+    margin-left: 0px!important;
+    display: block;
+    float: left;
+    margin-top: 4px;
+    padding-left: 18px;
+}

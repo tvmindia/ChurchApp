@@ -7,6 +7,7 @@
     <%-- <script src="../Scripts/lightbox-plus-jquery.min.js"></script>--%>
     <link href="../CSS/lightbox.css" rel="stylesheet" />
     <script src="../Scripts/lightbox.js"></script>
+   <script src="../Scripts/progressbar.js"></script>
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Gallery.js"></script>
     <style>
@@ -30,17 +31,19 @@
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon picture"></i><span class="break"></span> Albums</h2>
 						<div class="box-icon">
-							<a href="#" id="toggle-fullscreen" class="hidden-phone hidden-tablet"><i class="halflings-icon fullscreen"></i></a>
-							
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+							<a id="toggle-fullscreen" class="hidden-phone hidden-tablet btnEdit"><i class="halflings-icon white fullscreen"></i></a>
+					        <a class="btnEdit" style="position: relative; top: -1px;  right: 0px;" title="Edit" id="EditAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
+                            <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
+                            <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>
 							
 						</div>
 					</div>
 					<div class="box-content">
 			       <div class="ImageAlbum-Gallery">
-                   <div style="height: 238px!important;border: 2px dotted black;background-color: #fefefe;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                   <div id="divCreateAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fefefe;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
                    <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
                     <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;" id="newalbum">Create Album</></a>
+
 
                    </div>
                    
@@ -75,30 +78,35 @@
                         </div>
                         
 			     	</div><!--/span-->
+
+
+
               <div class="row-fluid" id="divVideoAlbum">
              <div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon picture"></i><span class="break"></span> Video Album</h2>
+						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span> Video Album</h2>
 						<div class="box-icon">
-							<a href="#" id="" class="hidden-phone hidden-tablet"><i class="halflings-icon fullscreen"></i></a>
-							
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+						<a id="toggle-fullscreenvid" class="hidden-phone hidden-tablet btnEdit"><i class="halflings-icon white fullscreen"></i></a>
+					        <a class="btnEdit" style="position: relative; top: -1px;  right: 0px;" title="Edit" id="EditVideoAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
+                            <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshVideoAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
+                            <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 						<div class="VideoAlbum-gallery">
-								
-			           <div class="responsive-fixed">
-                        <div class="img-fixed">
-                         <a href="#" id="newVideoAlbum">
-                        <img src="../img/defaultalbumadd.jpg" class="addnewImage" alt="Trolltunga Norway"/>
-                        </a>
-                        <div id="chooseVideoAlbum" ><span>Add New Album</span></div> 
-                     </div>
-                    </div>
 
-														
+                         <div id="divCreateVideoAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fefefe;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                   <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
+                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;" id="newVideoalbum">Create Album</></a>
+
+                   </div>
+								
+			        
+                           
+                            
+                       <%--  <video controls="controls"  width="320" height="240" src="../vid/AH-64D%20Apache%20.mp4">HTML5 is required to play</video>		
+                           <video controls="controls"  width="320" height="240" src="../vid/mosco.mp4">HTML5 is required to play</video>		
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/lNG0B9Bkj8g" frameborder="0" allowfullscreen></iframe>	--%>
 		                </div>
 					</div>
 				</div><!--/span-->
@@ -106,25 +114,20 @@
               <div class="row-fluid" id="divVideos">
              <div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon picture"></i><span class="break"></span> AlbumName Videos</h2>
-						<div class="box-icon">
-							<a href="#" id="" class="hidden-phone hidden-tablet"><i class="halflings-icon fullscreen"></i></a>
-							
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span><span id="VideoDivTitle">AlbumName Videos</span></h2>
+                       <div class="box-icon">
+							<a class="btnEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditVideo"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
+                            <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshVideo"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
+						
 						</div>
 					</div>
 					<div class="box-content">
-						<div class="VideoAlbum-gallery">
-								
-			           <div class="responsive-fixed">
-                        <div class="img-fixed">
-                         <a href="#" id="newVideo">
-                        <img src="../img/defaultalbumadd.jpg" class="addnewImage" alt="Trolltunga Norway"/>
-                        </a>
-                        <div id="chooseVideo" ><span>Add New Album</span></div> 
-                     </div>
-                    </div>
+						<div class="Video-gallery">
+		                 <div id="divAddMoreVideos" style="height: 224px!important;border: 2px dotted black;background-color: #fefefe;width: 27.624%;display: block;float: left;padding-left: 8px;padding-bottom:8px;margin-left:18px;">
+                         <img style="text-align: center;display: block;position: relative;height: 47px;width: 43px;top: 93px;left: 40%;" src="../img/Plussymbol.png"/>
+                            <a data-rel="tooltip" data-original-title="Add more videos" style="top: 44%;left: 38%;position: relative;" id="newvideo">Add More</></a>
+                           </div>
+			        
 
 														
 		                </div>
@@ -149,7 +152,7 @@
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtAlbumName" type="text"/>
-                                    <input class="input-file" multiple="multiple" id="AlbumUploader" style="display:none" name="AlbumUploader[]" type="file"/>
+                                    <input class="input-file" multiple="multiple" id="AlbumUploader" style="display:none" name="AlbumUploader[]" accept="image/*" type="file"/>
                          		</div>
 								</div>
                           
@@ -177,9 +180,7 @@
 			<a href="#" class="btn btn-primary" id="btnSaveImageAlbum">Save changes</a>
 		    </div>
 		    </div>
-		
-	       
-              <div class="modal hide fade" id="NewImageModel">
+               <div class="modal hide fade" id="NewImageModel">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h3>New Image</h3>
@@ -194,7 +195,7 @@
 							
 								<div class="controls">
 								 
-                                    <input class="input-file" multiple="multiple" id="imageUploader" style="display:none" name="imageUploader[]" type="file"/>
+                                    <input class="input-file" multiple="multiple" id="imageUploader" style="display:none" name="imageUploader[]" accept="image/*" type="file"/>
                          		</div>
 								</div>
                           
@@ -231,42 +232,41 @@
 		</div>
 		<div class="modal-body">
 
-
-              <div class="form-horizontal">
-				    <fieldset>
-                      
-					
-                     
-							  
+              <div class="span10">
+                         <div class="form-horizontal">
+				             
                                 <div class="control-group" style="margin-top:20px">
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtVideoAlbumName" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtVidAlbumName" type="text"/>
+                                    <input class="input-file" id="AlbumVidUploader" style="display:none" name="AlbumVidUploader[]" accept="video/*" type="file"/>
                          		</div>
 								</div>
-                                <div class="control-group">
-                                                    <div class="controls">
-                                                        <output id="imageListVideoAlbum" class="listClass"></output>
-                                                    </div>
-                                                </div>
+                          
+                              
+                                </div>
+                        </div>
+                        <div class="span10" id="previewVideodiv">
+                            
+                               
+                            <output id="imageListVideoAlbum" class=""> 
+                       <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
+                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 167px;left: 109px;" src="../img/Plussymbol.png"/>
+                        <a onclick="BtnVideoUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnuploadVideoAlb">Choose Videos</a>
+                       </span>
+                                
 
-                                <div class="control-group">
-							  <label class="control-label" for="fileInput">File input</label>
-							  <div class="controls">
-								<input class="input-file uniform_on" multiple="multiple" id="ImageUploader" type="file"/>
-							  </div>
-							</div>       
-                           
-                      
-						  </fieldset>
-					</div>  
-
+                            </output>
+                                  
+                        </div>
+         
+              <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:67px;" id="progressbarUploadinVidAlbum"></div>  
 
 			
 		</div>
 		<div class="modal-footer">
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
+			<a href="#" id="BtnVideoAlbumSave" class="btn btn-primary">Save</a>
 		</div>
 	</div>
 
@@ -279,42 +279,43 @@
 		</div>
 		<div class="modal-body">
 
-
-              <div class="form-horizontal">
-				    <fieldset>
-                      
-					
-                     
-							  
+                <div class="span10">
+                         <div class="form-horizontal">
+				             
                                 <div class="control-group" style="margin-top:20px">
-								<label class="control-label" for="focusedInput">Name</label>
-								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtVideoName" type="text"/>
+							    <div class="controls">
+								 
+                                    <input class="input-file" id="VideoUploader" style="display:none" name="VidepUploader[]" accept="video/*" type="file"/>
                          		</div>
 								</div>
-                                <div class="control-group">
-                                                    <div class="controls">
-                                                        <output id="imageListVideo" class="listClass"></output>
-                                                    </div>
-                                                </div>
+                          
+                              
+                                </div>
+                        </div>
+                        <div class="span10" id="previewupVideodiv">
+                            
+                               
+                            <output id="imageListVideo" class=""> 
+                       <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
+                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 133px;left: 109px;" src="../img/Plussymbol.png"/>
+                        <a onclick="BtnMoreVideoUploads();" class="" style="top:62%;left:28%;position:relative"  id="btnuploadVideo">Choose Videos</a>
+                       </span>
+                                
 
-                                <div class="control-group">
-							  <label class="control-label" for="fileInput">File input</label>
-							  <div class="controls">
-								<input class="input-file uniform_on" multiple="multiple" id="VideoUploader" type="file"/>
-							  </div>
-							</div>       
-                           
-                      
-						  </fieldset>
-					</div>  
+                            </output>
+
+
+                            <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:29px;" id="progressbarUpload"></div>                                  
+                        </div>
+           
 
 
 			
 		</div>
 		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
+			
+			<a href="#" id="btnMoreVideoSave" class="btn btn-primary">Save</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
 		</div>
 	</div>
               <!--End Models used in this page-->

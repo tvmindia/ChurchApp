@@ -3,6 +3,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <link href="../CSS/CustomCSS/Institution.css" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js"></script>
+    <script src="../Scripts/CustomJS/Institution.js"></script>
      <div id="content" class="span10">
         <ul class="breadcrumb">
 				 <li>
@@ -36,14 +38,14 @@
               
             </div>
 			  <%--Alert boxes --%>
-             <div class="row-fluid">
+               <div class="row-fluid">
               <%-- Div Institution list --%>
                 <div class="span6">
 			   <h1>Institutions</h1>
-               <div id="VicarDivDisplay">
-               <div id="VicarDefault">
-               <div class="priority high"><span>Institutions</span><a class="btnNew" style="left:75%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+               <div class="priority high"><span style="visibility:hidden">Institutions</span><a class="btnNew" style="left:75%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   <div class="task high">
+                    <div id="Institutediv">
+            <div id="InstituteDefault">
                <ul class="dashboard-list vicarlist">
 				<li >
 				<img class="priestimage" src="../img/gallery/Institution.jpg"/>
@@ -56,11 +58,11 @@
 				  
 				</li>
                 </ul>
-                
+                </div>
+                    
+                        </div>
 				</div>
                 </div>
-            </div>
-			</div>
                
 			  <%-- Show details portion for institution --%>	
 				<div id="InstituteShow" style="margin-top:4%;display:none;" class="span6 noMarginLeft">
@@ -69,15 +71,15 @@
 				<div class="box-content">
 				<div class="form-horizontal">
 				    <fieldset>
-                    <a class="btnEdit" style="right:40px;position: fixed;" title="EDIT" id="iconEditPriest" onclick="EditInstitute();"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
+                    <a class="btnEdit" style="right:40px;position: fixed;" title="EDIT" id="iconEditInstitute" onclick="EditInstitute(this);"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
                          <div class="control-group span12" style="margin-top:20px;width:100%!important">
-							  <img class="priestimage" id="priestDetailPreview" src="../img/gallery/Institution.jpg"/>
+							  <img class="priestimage" id="instituteDetailPreview" src="../img/gallery/Institution.jpg"/>
 							</div> 
                         <div class="control-group span12" >
-						<label class="labelName" for="focusedInput" id="lblName">Amaljyothi Institute of science and technology</label>
+						<label class="labelName" for="focusedInput" id="lblInstituteName">Amaljyothi Institute of science and technology</label>
 					    </div>
                         <%-- Accordion Show details general information --%>
-                         <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
+                         <div class="control-group accordion span12" id="divGendetailsacc" style="background-color:#FFEFEC;margin-bottom:0px!important;">
                            <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro'"> General Information</span>
                         </div>
                         <%-- Div general information details --%>
@@ -97,8 +99,8 @@
                             <dd><label id="lblFounder">Bishop Andrews Thazhathu</label></dd>
                                 <dt>Founded</dt>
                             <dd><label id="lblFounded">01 Jun 2000</label></dd>
-                                <dt>Location</dt>
-                            <dd><label id="lblLocation">0001.239.678.567.45</label></dd>
+                                <dt>Email</dt>
+                            <dd><label id="lblEmail">0001.239.678.567.45</label></dd>
                             </dl>
                             
 						</div>	       
@@ -110,13 +112,13 @@
                                 <dt>phone2</dt>
                             <dd><label id="lblPhone2">04885223517</label></dd>
                                 <dt>Mobile</dt>
-                            <dd><label>9567677766</label></dd>
+                            <dd><label id="lblMobile">9567677766</label></dd>
                             </dl>
                         </div>
                         </div>
                             <address>
-                             <strong>Website</strong><br/>
-                             <a href="#" id="aWebsite">Follow Us</a>
+                             <strong style="visibility:hidden;">Website</strong><br/>
+                             <a href="#" target="_blank" id="aWebsite">Visit official website</a>
 							</address> 
                             </div>
                         <%-- Accordion details admonostration information --%>
@@ -125,79 +127,22 @@
                         </div>
                         <%-- Div administration information details --%>
                          <div id="divAdminDetals" class="panel span12">
-                            <ul class="thumbnails">
+                             <div id="AdminCards">
+                                  <ul class="thumbnails">
                             <li class="span4">
-                            <div class="thumbnail">
-                            <img src="../img/gallery/priest.png" alt="">
-                            <address>
-                            <strong>
-                            Dr. Thomson Kattingal
-                            </strong>
-                            <p>Manger<br />9996532452</p>
-                            </address>
-                            </div>
+                              
+                               <div class="thumbnail" style="opacity:0.7;">
+                               <img src="../img/gallery/priest.png" alt=""/>
+                                <address>
+                                    <br/>
+                                    <strong><br/><br/>No Records Found</strong>
+                                    <br/>
+                                </address>                
+                              </div>
                             </li>
-                            <li class="span4">
-                            <div class="thumbnail">
-                            <img src="../img/gallery/priest.png" alt="">
-                            <address>
-                            <strong>
-                            Dr. Thomson Kattingal
-                            </strong>
-                            <p>Manger<br />9996532452</p>
-                            </address>
-                            </div>
-                            </li>
-                            <li class="span4">
-                            <div class="thumbnail">
-                            <img src="../img/gallery/priest.png" alt="">
-                            <address>
-                            <strong>
-                            Dr. Thomson Kattingal
-                            </strong>
-                           <p>Manger<br />9996532452</p>
-                           </address>
-                           </div>
-                           </ul>
-                           <ul class="thumbnails">
-                          <li class="span4">
-                          <div class="thumbnail">
-                          <img src="../img/gallery/priest.png" alt="">
-                          <address>
-                          <strong>
-                          Dr. Thomson Kattingal
-                          </strong>
-                         <p>Manger<br />9996532452</p>
-
-                          </address>
-                          </div>
-                          </li>
-                          <li class="span4">
-                          <div class="thumbnail">
-                         <img src="../img/gallery/priest.png" alt="">
-                         <address>
-                         <strong>
-                         Dr. Thomson Kattingal
-                         </strong>
-                         <p>Manger<br />9996532452</p>
-
-                         </address>
-                         </div>
-                         </li>
-                        <li class="span4">
-                        <div class="thumbnail">
-                        <img src="../img/gallery/priest.png" alt="">
-                        <address>
-                        <strong>
-                        Dr. Thomson Kattingal
-                        </strong>
-                        <p>Manger<br />9996532452</p>
-
-                       </address>
-                       </div>
-                            </li>
- 
-                       </ul>
+                            </ul>
+                             </div>
+                            
                      
                             </div>
                         </fieldset>
@@ -217,15 +162,15 @@
                     <%--<a class="btnEdit" style="right:30px;position: absolute;" onclick="EditInstitute();"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>--%>
                         <div class="control-group span12">
 					    <img class="priestimage" id="priestPreview" src="../img/gallery/Institution.jpg"/>
-                         <input type="file" value="Choose Image" id="priestimg" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="showpreview(this);" />
+                         <input type="file" value="Choose Image" id="instituteimg" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="showpreview(this);" />
 							</div>
                         <%-- Accordion general information --%>        
-                        <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
+                        <div class="control-group accordion span12" id="EditGenDetails" style="background-color:#FFEFEC;margin-bottom:0px!important;">
                            <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro';"> General Information</span>
                         </div>
                         <%-- Accordion end  --%>
                         <%-- Div General information --%>
-                        <div class="panel span12" style="margin-top:10px!important;">  
+                        <div class="panel span12" id="EditGen" style="margin-top:10px!important;">  
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Name:</label>
 								<div class="controls">
@@ -255,18 +200,18 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">History</label>
 								<div class="controls">
-								<textarea class="input-xlarge" id="txtHistory" name="AboutPriest" rows="6" placeholder=""></textarea>
+								<textarea class="input-xlarge" id="txtHistory" name="" rows="6" placeholder=""></textarea>
 								</div>
 								</div>
 
                          
                        
-						  <div class="control-group">
+						 <%-- <div class="control-group">
 								<label class="control-label" for="focusedInput">Location:</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Designation" id="txtLocation" type="text" value=""/>
+								  <input class="input-large focused" name="" id="txtLocation" type="text" value=""/>
 								</div>
-								</div>
+								</div>--%>
 
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Email</label>
@@ -302,32 +247,35 @@
                         </div>
                         <%-- End general information --%>
                         <%-- Accordion div for Administrator information --%>
-                        <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
+                        <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;" id="divAccoAdmininfo">
                            <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro';">Administration Information</span>
                         </div>
                         <%-- End Accordion --%>
                         <%-- Div for Administrator information --%>
                         <div id="divAdminInfo" class="panel span12" style="margin-top:10px!important;">
                          <%-----Default card with button for Adding new administrator -----%>
-                            <ul class="thumbnails">
-                            <li class="span4" style="position: relative;height:229px;">
-                               <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
+                            <ul class="thumbnails span4">
+                            <li class="span12" style="position: relative;height:229px;">
+                               <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;color:black!important;background:white!important;" title="ADD" onclick="OpenAdminModal()"><i style="font-size:48px;">+</i></a>
                                <div class="thumbnail" style="position:relative!important;top: -33px;opacity:0.7;">
-                               <img src="../img/gallery/priest.png" alt=""/>
+                               <img class="img-rounded" style="height:179px" src="../img/gallery/priest.png" alt=""/>
                                 <address>
                                     <br/>
-                                    <strong><br/><br/>No Records Found</strong>
+                                    <strong><br/>No Records Found<br/></strong>
                                     <br/>
                                 </address>                
                               </div>
                             </li>
                             </ul>
+                            <div id="EditdivAppend">
+
+                            </div>
                             <%-- End Default card add new --%>
                         </div>
                         <%-- End div Administrator information --%>
 						<input type="hidden" id="hdnInstutID" />
 							<div class="form-actions span12">
-							  <a class="btn btn-primary" name="" id="btnSavePriest">Save changes</a>
+							  <a class="btn btn-primary" name="" id="btnSaveInstitute">Save changes</a>
                                 <a id="btnCancelPriest" class="btn btn-primary">Cancel</a>
                                 <a class="btn btn-primary" name="" id="btnDelete">Delete</a>
 							  
@@ -341,8 +289,9 @@
 				</div>	
 						
 			  </div>
-         <%-- Modal Insert Administration Faculties --%>
-          <div class="modal hide fade" id="modelAddAdmin">
+         </div>
+              <%-- Modal Insert Administration Faculties --%>
+               <div class="modal hide fade" id="modelAddAdmin">
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h3>Add New Administrator</h3>
@@ -352,7 +301,7 @@
 				    <fieldset>
                        <div class="span12"> 
                        <div class="control-group">
-                       <img src="../img/gallery/priest.png" class="img-rounded"/>
+                       <img id="AdminPicPreview" src="../img/gallery/priest.png" style="max-height:159px" class="img-rounded"/>
                        <input class="" id="fluImage" type="file"/>
                        </div>
                       <div class="control-group">
@@ -360,8 +309,7 @@
 					  <div class="input-prepend span6">
                        <span class="add-on"><i class="icon-briefcase"></i></span>
                        <select class="span12" id="ddlRole">
-                           <option value="1">Principal</option>
-                           <option value="2">Manager</option>
+                           <option value="-1" selected disabled">Select Position</option>
                        </select>
                        </div>
 					  </div> 
@@ -379,7 +327,8 @@
                        <input class="span12" id="txtMobile" type="text"/>
                        </div>
 					  </div> 
-                      
+                      <input id="hdnInstituteID" type="hidden" />
+                           <input id="hdnAdminID" type="hidden" />
                           
 					  </div> 
                     </fieldset>
@@ -388,28 +337,20 @@
 
 		</div>
 		  <div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary">Save changes</a>
+			<a class="btn" data-dismiss="modal">Close</a>
+			<a id="btnAddAdmin" class="btn btn-primary">Save changes</a>
 		</div>
 	      </div>
     <script>
-    var acc = document.getElementsByClassName("accordion");
-    var i;
+        var acc = document.getElementsByClassName("accordion");
+        var i;
 
-    for (i = 0; i < acc.length; i++) {
-    acc[i].onclick = function(){
-        this.classList.toggle("active");
-        this.nextElementSibling.classList.toggle("show");
-    }
-    }
-    function EditInstitute() {
-        $('#InstituteShow').hide();
-        $('#InstituteEdit').show();
-    }
-    function NewInstitute() {
-        $('#InstituteEdit').hide();
-        $('#InstituteShow').show();
-    }
+        for (i = 0; i < acc.length; i++) {
+            acc[i].onclick = function () {
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+            }
+        }
     </script>
 
 

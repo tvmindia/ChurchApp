@@ -1,4 +1,8 @@
-﻿.familyViewDetails
+﻿body
+{
+    line-height: 10px;
+}
+.familyViewDetails
 {
     position:absolute;
     right:25px;
@@ -42,3 +46,151 @@ left: 82%;
     
     background-color: #ddd;
 }
+
+/*******************************
+* ACCORDION WITH TOGGLE ICONS
+* Does not work properly if "in" is added after "collapse".
+* Get free snippets on bootpen.com
+*******************************/
+	.panel-group .panel {
+		border-radius: 0;
+		box-shadow: none;
+		border-color: #EEEEEE;
+	}
+
+	.panel-default > .panel-heading {
+		padding: 0;
+		border-radius: 0;
+		color: #212121;
+		background-color: #FAFAFA;
+		border:1px solid #eeeeee;
+	}
+
+	.panel-title {
+		font-size: 14px;
+	}
+
+	.panel-title > a {
+		display: block;
+		padding: 15px;
+		text-decoration: none;
+	}
+
+	.more-less {
+		float: right;
+		color: #212121;
+	}
+
+	.panel-default > .panel-heading + .panel-collapse > .panel-body {
+		border-top-color: #EEEEEE;
+	}
+
+/* ----- v CAN BE DELETED v ----- */
+body {
+	background-color: #26a69a;
+}
+
+.demo {
+	padding-top: 60px;
+	padding-bottom: 110px;
+}
+.more-less {
+   
+}
+.panel-body {
+    line-height: 30px;
+    background-color:#eeeeee;
+    border-bottom:2px solid #ffffff;
+    margin-left: 12px;
+}
+ .big-blue {
+    width: 200px;
+    height: 200px;
+    background-color: #00f;
+  }
+ .unitDetails
+ {
+      position: absolute;
+    right: 85px;
+ }
+ .FamilyDetails
+ {
+     margin-left:365px;
+ }
+ .family
+ {
+     position: absolute;
+    right: 85px;
+ }
+ .circlebtn
+ {
+      position: absolute;
+    right: 65px;
+    padding: 8px 10px 8px 13px;
+ }
+  .btnNew
+ {
+     left: 250px;
+ }
+div.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 6px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    text-shadow:none!important;
+}
+
+div.accordion.active, div.accordion:hover {
+    background-color: #FA603D!important;
+    color:white!important;
+}
+
+div.accordion:after {
+    content: '\02795'!important;
+    font-size: 15px;
+    color: #777;
+    float: right;
+    margin-left: 10px!important;
+    margin-top:11px!important;
+}
+
+div.accordion.active:after {
+    content: "\2796"!important;
+}
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.6s ease-in-out;
+    opacity: 0;
+}
+.familyAdd
+{
+ position: absolute;
+    right: 65px;
+}
+
+div.panel.show {
+    opacity: 1;
+    max-height: 1500px;  
+}
+.row-fluid [class*="span"]
+{
+    margin-left:-1.435897%!important;
+}
+.row-fluid .span4 {
+    width: 34.623932%;
+}
+.img-rounded
+{
+/*margin-left: 155px !important;*/
+}
+
+

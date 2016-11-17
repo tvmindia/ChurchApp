@@ -7,6 +7,7 @@ var DeletedImgID = '';              //While changing the uploaded image with new
 var DeletedImgPath = '';            //While changing the uploaded image with new , previous one should get deleted from folde, So imag path to be deleted is stored in this variable
 var NotificationTypeCode = 'ntc';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
 
+var MaxCharacterLimit = 200;
 //--------------------------------//
 
 
@@ -15,14 +16,59 @@ $("document").ready(function (e) {
    
     BindLatestNotices();
 
-    $("#rdoNotificationYes").click(function () {
+    //--Limit Notification Content 
+    $('#txtnotificationCOntent').keypress(function (e) {
 
+        if (this.value.length == MaxCharacterLimit) {
+            e.preventDefault();
+            $("#lblAlreadyNotificationSend").show();
+            $("#lblAlreadyNotificationSend").text("Maximum " + MaxCharacterLimit + " characters");
+        }
+
+        else {
+            $("#lblAlreadyNotificationSend").text("Already Notification added");
+            $("#lblAlreadyNotificationSend").hide();
+
+        }
+    });
+
+
+    $('#txtnotificationCOntent').keydown(function (e) {
+        if (this.value.length == MaxCharacterLimit) {
+            $("#lblAlreadyNotificationSend").text("Already Notification added");
+            $("#lblAlreadyNotificationSend").hide();
+        }
+
+    });
+
+    $("#rdoNotificationYes").click(function () {
+        debugger;
         $("#divNotificationDates").show();
+
+        $("#DivNotificationContent").show();
+
+
+        //--- Making of notification content by trimming description after 200 characters 
+
+        if ($("#txtDescription").val() != "") {
+
+            if ($("#txtDescription").val().length > MaxCharacterLimit) {
+                $("#txtnotificationCOntent").val($("#txtDescription").val().substring(0, MaxCharacterLimit));
+            }
+
+            else {
+                $("#txtnotificationCOntent").val($("#txtDescription").val());
+            }
+        }
+
+
+
     });
 
     $("#rdoNotificationNo").click(function () {
 
         $("#divNotificationDates").hide();
+        $("#DivNotificationContent").hide();
     });
 
     $("#ddlNoticeType").select2({
@@ -700,6 +746,7 @@ function InsertNotification(Notification) {
 //--- while select a notice , ther will appear a fixed edit icon ,its click functionality is given below
 function FixedEditClick() {
 
+    $('#NoticeEdit').hide();
     $('#UpNotice')[0].files[0] = null;
 
     $("#lblStartDate").hide();
@@ -756,6 +803,7 @@ function FixedEditClick() {
 
             if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
                 $("#lblAlreadyNotificationSend").show();
+                $("#lblAlreadyNotificationSend").text("Already Notification added");
             }
             else {
                  $("#lblAlreadyNotificationSend").hide();
@@ -782,6 +830,7 @@ function FixedEditClick() {
 //--- Edit click of each notice
 function EditOnClick(id) {
     debugger;
+
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
