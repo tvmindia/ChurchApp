@@ -230,6 +230,31 @@ namespace ChurchApp.WebServices
         // --More (dynamic)
         #region Church Detail
 
+        #region Mass Timings
+        [WebMethod]
+        public string GetMassTimings(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.ChurchDetails chrchDetailobj = new DAL.ChurchDetails();
+                chrchDetailobj.churchId = ChurchID;
+                dt = chrchDetailobj.SelectChurchDetails().Tables[0];
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
+
         #region More Details of Church (Dynamic)
 
         [WebMethod]
