@@ -25,7 +25,7 @@
         try
         {
             var imagefile;
-          
+            
             if ((imagefile = $('#AlbumUploader')[0].files.length > 0)) {
                 var formData = new FormData();
                 for (i = 0; i < $('#AlbumUploader')[0].files.length ; i++) {
@@ -35,8 +35,29 @@
                 formData.append('AlbumName', $("#txtAlbumName").val());
                 formData.append('churchId', '41f453f6-62a4-4f80-8fc5-1124e6074287');
                 formData.append('createdby', 'Albert');
-                postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                BindGalleryImageAlbum();
+                var result=postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+               
+                switch(result)
+                {
+                    case "1":
+                        $('.alert-error').hide();
+                        $('#rowfluidDivImages').show();
+                        $('.alert-success').show();
+                        $('.alert-success strong').text("Album Uploaded successfully");
+                        BindGalleryImageAlbum();
+                        break;
+                    case "0":
+                        $('.alert-success').hide();
+                        $('#rowfluidDivImages').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text("Upload was not successfull");
+                        break;
+                    default:
+                        break;
+                }
+                    
+             
+               
                 //modal close
                 $('.close').click();
 
@@ -77,8 +98,25 @@
                     }
                     formData.append('Album', 'AddMoreImages');
                     formData.append('AlbumID', albid);
-                    postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    BindImages(albid);
+                    var result=postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                    switch (result) {
+                        case "1":
+                            $('.alert-error').hide();
+                            $('#rowfluidDivImages').show();
+                            $('.alert-success').show();
+                            $('.alert-success strong').text("Uploaded successfully");
+                            BindImages(albid);
+                            break;
+                        case "0":
+                            $('.alert-success').hide();
+                            $('#rowfluidDivImages').show();
+                            $('.alert-error').show();
+                            $('.alert-error strong').text("Upload was not successfull");
+                            break;
+                        default:
+                            break;
+                    }
+                    
                     //modal close
                     $('.close').click();
 
@@ -108,9 +146,27 @@
                 formData.append('Album', 'GalleryVideoAlbum');
                 formData.append('AlbumName', $("#txtVidAlbumName").val());
                 barinAlbum.animate(0.6);  // Number from 0.0 to 1.0
-                postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                barinAlbum.animate(1.0);  // Number from 0.0 to 1.0
-                BindGalleryVideoAlbum(); 
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                switch (result) {
+                    case "1":
+                        $('.alert-error').hide();
+                        $('#rowfluidDivVideos').show();
+                        $('.alert-success').show();
+                        $('.alert-success strong').text("Album Uploaded successfully");
+                        barinAlbum.animate(1.0);  // Number from 0.0 to 1.0
+                        BindGalleryVideoAlbum();
+                        break;
+                    case "0":
+                        $('#progressbarUploadinVidAlbum').hide();
+                        $('.alert-success').hide();
+                        $('#rowfluidDivVideos').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text("Upload was not successfull");
+                        break;
+                    default:
+                        break;
+                }
+                
                 //$('.close').click();
 
             }
@@ -152,10 +208,27 @@
                 formData.append('AlbumName', $("#txtVidAlbumName").val());
                 formData.append('AlbumID', albid);
                 bar.animate(0.6);  // Number from 0.0 to 1.0
-                postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                bar.animate(1.0);  // Number from 0.0 to 1.0
-           
-                BindVideos(albid);
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                switch (result) {
+                    case "1":
+                        $('.alert-error').hide();
+                        $('#rowfluidDivVideos').show();
+                        $('.alert-success').show();
+                        $('.alert-success strong').text("Album Uploaded successfully");
+                        bar.animate(1.0);  // Number from 0.0 to 1.0
+                        BindVideos(albid);
+                        break;
+                    case "0":
+                        $('.alert-success').hide();
+                        $('#progressbarUploadinVidAlbum').hide();
+                        $('#rowfluidDivVideos').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text("Upload was not successfull");
+                        break;
+                    default:
+                        break;
+                }
+             
                 // $('.close').click();
                 
             }
@@ -405,8 +478,25 @@ function deleteImage(obj)
         {
             GalleryItems.galleryItemID = imgid;
             GalleryItems.url = $(obj).attr('URL');
-            DeleteImageItem(GalleryItems);
-            EditImageBind(albid);
+            var result = DeleteImageItem(GalleryItems);
+          
+            switch (result) {
+                case "1":
+                    $('.alert-error').hide();
+                    $('#rowfluidDivImages').show();
+                    $('.alert-success').show();
+                    $('.alert-success strong').text("Deleted successfully");
+                    EditImageBind(albid);
+                    break;
+                case "0":
+                    $('.alert-success').hide();
+                    $('#rowfluidDivImages').show();
+                    $('.alert-error').show();
+                    $('.alert-error strong').text("Deletion was not successfull");
+                    break;
+                default:
+                    break;
+            }
         }
        
     }
