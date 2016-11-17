@@ -79,15 +79,15 @@ position: relative;
 font-weight: 900;
 text-shadow: 7px 6px 4px;*/
 
-   padding: 15px;
+   padding: 8px;
 text-align: left;
 background-color: #fff;
-   
-    color: black;
-font-size: 18px;
+ 
+color: #073674;
+font-size: 14px;
 margin-top: 70%;
 position: relative;
-font-weight: 300;
+font-weight: 600;
 white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
