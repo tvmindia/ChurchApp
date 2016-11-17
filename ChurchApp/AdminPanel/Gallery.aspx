@@ -26,6 +26,30 @@
 				<li class="Gallery">
                     <i class="icon-home"></i> Gallery</li>
 			</ul>
+              <%--Alert boxes --%>
+               <div id="rowfluidDivImages" style="display:none;">	
+				       <div class="alert alert-error" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Operation Not Successfull.</strong> 
+						</div>
+						<div class="alert alert-success" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Successfull.</strong> 
+						</div>
+						<div class="alert alert-info" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+						</div>
+						<div class="alert alert-block" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<h4 class="alert-heading">Warning!</h4>
+							<p>Best check yourself, you're not looking too good.</p>
+						</div>
+					
+
+              
+            </div>
+			  <%--Alert boxes --%>
               <div class="row-fluid" id="divImageAlbum">
 				<div class="box span12">
 					<div class="box-header" data-original-title>
@@ -40,9 +64,9 @@
 					</div>
 					<div class="box-content">
 			       <div class="ImageAlbum-Gallery">
-                   <div id="divCreateAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fefefe;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                   <div id="divCreateAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
                    <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
-                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;" id="newalbum">Create Album</></a>
+                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;cursor:pointer;" id="newalbum">Create Album</></a>
 
 
                    </div>
@@ -64,9 +88,9 @@
 					</div>
 					<div class="box-content">
 						<div class="Image-Gallery">
-                             <div id="divAddMore" style="height: 238px!important;border: 2px dotted black;background-color: #fefefe;width: 229px;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                             <div id="divAddMore" style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 229px;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
                          <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 129px;left: 112px;" src="../img/Plussymbol.png"/>
-                            <a data-rel="tooltip" data-original-title="Add More Images" style="top: 67%;left: 34%;position: relative;" id="newimage">Add  More</></a>
+                            <a data-rel="tooltip" data-original-title="Add More Images"  style="top: 67%;left: 34%;position: relative;cursor:pointer;" id="newimage">Add More</></a>
                            </div>
                       
                         </div>
@@ -79,7 +103,31 @@
                         
 			     	</div><!--/span-->
 
+         
+         <%--Alert boxes --%>
+               <div id="rowfluidDivVideos" style="display:none;">	
+				       <div class="alert alert-error" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Operation Not Successfull.</strong> 
+						</div>
+						<div class="alert alert-success" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Successfull.</strong> 
+						</div>
+						<div class="alert alert-info" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+						</div>
+						<div class="alert alert-block" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<h4 class="alert-heading">Warning!</h4>
+							<p>Best check yourself, you're not looking too good.</p>
+						</div>
+					
 
+              
+            </div>
+			  <%--Alert boxes --%>
 
               <div class="row-fluid" id="divVideoAlbum">
              <div class="box span12">
@@ -95,9 +143,9 @@
 					<div class="box-content">
 						<div class="VideoAlbum-gallery">
 
-                         <div id="divCreateVideoAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fefefe;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                         <div id="divCreateVideoAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
                    <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
-                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;" id="newVideoalbum">Create Album</></a>
+                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;cursor:pointer;" id="newVideoalbum">Create Album</></a>
 
                    </div>
 								
@@ -123,9 +171,9 @@
 					</div>
 					<div class="box-content">
 						<div class="Video-gallery">
-		                 <div id="divAddMoreVideos" style="height: 224px!important;border: 2px dotted black;background-color: #fefefe;width: 27.624%;display: block;float: left;padding-left: 8px;padding-bottom:8px;margin-left:18px;">
+		                 <div id="divAddMoreVideos" style="height: 224px!important;border: 2px dotted black;background-color:#fff;width: 27.624%;display: block;float: left;padding-left: 8px;padding-bottom:8px;margin-left:18px;">
                          <img style="text-align: center;display: block;position: relative;height: 47px;width: 43px;top: 93px;left: 40%;" src="../img/Plussymbol.png"/>
-                            <a data-rel="tooltip" data-original-title="Add more videos" style="top: 44%;left: 38%;position: relative;" id="newvideo">Add More</></a>
+                            <a data-rel="tooltip" data-original-title="Add more videos" style="top: 44%;left: 38%;position: relative;cursor:pointer;" id="newvideo">Add More</></a>
                            </div>
 			        
 
@@ -145,27 +193,20 @@
 			   <h3>Create New Album</h3>
 		        </div>
 		       <div class="modal-body">
-                        <div class="span10">
-                         <div class="form-horizontal">
-				             
-                                <div class="control-group" style="margin-top:20px">
-								<label class="control-label" for="focusedInput">Name</label>
-								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtAlbumName" type="text"/>
+                        <div class="span12">
+               							
+								<div class="span12">
+								  <input class="input-large focused span12" name="Name" id="txtAlbumName" placeholder="Enter album name" type="text"/>
                                     <input class="input-file" multiple="multiple" id="AlbumUploader" style="display:none" name="AlbumUploader[]" accept="image/*" type="file"/>
                          		</div>
-								</div>
-                          
-                              
-                                </div>
-                        </div>
+	                    </div>
                         <div class="span10" id="previewdiv">
                             
                                
                             <output id="imageListAlbum" class=""> 
-                       <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
-                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 167px;left: 109px;" src="../img/Plussymbol.png"/>
-                        <a onclick="BtnImageUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnupload">Choose Image</a>
+                       <span style="height: 176px!important;border: 2px dotted black;background-color: #fff;width: 180px;display: block;float: left;margin:4px;">
+                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 116px;left: 109px;" src="../img/Plussymbol.png"/>
+                        <a onclick="BtnImageUpload();" class="" style="top:59%;left:28%;position:relative;cursor:pointer;"  id="btnupload">Choose Image</a>
                        </span>
                                 
 
@@ -173,22 +214,22 @@
                                   
                         </div>
 
-           	</div>  
-
-            <div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" class="btn btn-primary" id="btnSaveImageAlbum">Save changes</a>
+               </div>  
+               <div class="modal-footer">
+			
+			<a href="#" class="btn btn-primary" id="btnSaveImageAlbum">Save</a>
+                <a href="#" class="btn" data-dismiss="modal">Close</a>
 		    </div>
-		    </div>
+		       </div>
                <div class="modal hide fade" id="NewImageModel">
-		<div class="modal-header">
+		        <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h3>New Image</h3>
 		</div>
-		<div class="modal-body">
+	        	<div class="modal-body">
 
 
-              <div class="span10">
+                      <div class="span10">
                          <div class="form-horizontal">
 				             
                                 <div class="control-group" style="margin-top:20px">
@@ -202,57 +243,45 @@
                               
                                 </div>
                         </div>
-                   
-            <div class="span10" id="previewdivinimages">
-                            
-                               
-                            <output id="imageListimages" class=""> 
-                       <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
+                      <div class="span10" id="previewdivinimages">
+                       <output id="imageListimages" class=""> 
+                       <span style="height: 176px!important;border: 2px dotted black;background-color:#fff;width: 180px;display: block;float: left;margin:4px;">
                        <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 142px;left: 109px;" src="../img/Plussymbol.png"/>
-                        <a onclick="BtnImageAddNew();" class="" style="top:67%;left:28%;position:relative"  id="btnuploadimages">Choose Image</a>
+                        <a onclick="BtnImageAddNew();" class="" style="top:67%;left:28%;position:relative;cursor:pointer;"  id="btnuploadimages">Choose Image</a>
                        </span>
                                 
 
                             </output>
-                                  
-                        </div>
+                      </div>
 
 			
 		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-			<a href="#" id="btnMoreImagesAdd" class="btn btn-primary">Save changes</a>
+	            <div class="modal-footer">
+			
+			<a href="#" id="btnMoreImagesAdd" class="btn btn-primary">Save</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
 		</div>
-	</div>
-
+     	       </div>
                <div class="modal hide fade" id="NewVideoAlbumModel">
-		<div class="modal-header">
+		          <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h3>New Video Album</h3>
 		</div>
-		<div class="modal-body">
-
-              <div class="span10">
-                         <div class="form-horizontal">
-				             
-                                <div class="control-group" style="margin-top:20px">
-								<label class="control-label" for="focusedInput">Name</label>
-								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtVidAlbumName" type="text"/>
+		          <div class="modal-body">
+             
+                         <div class="span12">
+                                <div class="span12">
+								  <input class="input-large focused span12" name="Name" id="txtVidAlbumName" placeholder="Enter album name" type="text"/>
                                     <input class="input-file" id="AlbumVidUploader" style="display:none" name="AlbumVidUploader[]" accept="video/*" type="file"/>
                          		</div>
-								</div>
-                          
-                              
-                                </div>
-                        </div>
-                        <div class="span10" id="previewVideodiv">
+		            	  </div>
+                         <div class="span10" id="previewVideodiv">
                             
                                
                             <output id="imageListVideoAlbum" class=""> 
-                       <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
-                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 167px;left: 109px;" src="../img/Plussymbol.png"/>
-                        <a onclick="BtnVideoUpload();" class="" style="top:67%;left:28%;position:relative"  id="btnuploadVideoAlb">Choose Videos</a>
+                       <span style="height: 176px!important;border: 2px dotted black;background-color: #fff;width: 180px;display: block;float: left;margin:4px;">
+                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 116px;left: 109px;" src="../img/Plussymbol.png"/>
+                        <a onclick="BtnVideoUpload();" class="" style="top:57%;left:28%;position:relative;cursor:pointer;"  id="btnuploadVideoAlb">Choose Videos</a>
                        </span>
                                 
 
@@ -260,24 +289,24 @@
                                   
                         </div>
          
-              <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:67px;" id="progressbarUploadinVidAlbum"></div>  
+              <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:34px;" id="progressbarUploadinVidAlbum"></div>  
 
 			
 		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
+		          <div class="modal-footer">
+			
 			<a href="#" id="BtnVideoAlbumSave" class="btn btn-primary">Save</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
 		</div>
-	</div>
-
-              <div class="modal hide fade" id="NewVideoModel">
-		<div class="modal-header">
+	          </div>
+               <div class="modal hide fade" id="NewVideoModel">
+		        <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h3>New Video
 
 			</h3>
 		</div>
-		<div class="modal-body">
+		        <div class="modal-body">
 
                 <div class="span10">
                          <div class="form-horizontal">
@@ -296,9 +325,9 @@
                             
                                
                             <output id="imageListVideo" class=""> 
-                       <span style="height: 176px!important;border: 2px dotted black;background-color: #e8f7ff;width: 180px;display: block;float: left;margin:4px;">
+                       <span style="height: 176px!important;border: 2px dotted black;background-color: #fff;width: 180px;display: block;float: left;margin:4px;">
                        <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 133px;left: 109px;" src="../img/Plussymbol.png"/>
-                        <a onclick="BtnMoreVideoUploads();" class="" style="top:62%;left:28%;position:relative"  id="btnuploadVideo">Choose Videos</a>
+                        <a onclick="BtnMoreVideoUploads();" class="" style="top:62%;left:28%;position:relative;cursor:pointer;"  id="btnuploadVideo">Choose Videos</a>
                        </span>
                                 
 
@@ -312,12 +341,12 @@
 
 			
 		</div>
-		<div class="modal-footer">
+		        <div class="modal-footer">
 			
 			<a href="#" id="btnMoreVideoSave" class="btn btn-primary">Save</a>
             <a href="#" class="btn" data-dismiss="modal">Close</a>
 		</div>
-	</div>
+	          </div>
               <!--End Models used in this page-->
 
 
@@ -325,7 +354,7 @@
 
   
 
-    </div>
+ </div>  
     <input type="hidden" id="hdfAlbumID" />
      
 </asp:Content>

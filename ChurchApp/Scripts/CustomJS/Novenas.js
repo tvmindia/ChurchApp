@@ -262,7 +262,21 @@ function BindNovenaMoreDetails(ID)
     if (jsonResult != undefined) {
         $.each(jsonResult, function (index, jsonResult) {
             $("#h1Event").text(jsonResult.NovenaCaption);
+            url = jsonResult.URL;
 
+            if (url == null) {
+                url = "../img/No-Img_Chosen.png";
+                $('#imgNovenaView').attr('src', url);
+            }
+            else {
+                $('#imgNovenaView').attr('src', url);
+
+            }
+            $('#lblChurchName').text(jsonResult.ChurchName);
+            $('#lblStartDate').text(ConvertJsonToDate(jsonResult.StartDate));
+            $('#lblEndDate').text(ConvertJsonToDate(jsonResult.EndDate));
+            $('#lblDescription').text(jsonResult.Description);
+           
         });
     }
 
@@ -283,7 +297,7 @@ function GetNovenasByNovenaID(Novenas) {
 function ViewIndividualPatron(obj) {
 
     debugger;
-
+    $('#DivBoxHeader').hide();
     $('#EditPatron').hide();
 
     $('#DivSaints').hide();
@@ -293,7 +307,8 @@ function ViewIndividualPatron(obj) {
     var SaintID = $(obj).attr('ID');
     BindNovenasPatronID(SaintID);
 
-    document.getElementById("spnSaint").innerHTML = SaintName;
+    //document.getElementById("spnSaint").innerHTML = SaintName;
+    $('.latest').text(SaintName)  ;
     $(".Novena").remove();//removes novena li from breadcrumb
 
     $("#breadcrumbNovena").append('<li><a href="../AdminPanel/Novenas.aspx"> Novenas </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + SaintName + '</li>');
@@ -339,12 +354,60 @@ function FillNovenas(Records) {
         var ID = Records.ID;
       //  var html = '<div class="accordion Card"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NovenaCaption + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="NovenaImage" id=img' + Records.ID + ' src=' + url + '/><strong>' + Records.ChurchName + '</strong><br /><br />Start<strong>' + ConvertJsonToDate(Records.StartDate) + '</strong><br /><br />End<strong>' + ConvertJsonToDate(Records.StartDate) + '</strong><br /><p>' + Records.Description + '</p><span class="novenaViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>';
 
-        var html = ('<ul class="dashboard-list NovenaList"><li><img class="NovenaImage" src="' + url + '"/></li>'
-      + '<li><span class="NovenaCaption">' + Records.NovenaCaption + '</span> <br/>'
-      + '<strong>Start:</strong> ' + ConvertJsonToDate(Records.StartDate) +'<br/>'
-      + '<strong>End:</strong>  ' + ConvertJsonToDate(Records.EndDate) + '<br /><strong>'+Records.ChurchName+'</strong><p class="pPriestDesc">' + Records.Description + '</p> '
-      + '<a class="aNovenaViewMore" style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="BindNovenaMoreDetails(\'' + ID + '\')">View more details</a>'
-      + '<input id=' + ID + ' type="hidden" value=' + ID + '/></li></ul></div>');
+        var StartDate = Records.StartDate;
+        var EndDate = Records.EndDate;
+        var Day = Records.Day;
+        var html = '';
+        var NovenaTiming = Records.FormatedNovenaTiming;
+        NovenaTiming = NovenaTiming.replace(/,\s*$/, "");
+
+        //if (Day == "Dai") {
+        //    Day = "Daily";
+        //}
+
+        if (StartDate == null) {
+            html = ('<ul class="dashboard-list NovenaList"><li style="width:25%!important"><img class="NovenaImage" id=' + ID + ' src="' + (url != null ? url : "../img/No-Img_Chosen.png") + '"/></li>'
+     + '<li style="width:75%!important"><span class="NovenaCaption">' + Records.NovenaCaption + '</span> <br/>'
+     + '<strong>' + Day + ':</strong> ' + (NovenaTiming) + '<br/>'
+     + Records.ChurchName + '</strong><p class="pPriestDesc">' + Records.Description + '</p> '
+     + '<a class="aNovenaViewMore" style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="BindNovenaMoreDetails(\'' + ID + '\')">View more details</a>'
+     + '<input id=' + ID + ' type="hidden" value=' + ID + '/></li></ul></div>');
+
+        }
+        else //Start Date Not Null
+        {
+            if (Day == null)
+            {
+                html = ('<ul class="dashboard-list NovenaList"><li style="width:25%!important"><img class="NovenaImage" id=' + ID + ' src="' + (url != null ? url : "../img/No-Img_Chosen.png") + '"/></li>'
+             + '<li style="width:75%!important"><span class="NovenaCaption">' + Records.NovenaCaption + '</span> <br/>'
+             + '<strong>' + ConvertJsonToDate(Records.StartDate) + '</strong> To ' + '<strong>' + ConvertJsonToDate(Records.EndDate) + '</strong> ' + '<br/>'
+             + '<strong>Daily:</strong> ' + (NovenaTiming) + '<br/>'
+             + '<strong>' + Records.ChurchName + '</strong><p class="pPriestDesc">' + Records.Description + '</p> '
+             + '<a class="aNovenaViewMore" style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="BindNovenaMoreDetails(\'' + ID + '\')">View more details</a>'
+             + '<input id=' + ID + ' type="hidden" value=' + ID + '/></li></ul></div>');
+
+            }
+            else //Day Not Null
+            {
+                html = ('<ul class="dashboard-list NovenaList"><li style="width:25%!important"><img class="NovenaImage" id=' + ID + ' src="' + (url != null ? url : "../img/No-Img_Chosen.png") + '"/></li>'
+            + '<li style="width:75%!important"><span class="NovenaCaption">' + Records.NovenaCaption + '</span> <br/>'
+            + '<strong>' + ConvertJsonToDate(Records.StartDate) + '</strong> To' + '<strong>' + ConvertJsonToDate(Records.EndDate) + '</strong> ' + '<br/>'
+            + '<strong>' + Day + ':</strong> ' + (NovenaTiming) + '<br/>'
+            + '<strong>' + Records.ChurchName + '</strong><p class="pPriestDesc">' + Records.Description + '</p> '
+            + '<a class="aNovenaViewMore" style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="BindNovenaMoreDetails(\'' + ID + '\')">View more details</a>'
+            + '<input id=' + ID + ' type="hidden" value=' + ID + '/></li></ul></div>');
+
+            }
+
+        }
+        
+
+      //   html = ('<ul class="dashboard-list NovenaList"><li style="width:25%!important"><img class="NovenaImage" src="' + url + '"/></li>'
+      //+ '<li style="width:75%!important"><span class="NovenaCaption">' + Records.NovenaCaption + '</span> <br/>'
+      //+ '<strong>Start:</strong> ' + ConvertJsonToDate(Records.StartDate) +'<br/>'
+      //+ '<strong>End:</strong>  ' + ConvertJsonToDate(Records.EndDate) + '<br /><strong>'+Records.ChurchName+'</strong><p class="pPriestDesc">' + Records.Description + '</p> '
+      //+ '<a class="aNovenaViewMore" style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="BindNovenaMoreDetails(\'' + ID + '\')">View more details</a>'
+      //+ '<input id=' + ID + ' type="hidden" value=' + ID + '/></li></ul></div>');
 
 
         $('#DivNovenas').append(html);
@@ -359,7 +422,7 @@ function FillNovenas(Records) {
         if (url == null) {
             url = "../img/No-Img_Chosen.png";
             $('#img' + Records.ID).attr('src', url);
-
+           
         }
 
 

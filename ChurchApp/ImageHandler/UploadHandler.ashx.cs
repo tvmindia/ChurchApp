@@ -26,6 +26,7 @@ namespace ChurchApp.ImageHandler
             {
                 string AppImagePath = "";
                 string fileExtension = "";
+                string status = "";
                  if (context.Request.Files.Count > 0)
                 {
                     #region Album
@@ -40,7 +41,7 @@ namespace ChurchApp.ImageHandler
                                 GalAlbumObj.albumName = context.Request.Form.GetValues("AlbumName")[0];
                                 GalAlbumObj.albumType = "image";
                                 GalAlbumObj.createdBy = context.Request.Form.GetValues("createdby")[0];
-                                GalAlbumObj.InsertGalleryAlbum();
+                                status=GalAlbumObj.InsertGalleryAlbum();
                                 foreach (string content in context.Request.Files)
                                 {
                                     HttpPostedFile file = context.Request.Files[content];
@@ -50,10 +51,11 @@ namespace ChurchApp.ImageHandler
                                     GalItemsObj.url = "/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension;
                                     GalItemsObj.itemType = "image";
                                     GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
-                                    GalItemsObj.InsertGalleryItem();
+                                    status= GalItemsObj.InsertGalleryItem();
                                     string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/AppImages/"));
                                     file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
                                 }//end of foreach
+                                context.Response.Write(status);
                                 break;
 
                             case "AddMoreImages":
@@ -66,19 +68,22 @@ namespace ChurchApp.ImageHandler
                                     GalItemsObj.url = "/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension;
                                     GalItemsObj.itemType = "image";
                                     GalItemsObj.createdBy = "Albert Thomson";
-                                    GalItemsObj.InsertGalleryItem();
+                                    status=GalItemsObj.InsertGalleryItem();
                                     string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/AppImages/"));
                                     file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
                                 }//end of foreach
+                                context.Response.Write(status);
                                 break;
 
+
                             case "GalleryVideoAlbum":
+                              
                                 GalleryAlbum GalAlbumObjForVideo = new GalleryAlbum();
                                 GalAlbumObjForVideo.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
                                 GalAlbumObjForVideo.albumName = context.Request.Form.GetValues("AlbumName")[0];
                                 GalAlbumObjForVideo.albumType = "video";
                                 GalAlbumObjForVideo.createdBy = "Albert Thomson";
-                                GalAlbumObjForVideo.InsertGalleryAlbum();
+                                status=GalAlbumObjForVideo.InsertGalleryAlbum();
 
                                   foreach (string content in context.Request.Files)
                                   {
@@ -89,18 +94,19 @@ namespace ChurchApp.ImageHandler
                                     GalItemsObj.url = "/vid/" + GalItemsObj.galleryItemID + fileExtension;
                                     GalItemsObj.itemType = "video";
                                     GalItemsObj.createdBy = "Albert Thomson";
-                                    GalItemsObj.InsertGalleryItem();
+                                    status=GalItemsObj.InsertGalleryItem();
                                     string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
                                     file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
 
                                     CreateThumbnailForVideo(GalItemsObj.galleryItemID,fileExtension);
-
+                                   
                                 }//end of foreach
-                               
+                                  context.Response.Write(status);
                             break;
                             case "AddMoreVideos":
                             foreach (string content in context.Request.Files)
                             {
+                             
                                 HttpPostedFile file = context.Request.Files[content];
                                 fileExtension = Path.GetExtension(file.FileName);
                                 GalleryItems GalItemsObj = new GalleryItems();
@@ -108,13 +114,14 @@ namespace ChurchApp.ImageHandler
                                 GalItemsObj.url = "/vid/" + GalItemsObj.galleryItemID + fileExtension;
                                 GalItemsObj.itemType = "video";
                                 GalItemsObj.createdBy = "Albert Thomson";
-                                GalItemsObj.InsertGalleryItem();
+                                status=GalItemsObj.InsertGalleryItem();
                                 string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
                                 file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
 
                                 CreateThumbnailForVideo(GalItemsObj.galleryItemID, fileExtension);
-
+                               
                             }//end of foreach
+                            context.Response.Write(status);
                             break;
                         }
                     }

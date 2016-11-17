@@ -62,17 +62,35 @@ display: -webkit-box;
     display:none;
 }
 
-.NovenaImage
+/*.NovenaImage
 {
     height: 120px!important;
-width: 200px!important;
+width: 120px!important;
 padding: 1px!important;
 float: left!important;
 margin-top: -6px!important;
 margin-right: 35px!important;
 border: 1px solid #eee!important;
 
+}*/
+
+ul.dashboard-list li .NovenaImage {
+    height: 160px;
+    width: 133px;
+    padding: 5px;
+    border-radius: 10%;
 }
+.NovenaImage {
+    height: 140px;
+    width: auto;
+    padding: 5px;
+    border-radius: 10%;
+    object-fit: cover!important;
+    align-content: center;
+}
+
+
+
 .novenaViewDetails
 {
     position:absolute;
@@ -86,6 +104,11 @@ border: 1px solid #eee!important;
 
 /*----------------Novena Bind---------------------------*/
 
+.liNovenaImg
+{
+    width:25%!important;
+}
+
 .pPriestDesc
 {
   overflow: hidden;
@@ -93,9 +116,8 @@ text-overflow: ellipsis;
 display: -webkit-box;
 -webkit-line-clamp: 2;
 -webkit-box-orient: vertical;
-
+/*object-fit: cover!important;*/
 }
-
 
 ul.dashboard-list li{
     padding:21px!important;
@@ -119,7 +141,7 @@ ul.dashboard-list li{
 
  .btnNew
  {
-     margin-left: 60%
+     margin-left: 90%
  }
 
  aNovenaViewMore
@@ -137,9 +159,19 @@ ul.dashboard-list li{
     display:none
  }
 
+#imgNovenaView {
+     width: 100%;
+    height: 100%;
+    padding: 1px;
+    float: left;
+    margin-top: -6px;
+    margin-right: 35px;
+    border: 1px solid #eee;
+}
+
  #imgNewNovena {
     width: 38%;
-    height: 100%;
+    height: 60%;
 }
 
  #divStartDate
@@ -158,6 +190,8 @@ ul.dashboard-list li{
 #DivViewFormat
 {
     display:none;
+    margin-top:0px!important;
+    
 }
  /*------------Time picker-----------*/
  #circle {
