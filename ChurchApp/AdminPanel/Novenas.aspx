@@ -257,11 +257,11 @@
                                                         <dt>Church</dt>
                                                         <dd> <label id="lblChurchName"></label>
                                                            </dd>
-                                                        <dt>Start</dt>
-                                                        <dd> <label id="lblStartDate"></label>
+                                                        <dt id="ViewDate">Date</dt>
+                                                        <dd> <label id="lblViewDate"></label>
                                                            </dd>
-                                                        <dt>End</dt>
-                                                        <dd><label id="lblEndDate"></label>
+                                                        <dt>Time</dt>
+                                                        <dd><label id="lblViewTime"></label>
                                                            </dd>
                                                     </dl>
                                                 </div>

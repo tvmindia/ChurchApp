@@ -252,7 +252,7 @@ function GetAllPatronIdAndName(PatronMaster)
 }
 //--------------------------------//
 
-
+var DayAndTimeTemp = '';
 //More Details
 function BindNovenaMoreDetails(ID)
 {
@@ -277,10 +277,67 @@ function BindNovenaMoreDetails(ID)
 
             }
             $('#lblChurchName').text(jsonResult.ChurchName);
-            $('#lblStartDate').text(ConvertJsonToDate(jsonResult.StartDate));
-            $('#lblEndDate').text(ConvertJsonToDate(jsonResult.EndDate));
-            $('#lblDescription').text(jsonResult.Description);
+            
+            if (jsonResult.StartDate == null && jsonResult.EndDate == null) {
+                $('#ViewDate').hide();
+                $('#lblViewDate').hide();
+            }
+            else
+            {
+                $('#ViewDate').show();
+                $('#lblViewDate').show();
+                $('#lblViewDate').html(ConvertJsonToDate(jsonResult.StartDate) + ' <strong> To </strong> ' + ConvertJsonToDate(jsonResult.EndDate));
+            }
            
+           
+            $('#lblDescription').text(jsonResult.Description);
+            debugger;
+            var DayAndTime = jsonResult.DayAndTime;
+
+            if (DayAndTime != null) {
+
+                if (DayAndTime.indexOf('|') > -1) {
+                    var DT = DayAndTime.split('|');
+
+                    for (var i = 0; i < DT.length; i++) {
+                        if (DT[i].indexOf('-') > -1) {
+                            if (DT[i].split('-')[0] == "Dai") {
+                                DT[i] = DT[i].split('-')[1];
+                            }
+                        }
+                        if (i == 0) {
+                            DayAndTimeTemp = DayAndTimeTemp + DT[i] + '<br/> ';
+                        }
+                        else {
+                            DayAndTimeTemp = DayAndTimeTemp + DT[i] + '<br/> ';
+                        }
+                    }
+
+                    DayAndTime = DayAndTimeTemp;
+
+                }
+                else {
+                    if (DayAndTime.indexOf('-') > -1) {
+                        if (DayAndTime.split('-')[0] == "Dai") {
+                            DayAndTime = DayAndTime.split('-')[1];
+                        }
+                    }
+
+                   // NovenaTiming = '<strong>' + DayAndTime + '</strong><br/> ';
+                }
+            }
+
+
+
+            //if (DayAndTime.indexOf('-') > -1) {
+            //    if (DayAndTime.split('-')[0] == "Dai") {
+            //        DayAndTime = DayAndTime.split('-')[1];
+            //    }
+            //}
+            $('#lblViewTime').html(DayAndTime);
+          //  NovenaTiming = '<strong>' + DayAndTime + '</strong><br/> ';
+
+
         });
     }
 

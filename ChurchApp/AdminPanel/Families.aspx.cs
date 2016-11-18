@@ -321,5 +321,58 @@ namespace ChurchApp.AdminPanel
             return jsonResult;
         }
         #endregion GetFamilyMember
+
+        #region UpdateFamilyMember
+        [System.Web.Services.WebMethod]
+        public static string UpdateFamilyMember(Members memberObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                if (UA != null)
+                {
+                    memberObj.churchId = UA.ChurchID;
+                    memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
+                   
+                        status = memberObj.UpdateMember();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+        #endregion UpdateFamilyMember
+
+        #region DeleteFamilyMember
+        [System.Web.Services.WebMethod]
+        public static string DeleteFamilyMember(Members memberObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                if (UA != null)
+                {
+                    memberObj.churchId = UA.ChurchID;
+                    memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
+                    
+                        status = memberObj.DeleteMember();
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+        #endregion UpdateFamilyMember
     }
 }
