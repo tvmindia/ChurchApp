@@ -195,4 +195,13 @@ i#faUser {
     border:none !important;
     padding:0px !important;
 }
-
+#rowfluidDiv {
+    position: absolute;
+    top: 1%;
+    margin-left: 30%;
+    width: 745px;
+    text-align: center;
+}
+.alert{
+    line-height:9px;
+}

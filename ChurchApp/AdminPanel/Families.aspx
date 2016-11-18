@@ -14,6 +14,34 @@
 				</li>
 				<li class="faUnits">Families</li>
 			</ul>
+          <%--Alert boxes --%>
+               <div id="rowfluidDiv" style="display:none;">	
+				
+
+                 
+						<div class="alert alert-error" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Operation Not Successfull.</strong> 
+						</div>
+						<div class="alert alert-success" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Successfull.</strong> 
+						</div>
+						<div class="alert alert-info" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+						</div>
+						<div class="alert alert-block" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<h4 class="alert-heading">Warning!</h4>
+							<p>Best check yourself, you're not looking too good.</p>
+						</div>
+					
+
+              
+            </div>
+				
+	    <%--Alert boxes --%>
          <div class="row-fluid">
              <div class="box span6">
 					<div class="box-header" data-original-title>
@@ -79,7 +107,7 @@
                         
                         <div class="panel span12" id="familyAddDiv"  style="margin-top:10px!important;display:none;">  
                               	<div class="box-header" data-original-title>
-						<h2 id="FamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Add Family Member</h2>
+						<h2 id="FamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="memberAddOrEdit"></span> Family Member</h2>
 						<div class="box-icon">
 						
 											
@@ -127,7 +155,13 @@
                              <div class="control-group" id="isHeadDiv">
 								<label class="control-label" for="focusedInput">IsHead:</label>
 								<div class="controls">
-								  <input type="checkbox" id="chkIsHead" value="" />
+                                   
+                                       <input type="checkbox" id="chkIsHead" value=""/>
+
+                                  
+
+								  <%--<input type="checkbox" name="chkHead" id="chkIsHead" />--%>
+                                        
                                 </div>
 								</div> 
                         </div>
@@ -141,7 +175,7 @@
 							<div class="form-actions span12" id="btnDiv">
 							  <a class="btn btn-primary Save" name="" id="btnSavePriest">Save</a>
                                 <a id="btnCancelPriest" class="btn btn-primary Cancel">Cancel</a>
-                                <a class="btn btn-primary" name="" id="btnDelete">Delete</a>
+                                <a class="btn btn-primary Delete" name="" id="btnDelete">Delete</a>
 							  
 							</div>
 						  </fieldset>
@@ -214,5 +248,6 @@
     <input type="hidden" value="" id="hdfExecutivesLength" />
     <input type="hidden" value="" id="hdfFamilyName" />
     <input type="hidden" value="" id="hdfFamilyID" />
+    <input type="hidden" value="" id="hdfMemberID" />
        
 </asp:Content>
