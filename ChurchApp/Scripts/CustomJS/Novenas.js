@@ -29,7 +29,11 @@ $("document").ready(function (e)
     });
 
     $('#btnSave').click(function (e) {
-        $('#DivNovenaTiming').show();
+       // $('#DivNovenaTiming').show();
+
+        var Novenas = new Object();
+        Novenas.patronId = $("#ddlPatron").val();
+
     });
    
     //Cancel Click
@@ -64,6 +68,7 @@ $("document").ready(function (e)
                     tempFile.name = guid;
                     formData.append('NoticeAppImage', tempFile, tempFile.name);
                     formData.append('GUID', guid);
+                    formData.append('createdby', 'SHAMILA');
                 }
                 formData.append('ActionTyp', 'NoticeAppImageInsert');
                 AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
@@ -103,7 +108,7 @@ function SetControlsInNovenaFormat()
 {
     debugger;
     ClearControls();
-    $('#DivNovenaTiming').hide();
+  //  $('#DivNovenaTiming').hide();
     $('#DivNewNovena').show();
     $('#NoticeEdit').hide();
       
@@ -146,7 +151,7 @@ function ClearControls() {
 function SetControlsInViewFormat()
 {
     debugger;
-    $('#DivNovenaTiming').hide();
+   // $('#DivNovenaTiming').hide();
     $('#DivNewNovena').show();
     $('#DivNewFormat').hide();
     $('#DivViewFormat').show();
@@ -274,7 +279,7 @@ var DayAndTimeTemp = '';
 //More Details
 function BindNovenaMoreDetails(ID)
 {
-    $('#DivNovenaTiming').hide();
+  //  $('#DivNovenaTiming').hide();
     SetControlsInViewFormat();
 
     var jsonResult = {};

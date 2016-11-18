@@ -38,11 +38,12 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetPriestsDetails(Priest priestObj)
         {
-        //    DAL.Security.UserAuthendication UA;
-        //    UIClasses.Const Const = new UIClasses.Const();
-        //    UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            priestObj.churchID = UA.ChurchID;
+           
 
             if (priestObj.churchID != "")
             {
@@ -169,8 +170,10 @@ namespace ChurchApp.AdminPanel
         public static string UpdatePriest(ChurchApp.DAL.Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            PriestObj.churchID = "99311E06-65DD-471E-904E-04702F2C4FB0";
-            //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            PriestObj.churchID = UA.ChurchID;
             string status = null;
             try
             {
