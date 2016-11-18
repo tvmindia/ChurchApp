@@ -19,18 +19,18 @@ namespace ChurchApp.DAL
 {
     public class Church
     {
-        public Administrators administrators = new Administrators();
-        public AppImages appImages = new AppImages();
-        public GalleryAlbum galleryAlbum = new GalleryAlbum();
-        public Members members = new Members();
-        public Events events = new Events();
-        public FamilyUnits familyUnits = new FamilyUnits();
-        public Institutions institutions = new Institutions();
-        public Notices notices = new Notices();
-        public Notification notifications = new Notification();
-        public Novenas novenas = new Novenas();
-        public PiousOrg piousOrg = new PiousOrg();
-        public Priest priest = new Priest();
+        //public Administrators administrators = new Administrators();
+        //public AppImages appImages = new AppImages();
+        //public GalleryAlbum galleryAlbum = new GalleryAlbum();
+        //public Members members = new Members();
+        //public Events events = new Events();
+        //public FamilyUnits familyUnits = new FamilyUnits();
+        //public Institutions institutions = new Institutions();
+        //public Notices notices = new Notices();
+        //public Notification notifications = new Notification();
+        //public Novenas novenas = new Novenas();
+        //public PiousOrg piousOrg = new PiousOrg();
+        //public Priest priest = new Priest();
 
         #region Public Properties
 
@@ -558,6 +558,7 @@ namespace ChurchApp.DAL
     public class ChurchDetails : Church
     {
         #region Public Properties
+        public Church ChurchObj;
 
         public string churchDetailID
         {
@@ -578,7 +579,6 @@ namespace ChurchApp.DAL
         #endregion Public Properties
 
         #region ChurchDetail Methods
-
         #region SelectChurchDetails
         /// <summary>
         /// Get All Church Details
@@ -618,7 +618,6 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectChurchDetails
-
         #region InsertChurchDetails
 
         /// <summary>
@@ -663,7 +662,6 @@ namespace ChurchApp.DAL
             return param1.Value.ToString();
         }
         #endregion InsertChurchDetails
-
         #region UpdateChurchDetails
         /// <summary>
         /// Edit Church Details
@@ -707,7 +705,6 @@ namespace ChurchApp.DAL
             return param1.Value.ToString();
         }
         #endregion UpdateChurchDetails
-
         #region DeleteChurchDetails
         /// <summary>
         /// Delete Church Details
@@ -746,13 +743,15 @@ namespace ChurchApp.DAL
             return outParam.Value.ToString();
         }
         #endregion DeleteChurchDetail
-
         #endregion ChurchDetail Methods
 
     }
     public class MassTimings : Church
     {
         #region Public Properties
+        public Church churchObj;
+        public ChurchDetails churchDetailsObj;
+
         public string massChurchId
         {
             get;
