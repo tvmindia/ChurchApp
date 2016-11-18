@@ -215,7 +215,7 @@
         $('#rowfluidDivVideos').hide();
 
         debugger;
-        alert("more video save");
+      
         bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
         bar.text.style.fontSize = '2rem';
      
