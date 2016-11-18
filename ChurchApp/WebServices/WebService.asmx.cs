@@ -61,7 +61,14 @@ namespace ChurchApp.WebServices
             }
             catch (Exception ex)
             {
-                throw ex;
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
             }
             finally
             {
@@ -142,7 +149,14 @@ namespace ChurchApp.WebServices
             }
             catch (Exception ex)
             {
-                throw ex;
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
             }
             finally
             {
@@ -185,11 +199,18 @@ namespace ChurchApp.WebServices
             {
                 ChurchApp.DAL.Church chrchobj = new DAL.Church();
                 dt = chrchobj.SearchChurchesByChurchOrTownName(SearchTerm);
-                
+                if (dt.Rows.Count == 0) throw new Exception("No items");
             }
             catch (Exception ex)
             {
-                throw ex;
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
             }
             finally
             {
@@ -210,11 +231,18 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.Church chrchobj = new DAL.Church();
                 chrchobj.churchId = ChurchID;
                 dt = chrchobj.GetChurchDetailsByChurchID();
-                
+                if (dt.Rows.Count == 0) throw new Exception("No items");
             }
             catch (Exception ex)
             {
-                throw ex;
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
             }
             finally
             {
@@ -229,6 +257,38 @@ namespace ChurchApp.WebServices
 
         // --More (dynamic)
         #region Church Detail
+
+        #region Mass Timings
+        [WebMethod]
+        public string GetMassTimings(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.MassTimings chrchDetailobj = new DAL.MassTimings();
+                chrchDetailobj.massChurchId = ChurchID;
+                dt = chrchDetailobj.GetMassTimingsForApp();
+                if(dt.Rows.Count==0) throw new Exception("No items");
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
 
         #region More Details of Church (Dynamic)
 
