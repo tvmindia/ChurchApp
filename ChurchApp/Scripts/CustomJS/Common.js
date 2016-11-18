@@ -34,7 +34,83 @@
 //    }
 //    //return false;
 //}
+// function Allowing only numbers in Textbox
+function CustomAlert() {
+    this.render = function (dialog) {
+        var winW = window.innerWidth;
+        var winH = window.innerHeight;
+        var dialogoverlay = document.getElementById('dialogoverlay');
+        var dialogbox = document.getElementById('dialogbox');
+        dialogoverlay.style.display = "block";
+        dialogoverlay.style.height = winH + "px";
+        dialogbox.style.left = (winW / 2) - (550 * .5) + "px";
+        dialogbox.style.top = "3px";
+        dialogbox.style.display = "block";
+        document.getElementById('dialogboxhead').innerHTML = " Alert !";
+        document.getElementById('dialogboxbody').innerHTML = dialog;
+        document.getElementById('dialogboxfoot').innerHTML = '<input type="button" class="btn btn-danger" onclick="Alert.ok()" value="OK"/>';
+    }
+    this.ok = function () {
+        document.getElementById('dialogbox').style.display = "none";
+        document.getElementById('dialogoverlay').style.display = "none";
+    }
+}
+var Alert = new CustomAlert();
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || (charCode > 57) || (charCode == 08))) {
+        return false;
+    }
+    return true;
+}
+var validFiles = ["bmp", "gif", "png", "jpg", "jpeg"];
+function OnUpload(f) {
+    //document.getElementById('<%=Errorbox.ClientID %>').style.display = "none";
+    debugger;
+    var obj = f;
+    var source = obj.value;
+    var ext = source.substring(source.lastIndexOf(".") + 1, source.length).toLowerCase();
+    for (var i = 0; i < validFiles.length; i++) {
+        if (validFiles[i] == ext)
 
+            break;
+    }
+    if (i >= validFiles.length) {
+        Alert.render("Format Not Supporting\n\n Try:" + validFiles.join(", "));
+        f.value = '';
+        $('[data-dismiss="modal"]').click();
+    }
+    return true;
+}
+function scriptvalidate() {
+
+    var ictrl;
+    var check = 0;
+    var regex = /^[a-zA-Z0-9,.;:"'@#$%*+! ]{0,255}$/;
+    var ctrl = [];
+    var domelement = document.querySelectorAll("input[type=text],textarea");
+    var domcount = 0;
+    for (domcount; domcount < domelement.length; domcount++) {
+        ctrl.push(domelement[domcount].value);
+    }
+
+    for (ictrl = 0; ictrl < ctrl.length; ictrl++) {
+        if (regex.test(ctrl[ictrl])) {
+            check = 1;
+        }
+        else {
+            $('#rowfluidDiv').show();
+            $('.alert-danger').show();
+            $('.alert-error strong').text("We can't accept brackets or parentheses");
+            check = 0;
+            return false;
+        }
+    }
+    if (check == 1) {
+        return true;
+    }
+}
 function postBlobAjax(formData, page) {
     //var request = new XMLHttpRequest();
     //request.open("POST", page);

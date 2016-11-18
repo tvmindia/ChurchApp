@@ -73,7 +73,7 @@
 				<div class="box-content">
 				<div class="form-horizontal">
 				    <fieldset>
-                    <a class="btnEdit" style="right:40px;position: fixed;" title="EDIT" id="iconEditInstitute" onclick="EditInstitute(this);"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
+                    <a class="btnEdit" style="right:40px;top:-41px;position: absolute;" title="EDIT" id="iconEditInstitute" onclick="EditInstitute(this);"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
                          <div class="control-group span12" style="margin-top:20px;width:100%!important">
 							  <img class="priestimage" id="instituteDetailPreview" src="../img/gallery/Institution.jpg"/>
 							</div> 
@@ -164,7 +164,7 @@
                     <%--<a class="btnEdit" style="right:30px;position: absolute;" onclick="EditInstitute();"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>--%>
                         <div class="control-group span12">
 					    <img class="priestimage" id="priestPreview" src="../img/gallery/Institution.jpg"/>
-                         <input type="file" value="Choose Image" id="instituteimg" accept="image/*" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="showpreview(this);" />
+                         <input type="file" value="Choose Image" id="instituteimg" accept="image/*" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="OnUpload(this);showpreview(this);" />
 							</div>
                         <%-- Accordion general information --%>        
                         <div class="control-group accordion span12" id="EditGenDetails" style="background-color:#FFEFEC;margin-bottom:0px!important;">
@@ -210,15 +210,6 @@
 								</div>
 								</div>
 
-                         
-                       
-						 <%-- <div class="control-group">
-								<label class="control-label" for="focusedInput">Location:</label>
-								<div class="controls">
-								  <input class="input-large focused" name="" id="txtLocation" type="text" value=""/>
-								</div>
-								</div>--%>
-
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Email</label>
 								<div class="controls">
@@ -234,19 +225,19 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Phone1</label>
 								<div class="controls">
-								  <input class="input-large focused" name="phone1" id="txtPhone1" type="text" value=""/>
+								  <input class="input-large focused" name="phone1" id="txtPhone1" onkeypress="return isNumber(event);" type="text" value=""/>
 								</div>
 								</div>
                         <div class="control-group">
 								<label class="control-label" for="focusedInput">Phone2</label>
 								<div class="controls">
-								  <input class="input-large focused" name="phone2" id="txtPhone2" type="text" value=""/>
+								  <input class="input-large focused" name="phone2" id="txtPhone2" onkeypress="return isNumber(event);" type="text" value=""/>
 								</div>
 								</div>
                             <div class="control-group">
 								<label class="control-label" for="focusedInput">Mobile</label>
 								<div class="controls">
-								  <input class="input-large focused" name="mobile" id="txtMob" type="text" value=""/>
+								  <input class="input-large focused" name="mobile" id="txtMob" onkeypress="return isNumber(event);" type="text" value=""/>
 								</div>
 								</div>
                         
@@ -264,7 +255,7 @@
                             <li class="span12" style="position: relative;height:229px;">
                                <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;color:black!important;background:white!important;" title="ADD" onclick="OpenAdminModal()"><i style="font-size:48px;">+</i></a>
                                <div class="thumbnail" style="position:relative!important;top: -33px;opacity:0.7;">
-                               <img class="img-rounded" style="height:179px" src="../img/gallery/priest.png" alt=""/>
+                               <img class="img-rounded" style="height:179px" src="../img/gallery/Noimage.png" alt=""/>
                                 <address>
                                     <br/>
                                     <strong><br/>No Records Found<br/></strong>
@@ -283,7 +274,7 @@
 							<div class="form-actions span12">
 							  <a class="btn btn-primary" name="" id="btnSaveInstitute">Save changes</a>
                                 <a id="btncancelInstitute" name="" class="btn btn-primary" onclick="Cancel(this);">Cancel</a>
-                                <a class="btn btn-primary" name="" id="btnDelete">Delete</a>
+                                <a class="btn btn-primary" name="" id="btnDeleteInstitute">Delete</a>
 							  
 							</div>
 						  </fieldset>
@@ -296,6 +287,8 @@
 						
 			  </div>
          </div>
+    
+       
               <%-- Modal Insert Administration Faculties --%>
                <div class="modal hide fade" id="modelAddAdmin">
 		  <div class="modal-header">
@@ -307,8 +300,8 @@
 				    <fieldset>
                        <div class="span12"> 
                        <div class="control-group">
-                       <img id="AdminPicPreview" src="../img/gallery/priest.png" style="max-height:159px" class="img-rounded"/>
-                       <input class="" id="fluImage" type="file"/>
+                       <img id="AdminPicPreview" src="../img/gallery/Noimage.png" style="max-height:159px" class="img-rounded"/>
+                       <input class="" id="fluImage" type="file" accept="image/*" onchange="OnUpload(this);showpreviewAdmin(this);"/>
                        </div>
                       <div class="control-group">
                       <label class="control-label" for="inputIcon">Designation</label>
