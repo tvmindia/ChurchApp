@@ -153,6 +153,24 @@ ul.dashboard-list li{
  }
 
  /*-------------New Novena---------------*/
+ /*.form-actions
+ {
+    padding:0px
+ }
+ .box-header
+ {
+     height:10px
+ }*/
+
+ #DivNovenaTiming
+ {
+     display:none
+ }
+
+ #txtDescription
+ {
+     width:480px
+ }
 
  #DivNewNovena
  {
@@ -170,8 +188,8 @@ ul.dashboard-list li{
 }
 
  #imgNewNovena {
-    width: 38%;
-    height: 60%;
+    width: 40%;
+    height: 50%;
 }
 
  #divStartDate

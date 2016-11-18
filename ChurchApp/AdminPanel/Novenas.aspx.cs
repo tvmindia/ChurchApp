@@ -216,6 +216,37 @@ namespace ChurchApp.AdminPanel
 
         #endregion GetNovenaDetailsByNovenaID
 
+        #region Add New Novena
+
+        [System.Web.Services.WebMethod]
+        public static string InsertNovena(ChurchApp.DAL.Novenas NovenaObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            string status = null;
+            try
+            {
+                NovenaObj.createdBy = UA.userName;
+                status = NovenaObj.InsertNovena();
+                NovenaObj.Status = status;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NovenaObj);
+
+        }
+
+        #endregion Add New Novena
+
         #endregion Methods
 
 
