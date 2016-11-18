@@ -28,7 +28,10 @@ $("document").ready(function (e)
         $("#divDay").show();
     });
 
-
+    $('#btnSave').click(function (e) {
+        $('#DivNovenaTiming').show();
+    });
+   
     //Cancel Click
     $('#btnCancel').click(function (e) {
         SetControlsInNovenaFormat();
@@ -36,10 +39,11 @@ $("document").ready(function (e)
 
     //Save - New Saint
     $('#btnSaveInModal').click(function (e) {
-        // var IsValid = NewSaintValidation();
-
+        //var IsValid = NewSaintValidation();
+       
         debugger;
-
+       
+        
         var PatronMaster = new Object();
         PatronMaster.patronMasterName = $("#txtSaintName").val();
         PatronMaster.description = $("#txtSaintDescription").val();
@@ -66,7 +70,7 @@ $("document").ready(function (e)
                 PatronMaster.imageID = guid;
             }
 
-              result = InsertPatron(PatronMaster);
+            result = InsertPatron(PatronMaster);
 
             if (result.Status == 1)
             {
@@ -80,12 +84,26 @@ $("document").ready(function (e)
 }); //End of Document ready
 
 
+
+//Insert Novena
+function InsertNovena(Novenas) {
+    var data = "{'NovenaObj':" + JSON.stringify(Novenas) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Novenas.aspx/InsertNovena");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+//--------------------------------//
+
+
+
+
 //Clear Controls
 function SetControlsInNovenaFormat()
 {
     debugger;
     ClearControls();
-
+    $('#DivNovenaTiming').hide();
     $('#DivNewNovena').show();
     $('#NoticeEdit').hide();
       
@@ -128,7 +146,7 @@ function ClearControls() {
 function SetControlsInViewFormat()
 {
     debugger;
-
+    $('#DivNovenaTiming').hide();
     $('#DivNewNovena').show();
     $('#DivNewFormat').hide();
     $('#DivViewFormat').show();
@@ -256,6 +274,7 @@ var DayAndTimeTemp = '';
 //More Details
 function BindNovenaMoreDetails(ID)
 {
+    $('#DivNovenaTiming').hide();
     SetControlsInViewFormat();
 
     var jsonResult = {};
