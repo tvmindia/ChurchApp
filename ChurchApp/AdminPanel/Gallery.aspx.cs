@@ -22,10 +22,18 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            DataSet ds = null;
             try
             {
-                GalleryAlbumObj.churchId="41f453f6-62a4-4f80-8fc5-1124e6074287";
+
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+                
+                DataSet ds = null;
+
+
+                GalleryAlbumObj.churchId=UA.ChurchID.ToString();
                 ds = GalleryAlbumObj.GetAllGalleryImageAlbumByChurchID();
                 //Converting to Json
                 Dictionary<string, object> childRow;
@@ -55,13 +63,21 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllImageByAlbumID(GalleryItems GalleryItemsObj)
         {
+           
+
+
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            DataSet ds = null;
+            
             try
             {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                DataSet ds = null;
 
-                GalleryItemsObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
+
+                GalleryItemsObj.churchId = UA.ChurchID;
                 ds = GalleryItemsObj.SelectGalleryItems();
                 //Converting to Json
                 Dictionary<string, object> childRow;
@@ -91,10 +107,25 @@ namespace ChurchApp.AdminPanel
         public static string InsertImageAlbum(GalleryAlbum GalleryAlbumObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            GalleryAlbumObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
-            GalleryAlbumObj.albumType="image";
-            GalleryAlbumObj.createdBy = "albert";
-            GalleryAlbumObj.InsertGalleryAlbum();
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                GalleryAlbumObj.churchId = UA.ChurchID;
+                GalleryAlbumObj.albumType = "image";
+                GalleryAlbumObj.createdBy = UA.userName;
+                GalleryAlbumObj.InsertGalleryAlbum();
+            }
+            catch(Exception ex)
+            {
+
+            }
+            finally
+            {
+
+            }
+           
             return jsSerializer.Serialize(GalleryAlbumObj);
 
         }
@@ -105,10 +136,26 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteImageItem(GalleryItems GalleryItemsObj)
         {
+
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            GalleryItemsObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
-            GalleryItemsObj.DeleteGalleryItem();
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                GalleryItemsObj.churchId = UA.ChurchID;
+                GalleryItemsObj.DeleteGalleryItem();
             
+            }
+            catch(Exception ex)
+            {
+
+            }
+            finally
+            {
+
+            }
+        
             return jsSerializer.Serialize(GalleryItemsObj);
         }
 
@@ -118,21 +165,37 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteAlbumItem(GalleryItems GalleryItemsObj)
         {
-            DataSet ds = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            GalleryItemsObj.GalleryAlbObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
-            ds=GalleryItemsObj.SelectGalleryItems();
-            if(ds!=null)
+            try
             {
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                DataSet ds = null;
+
+                GalleryItemsObj.GalleryAlbObj.churchId = UA.ChurchID;
+                ds = GalleryItemsObj.SelectGalleryItems();
+                if (ds != null)
                 {
-                    GalleryItemsObj.galleryItemID = dr["ID"].ToString();
-                    GalleryItemsObj.url = dr["URL"].ToString();
-                    GalleryItemsObj.DeleteGalleryItem();
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        GalleryItemsObj.galleryItemID = dr["ID"].ToString();
+                        GalleryItemsObj.url = dr["URL"].ToString();
+                        GalleryItemsObj.DeleteGalleryItem();
+                    }
+                    GalleryItemsObj.GalleryAlbObj.DeleteGalleryAlbum();
                 }
-                GalleryItemsObj.GalleryAlbObj.DeleteGalleryAlbum();
-            }
         
+            }
+            catch (Exception ex)
+            {
+ 
+            }
+            finally
+            {
+
+            }
+            
            
 
 
@@ -148,11 +211,15 @@ public static string GetAllGalleryVideoAlbumByChurchID(GalleryAlbum GalleryAlbum
 
     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
     List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-    DataSet ds = null;
+   
     try
     {
-       GalleryAlbumObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
-       ds = GalleryAlbumObj.GetAllGalleryVideoAlbumByChurchID();
+        DAL.Security.UserAuthendication UA;
+        DAL.Const Const = new DAL.Const();
+        UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+        DataSet ds = null;
+        GalleryAlbumObj.churchId = UA.ChurchID;
+        ds = GalleryAlbumObj.GetAllGalleryVideoAlbumByChurchID();
         //Converting to Json
         Dictionary<string, object> childRow;
         if (ds.Tables[0].Rows.Count > 0)
@@ -186,8 +253,10 @@ public static string GetAllVideosByAlbumID(GalleryItems GalleryItemsObj)
     DataSet ds = null;
     try
     {
-
-        GalleryItemsObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
+        DAL.Security.UserAuthendication UA;
+        DAL.Const Const = new DAL.Const();
+        UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+        GalleryItemsObj.churchId = UA.ChurchID;
         ds = GalleryItemsObj.SelectGalleryItems();
         //Converting to Json
         Dictionary<string, object> childRow;
@@ -217,8 +286,24 @@ public static string GetAllVideosByAlbumID(GalleryItems GalleryItemsObj)
 public static string DeleteVideoItem(GalleryItems GalleryItemsObj)
 {
     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-    GalleryItemsObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
-    GalleryItemsObj.DeleteGalleryItem();
+    try
+    {
+        DAL.Security.UserAuthendication UA;
+        DAL.Const Const = new DAL.Const();
+        UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+        GalleryItemsObj.churchId = UA.ChurchID;
+        GalleryItemsObj.DeleteGalleryItem();
+    }
+    catch(Exception ex)
+    {
+
+    }
+    finally
+    {
+
+    }
+    
+ 
     return jsSerializer.Serialize(GalleryItemsObj);
 }
 #endregion DeleteVideoItem
@@ -227,25 +312,37 @@ public static string DeleteVideoItem(GalleryItems GalleryItemsObj)
 [System.Web.Services.WebMethod]
 public static string DeleteVideoAlbumItem(GalleryItems GalleryItemsObj)
 {
-    DataSet ds = null;
     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-    GalleryItemsObj.GalleryAlbObj.churchId = "41f453f6-62a4-4f80-8fc5-1124e6074287";
-    ds = GalleryItemsObj.SelectGalleryItems();
-    if (ds != null)
+    try
     {
-        foreach (DataRow dr in ds.Tables[0].Rows)
+        DAL.Security.UserAuthendication UA;
+        DAL.Const Const = new DAL.Const();
+        UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+        DataSet ds = null;
+
+        GalleryItemsObj.GalleryAlbObj.churchId = UA.ChurchID;
+        ds = GalleryItemsObj.SelectGalleryItems();
+        if (ds != null)
         {
-            GalleryItemsObj.galleryItemID = dr["ID"].ToString();
-            GalleryItemsObj.url = dr["URL"].ToString();
-            GalleryItemsObj.DeleteGalleryItem();
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                GalleryItemsObj.galleryItemID = dr["ID"].ToString();
+                GalleryItemsObj.url = dr["URL"].ToString();
+                GalleryItemsObj.DeleteGalleryItem();
+            }
+            GalleryItemsObj.GalleryAlbObj.DeleteGalleryAlbum();
         }
-        GalleryItemsObj.GalleryAlbObj.DeleteGalleryAlbum();
     }
+    catch(Exception ex)
+    {
 
+    }
+    finally
+    {
 
-
-
-    return jsSerializer.Serialize(GalleryItemsObj);
+    }
+      return jsSerializer.Serialize(GalleryItemsObj);
 }
         #endregion DeleteVideoAlbumItem
 
