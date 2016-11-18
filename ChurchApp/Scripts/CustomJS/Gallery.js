@@ -1,5 +1,5 @@
 ﻿$("document").ready(function (e) {
- 
+    var churchid = '99311e06-65dd-471e-904e-04702f2c4fb0';
     $('#divImages').hide();
     $('#divVideos').hide();
 
@@ -42,7 +42,7 @@
                 }
                 formData.append('Album', 'GalleryImageAlbum');
                 formData.append('AlbumName', $("#txtAlbumName").val());
-                formData.append('churchId', '41f453f6-62a4-4f80-8fc5-1124e6074287');
+                formData.append('churchId', churchid);
                 formData.append('createdby', 'Albert');
                 var result=postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                
@@ -111,6 +111,7 @@
                     }
                     formData.append('Album', 'AddMoreImages');
                     formData.append('AlbumID', albid);
+                    formData.append('createdby', 'Albert');
                     var result=postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                     switch (result) {
                         case "1":
@@ -149,7 +150,7 @@
         $('.alert-error').hide();
         $('#rowfluidDivVideos').hide();
         debugger;
-        alert("vid save");
+      
         barinAlbum.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
         barinAlbum.text.style.fontSize = '2rem';
         $('#progressbarUploadinVidAlbum').show();
@@ -161,7 +162,9 @@
                 var formData = new FormData();
                 formData.append('AlbumVideo', $('#AlbumVidUploader')[0].files[0], $('#AlbumVidUploader')[0].files[0].name);
                 formData.append('Album', 'GalleryVideoAlbum');
+                formData.append('churchId', churchid);
                 formData.append('AlbumName', $("#txtVidAlbumName").val());
+                formData.append('createdby', 'Albert');
                 barinAlbum.animate(0.6);  // Number from 0.0 to 1.0
                 var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                 switch (result) {
@@ -212,7 +215,7 @@
         $('#rowfluidDivVideos').hide();
 
         debugger;
-        alert("more video save");
+      
         bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
         bar.text.style.fontSize = '2rem';
      
@@ -228,6 +231,7 @@
                 formData.append('Album', 'AddMoreVideos');
                 formData.append('AlbumName', $("#txtVidAlbumName").val());
                 formData.append('AlbumID', albid);
+                formData.append('createdby', 'Albert');
                 bar.animate(0.6);  // Number from 0.0 to 1.0
                 var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                 switch (result) {

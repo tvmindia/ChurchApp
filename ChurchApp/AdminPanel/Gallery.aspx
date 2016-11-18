@@ -171,7 +171,7 @@
 					</div>
 					<div class="box-content">
 						<div class="Video-gallery">
-		                 <div id="divAddMoreVideos" style="height: 224px!important;border: 2px dotted black;background-color:#fff;width: 27.624%;display: block;float: left;padding-left: 8px;padding-bottom:8px;margin-left:18px;">
+		                 <div id="divAddMoreVideos" style="height: 249px!important;border: 2px dotted black;background-color:#fff;width: 380px;display: block;float: left;margin-left:15px;">
                          <img style="text-align: center;display: block;position: relative;height: 47px;width: 43px;top: 93px;left: 40%;" src="../img/Plussymbol.png"/>
                             <a data-rel="tooltip" data-original-title="Add more videos" style="top: 44%;left: 38%;position: relative;cursor:pointer;" id="newvideo">Add More</></a>
                            </div>

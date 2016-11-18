@@ -29,9 +29,7 @@ namespace ChurchApp.ImageHandler
                 string AppImagePath = "";
                 string fileExtension = "";
                 string status = "";
-                DAL.Security.UserAuthendication UA;
-                DAL.Const Const = new DAL.Const();
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+              
 
                  if (context.Request.Files.Count > 0)
                 {
@@ -43,10 +41,10 @@ namespace ChurchApp.ImageHandler
                         {
                             case "GalleryImageAlbum":
                                 GalleryAlbum GalAlbumObj = new GalleryAlbum();
-                                GalAlbumObj.churchId = UA.ChurchID;//context.Request.Form.GetValues("churchId")[0];
+                                GalAlbumObj.churchId = context.Request.Form.GetValues("churchId")[0];
                                 GalAlbumObj.albumName = context.Request.Form.GetValues("AlbumName")[0];
                                 GalAlbumObj.albumType = "image";
-                                GalAlbumObj.createdBy = UA.userName;//context.Request.Form.GetValues("createdby")[0];
+                                GalAlbumObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                 status=GalAlbumObj.InsertGalleryAlbum();
                                 foreach (string content in context.Request.Files)
                                 {
@@ -56,7 +54,7 @@ namespace ChurchApp.ImageHandler
                                     GalItemsObj.albumId = GalAlbumObj.albumId;
                                     GalItemsObj.url = "/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension;
                                     GalItemsObj.itemType = "image";
-                                    GalItemsObj.createdBy = UA.userName;//context.Request.Form.GetValues("createdby")[0];
+                                    GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                     status= GalItemsObj.InsertGalleryItem();
                                     string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/AppImages/"));
                                     file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
@@ -73,7 +71,7 @@ namespace ChurchApp.ImageHandler
                                     GalItemsObj.albumId = context.Request.Form.GetValues("AlbumID")[0];
                                     GalItemsObj.url = "/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension;
                                     GalItemsObj.itemType = "image";
-                                    GalItemsObj.createdBy = UA.userName;
+                                    GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                     status=GalItemsObj.InsertGalleryItem();
                                     string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/AppImages/"));
                                     file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
@@ -85,10 +83,10 @@ namespace ChurchApp.ImageHandler
                             case "GalleryVideoAlbum":
                               
                                 GalleryAlbum GalAlbumObjForVideo = new GalleryAlbum();
-                                GalAlbumObjForVideo.churchId = UA.ChurchID;
+                                GalAlbumObjForVideo.churchId = context.Request.Form.GetValues("churchId")[0];
                                 GalAlbumObjForVideo.albumName = context.Request.Form.GetValues("AlbumName")[0];
                                 GalAlbumObjForVideo.albumType = "video";
-                                GalAlbumObjForVideo.createdBy = UA.userName;
+                                GalAlbumObjForVideo.createdBy = context.Request.Form.GetValues("createdby")[0];
                                 status=GalAlbumObjForVideo.InsertGalleryAlbum();
 
                                   foreach (string content in context.Request.Files)
@@ -99,7 +97,7 @@ namespace ChurchApp.ImageHandler
                                     GalItemsObj.albumId = GalAlbumObjForVideo.albumId;
                                     GalItemsObj.url = "/vid/" + GalItemsObj.galleryItemID + fileExtension;
                                     GalItemsObj.itemType = "video";
-                                    GalItemsObj.createdBy = UA.userName;
+                                    GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                     status=GalItemsObj.InsertGalleryItem();
                                     string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
                                     file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
@@ -119,7 +117,7 @@ namespace ChurchApp.ImageHandler
                                 GalItemsObj.albumId = context.Request.Form.GetValues("AlbumID")[0];
                                 GalItemsObj.url = "/vid/" + GalItemsObj.galleryItemID + fileExtension;
                                 GalItemsObj.itemType = "video";
-                                GalItemsObj.createdBy = UA.userName;//"Albert Thomson";
+                                GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                 status=GalItemsObj.InsertGalleryItem();
                                 string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
                                 file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
@@ -155,7 +153,7 @@ namespace ChurchApp.ImageHandler
                                         AppImages AppImgObj = new AppImages();
                                         AppImgObj.appImageId = context.Request.Form.GetValues("GUID")[0];
                                         AppImgObj.url = AppImagePath;
-                                        AppImgObj.createdBy = UA.userName;
+                                        AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                         AppImgObj.InsertAppImage().ToString();
 
                                         
