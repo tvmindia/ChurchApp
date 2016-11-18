@@ -1,4 +1,9 @@
-﻿using System;
+﻿#region Author
+//Created By: Thomson Kattingal
+//Created Month :November 2016
+#endregion Author
+#region namespaces
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -6,7 +11,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+#endregion namespaces
 namespace ChurchApp.AdminPanel
 {
     public partial class Institutions : System.Web.UI.Page
@@ -84,6 +89,23 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Update Institution
+
+        #region DeleteInstitution
+        [System.Web.Services.WebMethod]
+        public static string DeleteInstitution(ChurchApp.DAL.Institutions InstituteObj)
+        {
+            string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            InstituteObj.churchId = UA.ChurchID;
+            status = InstituteObj.DeleteInstitution();
+            InstituteObj.results = status;
+            return jsSerializer.Serialize(InstituteObj);
+        }
+
+        #endregion DeleteInstitution
 
         #region GetAllInstitute Details
         [System.Web.Services.WebMethod]
