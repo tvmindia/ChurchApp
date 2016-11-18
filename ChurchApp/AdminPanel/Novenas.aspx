@@ -244,7 +244,10 @@
 
                                 </div>
 
-                                        <%--View Frormat--%>
+                                       
+                                            </div>
+
+                                         <%--View Frormat--%>
 
                                         <div id="DivViewFormat" class="span12">
 
@@ -292,7 +295,8 @@
 
                             
                                         </div>
-                                            </div>
+
+
                                     </fieldset>
                                 </div>
                                 <div class="form-actions">
