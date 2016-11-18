@@ -197,7 +197,7 @@ namespace ChurchApp.WebServices
             DataTable dt = new DataTable();
             try
             {
-                ChurchApp.DAL.Churches chrchobj = new DAL.Churches();
+                ChurchApp.DAL.Church chrchobj = new DAL.Church();
                 dt = chrchobj.SearchChurchesByChurchOrTownName(SearchTerm);
                 if (dt.Rows.Count == 0) throw new Exception("No items");
             }
@@ -228,7 +228,7 @@ namespace ChurchApp.WebServices
 
             try
             {
-                ChurchApp.DAL.Churches chrchobj = new DAL.Churches();
+                ChurchApp.DAL.Church chrchobj = new DAL.Church();
                 chrchobj.churchId = ChurchID;
                 dt = chrchobj.GetChurchDetailsByChurchID();
                 if (dt.Rows.Count == 0) throw new Exception("No items");
@@ -414,7 +414,7 @@ namespace ChurchApp.WebServices
 
             try
             {
-                ChurchApp.DAL.Churches chrchobj = new DAL.Churches();
+                ChurchApp.DAL.Church chrchobj = new DAL.Church();
                 chrchobj.churchId = ChurchID;
                 dt = chrchobj.GetMyChurchDetails();
 
@@ -637,7 +637,7 @@ namespace ChurchApp.WebServices
 
             try
             {
-                ChurchApp.DAL.Churches ChurchObj = new DAL.Churches();
+                ChurchApp.DAL.Church ChurchObj = new DAL.Church();
                 ChurchObj.longitude = longtitude;
                 ChurchObj.latitude = latitude;
                 dt = ChurchObj.GetNearByChurchDetails(maxdistance);

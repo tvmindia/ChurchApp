@@ -32,7 +32,7 @@ namespace ChurchApp.Master
             if (UA.Role == Const.SuperAdministrator)
             {
                 Li_DashBoard.Visible = true;
-                ChurchApp.DAL.Churches churchObj = new ChurchApp.DAL.Churches();
+                ChurchApp.DAL.Church churchObj = new ChurchApp.DAL.Church();
                 //LITiquesList.Visible = true;
                 DataSet ds = new DataSet();
                 ds = churchObj.SelectChurches();

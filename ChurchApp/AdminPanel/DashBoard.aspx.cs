@@ -16,7 +16,7 @@ namespace ChurchApp.AdminPanel
         {
             if ((Request.QueryString["Session"] != null) && (Request.QueryString["Session"] != ""))
             {
-                DAL.Churches churchObj = new DAL.Churches();
+                DAL.Church churchObj = new DAL.Church();
                 DataTable ds;
                 DAL.Security.UserAuthendication UA;
                 DAL.Const Const = new DAL.Const();
@@ -43,7 +43,7 @@ namespace ChurchApp.AdminPanel
 
         #region GetAllChurches
         [System.Web.Services.WebMethod]
-        public static string GetAllChurches(Churches churchObj)
+        public static string GetAllChurches(Church churchObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();

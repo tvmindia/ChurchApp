@@ -26,7 +26,7 @@ namespace ChurchApp.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string jsonResult = null;
             DataSet ds = null;
-            ChurchApp.DAL.Churches churchObj=new DAL.Churches();
+            ChurchApp.DAL.Church churchObj=new DAL.Church();
             try
             {
                 if (UA != null)
@@ -76,7 +76,7 @@ namespace ChurchApp.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string jsonResult = null;
             DataSet ds = null;
-            ChurchApp.DAL.Churches churchObj = new DAL.Churches();
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
             try
             {
                 if(UA!=null)
@@ -150,7 +150,7 @@ namespace ChurchApp.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string jsonResult = null;
             DataSet ds = null;
-            ChurchApp.DAL.Churches churchObj = new DAL.Churches();
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
             try
             {
                 if(UA!=null)
@@ -249,7 +249,7 @@ namespace ChurchApp.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string jsonResult = null;
             DataSet ds = null;
-            ChurchApp.DAL.Churches churchObj = new DAL.Churches();
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
             try
             {
                 if(UA!=null)
@@ -297,7 +297,7 @@ namespace ChurchApp.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string jsonResult = null;
             DataSet ds = null;
-            ChurchApp.DAL.Churches churchObj = new DAL.Churches();
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
             try
             {
                 if (UA != null)
@@ -347,7 +347,7 @@ namespace ChurchApp.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             string jsonResult = null;
             DataSet ds = null;
-            ChurchApp.DAL.Churches churchObj = new DAL.Churches();
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
             try
             {
                 if(UA!=null)

@@ -462,7 +462,7 @@
     </Compile>
     <Compile Include="DAL\Administrators.cs" />
     <Compile Include="DAL\AppImages.cs" />
-    <Compile Include="DAL\Churches.cs" />
+    <Compile Include="DAL\Church.cs" />
     <Compile Include="DAL\Common.cs" />
     <Compile Include="DAL\dbConnection.cs" />
     <Compile Include="DAL\Events.cs" />

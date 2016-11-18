@@ -151,7 +151,7 @@ namespace ChurchApp.AdminPanel
             //    DAL.Security.UserAuthendication UA;
             //    UIClasses.Const Const = new UIClasses.Const();
             //    UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            ChurchApp.DAL.Churches churchObj = new DAL.Churches();
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
 
             if (InstituteObj.institutionID != "")
