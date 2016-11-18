@@ -32,19 +32,19 @@
         if (saveOrEdit == "Save") {
 
             var result = "";
-            var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
+            //var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
             var day = $("#ddlDay").val();
             var time = hrsTo24hrormat();
             time = time + ":00.0000000";
             var MassTimings = new Object();
-            MassTimings.massChurchId = churchId;
+            //MassTimings.massChurchId = churchId;
             MassTimings.day = day;
             MassTimings.massTime = time;
             result = InsertMassTiming(MassTimings);
             if (result == "1") {
                 BindAsyncAdminsTable();
                 var jsonResult = {};
-                MassTimings.massChurchId = churchId;
+                //MassTimings.massChurchId = churchId;
                 MassTimings.day = day;
                 jsonResult = selectMassTimeByDay(MassTimings);
                 var length = jsonResult.length;
@@ -489,8 +489,8 @@ function timeTo12HrFormat(time) {   // Take a time in 24 hour format and format 
 
 
 function BindAsyncAdminsTable() {
-    var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
-    $("#hdfChurchID").val(churchId);
+   // var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
+   // $("#hdfChurchID").val(churchId);
     var jsonResult = {};
     var MassTimings = new Object();
     MassTimings.massChurchId = churchId;

@@ -244,7 +244,7 @@ namespace ChurchApp.AdminPanel
 
         #region InsertFamily
         [System.Web.Services.WebMethod]
-        public static string InsertFamily(Members memberObj)
+        public static string InsertFamily(Family familyObj)
         {
             DAL.Security.UserAuthendication UA;
             DAL.Const Const = new DAL.Const();
@@ -254,13 +254,11 @@ namespace ChurchApp.AdminPanel
             {
                 if (UA != null)
                 {
-                    memberObj.churchId = UA.ChurchID;
-                    memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
-                    memberObj.familyID = memberObj.familyObj.InsertFamily();
-                    if (memberObj.familyID != null && memberObj.familyID != "")
-                    {
-                        status = memberObj.InsertMember();
-                    }
+                    familyObj.familyUnitsObj.churchId = UA.ChurchID;
+
+
+                    status = familyObj.InsertFamily();
+                    
                 }
             }
             catch (Exception ex)
