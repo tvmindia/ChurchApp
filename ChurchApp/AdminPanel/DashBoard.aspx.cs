@@ -38,12 +38,9 @@ namespace ChurchApp.AdminPanel
                 }
             }
         }
-
-
-
         #region GetAllChurches
         [System.Web.Services.WebMethod]
-        public static string GetAllChurches()
+        public static string GetAllChurches(DAL.Church churchObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -53,13 +50,9 @@ namespace ChurchApp.AdminPanel
                 DAL.Security.UserAuthendication UA;
                 DAL.Const Const = new DAL.Const();
                 UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-
                 DataSet ds = null;
-
-
-                //GalleryAlbumObj.churchId = UA.ChurchID.ToString();
-                //ds = GalleryAlbumObj.GetAllGalleryImageAlbumByChurchID();
+                churchObj.churchId = UA.ChurchID.ToString();
+                ds = churchObj.GetAllChurches();
                 //Converting to Json
                 Dictionary<string, object> childRow;
                 if (ds.Tables[0].Rows.Count > 0)
