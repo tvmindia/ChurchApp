@@ -147,6 +147,7 @@ function savePriest()
                     tempFile.name = guid;
                     formData.append('NoticeAppImage', tempFile, tempFile.name);
                     formData.append('GUID', guid);
+                    formData.append('createdby', 'sadmin');
                 }
                 formData.append('ActionTyp', 'NoticeAppImageInsert');
                 AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
@@ -221,6 +222,7 @@ function savePriest()
                 tempFile.name = guid;
                 formData.append('NoticeAppImage', tempFile, tempFile.name);
                 formData.append('GUID', guid);
+                formData.append('createdby', 'sadmin');
             }
             formData.append('ActionTyp', 'NoticeAppImageInsert');
             AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");

@@ -142,6 +142,7 @@ function SaveAdministrator()
                         tempFile.name = guid;
                         formData.append('NoticeAppImage', tempFile, tempFile.name);
                         formData.append('GUID', guid);
+                        formData.append('createdby', 'sadmin');
                     }
                     formData.append('ActionTyp', 'NoticeAppImageInsert');
                     AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
@@ -192,6 +193,7 @@ function SaveAdministrator()
                     tempFile.name = guid;
                     formData.append('NoticeAppImage', tempFile, tempFile.name);
                     formData.append('GUID', guid);
+                    formData.append('createdby', 'sadmin');
                 }
                 formData.append('ActionTyp', 'NoticeAppImageInsert');
                 AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
@@ -255,6 +257,7 @@ function SaveInstitution()
                         tempFile.name = guid;
                         formData.append('NoticeAppImage', tempFile, tempFile.name);
                         formData.append('GUID', guid);
+                        formData.append('createdby', 'sadmin');
                     }
                     formData.append('ActionTyp', 'NoticeAppImageInsert');
                     AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
@@ -333,6 +336,7 @@ function SaveInstitution()
                     tempFile.name = guid;
                     formData.append('NoticeAppImage', tempFile, tempFile.name);
                     formData.append('GUID', guid);
+                    formData.append('createdby', 'sadmin');
                 }
                 formData.append('ActionTyp', 'NoticeAppImageInsert');
                 AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
