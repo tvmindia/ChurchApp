@@ -282,6 +282,7 @@ function SaveInstitution()
             Institutions.imageId = guid;
             Institutions.institutionID = guid;
             $("#hdnInstutID").val(guid);
+            $('#hdnInstituteID').val(guid);
             result = InsertInstitute(Institutions);
 
             if (result.results == "1") {
@@ -1084,7 +1085,7 @@ function AdminValidation() {
         $('#ErrorBox1').hide(1000);
        //scriptvalidate();
         SaveAdministrator();
-        $('#btnAddAdmin').attr('name', 'success');
+        //$('#btnAddAdmin').attr('name', 'success');
         return true;
     }
 }
