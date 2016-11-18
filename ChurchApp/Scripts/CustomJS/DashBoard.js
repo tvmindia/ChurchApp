@@ -3,10 +3,10 @@
     var Church = new Object();
     var jsonResulsChurch = GetAllChurches(Church);
     if (jsonResulsChurch!= null) {
-        if (jsonResultPurchase.Records != undefined) {
-            LoadMultiItemPurchaser(jsonResultPurchase.Records);
-            //$('#divItemPurchase').show();
-        }
+       
+        LoadChurches(jsonResulsChurch);
+          
+      
     }
 
     
@@ -27,20 +27,11 @@ function GetAllChurches(Church) {
     return table;
 }
 
-function LoadMultiItemManufacturer(Records) {
+function LoadChurches(Records) {
 
-    $("#tblItemManu").find(".row_1").remove();
+    $("#tbl").find(".row_1").remove();
     $.each(Records, function (index, Record) {
-        if ((Record.FocusItemManufacture.Cost == "-1") && (Record.FocusItemManufacture.LeadTime == "-1") && (Record.FocusItemManufacture.ToolCharge == "-1") && (Record.FocusItemManufacture.MinimumQuantity == "-1")) { //to prevent binding -1 to textbox
-            var html = '<tr class="row_1" idval="' + Record.id + '"  chid="' + Record.id + '"><td width="15%" align="center" valign="middle"><input type="hidden" class="m-wrap span12 hftxtManuItemId"   id="hftxtManuItemId" value="' + Record.FocusItemManufacture.id + '"><a class="edit" chid="' + Record.id + '" suggestcatlog="' + Record.SuggestedCatlog + '" annualvol="' + Record.AnnualVolume + '" releaseqty="' + Record.ReleaseQuantity + '" targetpriz="' + Record.TargetPrize + '" certificate="' + Record.CertificateId + '" itemDescription="' + Record.ItemDescription + '" href="#">' + Record.SuggestedCatlog + '</a></td><td width="18%" height="20" align="center" valign="middle"><input  type="text" id="txtManuCost' + index + '" class="m-wrap span12 txtManuCost"   placeholder=""></td><td width="14%" height="20" align="center" valign="middle"><input type="text" id="txtLeadTime' + index + '" class="m-wrap span12 txtLeadTime"  placeholder=""></td><td width="14%" height="20" align="center" valign="middle"><input type="text" id="txtToolCharge' + index + '" class="m-wrap span12 txtToolCharge"  placeholder=""></td><td width="14%" align="center" valign="middle"><input type="text" id="txtMinQty' + index + '" class="m-wrap span12 txtMinQty"  placeholder=""></td><td width="11%" align="center" valign="middle"><a class="attachment"><img src="/Contents/assets/img/icn_attachment.png" alt="attachment"></a></td></tr>';
-            $("#tblItemManu").append(html);
-        }
-        else {
-            var html = '<tr class="row_1" idval="' + Record.id + '"  chid="' + Record.id + '"><td width="15%" align="center" valign="middle"><input type="hidden" class="m-wrap span12 hftxtManuItemId"   id="hftxtManuItemId" value="' + Record.FocusItemManufacture.id + '"><a class="edit" chid="' + Record.id + '" suggestcatlog="' + Record.SuggestedCatlog + '" annualvol="' + Record.AnnualVolume + '" releaseqty="' + Record.ReleaseQuantity + '" targetpriz="' + Record.TargetPrize + '" certificate="' + Record.CertificateId + '" itemDescription="' + Record.ItemDescription + '" href="#">' + Record.SuggestedCatlog + '</a></td><td width="18%" height="20" align="center" valign="middle"><input  type="text" id="txtManuCost' + index + '" class="m-wrap span12 txtManuCost" value="' + Record.FocusItemManufacture.Cost + '"  placeholder=""></td><td width="14%" height="20" align="center" valign="middle"><input type="text" id="txtLeadTime' + index + '" class="m-wrap span12 txtLeadTime" value="' + Record.FocusItemManufacture.LeadTime + '" placeholder=""></td><td width="14%" height="20" align="center" valign="middle"><input type="text" id="txtToolCharge' + index + '" class="m-wrap span12 txtToolCharge" value="' + Record.FocusItemManufacture.ToolCharge + '" placeholder=""></td><td width="14%" align="center" valign="middle"><input type="text" id="txtMinQty' + index + '" class="m-wrap span12 txtMinQty" value="' + Record.FocusItemManufacture.MinimumQuantity + '" placeholder=""></td><td width="11%" align="center" valign="middle"><a class="attachment"><img src="/Contents/assets/img/icn_attachment.png" alt="attachment"></a></td></tr>';
-
-            $("#tblItemManu").append(html);
-        }
-
+        var html = '<tr><td>church1</td><td class="center">2012/01/01</td><td class="center">Member</td><td class="center"><span class="label label-success">Active</span></td>								<td class="center">									<a class="circlebtn circlebtn-success" href="#">										<i class="halflings-icon white zoom-in"></i>  									</a>									<a class="circlebtn circlebtn-info" href="#">										<i class="halflings-icon white edit"></i>  									</a>									<a class="circlebtn circlebtn-danger" href="#">										<i class="halflings-icon white trash"></i></a></td></tr>';
     })
 
 }
