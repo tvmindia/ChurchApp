@@ -25,10 +25,12 @@ textarea{
     align-content:center;    
 }
 ul.dashboard-list li .priestimage {
-    height: 133px;
-    width: 133px;
+    height: 140px;
+    min-width: 140px;
+    max-width:140px;
     padding: 5px;
     border-radius:10%;
+    object-fit:cover!important;
 }
 
 .task .priesteditdiv {

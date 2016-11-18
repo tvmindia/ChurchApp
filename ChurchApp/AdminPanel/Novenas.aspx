@@ -57,7 +57,7 @@
 
         <div class="row-fluid" id="divImageAlbum">
             <div class="box span12">
-                <div class="box-header">
+                <div class="box-header" id="DivBoxHeader">
                     <h2><i class="halflings-icon picture"></i><span class="break" id="spnSaint">Saints</span></h2>
 
                     <div class="box-icon">
@@ -94,7 +94,7 @@
                     <div class="span12" id="DivIndividualPatron">
                         <div id="divLatestNovenas" class="span5">
                             <div class="priority high">
-                                <%--<span class="latest">Novenas</span>--%>
+                                <span class="latest"></span>
                                 <a class="btnNew" onclick="SetControlsInNovenaFormat();"><i title="Add New Novena">+</i></a>
 
                             </div>

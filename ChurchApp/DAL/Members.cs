@@ -79,6 +79,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string isHead
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Methods
@@ -152,6 +157,7 @@ namespace ChurchApp.DAL
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
                 cmd.Parameters.Add("@FamilyID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyID);
+                cmd.Parameters.Add("@IsHead", SqlDbType.Bit).Value = Convert.ToBoolean(isHead);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -259,6 +265,48 @@ namespace ChurchApp.DAL
             return outParam.Value.ToString();
         }
         #endregion DeleteMember
+
+        #region SelectFamilyMember
+        /// <summary>
+        /// Select Family Member based on churchId,memberID and familyID
+        /// </summary>
+        /// <returns>Member of a family</returns>
+        public DataSet SelectFamilyMember()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectFamilyMember]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyObj.familyUnitsObj.churchId);
+                cmd.Parameters.Add("@FamilyID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyObj.familyId);
+                cmd.Parameters.Add("@MemberID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(memberId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectFamilyMember
 
         #endregion Methods
     }

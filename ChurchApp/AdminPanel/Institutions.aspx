@@ -5,8 +5,10 @@
     <link href="../CSS/CustomCSS/Institution.css" rel="stylesheet" />
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Institution.js"></script>
+    <style>
+    </style>
      <div id="content" class="span10">
-        <ul class="breadcrumb">
+        <ul class="breadcrumb" style="margin-bottom:0px">
 				 <li>
 					<i class="icon-home"></i>
 					<a href="../AdminPanel/Home.aspx">Home</a> 
@@ -80,7 +82,7 @@
 					    </div>
                         <%-- Accordion Show details general information --%>
                          <div class="control-group accordion span12" id="divGendetailsacc" style="background-color:#FFEFEC;margin-bottom:0px!important;">
-                           <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro'"> General Information</span>
+                           <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:inherit"> General Information</span>
                         </div>
                         <%-- Div general information details --%>
                          <div id="divGenDetals" class="panel span12">
@@ -123,7 +125,7 @@
                             </div>
                         <%-- Accordion details admonostration information --%>
                          <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;">
-                           <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro'"> Administration Information</span>
+                           <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:inherit"> Administration Information</span>
                         </div>
                         <%-- Div administration information details --%>
                          <div id="divAdminDetals" class="panel span12">
@@ -162,15 +164,19 @@
                     <%--<a class="btnEdit" style="right:30px;position: absolute;" onclick="EditInstitute();"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>--%>
                         <div class="control-group span12">
 					    <img class="priestimage" id="priestPreview" src="../img/gallery/Institution.jpg"/>
-                         <input type="file" value="Choose Image" id="instituteimg" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="showpreview(this);" />
+                         <input type="file" value="Choose Image" id="instituteimg" accept="image/*" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="showpreview(this);" />
 							</div>
                         <%-- Accordion general information --%>        
                         <div class="control-group accordion span12" id="EditGenDetails" style="background-color:#FFEFEC;margin-bottom:0px!important;">
-                           <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro';"> General Information</span>
+                           <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:inherit;"> General Information</span>
                         </div>
                         <%-- Accordion end  --%>
                         <%-- Div General information --%>
-                        <div class="panel span12" id="EditGen" style="margin-top:10px!important;">  
+                        <div class="panel span12" id="EditGen" style="margin-top:10px!important;">
+                            <div class="alert alert-error" id="ErrorBox" style="display: none;">
+                             <div id="Displaydiv">
+                             </div>
+                        </div>  
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Name:</label>
 								<div class="controls">
@@ -180,19 +186,19 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Address:</label>
 								<div class="controls">
-								  <textarea class="input-xlarge" id="txtAddress" name="AboutPriest" rows="3" placeholder=""></textarea>
+								  <textarea class="input-xlarge" id="txtAddress" name="Address" rows="3" placeholder=""></textarea>
                                 </div>
 								</div>
                         <div class="control-group">
 								<label class="control-label" for="focusedInput">Founder:</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtFounder" type="text"/>
+								  <input class="input-large focused" name="Founder" id="txtFounder" type="text"/>
                                 </div>
 								</div>
                         <div class="control-group">
 								<label class="control-label" for="focusedInput">Founded:</label>
 								<div class="controls">
-								  <input type="text" class="input-xlarge datepicker" id="txtFounded"/>
+								  <input type="text" class="input-xlarge datepicker" name="Founded" id="txtFounded"/>
                                 </div>
 								</div>
                         
@@ -200,7 +206,7 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">History</label>
 								<div class="controls">
-								<textarea class="input-xlarge" id="txtHistory" name="" rows="6" placeholder=""></textarea>
+								<textarea class="input-xlarge" id="txtHistory" name="history" rows="6" placeholder=""></textarea>
 								</div>
 								</div>
 
@@ -216,7 +222,7 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Email</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Email" id="txtEmail" type="text" value=""/>
+								  <input class="input-large focused Email" name="Email" id="txtEmail" type="text" value="" onkeypress="EmailValidation(this);"/>
 								</div>
 								</div>
                             <div class="control-group">
@@ -248,7 +254,7 @@
                         <%-- End general information --%>
                         <%-- Accordion div for Administrator information --%>
                         <div class="control-group accordion span12" style="background-color:#FFEFEC;margin-bottom:0px!important;" id="divAccoAdmininfo">
-                           <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:'Adobe Caslon Pro';">Administration Information</span>
+                           <span style="padding:4px 10px 4px 10px;font-size:16px;font-family:inherit;">Administration Information</span>
                         </div>
                         <%-- End Accordion --%>
                         <%-- Div for Administrator information --%>
@@ -276,7 +282,7 @@
 						<input type="hidden" id="hdnInstutID" />
 							<div class="form-actions span12">
 							  <a class="btn btn-primary" name="" id="btnSaveInstitute">Save changes</a>
-                                <a id="btnCancelPriest" class="btn btn-primary">Cancel</a>
+                                <a id="btncancelInstitute" name="" class="btn btn-primary" onclick="Cancel(this);">Cancel</a>
                                 <a class="btn btn-primary" name="" id="btnDelete">Delete</a>
 							  
 							</div>
@@ -308,7 +314,7 @@
                       <label class="control-label" for="inputIcon">Designation</label>
 					  <div class="input-prepend span6">
                        <span class="add-on"><i class="icon-briefcase"></i></span>
-                       <select class="span12" id="ddlRole">
+                       <select class="span12" name="role" id="ddlRole">
                            <option value="-1" selected disabled">Select Position</option>
                        </select>
                        </div>
@@ -317,16 +323,20 @@
                       <label class="control-label" for="inputIcon">Name</label>
 					  <div class="input-prepend span6">
                        <span class="add-on"><i class="icon-user"></i></span>
-                       <input class="span12" id="txtName" type="text"/>
+                       <input class="span12" name="name" id="txtName" type="text"/>
                        </div>
 					  </div>     
                         <div class="control-group">
                             <label class="control-label" for="inputIcon">Mobile</label>
 					  <div class="input-prepend span6">
                        <span class="add-on"><i class="icon-book"></i></span>
-                       <input class="span12" id="txtMobile" type="text"/>
+                       <input class="span12" name="mobile" id="txtMobile" type="text"/>
                        </div>
 					  </div> 
+                           <div class="alert alert-error" id="ErrorBox1" style="display: none;">
+                             <div id="Displaydiv1">
+                             </div>
+                        </div> 
                       <input id="hdnInstituteID" type="hidden" />
                            <input id="hdnAdminID" type="hidden" />
                           
@@ -338,7 +348,7 @@
 		</div>
 		  <div class="modal-footer">
 			<a class="btn" data-dismiss="modal">Close</a>
-			<a id="btnAddAdmin" class="btn btn-primary">Save changes</a>
+			<a id="btnAddAdmin" name="" class="btn btn-primary">Save changes</a>
 		</div>
 	      </div>
     <script>

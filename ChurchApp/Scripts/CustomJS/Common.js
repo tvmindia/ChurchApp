@@ -1,4 +1,39 @@
-﻿
+﻿//function EmailValidation(this_Obj) {
+//    debugger;
+//    var value;
+//    try {
+//        if (this_Obj.value != "") {
+
+//            var Email = this_Obj.value;
+//        }
+        
+       
+//        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+//        if (emailReg.test(Email)) {
+//            var txtA = document.getElementById(this_Obj.id);
+//            txtB.style.backgroundImage = "url(' ')";
+//            txtA.style.style.backgroundColor = "white!important";
+            
+//        }
+//        else {
+//            var txtB = document.getElementById(this_Obj.id);
+//            txtB.style.backgroundImage = "url('../img/invalid.png')";
+//            txtB.style.backgroundPosition = "95% center";
+//            txtB.style.backgroundRepeat = "no-repeat";
+
+//        }
+//    }
+//    catch (e) {
+//        var ExceptionTrack = new Object();
+//        ExceptionTrack.Description = e.message;
+//        ExceptionTrack.Module = "People";
+//        ExceptionTrack.Method = "EmailValidation";
+//        ExceptionTrack.ErrorSource = "JavaScript";
+//        ExceptionTrack.IsMobile = false;
+//        //InsertException(ExceptionTrack);
+//    }
+//    //return false;
+//}
 
 function postBlobAjax(formData, page) {
     //var request = new XMLHttpRequest();
