@@ -174,7 +174,7 @@
 				<div class="form-horizontal">
 				    <fieldset>
                         <%--<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">+</i></a>--%>
-                    <a class="btnEdit" style="right:40px;position: fixed;" title="EDIT" id="iconEditPriest" onclick="editPriestDetails(this);"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
+                    <a class="btnEdit" style="right:40px;top:-41px;position: absolute;" title="EDIT" id="iconEditPriest" onclick="editPriestDetails(this);"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
                         <div class="control-group">
 							  <img class="priestimage" id="priestDetailPreview" src="../img/gallery/priest.png"/>
 							</div> 
