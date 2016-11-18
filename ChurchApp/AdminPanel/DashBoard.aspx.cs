@@ -43,7 +43,7 @@ namespace ChurchApp.AdminPanel
 
         #region GetAllChurches
         [System.Web.Services.WebMethod]
-        public static string GetAllChurches(Church churchObj)
+        public static string GetAllChurches()
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
