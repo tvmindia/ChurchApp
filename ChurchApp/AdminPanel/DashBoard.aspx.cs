@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ChurchApp.DAL;
 
 namespace ChurchApp.AdminPanel
 {
@@ -14,7 +16,7 @@ namespace ChurchApp.AdminPanel
         {
             if ((Request.QueryString["Session"] != null) && (Request.QueryString["Session"] != ""))
             {
-                DAL.Church churchObj = new DAL.Church();
+                DAL.Churches churchObj = new DAL.Churches();
                 DataTable ds;
                 DAL.Security.UserAuthendication UA;
                 DAL.Const Const = new DAL.Const();
@@ -36,5 +38,50 @@ namespace ChurchApp.AdminPanel
                 }
             }
         }
+
+
+
+        #region GetAllChurches
+        [System.Web.Services.WebMethod]
+        public static string GetAllChurches(Churches churchObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            try
+            {
+
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+
+                DataSet ds = null;
+
+
+                //GalleryAlbumObj.churchId = UA.ChurchID.ToString();
+                //ds = GalleryAlbumObj.GetAllGalleryImageAlbumByChurchID();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return jsSerializer.Serialize(parentRow);
+
+        }
+
+        #endregion GetAllChurches
     }
 }

@@ -41,7 +41,7 @@ namespace ChurchApp.AdminPanel
         //    DAL.Security.UserAuthendication UA;
         //    UIClasses.Const Const = new UIClasses.Const();
         //    UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            ChurchApp.DAL.Churches churchObj = new DAL.Churches();
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
 
             if (priestObj.churchID != "")
@@ -111,7 +111,7 @@ namespace ChurchApp.AdminPanel
             //    DAL.Security.UserAuthendication UA;
             //    UIClasses.Const Const = new UIClasses.Const();
             //    UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            ChurchApp.DAL.Churches churchObj = new DAL.Churches();
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
 
             if (priestObj.priestID != "")

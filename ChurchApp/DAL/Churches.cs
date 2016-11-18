@@ -17,7 +17,7 @@ using System.Web.Script.Serialization;
 
 namespace ChurchApp.DAL
 {
-    public class Church
+    public class Churches
     {
         //public Administrators administrators = new Administrators();
         //public AppImages appImages = new AppImages();
@@ -555,10 +555,10 @@ namespace ChurchApp.DAL
         #endregion Mapdistance
     }
 
-    public class ChurchDetails : Church
+    public class ChurchDetails : Churches
     {
         #region Public Properties
-        public Church ChurchObj;
+        public Churches ChurchObj;
 
         public string churchDetailID
         {
@@ -746,10 +746,10 @@ namespace ChurchApp.DAL
         #endregion ChurchDetail Methods
 
     }
-    public class MassTimings : Church
+    public class MassTimings : Churches
     {
         #region Public Properties
-        public Church churchObj;
+        public Churches churchObj;
         public ChurchDetails churchDetailsObj;
 
         public string massChurchId
