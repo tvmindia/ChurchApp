@@ -131,6 +131,8 @@
                                     <fieldset>
                                         <%--New Format--%>
                                         <div id="DivNewFormat">
+
+                                            
                                             <div class="span6">
                                                 <label for="name">Novena Caption</label>
                                                 <input name="Caption" id="txtNovenaCaption" type="text" />
@@ -148,85 +150,20 @@
                                                 <img class="Preview" id="imgNewNovena" src="../img/No-Img_Chosen.png" />
                                                 <input type="file" id="UpNewNovena" value="Choose Image" onchange="showpreview(this);" />
                                             </div>
-                                          
-                                        </div>
-
-                                        <%--View Frormat--%>
-
-                                        <div id="DivViewFormat" class="span12">
-
-
-
-                                            <%--                           
-                       <address>
-                           <strong>Church</strong><br />
-                           <p><label id="lblAddress">Kottayam Kerala</label> </p>
-                       </address>--%>
-
-                                            <div class="span3">
-                                                <img id="imgNovenaView" class="Preview" src="../img/No-Img_Chosen.png" />
-                                            </div>
-
-                                            <div class="span7">
-
-                                                <dl>
-                                                    <dt>Church</dt>
-                                                    <dd>
-                                                        <label id="lblChurchName"></label>
-                                                    </dd>
-                                                    <dt id="ViewDate">Date</dt>
-                                                    <dd>
-                                                        <label id="lblViewDate"></label>
-                                                    </dd>
-                                                    <dt>Time</dt>
-                                                    <dd>
-                                                        <label id="lblViewTime"></label>
-                                                    </dd>
-                                                </dl>
-                                            </div>
-
-
-                                            <div class="span12">
-                                                <address>
-                                                    <p>
-                                                        <label id="lblDescription">
-                                                        </label>
-                                                    </p>
-                                                </address>
-                                            </div>
-                                            <div>
-                                            </div>
-
-
-                                        </div>
-
-                                    </fieldset>
-                                </div>
-                                <div class="form-actions">
-                                    <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
-                                    <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
-                                    <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
-
-                                </div>
-
-                            </div>
-
-                            <br />
-                            <br />
-                           
-                            <%--NOVENA TIMING--%>
-
-                            <div id="DivNovenaTiming">
-
-                            <div class="box-header">
+                                            
+                                            <br />
+                                            <br />
+                                            <div id="DivNovenaTiming" class="span12" style="background-color: #e8eaef; border: 1px solid; border-color: #5bc0de;">
+                                <h2>Novena Timings</h2>
+                           <%-- <div class="box-header">
                                 <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span style="position: absolute">Novena Timings</span>
                                 </h2>
 
                                 <div class="box-icon">
                                 </div>
-                            </div>
+                            </div>--%>
 
-                            <div class="box-content">
+                           
                                 <div class="form-horizontal">
                                     <fieldset>
 
@@ -303,9 +240,74 @@
                                     </fieldset>
                                 </div>
 
-                            </div>
+                           
 
                                 </div>
+
+                                        <%--View Frormat--%>
+
+                                        <div id="DivViewFormat" class="span12">
+
+
+
+                                            <%--                           
+                       <address>
+                           <strong>Church</strong><br />
+                           <p><label id="lblAddress">Kottayam Kerala</label> </p>
+                       </address>--%>
+
+                                            <div class="span3">
+                                                <img id="imgNovenaView" class="Preview" src="../img/No-Img_Chosen.png" />
+                                            </div>
+
+                                            <div class="span7">
+
+                                                <dl>
+                                                    <dt>Church</dt>
+                                                    <dd>
+                                                        <label id="lblChurchName"></label>
+                                                    </dd>
+                                                    <dt id="ViewDate">Date</dt>
+                                                    <dd>
+                                                        <label id="lblViewDate"></label>
+                                                    </dd>
+                                                    <dt>Time</dt>
+                                                    <dd>
+                                                        <label id="lblViewTime"></label>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+
+
+                                            <div class="span12">
+                                                <address>
+                                                    <p>
+                                                        <label id="lblDescription">
+                                                        </label>
+                                                    </p>
+                                                </address>
+                                            </div>
+                                           
+                                             <%--NOVENA TIMING--%>
+
+                            
+                                        </div>
+                                            </div>
+                                    </fieldset>
+                                </div>
+                                <div class="form-actions">
+                                    <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
+                                    <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
+                                    <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
+
+                                </div>
+
+                            </div>
+
+                            <br />
+                            <br />
+                           
+                           
 
                         </div>
                     </div>
