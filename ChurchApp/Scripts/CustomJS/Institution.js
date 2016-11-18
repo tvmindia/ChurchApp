@@ -119,6 +119,7 @@ function SaveAdministrator()
 {
     try
     {
+        debugger;
         var AppImgURL = '';
         var AdminID = $('#hdnAdminID').val();
         var InstituteID = $('#hdnInstituteID').val();
@@ -563,22 +564,25 @@ function DeleteAdministrator(this_Obj)
 {
     try
     {
-        var AdminID = $(this_Obj).attr('name');
-        var AdminRow = {};
-        AdminRow = GetAdminDetails(AdminID);
-        result = DeleteAdmin(AdminRow);
-       if (result.results == "1") {
-            $('#rowfluidDiv').show();
-            $('.alert-success').show();
-            $('.alert-success strong').text("Administrator Deleted Successfully");
+        var r = confirm("Are You Sure to Delete?");
+        if (r == true) {
+            var AdminID = $(this_Obj).attr('name');
+            var AdminRow = {};
+            AdminRow = GetAdminDetails(AdminID);
+            result = DeleteAdmin(AdminRow);
+            if (result.results == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Administrator Deleted Successfully");
 
+            }
+            if (result.results != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text("Deletion Not Successful");
+            }
+            BindEditCard(AdminRow.orgId);
         }
-        if (result.results != "1") {
-            $('#rowfluidDiv').show();
-            $('.alert-error').show();
-            $('.alert-error strong').text("Deletion Not Successful");
-        }
-        BindEditCard(AdminRow.orgId);
     }
     catch(e)
     {
@@ -653,41 +657,46 @@ function DeleteInstituteclick(this_Obj)
 {
     try
     {
-        var Adminresult = null;
-        var AdminDetails = {};
-        var InstituteRow = {};
-        var intituteID = $(this_Obj).attr('name');
-        AdminDetails = BindAdminCard(intituteID);
-        InstituteRow = GetInstituteDetailsUsingID(intituteID);
-        if (AdminDetails.length == 0) {
-            Adminresult = "sucess";
-        }
-        for (var i = 0; i < AdminDetails.length; i++) {
-            var AdminRow = new Object();
-            AdminRow.adminId = AdminDetails[i].ID;
-            AdminRow.imagePath = AdminDetails[i].URL;
-            result = DeleteAdmin(AdminRow);
-            if (result.results == "1") {
+        var r = confirm("Are You Sure to Delete?");
+        if (r == true)
+        {
+            var Adminresult = null;
+            var AdminDetails = {};
+            var InstituteRow = {};
+            var intituteID = $(this_Obj).attr('name');
+            AdminDetails = BindAdminCard(intituteID);
+            InstituteRow = GetInstituteDetailsUsingID(intituteID);
+            if (AdminDetails.length == 0) {
                 Adminresult = "sucess";
+            }
+            for (var i = 0; i < AdminDetails.length; i++) {
+                var AdminRow = new Object();
+                AdminRow.adminId = AdminDetails[i].ID;
+                AdminRow.imagePath = AdminDetails[i].URL;
+                result = DeleteAdmin(AdminRow);
+                if (result.results == "1") {
+                    Adminresult = "sucess";
 
+                }
+            }
+            if (Adminresult == "sucess") {
+                result = DeleteInstitute(InstituteRow);
+                if (result.results == "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+                    $('.alert-success strong').text("Institution Deleted Successfully");
+                    BindInstituteslist();
+                    $('#InstituteEdit').hide();
+                    $('#InstituteShow').hide();
+                }
+                if (result.results != "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                    $('.alert-error strong').text("Deletion Not Successful");
+                }
             }
         }
-        if (Adminresult == "sucess") {
-            result = DeleteInstitute(InstituteRow);
-            if (result.results == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Institution Deleted Successfully");
-                BindInstituteslist();
-                $('#InstituteEdit').hide();
-                $('#InstituteShow').hide();
-            }
-            if (result.results != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Deletion Not Successful");
-            }
-        }
+       
     }
     catch(e)
     {

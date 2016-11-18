@@ -354,7 +354,7 @@ function AutoComplete()
         var elemsEmtyVicar = $();
         var elemsEmtyAsstVicar = $();
         //<%=listFilter %>;
-        priestDetails = GetPriestUsingChurchID('99311e06-65dd-471e-904e-04702f2c4fb0');
+        priestDetails = GetPriestUsingChurchID();
         if (priestDetails.length == 0)
         {
             $('#VicarDefault').remove();
@@ -403,12 +403,12 @@ function AutoComplete()
 
     }
     //Check if Priest Exist for church and obtain the details
-    function GetPriestUsingChurchID(ChurchID) {
+    function GetPriestUsingChurchID() {
         debugger;
         var ds = {};
         var table = {};
         var Priest = new Object();
-        Priest.ChurchID = ChurchID;
+        //Priest.ChurchID = ChurchID;
         var data = "{'priestObj':" + JSON.stringify(Priest) + "}";
         ds = getJsonData(data, "../AdminPanel/Priests.aspx/GetPriestsDetails");
         table = JSON.parse(ds.d);
