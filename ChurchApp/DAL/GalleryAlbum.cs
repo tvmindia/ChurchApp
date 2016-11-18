@@ -56,7 +56,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
-        
+        public string status
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region GalleryAlbum Methods
@@ -269,7 +273,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status = outParam.Value.ToString();
+            return status;
         }
         #endregion DeleteGalleryAlbum
 

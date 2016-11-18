@@ -12,7 +12,12 @@
      }
    
     $('#newalbum').click(function (e) {
-       
+
+     
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         $('#NewAlbumModel').modal('show');
 
         $('.dynalb').remove();
@@ -21,6 +26,10 @@
     BindGalleryImageAlbum();
     BindGalleryVideoAlbum();
     $('#btnSaveImageAlbum').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
       debugger
         try
         {
@@ -85,6 +94,10 @@
     });
 
     $('#btnMoreImagesAdd').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         debugger
         try {
             var imagefile=null;
@@ -131,6 +144,10 @@
     });
    
     $('#BtnVideoAlbumSave').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         debugger;
         alert("vid save");
         barinAlbum.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
@@ -189,6 +206,10 @@
       
     });
     $('#btnMoreVideoSave').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
 
         debugger;
         alert("more video save");
@@ -245,6 +266,10 @@
 
 
     $('#EditAlbum').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         debugger
         try {
             $('#divCreateAlbum').hide();
@@ -260,6 +285,10 @@
     
 
     $('#EditVideoAlbum').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         debugger
         try {
             $('#divCreateVideoAlbum').hide();
@@ -277,6 +306,10 @@
     });
     
     $('#EditImageAlbum').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         debugger
         try {
             $('#divAddMore').hide();
@@ -296,6 +329,10 @@
 
     
     $('#EditVideo').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         debugger;
         try {
             $('#divAddMoreVideos').hide();
@@ -312,6 +349,10 @@
     });
 
     $('#RefreshImageAlbum').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         debugger
         try {
             $('#divAddMore').show();
@@ -327,6 +368,10 @@
     });
 
     $('#RefreshAlbum').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         debugger
         try {
             $('#divCreateAlbum').show();
@@ -345,6 +390,10 @@
     });
 
     $('#RefreshVideo').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         debugger
         try {
             $('#divAddMoreVideos').show();
@@ -361,6 +410,10 @@
 
     
     $('#RefreshVideoAlbum').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         debugger
         try {
             $('#divCreateVideoAlbum').show();
@@ -375,6 +428,10 @@
         }
     });
     $('#newimage').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
         debugger;
         //Show modal
         $('#NewImageModel').modal('show');
@@ -384,6 +441,10 @@
     });
 
     $('#newVideoalbum').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
       
 
         $('#NewVideoAlbumModel').modal('show');
@@ -391,6 +452,10 @@
     });
 
     $('#newvideo').click(function (e) {
+        $('#rowfluidDivImages').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $('#rowfluidDivVideos').hide();
 
         $('#NewVideoModel').modal('show');
         $('#progressbarUpload').hide();
@@ -466,7 +531,10 @@
 
 function deleteImage(obj)
 {
-   
+    $('#rowfluidDivImages').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $('#rowfluidDivVideos').hide();
    
     var imgid = $(obj).attr('imageid');
     var albid = $(obj).attr('AlbumID');
@@ -479,8 +547,8 @@ function deleteImage(obj)
             GalleryItems.galleryItemID = imgid;
             GalleryItems.url = $(obj).attr('URL');
             var result = DeleteImageItem(GalleryItems);
-          
-            switch (result) {
+             switch (result.status)
+            {
                 case "1":
                     $('.alert-error').hide();
                     $('#rowfluidDivImages').show();
@@ -504,6 +572,10 @@ function deleteImage(obj)
 }
 function deleteVideo(obj) {
     debugger;
+    $('#rowfluidDivImages').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $('#rowfluidDivVideos').hide();
 
     var imgid = $(obj).attr('imageid');
     var albid = $(obj).attr('AlbumID');
@@ -514,8 +586,24 @@ function deleteVideo(obj) {
             GalleryItems.galleryItemID = imgid;
             GalleryItems.url = $(obj).attr('URL');
             GalleryItems.itemType = 'video';
-            DeleteVideoItem(GalleryItems);
-            EditBindVideos(albid);
+            var result = DeleteVideoItem(GalleryItems);
+        
+            switch (result.status) {
+                case "1":
+                    $('#rowfluidDivVideos').show();
+                    $('.alert-success').show();
+                    $('.alert-success strong').text("Deleted successfully");
+                    EditBindVideos(albid);
+                    break;
+                case "0":
+                    $('#rowfluidDivVideos').show();
+                    $('.alert-error').show();
+                    $('.alert-error strong').text("Deletion was not successfull");
+                    break;
+                default:
+                    break;
+            }
+           
         }
 
     }
@@ -541,6 +629,10 @@ function DeleteVideoItem(GalleryItems) {
 
 function deleteAlbum(albobj)
 {
+    $('#rowfluidDivImages').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $('#rowfluidDivVideos').hide();
     debugger;
     //var imgid = $(obj).attr('imageid');
     var albid = $(albobj).attr('AlbumID');
@@ -552,9 +644,28 @@ function deleteAlbum(albobj)
         if (r == true) {
           
            GalleryItems.GalleryAlbObj = GalleryAlbum;
-           DeleteAlbumItem(GalleryItems);
-
-           EditBindGalleryImageAlbum();
+           var result = DeleteAlbumItem(GalleryItems);
+           
+           switch (result.status) {
+               case "1":
+                  
+                   $('#rowfluidDivImages').show();
+                   $('.alert-success').show();
+                   $('.alert-success strong').text("Deleted successfully");
+                  
+                   EditBindGalleryImageAlbum();
+                   break;
+               case "0":
+                 
+                  
+                   $('#rowfluidDivImages').show();
+                   $('.alert-error').show();
+                   $('.alert-error strong').text("Deletion was not successfull");
+                   break;
+               default:
+                   break;
+           }
+          
         }
 
     }
@@ -570,6 +681,10 @@ function DeleteAlbumItem(GalleryItems) {
 
 function deleteVideoAlbum(albobj)
 {
+    $('#rowfluidDivImages').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $('#rowfluidDivVideos').hide();
     debugger;
     //var imgid = $(obj).attr('imageid');
     var albid = $(albobj).attr('AlbumID');
@@ -582,8 +697,24 @@ function deleteVideoAlbum(albobj)
         {
             GalleryItems.GalleryAlbObj = GalleryAlbum;
             GalleryItems.itemType = 'video';
-            DeleteVideoAlbumItem(GalleryItems);
-            EditBindGalleryVideoAlbum();
+            var result = DeleteVideoAlbumItem(GalleryItems);
+            switch (result.status) {
+                case "1":
+
+                    $('#rowfluidDivVideos').show();
+                    $('.alert-success').show();
+                    $('.alert-success strong').text("Deleted successfully");
+                    EditBindGalleryVideoAlbum();
+                    break;
+                case "0":
+                    $('#rowfluidDivVideos').show();
+                    $('.alert-error').show();
+                    $('.alert-error strong').text("Deletion was not successfull");
+                    break;
+                default:
+                    break;
+            }
+          
         }
 
     }
