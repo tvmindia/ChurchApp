@@ -293,7 +293,7 @@ namespace ChurchApp.WebServices
         #region More Details of Church (Dynamic)
 
         [WebMethod]
-        public string GetChurchDetailsByChurchID(string ChurchID)
+        public string GetChurchExtraDetails(string ChurchID)
         {
             DataTable dt = new DataTable();
 

@@ -310,7 +310,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
                 cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website;
-                cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = DateTime.Parse(Founded);
+                cmd.Parameters.Add("@Founded", SqlDbType.DateTime).Value = DateTime.Parse(Founded);
                 cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
                 if (albumId != null)
                 {
@@ -330,7 +330,7 @@ namespace ChurchApp.DAL
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = imageId;
                 } 
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -373,6 +373,19 @@ namespace ChurchApp.DAL
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+                if (outParam.Value.ToString() == "1")
+                {
+                    try
+                    {
+                        System.IO.File.Delete(HttpContext.Current.Server.MapPath(imagepath));
+
+                    }
+                    catch (System.IO.IOException e)
+                    {
+                        throw e;
+
+                    }
+                }
             }
             catch (Exception ex)
             {

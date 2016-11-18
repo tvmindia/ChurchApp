@@ -21,7 +21,7 @@
 						</div>
 					</div>
 					<div class="box-content">
-					         	<div class="box-content">
+				
 						<table class="table table-bordered table-striped table-condensed">
 							   <thead>
 							  <tr>
@@ -55,34 +55,100 @@
 						</tbody>
 						 </table>  
 						
+					
 					</div>
-					</div>
-				</div><!--/span12-->
-		
-			</div><!--/row-fluid sortable-->
-         <!--churchtable-->
-     
-
-        <!--/forms-->
-        	<div class="row-fluid">
-				<div class="box span12">
-					<div class="box-header" data-original-title>
-						<h2><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span class="break"></span>Edit Church</h2>
-						<div class="box-icon">
-							
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-						
-						</div>
-					</div>
-					<div class="box-content">
+                    		<div class="box-content">
 					
 							<fieldset>
-						        <div class="control-group">
-								<label class="control-label">File Upload</label>
+						    <div class="form-horizontal">
+						
+						      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Church Name</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtChurchName" id="txtChurchName" placeholder="Enter Church name" type="text"/>
+                              </div>
+                              </div>
+
+                              <div class="control-group">
+                             <label class="control-label" for="focusedInput">Town Code</label>
+                               <div class="controls">
+                                  <select id="selectError3"><option>Town 1</option><option>Town 2</option><option>Town 3</option></select>
+                                 </div>
+                             </div>
+							
+							  <div class="control-group">
+                             <label class="control-label" for="focusedInput">Description</label>
+                               <div class="controls">
+                                 <textarea tabindex="3" class="input-large" id="txtDescription" name="Description" rows="3" placeholder=""></textarea>
+                               </div>
+                             </div>
+
+
+                              <div class="control-group">
+                             <label class="control-label" for="focusedInput">About</label>
+                               <div class="controls">
+                                 <textarea tabindex="3" class="input-large" id="txtAbout" name="txtAbout" rows="3" placeholder=""></textarea>
+                               </div>
+                             </div>
+
+                              
+                             <div class="control-group">
+								<label class="control-label">Main Image</label>
 								<div class="controls">
 								  <input type="file"/>
 								</div>
 							  </div>
+
+                               <div class="control-group">
+                             <label class="control-label" for="focusedInput">Address</label>
+                               <div class="controls">
+                                 <textarea tabindex="3" class="input-large" id="txtAddress" name="txtAddress" rows="3" placeholder=""></textarea>
+                               </div>
+                             </div>
+
+                                
+						      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Phone 1</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtPhone1" id="txtPhone1" placeholder="" type="text"/>
+                              </div>
+                              </div>
+
+                                <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Phone 2</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtPhone2" id="txtPhone2" placeholder="" type="text"/>
+                              </div>
+                              </div>
+
+                                 <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Main Priest</label>
+                               <div class="controls">
+                                <select id="selectMainPriest"><option>Priest 1</option><option>Priest 2</option><option>Priest 3</option></select>
+                              </div>
+                              </div>
+
+
+                                 <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Longitude</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtLongitude" id="txtLongitude" placeholder="" type="text"/>
+                              </div>
+                              </div>
+                                     <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Latitude</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtLatitude" id="txtLatitude" placeholder="" type="text"/>
+                              </div>
+                              </div>
+
+						   </div>
 						
 							  <div class="form-actions">
 								<button type="submit" class="btn btn-primary">Save changes</button>
@@ -90,11 +156,14 @@
 							  </div>
 							</fieldset>
 					
-					</div>
-				</div><!--/span-->
+					        </div>
+				</div><!--/span12-->
+		
+			</div><!--/row-fluid sortable-->
+         <!--churchtable-->
+     
 
-			</div><!--/row-->
-        <!--/forms-->
+       
 
 
 

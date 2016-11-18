@@ -282,8 +282,12 @@
 							<div class="control-group">
 							  <img class="priestimage" id="priestPreview" src="../img/gallery/priest.png"/>
                                
-                                <input type="file" value="Choose Image" id="priestimg" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="showpreview(this);" />
+                                <input type="file" value="Choose Image" id="priestimg" accept="image/*" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="OnUpload(this);showpreview(this);" />
 							</div>          
+                        <div class="alert alert-error" id="ErrorBox" style="display: none;">
+                             <div id="Displaydiv">
+                             </div>
+                            </div>
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
@@ -299,13 +303,13 @@
                         <div class="control-group">
 								<label class="control-label" for="focusedInput">Parish</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtParish" type="text"/>
+								  <input class="input-large focused" name="Parish" id="txtParish" type="text"/>
                                 </div>
 								</div>
                         <div class="control-group">
 								<label class="control-label" for="focusedInput">Diocese</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtDiocese" type="text"/>
+								  <input class="input-large focused" name="Diocese" id="txtDiocese" type="text"/>
                                 </div>
 								</div>
                          <div class="control-group">
@@ -325,7 +329,7 @@
                           <div class="control-group">
 							  <label class="control-label" for="date01">Ordination Date</label>
 							  <div class="controls">
-								<input type="text" class="input-xlarge datepicker" id="OrdinationDate"/>
+								<input type="text" class="input-xlarge datepicker" name="Ordination" id="OrdinationDate"/>
 							  </div>
 							</div>
                          <div class="control-group">
@@ -362,7 +366,7 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Mobile</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Email" id="txtMobile" type="text" value=""/>
+								  <input class="input-large focused" name="Email" id="txtMobile" onkeypress="return isNumber(event);" type="text" value=""/>
 								</div>
 								</div>
                         
