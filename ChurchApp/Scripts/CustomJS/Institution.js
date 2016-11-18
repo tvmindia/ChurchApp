@@ -298,6 +298,7 @@ function SaveInstitution()
 
             $('#divAccoAdmininfo').show();
             $('#divAdminInfo').show();
+            $('#EditdivAppend').empty();
             if ($("#EditGenDetails").hasClass("active")) {
                 $('#EditGenDetails').toggleClass("active");
                 $('#EditGen').toggleClass("show");
