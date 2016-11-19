@@ -161,6 +161,45 @@ namespace ChurchApp.DAL
         }
         #endregion SelectPriests
 
+        #region GetAllPriestsIDAndText
+        /// <summary>
+        /// Select All Priests
+        /// </summary>
+        /// <returns>All Priests</returns>
+        public DataSet GetAllPriestsIDAndText()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllPriestsIDAndText]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllPriestsIDAndText
+
         #region SelectPriestsAutocomplete
         /// <summary>
         /// Select All Priests

@@ -89,6 +89,46 @@ namespace ChurchApp.DAL
         }
         #endregion SelectTownMasters
 
+
+        #region SelectTownMastersIDandText
+        /// <summary>
+        /// Select All TownMaster
+        /// </summary>
+        /// <returns>All TownMaster</returns>
+        public DataSet SelectTownMastersIDandText()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllTownMasterIDAndText]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectTownMastersIDandText
+
         #region InsertTownMaster
         /// <summary>
         /// Add New TownMaster

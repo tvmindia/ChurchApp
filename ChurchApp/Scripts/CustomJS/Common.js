@@ -115,7 +115,7 @@ function postBlobAjax(formData, page) {
     //var request = new XMLHttpRequest();
     //request.open("POST", page);
     //request.send(formData);
-    debugger;
+   
     $('#displaywait').show();
     var jsonResult = {};
     $.ajax({
@@ -148,7 +148,7 @@ function postBlobAjax(formData, page) {
 
 
 function getJsonData(data, page) {
-    debugger;
+   
     var jsonResult = {};
     $('#displaywait').show();
     var req = $.ajax({
