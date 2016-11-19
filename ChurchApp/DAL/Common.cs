@@ -98,7 +98,7 @@ namespace ChurchApp.DAL
         {
             get
             {
-                return "Login.aspx";
+                return "/Login.aspx";
             }
         }
         public string UnderConstructionPage

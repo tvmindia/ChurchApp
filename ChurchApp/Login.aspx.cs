@@ -43,10 +43,6 @@ namespace ChurchApp
                         {
                             Response.Redirect(constants.SAHomePage);
                         }
-                        if (UA.Role == constants.Administrator)
-                        {
-                            Response.Redirect(constants.SAHomePage);
-                        }
                         else
                         {
                             Response.Redirect(constants.HomePage);

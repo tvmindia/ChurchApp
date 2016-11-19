@@ -72,7 +72,7 @@ namespace ChurchApp.Master
                 Li_DashBoard.Visible = false;
                // Li_BugTrack.Visible = false;
 
-                if (currPage.ToUpper() == Const.SaDashBoardPage.ToUpper())
+                if (currPage.ToUpper() == Const.DashBoardPage.ToUpper())
                 {
 
                     Response.Redirect(Const.LoginPage);
