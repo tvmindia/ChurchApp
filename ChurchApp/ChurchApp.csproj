@@ -203,6 +203,7 @@
     <Content Include="img\gallery\Noimage.png" />
     <Content Include="img\gallery\priest.png" />
     <Content Include="img\invalid.png" />
+    <Content Include="img\LoadChurch.gif" />
     <Content Include="img\loading.gif" />
     <Content Include="img\Loadingchurch.gif" />
     <Content Include="img\More.png" />
