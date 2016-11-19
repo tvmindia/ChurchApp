@@ -103,6 +103,23 @@
 img{
     object-fit:cover!important;
 }
+#loading-img {
+    background: url('/img/Loadingchurch.gif') center center no-repeat;
+    height: 100%;
+    z-index: 1040;
+}
+
+.overlay {
+    background: #353333;
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.5;
+    z-index: 1040;
+}
     </style>
 </head>
    
@@ -246,6 +263,7 @@ img{
 
 
     <div class="container-fluid-full">
+        
     <div class="row-fluid"><!-- rowfluid1 -->
 
         <!-- start: Main Menu -->
@@ -288,7 +306,9 @@ img{
    
     </div><!-- rowfluid1 -->
     </div><!-- rowfluid full -->
-
+    <div class="overlay" id="displaywait">
+    <div id="loading-img"></div>
+</div>
     <!-- Alert Container -->
         <div id="dialogoverlay"></div>
         <div id="dialogbox">
