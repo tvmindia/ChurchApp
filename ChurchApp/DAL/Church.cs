@@ -743,6 +743,42 @@ namespace ChurchApp.DAL
             return outParam.Value.ToString();
         }
         #endregion DeleteChurchDetail
+
+        #region MyRegion
+        public DataTable GetExtraChurchDetailsForApp()
+        {
+            dbConnection dcon = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            SqlCommand cmd = null;
+            try
+            {
+                dcon = new dbConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetExtraChurchDetailsForApp]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+        #endregion
         #endregion ChurchDetail Methods
 
     }

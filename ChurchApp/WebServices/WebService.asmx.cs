@@ -301,12 +301,19 @@ namespace ChurchApp.WebServices
             {
                 ChurchApp.DAL.ChurchDetails chrchDetailobj = new DAL.ChurchDetails();
                 chrchDetailobj.churchId = ChurchID;
-                dt = chrchDetailobj.SelectChurchDetails().Tables[0];
-                
+                dt = chrchDetailobj.GetExtraChurchDetailsForApp();
+                if (dt.Rows.Count == 0) throw new Exception("No items");                
             }
             catch (Exception ex)
             {
-                throw ex;
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
             }
             finally
             {
