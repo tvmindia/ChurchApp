@@ -359,7 +359,7 @@ namespace ChurchApp.WebServices
         #region All Patrons
 
         [WebMethod]
-        public string AllPatrons(string  churchId,string patronId )
+        public string GetAllPatrons()
         {
             DataTable dt = new DataTable();
 
@@ -367,11 +367,18 @@ namespace ChurchApp.WebServices
             {
                 ChurchApp.DAL.PatronMaster patronObj = new DAL.PatronMaster();
                 dt = patronObj.SelectPatronMaster().Tables[0];
+                if (dt.Rows.Count == 0) throw new Exception("No items");
             }
             catch (Exception ex)
             {
-                
-                throw ex;
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
             }
             finally
             {
