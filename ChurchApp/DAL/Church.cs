@@ -779,7 +779,7 @@ namespace ChurchApp.DAL
         }
         #endregion DeleteChurchDetail
 
-        #region MyRegion
+        #region GetExtraChurchDetailsForApp
         public DataTable GetExtraChurchDetailsForApp()
         {
             dbConnection dcon = null;
