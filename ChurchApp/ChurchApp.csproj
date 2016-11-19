@@ -201,6 +201,7 @@
     <Content Include="img\gallery\Institution.jpg" />
     <Content Include="img\gallery\kozhipadan.jpg" />
     <Content Include="img\gallery\Noimage.png" />
+    <Content Include="img\gallery\Pious.jpg" />
     <Content Include="img\gallery\priest.png" />
     <Content Include="img\invalid.png" />
     <Content Include="img\LoadChurch.gif" />
@@ -231,6 +232,7 @@
     <Content Include="Scripts\CustomJS\Notices.js" />
     <Content Include="Scripts\CustomJS\Notifications.js" />
     <Content Include="Scripts\CustomJS\Novenas.js" />
+    <Content Include="Scripts\CustomJS\PiousOrganizations.js" />
     <Content Include="Scripts\CustomJS\Priests.js" />
     <Content Include="Scripts\dataTables.bootstrap.js" />
     <Content Include="Scripts\dataTables.bootstrap.min.js" />
