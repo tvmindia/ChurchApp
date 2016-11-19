@@ -115,7 +115,7 @@ $("document").ready(function (e) {
                             if ((tempFile = $('#UpNotice')[0].files[0]) != undefined) {
                                 tempFile.name = guid;
                                 formData.append('NoticeAppImage', tempFile, tempFile.name);
-                                formData.append('GUID', guid);
+                                formData.append('createdby', 'SHAMILA');
                             }
                             formData.append('ActionTyp', 'NoticeAppImageInsert');
                             AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
@@ -195,6 +195,7 @@ $("document").ready(function (e) {
                             tempFile.name = guid;
                             formData.append('NoticeAppImage', tempFile, tempFile.name);
                             formData.append('GUID', guid);
+                            formData.append('createdby', 'SHAMILA');
                         }
                         formData.append('ActionTyp', 'NoticeAppImageInsert');
                         AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");

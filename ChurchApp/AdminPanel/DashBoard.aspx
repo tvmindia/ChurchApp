@@ -2,6 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+    <link href="../CSS/CustomCSS/DashBoard.css" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js"></script>
+    <script src="../Scripts/CustomJS/DashBoard.js"></script>
 
     <div id="content" class="span10">
         <ul class="breadcrumb">
@@ -54,14 +57,18 @@
 							</tr>
 						</tbody>
 						 </table>  
-						
-					
+
+                        
+                        
 					</div>
-                    		<div class="box-content">
-					
-							<fieldset>
-						    <div class="form-horizontal">
+
+                    <div class="box-content">
+                         	<div class="form-horizontal">
 						
+							<fieldset>
+                             <div class="span12">   
+				             <div class="span6">
+						     
 						      <div class="control-group">
 
                               <label class="control-label" for="focusedInput">Church Name</label>
@@ -100,14 +107,10 @@
 								</div>
 							  </div>
 
-                               <div class="control-group">
-                             <label class="control-label" for="focusedInput">Address</label>
-                               <div class="controls">
-                                 <textarea tabindex="3" class="input-large" id="txtAddress" name="txtAddress" rows="3" placeholder=""></textarea>
-                               </div>
-                             </div>
-
-                                
+                             
+                                  </div>
+                             <div class="span6">
+                                  
 						      <div class="control-group">
 
                               <label class="control-label" for="focusedInput">Phone 1</label>
@@ -140,7 +143,7 @@
                                <input class="input-large focused" name="txtLongitude" id="txtLongitude" placeholder="" type="text"/>
                               </div>
                               </div>
-                                     <div class="control-group">
+                                 <div class="control-group">
 
                               <label class="control-label" for="focusedInput">Latitude</label>
                                <div class="controls">
@@ -148,18 +151,34 @@
                               </div>
                               </div>
 
-						   </div>
+                                   <div class="control-group">
+                             <label class="control-label" for="focusedInput">Address</label>
+                               <div class="controls">
+                                 <textarea tabindex="3" class="input-large" id="txtAddress" name="txtAddress" rows="3" placeholder=""></textarea>
+                               </div>
+                             </div>
+                                        </div>
+                             </div>
+                     
+                             
+                     
+                         </fieldset>
+                                 </div>
+                       
+                    </div>
+                    	 
 						
-							  <div class="form-actions">
-								<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
-							  </div>
-							</fieldset>
+							 
+			
+                   <footer id="footer" runat="server" class="form-actions">
+                                        <a class="btn btn-primary AddBoutique" href="#">Save</></a>
+                                        <a class="btn CancelClear">Cancel</a>
+                                    </footer>	
 					
-					        </div>
-				</div><!--/span12-->
+		      </div>
+				</div>
 		
-			</div><!--/row-fluid sortable-->
+	
          <!--churchtable-->
      
 

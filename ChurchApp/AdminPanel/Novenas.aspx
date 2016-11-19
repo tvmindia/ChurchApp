@@ -132,169 +132,186 @@
                                         <%--New Format--%>
                                         <div id="DivNewFormat">
 
-                                            <%--Novena Caption--%>
-                                            <div class="control-group">
-                                                <label class="control-label" for="focusedInput">Novena Caption</label>
-                                                <div class="controls">
-                                                    <input class="input-large focused" name="Caption" id="txtNovenaCaption" type="text" />
-                                                </div>
-                                            </div>
+                                            
+                                            <div class="span6">
+                                                <label for="name">Novena Caption</label>
+                                                <input name="Caption" id="txtNovenaCaption" type="text" />
+                                                <label for="name">Patron</label>
+                                                <select id="ddlPatron">
+                                                    <option></option>
+                                                </select>
 
-
-                                            <%--Patron--%>
-                                            <div class="control-group">
-                                                <label class="control-label" for="focusedInput">Patron</label>
-                                                <div class="controls">
-                                                    <select id="ddlPatron">
-                                                        <option></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <%--Image--%>
-                                            <div class="control-group">
-                                                <div class="controls">
-                                                    <img class="Preview" id="imgNewNovena" src="../img/No-Img_Chosen.png" />
-                                                    <div>
-                                                        <input type="file" id="UpNewNovena" value="Choose Image" onchange="showpreview(this);" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <%--Novena Type --%>
-                                            <div class="control-group" id="divNovenaType">
-                                                <label class="control-label">Novena Type</label>
-                                                <div class="controls">
-                                                    <label class="radio">
-                                                        <input type="radio" name="NovenaType" id="rdoNovenaNormal" value="Normal" checked="" />
-                                                        Normal
-                                                    </label>
-
-                                                    <label class="radio">
-                                                        <input type="radio" name="NovenaType" id="rdoNovenaSpecial" value="Special" />
-                                                        Special
-                                                    </label>
-                                                </div>
+                                                 <label  >Description</label>
+                                                <textarea id="txtDescription" name="Description" rows="3" ></textarea>
 
                                             </div>
-
-                                            <%-- Day--%>
-
-                                            <div class="control-group" id="divDay">
-
-                                                <label class="control-label" for="focusedInput">Day</label>
-                                                <div class="controls">
-                                                    <select id="ddlDay" name="DaySelect">
-                                                        <option value="Sun">Sunday</option>
-                                                        <option value="Mon">Monday</option>
-                                                        <option value="Tue">Tuesday</option>
-                                                        <option value="Wed">Wednesday</option>
-                                                        <option value="Thu">Thursday</option>
-                                                        <option value="Fri">Friday</option>
-                                                        <option value="Sat">Saturday</option>
-                                                    </select>
-                                                </div>
+                                            <div class="span6">
+                                                 
+                                                <img class="Preview" id="imgNewNovena" src="../img/No-Img_Chosen.png" />
+                                                <input type="file" id="UpNewNovena" value="Choose Image" onchange="showpreview(this);" />
                                             </div>
+                                            
+                                            <br />
+                                            <br />
+                                            <div id="DivNovenaTiming" class="span12" style="background-color: #e8eaef; border: 1px solid; border-color: #5bc0de;">
+                                <h2>Novena Timings</h2>
+                           <%-- <div class="box-header">
+                                <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span style="position: absolute">Novena Timings</span>
+                                </h2>
 
-                                            <%-- Time--%>
+                                <div class="box-icon">
+                                </div>
+                            </div>--%>
 
-                                            <div class="control-group">
+                           
+                                <div class="form-horizontal">
+                                    <fieldset>
 
-                                                <label class="control-label" for="focusedInput">Time</label>
-                                                <div class="controls">
-                                                    <input type="text" class="timePikerClass" id="TxtTime" name="time" />
-                                                </div>
+
+                                        <%--Novena Type --%>
+                                        <div class="control-group" id="divNovenaType">
+                                            <label class="control-label">Novena Type</label>
+                                            <div class="controls">
+                                                <label class="radio">
+                                                    <input type="radio" name="NovenaType" id="rdoNovenaNormal" value="Normal" checked="" />
+                                                    Normal
+                                                </label>
+
+                                                <label class="radio">
+                                                    <input type="radio" name="NovenaType" id="rdoNovenaSpecial" value="Special" />
+                                                    Special
+                                                </label>
                                             </div>
-
-                                            <%--Start Date--%>
-                                            <div class="control-group" id="divStartDate">
-                                                <label class="control-label" for="date01">Start Date</label>
-                                                <div class="controls">
-                                                    <input type="text" class="input-xlarge datepicker" id="dateStartDate" />
-                                                </div>
-                                            </div>
-
-                                            <%--End Date--%>
-                                            <div class="control-group" id="divEndDate">
-                                                <label class="control-label" for="date01">End Date</label>
-                                                <div class="controls">
-                                                    <input type="text" class="input-xlarge datepicker" id="dateEndDate" />
-                                                </div>
-                                            </div>
-
-
-
-                                            <%--Description--%>
-                                            <div class="control-group">
-                                                <label class="control-label" for="focusedInput">Description</label>
-                                                <div class="controls">
-                                                    <textarea tabindex="10" class="input-xlarge span10" id="txtDescription" name="Description" rows="3"></textarea>
-                                                </div>
-                                            </div>
-
 
                                         </div>
 
-                                        <%--View Frormat--%>
 
-                                        <div id="DivViewFormat" class="span12" >
 
-                                           
+                                        <%-- Day--%>
 
-                                                <%--                           
+                                        <div class="control-group" id="divDay">
+
+                                            <label class="control-label" for="focusedInput">Day</label>
+                                            <div class="controls">
+                                                <select id="ddlDay" name="DaySelect">
+                                                    <option value="Sun">Sunday</option>
+                                                    <option value="Mon">Monday</option>
+                                                    <option value="Tue">Tuesday</option>
+                                                    <option value="Wed">Wednesday</option>
+                                                    <option value="Thu">Thursday</option>
+                                                    <option value="Fri">Friday</option>
+                                                    <option value="Sat">Saturday</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                       
+                                         <%-- Time--%>
+
+                                        <div class="control-group">
+
+                                            <label class="control-label" for="focusedInput">Time</label>
+                                            <div class="controls">
+                                                <input type="text" class="timePikerClass" id="TxtTime" name="time" />
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <%--Start Date--%>
+                                        <div class="control-group" id="divStartDate">
+                                            <label class="control-label" for="date01">Start Date</label>
+                                            <div class="controls">
+                                                <input type="text" class="input-xlarge datepicker" id="dateStartDate" />
+                                            </div>
+                                        </div>
+
+                                        <%--End Date--%>
+                                        <div class="control-group" id="divEndDate">
+                                            <label class="control-label" for="date01">End Date</label>
+                                            <div class="controls">
+                                                <input type="text" class="input-xlarge datepicker" id="dateEndDate" />
+                                            </div>
+                                        </div>
+
+
+
+                                    </fieldset>
+                                </div>
+
+                           
+
+                                </div>
+
+                                       
+                                            </div>
+
+                                         <%--View Frormat--%>
+
+                                        <div id="DivViewFormat" class="span12">
+
+
+
+                                            <%--                           
                        <address>
                            <strong>Church</strong><br />
                            <p><label id="lblAddress">Kottayam Kerala</label> </p>
                        </address>--%>
 
-                                                <div class="span3">
-                                                    <img id="imgNovenaView" class="Preview" src="../img/No-Img_Chosen.png" />
-                                                </div>
+                                            <div class="span3">
+                                                <img id="imgNovenaView" class="Preview" src="../img/No-Img_Chosen.png" />
+                                            </div>
 
-                                                <div class="span7" >
+                                            <div class="span7">
 
-                                                    <dl>
-                                                        <dt>Church</dt>
-                                                        <dd> <label id="lblChurchName"></label>
-                                                           </dd>
-                                                        <dt id="ViewDate">Date</dt>
-                                                        <dd> <label id="lblViewDate"></label>
-                                                           </dd>
-                                                        <dt>Time</dt>
-                                                        <dd><label id="lblViewTime"></label>
-                                                           </dd>
-                                                    </dl>
-                                                </div>
+                                                <dl>
+                                                    <dt>Church</dt>
+                                                    <dd>
+                                                        <label id="lblChurchName"></label>
+                                                    </dd>
+                                                    <dt id="ViewDate">Date</dt>
+                                                    <dd>
+                                                        <label id="lblViewDate"></label>
+                                                    </dd>
+                                                    <dt>Time</dt>
+                                                    <dd>
+                                                        <label id="lblViewTime"></label>
+                                                    </dd>
+                                                </dl>
+                                            </div>
 
 
-                                                <div class="span12">
-                                                    <address>
-                                                        <p>
-                                                            <label id="lblDescription">
-                                                           
-
-                                                            </label></p>
-                                                    </address>
-                                                </div>
-                                                <div>
-                                                </div>
-
+                                            <div class="span12">
+                                                <address>
+                                                    <p>
+                                                        <label id="lblDescription">
+                                                        </label>
+                                                    </p>
+                                                </address>
+                                            </div>
                                            
+                                             <%--NOVENA TIMING--%>
+
+                            
                                         </div>
 
-                                       
 
                                     </fieldset>
                                 </div>
-                                 <div class="form-actions">
-                                            <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
-                                            <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
-                                            <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
+                                <div class="form-actions">
+                                    <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
+                                    <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
+                                    <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
 
-                                        </div>
+                                </div>
+
                             </div>
 
-
+                            <br />
+                            <br />
+                           
+                           
 
                         </div>
                     </div>
@@ -332,7 +349,7 @@
                             </div>
                         </div>
 
-                        
+
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-primary" id="btnSaveInModal">Save</a>

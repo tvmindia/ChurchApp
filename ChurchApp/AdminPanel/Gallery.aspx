@@ -293,7 +293,7 @@
 
 			
 		</div>
-		          <div class="modal-footer">
+		     <div class="modal-footer">
 			
 			<a href="#" id="BtnVideoAlbumSave" class="btn btn-primary">Save</a>
             <a href="#" class="btn" data-dismiss="modal">Close</a>

@@ -49,6 +49,7 @@
                       
 						<div class="box-icon">
 						<a class="btnNew" title="ADD NEW FAMILY MEMBER" onclick="AddFamilyMember();"><i>+</i></a>
+                         <a class="btnNew" id="btnfamilyAdd" title="ADD NEW FAMILY" onclick="AddFamily();"><i>+</i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 						
 						</div>
@@ -108,6 +109,7 @@
                         <div class="panel span12" id="familyAddDiv"  style="margin-top:10px!important;display:none;">  
                               	<div class="box-header" data-original-title>
 						<h2 id="FamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="memberAddOrEdit"></span> Family Member</h2>
+                        <h2 id="AddFamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="familyAddOrEdit"></span> Family </h2>
 						<div class="box-icon">
 						
 											
@@ -176,6 +178,12 @@
 							  <a class="btn btn-primary Save" name="" id="btnSavePriest">Save</a>
                                 <a id="btnCancelPriest" class="btn btn-primary Cancel">Cancel</a>
                                 <a class="btn btn-primary Delete" name="" id="btnDelete">Delete</a>
+							  
+							</div>
+                        <div class="form-actions span12" id="btnFamilyDiv">
+							  <a class="btn btn-primary SaveFamily" name="" >Save</a>
+                                <a class="btn btn-primary CancelFamily">Cancel</a>
+                                <a class="btn btn-primary DeleteFamily" name="">Delete</a>
 							  
 							</div>
 						  </fieldset>
