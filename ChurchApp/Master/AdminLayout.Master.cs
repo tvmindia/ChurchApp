@@ -53,7 +53,7 @@ namespace ChurchApp.Master
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            LoginName.Text = UA.userName;
         }
         public void AccessCheck()
         {
