@@ -11,7 +11,30 @@
  		<li>Dashboard</li>
 		</ul>
 
+          <%--Alert boxes --%>
+               <div id="rowfluidDivAlert" style="display:none;">	
+				       <div class="alert alert-error" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Operation Not Successfull.</strong> 
+						</div>
+						<div class="alert alert-success" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Successfull.</strong> 
+						</div>
+						<div class="alert alert-info" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+						</div>
+						<div class="alert alert-block" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<h4 class="alert-heading">Warning!</h4>
+							<p>Best check yourself, you're not looking too good.</p>
+						</div>
+					
 
+              
+            </div>
+			  <%--Alert boxes --%>
          <!--churchtable-->
         <div class="row-fluid sortable">		
 				<div class="box span12">
@@ -25,36 +48,18 @@
 					</div>
 					<div class="box-content">
 				
-						<table class="table table-bordered table-striped table-condensed">
+						<table class="table table-bordered table-striped table-condensed" id="churchtable">
 							   <thead>
 							  <tr>
-								  <th>Username</th>
-								  <th>Date registered</th>
-								  <th>Role</th>
-								  <th>Status</th>
+								  <th>Name</th>
+								  <th>Town</th>
+								  <th>Address</th>
+								  <th>Phone1</th>
 								  <th>Actions</th>
 							  </tr>
 						  </thead>   
 						  <tbody>
-							<tr>
-								<td>church1</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="circlebtn circlebtn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>  
-									</a>
-									<a class="circlebtn circlebtn-info" href="#">
-										<i class="halflings-icon white edit"></i>  
-									</a>
-									<a class="circlebtn circlebtn-danger" href="#">
-										<i class="halflings-icon white trash"></i> 
-									</a>
-								</td>
-							</tr>
+						
 						</tbody>
 						 </table>  
 
@@ -80,8 +85,17 @@
                               <div class="control-group">
                              <label class="control-label" for="focusedInput">Town Code</label>
                                <div class="controls">
-                                  <select id="selectError3"><option>Town 1</option><option>Town 2</option><option>Town 3</option></select>
+                                  <select class="ddlTownCode"><option></option></select>
+                                  
                                  </div>
+                             </div>
+
+
+                                   <div class="control-group">
+                             <label class="control-label" for="focusedInput">Address</label>
+                               <div class="controls">
+                                 <textarea tabindex="3" class="input-large" id="txtAddress" name="txtAddress" rows="3" placeholder=""></textarea>
+                               </div>
                              </div>
 							
 							  <div class="control-group">
@@ -98,16 +112,6 @@
                                  <textarea tabindex="3" class="input-large" id="txtAbout" name="txtAbout" rows="3" placeholder=""></textarea>
                                </div>
                              </div>
-
-                              
-                             <div class="control-group">
-								<label class="control-label">Main Image</label>
-								<div class="controls">
-								  <input type="file"/>
-								</div>
-							  </div>
-
-                             
                                   </div>
                              <div class="span6">
                                   
@@ -131,7 +135,7 @@
 
                               <label class="control-label" for="focusedInput">Main Priest</label>
                                <div class="controls">
-                                <select id="selectMainPriest"><option>Priest 1</option><option>Priest 2</option><option>Priest 3</option></select>
+                                 <select class="ddlPriest"><option></option></select>
                               </div>
                               </div>
 
@@ -152,11 +156,13 @@
                               </div>
 
                                    <div class="control-group">
-                             <label class="control-label" for="focusedInput">Address</label>
-                               <div class="controls">
-                                 <textarea tabindex="3" class="input-large" id="txtAddress" name="txtAddress" rows="3" placeholder=""></textarea>
-                               </div>
-                             </div>
+								<label class="control-label">Main Image</label>
+								<div class="controls">
+								  <input type="file"/>
+								</div>
+							  </div>
+
+                                 
                                         </div>
                              </div>
                      
@@ -171,7 +177,7 @@
 							 
 			
                    <footer id="footer" runat="server" class="form-actions">
-                                        <a class="btn btn-primary AddBoutique" href="#">Save</></a>
+                                        <a class="btn btn-primary" id="btnChurchAdd" href="#">Save</></a>
                                         <a class="btn CancelClear">Cancel</a>
                                     </footer>	
 					
