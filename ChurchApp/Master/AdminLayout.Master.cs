@@ -26,14 +26,13 @@ namespace ChurchApp.Master
             }
             lblChurchName.Text = UA.Church;
             lblChurch.Text = UA.Church;
-            //imgLogo.ImageUrl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + UA.BoutiqueID;
             AccessCheck();
 
             if (UA.Role == Const.SuperAdministrator)
             {
                 Li_DashBoard.Visible = true;
                 ChurchApp.DAL.Church churchObj = new ChurchApp.DAL.Church();
-                //LITiquesList.Visible = true;
+                LIChurches.Visible = true;
                 DataSet ds = new DataSet();
                 ds = churchObj.SelectChurches();
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -59,19 +58,15 @@ namespace ChurchApp.Master
         public void AccessCheck()
         {
 
-            //try
-            //{
+            try
+            {
             string currRole = UA.Role;
             string currPage = Const.GetCurrentPageName(Request);
-            //string From = "?From=";
-            //string redirectURL = "";
 
 
             if (currRole != Const.SuperAdministrator)
             {
                 Li_DashBoard.Visible = false;
-               // Li_BugTrack.Visible = false;
-
                 if (currPage.ToUpper() == Const.DashBoardPage.ToUpper())
                 {
 
@@ -80,80 +75,11 @@ namespace ChurchApp.Master
                 }
 
             }
-            //else if (currRole == Const.Manager)
-            //{
+            }
+            catch(Exception ex)
+            {
 
-            //    Li_SaDashBoard.Visible = false;
-            //    Li_BugTrack.Visible = false;
-            //    Li_Category.Visible = false;
-            //    //Li_Products.Visible = false;
-            //    //Li_Notifications.Visible = false;
-            //    Li_LoyaltySettings.Visible = false;
-            //    //Li_People.Visible = false;
-            //    //Li_Profile.Visible = false;
-
-            //    currPage = currPage.ToUpper();
-
-            //    if (currPage == Const.SaDashBoardPage.ToUpper() || currPage == Const.CategoryPage.ToUpper() || currPage == Const.LoyaltySettingsPage.ToUpper()) // ||currPage==Const.PeoplePage.ToUpper()||currPage==Const.ProfilePage.ToUpper()
-            //    {
-            //        Response.Redirect(Const.LoginPage);
-            //    }
-
-            //}
-            //else
-            //{
-
-            //}
-
-
-            //if (currRole.Count == 0) { Response.Redirect(Const.UnderConstruction;) }
-
-            //if (currPage != Const.AccessDenied)
-            //{
-            //    if (currPage == Const.PatientPage) { }
-            //    if (currPage == Const.TokenPage) { }
-            //    if (currPage == Const.DoctorPage)
-            //    {
-            //        if (!currRole.Contains(Const.RoleDoctor))
-            //        {
-            //            From = From + Const.Doctor;
-            //            redirectURL = Const.AccessDeniedURL + From;
-            //        }
-            //    }
-            //    if (currPage == Const.PharmacyPage) { }
-            //    if (currPage == Const.StockPage) { }
-            //    if (currPage == Const.AdminPage)
-            //    {
-            //        if (!(currRole.Contains(Const.RoleDoctor) | currRole.Contains(Const.RoleAdministrator)))
-            //        {
-            //            From = From + Const.Admin;
-            //            redirectURL = Const.AccessDeniedURL + From;
-            //        }
-            //    }
-            //    if (currPage == Const.MasterPage)
-            //    {
-            //        if (!(currRole.Contains(Const.RoleAdministrator)))
-            //        {
-            //            From = From + Const.Admin;
-            //            redirectURL = Const.AccessDeniedURL + From;
-            //        }
-            //    }
-
-
-
-            //    if (redirectURL != "") { Response.Redirect(redirectURL, true); }
-
-
-
-            //}
-
-            //}
-            //catch (Exception ex)
-            //{
-
-
-            //   Response.Redirect(Const.AccessDeniedURL);
-            //}
-        }
+            }
+    }
     }
 }

@@ -27,7 +27,7 @@ namespace ChurchApp.AdminPanel
                 if (ds.Rows.Count > 0)
                 {
                     DataRow dr = ds.Rows[0];
-                    string ChurchName = dr["Name"].ToString();
+                    string ChurchName = dr["ChurchName"].ToString();
 
                     DAL.Security.UserAuthendication UA_Changed = new DAL.Security.UserAuthendication(UA.userName, churchID, ChurchName, UA.Role);
                     if (UA_Changed.ValidUser)
