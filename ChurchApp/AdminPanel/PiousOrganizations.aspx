@@ -7,7 +7,7 @@
     <script src="../Scripts/CustomJS/PiousOrganizations.js"></script>
      <div id="content" class="span10">
         <ul class="breadcrumb" style="margin-bottom:0px">
-				<li>
+				<li> 
 					<i class="icon-home"></i>
 					<a href="../AdminPanel/Home.aspx">Home</a> 
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
