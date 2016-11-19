@@ -2,7 +2,7 @@
 $(document).ready(function () {
     BindFamilyUnitsAccordion();
     BindSelect();
-
+   
     $(".unitDetails").click(function (e) {
         debugger;
         $("#InstituteShow").css("display", "");
@@ -194,7 +194,9 @@ $(document).ready(function () {
             if (executiveLength == "0")
             {
                 $("#divAdminDetals").css("display", "none");
+                $("#AdminBtnNew").css("display", "");
             }
+            BindMemberSelect();
         }
     })
     $('.unitViewDetails').click(function (e) {
@@ -235,6 +237,27 @@ function BindSelect() {
         {
             value: selectRow[i].ID,
             text: selectRow[i].Position
+        }));
+    }
+}
+function BindMemberSelect()
+{
+    debugger;
+    var FamilyUnits = new Object();
+    var Family = new Object();
+    var Members = new Object();
+    var unitID = $("#hdfUnitID").val();
+    FamilyUnits.unitId = unitID;
+    Family.familyUnitsObj = FamilyUnits;
+    Members.familyObj = Family;
+    var selectRow = {};
+    selectRow = GetAllFamilyMembers(Members);
+    $('#ddlMember').find('option:not(:first)').remove();
+    for (var i = 0; i < selectRow.length; i++) {
+        $('#ddlMember').append($('<option>',
+        {
+            value: selectRow[i].ID,
+            text: selectRow[i].FirstName+" " + selectRow[i].LastName+" " + selectRow[i].FamilyName
         }));
     }
 }
@@ -665,12 +688,21 @@ function GetFamilyMember(Members) {
     ds = getJsonData(data, "../AdminPanel/Families.aspx/GetFamilyMember");
     table = JSON.parse(ds.d);
     return table;
-} 
-function GetAllFamilyMembers(Family) {
+}
+function GetAllFamilyMember(Members) {
     var ds = {};
     var table = {};
-    var data = "{'familyObj':" + JSON.stringify(Family) + "}";
-    ds = getJsonData(data, "../AdminPanel/Families.aspx/GetAllFamilyMembers");
+    var data = "{'memberObj':" + JSON.stringify(Members) + "}";
+    ds = getJsonData(data, "../AdminPanel/Families.aspx/GetAllFamilyMember");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function GetAllFamilyMembers(Members) {
+    debugger;
+    var ds = {};
+    var table = {};
+    var data = "{'memberObj':" + JSON.stringify(Members) + "}";
+    ds = getJsonData(data, "../AdminPanel/Families.aspx/GetAllFamilyMember");
     table = JSON.parse(ds.d);
     return table;
 } 
