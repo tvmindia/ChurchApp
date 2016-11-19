@@ -6,7 +6,7 @@
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/PiousOrganizations.js"></script>
      <div id="content" class="span10">
-        <ul class="breadcrumb">
+        <ul class="breadcrumb" style="margin-bottom:0px">
 				<li>
 					<i class="icon-home"></i>
 					<a href="../AdminPanel/Home.aspx">Home</a> 
