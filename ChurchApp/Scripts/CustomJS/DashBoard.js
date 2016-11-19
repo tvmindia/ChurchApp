@@ -1,4 +1,6 @@
 ﻿$("document").ready(function (e) {
+    
+
 
     debugger;
     try
@@ -265,4 +267,23 @@ function GetAllPriest(Priest) {
     catch (e) {
     }
     return table;
+}
+
+
+function ChurchImagePreview(input) {
+    debugger;
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#ChurchPreview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function createGuid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }

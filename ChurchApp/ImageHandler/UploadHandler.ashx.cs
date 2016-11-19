@@ -166,7 +166,29 @@ namespace ChurchApp.ImageHandler
                                     }
                             break;
                              //Add another action type here as next case
+                            case "ChurchInsert":
+                                        //string guid = context.Request.Form.GetValues("GUID")[0];
+                                        //string SaveLocation = HttpContext.Current.Server.MapPath("~/img/AppImages/");
+                                        //HttpPostedFile postedFile1 = context.Request.Files["churchImage"];
+                                        //fileExtension = Path.GetExtension(postedFile1.FileName);
+                                        //string fileName1 = guid + fileExtension;
+                                        //SaveLocation = SaveLocation.Replace("~", "");
+                                        //postedFile1.SaveAs(SaveLocation + @"\" + fileName1);
+                                        //AppImagePath = "~/img/AppImages/" + fileName1;
+                                        //AppImagePath = AppImagePath.Replace("~", "");
+                                        ////Insert to table
+                                        //AppImages AppImgObj1 = new AppImages();
+                                        //AppImgObj1.appImageId = context.Request.Form.GetValues("GUID")[0];
+                                        //AppImgObj1.url = AppImagePath;
+                                        //AppImgObj1.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                        //AppImgObj1.InsertAppImage().ToString();
+                                        //ChurchApp.DAL.Church churchObj = new ChurchApp.DAL.Church();
 
+                                        //churchObj.InsertChurch();
+
+                                        //context.Response.Write(status);
+
+                            break;
 
                         }
                   
@@ -174,6 +196,8 @@ namespace ChurchApp.ImageHandler
 
                     }
                     #endregion ActionTyp
+
+                   
 
                 } //end of if count
 
