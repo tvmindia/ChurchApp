@@ -147,7 +147,7 @@ function SaveAdministrator()
                     }
                     formData.append('ActionTyp', 'NoticeAppImageInsert');
                     AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    Administrators.imageID = guid;
+                    
                 }
 
             }
@@ -157,7 +157,7 @@ function SaveAdministrator()
             Administrators.Name = $('#txtName').val();
             Administrators.Phone = $('#txtMobile').val();
             Administrators.orgId = InstituteID;
-            
+            Administrators.imageID = guid;
             Administrators.adminId = guid;
             $("#hdnAdminID").val(guid);
             result = InsertAdministrator(Administrators);
@@ -245,7 +245,7 @@ function SaveInstitution()
             var guid = createGuid();
 
             if (guid != null) {
-
+                var i = 0;
                 var imgresult = "";
                 var _URL = window.URL || window.webkitURL;
                 var formData = new FormData();
@@ -262,7 +262,7 @@ function SaveInstitution()
                     }
                     formData.append('ActionTyp', 'NoticeAppImageInsert');
                     AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-
+                    i = "1";
                 }
 
             }
@@ -280,7 +280,10 @@ function SaveInstitution()
             Institutions.Mobile = $('#txtMob').val();
             //Institutions.emailId = $('#txtEmail').val();
             //Institutions.mobile = $('#txtMobile').val();
-            Institutions.imageId = guid;
+            if (i == "1")
+            {
+                Institutions.imageId = guid;
+            }
             Institutions.institutionID = guid;
             $("#hdnInstutID").val(guid);
             $('#hdnInstituteID').val(guid);
@@ -503,8 +506,19 @@ function BindEditCard(ID) {
 /////////////////////////////////////////////////////////////**************Html bind dynamic
 // Html code for binding Institution details
 function HtmlBindInstitutions(InstituteDetails, i) {
+    debugger;
     var ID = "'" + InstituteDetails.ID + "'";
-    var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + InstituteDetails.URL + '"/></li>'
+    var imageurl = null;
+    if (InstituteDetails.URL != null)
+    {
+        imageurl = InstituteDetails.URL;
+    }
+    else
+    {
+        imageurl = '../img/gallery/Institution.jpg';
+    }
+    
+    var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + imageurl + '"/></li>'
       + '<li><span class="choosepic">' + InstituteDetails.Name + '</span> <br/>'
       + '<strong>Address:</strong> ' + InstituteDetails.Address.substr(0,40) + '<br/><strong>Founder:</strong>' + InstituteDetails.Founder + '<br/>'
       + '<strong>Founded:</strong>' + ConvertJsonToDate(InstituteDetails.Founded) + '<br /><strong>Website:</strong> ' + InstituteDetails.Website + ' <br/>'
@@ -558,7 +572,15 @@ function EditAdministrator(this_Obj)
         $('#txtName').val(AdminRow.Name);
         $('#txtMobile').val(AdminRow.Phone);
         $('#ddlRole').val(AdminRow.desigId).change();
-        $('#AdminPicPreview').attr('src', AdminRow.imagePath);
+        if (AdminRow.imagePath != "")
+        {
+            $('#AdminPicPreview').attr('src', AdminRow.imagePath)
+        }
+        else
+        {
+            $('#AdminPicPreview').attr('src', '../img/gallery/Noimage.jpg');
+        }
+        
         $('#modelAddAdmin ').modal('show');
     }
     catch(e)
@@ -635,7 +657,15 @@ function EditInstitute(this_obj) {
         $('#txtPhone2').val(InstituteRow.phone2);
         $('#txtMob').val(InstituteRow.Mobile);
         $('#txtWebsite').val(InstituteRow.Website);
-        $('#priestPreview').attr('src', InstituteRow.imagepath);
+        if (InstituteRow.imagepath != "")
+        {
+            $('#priestPreview').attr('src', InstituteRow.imagepath);
+        }
+        else
+        {
+            $('#priestPreview').attr('src', '../img/gallery/Institution.jpg');
+        }
+        
         document.getElementById('HeadDetails').innerText = "Edit Details";
         $('#hdnInstutID').val(InstituteRow.institutionID);
         $('#hdnInstituteID').val(InstituteRow.institutionID);
