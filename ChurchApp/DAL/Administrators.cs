@@ -375,19 +375,6 @@ namespace ChurchApp.DAL
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
-                if (outParam.Value.ToString() == "1")
-                {
-                    try
-                    {
-                        System.IO.File.Delete(HttpContext.Current.Server.MapPath(imagePath));
-
-                    }
-                    catch (System.IO.IOException e)
-                    {
-                        throw e;
-
-                    }
-                }
             }
 
 
