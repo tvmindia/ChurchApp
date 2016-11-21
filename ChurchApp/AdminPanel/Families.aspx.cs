@@ -147,6 +147,55 @@ namespace ChurchApp.AdminPanel
         }
         #endregion InsertFamilyUnit
 
+        #region UpdateFamilyUnit
+        [System.Web.Services.WebMethod]
+        public static string UpdateFamilyUnit(FamilyUnits familyUnitsObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                if (UA != null)
+                {
+                    familyUnitsObj.churchId = UA.ChurchID;
+                    familyUnitsObj.updatedBy = UA.userName;
+                    status = familyUnitsObj.UpdateFamilyUnit();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+        #endregion UpdateFamilyUnit
+
+        #region DeleteFamilyUnit
+        [System.Web.Services.WebMethod]
+        public static string DeleteFamilyUnit(FamilyUnits familyUnitsObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                if (UA != null)
+                {
+                    familyUnitsObj.churchId = UA.ChurchID;
+                    status = familyUnitsObj.DeleteFamilyUnit();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+        #endregion DeleteFamilyUnit
+
         //<-----------------------------Family Methods----------------------------->//
 
         #region GetAllFamilys
@@ -278,6 +327,111 @@ namespace ChurchApp.AdminPanel
             return status;
         }
         #endregion InsertFamily
+
+        #region SelectFamily
+        [System.Web.Services.WebMethod]
+        public static string SelectFamily(Family familyObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string jsonResult = null;
+            DataSet ds = null;
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            try
+            {
+                if (UA != null)
+                {
+                    familyObj.familyUnitsObj.churchId = UA.ChurchID;
+                    // familyUnitsObj.familyObj.unitId
+                    ds = familyObj.SelectFamily();
+                    // ds = N
+
+                    //Converting to Json
+                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+
+                    }
+
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return jsonResult;
+        }
+        #endregion SelectFamily
+
+        #region UpdateFamily
+        [System.Web.Services.WebMethod]
+        public static string UpdateFamily(Members memberObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                if (UA != null)
+                {
+                    memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
+                    memberObj.churchId = UA.ChurchID;
+                    memberObj.familyID = memberObj.familyObj.InsertFamily();
+                    memberObj.familyObj.familyUnitsObj.updatedBy = UA.userName;
+                    if (memberObj.familyID != "" && memberObj.familyID != null)
+                    {
+                        status = memberObj.familyObj.UpdateFamily();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+        #endregion UpdateFamily
+
+        #region DeleteFamily
+        [System.Web.Services.WebMethod]
+        public static string DeleteFamily(Family familyObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                if (UA != null)
+                {
+                    familyObj.familyUnitsObj.churchId = UA.ChurchID;
+                    status = familyObj.DeleteFamily();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+        #endregion DeleteFamily
 
         //<-----------------------------Family Member Methods----------------------------->//
         #region GetFamilyMember
@@ -468,5 +622,32 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Insert Administrator
+
+        #region DeleteAdministrator
+        [System.Web.Services.WebMethod]
+        public static string DeleteAdministrator(ChurchApp.DAL.Administrators AdminObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                AdminObj.churchId = UA.ChurchID;
+                status = AdminObj.DeleteAdministrator();
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return status;
+        }
+
+        #endregion DeleteAdministrator
     }
 }

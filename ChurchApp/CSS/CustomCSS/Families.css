@@ -182,7 +182,7 @@ i#faUser {
  cursor:pointer;   
 }
 .row-fluid .span4 {
-    width: 25.623932%;
+    width: 22.623932%;
 }
 .thumbnail {
     border:none !important;
@@ -205,4 +205,9 @@ i#faUser {
 #imgThumbnail>img
 {
     height: 85px !important;
+}
+.circlebtn {
+    position: absolute;
+    right: 55px;
+    padding: 2px 2px 0px 5px;
 }
