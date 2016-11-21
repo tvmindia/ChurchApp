@@ -38,6 +38,10 @@ namespace ChurchApp.AdminPanel
             try
             {
                 InstituteObj.createdBy = UA.userName;
+                if(InstituteObj.Founded=="")
+                {
+                    InstituteObj.Founded = null;
+                }
                 status = InstituteObj.InsertInstitution().ToString();
                 InstituteObj.results = status;
 

@@ -40,7 +40,7 @@
 			  <%--Alert boxes --%>
                <div class="row-fluid">
               <%-- Div Institution list --%>
-                <div class="span6">
+               <%-- <div class="span6">
 			   <h1>Pious Organizations</h1>
                <div class="priority high"><span style="visibility:hidden">Institutions</span><a class="btnNew" style="left:75%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   <div class="task high">
@@ -62,8 +62,30 @@
                     
                         </div>
 				</div>
+                </div>--%>
+               <div class="span12">
+                   <h1>Pious Organizations</h1>
+                   <div class="priority high"><span style="visibility:hidden">Institutions</span><a class="btnNew" style="left:75%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+			   <div class="task high">
+                    <div id="Institutediv">
+            <div id="InstituteDefault">
+               <ul class="dashboard-list vicarlist">
+				<li >
+				<img class="priestimage" src="../img/gallery/Institution.jpg"/>
+                    </li>
+                 <li >
+                     <br />
+                     <br />
+                     <br />
+				<span style="color:#647587!important" class="choosepic"> No record Found</span> <br/>
+				  
+				</li>
+                </ul>
                 </div>
-               
+                    
+                        </div>
+				</div>
+               </div>
 			  <%-- Show details portion for institution --%>	
 				<div id="InstituteShow" style="margin-top:4%;display:none;" class="span6 noMarginLeft">
 				<div class="dark">

@@ -131,6 +131,7 @@ function SaveAdministrator()
             if (guid != null) {
                 ///////Image insert using handler
                 var imgresult = "";
+                var Administrators = new Object();
                 var _URL = window.URL || window.webkitURL;
                 var formData = new FormData();
                 var imagefile, logoFile, img;
@@ -146,17 +147,17 @@ function SaveAdministrator()
                     }
                     formData.append('ActionTyp', 'NoticeAppImageInsert');
                     AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-
+                    Administrators.imageID = guid;
                 }
 
             }
 
-            var Administrators = new Object();
+            
             Administrators.desigId = $('#ddlRole').val();
             Administrators.Name = $('#txtName').val();
             Administrators.Phone = $('#txtMobile').val();
             Administrators.orgId = InstituteID;
-            Administrators.imageID = guid;
+            
             Administrators.adminId = guid;
             $("#hdnAdminID").val(guid);
             result = InsertAdministrator(Administrators);
@@ -289,6 +290,17 @@ function SaveInstitution()
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
                 $('.alert-success strong').text("Institution Added Successfully");
+                $('#divAccoAdmininfo').show();
+                $('#divAdminInfo').show();
+                $('#EditdivAppend').empty();
+                if ($("#EditGenDetails").hasClass("active")) {
+                    $('#EditGenDetails').toggleClass("active");
+                    $('#EditGen').toggleClass("show");
+                }
+                if (!$("#divAccoAdmininfo").hasClass("active")) {
+                    $('#divAccoAdmininfo').toggleClass("active");
+                    $('#divAdminInfo').toggleClass("show");
+                }
 
             }
             if (result.results != "1") {
@@ -297,17 +309,7 @@ function SaveInstitution()
                 $('.alert-error strong').text("Saving Not Successful");
             }
 
-            $('#divAccoAdmininfo').show();
-            $('#divAdminInfo').show();
-            $('#EditdivAppend').empty();
-            if ($("#EditGenDetails").hasClass("active")) {
-                $('#EditGenDetails').toggleClass("active");
-                $('#EditGen').toggleClass("show");
-            }
-            if (!$("#divAccoAdmininfo").hasClass("active")) {
-                $('#divAccoAdmininfo').toggleClass("active");
-                $('#divAdminInfo').toggleClass("show");
-            }
+            
         }
             //-----------------------UPDATE-------------------//
         else {
@@ -717,6 +719,7 @@ function NewInstitute() {
     try {
         ClearFields();
         RemoveStyle();
+        $('#instituteimg').val('');
         $('#divAccoAdmininfo').hide();
         $('#divAdminInfo').hide();
         $('#priestPreview').attr('src', '../img/gallery/Institution.jpg');
@@ -726,6 +729,10 @@ function NewInstitute() {
         $('#InstituteShow').hide();
         $('#btnDeleteInstitute').attr('disabled', 'disabled');
         $('#btnDeleteInstitute').attr('name', '');
+        if (!$("#EditGenDetails").hasClass("active")) {
+            $('#EditGenDetails').toggleClass("active");
+            $('#EditGen').toggleClass("show");
+        }
     }
     catch (e) {
 

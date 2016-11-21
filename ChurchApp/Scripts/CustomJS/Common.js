@@ -44,7 +44,7 @@ function CustomAlert() {
         dialogoverlay.style.display = "block";
         dialogoverlay.style.height = winH + "px";
         dialogbox.style.left = (winW / 2) - (550 * .5) + "px";
-        dialogbox.style.top = "3px";
+        dialogbox.style.top = "100px";
         dialogbox.style.display = "block";
         document.getElementById('dialogboxhead').innerHTML = " Alert !";
         document.getElementById('dialogboxbody').innerHTML = dialog;

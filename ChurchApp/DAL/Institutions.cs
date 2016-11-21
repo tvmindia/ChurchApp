@@ -242,13 +242,13 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
                 cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website;
-                if(Founded!="")
+                if(Founded!=null)
                 {
                     cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = DateTime.Parse(Founded);
                 }
                 else 
                 {
-                    cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = DateTime.Now;
+                    cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = Founded;
                 }
                 cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
                 if(albumId!=null)

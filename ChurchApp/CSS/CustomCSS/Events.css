@@ -1,6 +1,6 @@
 ﻿
 #NoticePreview{
-    width:38%;height:100%;
+    width:34%;height:100%;
 }
 
 #EventEditDivBox
@@ -63,9 +63,20 @@ width: 150px;
 
  .btnNew
  {
-     margin-left: 345px;
+     position:absolute;
+     margin-left: 43%;
+     top: 41px;
  }
-
+ .lead
+ {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     font-size:16px;
+ }
+ p{
+     font-size:12px;
+ }
 /*#viewAllLatest
 {
     background-color:#f1f9ed;
