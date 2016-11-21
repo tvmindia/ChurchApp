@@ -1,4 +1,11 @@
-﻿using ChurchApp.DAL;
+﻿
+#region CopyRight
+/// Created By   : Anija G
+/// Created date : 17- Nov- 2016
+#endregion CopyRight
+
+#region NameSpace
+using ChurchApp.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,7 +14,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+#endregion NameSpace
 namespace ChurchApp.AdminPanel
 {
     public partial class Families : System.Web.UI.Page
@@ -425,5 +432,41 @@ namespace ChurchApp.AdminPanel
             return jsonResult;
         }
         #endregion GetAllFamilyMember
+
+        //<-----------------------------Administrator Methods----------------------------->//
+
+        #region  Insert Administrator
+        /// <summary>
+        /// Insert Administrator Details
+        /// </summary>
+        /// <param name="AdminObj"></param>
+        /// <returns>Success/Failure</returns>
+        [System.Web.Services.WebMethod]
+        public static string InsertAdministrator(ChurchApp.DAL.Administrators AdminObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                AdminObj.churchId = UA.ChurchID;
+                AdminObj.createdBy = UA.userName;
+                status = AdminObj.InsertAdministrator().ToString();
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return status;
+
+        }
+
+        #endregion Insert Administrator
     }
 }

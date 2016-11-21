@@ -1,4 +1,10 @@
-﻿using ChurchApp.DAL;
+﻿#region CopyRight
+/// Created By   : Anija G
+/// Created date : 03- Nov- 2016
+#endregion CopyRight
+
+#region NameSpace
+using ChurchApp.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +13,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+#endregion NameSpace
 
 namespace ChurchApp.AdminPanel
 {

@@ -50,6 +50,7 @@
 						<div class="box-icon">
 						<a class="btnNew" title="ADD NEW FAMILY MEMBER" onclick="AddFamilyMember();"><i>+</i></a>
                          <a class="btnNew" id="btnfamilyAdd" title="ADD NEW FAMILY" onclick="AddFamily();"><i>+</i></a>
+                         <a class="btnNew" id="btnFamilyUnitAdd" title="ADD NEW FAMILY UNIT" onclick="AddFamilyUnit();"><i>+</i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 						
 						</div>
@@ -76,7 +77,7 @@
 					</div>			
 					<div class="box-content">
                        
-                            <a class="circlebtn circlebtn-success FamiliesEdit" style="right:1px;position: fixed;display:none;"><i class="halflings-icon white pencil FamiliesEdit" aria-hidden="true"></i></a>
+                            <a class="circlebtn circlebtn-success FamiliesEdit" style="right:1px;position: fixed;display:none;" onclick="EditFamily(this)"><i class="halflings-icon white pencil FamiliesEdit" aria-hidden="true"></i></a>
 					<div class="form-horizontal">
 				    <fieldset>
                <div id="divAdminDetals" class="panel span12" style="min-height:50px !important;max-height:1500px !important;opacity:1!important;">
@@ -110,7 +111,8 @@
                               	<div class="box-header" data-original-title>
 						<h2 id="FamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="memberAddOrEdit"></span> Family Member</h2>
                         <h2 id="AddFamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="familyAddOrEdit"></span> Family </h2>
-						<div class="box-icon">
+						<h2 id="AddFamilyUnitHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="familyUnitAddOrEdit"></span> Family Unit </h2>
+                                      <div class="box-icon">
 						
 											
 						</div>
@@ -186,6 +188,12 @@
                                 <a class="btn btn-primary DeleteFamily" name="">Delete</a>
 							  
 							</div>
+                          <div class="form-actions span12" id="btnFamilyUnitDiv">
+							  <a class="btn btn-primary SaveUnit" name="" >Save</a>
+                                <a class="btn btn-primary CancelUnit">Cancel</a>
+                                <a class="btn btn-primary DeleteUnit" name="">Delete</a>
+							  
+							</div>
 						  </fieldset>
 					</div>   
 					</div>
@@ -250,7 +258,7 @@
 		</div>
 		  <div class="modal-footer">
 			<a class="btn" data-dismiss="modal">Close</a>
-			<a id="btnAddAdmin" class="btn btn-primary">Save changes</a>
+			<a id="btnAddAdmin" class="btn btn-primary SaveAdmin">Save changes</a>
 		</div>
 	      </div>
     <input type="hidden" value="" id="hdfUnitName" />

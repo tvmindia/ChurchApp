@@ -186,19 +186,6 @@ $(document).ready(function () {
             $("#AdminGenInfoDiv").hide();
         }
     })
-    $(".FamiliesEdit").live({
-        click:function(e)
-        {
-            debugger;
-            var executiveLength = $("#hdfExecutivesLength").val();
-            if (executiveLength == "0")
-            {
-                $("#divAdminDetals").css("display", "none");
-                $("#AdminBtnNew").css("display", "");
-            }
-            BindMemberSelect();
-        }
-    })
     $('.unitViewDetails').click(function (e) {
         e.preventDefault();
         $('#FamilyViewDivBox').hide();
@@ -226,8 +213,80 @@ $(document).ready(function () {
         $("#familyAddDiv").css("display", "none");
         $("#btnFamilyDiv").css("display", "none");
     });
+
+    $(".SaveAdmin").click(function (e) {
+        var jsonResult = {};
+        var position = $("#ddlRole option:selected").text();
+        var IdAndOrder = $('#ddlRole').val();
+        var desigID = IdAndOrder.split(":")[0];
+        var order = IdAndOrder.split(":")[1];
+        var orgType = "FU";
+        var unitId = $("#hdfUnitID").val();
+        var mobile = $("#txtMobile").val();
+        var name = $("#ddlMember option:selected").text();
+        var memberID = $("#ddlMember").val();
+        var adminID = createGuid();
+        var Administrators = new Object();
+        Administrators.adminId = adminID;
+        Administrators.orgType = orgType;
+        Administrators.orgId = unitId;
+        Administrators.desigId = desigID;
+        Administrators.memberId = memberID;
+        Administrators.Name = name;
+        Administrators.Phone = mobile;
+        jsonResult = InsertAdministrator(Administrators);
+    });
+
+    $(".SaveUnit").click(function (e) {
+        var jsonResult = {};
+        var FamilyUnits = new Object();
+        var unitName = $("#txtUnitName").val();
+        FamilyUnits.unitName = unitName;
+        jsonResult = InsertFamilyUnits(FamilyUnits);
+        if (jsonResult == "1") {
+            $('#rowfluidDiv').show();
+            $('.alert-success').show();
+            $('.alert-success strong').text("Saved Successfully");
+            FamilyAutoBind();
+        }
+        else {
+            $('#rowfluidDiv').show();
+            $('.alert-error').show();
+            $('.alert-error strong').text("Error..!!!");
+        }
+    });
 });
 //end of document.ready
+function EditFamily(e)
+{
+    debugger;
+            var executiveLength = $("#hdfExecutivesLength").val();
+            if (executiveLength == "0")
+            {
+                $("#divAdminDetals").css("display", "none");
+                $("#AdminBtnNew").css("display", "");
+            }
+            else
+            {
+                AddAdminImageHtml();
+            }
+            BindMemberSelect();
+}
+function AddAdminImageHtml() {
+    debugger;
+    var html = (' <ul class="thumbnails span4"><li class="span12" style="position: relative;height:229px;">'
+                              + ' <a class="btnNew" id="AdminBtnNew" style="position:relative!important;z-index:50;padding: 25px 18px 10px 18px !important;top: 40px!important;left: 25%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>'
+                               +'<div class="thumbnail" id=imgThumbnail style="position:relative!important;top: -33px;opacity:0.7;">'
+                               + '<img class="img-rounded" style="height:159px" src="../img/gallery/Noimage.png"  alt=""/><address style="line-height:5px !important;text-align: center;"><br/>'
+                               +'<strong><br/><br/>Add Executive</strong><br/></address></div><br /></li></ul>');
+    //return html;
+    $("#divAdminDetals").append(html);
+}
+function AddFamilyUnit()
+{
+    debugger;
+    Units();
+}
 function BindSelect() {
     debugger;
     var selectRow = {};
@@ -235,7 +294,7 @@ function BindSelect() {
     for (var i = 0; i < selectRow.length; i++) {
         $('#ddlRole').append($('<option>',
         {
-            value: selectRow[i].ID,
+            value: selectRow[i].ID + ":" + selectRow[i].Order,
             text: selectRow[i].Position
         }));
     }
@@ -251,7 +310,7 @@ function BindMemberSelect()
     Family.familyUnitsObj = FamilyUnits;
     Members.familyObj = Family;
     var selectRow = {};
-    selectRow = GetAllFamilyMembers(Members);
+    selectRow = GetAllUnitMembersForAdmin(Members);
     $('#ddlMember').find('option:not(:first)').remove();
     for (var i = 0; i < selectRow.length; i++) {
         $('#ddlMember').append($('<option>',
@@ -297,6 +356,7 @@ function Memebers()
     ShowTextBoxesForMember();
     $("#FamilyHeader").css("display", ""); //member header
     $("#AddFamilyHeader").css("display", "none"); //family header
+    $("#AddFamilyUnitHeader").css("display", "none"); //unit header
     $("#FamilyAdd").css("display", "");
     $("#divAdminDetals").css("display", "none");
     $("#familyAddDiv").css("display", "");
@@ -304,6 +364,7 @@ function Memebers()
     $("#familyAddDiv").css("margin-top", "-10px");
     $("#btnDiv").css("display", ""); //member btn div
     $("#btnFamilyDiv").css("display", "none");  //family btn div
+    $("#btnFamilyUnitDiv").css("display", "none");  //unit btn div
     $("#btnDelete").css("display", "none");
     $(".FamiliesEdit").css("display", "none");
     $("#divAdminInfo").hide();
@@ -315,6 +376,7 @@ function Families()
     ShowTextBoxesForMember();
     $("#btnDiv").css("display", "none");
     $("#btnFamilyDiv").css("display", "none");
+    $("#btnFamilyUnitDiv").css("display", "none");  //unit btn div
     $(".faUnits").remove();
     $(".unitName").remove();
     $("#executivesHeader").css("display", "none");
@@ -324,10 +386,26 @@ function Families()
     $("#executivesHeader").css("display", "");
     $(".btnNew").css("display", "none");
     $("#btnfamilyAdd").css("display", "");
+    $("#btnFamilyUnitAdd").css("display", "none");
     $("#AddFamilyHeader").css("display", "");
     $("#FamilyHeader").css("display", "none");
+    $("#AddFamilyUnitHeader").css("display", "none"); //unit header
     $("#txtFamilyName").removeAttr("disabled");
     $("#isHeadDiv").hide();
+}
+function Units()
+{
+    $("#familyAddDiv").css("display", "");
+    $("#FamilyAdd").css("display", "");
+    $("#executivesHeader").css("display", "none");
+    $("#divAdminDetals").css("display", "none");
+    $("#familyAddDiv").css("margin-top", "-1px");
+    $("#FamilyHeader").css("display", "none"); //member header
+    $("#AddFamilyHeader").css("display", "none"); //family header
+    $("#AddFamilyUnitHeader").css("display", ""); //unit header
+    $("#btnDiv").css("display", "none"); //member btn div
+    $("#btnFamilyDiv").css("display", "none");  //family btn div
+    HideTextBoxesForUnit();
 }
 //member grid bind
 function BindGetAllFamilyMemeberData(Records) {
@@ -506,6 +584,7 @@ function FamilyMembersAutoBind() {
        // $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
         $("#btnfamilyAdd").css("display", "none");
+        $("#btnFamilyUnitAdd").css("display", "none");
                BindGetAllFamilyMemeberData(jsonResult);
     }
 } //bind all family members after adding a member
@@ -531,8 +610,7 @@ function BindFamilyTable(Records)
     }
     $(".FamiliesEdit").css("display", "");
 }
-function BindFamilyMembers(e)
-{
+function BindFamilyMembers(e) {
     debugger;
     var jsonResult = {};
     var familyID = e.id;
@@ -558,6 +636,7 @@ function BindFamilyMembers(e)
         $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
         $("#btnfamilyAdd").css("display", "none");
+        $("#btnFamilyUnitAdd").css("display", "none");
         BindGetAllFamilyMemeberData(jsonResult);
     }
 }
@@ -600,6 +679,7 @@ function BindGetAllFamilyUnitsTable(Records) {
     }
     $("#unitHeader").text("Family Units");
     $(".btnNew").css("display", "none");
+    $("#btnFamilyUnitAdd").css("display", "");
 }
 //family grid
 function BindFamilies(e)
@@ -644,9 +724,24 @@ function FamilyAutoBind()
    
     //BindFamilyUnitMemebrs();
 }
-
+// Create Guid
+function createGuid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
 //----------------------------------Web Methods----------------------------//
 
+function InsertAdministrator(Administrators)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'AdminObj':" + JSON.stringify(Administrators) + "}";
+    ds = getJsonData(data, "../AdminPanel/Families.aspx/InsertAdministrator");
+    table = JSON.parse(ds.d);
+    return table;
+}
 function GetRoles() {
     var ds = {};
     var table = {};
@@ -689,7 +784,17 @@ function GetFamilyMember(Members) {
     table = JSON.parse(ds.d);
     return table;
 }
-function GetAllFamilyMember(Members) {
+
+function GetAllFamilyMembers(Family) {
+    var ds = {};
+    var table = {};
+    var data = "{'familyObj':" + JSON.stringify(Family) + "}";
+    ds = getJsonData(data, "../AdminPanel/Families.aspx/GetAllFamilyMembers");
+    table = JSON.parse(ds.d);
+    return table;
+}
+//Bind All unit members for admin select
+function GetAllUnitMembersForAdmin(Members) {
     var ds = {};
     var table = {};
     var data = "{'memberObj':" + JSON.stringify(Members) + "}";
@@ -697,15 +802,6 @@ function GetAllFamilyMember(Members) {
     table = JSON.parse(ds.d);
     return table;
 }
-function GetAllFamilyMembers(Members) {
-    debugger;
-    var ds = {};
-    var table = {};
-    var data = "{'memberObj':" + JSON.stringify(Members) + "}";
-    ds = getJsonData(data, "../AdminPanel/Families.aspx/GetAllFamilyMember");
-    table = JSON.parse(ds.d);
-    return table;
-} 
 function GetAllFamilyUnitMembers(FamilyUnits) {
     var ds = {};
     var table = {};

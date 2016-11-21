@@ -46,12 +46,6 @@ left: 82%;
     
     background-color: #ddd;
 }
-
-/*******************************
-* ACCORDION WITH TOGGLE ICONS
-* Does not work properly if "in" is added after "collapse".
-* Get free snippets on bootpen.com
-*******************************/
 	.panel-group .panel {
 		border-radius: 0;
 		box-shadow: none;
@@ -93,8 +87,7 @@ left: 82%;
 	.panel-default > .panel-heading + .panel-collapse > .panel-body {
 		border-top-color: #EEEEEE;
 	}
-
-/* ----- v CAN BE DELETED v ----- */
+ 
 body {
 	background-color: #26a69a;
 }
@@ -155,9 +148,9 @@ body {
 {
     margin-left:-0.435897%!important;
 }
-/*.row-fluid .span4 {
+.row-fluid .span4 {
     width: 34.623932%;
-}*/
+}
 h4 {
     line-height: 0px;
 }
@@ -204,4 +197,12 @@ i#faUser {
 }
 .alert{
     line-height:0px;
+}
+.navbar
+{
+    z-index:0 !important;
+}
+#imgThumbnail>img
+{
+    height: 85px !important;
 }
