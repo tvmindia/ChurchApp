@@ -644,45 +644,45 @@ namespace ChurchApp.WebServices
 
 
         [WebMethod]
-        public string GetNearByChurches(string latitude,string longtitude,int churchcount,int maxdistance)
+        public string GetNearByChurches(string Longitude, string Latitude, int churchcount, int maxdistance)
         {
             DataTable dt, dt1 = new DataTable();
-            String ChurchLat,ChurchLong,Source,Destination,result;
+            String ChurchLat, ChurchLong, Source, Destination, result;
 
             try
             {
                 ChurchApp.DAL.Church ChurchObj = new DAL.Church();
-                ChurchObj.longitude = longtitude;
-                ChurchObj.latitude = latitude;
+                ChurchObj.longitude = Longitude;
+                ChurchObj.latitude = Latitude;
                 dt = ChurchObj.GetNearByChurchDetails(maxdistance);
                 DataColumn km = dt.Columns.Add("Distance", typeof(String));
                 DataColumn kmvval = dt.Columns.Add("Value", typeof(int));
 
-                for (int i=0;i<dt.Rows.Count;i++)
-                { 
-                     ChurchLat=dt.Rows[i][2].ToString();
-                     ChurchLong= dt.Rows[i][3].ToString();
-                     Destination = ChurchLat + ',' + ChurchLong;
-                     Source = longtitude + ',' + latitude;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ChurchLat = dt.Rows[i][2].ToString();
+                    ChurchLong = dt.Rows[i][3].ToString();
+                    Destination = ChurchLat + ',' + ChurchLong;
+                    Source = Longitude + ',' + Latitude;
 
-                     result = ChurchObj.DistanceMatrixRequest(Source, Destination); //Finding distance using Google API
-                     string[] km_value = result.Split('|');                    
-                     dt.Rows[i][5] = km_value[0];
-                     dt.Rows[i][6] = km_value[1];
+                    result = ChurchObj.DistanceMatrixRequest(Source, Destination); //Finding distance using Google API
+                    string[] km_value = result.Split('|');
+                    dt.Rows[i][5] = km_value[0];
+                    dt.Rows[i][6] = km_value[1];
                 }
-                
+
                 //sorting the datatable with respect to distance 
-                  dt.DefaultView.Sort = "Value";
-                  dt= dt.DefaultView.ToTable();
-                  DataRow[] result1 = dt.Select("Value <= '"+ maxdistance * 1000 +"'");               
-                  dt = result1.CopyToDataTable();
-               
+                dt.DefaultView.Sort = "Value";
+                dt = dt.DefaultView.ToTable();
+                DataRow[] result1 = dt.Select("Value <= '" + maxdistance * 1000 + "'");
+                dt = result1.CopyToDataTable();
+
                 //filter  datatable with respect to churchcount
-                  dt1 = dt.Clone();
-                  for (int i = 0; i < churchcount; i++)
-                  {
-                      dt1.ImportRow(dt.Rows[i]);
-                  }
+                dt1 = dt.Clone();
+                for (int i = 0; i < churchcount && i < dt.Rows.Count; i++)
+                {
+                    dt1.ImportRow(dt.Rows[i]);
+                }
             }
             catch (Exception ex)
             {

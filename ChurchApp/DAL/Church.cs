@@ -575,8 +575,8 @@ namespace ChurchApp.DAL
 
                 string urlRequest = "";
                 string travelMode = "Walking"; //Driving, Walking, Bicycling, Transit.
-                urlRequest = @"http://maps.googleapis.com/maps/api/distancematrix/json?origins=" + source + "&destinations=" + Destination + "&mode='" + travelMode + "'&sensor=false";
-                           
+                urlRequest = @"https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + source + "&destinations=" + Destination + "&mode='" + travelMode + "'&sensor=false" + "&key=" + keyString;
+
 
                 WebRequest request = WebRequest.Create(urlRequest);
                 request.Method = "POST";
@@ -604,10 +604,20 @@ namespace ChurchApp.DAL
                 var str1 = str[0];
                 var str2 = str1["elements"];
                 var str3 = str2[0];
-                var final = str3["distance"];
-                
-                string dist = final["text"].ToString();
-                string value = final["value"].ToString();
+                string dist;
+                string value;
+                if (str3["status"] == "OK")
+                {
+                    var final = str3["distance"];
+                    dist = final["text"].ToString();
+                    value = final["value"].ToString();
+                }
+                else
+                {
+                    dist = "-";
+                    value = Int32.MaxValue.ToString();
+                }
+
 
                 reader.Close();
                 dataStream.Close();
