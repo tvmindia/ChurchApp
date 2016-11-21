@@ -94,6 +94,12 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string MainPriestID
+        {
+            get;
+            set;
+        }
+
         public string createdBy
         {
             get;
@@ -170,6 +176,11 @@ namespace ChurchApp.DAL
         /// <returns>success or failure</returns>
         public string InsertChurch()
         {
+            if(MainPriestID=="")
+            {
+              
+                throw new Exception("PriestID is NULL");
+            }
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParameter = null;
@@ -191,6 +202,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Longitude", SqlDbType.NVarChar, 100).Value = longitude;
                 cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1;
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2;
+                cmd.Parameters.Add("@MainPriestID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(MainPriestID);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);

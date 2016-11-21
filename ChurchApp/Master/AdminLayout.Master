@@ -104,7 +104,7 @@ img{
     object-fit:cover!important;
 }
 #loading-img {
-    background: url('/img/Loadingchurch.gif') center center no-repeat;
+    background: url('/img/LoadChurch.gif') center center no-repeat;
     height: 100%;
     z-index: 1040;
 }
