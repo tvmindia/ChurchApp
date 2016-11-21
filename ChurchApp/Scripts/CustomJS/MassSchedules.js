@@ -492,6 +492,7 @@ function BindAsyncAdminsTable() {
    // var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
    // $("#hdfChurchID").val(churchId);
     var jsonResult = {};
+    var churchId = "";
     var MassTimings = new Object();
     MassTimings.massChurchId = churchId;
     jsonResult = GetAllMassTimings(MassTimings);

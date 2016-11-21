@@ -213,7 +213,10 @@ $(document).ready(function () {
         $("#familyAddDiv").css("display", "none");
         $("#btnFamilyDiv").css("display", "none");
     });
-
+    $(".CancelUnit").click(function (e) {
+        $("#familyAddDiv").css("display", "none");
+        $("#btnFamilyUnitDiv").css("display", "none");
+    });
     $(".SaveAdmin").click(function (e) {
         var jsonResult = {};
         var position = $("#ddlRole option:selected").text();
@@ -247,7 +250,7 @@ $(document).ready(function () {
             $('#rowfluidDiv').show();
             $('.alert-success').show();
             $('.alert-success strong').text("Saved Successfully");
-            FamilyAutoBind();
+            BindFamilyUnitsAccordion();
         }
         else {
             $('#rowfluidDiv').show();
@@ -350,7 +353,7 @@ function ShowTextBoxesForMember()
     $("#txtUnitName").attr('disabled', 'disabled');
     $("#txtFamilyName").attr('disabled', 'disabled');
 }
-function Memebers()
+function Members()
 {
     clearControls();
     ShowTextBoxesForMember();
@@ -405,6 +408,7 @@ function Units()
     $("#AddFamilyUnitHeader").css("display", ""); //unit header
     $("#btnDiv").css("display", "none"); //member btn div
     $("#btnFamilyDiv").css("display", "none");  //family btn div
+    $("#btnFamilyUnitDiv").css("display", "");  //family btn div
     HideTextBoxesForUnit();
 }
 //member grid bind
@@ -433,7 +437,7 @@ function BindGetAllFamilyMemeberData(Records) {
 function EditMembers(e)
 {
     debugger;
-    Memebers();
+    Members();
     var jsonResult = {};
     var memberID = e.id.split(",")[0];
     $("#hdfMemberID").val(memberID);
@@ -558,7 +562,7 @@ function AddFamily()
 function AddFamilyMember()
 {
     debugger;
-    Memebers();
+    Members();
     var unitName = $("#hdfUnitName").val();
     $("#txtUnitName").val(unitName);
     var familyName = $("#hdfFamilyName").val();

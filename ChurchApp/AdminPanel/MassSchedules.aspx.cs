@@ -33,7 +33,7 @@ namespace ChurchApp.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             try
             {
-                MassTimingsObj.churchId = UA.ChurchID;
+                MassTimingsObj.massChurchId = UA.ChurchID;
                 ds = MassTimingsObj.SelectMassTimings();
 
                 //Converting to Json
