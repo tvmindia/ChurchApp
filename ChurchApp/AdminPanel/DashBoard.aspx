@@ -158,7 +158,7 @@
                                    <div class="control-group">
 								<label class="control-label">Main Image</label>
 								<div class="controls">
-                                  <img id="ChurchPreview" src="../img/gallery/Noimage.png" style="max-height:159px" class="img-rounded"/>
+                                  <img id="ChurchPreview" src="../img/defaultalbumadd.jpg"" style="max-height:159px" class="img-rounded"/>
 								  <input type="file" accept="image/*" id="churchimageuploader" onchange="OnUpload(this);ChurchImagePreview(this);"/>
                               
 								</div>

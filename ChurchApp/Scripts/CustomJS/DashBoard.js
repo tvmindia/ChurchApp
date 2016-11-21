@@ -27,19 +27,8 @@
 
     }
    
-
-    try
-    {
-        var Church = new Object();
-        var jsonResulsChurch = GetAllChurches(Church);
-        if (jsonResulsChurch != null) {
-            LoadChurches(jsonResulsChurch);
-        }
-    }
-    catch(e)
-    {
-
-    }
+    BindAllChurches();
+   
     
 
     $('#btnChurchAdd').click(function (e) {
@@ -50,100 +39,109 @@
             if ($('#txtChurchName').val() != "") {
                 Church.churchName = $('#txtChurchName').val();
             }
-            else
-            {
-                return;
-            }
+          
             if ($(".ddlTownCode").val() != "")
             {
                 Church.townCode = $(".ddlTownCode").val();
             }
-            else
-            {
-                return;
-            }
+          
             if ($('#txtAddress').val() != "")
             {
                 Church.address = $('#txtAddress').val();
             }
-            else
-            {
-                return;
-            }
+          
             if ($('#txtDescription').val() != "")
             {
                 Church.description = $('#txtDescription').val();
             }
-            else
-            {
-                return;
-            }
+           
             if ($('#txtAbout').val() != "")
             {
                 Church.about = $('#txtAbout').val();
             }
-            else
-            {
-                return;
-            }
+            
             if ($('#txtPhone1').val() != "")
             {
                 Church.phone1 = $('#txtPhone1').val();
             }
-            else
-            {
-                return;
-            }
+            
             if ($('#txtPhone2').val() != "") {
                 Church.phone2 = $('#txtPhone2').val();
             }
-            else {
-                return;
-            }
+           
             if ($(".ddlPriest").val() != "")
             {
                 Church.MainPriestID = $(".ddlPriest").val();
             }
-            else
+           
+            if ($('#txtLongitude').val() != "")
             {
-                return;
+                Church.longitude = $('#txtLongitude').val();
             }
-            if ($('#longitude').val() != "")
-            {
-                Church.longitude = $('#longitude').val();
-            }
-            else
-            {
-                return;
-            }
+            
             if ($('#txtLatitude').val() != "")
             {
                 Church.latitude = $('#txtLatitude').val();
             }
+           
+            var churchimag;
+            if ((churchimag = $('#churchimageuploader')[0].files.length > 0)) {
+                var formData = new FormData();
+
+                formData.append('ChurchImage', $('#churchimageuploader')[0].files[0], $('#churchimageuploader')[0].files[0].name);
+                formData.append('ChurchImageID', createGuid());
+                formData.append('ActionTyp', 'ChurchInsert');
+                formData.append('churchName', Church.churchName);
+                formData.append('townCode', Church.townCode);
+                formData.append('description', Church.description);
+                formData.append('about', Church.about);
+                formData.append('address', Church.address);
+                formData.append('latitude', Church.latitude);
+                formData.append('longitude', Church.longitude);
+                formData.append('phone1', Church.phone1);
+                formData.append('phone2', Church.phone2);
+                formData.append('MainPriestID', Church.MainPriestID);
+                formData.append('createdBy', Church.createdBy);
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                switch (result) {
+                    case "1":
+                        $('.alert-error').hide();
+                        $('#rowfluidDivAlert').show();
+                        $('.alert-success').show();
+                        $('.alert-success strong').text("Inserted successfully");
+                        BindAllChurches();
+                        break;
+                    case "0":
+                        $('.alert-success').hide();
+                        $('#rowfluidDivAlert').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text("Insertion was not successfull");
+                        break;
+                    default:
+                        break;
+                }
+            }
             else
             {
-                return;
-            }
-            
-            var result = InsertChurch(Church);
-            switch (result.status)
-            {
-                case "1":
-                    $('.alert-error').hide();
-                    $('#rowfluidDivAlert').show();
-                    $('.alert-success').show();
-                    $('.alert-success strong').text("Inserted successfully");
-                   
-                    break;
-                case "0":
-                    $('.alert-success').hide();
-                 
-                    $('#rowfluidDivAlert').show();
-                    $('.alert-error').show();
-                    $('.alert-error strong').text("Insertion was not successfull");
-                    break;
-                default:
-                    break;
+                Church.mainImageId = 'A23F9091-D102-4DF9-B9CA-ED4418CB2FC6';//no image default id
+                var result = InsertChurch(Church);
+                switch (result.status) {
+                    case "1":
+                        $('.alert-error').hide();
+                        $('#rowfluidDivAlert').show();
+                        $('.alert-success').show();
+                        $('.alert-success strong').text("Inserted successfully");
+                        BindAllChurches();
+                        break;
+                    case "0":
+                        $('.alert-success').hide();
+                        $('#rowfluidDivAlert').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text("Insertion was not successfull");
+                        break;
+                    default:
+                        break;
+                }
             }
            
 
@@ -160,6 +158,20 @@
 
     
 });//end of document.ready
+
+function BindAllChurches()
+{
+    try {
+        var Church = new Object();
+        var jsonResulsChurch = GetAllChurches(Church);
+        if (jsonResulsChurch != null) {
+            LoadChurches(jsonResulsChurch);
+        }
+    }
+    catch (e) {
+
+    }
+}
 
 function InsertChurch(Church)
 {

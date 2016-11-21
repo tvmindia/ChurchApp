@@ -120,6 +120,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string status
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Church Methods
@@ -183,7 +188,7 @@ namespace ChurchApp.DAL
             }
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            SqlParameter outParameter = null;
+            SqlParameter outParameter = null,outchurchid=null;
             try
             {
                 dcon = new dbConnection();
@@ -198,14 +203,16 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
                 cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
-                cmd.Parameters.Add("@Latitude", SqlDbType.NVarChar, 100).Value = latitude;
-                cmd.Parameters.Add("@Longitude", SqlDbType.NVarChar, 100).Value = longitude;
+                cmd.Parameters.Add("@Latitude", SqlDbType.Decimal).Value =Decimal.Parse(latitude);
+                cmd.Parameters.Add("@Longitude", SqlDbType.Decimal).Value = Decimal.Parse(longitude);
                 cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1;
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2;
                 cmd.Parameters.Add("@MainPriestID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(MainPriestID);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outchurchid = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
+                outchurchid.Direction = ParameterDirection.Output;
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
@@ -224,7 +231,8 @@ namespace ChurchApp.DAL
                 }
             }
             //insert success or failure
-            return outParameter.Value.ToString();
+            status = outParameter.Value.ToString();
+            return status;
 
         }
 
