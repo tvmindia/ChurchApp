@@ -136,6 +136,7 @@ namespace ChurchApp.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
+            SqlParameter outParam1 = null;
             try
             {
                 dcon = new dbConnection();
@@ -163,6 +164,9 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
+                outParam1 = cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier);
+                outParam1.Direction = ParameterDirection.Output;
+               
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -176,6 +180,11 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
+            if (outParam1.Value != null)
+            {
+                novenaId = outParam1.Value.ToString();
+            }
+
             return outParam.Value.ToString();
         }
         #endregion InsertNovena
@@ -431,8 +440,16 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertNovenaTiming]";
                 cmd.Parameters.Add("@NovenaId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(novenaId);
-                cmd.Parameters.Add("@Day", SqlDbType.DateTime).Value = Convert.ToDateTime(day);
-                cmd.Parameters.Add("@Time", SqlDbType.DateTime).Value = Convert.ToDateTime(time);
+
+                if (day != null && day != string.Empty)
+                {
+                    cmd.Parameters.Add("@Day", SqlDbType.NVarChar,3).Value = day; 
+                }
+                if (day != null && day != string.Empty)
+                {
+                    cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value =  time;
+                }
+              
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);

@@ -132,7 +132,7 @@
                                         <%--New Format--%>
                                         <div id="DivNewFormat">
 
-                                            
+                                           
                                             <div class="span6">
                                                 <label for="name">Novena Caption</label>
                                                 <input name="Caption" id="txtNovenaCaption" type="text" />
@@ -145,16 +145,17 @@
                                                 <textarea id="txtDescription" name="Description" rows="3" ></textarea>
 
                                             </div>
-                                            <div class="span6">
+                                            <div class="span6" >
                                                  
                                                 <img class="Preview" id="imgNewNovena" src="../img/No-Img_Chosen.png" />
                                                 <input type="file" id="UpNewNovena" value="Choose Image" onchange="showpreview(this);" />
                                             </div>
                                             
-                                            <br />
-                                            <br />
-                                            <div id="DivNovenaTiming" class="span12" style="background-color: #e8eaef; border: 1px solid; border-color: #5bc0de;">
+                                           
+
+                                            <div id="DivNovenaTiming" class="span12" >
                                 <h2>Novena Timings</h2>
+                                               
                            <%-- <div class="box-header">
                                 <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span style="position: absolute">Novena Timings</span>
                                 </h2>
@@ -187,7 +188,33 @@
 
 
 
-                                        <%-- Day--%>
+                                       
+                                       
+
+                                       <%-- <div class="span1">
+                                             <a id="addBtn" class="btn btn-primary button" ><span>+</span></></a>
+
+                                        </div>--%>
+
+
+                                        <%--Start Date--%>
+                                        <div class="control-group" id="divStartDate">
+                                            <label class="control-label" for="date01">Start Date</label>
+                                            <div class="controls">
+                                                <input type="text" class="input-xlarge datepicker" id="dateStartDate" style="width:53%" />
+                                            </div>
+                                        </div>
+
+                                        <%--End Date--%>
+                                        <div class="control-group" id="divEndDate">
+                                            <label class="control-label" for="date01">End Date</label>
+                                            <div class="controls">
+                                                <input type="text" class="input-xlarge datepicker" id="dateEndDate" style="width:53%" />
+                                            </div>
+                                        </div>
+                                        
+
+                                         <%-- Day--%>
 
                                         <div class="control-group" id="divDay">
 
@@ -202,39 +229,49 @@
                                                     <option value="Fri">Friday</option>
                                                     <option value="Sat">Saturday</option>
                                                 </select>
+
+                                                
+
                                             </div>
                                         </div>
 
-                                       
+
+                                        
                                          <%-- Time--%>
 
-                                        <div class="control-group">
+                                        <div class="control-group" >
 
                                             <label class="control-label" for="focusedInput">Time</label>
-                                            <div class="controls">
-                                                <input type="text" class="timePikerClass" id="TxtTime" name="time" />
+                                            <div class="controls" >
+                                                <input type="text" class="timePikerClass" id="TxtTime" name="time" /> 
+                                                 <%--<a id="addBtn" class="btn btn-primary button" ><span>+</span></></a>--%>
                                             </div>
                                         </div>
 
 
+                                       <div class="span12">
+                                       
+                                            <label class="control-label" for="date01" id="lblSelectedTimes" style="width:100%">
+                                          
+                                            </label>
+
+                                            <table id="tblNovenaTiming" style="width:80%" class="table table-striped table-bordered bootstrap-datatable">
+						  <thead>
+							  <tr>
+								  <th>Day</th>
+								  <th>Time</th>
+								  <th>Actions</th>
+							  </tr>
+						  </thead>   
+						  <tbody id="tblBdyNovenaTiming">
+							
+						</tbody>
+					  </table>      
 
 
-                                        <%--Start Date--%>
-                                        <div class="control-group" id="divStartDate">
-                                            <label class="control-label" for="date01">Start Date</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-xlarge datepicker" id="dateStartDate" />
-                                            </div>
-                                        </div>
 
-                                        <%--End Date--%>
-                                        <div class="control-group" id="divEndDate">
-                                            <label class="control-label" for="date01">End Date</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-xlarge datepicker" id="dateEndDate" />
-                                            </div>
-                                        </div>
-
+                                         </div>    
+                                      
 
 
                                     </fieldset>
@@ -268,7 +305,7 @@
                                                 <dl>
                                                     <dt>Church</dt>
                                                     <dd>
-                                                        <label id="lblChurchName"></label>
+                                                        <label id="lblChurchNam"></label>
                                                     </dd>
                                                     <dt id="ViewDate">Date</dt>
                                                     <dd>
@@ -360,6 +397,7 @@
                 </div>
             </div>
         </div>
+        <input id="hdfNovenaID" type="hidden" />
     </div>
 
 </asp:Content>

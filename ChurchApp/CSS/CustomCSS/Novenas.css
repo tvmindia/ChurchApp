@@ -169,7 +169,16 @@ ul.dashboard-list li{
 
  #txtDescription
  {
-     width:480px
+     /*width:480px*/
+ }
+
+ #DivNovenaTiming
+ {background-color: #e8eaef; margin-left:0px;margin-top:20px;
+     /*background-color: #e8eaef; border: 1px solid; border-color: #5bc0de;margin-left:0px;margin-top:20px;*/
+   /*border: 1px solid; border-color: #004e96;margin-left:0px;margin-top:20px;*/
+     
+           -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+
  }
 
  #DivNewNovena
@@ -260,7 +269,7 @@ ul.dashboard-list li{
             border-radius: 5px;
             z-index: 2;
             display: none;
-            width: 100%;
+            width: 80%;
             box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.35);
             background: #f6f6f6;
             border: 1px solid #ccc;
@@ -268,7 +277,7 @@ ul.dashboard-list li{
             position: absolute;
             top: 27px;
             left: 0px;
-            height: 145px;
+            height: 130px;
         }
          .arrow_top {
             position: absolute;
@@ -279,3 +288,15 @@ ul.dashboard-list li{
             height: 10px;
             z-index: 3;
         }
+
+         /*--------------------*/
+
+         #DivNovenaTiming .control-group
+         {
+             margin-left:20px!important;
+         }
+
+          #DivNovenaTiming h2
+         {
+             margin-left:20px!important;
+         }

@@ -231,6 +231,7 @@ namespace ChurchApp.AdminPanel
             try
             {
                 NovenaObj.createdBy = UA.userName;
+                NovenaObj.churchId = UA.ChurchID;
                 status = NovenaObj.InsertNovena();
                 NovenaObj.Status = status;
             }
@@ -246,6 +247,37 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Add New Novena
+
+        #region Add Novena Timing
+
+        [System.Web.Services.WebMethod]
+        public static string InsertNovenaTiming(ChurchApp.DAL.NovenaTiming NovenaTimingObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            string status = null;
+            try
+            {
+                NovenaTimingObj.createdBy = UA.userName;
+                status = NovenaTimingObj.InsertNovenaTiming();
+               
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NovenaTimingObj);
+
+        }
+
+        #endregion Add Novena Timing
 
         #endregion Methods
 
