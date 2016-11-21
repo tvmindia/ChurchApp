@@ -11,7 +11,7 @@
  		<li>Dashboard</li>
 		</ul>
 
-          <%--Alert boxes --%>
+              <%--Alert boxes --%>
                <div id="rowfluidDivAlert" style="display:none;">	
 				       <div class="alert alert-error" style="display:none;">
 							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
@@ -158,7 +158,7 @@
                                    <div class="control-group">
 								<label class="control-label">Main Image</label>
 								<div class="controls">
-                                  <img id="ChurchPreview" src="../img/defaultalbumadd.jpg"" style="max-height:159px" class="img-rounded"/>
+                                  <img id="ChurchPreview" src="../img/defaultalbumadd.jpg" style="max-height:159px" class="img-rounded"/>
 								  <input type="file" accept="image/*" id="churchimageuploader" onchange="OnUpload(this);ChurchImagePreview(this);"/>
                               
 								</div>
@@ -182,7 +182,7 @@
 			
                    <footer id="footer" runat="server" class="form-actions">
                                         <a class="btn btn-primary" id="btnChurchAdd" href="#">Save</></a>
-                                        <a class="btn CancelClear">Cancel</a>
+                                        <a class="btn ChurchClear">Cancel</a>
                                     </footer>	
 					
 		      </div>
@@ -201,4 +201,5 @@
 
 
     </div><!--span10 end-->
+     <input type="hidden" id="hdfChurchID" />
 </asp:Content>

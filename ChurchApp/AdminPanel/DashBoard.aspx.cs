@@ -156,7 +156,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllPriestsIDAndText
 
 
-#region InsertChurch
+       #region InsertChurch
         [System.Web.Services.WebMethod]
         public static string InsertChurch(DAL.Church churchObj)
         {
@@ -177,6 +177,90 @@ namespace ChurchApp.AdminPanel
             return jsSerializer.Serialize(churchObj);
         }
 
-#endregion InsertChurch
+        #endregion InsertChurch
+
+
+        #region UpdateChurch
+        [System.Web.Services.WebMethod]
+        public static string UpdateChurch(DAL.Church churchObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                churchObj.updatedBy = UA.userName;
+                churchObj.UpdateChurch();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return jsSerializer.Serialize(churchObj);
+        }
+
+        #endregion UpdateChurch
+
+        #region DeleteChurch
+        [System.Web.Services.WebMethod]
+        public static string DeleteChurch(DAL.Church churchObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                churchObj.updatedBy = UA.userName;
+                churchObj.DeleteChurch();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return jsSerializer.Serialize(churchObj);
+        }
+        #endregion DeleteChurch
+
+        #region GetChurchDetailsByChurchID
+        [System.Web.Services.WebMethod]
+        public static string GetChurchDetailsByChurchID(DAL.Church churchObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            try
+            {
+
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                DataTable dt = null;
+
+                dt = churchObj.GetChurchDetailsByChurchID();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return jsSerializer.Serialize(parentRow);
+
+        }
+       #endregion GetChurchDetailsByChurchID
     }
 }

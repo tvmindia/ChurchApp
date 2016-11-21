@@ -129,6 +129,9 @@ namespace ChurchApp.DAL
 
         #region Church Methods
 
+
+     
+
         #region SelectChurches
         /// <summary>
         /// Selects all Churches
@@ -181,11 +184,11 @@ namespace ChurchApp.DAL
         /// <returns>success or failure</returns>
         public string InsertChurch()
         {
-            if(MainPriestID=="")
-            {
+            //if((MainPriestID=="")&&(MainPriestID==null))
+            //{
               
-                throw new Exception("PriestID is NULL");
-            }
+            //    throw new Exception("PriestID is NULL");
+            //}
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParameter = null,outchurchid=null;
@@ -197,17 +200,26 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertChurch]";
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = churchName;
-                cmd.Parameters.Add("@TownCode", SqlDbType.NVarChar, 10).Value = townCode;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = churchName!=null&&churchName!=""?churchName:null;
+                cmd.Parameters.Add("@TownCode", SqlDbType.NVarChar, 10).Value = townCode!=null&&townCode!=""?townCode:null;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
+                cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about!=null&&about!=""?about:null;
                 cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
-                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
-                cmd.Parameters.Add("@Latitude", SqlDbType.Decimal).Value =Decimal.Parse(latitude);
-                cmd.Parameters.Add("@Longitude", SqlDbType.Decimal).Value = Decimal.Parse(longitude);
-                cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1;
-                cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2;
-                cmd.Parameters.Add("@MainPriestID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(MainPriestID);
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address!=null&&address!=""?address:null;
+                if(latitude!=null&&latitude!="")
+                {
+                     cmd.Parameters.Add("@Latitude", SqlDbType.Decimal).Value =Decimal.Parse(latitude);
+                }
+                if (longitude != null && longitude != "")
+                {
+                    cmd.Parameters.Add("@Longitude", SqlDbType.Decimal).Value = Decimal.Parse(longitude);
+                }
+                cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1!=null&&phone1!=""?phone1:null;
+                cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2!=null&&phone2!=""?phone2:null;
+                if(MainPriestID!=null&&MainPriestID!="")
+                {
+                    cmd.Parameters.Add("@MainPriestID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(MainPriestID);
+                }
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -290,6 +302,7 @@ namespace ChurchApp.DAL
                 }
             }
             //insert success or failure
+            status = outParameter.Value.ToString();
             return Int16.Parse(outParameter.Value.ToString());
 
         }
@@ -301,7 +314,7 @@ namespace ChurchApp.DAL
         /// </summary>
         /// <param name="ChurchID"></param>
         /// <returns>success or failure</returns>
-        public Int16 DeleteChurch()
+        public string DeleteChurch()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -336,8 +349,9 @@ namespace ChurchApp.DAL
                 }
             }
             //insert success or failure
-            return Int16.Parse(outParameter.Value.ToString());
+            status = outParameter.Value.ToString();
 
+            return status;
         }
         #endregion DeleteChurch
 

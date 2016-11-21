@@ -28,9 +28,8 @@
     }
    
     BindAllChurches();
-   
-    
 
+   
     $('#btnChurchAdd').click(function (e) {
         debugger;
         try
@@ -83,66 +82,136 @@
             {
                 Church.latitude = $('#txtLatitude').val();
             }
-           
-            var churchimag;
-            if ((churchimag = $('#churchimageuploader')[0].files.length > 0)) {
-                var formData = new FormData();
+            if ($("#hdfChurchID").val() != "")
+            {
+                //UPDATE CHURCH
+                var churchimag;
+                if ((churchimag = $('#churchimageuploader')[0].files.length > 0)) {
+                    var formData = new FormData();
 
-                formData.append('ChurchImage', $('#churchimageuploader')[0].files[0], $('#churchimageuploader')[0].files[0].name);
-                formData.append('ChurchImageID', createGuid());
-                formData.append('ActionTyp', 'ChurchInsert');
-                formData.append('churchName', Church.churchName);
-                formData.append('townCode', Church.townCode);
-                formData.append('description', Church.description);
-                formData.append('about', Church.about);
-                formData.append('address', Church.address);
-                formData.append('latitude', Church.latitude);
-                formData.append('longitude', Church.longitude);
-                formData.append('phone1', Church.phone1);
-                formData.append('phone2', Church.phone2);
-                formData.append('MainPriestID', Church.MainPriestID);
-                formData.append('createdBy', Church.createdBy);
-                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                switch (result) {
-                    case "1":
-                        $('.alert-error').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-success').show();
-                        $('.alert-success strong').text("Inserted successfully");
-                        BindAllChurches();
-                        break;
-                    case "0":
-                        $('.alert-success').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-error').show();
-                        $('.alert-error strong').text("Insertion was not successfull");
-                        break;
-                    default:
-                        break;
+                    formData.append('ChurchImage', $('#churchimageuploader')[0].files[0], $('#churchimageuploader')[0].files[0].name);
+                    formData.append('churchid', $("#hdfChurchID").val());
+                    formData.append('ChurchImageID', createGuid());
+                    formData.append('ActionTyp', 'ChurchUpdate');
+                    formData.append('churchName', Church.churchName);
+                    formData.append('townCode', Church.townCode);
+                    formData.append('description', Church.description);
+                    formData.append('about', Church.about);
+                    formData.append('address', Church.address);
+                    formData.append('latitude', Church.latitude);
+                    formData.append('longitude', Church.longitude);
+                    formData.append('phone1', Church.phone1);
+                    formData.append('phone2', Church.phone2);
+                    formData.append('MainPriestID', Church.MainPriestID);
+                    formData.append('updatedBy', Church.updatedBy);
+                    var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                    switch (result) {
+                        case "1":
+                            $('.alert-error').hide();
+                            $('#rowfluidDivAlert').show();
+                            $('.alert-success').show();
+                            $('.alert-success strong').text("Updated successfully");
+                            BindAllChurches();
+                            break;
+                        case "0":
+                            $('.alert-success').hide();
+                            $('#rowfluidDivAlert').show();
+                            $('.alert-error').show();
+                            $('.alert-error strong').text("Updation was not successfull");
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                else {
+                    Church.mainImageId = 'A23F9091-D102-4DF9-B9CA-ED4418CB2FC6';//no image default id
+                    Church.churchId=$("#hdfChurchID").val();
+                    var result = UpdateChurch(Church);
+                    switch (result.status) {
+                        case "1":
+                            $('.alert-error').hide();
+                            $('#rowfluidDivAlert').show();
+                            $('.alert-success').show();
+                            $('.alert-success strong').text("Updated successfully");
+                            BindAllChurches();
+                            break;
+                        case "0":
+                            $('.alert-success').hide();
+                            $('#rowfluidDivAlert').show();
+                            $('.alert-error').show();
+                            $('.alert-error strong').text("Updation was not successfull");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+
             }
             else
             {
-                Church.mainImageId = 'A23F9091-D102-4DF9-B9CA-ED4418CB2FC6';//no image default id
-                var result = InsertChurch(Church);
-                switch (result.status) {
-                    case "1":
-                        $('.alert-error').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-success').show();
-                        $('.alert-success strong').text("Inserted successfully");
-                        BindAllChurches();
-                        break;
-                    case "0":
-                        $('.alert-success').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-error').show();
-                        $('.alert-error strong').text("Insertion was not successfull");
-                        break;
-                    default:
-                        break;
+
+                //INSERT CHURCH
+                var churchimag;
+                if ((churchimag = $('#churchimageuploader')[0].files.length > 0)) {
+                    var formData = new FormData();
+
+                    formData.append('ChurchImage', $('#churchimageuploader')[0].files[0], $('#churchimageuploader')[0].files[0].name);
+                    formData.append('ChurchImageID', createGuid());
+                    formData.append('ActionTyp', 'ChurchInsert');
+                    formData.append('churchName', Church.churchName);
+                    formData.append('townCode', Church.townCode);
+                    formData.append('description', Church.description);
+                    formData.append('about', Church.about);
+                    formData.append('address', Church.address);
+                    formData.append('latitude', Church.latitude);
+                    formData.append('longitude', Church.longitude);
+                    formData.append('phone1', Church.phone1);
+                    formData.append('phone2', Church.phone2);
+                    formData.append('MainPriestID', Church.MainPriestID);
+                    formData.append('createdBy', Church.createdBy);
+                    var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                    switch (result) {
+                        case "1":
+                            $('.alert-error').hide();
+                            $('#rowfluidDivAlert').show();
+                            $('.alert-success').show();
+                            $('.alert-success strong').text("Inserted successfully");
+                            BindAllChurches();
+                            break;
+                        case "0":
+                            $('.alert-success').hide();
+                            $('#rowfluidDivAlert').show();
+                            $('.alert-error').show();
+                            $('.alert-error strong').text("Insertion was not successfull");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else {
+                    Church.mainImageId = 'A23F9091-D102-4DF9-B9CA-ED4418CB2FC6';//no image default id
+                    var result = InsertChurch(Church);
+                    switch (result.status) {
+                        case "1":
+                            $('.alert-error').hide();
+                            $('#rowfluidDivAlert').show();
+                            $('.alert-success').show();
+                            $('.alert-success strong').text("Inserted successfully");
+                            BindAllChurches();
+                            break;
+                        case "0":
+                            $('.alert-success').hide();
+                            $('#rowfluidDivAlert').show();
+                            $('.alert-error').show();
+                            $('.alert-error strong').text("Insertion was not successfull");
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+           
            
 
         }
@@ -156,8 +225,142 @@
 
     });
 
+
+    
+    $('.ChurchClear').click(function (e) {
+
+
+
+        $('#rowfluidDivAlert').hide();
+        $('.alert').hide();
+        $("#txtChurchName").val('');
+        $(".ddlTownCode").select2("val", "");
+        $("#txtAddress").val('');
+        $("#txtDescription").val('');
+        $("#txtAbout").val('');
+        $("#txtPhone1").val('');
+        $("#txtPhone2").val('');
+        $(".ddlPriest").select2("val", "");
+        $("#txtLongitude").val('');
+        $("#txtLatitude").val('');
+        $("#hdfChurchID").val('');
+        $("#ChurchPreview").attr('src', '/img/defaultalbumadd.jpg');
+
+    });
+    
     
 });//end of document.ready
+
+function UpdateChurch(Church)
+{
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'churchObj':" + JSON.stringify(Church) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/UpdateChurch");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function EditChurch(curobj)
+{
+    debugger;
+    var Church = new Object();
+    var editedrow = $(curobj).closest('tr');
+    Church.churchId = $(curobj).attr('churchid');
+    $("#hdfChurchID").val(Church.churchId);
+    var churchDetail = GetChurchDetailsByChurchID(Church);
+
+  
+
+    $("#txtChurchName").val(churchDetail[0].ChurchName);
+    $(".ddlTownCode").val(churchDetail[0].TownCode).trigger("change");
+    $("#txtAddress").val(churchDetail[0].Address);
+    $("#txtDescription").val(churchDetail[0].Description);
+    $("#txtAbout").val(churchDetail[0].About);
+    $("#txtPhone1").val(churchDetail[0].Phone1);
+    $("#txtPhone2").val(churchDetail[0].Phone2);
+    $(".ddlPriest").val(churchDetail[0].MainPriestID).trigger("change");
+    $("#txtLongitude").val(churchDetail[0].Longitude);
+    $("#txtLatitude").val(churchDetail[0].Latitude);
+    if (churchDetail[0].ImageURL == null)
+    {
+        $("#ChurchPreview").attr('src', '/img/defaultalbumadd.jpg');
+    }
+    else
+    {
+        $("#ChurchPreview").attr('src', churchDetail[0].ImageURL);
+    }
+    
+
+
+
+}
+
+function GetChurchDetailsByChurchID(Church)
+{
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'churchObj':" + JSON.stringify(Church) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetChurchDetailsByChurchID");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+
+}
+
+function RemoveChurch(curobj)
+{
+    var r = confirm("Are You Sure to Delete?");
+    if (r == true) {
+        var Church = new Object();
+        var editedrow = $(curobj).closest('tr');
+        Church.churchId = $(curobj).attr('churchid');
+        var result = DeleteChurch(Church);
+        switch (result.status) {
+            case "1":
+                $('.alert-error').hide();
+                $('#rowfluidDivAlert').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Deleted successfully");
+                BindAllChurches();
+                break;
+            case "0":
+                $('.alert-success').hide();
+                $('#rowfluidDivAlert').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text("Deletion was not successfull");
+                break;
+            default:
+                break;
+        }
+
+    }
+
+}
+
+function DeleteChurch(Church)
+{
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'churchObj':" + JSON.stringify(Church) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/DeleteChurch");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
 
 function BindAllChurches()
 {
@@ -208,7 +411,7 @@ function LoadChurches(Records) {
     {
         $("#churchtable").find(".churchrow").remove();
         $.each(Records, function (index, Record) {
-            var html = '<tr class="churchrow"><td>' + Record.Name + '</td><td class="center">' + Record.TownName + '</td><td class="center">' + Record.Address + '</td><td class="center">' + Record.Phone1 + '</td><td class="center"><a class="circlebtn circlebtn-info" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+            var html = '<tr class="churchrow"><td>' + Record.Name + '</td><td class="center">' + Record.TownName + '</td><td class="center">' + Record.Address + '</td><td class="center">' + Record.Phone1 + '</td><td class="center"><a class="circlebtn circlebtn-info"><i churchid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditChurch(this)"></i></a><a class="circlebtn circlebtn-danger"><i churchid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveChurch(this)"></i></a></td></tr>';
             $("#churchtable").append(html);
         })
     }
