@@ -191,7 +191,10 @@ namespace ChurchApp.DAL
                     phone1=dr["Phone1"].ToString();
                     phone2=dr["Phone2"].ToString();
                     Website = dr["Website"].ToString();
-                    Founded = (DateTime.Parse(dr["Founded"].ToString().ToString()).ToString("dd-MM-yyyy"));
+                    if (dr["Founded"].ToString()!="")
+                    {
+                        Founded = (DateTime.Parse(dr["Founded"].ToString().ToString()).ToString("dd-MM-yyyy"));
+                    }
                     Mobile = dr["Mobile"].ToString();
                     churchId = dr["ChurchID"].ToString();
                     imagepath = dr["URL"].ToString();

@@ -213,7 +213,7 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Email</label>
 								<div class="controls">
-								  <input class="input-large focused Email" name="Email" id="txtEmail" type="text" value="" onkeypress="EmailValidation(this);"/>
+								  <input class="input-large focused e-mail" name="Email" id="txtEmail" type="text" value="" onkeypress="EmailValidation(this);"/>
 								</div>
 								</div>
                             <div class="control-group">

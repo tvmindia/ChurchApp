@@ -328,7 +328,7 @@ function SaveInstitution()
             Institutions.phone1 = $('#txtPhone1').val();
             Institutions.phone2 = $('#txtPhone2').val();
             Institutions.Mobile = $('#txtMob').val();
-            Institutions.imageId = $("#hdnInstutID").val();
+            //Institutions.imageId = $("#hdnInstutID").val();
             Institutions.institutionID = $("#hdnInstutID").val();
 
 
@@ -438,7 +438,15 @@ function BindDetails(intituteID) {
         document.getElementById('lblPhone1').innerText = InstituteRow.phone1;
         document.getElementById('lblPhone2').innerText = InstituteRow.phone2;
         document.getElementById('lblMobile').innerText = InstituteRow.Mobile;
-        $('#instituteDetailPreview').attr('src', InstituteRow.imagepath);
+        if (InstituteRow.imagepath != "")
+        {
+            $('#instituteDetailPreview').attr('src', InstituteRow.imagepath);
+        }
+        else
+        {
+            $('#instituteDetailPreview').attr('src', '../img/gallery/Institution.jpg');
+        }
+        
         $('#aWebsite').attr('href', InstituteRow.Website);
         $('#iconEditInstitute').attr('name', InstituteRow.institutionID);
         BindCard(intituteID);
@@ -624,6 +632,7 @@ function DeleteAdministrator(this_Obj)
 function OpenInstituteDetails(intituteID) {
     try
     {
+        debugger;
         BindDetails(intituteID);
         $('#InstituteEdit').hide();
         $('#InstituteShow').show();

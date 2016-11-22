@@ -86,7 +86,7 @@
 
                 <div class="dark">
                     <h2><span class="fa fa-calendar"> </span>  <span id="h1Event">Event</span></h2>
-                        <a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a>
+                        <a id="NoticeEdit" class="btnEdit"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a>
                     <div class="box-content">
                     <div class="form-horizontal">
                         <fieldset>
