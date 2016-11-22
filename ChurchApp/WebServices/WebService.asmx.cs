@@ -688,13 +688,13 @@ namespace ChurchApp.WebServices
             catch (Exception ex)
             {
                 //Return error message
-                dt = new DataTable();
-                dt.Columns.Add("Flag", typeof(Boolean));
-                dt.Columns.Add("Message", typeof(String));
-                DataRow dr = dt.NewRow();
+                dt1 = new DataTable();
+                dt1.Columns.Add("Flag", typeof(Boolean));
+                dt1.Columns.Add("Message", typeof(String));
+                DataRow dr = dt1.NewRow();
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
-                dt.Rows.Add(dr);
+                dt1.Rows.Add(dr);
             }
             finally
             {
