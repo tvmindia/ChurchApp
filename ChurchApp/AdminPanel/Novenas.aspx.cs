@@ -278,7 +278,7 @@ namespace ChurchApp.AdminPanel
             {
                 NovenaTimingObj.createdBy = UA.userName;
                 status = NovenaTimingObj.InsertNovenaTiming();
-               
+                NovenaTimingObj.Status = status;
             }
             catch (Exception)
             {
