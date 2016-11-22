@@ -757,6 +757,7 @@ function DeleteInstituteclick(this_Obj)
 //Add new institution button onclick function
 function NewInstitute() {
     try {
+        debugger;
         ClearFields();
         RemoveStyle();
         $('#rowfluidDiv').hide();
