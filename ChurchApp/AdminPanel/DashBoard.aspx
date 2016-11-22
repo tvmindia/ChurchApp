@@ -221,6 +221,50 @@
 						 </table>  
 						
 					</div>
+
+                    <div class="box-content">
+                          	<div class="form-horizontal">
+						
+							<fieldset>
+                             <div class="span12">   
+				             <div class="span6">
+						     
+						      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Role Name</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtRoleName" id="txtRoleName" placeholder="Enter Role Name" type="text"/>
+                              </div>
+                              </div>
+
+                                         
+                   </div>
+                             <div class="span6">
+                                  
+						      <div class="control-group">
+                             <label class="control-label" for="focusedInput">Church</label>
+                               <div class="controls">
+                                  <select class="ddlChurch"><option></option></select>
+                                  
+                                 </div>
+                             </div>
+                                   
+                                 
+                                    </div>
+                             </div>
+                     
+                             
+                     
+                         </fieldset>
+                                 </div>
+
+                    </div>
+                 <footer  runat="server" class="form-actions">
+                                        <a class="btn btn-primary" id="btnRolesAdd" href="#">Save</></a>
+                                        <a class="btn RolesClear">Cancel</a>
+                                    </footer>	
+
+
 		   </div><!--/span-->
 
         </div>
@@ -249,4 +293,5 @@
 		
 	   </div>
      <input type="hidden" id="hdfChurchID" />
+     <input type="hidden" id="hdfRolesID" />
 </asp:Content>
