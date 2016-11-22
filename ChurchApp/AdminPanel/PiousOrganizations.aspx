@@ -42,11 +42,11 @@
               
                <div class="span6">
                    <h1>Pious Organizations</h1>
-                   <div class="priority high"><span style="visibility:hidden">Institutions</span><a class="btnNew" style="left:75%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+                   <div class="" style="border-bottom: 1.5px solid #FA603D;"><span style="visibility:hidden">Institutions</span><a class="btnNew" style="left:80%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   
-                    <div id="Institutediv" style="margin-top:4%">
+                    <div id="Institutediv" style="margin-top:6%">
             <div id="InstituteDefault">
-				<ul class="media-list" style="border-bottom:1px solid grey">
+				<ul class="media-list" style="border-bottom:1px solid #cfcece">
   <li class="media">
     <a class="pull-left" href="#">
       <img class="media-object" src="../img/gallery/Institution.jpg" style="max-height:80px;"/>
