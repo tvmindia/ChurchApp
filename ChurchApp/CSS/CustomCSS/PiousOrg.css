@@ -1,0 +1,110 @@
+﻿ul.dashboard-list li{
+    padding:21px!important;
+}
+input[type=text]{
+    width:80%;
+}
+textarea{
+    width:80%!important;
+}
+#PriestEd select{
+    width:85%!important;
+}
+.choosepic{
+    font-size:23px!important;
+    font-weight:500;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:#9e5d5d
+}
+.priestimage{
+    height: 140px;
+    width: auto;
+    padding: 5px;
+    border-radius:10%;
+    object-fit:cover!important;
+    align-content:center;    
+}
+ul.dashboard-list li .priestimage {
+    height: 140px;
+    min-width: 140px;
+    max-width:140px;
+    padding: 5px;
+    border-radius:10%;
+    object-fit:cover!important;
+}
+
+.task .priesteditdiv {
+    display: inline-block;
+    float: right;
+    width: 15%;
+    padding: 10px 10px 10px 0px;
+    font-size: 12px;
+    text-align: right;
+}
+.labelName{
+    font-size:20px;
+    font-weight:600;
+    text-align:center;
+    text-transform:uppercase;
+}
+.vicarlist{
+    line-height:50px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:  0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);          
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    display:flex;
+    
+}
+
+div.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 6px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    text-shadow:none!important;
+}
+
+div.accordion.active, div.accordion:hover {
+    background-color: #FA603D!important;
+    color:white!important;
+}
+
+div.accordion:after {
+    content: '\02795'!important;
+    font-size: 15px;
+    color: #777;
+    float: right;
+    margin-left: 10px!important;
+    margin-top:11px!important;
+}
+
+div.accordion.active:after {
+    content: "\2796"!important;
+}
+
+#divAdminInfo ul{
+    display:ruby!important;
+    
+}
+#divAdminDetals ul{
+    display:ruby!important;
+}
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.6s ease-in-out;
+    opacity: 0;
+}
+
+div.panel.show {
+    opacity: 1;
+    max-height: 1500px;  
+}

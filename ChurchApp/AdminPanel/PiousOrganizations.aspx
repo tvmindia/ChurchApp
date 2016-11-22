@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <link href="../CSS/CustomCSS/Institution.css" rel="stylesheet" />
+    <link href="../CSS/CustomCSS/PiousOrg.css" rel="stylesheet" />
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/PiousOrganizations.js"></script>
      <div id="content" class="span10">
@@ -67,20 +67,29 @@
                    <h1>Pious Organizations</h1>
                    <div class="priority high"><span style="visibility:hidden">Institutions</span><a class="btnNew" style="left:75%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   
-                    <div id="Institutediv">
+                    <div id="Institutediv" style="margin-top:4%">
             <div id="InstituteDefault">
-               <ul class="dashboard-list vicarlist">
-				<li >
-                    <blockquote>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-  <small>Someone famous <cite title="Source Title">Source Title</cite></small>
-</blockquote>
+				<ul class="media-list" style="border-bottom:1px solid grey">
+  <li class="media">
+    <a class="pull-left" href="#">
+      <img class="media-object" src="../img/gallery/Institution.jpg" style="max-height:80px;"/>
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">SENIOR C.L.C<span> </span><span class="fa fa-flag"></span></h4>
+       Cristian Life Community<br />
+        description
+      <!-- Nested media object -->
+      <div class="media">
+          <a>View more</a>
+     </div>
+    </div>
+  </li>
+</ul>
 				<%--<img class="priestimage" src="../img/gallery/Institution.jpg"/>--%>
-                    </li>
-                 <li> <img class="img-circle" src="../img/gallery/Institution.jpg"/>
+                    
+                 
 				  
-				</li>
-                </ul>
+				
                 </div>
                     
                         </div>
