@@ -505,3 +505,39 @@ function GetMap()
 {
     $('#mapModal').modal('show');
 }
+
+
+
+function GetAllRoles(Church) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'churchObj':" + JSON.stringify(Church) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllChurches");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function LoadChurches(Records) {
+    try {
+        $("#churchtable").find(".churchrow").remove();
+        $.each(Records, function (index, Record) {
+            var html = '<tr class="churchrow"><td>' + Record.Name + '</td><td class="center">' + Record.TownName + '</td><td class="center">' + Record.Address + '</td><td class="center">' + Record.Phone1 + '</td><td class="center"><a class="circlebtn circlebtn-info"><i churchid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditChurch(this)"></i></a><a class="circlebtn circlebtn-danger"><i churchid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveChurch(this)"></i></a></td></tr>';
+            $("#churchtable").append(html);
+        })
+    }
+    catch (e) {
+
+    }
+
+
+
+}
+
+
+
+

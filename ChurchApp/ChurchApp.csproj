@@ -499,6 +499,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DAL\TownMaster.cs" />
+    <Compile Include="DAL\Users.cs" />
     <Compile Include="ImageHandler\UploadHandler.ashx.cs">
       <DependentUpon>UploadHandler.ashx</DependentUpon>
     </Compile>
