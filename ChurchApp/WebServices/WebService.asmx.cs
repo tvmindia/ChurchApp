@@ -660,7 +660,7 @@ namespace ChurchApp.WebServices
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    ChurchLong = dt.Rows[i]["Longtitude"].ToString();
+                    ChurchLong = dt.Rows[i]["Longitude"].ToString();
                     ChurchLat = dt.Rows[i]["Latitude"].ToString();
                     Destination = ChurchLong + ',' + ChurchLat;
                     Source = Longitude + ',' + Latitude;
