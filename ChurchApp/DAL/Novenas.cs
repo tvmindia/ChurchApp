@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace ChurchApp.DAL
@@ -157,8 +158,11 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = Convert.ToDateTime(endDate);
                 }
-                
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
+                if (imageID != null && imageID != string.Empty)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
+                }
+               
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
@@ -298,6 +302,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetNovenaDetailsByPatronID]";
                 cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronId);
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 dt = new DataTable();
@@ -336,6 +341,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetNovenaDetailsByNovenaID]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(novenaId);
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 dt = new DataTable();
@@ -552,6 +558,84 @@ namespace ChurchApp.DAL
             return outParam.Value.ToString();
         }
         #endregion DeleteNovenaTiming
+
+        #region DeleteNovenaTiming By novenaID,day,time
+        /// <summary>
+        /// Delete Novena Timing By novenaID,day,time
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string DeleteNovenaTimingByTimingDetails()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteNovenaTimingByTimingDetails]";
+                cmd.Parameters.Add("@NovenaID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(novenaId);
+                cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
+                cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value =FormatTimeto24Hr(time);
+                outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion DeleteNovenaTiming By novenaID,day,time
+
+
+        #region format  time into 24 hr 
+        /// <summary>
+        /// convert start time format into 24 hour format
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns>time</returns>
+        public string FormatTimeto24Hr(string time)
+        {
+            var ampmLen = 2;
+            var ampm = time.Substring(time.Length - ampmLen, ampmLen);
+            var hourIndex = 0;
+            time = time.Replace(ampm, "");
+            time = time.Trim();
+            var hour = time.Split(':')[hourIndex];
+            var minutes = time.Split(':')[1];
+            var h = hour;
+            if (ampm.Equals("AM"))
+            {
+                if (h == "12")
+                {
+                    h = "00";
+                }
+            }
+            if (ampm.Equals("PM"))
+            {
+                if (h != "12")
+                {
+                    h = (int.Parse(hour) + 12).ToString();
+                }
+            }
+            var TimeIn24HrFormat = h + ":" + minutes;
+            TimeIn24HrFormat = Regex.Replace(TimeIn24HrFormat, @"\s+", "");
+            return TimeIn24HrFormat;
+        }
+        #endregion format  time into 24 hr
+
 
         #endregion NovenaTiming Methods
     }

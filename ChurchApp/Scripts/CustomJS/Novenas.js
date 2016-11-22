@@ -36,7 +36,9 @@ $("document").ready(function (e)
         $("#divEndDate").hide();
        // $("#divDay").show();
     });
-     //Okbtn
+
+    //Okbtn
+    //PLUS button click
      $('#addBtn').click(function (e) {
        
         //if (IsNormal) {
@@ -46,7 +48,9 @@ $("document").ready(function (e)
         //{
         //    AddTimeToArray();
         //}
-    });
+     });
+
+    //Save Click
     $('#btnSave').click(function (e) {
        // $('#DivNovenaTiming').show();
 
@@ -188,6 +192,7 @@ $("document").ready(function (e)
         }
     });
     
+
 }); //End of Document ready
 
 
@@ -206,6 +211,7 @@ var DayNtimeHTML = '';
 function AddDayAndTimeToArray()
 {
     debugger;
+    var IsValid = true;
 
     if ($("#TxtTime").val() != "") {
 
@@ -221,30 +227,51 @@ function AddDayAndTimeToArray()
      var day = $("#ddlDay").val();
     // var time = $("#TxtTime").val();
 
-
-     NovenaDayAndTime.push(
-         {
-             Day: day,
-             Time: time
+     for (var i = 0; i < NovenaDayAndTime.length; i++) {
+         if (NovenaDayAndTime[i].Day == day) {
+             if (NovenaDayAndTime[i].Time == time) {
+                 alert("It is already added");
+                 IsValid = false;
+             }
          }
-         );
+     }
 
+
+     //if ($.inArray(day, NovenaDayAndTime) != -1) {
+     //    if ($.inArray(time, NovenaDayAndTime) != -1) {
+     //        alert("It is already added");
+     //    }
+                
+     //       }
+
+
+     if (IsValid) {
+
+         NovenaDayAndTime.push(
+             {
+                 Day: day,
+                 Time: time
+             }
+             );
+
+
+         //   DayNtimeHTML = DayNtimeHTML + ", " + day.trim() + "-" + time.trim();
+         // $('#lblSelectedTimes').text(DayNtimeHTML.replace(/^,/, ''));
+
+         time = time + mer;
+
+         var novenaId = $('#hdfNovenaID').val();
+
+         var html = '<tr  ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
+         $("#tblNovenaTiming").append(html);
+
+     }
     
-  //   DayNtimeHTML = DayNtimeHTML + ", " + day.trim() + "-" + time.trim();
-    // $('#lblSelectedTimes').text(DayNtimeHTML.replace(/^,/, ''));
+     }
 
-     time = time + mer;
-
-     
-
-     var html = '<tr ><td>' + (day != null ? day : "-")  + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
-     $("#tblNovenaTiming").append(html);
-
-    }
     else {
         alert("Please select a time");
     }
-
 }
 
 var timeHTML = '';
@@ -262,8 +289,12 @@ function AddTimeToArray()
 
 
     timeHTML = timeHTML + "," + time.trim();
+
+
+    var novenaId = $('#hdfNovenaID').val();
+
   //  $('#lblSelectedTimes').text(timeHTML.replace(/^,/, ''));
-    var html = '<tr ><td>' + "Daily" + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+    var html = '<tr ><td>' + "Daily" + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
     $("#tblNovenaTiming").append(html);
 
 }
@@ -279,8 +310,6 @@ function InsertNovenaTiming(NovenaTiming) {
 }
 //--------------------------------//
 
-
-
 //Insert Novena
 function InsertNovena(Novenas) {
     var data = "{'NovenaObj':" + JSON.stringify(Novenas) + "}";
@@ -293,6 +322,17 @@ function InsertNovena(Novenas) {
 
 function FixedEditClick()
 {
+    debugger;
+
+    $('#h1Event').text("Edit Novena");
+
+    $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white refresh");
+    $('#NoticeEdit').attr('onclick', 'SetControlsInNovenaFormat();');
+
+
+
+    var novenaId = $('#hdfNovenaID').val();
+
     NovenaDayAndTime = [];
     $("#tblNovenaTiming").html('');
 
@@ -363,7 +403,7 @@ function FixedEditClick()
                                               Time: time.split(',')[i]
                                           }
                                           );
-                                            var html = '<tr ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                            var html = '<tr NovenaID='+novenaId+' ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                             $("#tblNovenaTiming").append(html);
                                         }
                                     }
@@ -374,7 +414,7 @@ function FixedEditClick()
                                                 Time: time
                                             }
                                             );
-                                        var html = '<tr ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                        var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                         $("#tblNovenaTiming").append(html);
                                     }
                                 }
@@ -391,7 +431,7 @@ function FixedEditClick()
                                               Time: time.split(',')[i]
                                           }
                                           );
-                                            var html = '<tr ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                            var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)" ><i class="halflings-icon white trash"></i> </a></td></tr>';
                                             $("#tblNovenaTiming").append(html);
                                         }
                                     }
@@ -404,7 +444,7 @@ function FixedEditClick()
                                             }
                                             );
 
-                                        var html = '<tr ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                        var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                         $("#tblNovenaTiming").append(html);
                                     }
                                 }
@@ -428,7 +468,7 @@ function FixedEditClick()
                                           Time: time.split(',')[i]
                                       }
                                       );
-                                        var html = '<tr ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                        var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                         $("#tblNovenaTiming").append(html);
                                     }
                                 }
@@ -441,7 +481,7 @@ function FixedEditClick()
                                            }
                                            );
 
-                                    var html = '<tr ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                    var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                     $("#tblNovenaTiming").append(html);
                                 }
                             }
@@ -460,7 +500,7 @@ function FixedEditClick()
                                           Time: time.split(',')[i]
                                       }
                                       );
-                                        var html = '<tr ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                        var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                         $("#tblNovenaTiming").append(html);
 
                                     }
@@ -474,7 +514,7 @@ function FixedEditClick()
                                            }
                                            );
 
-                                    var html = '<tr ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                    var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                     $("#tblNovenaTiming").append(html);
                                 }
                             }
@@ -504,13 +544,21 @@ function FixedEditClick()
 
 }
 
-
 //Clear Controls
-function SetControlsInNovenaFormat()
+function SetControlsInNovenaFormat(IsNewButtonClicked)
 {
     debugger;
+
     IsNormal = true;
     ClearControls();
+
+    if ($('#hdfNovenaID').val() != "" && IsNewButtonClicked == null) {
+        BindNovenaMoreDetails($('#hdfNovenaID').val());
+    }
+
+    else {
+
+   
   //  $('#DivNovenaTiming').hide();
     $('#DivNewNovena').show();
     $('#NoticeEdit').hide();
@@ -524,6 +572,8 @@ function SetControlsInNovenaFormat()
      $('#btnCancel').show();
      $('#btnDelete').hide();
      $('#DivViewFormat').hide();
+
+    }
 }
 function ClearControls() {
     $(':input').each(function () {
@@ -572,9 +622,12 @@ function SetControlsInViewFormat()
     $("#ddlDay").val("");
     $('#NoticeEdit').show();
     
+    $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
+    $('#NoticeEdit').attr('onclick', 'FixedEditClick();');
+
+
 }
 //--------------------------------//
-
 
 //Bind Patrons
 function BindPatrons() {
@@ -667,7 +720,6 @@ function GetAllPatrons(PatronMaster) {
 }
 //--------------------------------//
 
-
 //Bind Patron Dropdown
 function BindPatronDropdown()
 {
@@ -693,6 +745,8 @@ var DayAndTimeTemp = '';
 //More Details
 function BindNovenaMoreDetails(ID)
 {
+    ScrollPage();
+
   //  $('#DivNovenaTiming').hide();
     SetControlsInViewFormat();
 
@@ -730,7 +784,7 @@ function BindNovenaMoreDetails(ID)
            
             debugger;
             $('#lblDescription').text(jsonResult.Description);
-            $('#hdfNovenaID').val(jsonResult.NovenaID);
+            $('#hdfNovenaID').val(jsonResult.ID);
            
             debugger;
             var DayAndTime = jsonResult.DayAndTime;
@@ -781,7 +835,7 @@ function BindNovenaMoreDetails(ID)
           
         });
     }
-
+    DayAndTimeTemp = '';
 
 }
 function GetNovenasByNovenaID(Novenas) {
@@ -818,7 +872,6 @@ function ViewIndividualPatron(obj) {
     $("#breadcrumbNovena").append('<li><a href="../AdminPanel/Novenas.aspx"> Novenas </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + SaintName + '</li>');
 }
 
-
 //Bind Novenas
 function BindNovenasPatronID(patronId) {
     var jsonResult = {};
@@ -847,7 +900,6 @@ function GetNovenasByPatronID(Novenas) {
 
     return table;
 }
-
 
 var NovenaTiming = '';
 
@@ -937,7 +989,6 @@ function FillNovenas(Records) {
 }
 //--------------------------------//
 
-
 //Insert Patron
 function InsertPatron(PatronMaster) {
     var data = "{'PatrnObj':" + JSON.stringify(PatronMaster) + "}";
@@ -948,12 +999,10 @@ function InsertPatron(PatronMaster) {
 }
 //--------------------------------//
 
-
 //Add New Saint HyperLink Click
 function OpenNewSaintModal() {
     $('#NewSaintModel').modal('show');
 }
-
 
 //General
 function createGuid() {
@@ -975,5 +1024,61 @@ function showpreview(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+function ScrollPage() {
+    //Scroll page
+    var offset = $('#rowfluidDiv').offset();
+    offset.left -= 60;
+    offset.top -= 340;
+    $('html, body').animate({
+        scrollTop: offset.top,
+        scrollLeft: offset.left
+    });
+}
 //--------------------------------//
 
+//Delete
+function DeleteTime(Obj) {
+
+    debugger;
+   
+    var $row = $(Obj).closest("tr"),       // Finds the closest row <tr> 
+    $tds = $row.find("td");             // Finds all children <td> elements
+
+    if ($row.attr("NovenaID") == null) {
+        $(Obj).closest("tr").remove();
+    } 
+    else {
+        var NovenaTiming = new Object();
+        NovenaTiming.novenaId = $("#hdfNovenaID").val();
+        NovenaTiming.day = $tds[0].innerText;
+        NovenaTiming.time = $tds[1].innerText;
+
+        DeleteNovenaTiming(NovenaTiming);
+
+        FixedEditClick();
+    }
+
+
+    
+    //$.each($tds, function () {               // Visits every single <td> element
+    //    // alert($(this).text());     
+
+    //});
+
+    
+    //var p = Obj.parentNode.parentNode;
+    //p.parentNode.removeChild(p);
+
+    //editedrow = $(this).closest('tr');
+    //editedrow.remove();
+}
+function DeleteNovenaTiming(NovenaTiming) {
+    var ds = {};
+    var table = {};
+    var data = "{'NovenaTimingObj':" + JSON.stringify(NovenaTiming) + "}";
+    ds = getJsonData(data, "../AdminPanel/Novenas.aspx/DeleteNovenaTiming");
+    table = JSON.parse(ds.d);
+
+    return table;
+}
+//--------------------------------//
