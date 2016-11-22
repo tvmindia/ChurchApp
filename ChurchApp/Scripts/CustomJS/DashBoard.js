@@ -1,4 +1,20 @@
 ﻿$("document").ready(function (e) {
+
+
+    var mapOptions = {
+        center: new google.maps.LatLng(9.9816, 76.2998),//latlong
+        zoom: 14,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var infoWindow = new google.maps.InfoWindow();
+    var latlngbounds = new google.maps.LatLngBounds();
+    var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+    google.maps.event.addListener(map, 'click', function (e) {
+        alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+        $("#txtLongitude").val(e.latLng.lng());
+        $("#txtLatitude").val(e.latLng.lat());
+
+    });
     
 
 
@@ -501,4 +517,9 @@ function createGuid() {
         return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+function GetMap()
+{
+    $('#mapModal').modal('show');
 }

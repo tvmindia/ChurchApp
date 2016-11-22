@@ -2,9 +2,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBGYAg9VLLllUHiLbNguOAHAB_scDP038E"></script>
     <link href="../CSS/CustomCSS/DashBoard.css" rel="stylesheet" />
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/DashBoard.js"></script>
+
+  
+    
 
     <div id="content" class="span10">
         <ul class="breadcrumb">
@@ -35,6 +39,8 @@
               
             </div>
 			  <%--Alert boxes --%>
+
+       
          <!--churchtable-->
         <div class="row-fluid sortable">		
 				<div class="box span12">
@@ -119,7 +125,7 @@
 
                               <label class="control-label" for="focusedInput">Phone 1</label>
                                <div class="controls">
-                               <input class="input-large focused" name="txtPhone1" id="txtPhone1" placeholder="" type="text"/>
+                               <input class="input-large focused" name="txtPhone1" id="txtPhone1" onkeypress="return isNumber(event);" placeholder="" type="text"/>
                               </div>
                               </div>
 
@@ -127,7 +133,7 @@
 
                               <label class="control-label" for="focusedInput">Phone 2</label>
                                <div class="controls">
-                               <input class="input-large focused" name="txtPhone2" id="txtPhone2" placeholder="" type="text"/>
+                               <input class="input-large focused" name="txtPhone2" id="txtPhone2" onkeypress="return isNumber(event);" placeholder="" type="text"/>
                               </div>
                               </div>
 
@@ -144,14 +150,14 @@
 
                               <label class="control-label" for="focusedInput">Longitude</label>
                                <div class="controls">
-                               <input class="input-large focused" name="txtLongitude" id="txtLongitude" placeholder="" type="text"/>
+                               <input class="input-large focused"  name="txtLongitude" id="txtLongitude" placeholder="" onfocus="GetMap();" type="text"/>
                               </div>
                               </div>
                                  <div class="control-group">
 
                               <label class="control-label" for="focusedInput">Latitude</label>
                                <div class="controls">
-                               <input class="input-large focused" name="txtLatitude" id="txtLatitude" placeholder="" type="text"/>
+                               <input class="input-large focused" name="txtLatitude" id="txtLatitude" placeholder="" onfocus="GetMap();" type="text"/>
                               </div>
                               </div>
 
@@ -188,7 +194,16 @@
 		      </div>
 				</div>
 		
-	
+	<div class="modal hide fade" id="mapModal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Google Map</h3>
+		</div>
+		<div class="modal-body">
+			 <div id="dvMap" style="width: 500px; height: 350px"/>
+		</div>
+		
+	</div>
          <!--churchtable-->
      
 

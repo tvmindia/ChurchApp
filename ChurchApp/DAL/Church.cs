@@ -208,11 +208,15 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address!=null&&address!=""?address:null;
                 if(latitude!=null&&latitude!="")
                 {
-                     cmd.Parameters.Add("@Latitude", SqlDbType.Decimal).Value =Decimal.Parse(latitude);
+                   // decimal m = 12.878999m;
+
+                 // decimal df = Math.Truncate(Decimal.Parse(latitude) * 1000m) / 1000m;
+
+                    cmd.Parameters.Add("@Latitude", SqlDbType.Decimal).Value = Math.Truncate(Decimal.Parse(latitude) * 1000000m) / 1000000m;
                 }
                 if (longitude != null && longitude != "")
                 {
-                    cmd.Parameters.Add("@Longitude", SqlDbType.Decimal).Value = Decimal.Parse(longitude);
+                    cmd.Parameters.Add("@Longitude", SqlDbType.Decimal).Value = Math.Truncate(Decimal.Parse(longitude) * 1000000m) / 1000000m;
                 }
                 cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1!=null&&phone1!=""?phone1:null;
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2!=null&&phone2!=""?phone2:null;
@@ -498,7 +502,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetNearByChurches]";
                 cmd.Parameters.Add("@Latitude", SqlDbType.Float).Value = latitude;
-                cmd.Parameters.Add("@Longtitude", SqlDbType.Float).Value = longitude;
+                cmd.Parameters.Add("@Longitude", SqlDbType.Float).Value = longitude;
                 cmd.Parameters.Add("@maxdistance", SqlDbType.Int).Value = maxdistance;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;

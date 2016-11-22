@@ -7,6 +7,7 @@ using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ChurchApp.DAL;
+using GoogleMaps.LocationServices;
 
 namespace ChurchApp.AdminPanel
 {
@@ -37,6 +38,8 @@ namespace ChurchApp.AdminPanel
                     Response.Redirect("/AdminPanel/DashBoard.aspx");
                 }
             }
+
+        
         }
         #region GetAllChurches
         [System.Web.Services.WebMethod]
