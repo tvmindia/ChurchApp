@@ -7,6 +7,11 @@
 
     <script src="../Scripts/CustomJS/Events.js"></script>
     <script src="../Scripts/CustomJS/Common.js"></script>
+    <style>
+        .fa{
+            font-size:18px;
+        }
+    </style>
     <div id="content" class="span10">
         <ul class="breadcrumb" style="margin-bottom:0px;">
             <li>
@@ -68,7 +73,7 @@
                     </div>
 
                     <%--<div id="pagination-here"></div>--%>
-                    <div id="divOldEvents">
+                    <div id="divOldEvents" style="margin-top:40px">
                         <div class="" style="border-bottom:1.5px solid #87c16f"><h2>Old Events</h2></div>
                        
                         <div id="OldEventsGrid">

@@ -632,7 +632,7 @@ function DeleteAdministrator(this_Obj)
 function OpenInstituteDetails(intituteID) {
     try
     {
-        debugger;
+        $('#rowfluidDiv').hide();
         BindDetails(intituteID);
         $('#InstituteEdit').hide();
         $('#InstituteShow').show();
@@ -681,7 +681,8 @@ function EditInstitute(this_obj) {
         $('#btnDeleteInstitute').removeAttr("disabled");
         $('#btnDeleteInstitute').attr('name', InstituteRow.institutionID);
         $('#btnDeleteInstitute').attr('onclick', 'DeleteInstituteclick(this)');
-        BindEditCard(intituteID)
+        BindEditCard(intituteID);
+        $('#iconShowInstitute').show();
         $('#InstituteShow').hide();
         $('#InstituteEdit').show();
         $('#divAccoAdmininfo').show();
@@ -758,9 +759,11 @@ function NewInstitute() {
     try {
         ClearFields();
         RemoveStyle();
+        $('#rowfluidDiv').hide();
         $('#instituteimg').val('');
         $('#divAccoAdmininfo').hide();
         $('#divAdminInfo').hide();
+        $('#iconShowInstitute').hide();
         $('#priestPreview').attr('src', '../img/gallery/Institution.jpg');
         document.getElementById('HeadDetails').innerText = "Add Institution";
         $('#btncancelInstitute').attr('name', 'new');
@@ -783,6 +786,7 @@ function NewInstitute() {
 function OpenAdminModal() {
     try {
         RemoveStyle();
+        $('#rowfluidDiv').hide();
         $('#modelAddAdmin ').modal('show');
         $('#txtName').val('');
         $('#txtMobile').val('');
@@ -799,6 +803,7 @@ function OpenAdminModal() {
 //Cancel button onclick function
 function Cancel(this_Obj) {
     try {
+        $('#rowfluidDiv').hide();
         var attr = $(this_Obj).attr('name');
         if (attr == 'new') {
             ClearFields();
