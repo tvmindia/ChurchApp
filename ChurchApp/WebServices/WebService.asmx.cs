@@ -660,15 +660,15 @@ namespace ChurchApp.WebServices
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    ChurchLat = dt.Rows[i][2].ToString();
-                    ChurchLong = dt.Rows[i][3].ToString();
-                    Destination = ChurchLat + ',' + ChurchLong;
+                    ChurchLong = dt.Rows[i]["Longtitude"].ToString();
+                    ChurchLat = dt.Rows[i]["Latitude"].ToString();
+                    Destination = ChurchLong + ',' + ChurchLat;
                     Source = Longitude + ',' + Latitude;
 
                     result = ChurchObj.DistanceMatrixRequest(Source, Destination); //Finding distance using Google API
                     string[] km_value = result.Split('|');
-                    dt.Rows[i][5] = km_value[0];
-                    dt.Rows[i][6] = km_value[1];
+                    dt.Rows[i]["Distance"] = km_value[0];
+                    dt.Rows[i]["Value"] = km_value[1];
                 }
 
                 //sorting the datatable with respect to distance 
