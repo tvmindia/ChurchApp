@@ -7,6 +7,29 @@ var NovenaTimes = new Array();
 
 $("document").ready(function (e)
 {
+     debugger;
+
+        //var time = "9:00PM";
+        //var timeTemp = time;
+        //var ampmLen = 2;
+        //var ampm = time.substring(time.Length - ampmLen, ampmLen);
+        //var hourIndex = 0;
+        //time = time.replace(ampm, "");
+        //time = time.trim();
+        //var hour = timeTemp.split(':')[hourIndex];
+
+        //var minutes = timeTemp.split(':')[1];
+        //var h = hour;
+
+        //alert(ampm);
+
+
+        //var TimeIn24HrFormat = h + ":" + minutes;
+
+      
+   
+
+
     $("#TxtTime").timepicki();
 
     $('&nbsp; <a id="addBtn" class="btn btn-primary button" ><span>+</span></></a>').insertAfter($(".timepicker_wrap"));
@@ -220,7 +243,7 @@ function AddDayAndTimeToArray()
     var mini = $(".mi_tx .timepicki-input").val();
     var mer = $(".mer_tx .timepicki-input").val();
 
-    var time = hrsTo24hrormat(tim, mini);
+    var time = tim + ":" + mini+mer;
    // var time = time + ":00.0000000";
 
 
@@ -229,9 +252,16 @@ function AddDayAndTimeToArray()
 
      for (var i = 0; i < NovenaDayAndTime.length; i++) {
          if (NovenaDayAndTime[i].Day == day) {
+             var hour = NovenaDayAndTime[i].Time.split(':')[0].trim();
+
+             if (hour.length==1) {
+                 NovenaDayAndTime[i].Time = "0" + NovenaDayAndTime[i].Time;
+             }
+
              if (NovenaDayAndTime[i].Time == time) {
                  alert("It is already added");
                  IsValid = false;
+                 break;
              }
          }
      }
@@ -258,7 +288,7 @@ function AddDayAndTimeToArray()
          //   DayNtimeHTML = DayNtimeHTML + ", " + day.trim() + "-" + time.trim();
          // $('#lblSelectedTimes').text(DayNtimeHTML.replace(/^,/, ''));
 
-         time = time + mer;
+         //time = time + mer;
 
          var novenaId = $('#hdfNovenaID').val();
 
@@ -973,11 +1003,12 @@ function FillNovenas(Records) {
         
         if (html!='') {
             $('#DivNovenas').append(html);
+            NovenaTiming = '';
         }
 
     })
 
-    
+   
     if (Records.length == 0) {
         //$('.dataTables_empty').parent().parent().remove();
         var img = document.createElement('img');
