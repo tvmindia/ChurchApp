@@ -7,11 +7,7 @@
 
     <script src="../Scripts/CustomJS/Events.js"></script>
     <script src="../Scripts/CustomJS/Common.js"></script>
-    <style>
-        .fa{
-            font-size:18px;
-        }
-    </style>
+   
     <div id="content" class="span10">
         <ul class="breadcrumb" style="margin-bottom:0px;">
             <li>

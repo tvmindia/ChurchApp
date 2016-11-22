@@ -383,6 +383,7 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        
         #endregion Public Properties
 
         #region NovenaTiming Methods
@@ -451,9 +452,10 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@Day", SqlDbType.NVarChar,3).Value = day; 
                 }
-                if (day != null && day != string.Empty)
+                if (time != null && time != string.Empty)
                 {
-                    cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value =  time;
+                    time = FormatTimeto24Hr(time);
+                    cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value =time;
                 }
               
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
