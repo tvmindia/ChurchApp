@@ -86,7 +86,7 @@ $("document").ready(function (e) {
 
     $('#btnCancel').click(function (e) {
         ClearControls();
-
+        $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
         if ($("#hdfEventID").val() != "") {
             EditOnClick($("#hdfEventID").val());
         }
@@ -826,7 +826,8 @@ function EditOnClick(id) {
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
-
+    $('#NoticeEdit').attr('onclick', 'FixedEditClick();')
+    $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
 
     SetControlsInViewFormat();
 
@@ -891,12 +892,17 @@ function GetEventsByEventID(Events) {
     table = JSON.parse(ds.d);
     return table;
 }
+function cancelEdit()
+{
+    $('#btnCancel').click();
+}
 
 function FixedEditClick() {
     debugger;
 
-    $('#NoticeEdit').hide();
-
+    $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white refresh");
+    $('#NoticeEdit').attr('onclick', 'cancelEdit();');
+    
     ClearControls();
     SetControlsInEditableFormat();
     $("#h1Event").text("Edit Event");

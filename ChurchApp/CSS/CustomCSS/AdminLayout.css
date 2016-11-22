@@ -25,7 +25,7 @@ color: #04273B!important;
 
 .aViewMore,.aOldViewMore
 {
-    margin-left: 380px;
+    float:right;
     color: steelblue;
     cursor:pointer;
 }

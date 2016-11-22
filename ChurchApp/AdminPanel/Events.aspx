@@ -7,6 +7,11 @@
 
     <script src="../Scripts/CustomJS/Events.js"></script>
     <script src="../Scripts/CustomJS/Common.js"></script>
+    <style>
+        .fa{
+            font-size:18px;
+        }
+    </style>
     <div id="content" class="span10">
         <ul class="breadcrumb" style="margin-bottom:0px;">
             <li>
@@ -68,7 +73,7 @@
                     </div>
 
                     <%--<div id="pagination-here"></div>--%>
-                    <div id="divOldEvents">
+                    <div id="divOldEvents" style="margin-top:40px">
                         <div class="" style="border-bottom:1.5px solid #87c16f"><h2>Old Events</h2></div>
                        
                         <div id="OldEventsGrid">
@@ -86,7 +91,7 @@
 
                 <div class="dark">
                     <h2><span class="fa fa-calendar"> </span>  <span id="h1Event">Event</span></h2>
-                        <a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a>
+                        <a id="NoticeEdit" class="btnEdit"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a>
                     <div class="box-content">
                     <div class="form-horizontal">
                         <fieldset>
