@@ -200,7 +200,6 @@ namespace ChurchApp.ImageHandler
                                         churchObj.longitude = context.Request.Form.GetValues("longitude")[0];
                                         churchObj.phone1 = context.Request.Form.GetValues("phone1")[0];
                                         churchObj.phone2 = context.Request.Form.GetValues("phone2")[0];
-                                        churchObj.MainPriestID = context.Request.Form.GetValues("MainPriestID")[0];
                                         churchObj.createdBy = AppImgObj.createdBy;
                                         context.Response.Write(churchObj.InsertChurch());
 
@@ -233,7 +232,6 @@ namespace ChurchApp.ImageHandler
                                         churchObj.longitude = context.Request.Form.GetValues("longitude")[0];
                                         churchObj.phone1 = context.Request.Form.GetValues("phone1")[0];
                                         churchObj.phone2 = context.Request.Form.GetValues("phone2")[0];
-                                        churchObj.MainPriestID = context.Request.Form.GetValues("MainPriestID")[0];
                                         churchObj.updatedBy = AppImgObj.createdBy;
                                         context.Response.Write(churchObj.UpdateChurch());
 

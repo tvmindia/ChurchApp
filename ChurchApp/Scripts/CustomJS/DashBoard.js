@@ -32,19 +32,15 @@
 
     }
 
-    try {
-        $(".ddlPriest").select2({
-            placeholder: "Choose Priest",
-            allowClear: true,
-            data: BindPriestMasterDropdown()
-        });
-    }
-    catch (e) {
-
-    }
+   
    
     BindAllChurches();
-
+    $('#churchtable').DataTable(
+    {
+        order : [[ 0, 'asc' ], [ 1, 'asc' ]],
+        searching: false,
+        paging: true
+    });
    
     $('#btnChurchAdd').click(function (e) {
         debugger;
@@ -84,10 +80,6 @@
                 Church.phone2 = $('#txtPhone2').val();
             }
            
-            if ($(".ddlPriest").val() != "")
-            {
-                Church.MainPriestID = $(".ddlPriest").val();
-            }
            
             if ($('#txtLongitude').val() != "")
             {
@@ -118,7 +110,7 @@
                     formData.append('longitude', Church.longitude);
                     formData.append('phone1', Church.phone1);
                     formData.append('phone2', Church.phone2);
-                    formData.append('MainPriestID', Church.MainPriestID);
+                  
                     formData.append('updatedBy', Church.updatedBy);
                     var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                     switch (result) {
@@ -184,7 +176,7 @@
                     formData.append('longitude', Church.longitude);
                     formData.append('phone1', Church.phone1);
                     formData.append('phone2', Church.phone2);
-                    formData.append('MainPriestID', Church.MainPriestID);
+                  
                     formData.append('createdBy', Church.createdBy);
                     var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                     switch (result) {
@@ -256,7 +248,7 @@
         $("#txtAbout").val('');
         $("#txtPhone1").val('');
         $("#txtPhone2").val('');
-        $(".ddlPriest").select2("val", "");
+     
         $("#txtLongitude").val('');
         $("#txtLatitude").val('');
         $("#hdfChurchID").val('');
@@ -285,6 +277,8 @@ function UpdateChurch(Church)
 function EditChurch(curobj)
 {
     debugger;
+    $('#rowfluidDivAlert').hide();
+    $('.alert').hide();
     var Church = new Object();
     var editedrow = $(curobj).closest('tr');
     Church.churchId = $(curobj).attr('churchid');
@@ -335,6 +329,8 @@ function GetChurchDetailsByChurchID(Church)
 
 function RemoveChurch(curobj)
 {
+    $('#rowfluidDivAlert').hide();
+    $('.alert').hide();
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
         var Church = new Object();
@@ -470,35 +466,7 @@ function GetAllTowns(TownMaster) {
 }
 
 
-function BindPriestMasterDropdown() {
-    try
-    {
-        var jsonResult = {};
-       
-        var Priest = new Object();
-        jsonResult = GetAllPriest(Priest);
-        if (jsonResult != undefined) {
-            return jsonResult;
-        }
-    }
-    catch(e)
-    {
 
-    }
-    
-}
-function GetAllPriest(Priest) {
-    var ds = {};
-    var table = {};
-    try {
-        var data = "{'priestObj':" + JSON.stringify(Priest) + "}";
-        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllPriestsIDAndText");
-        table = JSON.parse(ds.d);
-    }
-    catch (e) {
-    }
-    return table;
-}
 
 
 function ChurchImagePreview(input) {

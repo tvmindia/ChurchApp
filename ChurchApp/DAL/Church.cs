@@ -220,10 +220,7 @@ namespace ChurchApp.DAL
                 }
                 cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1!=null&&phone1!=""?phone1:null;
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2!=null&&phone2!=""?phone2:null;
-                if(MainPriestID!=null&&MainPriestID!="")
-                {
-                    cmd.Parameters.Add("@MainPriestID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(MainPriestID);
-                }
+              
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);

@@ -137,14 +137,7 @@
                               </div>
                               </div>
 
-                                 <div class="control-group">
-
-                              <label class="control-label" for="focusedInput">Main Priest</label>
-                               <div class="controls">
-                                 <select class="ddlPriest"><option></option></select>
-                              </div>
-                              </div>
-
+                               
 
                                  <div class="control-group">
 
