@@ -42,7 +42,7 @@
 
        
          <!--churchtable-->
-        <div class="row-fluid sortable">		
+        <div class="row-fluid">		
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Churches</h2>
@@ -184,20 +184,49 @@
                                         <a class="btn ChurchClear">Cancel</a>
                                     </footer>	
 					
-		      </div>
+		         </div>
 				</div>
 		
-	<div class="modal hide fade" id="mapModal">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Google Map</h3>
-		</div>
-		<div class="modal-body">
-			 <div id="dvMap" style="width: 500px; height: 350px"/>
-		</div>
-		
-	</div>
+	    
          <!--churchtable-->
+
+
+
+        <!--Roles-->
+       <br />
+        <div class="row-fluid">
+            <div class="box span12">
+					<div class="box-header">
+						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Roles</h2>
+						<div class="box-icon">
+							
+							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+						
+						</div>
+					</div>
+					<div class="box-content">
+						<table class="table table-bordered" id="Rolestable">
+							  <thead>
+								  <tr>
+									  <th>Role</th>
+									  <th>Church</th>
+									  <th>Created Date</th>
+									  <th>Actions</th>                                          
+								  </tr>
+							  </thead>   
+							  <tbody>
+								
+							                  
+							  </tbody>
+						 </table>  
+						
+					</div>
+		   </div><!--/span-->
+
+        </div>
+
+        <!--Roles-->
+        
      
 
        
@@ -209,5 +238,15 @@
 
 
     </div><!--span10 end-->
+    <div class="modal hide fade" id="mapModal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Google Map</h3>
+		</div>
+		<div class="modal-body">
+			 <div id="dvMap" style="width: 500px; height: 350px"/>
+		</div>
+		
+	   </div>
      <input type="hidden" id="hdfChurchID" />
 </asp:Content>

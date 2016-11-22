@@ -140,7 +140,12 @@ $("document").ready(function (e)
                        NovenaTiming.time = time;
 
 
-                       InsertNovenaTiming(NovenaTiming);
+                       NovenaTiming.Status = InsertNovenaTiming(NovenaTiming);
+
+                       if (NovenaTiming.Status == 0) {
+                           alert("It is already added");
+                       }
+
                    });
 
                //}
@@ -155,8 +160,13 @@ $("document").ready(function (e)
 
                //        InsertNovenaTiming(NovenaTiming);
                //    });
-               //}
+                //}
+                   $('#rowfluidDiv').show();
+                   $('.alert-success').show();
+                   $('.alert-success strong').text("Novena Added Successfully");
 
+
+                   BindNovenasPatronID(PatronID);
 
             }
 
@@ -352,7 +362,15 @@ function InsertNovena(Novenas) {
 
 function FixedEditClick()
 {
+
     debugger;
+
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+
+
 
     $('#h1Event').text("Edit Novena");
 
@@ -637,6 +655,12 @@ function ClearControls() {
 
     NovenaDayAndTime = [];
     NovenaTimes = [];
+
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+
 }
 function SetControlsInViewFormat()
 {
@@ -776,6 +800,10 @@ var DayAndTimeTemp = '';
 function BindNovenaMoreDetails(ID)
 {
     ScrollPage();
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
 
   //  $('#DivNovenaTiming').hide();
     SetControlsInViewFormat();

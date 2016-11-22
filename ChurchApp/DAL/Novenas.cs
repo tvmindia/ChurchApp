@@ -383,6 +383,7 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        
         #endregion Public Properties
 
         #region NovenaTiming Methods
