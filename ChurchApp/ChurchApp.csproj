@@ -94,6 +94,7 @@
     <Content Include="CSS\CustomCSS\Notice.css" />
     <Content Include="CSS\CustomCSS\Notifications.css" />
     <Content Include="CSS\CustomCSS\Novenas.css" />
+    <Content Include="CSS\CustomCSS\PiousOrg.css" />
     <Content Include="CSS\CustomCSS\Priests.css" />
     <Content Include="CSS\dataTables.bootstrap.min.css" />
     <Content Include="CSS\dataTables.jqueryui.min.css" />
