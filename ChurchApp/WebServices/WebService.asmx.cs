@@ -683,10 +683,18 @@ namespace ChurchApp.WebServices
                 {
                     dt1.ImportRow(dt.Rows[i]);
                 }
+                if (dt1.Rows.Count == 0) throw new Exception("No items");
             }
             catch (Exception ex)
             {
-                throw ex;
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
             }
             finally
             {
