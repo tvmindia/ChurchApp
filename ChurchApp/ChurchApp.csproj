@@ -126,6 +126,7 @@
     <Content Include="Font\glyphiconshalflings-regular.svg" />
     <Content Include="Font\glyphiconshalflings-regular.ttf" />
     <Content Include="Font\glyphiconshalflings-regular.woff" />
+    <Content Include="img\00000000-0000-0000-0000-000000000000.jpg" />
     <Content Include="img\AppImages\00000000-0000-0000-0000-000000000000.jpg" />
     <Content Include="img\AppImages\040cb5d2-fdbf-40e0-1b21-1fe3bc08e82b.jpg" />
     <Content Include="img\AppImages\06437727-380e-a0f8-2860-c12f7f4b8124.jpg" />

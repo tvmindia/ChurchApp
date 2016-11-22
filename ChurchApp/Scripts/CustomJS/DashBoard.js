@@ -124,7 +124,7 @@
                     }
                 }
                 else {
-                    Church.mainImageId = 'A23F9091-D102-4DF9-B9CA-ED4418CB2FC6';//no image default id
+                    Church.mainImageId = '00000000-0000-0000-0000-000000000000';//no image default id
                     Church.churchId=$("#hdfChurchID").val();
                     var result = UpdateChurch(Church);
                     switch (result.status) {
@@ -190,7 +190,7 @@
                     }
                 }
                 else {
-                    Church.mainImageId = 'A23F9091-D102-4DF9-B9CA-ED4418CB2FC6';//no image default id
+                    Church.mainImageId = '00000000-0000-0000-0000-000000000000';//no image default id
                     var result = InsertChurch(Church);
                     switch (result.status) {
                         case "1":

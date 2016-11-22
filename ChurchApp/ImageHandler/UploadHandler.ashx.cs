@@ -173,6 +173,7 @@ namespace ChurchApp.ImageHandler
                              //Add another action type here as next case
                             case "ChurchInsert":
                                         ChurchImageID = context.Request.Form.GetValues("ChurchImageID")[0];
+                                       
                                         ChurchImgLoc = HttpContext.Current.Server.MapPath("~/img/AppImages/");
                                         churchFile = context.Request.Files["ChurchImage"];
                                         fileExtension = Path.GetExtension(churchFile.FileName);
@@ -184,6 +185,8 @@ namespace ChurchApp.ImageHandler
                                         AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
                                         AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                         AppImgObj.InsertAppImage().ToString();
+                                      
+                                       
                                         
                                 //insert into church
                                         churchObj = new ChurchApp.DAL.Church();
