@@ -29,9 +29,11 @@
 
     <link href="../CSS/CustomCSS/AdminLayout.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
+    <link href="../CSS/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="../CSS/dataTables.material.min.css" rel="stylesheet" />
    
-	<!-- end: CSS -->
-
+  
+    <!-- end: CSS -->
       <!-- start: JavaScript-->
         <script src="../Scripts/jquery-1.12.3.min.js"></script>
 		<%--<script src="../Scripts/jquery-1.9.1.min.js"></script>--%>
