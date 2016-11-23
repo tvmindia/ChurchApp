@@ -218,9 +218,9 @@ $("document").ready(function (e)
                  }
              }
 
-             else {
-                 alert("Please select a patron");
-             }
+         }
+         else {
+             alert("Please select a patron");
          }
     });
    
@@ -1241,6 +1241,7 @@ function DeleteTime(Obj) {
         DeleteNovenaTiming(NovenaTiming);
 
         FixedEditClick();
+        BindNovenasPatronID(PatronID);
     }
 
     }
