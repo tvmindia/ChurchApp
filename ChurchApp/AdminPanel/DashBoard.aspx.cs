@@ -330,6 +330,90 @@ namespace ChurchApp.AdminPanel
         }
         #endregion InsertRoles
 
+        #region DeleteRole
+        [System.Web.Services.WebMethod]
+        public static string DeleteRole(Roles rolesObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                rolesObj.updatedBy = UA.userName;
+                rolesObj.DeleteRole();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return jsSerializer.Serialize(rolesObj);
+        }
+        #endregion DeleteRole
+
+        #region GetRoleDetailByRoleID
+        [System.Web.Services.WebMethod]
+        public static string GetRoleDetailByRoleID(Roles rolesObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            try
+            {
+
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                DataTable dt = null;
+
+                dt = rolesObj.GetRoleDetailByRoleID();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return jsSerializer.Serialize(parentRow);
+
+        }
+
+        #endregion GetRoleDetailByRoleID
+
+
+        #region UpdateRoles
+
+        [System.Web.Services.WebMethod]
+        public static string UpdateRoles(Roles rolesObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                rolesObj.updatedBy = UA.userName;
+                rolesObj.UpdateRoles();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return jsSerializer.Serialize(rolesObj);
+        }
+
+        #endregion UpdateRoles
+
 
     }
 }
