@@ -46,7 +46,16 @@
 
     }
 
-   
+    try {
+        $(".ddlRoleName").select2({
+            placeholder: "Choose Role",
+            allowClear: true
+       
+        });
+    }
+    catch (e) {
+
+    }
    
    
     try
@@ -325,6 +334,14 @@
 
     });
 
+    $('.RolesClear').click(function (e) {
+        $('#rowfluidDivAlert').hide();
+        $('.alert').hide();
+        $(".ddlRoleName").select2("val", "");
+        $(".ddlChurch").select2("val", "");
+    });
+
+
 
     $('#btnRolesAdd').click(function (e) {
         try
@@ -333,14 +350,16 @@
            
             var Roles = new Object();
             var Church = new Object();
-                if ($('#txtRoleName').val() != "") {
-                    Roles.RoleName = $('#txtRoleName').val();
-                }
-          
-                if ($(".ddlChurch").val() != "")
-                {
-                    Church.churchId = $(".ddlChurch").val();
-                }
+            if ($(".ddlRoleName").val() != "") {
+                Roles.RoleName = $(".ddlRoleName").val();
+            }
+
+            if ($(".ddlChurch").val() != "") {
+                Church.churchId = $(".ddlChurch").val();
+            }
+            if ($("#hdfRolesID").val() == '')
+            {
+                //INSERT
                 Roles.churchObj = Church;
                 var result = InsertRoles(Roles);
                 switch (result.status) {
@@ -360,6 +379,36 @@
                     default:
                         break;
                 }
+
+            }
+            else
+            {
+                //UPDATE
+                Roles.ID = $("#hdfRolesID").val();
+                Roles.churchObj = Church;
+                var result = UpdateRoles(Roles);
+                switch (result.status) {
+                    case "1":
+                        $('.alert-error').hide();
+                        $('#rowfluidDivAlert').show();
+                        $('.alert-success').show();
+                        $('.alert-success strong').text("Updated successfully");
+                        BindAllRoles();
+                        break;
+                    case "0":
+                        $('.alert-success').hide();
+                        $('#rowfluidDivAlert').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text("Updation was not successfull");
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+           
+             
         }
         catch(e)
         {
@@ -385,7 +434,20 @@ function UpdateChurch(Church)
     }
     return table;
 }
+function UpdateRoles(Roles)
+{
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'rolesObj':" + JSON.stringify(Roles) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/UpdateRoles");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
 
+    }
+    return table;
+}
 function EditChurch(curobj)
 {
     debugger;
@@ -423,6 +485,20 @@ function EditChurch(curobj)
 
 }
 
+function EditRole(curobj)
+{
+    debugger;
+    $('#rowfluidDivAlert').hide();
+    $('.alert').hide();
+    var Roles = new Object();
+    var editedrow = $(curobj).closest('tr');
+    Roles.ID = $(curobj).attr('roleid');
+    $("#hdfRolesID").val(Roles.ID);
+    var roleDetail = GetRoleDetailByRoleID(Roles);
+    $(".ddlRoleName").val(roleDetail[0].RoleName).trigger("change");
+    $(".ddlChurch").val(roleDetail[0].ChurchID).trigger("change");
+}
+
 function GetChurchDetailsByChurchID(Church)
 {
     var ds = {};
@@ -436,8 +512,24 @@ function GetChurchDetailsByChurchID(Church)
 
     }
     return table;
-
 }
+
+
+function GetRoleDetailByRoleID(Roles)
+{
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'rolesObj':" + JSON.stringify(Roles) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetRoleDetailByRoleID");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
 
 function RemoveChurch(curobj)
 {
@@ -471,6 +563,36 @@ function RemoveChurch(curobj)
 
 }
 
+
+function RemoveRole(curobj)
+{
+    debugger;
+    var r = confirm("Are You Sure to Delete?");
+    if (r == true) {
+        var Roles = new Object();
+        var editedrow = $(curobj).closest('tr');
+        Roles.ID = $(curobj).attr('roleid');
+        var result = DeleteRole(Roles);
+        switch (result.status) {
+            case "1":
+                $('.alert-error').hide();
+                $('#rowfluidDivAlert').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Deleted successfully");
+                BindAllRoles();
+                break;
+            case "0":
+                $('.alert-success').hide();
+                $('#rowfluidDivAlert').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text("Deletion was not successfull");
+                break;
+            default:
+                break;
+        }
+
+    }
+}
 function DeleteChurch(Church)
 {
     var ds = {};
@@ -478,6 +600,20 @@ function DeleteChurch(Church)
     try {
         var data = "{'churchObj':" + JSON.stringify(Church) + "}";
         ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/DeleteChurch");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function DeleteRole(Roles) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'rolesObj':" + JSON.stringify(Roles) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/DeleteRole");
         table = JSON.parse(ds.d);
     }
     catch (e) {
@@ -676,7 +812,7 @@ function LoadRoles(Records) {
     try {
         $("#Rolestable").find(".rolerow").remove();
         $.each(Records, function (index, Record) {
-            var html = '<tr class="rolerow"><td>' + Record.RoleName + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + Record.CreatedDate + '</td><td class="center"><a class="circlebtn circlebtn-info"><i roleid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditRole(this)"></i></a><a class="circlebtn circlebtn-danger"><i roleid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveRole(this)"></i></a></td></tr>';
+            var html = '<tr class="rolerow"><td>' + Record.RoleName + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + Record.CreatedDate + '</td><td class="center"><a class="circlebtn circlebtn-info"><i roleid=' + Record.RoleID + ' class="halflings-icon white edit" onclick="EditRole(this)"></i></a><a class="circlebtn circlebtn-danger"><i roleid=' + Record.RoleID + ' class="halflings-icon white trash" onclick="RemoveRole(this)"></i></a></td></tr>';
             $("#Rolestable").append(html);
         })
     }

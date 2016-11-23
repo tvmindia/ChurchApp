@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
      <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBGYAg9VLLllUHiLbNguOAHAB_scDP038E"></script>
+     <script src="dist/js/bootstrap-checkbox.min.js" defer></script>
     <link href="../CSS/CustomCSS/DashBoard.css" rel="stylesheet" />
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/DashBoard.js"></script>
@@ -191,9 +192,9 @@
          <!--churchtable-->
 
 
-
-        <!--Roles-->
-       <br />
+          <br />
+        <!--Rolestable-->
+     
         <div class="row-fluid">
             <div class="box span12">
 					<div class="box-header">
@@ -233,7 +234,8 @@
 
                               <label class="control-label" for="focusedInput">Role Name</label>
                                <div class="controls">
-                               <input class="input-large focused" name="txtRoleName" id="txtRoleName" placeholder="Enter Role Name" type="text"/>
+                              
+                                    <select class="ddlRoleName"><option>Admin</option><option>User</option></select>
                               </div>
                               </div>
 
@@ -269,7 +271,113 @@
 
         </div>
 
-        <!--Roles-->
+        <!--Rolestable-->
+
+
+          <br />
+
+        <!--Userstable-->
+          <div class="row-fluid">
+            <div class="box span12">
+					<div class="box-header">
+						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Users</h2>
+						<div class="box-icon">
+							
+							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+						
+						</div>
+					</div>
+					<div class="box-content">
+						<table class="table table-bordered" id="Userstable">
+							  <thead>
+								  <tr>
+									  <th>Name</th>
+									  <th>Mobile</th>
+									  <th>Church</th>
+                                      <th>Role</th>
+                                      <th>Administrator</th>
+									  <th>Actions</th>                                          
+								  </tr>
+							  </thead>   
+							  <tbody>
+								
+							                  
+							  </tbody>
+						 </table>  
+						
+					</div>
+
+                    <div class="box-content">
+                          	<div class="form-horizontal">
+						
+							<fieldset>
+                             <div class="span12">   
+				             <div class="span6">
+						     
+						      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Name</label>
+                               <div class="controls">
+                              
+                                    <input class="input-large focused" name="txtUserName" id="txtUserName" placeholder=""  type="text"/>
+                              </div>
+                              </div>
+                                      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Mobile</label>
+                               <div class="controls">
+                              
+                                    <input class="input-large focused" name="txtMobile" id="txtMobile" placeholder=""  type="text"/>
+                              </div>
+                              </div>
+
+                                     <div class="control-group">
+                                    <label class="control-label" for="focusedInput">Email</label>
+                                   <div class="controls">
+                                   <input class="input-large focused" name="txtEmail" id="txtEmail" type="text"/>
+                                  </div>
+                                 </div>
+
+                                    <div class="control-group">
+                                    <label class="control-label" for="focusedInput">Active</label>
+                                   <div class="controls">
+                                    <input id="chkActive" type="checkbox"/>
+                                  </div>
+                                 </div>
+
+                                         
+                   </div>
+                             <div class="span6">
+                                  
+						      <div class="control-group">
+                             <label class="control-label" for="focusedInput">Church</label>
+                               <div class="controls">
+                                  <select class="ddlChurch"><option></option></select>
+                                  
+                                 </div>
+                             </div>
+                                   
+                                 
+                                    </div>
+                             </div>
+                     
+                             
+                     
+                         </fieldset>
+                                 </div>
+
+                    </div>
+                 <footer  runat="server" class="form-actions">
+                                        <a class="btn btn-primary" id="btnRolesAdd" href="#">Save</></a>
+                                        <a class="btn RolesClear">Cancel</a>
+                                    </footer>	
+
+
+		   </div><!--/span-->
+
+        </div>
+
+        <!--Userstable-->
         
      
 
