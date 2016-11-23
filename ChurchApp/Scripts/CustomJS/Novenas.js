@@ -1241,6 +1241,7 @@ function DeleteTime(Obj) {
         DeleteNovenaTiming(NovenaTiming);
 
         FixedEditClick();
+        BindNovenasPatronID(PatronID);
     }
 
     }
