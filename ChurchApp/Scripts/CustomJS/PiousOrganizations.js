@@ -111,7 +111,8 @@ function showpreviewAdmin(input) {
 //////////////////////////////////////////////////////************ functions 
 //
 ///function save and update administrator
-function SaveAdministrator() {
+function SaveAdministrator()
+{
     try {
         debugger;
         var AppImgURL = '';
@@ -282,23 +283,17 @@ function SaveInstitution() {
             //-----------------------UPDATE-------------------//
         else {
             debugger;
-            var Institutions = new Object();
-            Institutions.name = $('#txtInstituteName').val();
-            Institutions.address = $('#txtAddress').val();
-            Institutions.Founder = $('#txtFounder').val();
-            Institutions.Founded = $('#txtFounded').val();
-            Institutions.description = $('#txtHistory').val();
-            Institutions.Email = $('#txtEmail').val();
-            Institutions.Website = $('#txtWebsite').val();
-            Institutions.phone1 = $('#txtPhone1').val();
-            Institutions.phone2 = $('#txtPhone2').val();
-            Institutions.Mobile = $('#txtMob').val();
+            var PiousOrg = new Object();
+           // PiousOrg.piousOrgID = guid;
+            PiousOrg.Name = $('#txtInstituteName').val();
+            PiousOrg.description = $('#txtHistory').val();
+            PiousOrg.PatronID = $('#hdnPatron').val();
             //Institutions.imageId = $("#hdnInstutID").val();
-            Institutions.institutionID = $("#hdnInstutID").val();
+            PiousOrg.piousOrgID = $("#hdnInstutID").val();
 
 
            
-            result = UpdateInstitute(Institutions);
+            result = UpdateInstitute(PiousOrg);
 
             if (result.results == "1") {
                 $('#rowfluidDiv').show();
@@ -986,10 +981,10 @@ function InsertInstitute(PiousOrg) {
 
 }
 // Update Institute
-function UpdateInstitute(Institutions) {
+function UpdateInstitute(PiousOrg) {
     try {
-        var data = "{'InstituteObj':" + JSON.stringify(Institutions) + "}";
-        jsonResult = getJsonData(data, "../AdminPanel/Institutions.aspx/UpdateInstitution");
+        var data = "{'PiousObj':" + JSON.stringify(PiousOrg) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/PiousOrganizations.aspx/UpdatePiousOrg");
         var table = {};
         table = JSON.parse(jsonResult.d);
         return table;
