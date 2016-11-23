@@ -6,7 +6,7 @@
      <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Families.js"></script>
      <div id="content" class="span10">
-        <ul class="breadcrumb" id="breadcrumbFamily">
+        <ul class="breadcrumb" id="breadcrumbFamily" style="margin-bottom:0px">
 			 <li>
 					<i class="icon-home"></i>
 					<a href="../AdminPanel/Home.aspx">Home</a> 
@@ -43,53 +43,52 @@
 				
 	    <%--Alert boxes --%>
          <div class="row-fluid">
-             <div class="box span6">
-					<div class="box-header" data-original-title>
+             <div class="span6">
+					<div>
+                         <div id="divFamilyUnitsGrid">
+                              <div class="headerDiv" style="border-bottom:1.5px solid #F44336;margin-top:2%;">
 						<h2 id="unitHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span></h2>
                       
-						<div class="box-icon">
-						<a class="btnNew" title="ADD NEW FAMILY MEMBER" onclick="AddFamilyMember();"><i>+</i></a>
+						<a class="btnNew" id="btnMemberNew" title="ADD NEW FAMILY MEMBER" onclick="AddFamilyMember();"><i>+</i></a>
                          <a class="btnNew" id="btnfamilyAdd" title="ADD NEW FAMILY" onclick="AddFamily();"><i>+</i></a>
                          <a class="btnNew" id="btnFamilyUnitAdd" title="ADD NEW FAMILY UNIT" onclick="AddFamilyUnit();"><i>+</i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-						
+							
 						</div>
+                            
+					<div id="FamilyUnitsTableBox">	
+	
 					</div>
-					<div class="box-content" id="FamilyUnitsTableBox">	
-	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-	</div><!-- panel-group -->
+                              </div>
 					</div>
 				</div>
                <%-- Show details portion for institution --%>	
 		
            
              <!---------------------  Add New Family and Edit details ----------------------------->
-                <div id="FamilyAdd" style="display:none; margin-top:1%" class="span6 noMarginLeft">
+                <div id="FamilyAdd" style="display:none; margin-top:1% ;" class="span6">
                    
 					<div class="dark">	
-                         	<div class="box-header" data-original-title id="executivesHeader">
-						<h2 id="AddHeader"><i class="fa fa-users" aria-hidden="true"></i><span class="break"></span>Unit Executives</h2>
-						<div class="box-icon">
-						
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-						
-						</div>
-					</div>			
-					<div class="box-content">
+                         	<%--<div id="executivesHeader">--%>
+						<h2 id="executivesHeader" style="margin-top:1% !important;">Unit Executives</h2> 
+						<%--<div class="box-icon">--%>
+						<a class="circlebtn circlebtn-success FamiliesEdit" id="AdminEdit" title="EDIT UNIT EXECUTIVES" style="display:none;" onclick="EditFamily(this)"><i class="halflings-icon white pencil FamiliesEdit" id="iconEdit" aria-hidden="true"></i></a>
+							
+						<%--</div>--%>
+				<%--	</div>	--%>
                        
-                            <a class="circlebtn circlebtn-success FamiliesEdit" title="EDIT UNIT EXECUTIVES" style="right:1px;position: fixed;display:none;" onclick="EditFamily(this)"><i class="halflings-icon white pencil FamiliesEdit" aria-hidden="true"></i></a>
+                           
 					<div class="form-horizontal">
 				    <fieldset>
-               <div id="divAdminDetals" class="panel span12" style="min-height:50px !important;max-height:1500px !important;opacity:1!important;">
+                            <div id="divAdminDetals" class="span12" style="min-height:50px !important;max-height:1500px !important;opacity:1!important;margin-top:5%;">
                            
                             </div>
                         <%-- Div General information --%>
-                           <div id="divAdminInfo" style="display:none;" class="panel span12">
+                           <div id="divAdminInfo" style="display:none;" class="span12">
                          <%-----Default card with button for Adding new administrator -----%>
                             <ul class="thumbnails span4">
                             <li class="span12" style="position: relative;height:229px;">
                                <a class="btnNew" id="AdminBtnNew" style="position:relative!important;z-index:50;padding:40px 35px 25px 35px !important;top:75px!important;left: 10%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
-                               <div class="thumbnail" style="position:relative!important;top: -33px;opacity:0.7;">
+                               <div class="thumbnail" style="position:relative!important;top: -55px;opacity:0.7;">
                                <img class="img-rounded" style="height:159px" src="../img/gallery/Noimage.png"  alt=""/>
                                 <address>
                                     <br/>
@@ -103,69 +102,59 @@
                             <%-- End Default card add new --%>
                         </div>
                               
-                         <div class="panel span12" id="familyMembersPhotoDiv"  style="margin-top:10px!important;display:none;">  
+                         <div class="span12" id="familyMembersPhotoDiv"  style="margin-top:10px!important;display:none;">  
                           
                              </div>
                         
                         <div class="panel span12" id="familyAddDiv"  style="margin-top:10px!important;display:none;">  
-                              	<div class="box-header" data-original-title>
+                               <div class="box-header" data-original-title="">
 						<h2 id="FamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="memberAddOrEdit"></span> Family Member</h2>
                         <h2 id="AddFamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="familyAddOrEdit"></span> Family </h2>
 						<h2 id="AddFamilyUnitHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="familyUnitAddOrEdit"></span> Family Unit </h2>
-                                      <div class="box-icon">
-						
-											
-						</div>
-					</div>
-                            <br />
-                            <br />
-                         <div class="control-group" id="firstNameDiv">
+                                      
+					    </div>
+                               <div class="control-group" id="firstNameDiv" style="margin-top:2%">
 								<label class="control-label" for="focusedInput">First Name:</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtFirstName" type="text"/>
                                 </div>
 								</div>
-                              <div class="control-group" id="lastNameDiv">
+                               <div class="control-group" id="lastNameDiv">
 								<label class="control-label" for="focusedInput">Last Name:</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtLastName" type="text"/>
                                 </div>
 								</div>
-                                 <div class="control-group" id="familyNameDiv">
+                               <div class="control-group" id="familyNameDiv">
 								<label class="control-label" for="focusedInput">Family Name:</label>
 								<div class="controls">
 								  <input type="text" class="input-large focused" id="txtFamilyName" disabled="disabled"/>
                                 </div>
 								</div>
                         
-                                <div class="control-group">
+                               <div class="control-group" id="unitNameDiv">
 								<label class="control-label" for="focusedInput">Unit Name:</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtUnitName" disabled="disabled" type="text"/>
                                 </div>
 								</div>
-                             <div class="control-group" id="phoneDiv">
+                               <div class="control-group" id="phoneDiv">
 								<label class="control-label" for="focusedInput">Phone</label>
 								<div class="controls">
 								  <input class="input-large focused" name="phone1" id="txtPhone" type="text" value=""/>
 								</div>
 								</div>
-                         <div class="control-group" id="addressDiv">
+                               <div class="control-group" id="addressDiv">
 								<label class="control-label" for="focusedInput">Address:</label>
 								<div class="controls">
 								  <textarea class="input-large" id="txtAddress" rows="3" placeholder=""></textarea>
                                 </div>
 								</div>                       
-                             <div class="control-group" id="isHeadDiv">
+                               <div class="control-group" id="isHeadDiv">
 								<label class="control-label" for="focusedInput">IsHead:</label>
 								<div class="controls">
                                    
                                        <input type="checkbox" id="chkIsHead" value=""/>
-
-                                  
-
-								  <%--<input type="checkbox" name="chkHead" id="chkIsHead" />--%>
-                                        
                                 </div>
 								</div> 
                         </div>
@@ -182,37 +171,29 @@
                                 <a class="btn btn-primary Delete" name="" id="btnDelete">Delete</a>
 							  
 							</div>
-                        <div class="form-actions span12" id="btnFamilyDiv">
+                            <div class="form-actions span12" id="btnFamilyDiv">
 							  <a class="btn btn-primary SaveFamily" name="" >Save</a>
                                 <a class="btn btn-primary CancelFamily">Cancel</a>
                                 <a class="btn btn-primary DeleteFamily" name="">Delete</a>
 							  
 							</div>
-                          <div class="form-actions span12" id="btnFamilyUnitDiv">
+                            <div class="form-actions span12" id="btnFamilyUnitDiv">
 							  <a class="btn btn-primary SaveUnit" name="" >Save</a>
                                 <a class="btn btn-primary CancelUnit">Cancel</a>
                                 <a class="btn btn-primary DeleteUnit" name="">Delete</a>
 							  
 							</div>
 						  </fieldset>
-					</div>   
-					</div>
-				
-				</div>
-				
+					</div>			
+				</div>				
 				</div>	
-
-    
-              <%--<a class="circlebtn circlebtn-success FamilyMemberEdit" style="right:1px;position: fixed;display:none;" onclick="EditMembers();"><i class="halflings-icon white pencil FamiliesEdit" aria-hidden="true"></i></a>--%>
-                
              </div>
-
     </div>
      <%-- Modal Insert Administration Faculties --%>
                <div class="modal hide fade" id="modelAddAdmin">
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
-			<h3>Add New Administrator</h3>
+			<h3><span id="AddOrEditAdmin">Add</span> Administrator</h3>
 		  </div>
 		  <div class="modal-body">
             <div class="form-horizontal">
@@ -267,5 +248,5 @@
     <input type="hidden" value="" id="hdfFamilyName" />
     <input type="hidden" value="" id="hdfFamilyID" />
     <input type="hidden" value="" id="hdfMemberID" />
-       
+       <input type="hidden" value="" id="hdfAdminID" />
 </asp:Content>

@@ -73,11 +73,12 @@ left: 82%;
 		text-decoration: none;
         color:#535358;
 	}
-    .panel-title > a:hover
+    .unitLink:hover
     {
         text-decoration:underline;
         color:#337ab7;
-        font-size:15px;
+        font-size:16px;
+        cursor:pointer;
     }
 	.more-less {
 		float: right;
@@ -173,6 +174,7 @@ h4#familyLink>a:hover {
 .unitLink
 {
         margin-top: -7px;
+        font-weight:600;
 }
 i#faUser {
     padding-right: 10px;
@@ -197,11 +199,11 @@ i#faUser {
 }
 .alert{
     line-height:0px;
-} 
-/*.navbar
+}
+.navbar
 {
     z-index:0 !important;
-}*/
+}
 #imgThumbnail>img
 {
     height: 85px !important;
@@ -209,5 +211,43 @@ i#faUser {
 .circlebtn {
     position: absolute;
     right: 55px;
-    padding: 2px 2px 0px 5px;
+    padding:5px 9px 6px 10px;
+}
+.Edit {
+    margin-left: 470px !important;
+    margin-top: -25px;
+    cursor: pointer;
+    
+}
+.pencilEdit {
+    /*margin-left: 470px !important;*/
+    margin-top: -10px;
+    cursor: pointer;
+    
+}
+.ViewUnit {
+    margin-left: 20px;
+    margin-top: -10px;
+    /*margin-top: -34px;
+    cursor: pointer;*/
+}
+.accordion-inner {
+    height: 30px;
+}
+.lead {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight:500;
+    line-height:20px;
+}
+.btnNew {
+    left: 490px !important;
+    top: -10px;
+}
+
+h2
+{
+    margin:-4px 0px;
 }
