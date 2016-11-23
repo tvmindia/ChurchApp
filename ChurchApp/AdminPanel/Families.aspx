@@ -29,7 +29,7 @@
 						</div>
 						<div class="alert alert-info" style="display:none;">
 							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+							<strong>Heads up!</strong>
 						</div>
 						<div class="alert alert-block" style="display:none;">
 							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
@@ -86,9 +86,9 @@
                            <div id="divAdminInfo" style="display:none;" class="span12">
                          <%-----Default card with button for Adding new administrator -----%>
                             <ul class="thumbnails span4">
-                            <li class="span12" style="position: relative;height:229px;">
+                            <li class="span12" id="noRecordLi" style="position: relative;height:229px;">
                                <a class="btnNew" id="AdminBtnNew" style="position:relative!important;z-index:50;padding:40px 35px 25px 35px !important;top:75px!important;left: 10%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
-                               <div class="thumbnail" style="position:relative!important;top: -55px;opacity:0.7;">
+                               <div class="thumbnail" id="noRecordThumbnail" style="position:relative!important;top: -55px;opacity:0.7;">
                                <img class="img-rounded" style="height:159px" src="../img/gallery/Noimage.png"  alt=""/>
                                 <address>
                                     <br/>

@@ -272,6 +272,9 @@ $(document).ready(function () {
 
     $(".SaveUnit").click(function (e) {
         debugger;
+        $('.alert-info').hide();
+        $('.alert-error').hide();
+        $('.alert-success').hide();
         var jsonResult = {};
         var addOrEdit = $("#familyUnitAddOrEdit").text();
         var FamilyUnits = new Object();
@@ -290,7 +293,16 @@ $(document).ready(function () {
                 $("#FamilyAdd").css("margin-top", "3%");
                 ClearTextboxes();
             }
-            else {
+            if(jsonResult=="2")
+            {
+                $('#rowfluidDiv').show();
+                $('.alert-info').show();
+                $('.alert-info strong').text("Unit Name Already Exists");
+                BindFamilyUnitsAccordion();
+                $("#FamilyAdd").css("margin-top", "3%");
+            }
+
+            if(jsonResult!="1" && jsonResult!="2"){
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
                 $('.alert-error strong').text("Error..!!!");
@@ -423,7 +435,7 @@ function EditFamily(e)
 }
 function AddAdminImageHtml() {
     debugger;
-    var html = (' <ul class="thumbnails span4"><li class="span12" style="position: relative;height:229px;">'
+    var html = (' <ul class="thumbnails span4"><li class="span12" style="position: relative;height:150px;">'
                               + ' <a class="btnNew" id="AdminBtnNew" onclick="OpenAdminModal();" style="position:relative!important;z-index:50;padding: 25px 18px 10px 18px !important;top: 40px!important;left: 25%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>'
                                +'<div class="thumbnail" id=imgThumbnail style="position:relative!important;top: -33px;opacity:0.7;">'
                                + '<img class="img-rounded" style="height:159px" src="../img/gallery/Noimage.png"  alt=""/><address style="line-height:5px !important;text-align: center;"><br/>'
@@ -444,6 +456,7 @@ function AddFamilyUnit()
     $("#familyUnitAddOrEdit").text("Add");
     $("#txtUnitName").val("");
     $('#rowfluidDiv').hide();
+    $("#FamilyAdd").css("margin-top", "1%");
 }
 function BindSelect() {
     debugger;
@@ -771,7 +784,7 @@ function AddFamily()
     $("#txtLastName").removeAttr('disabled');
     $("#txtPhone").removeAttr('disabled');
     $("#txtAddress").removeAttr('disabled');
-    $("#divAdminInfo").css("margin-top", "7%");
+   // $("#divAdminInfo").css("margin-top", "7%");
 }
 
 // display div to add family member
