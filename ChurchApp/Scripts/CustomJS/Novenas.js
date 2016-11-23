@@ -1243,6 +1243,16 @@ function DeleteTime(Obj) {
         FixedEditClick();
         BindNovenasPatronID(PatronID);
     }
+    debugger;
+    var day = $tds[0].innerText;
+    var time = $tds[1].innerText;
+    NovenaDayAndTime = $.grep(NovenaDayAndTime, function (e) {
+        debugger;
+        return (e.Day !== day && e.Time !== time);
+    });
+    debugger;
+
+    //var c = NovenaDayAndTime;
 
     }
     else {
