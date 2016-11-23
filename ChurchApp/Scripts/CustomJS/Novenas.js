@@ -218,9 +218,9 @@ $("document").ready(function (e)
                  }
              }
 
-             else {
-                 alert("Please select a patron");
-             }
+         }
+         else {
+             alert("Please select a patron");
          }
     });
    
