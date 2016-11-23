@@ -42,7 +42,7 @@
               
                <div class="span6">
                    <h2>Pious Organizations</h2>
-                   <div class="" style="border-bottom: 1.5px solid #FA603D;"><a class="btnNew" style="left:45%!important;top:6%;position:absolute" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+                   <div class="" style="border-bottom: 1.5px solid #FA603D;"><a class="btnNew" style="padding:5px 14px 5px 13px!important;left:45%!important;top:6%;position:absolute" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   
             <div id="Institutediv" style="margin-top:6%">
             <div id="InstituteDefault">
@@ -133,7 +133,8 @@
 					<div class="box-content">
 					<div class="form-horizontal">
 				    <fieldset>
-                    <%--<a class="btnEdit" style="right:30px;position: absolute;" onclick="EditInstitute();"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>--%>
+                        <a class="btnEdit" id="iconDisInstitute" style="right:40px;top:-41px;position: absolute;" title="EDIT" name="Edit" onclick="Cancel(this);"><i class="halflings-icon white refresh" aria-hidden="true" ></i></a>
+                    
                         <div class="control-group span12">
 					    <img class="priestimage span4" style="display:none;" id="priestPreview" src="../img/gallery/Pious.jpg"/>
                             <strong class="span6"><br /><br /><br /><h2 id="lblPatron"></h2></strong>

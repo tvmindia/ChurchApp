@@ -258,7 +258,7 @@ function SaveInstitution() {
             if (result.results == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
-                $('.alert-success strong').text("Institution Added Successfully");
+                $('.alert-success strong').text("Organization Added Successfully");
                 $('#divAccoAdmininfo').show();
                 $('#divAdminInfo').show();
                 $('#EditdivAppend').empty();
@@ -298,7 +298,7 @@ function SaveInstitution() {
             if (result.results == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
-                $('.alert-success strong').text("Institution Edited Successfully");
+                $('.alert-success strong').text("Organization Edited Successfully");
 
             }
             if (result.results != "1") {
@@ -685,7 +685,7 @@ function EditInstitute(this_obj) {
         var intituteID = $(this_obj).attr('name');
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);
-        
+        $('#iconDisInstitute').show();
         $('#txtInstituteName').val(InstituteRow.Name);
         $('#txtPatron').val(InstituteRow.Patron);
         $('#txtHistory').val(InstituteRow.description);
@@ -776,6 +776,7 @@ function NewInstitute() {
     try {
         ClearFields();
         RemoveStyle();
+        $('#iconDisInstitute').hide();
         $('#rowfluidDiv').hide();
         $('#instituteimg').val('');
         $('#divAccoAdmininfo').hide();
@@ -805,6 +806,7 @@ function OpenAdminModal() {
         RemoveStyle();
         $('#rowfluidDiv').hide();
         $('#modelAddAdmin ').modal('show');
+        
         $('#txtName').val('');
         $('#txtMobile').val('');
         $('#ddlRole').val('-1').change();
