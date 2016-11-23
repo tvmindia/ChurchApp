@@ -94,7 +94,7 @@
                     <div class="span12" id="DivIndividualPatron">
                         <div id="divLatestNovenas" class="span5">
                             <div class="priority high">
-                                <span class="latest"></span>
+                                <span class="latest">Novenas</span>
                                 <a class="btnNew" onclick="SetControlsInNovenaFormat(true);"><i title="Add New Novena">+</i></a>
 
                             </div>
