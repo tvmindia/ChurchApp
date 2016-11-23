@@ -522,7 +522,7 @@ function FixedEditClick()
                 var day;
                 var time;
                 var DayAndTime = jsonResult.DayAndTime;
-
+                debugger;
                 if (DayAndTime != null) {
 
                     if (DayAndTime.indexOf('|') > -1) {
@@ -1226,8 +1226,18 @@ function DeleteTime(Obj) {
     var deleteConirm = confirm("Want to delete?");
     if (deleteConirm) {
         
+       
+
     var $row = $(Obj).closest("tr"),       // Finds the closest row <tr> 
     $tds = $row.find("td");             // Finds all children <td> elements
+
+    debugger;
+    var day = $tds[0].innerText;
+    var time = $tds[1].innerText;
+    NovenaDayAndTime = $.grep(NovenaDayAndTime, function (e) {
+        debugger;
+        return (e.Day !== day && e.Time !== time);
+    });
 
     if ($row.attr("NovenaID") == null) {
         $(Obj).closest("tr").remove();
@@ -1243,16 +1253,10 @@ function DeleteTime(Obj) {
         FixedEditClick();
         BindNovenasPatronID(PatronID);
     }
-    debugger;
-    var day = $tds[0].innerText;
-    var time = $tds[1].innerText;
-    NovenaDayAndTime = $.grep(NovenaDayAndTime, function (e) {
-        debugger;
-        return (e.Day !== day && e.Time !== time);
-    });
+    
     debugger;
 
-    //var c = NovenaDayAndTime;
+    var c = NovenaDayAndTime;
 
     }
     else {
