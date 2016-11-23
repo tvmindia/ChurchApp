@@ -311,7 +311,7 @@
                                                     <dd>
                                                         <label id="lblViewDate"></label>
                                                     </dd>
-                                                    <dt>Time</dt>
+                                                    <dt id="Viewtime">Time</dt>
                                                     <dd>
                                                         <label id="lblViewTime"></label>
                                                     </dd>

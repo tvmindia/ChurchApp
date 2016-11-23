@@ -1,4 +1,13 @@
 ﻿
+
+//Global Variables
+var imageId = '';                   //Stores imageid of uploaded image
+var imgPath = '';                   //Stores path of uploaded image
+
+var DeletedImgID = '';              //While changing the uploaded image with new , previous one should get deleted, So imageid to be deleted is stored in this variable
+var DeletedImgPath = '';            //While changing the uploaded image with new , previous one should get deleted from folde, So imag path to be deleted is stored in this variable
+
+
 var IsNormal = true;
 var NovenaDayAndTime = new Array();
 var PatronID = '';
@@ -26,9 +35,6 @@ $("document").ready(function (e)
 
         //var TimeIn24HrFormat = h + ":" + minutes;
 
-      
-   
-
 
     $("#TxtTime").timepicki();
 
@@ -44,6 +50,12 @@ $("document").ready(function (e)
     });
 
     $("#rdoNovenaSpecial").click(function () {
+        $('#rowfluidDiv').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+
+
+
         IsNormal = false;
 
        // $("#divDay").hide();
@@ -54,6 +66,12 @@ $("document").ready(function (e)
     });
 
     $("#rdoNovenaNormal").click(function () {
+
+        $('#rowfluidDiv').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+
+
         IsNormal = true;
         $("#divStartDate").hide();
         $("#divEndDate").hide();
@@ -74,105 +92,132 @@ $("document").ready(function (e)
      });
 
     //Save Click
-    $('#btnSave').click(function (e) {
-       // $('#DivNovenaTiming').show();
+     $('#btnSave').click(function (e) {
+         // $('#DivNovenaTiming').show();
 
-        debugger;
+         $('#rowfluidDiv').hide();
+         $('.alert-success').hide();
+         $('.alert-error').hide();
 
-        var Novenas = new Object();
-        Novenas.patronId = $("#ddlPatron").val();
-            //$("#ddlPatron").val();
-        Novenas.novenaCaption = $("#txtNovenaCaption").val();
-        Novenas.description = $("#txtDescription").val();
 
-        //if (IsNormal) {
-        //    NovenaTiming
 
-        //}
-        if (IsNormal == false)
+         debugger;
+
+         if ($("#ddlPatron").val() != null && $("#ddlPatron").val() != "") {
+    
+         var Novenas = new Object();
+         Novenas.patronId = $("#ddlPatron").val();
+         //$("#ddlPatron").val();
+         Novenas.novenaCaption = $("#txtNovenaCaption").val();
+         Novenas.description = $("#txtDescription").val();
+
+         //if (IsNormal) {
+         //    NovenaTiming
+
+         //}
+         if (IsNormal == false)
 
          {
-            Novenas.startDate = $("#dateStartDate").val();
-            Novenas.endDate = $("#dateEndDate").val();
-        }
+             Novenas.startDate = $("#dateStartDate").val();
+             Novenas.endDate = $("#dateEndDate").val();
+         }
       
-        var guid = createGuid();
+         var guid = createGuid();
 
-        if (guid != null) {
+         if (guid != null) {
 
-            var imgresult = "";
-            var _URL = window.URL || window.webkitURL;
-            var formData = new FormData();
-            var imagefile;
+             var imgresult = "";
+             var _URL = window.URL || window.webkitURL;
+             var formData = new FormData();
+             var imagefile;
 
-            if (((imagefile = $('#UpNewNovena')[0].files[0]) != undefined)) {
-                var formData = new FormData();
-                var tempFile;
-                if ((tempFile = $('#UpNewNovena')[0].files[0]) != undefined) {
-                    tempFile.name = guid;
-                    formData.append('NoticeAppImage', tempFile, tempFile.name);
-                    formData.append('GUID', guid);
-                    formData.append('createdby', 'SHAMILA');
-                }
-                formData.append('ActionTyp', 'NoticeAppImageInsert');
-                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                Novenas.imageID = guid;
-            }
+             if (((imagefile = $('#UpNewNovena')[0].files[0]) != undefined)) {
+                 var formData = new FormData();
+                 var tempFile;
+                 if ((tempFile = $('#UpNewNovena')[0].files[0]) != undefined) {
+                     tempFile.name = guid;
+                     formData.append('NoticeAppImage', tempFile, tempFile.name);
+                     formData.append('GUID', guid);
+                     formData.append('createdby', 'SHAMILA');
+                 }
+                 formData.append('ActionTyp', 'NoticeAppImageInsert');
+                 AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                 Novenas.imageID = guid;
+             }
             
-            result = InsertNovena(Novenas);
+             result = InsertNovena(Novenas);
 
-            if (result.Status == 1)
-            {
-                debugger;
-                var NovenaTiming = new Object();
-               NovenaTiming.novenaId = result.novenaId;
-               //if (IsNormal) {
+             if (result.Status == 1)
+             {
+                 debugger;
+                 var NovenaTiming = new Object();
+                 NovenaTiming.novenaId = result.novenaId;
+                 $('#hdfNovenaID').val(result.novenaId);
+                 //if (IsNormal) {
 
-                   $.each(NovenaDayAndTime, function (index, NovenaDayAndTime) {
+                 $.each(NovenaDayAndTime, function (index, NovenaDayAndTime) {
 
-                       debugger;
+                     debugger;
 
-                       var day = NovenaDayAndTime.Day;
-                       var time = NovenaDayAndTime.Time;
-                       // time = time + ":00.0000000";
+                     var day = NovenaDayAndTime.Day;
+                     var time = NovenaDayAndTime.Time;
+                     // time = time + ":00.0000000";
 
-                       NovenaTiming.day = day;
-                       NovenaTiming.time = time;
-
-
-                       NovenaTiming.Status = InsertNovenaTiming(NovenaTiming);
-
-                       if (NovenaTiming.Status == 0) {
-                           alert("It is already added");
-                       }
-
-                   });
-
-               //}
-               //else {
-               //    $.each(NovenaTimes, function (index, NovenaTimes) {
-
-               //        debugger;
-
-               //       var time = NovenaTimes.Time;
-               //        // time = time + ":00.0000000";
-               //      NovenaTiming.time = time;
-
-               //        InsertNovenaTiming(NovenaTiming);
-               //    });
-                //}
-                   $('#rowfluidDiv').show();
-                   $('.alert-success').show();
-                   $('.alert-success strong').text("Novena Added Successfully");
+                     NovenaTiming.day = day;
+                     NovenaTiming.time = time;
 
 
-                   BindNovenasPatronID(PatronID);
+                     NovenaTiming.Status = InsertNovenaTiming(NovenaTiming);
 
-            }
+                     if (NovenaTiming.Status == 0) {
+                         alert("It is already added");
+                     }
+
+                 });
+
+                 //}
+                 //else {
+                 //    $.each(NovenaTimes, function (index, NovenaTimes) {
+
+                 //        debugger;
+
+                 //       var time = NovenaTimes.Time;
+                 //        // time = time + ":00.0000000";
+                 //      NovenaTiming.time = time;
+
+                 //        InsertNovenaTiming(NovenaTiming);
+                 //    });
+                 //}
+
+                 FixedEditClick();
+
+                 $('#rowfluidDiv').show();
+                 $('.alert-success').show();
+                 $('.alert-success strong').text("Novena Added Successfully");
 
 
-        }
+                 BindNovenasPatronID(PatronID);
+                 ScrollPage();
+                
 
+                 if (((imagefile = $('#UpNewNovena')[0].files[0]) != undefined)) {
+                     imageId = Novenas.imageID;
+                     imgPath = AppImgURL;
+
+                     DeletedImgID = imageId;
+                     DeletedImgPath = imgPath;
+                 }
+
+             }
+
+
+         }
+         }
+
+         else
+         {
+             alert("Please select a patron");
+         }
     });
    
     //Cancel Click
@@ -225,20 +270,47 @@ $("document").ready(function (e)
         }
     });
     
+    //Delete Novena
+    $('#btnDelete').click(function (e) {
+
+        //$('#rowfluidDiv').hide();
+        //$('.alert-success').hide();
+        //$('.alert-error').hide();
+
+
+        var deleteConirm = confirm("Want to delete?");
+        if (deleteConirm) {
+            var Novenas = new Object();
+            Novenas.novenaId = $('#hdfNovenaID').val();
+           
+            result = DeleteNovena(Novenas);
+            debugger;
+            if (result.Status == 1) {
+
+                SetControlsInNovenaFormat(true);
+
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Novena Deleted Successfully");
+
+                BindNovenasPatronID(PatronID);
+                ScrollPage();
+
+                var AppImages = new Object();
+                AppImages.appImageId = imageId;
+                DeleteAppImage(AppImages);
+
+                DeleteFileFromFolder(imgPath);
+
+            }
+        }
+        else {
+            return false;
+        }
+    });
+
 
 }); //End of Document ready
-
-
-function hrsTo24hrormat(hours, minutes) {
-    debugger;
-   
-    var h = hours;
-    var sHours = hours.toString();
-    var sMinutes = minutes.toString();
-    if (h < 10) sHours = sHours;
-    if (minutes < 10) sMinutes = sMinutes;
-    return sHours + ":" + sMinutes;
-}
 
 var DayNtimeHTML = '';
 function AddDayAndTimeToArray()
@@ -403,6 +475,11 @@ function FixedEditClick()
                 debugger;
                 $('#txtNovenaCaption').val(jsonResult.NovenaCaption);
                 $('#txtDescription').text(jsonResult.Description);
+
+                imageId = jsonResult.ImageID;
+                imgPath = jsonResult.URL;
+
+
 
                 $("#ddlPatron").val(jsonResult.PatronID).trigger("change");
 
@@ -679,6 +756,8 @@ function SetControlsInViewFormat()
     $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
     $('#NoticeEdit').attr('onclick', 'FixedEditClick();');
 
+    $('#lblViewTime').show();
+    $('#Viewtime').show();
 
 }
 //--------------------------------//
@@ -887,7 +966,18 @@ function BindNovenaMoreDetails(ID)
             //        DayAndTime = DayAndTime.split('-')[1];
             //    }
             //}
-            $('#lblViewTime').html(DayAndTime);
+
+            if (jsonResult.DayAndTime == null) {
+                $('#lblViewTime').hide();
+                $('#Viewtime').hide();
+            }
+
+            
+            else {
+                $('#lblViewTime').html(DayAndTime);
+            }
+
+           
           //  NovenaTiming = '<strong>' + DayAndTime + '</strong><br/> ';
 
           
@@ -958,9 +1048,7 @@ function GetNovenasByPatronID(Novenas) {
 
     return table;
 }
-
 var NovenaTiming = '';
-
 function FillNovenas(Records) {
     debugger;
     $('#DivNovenas').html('');
@@ -1063,6 +1151,7 @@ function OpenNewSaintModal() {
     $('#NewSaintModel').modal('show');
 }
 
+
 //General
 function createGuid() {
     function s4() {
@@ -1093,13 +1182,31 @@ function ScrollPage() {
         scrollLeft: offset.left
     });
 }
+function hrsTo24hrormat(hours, minutes) {
+    debugger;
+
+    var h = hours;
+    var sHours = hours.toString();
+    var sMinutes = minutes.toString();
+    if (h < 10) sHours = sHours;
+    if (minutes < 10) sMinutes = sMinutes;
+    return sHours + ":" + sMinutes;
+}
 //--------------------------------//
 
-//Delete
+
+//Delete Novena Time
 function DeleteTime(Obj) {
 
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+
     debugger;
-   
+    var deleteConirm = confirm("Want to delete?");
+    if (deleteConirm) {
+        
     var $row = $(Obj).closest("tr"),       // Finds the closest row <tr> 
     $tds = $row.find("td");             // Finds all children <td> elements
 
@@ -1117,7 +1224,10 @@ function DeleteTime(Obj) {
         FixedEditClick();
     }
 
-
+    }
+    else {
+        return false;
+    }
     
     //$.each($tds, function () {               // Visits every single <td> element
     //    // alert($(this).text());     
@@ -1136,6 +1246,44 @@ function DeleteNovenaTiming(NovenaTiming) {
     var table = {};
     var data = "{'NovenaTimingObj':" + JSON.stringify(NovenaTiming) + "}";
     ds = getJsonData(data, "../AdminPanel/Novenas.aspx/DeleteNovenaTiming");
+    table = JSON.parse(ds.d);
+
+    return table;
+}
+function DeleteFileFromFolder(imgPath) {
+
+    $.ajax({
+        type: "POST",
+        url: "../AdminPanel/Novenas.aspx/DeleteFileFromFolder",
+        data: '{imgPath: "' + imgPath + '"}',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: imgPath,
+        failure: function (response) {
+
+            // alert(response.d);
+        },
+        error: function (response) {
+
+            // alert(response.d);
+        }
+    });
+}
+function DeleteAppImage(AppImages) {
+    var data = "{'AppImgObj':" + JSON.stringify(AppImages) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Novenas.aspx/DeleteAppImage");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+
+}
+//--------------------------------//
+//Delete Novena Time
+function DeleteNovena(Novenas) {
+    var ds = {};
+    var table = {};
+    var data = "{'NovenaObj':" + JSON.stringify(Novenas) + "}";
+    ds = getJsonData(data, "../AdminPanel/Novenas.aspx/DeleteNovena");
     table = JSON.parse(ds.d);
 
     return table;
