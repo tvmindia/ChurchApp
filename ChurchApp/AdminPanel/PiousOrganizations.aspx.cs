@@ -134,22 +134,22 @@ namespace ChurchApp.AdminPanel
         /// <summary>
         /// Update Institution Details
         /// </summary>
-        /// <param name="InstituteObj"></param>
+        /// <param name="PiousObj"></param>
         /// <returns></returns>
         [System.Web.Services.WebMethod]
-        public static string UpdateInstitution(ChurchApp.DAL.Institutions InstituteObj)
+        public static string UpdatePiousOrg(PiousOrg PiousObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            InstituteObj.churchId = UA.ChurchID;
+            PiousObj.churchID = UA.ChurchID;
             string status = null;
             try
             {
-                InstituteObj.updatedBy = UA.userName;
-                status = InstituteObj.UpdateInstitution().ToString();
-                InstituteObj.results = status;
+                PiousObj.updatedBy = UA.userName;
+                status = PiousObj.UpdatePiousOrg().ToString();
+                PiousObj.results = status;
 
             }
             catch (Exception)
@@ -159,7 +159,7 @@ namespace ChurchApp.AdminPanel
             finally
             {
             }
-            return jsSerializer.Serialize(InstituteObj);
+            return jsSerializer.Serialize(PiousObj);
 
         }
 

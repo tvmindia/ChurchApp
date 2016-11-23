@@ -192,11 +192,19 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdatePiousOrg]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(piousOrgID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
+                cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(PatronID);
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = Name;
                 cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
+                if(albumId!=null)
+                {
+                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
+                }
+                else
+                {
+                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = albumId;
+                }
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
