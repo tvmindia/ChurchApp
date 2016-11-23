@@ -540,14 +540,14 @@ function FixedEditClick()
                                     time = DT[i].split('-')[1];
 
                                     if (time.indexOf(',') > -1) {
-                                        for (var i = 0; i < time.split(',').length; i++) {
+                                        for (var j = 0; j < time.split(',').length; j++) {
                                             NovenaDayAndTime.push(
                                           {
                                               Day: day,
-                                              Time: time.split(',')[i]
+                                              Time: time.split(',')[j]
                                           }
                                           );
-                                            var html = '<tr NovenaID='+novenaId+' ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                            var html = '<tr NovenaID='+novenaId+' ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[j] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                             $("#tblNovenaTiming").append(html);
                                         }
                                     }
@@ -568,14 +568,14 @@ function FixedEditClick()
                                     time = DT[i].split('-')[1];
 
                                     if (time.indexOf(',') > -1) {
-                                        for (var i = 0; i < time.split(',').length; i++) {
+                                        for (var k = 0; k < time.split(',').length; k++) {
                                             NovenaDayAndTime.push(
                                           {
                                               Day: day,
-                                              Time: time.split(',')[i]
+                                              Time: time.split(',')[k]
                                           }
                                           );
-                                            var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)" ><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                            var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[k] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)" ><i class="halflings-icon white trash"></i> </a></td></tr>';
                                             $("#tblNovenaTiming").append(html);
                                         }
                                     }
@@ -605,14 +605,14 @@ function FixedEditClick()
                                 time = DayAndTime.split('-')[1];
 
                                 if (time.indexOf(',') > -1) {
-                                    for (var i = 0; i < time.split(',').length; i++) {
+                                    for (var l = 0; l < time.split(',').length; l++) {
                                         NovenaDayAndTime.push(
                                       {
                                           Day: day,
-                                          Time: time.split(',')[i]
+                                          Time: time.split(',')[l]
                                       }
                                       );
-                                        var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                        var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[l] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                         $("#tblNovenaTiming").append(html);
                                     }
                                 }
@@ -637,14 +637,14 @@ function FixedEditClick()
                                 time = DayAndTime.split('-')[1];
 
                                 if (time.indexOf(',') > -1) {
-                                    for (var i = 0; i < time.split(',').length; i++) {
+                                    for (var m = 0; m < time.split(',').length; m++) {
                                         NovenaDayAndTime.push(
                                       {
                                           Day: day,
-                                          Time: time.split(',')[i]
+                                          Time: time.split(',')[m]
                                       }
                                       );
-                                        var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[i] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                        var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[m] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                         $("#tblNovenaTiming").append(html);
 
                                     }
