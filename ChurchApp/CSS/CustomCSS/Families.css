@@ -46,38 +46,11 @@ left: 82%;
     
     background-color: #ddd;
 }
-	.panel-group .panel {
-		border-radius: 0;
-		box-shadow: none;
-		border-color: #EEEEEE;
-	}
-
-	.panel-default > .panel-heading {
-		padding: 0;
-		border-radius: 0;
-		color: #212121;
-		background-color: #FAFAFA;
-		border:1px solid #eeeeee;
-        height: 30px;
-	}
-
-	.panel-title {
-		font-size: 14px;
-        position: absolute;
-        margin-top: 0px;
-	}
-
-	.panel-title > a {
-		display: block;
-		padding: 15px;
-		text-decoration: none;
-        color:#535358;
-	}
     .unitLink:hover
     {
         text-decoration:underline;
         color:#337ab7;
-        font-size:16px;
+        /*font-size:16px;*/
         cursor:pointer;
     }
 	.more-less {
@@ -85,10 +58,7 @@ left: 82%;
 		color: #212121;
 	}
 
-	.panel-default > .panel-heading + .panel-collapse > .panel-body {
-		border-top-color: #EEEEEE;
-	}
- 
+	 
 body {
 	background-color: #26a69a;
 }
@@ -99,12 +69,6 @@ body {
 }
 .more-less {
    
-}
-.panel-body {
-    line-height: 30px;
-    background-color:#eeeeee;
-    border-bottom:2px solid #ffffff;
-    margin-left: 12px;
 }
  .big-blue {
     width: 200px;
@@ -127,9 +91,11 @@ body {
  }
  .circlebtn
  {
-      position: absolute;
-    right: 65px;
-    padding: 8px 10px 8px 13px;
+      position: absolute !important;
+    right: 80px !important;
+    top:15px !important;
+    padding: 8px 10px 8px 10px !important;
+    /*padding: 8px 10px 8px 13px;*/
  }
   .btnNew
  {
@@ -169,7 +135,7 @@ img#NoData
 h4#familyLink>a:hover {
     text-decoration: underline;
     color:#337ab7;
-    font-size:15px;
+    /*font-size:15px;*/
 }
 .unitLink
 {
@@ -250,4 +216,8 @@ i#faUser {
 h2
 {
     margin:-4px 0px;
+}
+.form-horizontal .control-label
+{
+    margin-left:3%;
 }

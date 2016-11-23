@@ -106,7 +106,7 @@
                           
                              </div>
                         
-                        <div class="panel span12" id="familyAddDiv"  style="margin-top:10px!important;display:none;">  
+                        <div class="span12" id="familyAddDiv"  style="margin-top:10px!important;display:none;">  
                                <div class="box-header" data-original-title="">
 						<h2 id="FamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="memberAddOrEdit"></span> Family Member</h2>
                         <h2 id="AddFamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="familyAddOrEdit"></span> Family </h2>
