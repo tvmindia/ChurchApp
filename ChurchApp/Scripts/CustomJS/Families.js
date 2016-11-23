@@ -443,6 +443,7 @@ function AddFamilyUnit()
     $(".DeleteUnit").css("display", "none");
     $("#familyUnitAddOrEdit").text("Add");
     $("#txtUnitName").val("");
+    $('#rowfluidDiv').hide();
 }
 function BindSelect() {
     debugger;
