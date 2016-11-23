@@ -344,6 +344,39 @@ namespace ChurchApp.AdminPanel
 
         #endregion Delete Novena 
 
+        #region Update Novena
+
+        [System.Web.Services.WebMethod]
+        public static string UpdateNovena(ChurchApp.DAL.Novenas NovenaObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            string status = null;
+            try
+            {
+                NovenaObj.createdBy = UA.userName;
+                NovenaObj.churchId = UA.ChurchID;
+                status = NovenaObj.UpdateNovena();
+                NovenaObj.Status = status;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NovenaObj);
+        }
+
+        #endregion Update Novena
+
+        //UpdateNovena
+
         //-------------- Novena Timing
 
         #region Add Novena Timing
@@ -362,7 +395,7 @@ namespace ChurchApp.AdminPanel
             {
                 NovenaTimingObj.createdBy = UA.userName;
                 status = NovenaTimingObj.InsertNovenaTiming();
-                NovenaTimingObj.Status = status;
+                //NovenaTimingObj.Status = status;
             }
             catch (Exception)
             {
@@ -377,23 +410,18 @@ namespace ChurchApp.AdminPanel
 
         #endregion Add Novena Timing
 
-        #region Delete Novena Timing
+        #region Delete Novena Timing (by NovenaID,Day And Time)
 
         [System.Web.Services.WebMethod]
         public static string DeleteNovenaTiming(ChurchApp.DAL.NovenaTiming NovenaTimingObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
 
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
             string status = null;
             try
             {
-                NovenaTimingObj.createdBy = UA.userName;
                 status = NovenaTimingObj.DeleteNovenaTimingByTimingDetails();
-
+                NovenaTimingObj.Status = status;
             }
             catch (Exception)
             {
@@ -408,6 +436,32 @@ namespace ChurchApp.AdminPanel
 
 
         #endregion Delete Novena Timing
+
+        #region Delete Novena Timing By NovenaID
+
+        [System.Web.Services.WebMethod]
+        public static string DeleteNovenaTimingByNovenaID(ChurchApp.DAL.NovenaTiming NovenaTimingObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            string status = null;
+            try
+            {
+                status = NovenaTimingObj.DeleteNovenaTimingsByNovenaID();
+                NovenaTimingObj.Status = status;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NovenaTimingObj);
+
+        }
+
+        #endregion Delete Novena Timing By NovenaID
 
         #endregion Methods
 

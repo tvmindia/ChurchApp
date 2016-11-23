@@ -394,44 +394,47 @@ namespace ChurchApp.DAL
         }
         #endregion DeleteAdministrator
 
-        //#region DeleteAdministrator
-        ///// <summary>
-        ///// Delete Administrator
-        ///// </summary>
-        ///// <returns>Success/Failure</returns>
-        //public string DeleteAdministrator()
-        //{
-        //    dbConnection dcon = null;
-        //    SqlCommand cmd = null;
-        //    SqlParameter outParam = null;
-        //    try
-        //    {
-        //        dcon = new dbConnection();
-        //        dcon.GetDBConnection();
-        //        cmd = new SqlCommand();
-        //        cmd.Connection = dcon.SQLCon;
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        cmd.CommandText = "[DeleteAdministrators]";
-        //        cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(adminId);
-        //        cmd.Parameters.Add("@ChurchId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-        //        outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
-        //        outParam.Direction = ParameterDirection.Output;
-        //        cmd.ExecuteNonQuery();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        if (dcon.SQLCon != null)
-        //        {
-        //            dcon.DisconectDB();
-        //        }
-        //    }
-        //    return outParam.Value.ToString();
-        //}
-        //#endregion DeleteAdministrator
+        #region SelectAdministrator
+        /// <summary>
+        /// Selects Administrator By churchID,AdminId and OrgType
+        /// </summary>
+        /// <returns>Administrator</returns>
+        public DataSet SelectAdministrator()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectAdministrator]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.Parameters.Add("@AdminID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(adminId);
+                cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar, 100).Value = orgType;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectAdministrator
 
         #endregion Admin Methods
     }

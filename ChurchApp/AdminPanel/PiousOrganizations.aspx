@@ -41,20 +41,18 @@
                <div class="row-fluid">
               
                <div class="span6">
-                   <h1>Pious Organizations</h1>
-                   <div class="" style="border-bottom: 1.5px solid #FA603D;"><span style="visibility:hidden">Institutions</span><a class="btnNew" style="left:80%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+                   <h2>Pious Organizations</h2>
+                   <div class="" style="border-bottom: 1.5px solid #FA603D;"><a class="btnNew" style="padding:5px 14px 5px 13px!important;left:45%!important;top:6%;position:absolute" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   
-                    <div id="Institutediv" style="margin-top:6%">
+            <div id="Institutediv" style="margin-top:6%">
             <div id="InstituteDefault">
 				<ul class="media-list" style="border-bottom:1px solid #cfcece">
-  <li class="media">
-    <a class="pull-left" href="#">
-      <img class="media-object" src="../img/gallery/Institution.jpg" style="max-height:80px;"/>
-    </a>
-    <div class="media-body">
-      <h4 class="media-heading">SENIOR C.L.C<span> </span><span class="fa fa-flag"></span></h4>
-       Cristian Life Community<br />
-        description
+                <li class="media">
+               <a class="pull-left"><img class="media-object" src="../img/gallery/Institution.jpg" style="max-height:80px;"/></a>
+                <div class="media-body">
+                <h4 class="media-heading">SENIOR C.L.C<span> </span><span class="fa fa-flag"></span></h4>
+                 Cristian Life Community<br />
+              description
       <!-- Nested media object -->
       <div class="media">
           <a>View more</a>
@@ -69,7 +67,7 @@
 				
                </div>
 			  <%-- Show details portion for institution --%>	
-				<div id="InstituteShow" style="margin-top:4%;display:none;" class="span6 noMarginLeft">
+				<div id="InstituteShow" style="display:none;" class="span6 noMarginLeft">
 				<div class="dark">
 				<h1>Details</h1>
 				<div class="box-content">
@@ -89,8 +87,8 @@
                         <%-- Div general information details --%>
                          <div id="divGenDetals" class="panel span12">
                        <address>
-                           <strong>Address</strong><br />
-                           <p><label id="lblAddress">Thrissur Kerala</label> </p>
+                           <strong>Patron</strong><br />
+                           <p><label id="lblPatronDisplay">Thrissur Kerala</label> </p>
                        </address>
                        <address>
                            <strong>History</strong><br />
@@ -129,15 +127,17 @@
 				
 				</div>	
               <!---------------------  Add New Priest and Edit details ----------------------------->
-                <div id="InstituteEdit" style="display:none;margin-top:4%;" class="span6 noMarginLeft">
+                <div id="InstituteEdit" style="display:none;" class="span6 noMarginLeft">
 					<div class="dark">
 					<h1 id="HeadDetails">Add Details</h1>
 					<div class="box-content">
 					<div class="form-horizontal">
 				    <fieldset>
-                    <%--<a class="btnEdit" style="right:30px;position: absolute;" onclick="EditInstitute();"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>--%>
+                        <a class="btnEdit" id="iconDisInstitute" style="right:40px;top:-41px;position: absolute;" title="EDIT" name="Edit" onclick="Cancel(this);"><i class="halflings-icon white refresh" aria-hidden="true" ></i></a>
+                    
                         <div class="control-group span12">
-					    <img class="priestimage" id="priestPreview" src="../img/gallery/Pious.jpg"/>
+					    <img class="priestimage span4" style="display:none;" id="priestPreview" src="../img/gallery/Pious.jpg"/>
+                            <strong class="span6"><br /><br /><br /><h2 id="lblPatron"></h2></strong>
                          <%--<input type="file" value="Choose Image" id="instituteimg" accept="image/*" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="OnUpload(this);showpreview(this);" />--%>
 							</div>
                         <%-- Accordion general information --%>        
@@ -266,6 +266,7 @@
                         </div> 
                       <input id="hdnInstituteID" type="hidden" />
                            <input id="hdnAdminID" type="hidden" />
+                           <input id="hdnmemID" type="hidden" />
                           
 					  </div> 
                     </fieldset>

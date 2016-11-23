@@ -124,6 +124,7 @@
     <Content Include="CSS\timepicki.css" />
     <Content Include="CSS\uniform.default.css" />
     <Content Include="CSS\uploadify.css" />
+    <Content Include="Default.aspx" />
     <Content Include="Font\fontawesome-webfont.svg" />
     <Content Include="Font\glyphicons-regular-0.eot" />
     <Content Include="Font\glyphicons-regular.eot" />
@@ -501,6 +502,13 @@
     </Compile>
     <Compile Include="DAL\TownMaster.cs" />
     <Compile Include="DAL\Users.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ImageHandler\UploadHandler.ashx.cs">
       <DependentUpon>UploadHandler.ashx</DependentUpon>
     </Compile>

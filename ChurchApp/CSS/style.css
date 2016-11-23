@@ -40,7 +40,7 @@
            color: #ffffff;
            font-size: 20px;
            background: #F44336;
-           padding: 5px 14px 5px 14px;
+           padding: 3px 14px 3px 14px;
            text-decoration: none;
            position:relative;
            cursor:pointer;
@@ -61,7 +61,7 @@
            color: #ffffff;
            font-size: 20px;
            background: #21a01b;
-           padding: 8px 10px 8px 13px;
+           padding: 6px 10px 4px 13px;
            text-decoration: none;
            cursor:pointer;
        }

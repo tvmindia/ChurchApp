@@ -312,11 +312,20 @@ namespace ChurchApp.AdminPanel
                 {
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
                     memberObj.churchId = UA.ChurchID;
-                    memberObj.familyID = memberObj.familyObj.InsertFamily();
-                    if(memberObj.familyID!="" && memberObj.familyID!=null)
+                    if (memberObj.familyObj.familyId != "" && memberObj.familyObj.familyId != null)
                     {
+                        memberObj.familyID = memberObj.familyObj.familyId;
                         status = memberObj.InsertMember();
                     }
+                    else
+                    {
+                        memberObj.familyID = memberObj.familyObj.InsertFamily();
+                        if (memberObj.familyID != "" && memberObj.familyID != null)
+                        {
+                            status = memberObj.InsertMember();
+                        }
+                    }
+                   
                     
                 }
             }
@@ -392,10 +401,11 @@ namespace ChurchApp.AdminPanel
                 {
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
                     memberObj.churchId = UA.ChurchID;
-                    memberObj.familyID = memberObj.familyObj.InsertFamily();
+                    //memberObj.familyID = memberObj.familyObj.InsertFamily();
                     memberObj.familyObj.familyUnitsObj.updatedBy = UA.userName;
                     if (memberObj.familyID != "" && memberObj.familyID != null)
                     {
+                        memberObj.familyObj.familyId = memberObj.familyID;
                         status = memberObj.familyObj.UpdateFamily();
                     }
 
@@ -649,5 +659,87 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion DeleteAdministrator
+
+        #region SelectAdministrator
+        [System.Web.Services.WebMethod]
+        public static string SelectAdministrator(ChurchApp.DAL.Administrators AdminObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string jsonResult = null;
+            DataSet ds = null;
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            try
+            {
+                if (UA != null)
+                {
+                    AdminObj.churchId = UA.ChurchID;
+                    ds = AdminObj.SelectAdministrator();
+                
+                    //Converting to Json
+                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+
+                    }
+
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return jsonResult;
+        }
+        #endregion SelectAdministrator
+
+        #region  Update Administrator
+        /// <summary>
+        /// Update Administrator Details
+        /// </summary>
+        /// <param name="AdminObj"></param>
+        /// <returns>Success/Failure</returns>
+        [System.Web.Services.WebMethod]
+        public static string UpdateAdministrator(ChurchApp.DAL.Administrators AdminObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string status = null;
+            try
+            {
+                AdminObj.churchId = UA.ChurchID;
+                AdminObj.updatedBy = UA.userName;
+                status = AdminObj.UpdateAdministrator().ToString();
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return status;
+
+        }
+
+        #endregion Update Administrator
     }
 }
