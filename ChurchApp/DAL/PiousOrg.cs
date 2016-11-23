@@ -31,6 +31,21 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string PatronID
+        {
+            get;
+            set;
+        }
+        public string results
+        {
+            get;
+            set;
+        }
+        public string Patron
+        {
+            get;
+            set;
+        }
         public string albumId
         {
             get;
@@ -52,6 +67,11 @@ namespace ChurchApp.DAL
             set;
         }
         public DateTime updatedDate
+        {
+            get;
+            set;
+        }
+        public string imagepath
         {
             get;
             set;
@@ -118,10 +138,19 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertPiousOrg]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(piousOrgID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar,150).Value = Name;
                 cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
+                cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(PatronID);
+                if(albumId!=null)
+                {
+                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
+                }
+                else
+                {
+                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = albumId;
+                }
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -225,6 +254,59 @@ namespace ChurchApp.DAL
             return outParam.Value.ToString();
         }
         #endregion DeletePiousOrg
+
+        #region SelectInstitutionusing InstituteID
+        /// <summary>
+        /// Select All Priests
+        /// </summary>
+        /// <returns>All Priests</returns>
+        public void SelectOrganizationUsingID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetPiousDetails]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(piousOrgID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow dr = dt.Rows[0];
+                    piousOrgID = dr["ID"].ToString();
+                    Name = dr["Name"].ToString();
+                    description = dr["Desc"].ToString();
+                    albumId = dr["AlbumID"].ToString();
+                    Patron= dr["PatronName"].ToString();
+                    churchID = dr["ChurchID"].ToString();
+                    imagepath = dr["URL"].ToString();
+                    //albumId = dr["AlbumID"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+
+        }
+        #endregion SelectInstitutionusing InstituteID
 
         #endregion Methods
     }

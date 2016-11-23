@@ -217,7 +217,7 @@ namespace ChurchApp.AdminPanel
             try
             {
                 AdminObj.createdBy = UA.userName;
-                AdminObj.orgType = "INST";
+                //AdminObj.orgType = "INST";
                 status = AdminObj.InsertAdministrator().ToString();
                 AdminObj.results = status;
 
@@ -253,7 +253,7 @@ namespace ChurchApp.AdminPanel
             try
             {
                 AdminObj.updatedBy = UA.userName;
-                AdminObj.orgType = "INST";
+                //AdminObj.orgType = "INST";
                 status = AdminObj.UpdateAdministrator().ToString();
                 AdminObj.results = status;
 

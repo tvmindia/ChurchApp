@@ -127,6 +127,7 @@ function SaveAdministrator()
         //-----------------------INSERT-------------------//
 
         if (AdminID == null || AdminID == "") {
+            var i = "0";
             var guid = createGuid();
             if (guid != null) {
                 ///////Image insert using handler
@@ -147,7 +148,7 @@ function SaveAdministrator()
                     }
                     formData.append('ActionTyp', 'NoticeAppImageInsert');
                     AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    
+                    i = "1";
                 }
 
             }
@@ -156,8 +157,12 @@ function SaveAdministrator()
             Administrators.desigId = $('#ddlRole').val();
             Administrators.Name = $('#txtName').val();
             Administrators.Phone = $('#txtMobile').val();
+            Administrators.orgType = "INST";
             Administrators.orgId = InstituteID;
-            Administrators.imageID = guid;
+            if (i == "1")
+            {
+                Administrators.imageID = guid;
+            }
             Administrators.adminId = guid;
             $("#hdnAdminID").val(guid);
             result = InsertAdministrator(Administrators);
@@ -182,8 +187,9 @@ function SaveAdministrator()
             Administrators.desigId = $('#ddlRole').val();
             Administrators.Name = $('#txtName').val();
             Administrators.Phone = $('#txtMobile').val();
+            Administrators.orgType = "INST";
             Administrators.orgId = InstituteID;
-            Administrators.imageID = $("#hdnAdminID").val();
+            //Administrators.imageID = $("#hdnAdminID").val();
             Administrators.adminId = $("#hdnAdminID").val();
             ///////Image insert using handler
             var guid = createGuid();

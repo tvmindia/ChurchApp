@@ -57,7 +57,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
-
+        public string imagepath
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Methods
@@ -269,6 +273,54 @@ namespace ChurchApp.DAL
         }
         #endregion Get patron ID And Name
 
+        #region SelectInstitutionusing InstituteID
+        /// <summary>
+        /// Select All Priests
+        /// </summary>
+        /// <returns>All Priests</returns>
+        public void SelectPatronByID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetPatron]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronMasterId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow dr = dt.Rows[0];
+                    patronMasterId = dr["ID"].ToString();
+                    patronMasterName = dr["Name"].ToString();
+                    imageID = dr["ImageID"].ToString();
+                    imagepath = dr["URL"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+
+        }
+        #endregion SelectInstitutionusing InstituteID
 
         #endregion Methods
     }
