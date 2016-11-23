@@ -9,6 +9,7 @@ using ChurchApp.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -35,7 +36,57 @@ namespace ChurchApp.AdminPanel
 
         #region Methods
 
-        //-------------Patron 
+        //-------------* General  Methods *--------------//
+
+        #region Delete From Server Folder
+        [System.Web.Services.WebMethod]
+        public static void DeleteFileFromFolder(string imgPath)
+        {
+            if (imgPath.Contains('/'))
+            {
+                string imgName = imgPath.Split('/').Last();
+
+                string ServerPath = HttpContext.Current.Server.MapPath("~/img/AppImages/" + imgName);
+
+                FileInfo file = new FileInfo(ServerPath);
+                if (file.Exists)
+                {
+                    file.Delete();
+                }
+
+            }
+        }
+
+        #endregion 
+
+        //-------------* AppImage  Methods *--------------//
+
+        #region Delete App Image
+
+        [System.Web.Services.WebMethod]
+        public static string DeleteAppImage(ChurchApp.DAL.AppImages AppImgObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            string status = null;
+            try
+            {
+                status = AppImgObj.DeleteAppImage();
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(AppImgObj);
+
+        }
+
+
+        #endregion Delete App Image
+
+        //-------------- Patron 
 
         #region Get patron ID And Name (To Bind Patron Dropdown)
 
@@ -143,8 +194,7 @@ namespace ChurchApp.AdminPanel
 
         #endregion Add New Patron
 
-
-        //----------- Novena
+        //-------------- Novena
 
         #region GetNovenaDetailsByPatronID
 
@@ -261,6 +311,40 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Add New Novena
+
+        #region Delete Novena 
+
+        [System.Web.Services.WebMethod]
+        public static string DeleteNovena(ChurchApp.DAL.Novenas NovenaObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            string status = null;
+            try
+            {
+                NovenaObj.churchId = UA.ChurchID;
+                status = NovenaObj.DeleteNovena();
+                NovenaObj.Status = status;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(NovenaObj);
+
+        }
+
+
+        #endregion Delete Novena 
+
+        //-------------- Novena Timing
 
         #region Add Novena Timing
 
