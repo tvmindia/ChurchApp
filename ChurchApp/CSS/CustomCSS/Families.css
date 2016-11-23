@@ -198,10 +198,10 @@ i#faUser {
 .alert{
     line-height:0px;
 }
-.navbar
+/*.navbar
 {
     z-index:0 !important;
-}
+}*/
 #imgThumbnail>img
 {
     height: 85px !important;

@@ -8,6 +8,7 @@ $(document).ready(function () {
     //
     /// Function Binding Dropdown Select roles
     //BindSelect();
+    AutoComplete();
     ///
     /// Save button Click for admin Add & Update in modal
     $('#btnAddAdmin').click(function (e) {
@@ -233,28 +234,28 @@ function SaveInstitution() {
         if (InstituteID == null || InstituteID == "") {
             var guid = createGuid();
 
-            if (guid != null) {
-                var i = 0;
-                var imgresult = "";
-                var _URL = window.URL || window.webkitURL;
-                var formData = new FormData();
-                var imagefile, logoFile, img;
+            //if (guid != null) {
+            //    var i = 0;
+            //    var imgresult = "";
+            //    var _URL = window.URL || window.webkitURL;
+            //    var formData = new FormData();
+            //    var imagefile, logoFile, img;
 
-                if (((imagefile = $('#instituteimg')[0].files[0]) != undefined)) {
-                    var formData = new FormData();
-                    var tempFile;
-                    if ((tempFile = $('#instituteimg')[0].files[0]) != undefined) {
-                        tempFile.name = guid;
-                        formData.append('NoticeAppImage', tempFile, tempFile.name);
-                        formData.append('GUID', guid);
-                        formData.append('createdby', 'sadmin');
-                    }
-                    formData.append('ActionTyp', 'NoticeAppImageInsert');
-                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    i = "1";
-                }
+            //    if (((imagefile = $('#instituteimg')[0].files[0]) != undefined)) {
+            //        var formData = new FormData();
+            //        var tempFile;
+            //        if ((tempFile = $('#instituteimg')[0].files[0]) != undefined) {
+            //            tempFile.name = guid;
+            //            formData.append('NoticeAppImage', tempFile, tempFile.name);
+            //            formData.append('GUID', guid);
+            //            formData.append('createdby', 'sadmin');
+            //        }
+            //        formData.append('ActionTyp', 'NoticeAppImageInsert');
+            //        AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+            //        i = "1";
+            //    }
 
-            }
+            //}
 
             var Institutions = new Object();
             Institutions.name = $('#txtInstituteName').val();
@@ -359,6 +360,58 @@ function SaveInstitution() {
 
     }
 
+}
+//
+//Function For auto complete text box for patron
+function AutoComplete() {
+    var ac = null;
+    debugger;
+    ac = GetAllPatrons();
+
+    var length = ac.length;
+    var projects = new Array();
+    for (i = 0; i < length; i++) {
+        var name = ac[i].split('🏠');
+        projects.push({ value: name[0], label: name[0], desc: name[1] })
+    }
+
+    $("#txtPatron").autocomplete({
+        maxResults: 10,
+        source: function (request, response) {
+            //--- Search by name or description(file no , mobile no, address) , by accessing matched results with search term and setting this result to the source for autocomplete
+            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+            var matching = $.grep(projects, function (value) {
+
+                var name = value.value;
+                var label = value.label;
+                var desc = value.desc;
+
+                return matcher.test(name) || matcher.test(desc);
+            });
+            var results = matching; // Matched set of result is set to variable 'result'
+
+            response(results.slice(0, this.options.maxResults));
+        },
+        focus: function (event, ui) {
+            $("#txtPatron").val(ui.item.label);
+
+            return false;
+        },
+        select: function (event, ui) {
+
+            //var FileName =    ui.item.desc.split('|')[0].split('📰')[1];
+            // var Address =  ui.item.desc.split('|')[1];
+            var patronID = ui.item.desc;
+            $('#hdnPatron').val(patronID);
+            BindPatron(patronID);
+            $('#iconEditPriest').hide();
+            $('#btnAddPriest').show();
+            //document.getElementById('<%=Errorbox.ClientID %>').style.display = "none";
+
+
+            return false;
+        }
+    })
 }
 //
 //Function Dropdown binding for select roles in admin add model
@@ -952,6 +1005,23 @@ function DeleteInstitute(InstituteRow) {
     }
 
 }
+//Get Patrons
+function GetAllPatrons() {
+    try
+    {
+        var ds = {};
+        var table = {};
+        var PatronMaster = new Object();
+        var data = "{'PatrnObj':" + JSON.stringify(PatronMaster) + "}";
+        ds = getJsonData(data, "../AdminPanel/PiousOrganizations.aspx/GetAllPatrons");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch(e)
+    {
+
+    }
+}
 ///End Sending Json data and retrive methods
 
 //////////////////////////////////////////////////////////************Client side Validation
@@ -961,27 +1031,11 @@ function InstitutionValidation() {
     debugger;
     $('#Displaydiv').remove();
     var Name = $('#txtInstituteName');
-    var Address = $('#txtAddress');
-    var Founder = $('#txtFounder');
-    var Founded = $('#txtFounded');
-    var History = $('#txtHistory');
-    var Email = $('#txtEmail');
-    var Website = $('#txtWebsite');
-    var Phone1 = $('#txtPhone1');
-    var Phone2 = $('#txtPhone2');
-    var mobile = $('#txtMob');
+    var Patron = $('#txtPatron');
 
     var container = [
         { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
-        { id: Address[0].id, name: Address[0].name, Value: Address[0].value },
-        //{ id: Founder[0].id, name: Founder[0].name, Value: Founder[0].value },
-        //{ id: Founded[0].id, name: Founded[0].name, Value: Founded[0].value },
-        //{ id: History[0].id, name: History[0].name, Value: History[0].value },
-        //{ id: Email[0].id, name: Email[0].name, Value: Email[0].value },
-        //{ id: Website[0].id, name: Website[0].name, Value: Website[0].value },
-        { id: Phone1[0].id, name: Phone1[0].name, Value: Phone1[0].value },
-        //{ id: Phone2[0].id, name: Phone2[0].name, Value: Phone2[0].value },
-        //{ id: mobile[0].id, name: mobile[0].name, Value: mobile[0].value },
+        { id: Patron[0].id, name: Patron[0].name, Value: Patron[0].value },
     ];
 
     var j = 0;

@@ -204,6 +204,7 @@
                         </div>
                         <%-- End div Administrator information --%>
 						<input type="hidden" id="hdnInstutID" />
+                        <input type="hidden" id="hdnPatron" />
 							<div class="form-actions span12">
 							  <a class="btn btn-primary" name="" id="btnSaveInstitute">Save changes</a>
                                 <a id="btncancelInstitute" name="" class="btn btn-primary" onclick="Cancel(this);">Cancel</a>
