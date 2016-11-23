@@ -216,12 +216,21 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronId);
                 cmd.Parameters.Add("@NovenaCaption", SqlDbType.NVarChar, 100).Value = novenaCaption;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
-                cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = Convert.ToDateTime(endDate);
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
-                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
+                if (startDate != null && startDate != string.Empty)
+                {
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = Convert.ToDateTime(startDate);
+                }
+                if (endDate != null && endDate != string.Empty)
+                {
+                    cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = Convert.ToDateTime(endDate);
+                }
+                if (imageID != null && imageID != string.Empty)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
+                }
+                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -601,8 +610,45 @@ namespace ChurchApp.DAL
         }
         #endregion DeleteNovenaTiming By novenaID,day,time
 
+        #region DeleteNovenaTimingsByNovenaID
+        /// <summary>
+        /// Delete Novena Timing By novena ID
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string DeleteNovenaTimingsByNovenaID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteNovenaTimingsByNovenaID]";
+                cmd.Parameters.Add("@NovenaID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(novenaId);
+                outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion DeleteNovenaTimingsByNovenaID
 
-        #region format  time into 24 hr 
+        #region format  time into 24 hr
         /// <summary>
         /// convert start time format into 24 hour format
         /// </summary>
