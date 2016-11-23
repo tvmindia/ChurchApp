@@ -49,6 +49,7 @@ $(document).ready(function () {
                 $('.alert-success strong').text("Saved Successfully");
                 FamilyAutoBind();
                 $("#FamilyAdd").css("margin-top", "3%");
+                ClearTextboxes();
             }
             else {
                 $('#rowfluidDiv').show();
@@ -121,6 +122,7 @@ $(document).ready(function () {
                     FamilyMembersAutoBind();
                     $("#FamilyAdd").css("margin-top", "3%");
                     $(".FamiliesEdit").css("display", "none");
+                    ClearTextboxes();
                 }
                 else
                 {
@@ -285,7 +287,8 @@ $(document).ready(function () {
                 $('.alert-success').show();
                 $('.alert-success strong').text("Saved Successfully");
                 BindFamilyUnitsAccordion();
-                $("#FamilyAdd").css("margin-top","3%");
+                $("#FamilyAdd").css("margin-top", "3%");
+                ClearTextboxes();
             }
             else {
                 $('#rowfluidDiv').show();
@@ -866,6 +869,15 @@ function UpdateFamily(e) {
         $("#txtAddress").attr('disabled', 'disabled');
 
     }
+}
+function ClearTextboxes()
+{
+    $("#txtFirstName").val("");
+    $("#txtLastName").val("");
+    $("#txtFamilyName").val("");
+    $("#txtUnitName").val("");
+    $("#txtPhone").val("");
+    $("#txtAddress").val("");
 }
 function BindIconFamilyMembers(e)
 {
