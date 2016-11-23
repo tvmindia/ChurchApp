@@ -10,6 +10,106 @@ namespace ChurchApp.DAL
 {
     public class Users
     {
+        public Church churchObj;
+        public Roles rolesObj;
+        #region Usersproperties
+        public string ID
+        {
+            get;
+            set;
+        }
+        public string Name
+        {
+            get;
+            set;
+        }
+        public string Mobile
+        {
+            get;
+            set;
+        }
+        public string Email
+        {
+            get;
+            set;
+        }
+        public Boolean Active
+        {
+            get;
+            set;
+        }
+        public string DOB
+        {
+            get;
+            set;
+        }
+        public Boolean Administrator
+        {
+            get;
+            set;
+        }
+        public string Gender
+        {
+            get;
+            set;
+        }
+        public Boolean IsVerified
+        {
+            get;
+            set;
+        }
+        public Boolean IsUnsubscribed
+        {
+            get;
+            set;
+        }
+        public string Address
+        {
+            get;
+            set;
+
+        }
+        #endregion Usersproperties
+
+
+
+        #region Methods
+        #region  SelectAllUsers
+        public DataSet SelectAllUsers()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectAllUsers]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectAllUsers
+        #endregion Methods
+
     }
     public class Roles
     {
@@ -133,6 +233,42 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectAllRoles
+
+        #region GetAllRolesIDandText
+        public DataSet GetAllRolesIDandText()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@churchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchObj.churchId);
+                cmd.CommandText = "[GetAllRolesIDandText]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllRolesIDandText
 
         #region DeleteRole
         public string DeleteRole()

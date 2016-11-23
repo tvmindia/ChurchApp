@@ -309,6 +309,45 @@ namespace ChurchApp.AdminPanel
         }
         #endregion SelectAllRoles
 
+
+        #region GetAllRolesIDandText
+        [System.Web.Services.WebMethod]
+        public static string GetAllRolesIDandText(Roles rolesObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            try
+            {
+
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                DataSet ds = null;
+
+                ds = rolesObj.GetAllRolesIDandText();
+               //Converting to Json
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion GetAllRolesIDandText
+
         #region InsertRoles
         [System.Web.Services.WebMethod]
         public static string InsertRoles(Roles rolesObj)
@@ -413,6 +452,44 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion UpdateRoles
+
+
+        #region SelectAllUsers
+
+        [System.Web.Services.WebMethod]
+        public static string SelectAllUsers(Users usersObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                DataSet ds = null;
+                ds = usersObj.SelectAllUsers();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion SelectAllUsers
 
 
     }

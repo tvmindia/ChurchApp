@@ -15,10 +15,7 @@
         $("#txtLatitude").val(e.latLng.lat());
 
     });
-    
 
-
-    debugger;
     try
     {
         $(".ddlTownCode").select2({
@@ -45,6 +42,29 @@
     {
 
     }
+
+    try{ 
+        var $churchSelect = $(".ddlChurchuser").select2({
+            placeholder: "Choose Church",
+            allowClear: true,
+            data: BindChurchDropdown()
+        });
+        $churchSelect.on("change", function (e)
+        {
+            debugger;
+            var $selectRoles = $(".ddlRoles").select2();
+            //$selectRoles.val(null).trigger("change");
+            // $selectRoles.select2('val', '');
+            $selectRoles.select2().empty();
+            var chid = $(this).val();
+              $(".ddlRoles").select2({
+                placeholder: "Choose Role",
+                allowClear: true,
+                data: BindRolesDropdown(chid)
+            });
+                 
+        });
+        } catch (e) { }
 
     try {
         $(".ddlRoleName").select2({
@@ -89,7 +109,20 @@
 
     }
 
+    try {
+        BindAllUsers();
+        $('#Userstable').DataTable(
+        {
+            order: [[0, 'asc'], [1, 'asc']],
+            searching: false,
+            paging: true
+        });
+    }
+    catch (e) {
 
+    }
+
+    
     
 
     $('.churchdoublebox').click(function (e) {
@@ -320,19 +353,7 @@
     });
 
 
-    $('.RolesClear').click(function (e) {
-
-
-
-        $('#rowfluidDivAlert').hide();
-        $('.alert').hide();
-        $("#txtRoleName").val('');
-        $(".ddlChurch").select2("val", "");
-       
-        $("#hdfRolesID").val('');
-      
-
-    });
+    
 
     $('.RolesClear').click(function (e) {
         $('#rowfluidDivAlert').hide();
@@ -341,6 +362,27 @@
         $(".ddlChurch").select2("val", "");
     });
 
+
+    $('.btnUserAdd').click(function (e) {
+        $('#rowfluidDivAlert').hide();
+        $('.alert').hide();
+
+        try
+        {
+            Users = new Object();
+            Church = new Object();
+            alert("Work in progress");
+
+
+
+        }
+        catch(e)
+        {
+
+        }
+
+
+    });
 
 
     $('#btnRolesAdd').click(function (e) {
@@ -713,12 +755,43 @@ function BindTownMasterDropdown() {
     }
     
 }
+function BindTownMasterDropdown() {
+    try {
+        var jsonResult = {};
+        var TownMaster = new Object();
+        jsonResult = GetAllTowns(TownMaster);
+        if (jsonResult != undefined) {
+            return jsonResult;
+        }
+    }
+    catch (e) {
 
+    }
+
+}
 function BindChurchDropdown() {
     try {
         var jsonResult = {};
         var Church = new Object();
         jsonResult = GetAllChurchIDandText(Church);
+        if (jsonResult != undefined) {
+            return jsonResult;
+        }
+    }
+        catch(e)
+        {
+
+        }
+    }
+
+function BindRolesDropdown(chid) {
+    try {
+        var jsonResult = {};
+        var church = new Object();
+        church.churchId = chid;
+        var Roles = new Object();
+        Roles.churchObj = church;
+        jsonResult = GetAllRolesIDandText(Roles);
         if (jsonResult != undefined) {
             return jsonResult;
         }
@@ -734,6 +807,19 @@ function GetAllTowns(TownMaster) {
     try {
         var data = "{'townMasterObj':" + JSON.stringify(TownMaster) + "}";
         ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllTowns");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+    }
+    return table;
+}
+
+function GetAllRolesIDandText(Roles) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'rolesObj':" + JSON.stringify(Roles) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllRolesIDandText");
         table = JSON.parse(ds.d);
     }
     catch (e) {
@@ -822,6 +908,45 @@ function LoadRoles(Records) {
 }
 
 
+function BindAllUsers() {
+    try {
+        var Users = new Object();
+        var jsonResultUser = GetAllUsers(Users);
+        if (jsonResultUser != null) {
+            LoadUsers(jsonResultUser);
+        }
+    }
+    catch (e) {
+
+    }
+}
+
+function GetAllUsers(Users) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'usersObj':" + JSON.stringify(Users) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllUsers");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function LoadUsers(Records) {
+    try {
+        $("#Userstable").find(".userrow").remove();
+        $.each(Records, function (index, Record) {
+            var html = '<tr class="userrow"><td>' + Record.UserName + '</td><td class="center">' + Record.Mobile + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + Record.RoleName + '</td><td class="center"><a class="circlebtn circlebtn-info"><i userid=' + Record.UserID + ' class="halflings-icon white edit" onclick="EditRole(this)"></i></a><a class="circlebtn circlebtn-danger"><i userid=' + Record.RoleID + ' class="halflings-icon white trash" onclick="RemoveRole(this)"></i></a></td></tr>';
+            $("#Userstable").append(html);
+        })
+    }
+    catch (e) {
+
+    }
+}
 
 
 

@@ -295,8 +295,7 @@
 									  <th>Mobile</th>
 									  <th>Church</th>
                                       <th>Role</th>
-                                      <th>Administrator</th>
-									  <th>Actions</th>                                          
+                                     <th>Actions</th>                                          
 								  </tr>
 							  </thead>   
 							  <tbody>
@@ -313,6 +312,15 @@
 							<fieldset>
                              <div class="span12">   
 				             <div class="span6">
+
+                                     <div class="control-group">
+                             <label class="control-label" for="focusedInput">Church</label>
+                               <div class="controls">
+                                  <select class="ddlChurchuser"><option></option></select>
+                                  
+                                 </div>
+                             </div>
+                                   
 						     
 						      <div class="control-group">
 
@@ -322,6 +330,14 @@
                                     <input class="input-large focused" name="txtUserName" id="txtUserName" placeholder=""  type="text"/>
                               </div>
                               </div>
+
+                                     <div class="control-group">
+                             <label class="control-label" for="focusedInput">Address</label>
+                               <div class="controls">
+                                  <textarea id="txtUserAddress" rows="3"></textarea>
+                                  
+                                 </div>
+                             </div>
                                       <div class="control-group">
 
                               <label class="control-label" for="focusedInput">Mobile</label>
@@ -339,24 +355,75 @@
                                  </div>
 
                                     <div class="control-group">
+                                    <label class="control-label" for="focusedInput">Gender</label>
+                                   <div class="controls">
+                                    <label class="radio">
+									<input type="radio" name="optionsRadios" id="optionMale" value="option1" checked=""/>
+									Male
+								  </label>
+								  <div style="clear:both"></div>
+								  <label class="radio">
+									<input type="radio" name="optionsRadios" id="optionFemale" value="option2"/>
+									Female
+								  </label>
+                                  </div>
+                                 </div>
+
+                          
+                   </div>
+                             <div class="span6">
+                                  
+						  
+
+                                       <div class="control-group">
+                             <label class="control-label" for="focusedInput">Roles</label>
+                               <div class="controls">
+                                  <select class="ddlRoles"><option></option></select>
+                                  
+                                 </div>
+                             </div>
+                                       <div class="control-group">
                                     <label class="control-label" for="focusedInput">Active</label>
                                    <div class="controls">
                                     <input id="chkActive" type="checkbox"/>
                                   </div>
                                  </div>
+                                       <div class="control-group">
+                                    <label class="control-label" for="focusedInput">Administrator</label>
+                                   <div class="controls">
+                                    <input id="chkAdministrator" type="checkbox"/>
+                                  </div>
+                                 </div>
 
-                                         
-                   </div>
-                             <div class="span6">
-                                  
-						      <div class="control-group">
-                             <label class="control-label" for="focusedInput">Church</label>
+                                     
+
+                                <div class="control-group">
+                                <label class="control-label" for="focusedInput">DOB</label>
                                <div class="controls">
-                                  <select class="ddlChurch"><option></option></select>
+                                <input type="text" class="input-large datepicker" id="datepickerdob" value=""/>
                                   
                                  </div>
                              </div>
-                                   
+
+
+                                   <div class="control-group">
+                                    <label class="control-label" for="focusedInput">Login Name</label>
+                                   <div class="controls">
+                                   <input class="input-large focused" name="txtLoginName" id="txtLoginName" type="text"/>
+                                  </div>
+                                 </div>
+                                   <div class="control-group">
+                                    <label class="control-label" for="focusedInput">Password</label>
+                                   <div class="controls">
+                                   <input class="input-large focused" name="txtPassword" id="txtPassword" placeholder="Password" type="password"/>
+                                  </div>
+                                 </div>
+                                  <div class="control-group">
+                                    <label class="control-label" for="focusedInput">Confirm Password</label>
+                                   <div class="controls">
+                                   <input class="input-large focused" name="txtconfirmpswd" id="txtconfirmpswd" placeholder="Confirm password" type="password"/>
+                                  </div>
+                                 </div>
                                  
                                     </div>
                              </div>
@@ -368,8 +435,8 @@
 
                     </div>
                  <footer  runat="server" class="form-actions">
-                                        <a class="btn btn-primary" id="btnRolesAdd" href="#">Save</></a>
-                                        <a class="btn RolesClear">Cancel</a>
+                                        <a class="btn btn-primary" id="btnUserAdd" href="#">Save</></a>
+                                        <a class="btn UserClear">Cancel</a>
                                     </footer>	
 
 
