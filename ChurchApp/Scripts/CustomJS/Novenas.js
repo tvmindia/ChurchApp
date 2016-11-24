@@ -347,6 +347,12 @@ $("document").ready(function (e)
     $('#btnEditPatron').click(function (e) {
         debugger;
 
+
+        $('#rowfluidDiv').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+
+
         var className = $('#iconPatronRefresh').attr('class');
         if (className == "halflings-icon white pencil") {
             BindPatronsInEditableFormat();
