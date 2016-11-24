@@ -273,13 +273,27 @@ namespace ChurchApp.DAL
                     Diocese = dr["Diocese"].ToString();
                     Status = dr["Status"].ToString();
                     churchID = dr["ChurchID"].ToString();
-                    dob = (DateTime.Parse(dr["DOB"].ToString().ToString()).ToString("dd-MM-yyyy"));
+                    if (dr["DOB"].ToString()!="")
+                    {
+                        dob = (DateTime.Parse(dr["DOB"].ToString().ToString()).ToString("dd-MM-yyyy"));
+                    }
+                    else
+                    {
+                        dob = "";
+                    }
                     address=dr["Address"].ToString();
                     mobile = dr["Mobile"].ToString();
                     emailId = dr["Email"].ToString();
                     imagePath = dr["URL"].ToString();
                     about = dr["About"].ToString();
-                    dateOrdination = (DateTime.Parse(dr["DateOrdination"].ToString()).ToString("dd-MM-yyyy"));
+                    if (dr["DateOrdination"].ToString()!="")
+                    {
+                        dateOrdination = (DateTime.Parse(dr["DateOrdination"].ToString()).ToString("dd-MM-yyyy"));
+                    }
+                    else
+                    {
+                        dateOrdination = "";
+                    }
                     designation = dr["Designation"].ToString();
                 }
 
@@ -323,9 +337,16 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Parish", SqlDbType.NVarChar, 150).Value = Parish;
                 cmd.Parameters.Add("@Diocese", SqlDbType.NVarChar, 150).Value = Diocese;
                 cmd.Parameters.Add("@Status", SqlDbType.NVarChar, 150).Value = Status;
-                cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = DateTime.Parse(dob);
+                if(dob!="")
+                {
+                    cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = DateTime.Parse(dob);
+                }
+                
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
-                cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = DateTime.Parse(dateOrdination);
+                if(dateOrdination!="")
+                {
+                    cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = DateTime.Parse(dateOrdination);
+                }
                 cmd.Parameters.Add("@Designation", SqlDbType.NVarChar, 150).Value = designation;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar,255).Value = emailId;
@@ -333,7 +354,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = true;
                 cmd.Parameters.Add("@IsDeleted", SqlDbType.Bit).Value = false;
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
-                if (imageId != string.Empty && imageId != null)
+                if (imageId != null)
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
@@ -382,15 +403,21 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Parish", SqlDbType.NVarChar, 150).Value = Parish;
                 cmd.Parameters.Add("@Diocese", SqlDbType.NVarChar, 150).Value = Diocese;
                 cmd.Parameters.Add("@Status", SqlDbType.NVarChar, 150).Value = Status;
-                cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = DateTime.Parse(dob);
+                if(dob!="")
+                {
+                    cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = DateTime.Parse(dob);
+                }                
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
-                cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = DateTime.Parse(dateOrdination);
+                if(dateOrdination!="")
+                {
+                    cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = DateTime.Parse(dateOrdination);
+                }                
                 cmd.Parameters.Add("@Designation", SqlDbType.NVarChar, 150).Value = designation;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = emailId;
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = mobile;
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
-                if (imageId != string.Empty && imageId != null)
+                if (imageId != null)
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
