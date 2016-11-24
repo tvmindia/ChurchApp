@@ -131,7 +131,7 @@
 								</div> 
                                 <div class="control-group" id="memberImgDiv">
                        <img id="MemberImg" src="../img/gallery/priest.png" class="img-rounded"/>
-                       <input class="" id="mfluImage" type="file" accept="image/*" onchange="OnUpload(this);showpreviewAdmin(this);" />
+                       <input class="" id="mfluImage" type="file" accept="image/*" onchange="OnUpload(this);showpreviewMember(this);" />
                           <%-- <output id="AdminPreview"></output>--%>
                        </div>
                         </div>
