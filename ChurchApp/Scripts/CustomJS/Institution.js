@@ -620,15 +620,16 @@ function DeleteAdministrator(this_Obj)
             AdminRow = GetAdminDetails(AdminID);
             result = DeleteAdmin(AdminRow);
             if (result.results == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Administrator Deleted Successfully");
-
+                //$('#rowfluidDiv').show();
+                //$('.alert-success').show();
+                //$('.alert-success strong').text("Administrator Deleted Successfully");
+                noty({ text: 'Administrator Deleted Successfully', type: 'success' });
             }
             if (result.results != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Deletion Not Successful");
+                //$('#rowfluidDiv').show();
+                //$('.alert-error').show();
+                //$('.alert-error strong').text("Deletion Not Successful");
+                noty({ text: 'Deletion Not Successful', type: 'error' });
             }
             BindEditCard(AdminRow.orgId);
         }
@@ -741,17 +742,19 @@ function DeleteInstituteclick(this_Obj)
             if (Adminresult == "sucess") {
                 result = DeleteInstitute(InstituteRow);
                 if (result.results == "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-                    $('.alert-success strong').text("Institution Deleted Successfully");
+                    //$('#rowfluidDiv').show();
+                    //$('.alert-success').show();
+                    //$('.alert-success strong').text("Institution Deleted Successfully");
+                    noty({ text: 'Institution Deleted Successfully', type: 'success' });
                     BindInstituteslist();
                     $('#InstituteEdit').hide();
                     $('#InstituteShow').hide();
                 }
                 if (result.results != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                    $('.alert-error strong').text("Deletion Not Successful");
+                    //$('#rowfluidDiv').show();
+                    //$('.alert-error').show();
+                    //$('.alert-error strong').text("Deletion Not Successful");
+                    noty({ text: 'Deletion Not Successful', type: 'error' });
                 }
             }
         }
