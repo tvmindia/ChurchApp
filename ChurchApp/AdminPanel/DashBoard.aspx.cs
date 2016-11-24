@@ -502,13 +502,13 @@ namespace ChurchApp.AdminPanel
                 DAL.Const Const = new DAL.Const();
                 UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
                 usersObj.createdBy = UA.userName;
-              //  usersObj.InsertUsers();
+                usersObj.InsertUsers();
             }
             catch (Exception ex)
             {
 
             }
-            return "";
+            return jsSerializer.Serialize(usersObj);
         }
         #endregion InsertUsers
 
