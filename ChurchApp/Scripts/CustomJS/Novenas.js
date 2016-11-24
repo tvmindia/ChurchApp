@@ -261,10 +261,18 @@ $("document").ready(function (e)
                 AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                 PatronMaster.imageID = guid;
             }
+
+            else {
+                if ($('#hdfPatronImageID').val() != '' )
+                {
+                    PatronMaster.imageID = $('#hdfPatronImageID').val();
+                }
+            }
         }
 
-        if (  $('#hdfPatronID').val() == "") {
+        if (  $('#hdfPatronID').val() != "") {
             PatronMaster.patronMasterId = $('#hdfPatronID').val();
+
             result = UpdatePatron(PatronMaster);
 
             if ($('#hdfPatronImageID').val() != '' && (((imagefile = $('#UpSaint')[0].files[0]) != undefined))) {
@@ -272,7 +280,7 @@ $("document").ready(function (e)
                 AppImages.appImageId = $('#hdfPatronImageID').val();
                 DeleteAppImage(AppImages);
 
-                if (DeletedImgPath != '') {
+                if ($('#hdfPatronImageURL').val() != "") {
                     DeleteFileFromFolder($('#hdfPatronImageURL').val());
                 }
 
@@ -1063,7 +1071,9 @@ function UpdatePatron(PatronMaster) {
 }
 
 function deletePatron(obj)
-{
+{  var deleteConirm = confirm("Want to delete?");
+if (deleteConirm) {
+
     var patronID = $(obj).attr('ID');
     var PatronImageID = $(obj).attr('ImageID');
     var PatronImageURL = $(obj).attr('URL');
@@ -1086,6 +1096,12 @@ function deletePatron(obj)
         DeleteFileFromFolder(PatronImageURL);
 
     }
+}
+
+else {
+    return false;
+}
+
 }
 
 function DeletePatron(PatronMaster)
@@ -1451,8 +1467,6 @@ function DeleteTime(Obj) {
     var deleteConirm = confirm("Want to delete?");
     if (deleteConirm) {
         
-       
-
     var $row = $(Obj).closest("tr"),       // Finds the closest row <tr> 
     $tds = $row.find("td");             // Finds all children <td> elements
 
