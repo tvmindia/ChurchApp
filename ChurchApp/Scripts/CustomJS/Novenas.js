@@ -990,21 +990,6 @@ function NewSaintValidation() {
 
     ];
 
-    if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
-    {
-        var StartDate = $('#dateStartDate');
-        var Expirydate = $('#dateExpiryDate');
-        var NotificationContent = $('#txtnotificationCOntent').val();
-        container = [
-        { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
-        , { id: StartDate[0].id, name: StartDate[0].name, Value: StartDate[0].value }
-        , { id: Expirydate[0].id, name: Expirydate[0].name, Value: Expirydate[0].value }
-        , { id: NotificationContent[0].id, name: NotificationContent[0].name, Value: NotificationContent[0].value }
-        ];
-
-    }
-
-
     var j = 0;
     var Errorbox = document.getElementById('ErrorBox');
     var divs = document.createElement('div');
