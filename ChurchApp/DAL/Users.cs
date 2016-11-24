@@ -69,7 +69,56 @@ namespace ChurchApp.DAL
             set;
 
         }
+
+        public string createdBy
+        {
+            get;
+            set;
+        }
+        public string createdDate
+        {
+            get;
+            set;
+        }
+        public string updatedBy
+        {
+            get;
+            set;
+        }
+        public string updatedDate
+        {
+            get;
+            set;
+        }
+
+
         #endregion Usersproperties
+
+        #region App_Adminproperties 
+        public string LoginName
+        {
+            get;
+            set;
+
+        }
+        public string Password
+        {
+            get;
+            set;
+        }
+        public string VerificationCode
+        {
+            get;
+            set;
+        }
+        public string VerifyCodeDate
+        {
+            get;
+            set;
+
+        }
+
+        #endregion App_Adminproperties
 
 
 
@@ -108,6 +157,49 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectAllUsers
+
+        //#region InsertUsers
+        //public string InsertUsers()
+        //{
+        //    dbConnection dcon = null;
+        //    SqlCommand cmd = null;
+        //    SqlParameter outParam = null;
+        //    SqlParameter outParam1 = null;
+        //    try
+        //    {
+        //        dcon = new dbConnection();
+        //        dcon.GetDBConnection();
+        //        cmd = new SqlCommand();
+        //        cmd.Connection = dcon.SQLCon;
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.CommandText = "[InsertUser]";
+        //        cmd.Parameters.Add("@RoleName", SqlDbType.NVarChar, 25).Value = RoleName;
+        //        cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchObj.churchId);
+        //        cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+        //        cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+        //        outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+        //        outParam.Direction = ParameterDirection.Output;
+        //        outParam1 = cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier);
+        //        outParam1.Direction = ParameterDirection.Output;
+        //        cmd.ExecuteNonQuery();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        if (dcon.SQLCon != null)
+        //        {
+        //            dcon.DisconectDB();
+        //        }
+        //    }
+        //    ID = outParam1.Value.ToString();
+        //    status = outParam.Value.ToString();
+
+        //    return status;
+        //}
+        //#endregion InsertUsers
         #endregion Methods
 
     }

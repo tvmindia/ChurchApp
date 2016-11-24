@@ -49,11 +49,11 @@
 						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Churches</h2>
 						<div class="box-icon">
 						
-							<a href="#" class="btn-minimize churchdoublebox"><i class="halflings-icon chevron-up"></i></a>
+							<a  style="cursor:pointer;" class="btn-minimize churchdoublebox"><i id="churchchevronup" class="halflings-icon chevron-down"></i></a>
 						
 						</div>
 					</div>
-					<div class="box-content">
+					<div class="box-content churchBox">
 				
 						<table class="table table-bordered table-striped table-condensed" id="churchtable">
 							   <thead>
@@ -70,12 +70,9 @@
 						</tbody>
 						 </table>  
 
-                        
-                        
-					</div>
+                        <br />
 
-                    <div class="box-content">
-                         	<div class="form-horizontal">
+                        <div class="form-horizontal">
 						
 							<fieldset>
                              <div class="span12">   
@@ -168,22 +165,21 @@
                                    
                                  
                                     </div>
+                                 
                              </div>
                      
                              
                      
                          </fieldset>
-                                 </div>
-                       
-                    </div>
-                    	 
-						
-							 
-			
-                   <footer id="footer" runat="server" class="form-actions">
+                            <div id="footer" runat="server" class="form-actions">
                                         <a class="btn btn-primary" id="btnChurchAdd" href="#">Save</></a>
                                         <a class="btn ChurchClear">Cancel</a>
-                                    </footer>	
+                                    </div>	
+                        </div>
+                        
+					</div>
+
+                    
 					
 		         </div>
 				</div>
@@ -201,11 +197,11 @@
 						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Roles</h2>
 						<div class="box-icon">
 							
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+							<a style="cursor:pointer;" class="btn-minimize"><i class="halflings-icon chevron-down"></i></a>
 						
 						</div>
 					</div>
-					<div class="box-content">
+					<div class="box-content RolesBox">
 						<table class="table table-bordered" id="Rolestable">
 							  <thead>
 								  <tr>
@@ -220,11 +216,11 @@
 							                  
 							  </tbody>
 						 </table>  
-						
-					</div>
 
-                    <div class="box-content">
-                          	<div class="form-horizontal">
+                        <br />
+                        <br />
+                        <br />
+                         	<div class="form-horizontal">
 						
 							<fieldset>
                              <div class="span12">   
@@ -258,13 +254,16 @@
                              
                      
                          </fieldset>
-                                 </div>
-
-                    </div>
-                 <footer  runat="server" class="form-actions">
+                                  <div  class="form-actions">
                                         <a class="btn btn-primary" id="btnRolesAdd" href="#">Save</></a>
                                         <a class="btn RolesClear">Cancel</a>
-                                    </footer>	
+                                    </div>	
+                                 </div>
+						
+					</div>
+
+                
+                
 
 
 		   </div><!--/span-->
@@ -283,11 +282,11 @@
 						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Users</h2>
 						<div class="box-icon">
 							
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+							<a style="cursor:pointer;" class="btn-minimize"><i class="halflings-icon chevron-down"></i></a>
 						
 						</div>
 					</div>
-					<div class="box-content">
+					<div class="box-content UserBox">
 						<table class="table table-bordered" id="Userstable">
 							  <thead>
 								  <tr>
@@ -303,11 +302,9 @@
 							                  
 							  </tbody>
 						 </table>  
-						
-					</div>
 
-                    <div class="box-content">
-                          	<div class="form-horizontal">
+
+                         	<div class="form-horizontal">
 						
 							<fieldset>
                              <div class="span12">   
@@ -431,13 +428,17 @@
                              
                      
                          </fieldset>
-                                 </div>
 
-                    </div>
-                 <footer  runat="server" class="form-actions">
+                             <div class="form-actions">
                                         <a class="btn btn-primary" id="btnUserAdd" href="#">Save</></a>
                                         <a class="btn UserClear">Cancel</a>
-                                    </footer>	
+                                    </div>	
+                                 </div>
+						
+					</div>
+
+                  
+                
 
 
 		   </div><!--/span-->
@@ -467,6 +468,7 @@
 		</div>
 		
 	   </div>
-     <input type="hidden" id="hdfChurchID" />
-     <input type="hidden" id="hdfRolesID" />
+     <input type="hidden" id="hdfChurchID"/>
+     <input type="hidden" id="hdfRolesID"/>
+     <input type="hidden" id="hdfUserID"/>
 </asp:Content>

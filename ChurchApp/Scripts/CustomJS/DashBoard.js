@@ -1,5 +1,21 @@
 ﻿$("document").ready(function (e) {
+    debugger;
+    try
+    {
+        //box content collapse
+        var $targetchurchbox = $('.churchBox');
+        $targetchurchbox.slideToggle();
+        var $targetRolesBox = $('.RolesBox');
+        $targetRolesBox.slideToggle();
+        var $targetUserBox = $('.UserBox');
+        $targetUserBox.slideToggle();
+    }
+    catch(e)
+    {
 
+    }
+   
+   
 
     var mapOptions = {
         center: new google.maps.LatLng(9.9816, 76.2998),//latlong
@@ -123,20 +139,7 @@
     }
 
     
-    
-
-    $('.churchdoublebox').click(function (e) {
-        e.preventDefault();
-        var $target = $(this).parent().parent().next('.box-content');
-        var $target1 = $target.next('.box-content');
-        if ($target.is(':visible'))
-            $('i', $(this)).removeClass('chevron-up').addClass('chevron-down');
-        else
-            $('i', $(this)).removeClass('chevron-down').addClass('chevron-up');
-        $target.slideToggle();
-        $target1.slideToggle();
-
-    });
+   
 
     $('#btnChurchAdd').click(function (e) {
         debugger;
@@ -363,7 +366,7 @@
     });
 
 
-    $('.btnUserAdd').click(function (e) {
+    $('#btnUserAdd').click(function (e) {
         $('#rowfluidDivAlert').hide();
         $('.alert').hide();
 
@@ -371,8 +374,108 @@
         {
             Users = new Object();
             Church = new Object();
-            alert("Work in progress");
+            Roles = new Object();
+            if($('.ddlChurchuser').val()!="")
+            {
+                Church.churchId = $('.ddlChurchuser').val();
+            }
 
+            if ($("#txtUserName").val() != "") {
+                Users.Name = $("#txtUserName").val();
+            }
+            if($("#txtUserAddress").val()!="")
+            {
+                Users.Address = $("#txtUserAddress").val();
+            }
+
+            if ($("#txtMobile").val() != "") {
+                Users.Mobile = $("#txtMobile").val();
+            }
+            if($("#txtEmail").val()!="")
+            {
+                Users.Email = $("#txtEmail").val();
+            }
+            //if(gender option button)
+            //{
+
+            //}
+            if($('.ddlRoles').val()!="")
+            {
+                Roles.ID = $('.ddlRoles').val();
+            }
+            if($("#chkActive").val()!="")
+            {
+                Users.Active = $("#chkActive").val();
+            }
+            if ($("#chkAdministrator").val() != "") {
+                Users.Active = $("#chkAdministrator").val();
+            }
+            if($("#datepickerdob").val()!="")
+            {
+                Users.DOB = $("#datepickerdob").val();
+            }
+
+            if($("#txtLoginName").val()!="")
+            {
+                Users.LoginName = $("#txtLoginName").val();
+            }
+
+            if($("#txtLoginName").val()!="")
+            {
+                Users.Password = $("#txtLoginName").val();
+            }
+
+            Users.churchObj = Church;
+            Users.rolesObj = Roles;
+
+            if($("#hdfUserID").val()=="")
+            {
+                //INSERT
+              
+                var result = InsertUser(Users);
+                switch (result.status) {
+                    case "1":
+                        $('.alert-error').hide();
+                        $('#rowfluidDivAlert').show();
+                        $('.alert-success').show();
+                        $('.alert-success strong').text("Inserted successfully");
+                        BindAllRoles();
+                        break;
+                    case "0":
+                        $('.alert-success').hide();
+                        $('#rowfluidDivAlert').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text("Insertion was not successfull");
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            else
+            {
+                //UPDATE
+                Users.ID = $("#hdfUserID").val();
+                var result = UpdateUser(Users);
+                switch (result.status) {
+                    case "1":
+                        $('.alert-error').hide();
+                        $('#rowfluidDivAlert').show();
+                        $('.alert-success').show();
+                        $('.alert-success strong').text("Updated successfully");
+                        BindAllRoles();
+                        break;
+                    case "0":
+                        $('.alert-success').hide();
+                        $('#rowfluidDivAlert').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text("Updation was not successfull");
+                        break;
+                    default:
+                        break;
+                }
+
+            }
 
 
         }
@@ -699,6 +802,20 @@ function InsertRoles(Roles) {
     try {
         var data = "{'rolesObj':" + JSON.stringify(Roles) + "}";
         ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/InsertRoles");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function InsertUser(Users) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'usersObj':" + JSON.stringify(Users) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/InsertUsers");
         table = JSON.parse(ds.d);
     }
     catch (e) {

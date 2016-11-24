@@ -491,6 +491,27 @@ namespace ChurchApp.AdminPanel
         }
         #endregion SelectAllUsers
 
+        #region InsertUsers
+        [System.Web.Services.WebMethod]
+        public static string InsertUsers(Users usersObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                usersObj.createdBy = UA.userName;
+              //  usersObj.InsertUsers();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return "";
+        }
+        #endregion InsertUsers
+
 
     }
 }
