@@ -57,25 +57,16 @@ left: 82%;
 		float: right;
 		color: #212121;
 	}
-
-	 
-body {
-	background-color: #26a69a;
-}
-
-.demo {
+    .demo {
 	padding-top: 60px;
 	padding-bottom: 110px;
 }
-.more-less {
-   
-}
- .big-blue {
+    .big-blue {
     width: 200px;
     height: 200px;
     background-color: #00f;
   }
- .unitDetails
+     .unitDetails
  {
       position: absolute;
     right: 85px;
@@ -106,10 +97,9 @@ body {
  position: absolute;
     right: 65px;
 }
-
 .thumbnail>img
 {
-    height:130px !important;
+    height:85px !important;
 }
 .row-fluid [class*="span"]
 {
@@ -121,9 +111,8 @@ body {
 h4 {
     line-height: 0px;
 }
-img
-{
-    height:65px;
+h4 {
+    line-height: 0px;
 }
 div#faMemberHeaderDiv {
     margin-left: -5px;
@@ -166,10 +155,10 @@ i#faUser {
 .alert{
     line-height:0px;
 }
-.navbar
+/*.navbar
 {
     z-index:0 !important;
-}
+}*/
 #imgThumbnail>img
 {
     height: 85px !important;
@@ -220,4 +209,14 @@ h2
 .form-horizontal .control-label
 {
     margin-left:3%;
+}
+img#imgFamily
+{
+    height:85px !important;
+}
+img#AdminImg {
+    height: 130px !important;
+}
+img#MemberImg {
+    height: 85px !important;
 }

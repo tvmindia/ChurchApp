@@ -14,34 +14,6 @@
 				</li>
 				<li class="faUnits">Families</li>
 			</ul>
-          <%--Alert boxes --%>
-               <div id="rowfluidDiv" style="display:none;">	
-				
-
-                 
-						<div class="alert alert-error" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Operation Not Successfull.</strong> 
-						</div>
-						<div class="alert alert-success" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Successfull.</strong> 
-						</div>
-						<div class="alert alert-info" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Heads up!</strong>
-						</div>
-						<div class="alert alert-block" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<h4 class="alert-heading">Warning!</h4>
-							<p>Best check yourself, you're not looking too good.</p>
-						</div>
-					
-
-              
-            </div>
-				
-	    <%--Alert boxes --%>
          <div class="row-fluid">
              <div class="span6">
 					<div>
@@ -87,7 +59,7 @@
                          <%-----Default card with button for Adding new administrator -----%>
                             <ul class="thumbnails span4">
                             <li class="span12" id="noRecordLi" style="position: relative;height:229px;">
-                               <a class="btnNew" id="AdminBtnNew" style="position:relative!important;z-index:50;padding:40px 35px 25px 35px !important;top:75px!important;left: 10%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
+                               <a class="btnNew" id="AdminBtnNew" style="position:relative!important;z-index:50;padding:25px 20px 10px !important;top:30px!important;left: 20%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
                                <div class="thumbnail" id="noRecordThumbnail" style="position:relative!important;top: -55px;opacity:0.7;">
                                <img class="img-rounded" style="height:159px" src="../img/gallery/Noimage.png"  alt=""/>
                                 <address>
@@ -106,7 +78,7 @@
                           
                              </div>
                         
-                        <div class="span12" id="familyAddDiv"  style="margin-top:10px!important;display:none;">  
+                        <div class=" span12" id="familyAddDiv"  style="margin-top:10px!important;display:none;">  
                                <div class="box-header" data-original-title="">
 						<h2 id="FamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="memberAddOrEdit"></span> Family Member</h2>
                         <h2 id="AddFamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="familyAddOrEdit"></span> Family </h2>
@@ -114,13 +86,13 @@
                                       
 					    </div>
                                <div class="control-group" id="firstNameDiv" style="margin-top:2%">
-								<label class="control-label" for="focusedInput">First Name:</label>
+								<label class="control-label" for="focusedInput"><span id="familyHeadFirst" style="display:none;">Family Head </span>First Name:</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtFirstName" type="text"/>
                                 </div>
 								</div>
                                <div class="control-group" id="lastNameDiv">
-								<label class="control-label" for="focusedInput">Last Name:</label>
+								<label class="control-label" for="focusedInput"><span id="familyHeadLast" style="display:none;">Family Head </span>Last Name:</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtLastName" type="text"/>
                                 </div>
@@ -157,6 +129,11 @@
                                        <input type="checkbox" id="chkIsHead" value=""/>
                                 </div>
 								</div> 
+                                <div class="control-group" id="memberImgDiv">
+                       <img id="MemberImg" src="../img/gallery/priest.png" class="img-rounded"/>
+                       <input class="" id="mfluImage" type="file" accept="image/*" onchange="OnUpload(this);showpreviewAdmin(this);" />
+                          <%-- <output id="AdminPreview"></output>--%>
+                       </div>
                         </div>
                 
                         <%-- End general information --%>
@@ -200,8 +177,9 @@
 				    <fieldset>
                        <div class="span12"> 
                        <div class="control-group">
-                       <img src="../img/gallery/priest.png" class="img-rounded"/>
-                      <%-- <input class="" id="fluImage" type="file"/>--%>
+                       <img id="AdminImg" src="../img/gallery/priest.png" class="img-rounded"/>
+                       <input class="" id="fluImage" type="file" accept="image/*" onchange="OnUpload(this);showpreviewAdmin(this);" />
+                          <%-- <output id="AdminPreview"></output>--%>
                        </div>
                       <div class="control-group">
                       <label class="control-label" for="inputIcon">Designation</label>
