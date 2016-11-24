@@ -1464,7 +1464,13 @@ function FillPatrons(Records) {
         }
     })
     $('#DivSaints').append(ObjUl);
-
+    if (Records.length == 0) {
+        //$('.dataTables_empty').parent().parent().remove();
+        var img = document.createElement('img');
+        img.src = "../img/nodata.jpg";
+        img.id = "NoData";
+        $("#DivNovenas").append(img);
+    }
 }
 function GetAllPatrons(PatronMaster) {
     var ds = {};
