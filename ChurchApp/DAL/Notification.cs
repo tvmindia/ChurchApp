@@ -6,11 +6,13 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using ChurchApp.DAL;
 
 namespace ChurchApp.DAL
 {
     public class Notification
     {
+        Common commonObj = new Common();
         #region Public Properties
         public string notificationID
         {
@@ -152,7 +154,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
                 if (startDate != null && startDate != string.Empty)
                 {
-                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = DateTime.Parse(startDate); 
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Parse(startDate)); 
                 }
                 if (expiryDate != null && expiryDate != string.Empty)
                 {

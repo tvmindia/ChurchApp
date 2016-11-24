@@ -1,17 +1,12 @@
-﻿var unitID = "";
+﻿
 $(document).ready(function () {
     BindFamilyUnitsAccordion();
     BindSelect();
-   
-    $(".unitDetails").click(function (e) {
-        debugger;
-        $("#InstituteShow").css("display", "");
-        $("#FamilyAdd").css("display", "none");
-        var unitName = $(this).attr('id');
-        $("#hdfUnitName").val(unitName);
-        $("#unitHeading").text(unitName+" Unit");
-        BindFamilyUnitMemebrs();
-    });
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.     
+        document.getElementById('fluImage').addEventListener('change', handleFileSelect, false);
+    }
+
     $(".SaveFamily").click(function (e) {
         var jsonResult = {};
         var FamilyUnits = new Object();
@@ -44,35 +39,25 @@ $(document).ready(function () {
         {
             jsonResult = InsertFamily(Members);
             if (jsonResult == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Saved Successfully");
+                noty({ text: 'Saved Successfully', type: 'success' });
                 FamilyAutoBind();
-                $("#FamilyAdd").css("margin-top", "3%");
                 ClearTextboxes();
                 BindMemberSelect();
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
         else
         {
             jsonResult = SaveUpdatedFamily(Members);
             if (jsonResult == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Updated Successfully");
+                noty({ text: 'Updated Successfully', type: 'success' });
                 FamilyAutoBind();
-                $("#FamilyAdd").css("margin-top", "3%");
                 BindMemberSelect();
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
     });
@@ -118,38 +103,27 @@ $(document).ready(function () {
                 jsonResult = InsertFamily(Members);
                 if(jsonResult=="1")
                 {
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-                    $('.alert-success strong').text("Saved Successfully");
+                    noty({ text: 'Saved Successfully', type: 'success' });
                     FamilyMembersAutoBind();
-                    $("#FamilyAdd").css("margin-top", "3%");
                     $(".FamiliesEdit").css("display", "none");
                     ClearTextboxes();
                     BindMemberSelect();
                 }
                 else
                 {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                    $('.alert-error strong').text("Error..!!!");
+                    noty({ text: 'Error..!!!', type: 'error' });
                 }
             }
             else
             {
                 jsonResult = UpdateFamilyMember(Members);
                 if (jsonResult == "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-                    $('.alert-success strong').text("Updated Successfully");
-                    $("#familyAddDiv").css("margin-top", "0px");
+                    noty({ text: 'Updated Successfully', type: 'success' });
                     FamilyMembersAutoBind();
-                    $("#FamilyAdd").css("margin-top", "3%");
                     BindMemberSelect();
                 }
                 else {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                    $('.alert-error strong').text("Error..!!!");
+                    noty({ text: 'Error..!!!', type: 'error' });
                 }
             }
             
@@ -163,7 +137,6 @@ $(document).ready(function () {
             $("#FamilyAdd").css("display", "none");
             $("#familyAddDiv").css("display", "none");
             $("#btnDiv").css("display", "none");
-            $('#rowfluidDiv').hide();
           
         }
     })
@@ -182,20 +155,15 @@ $(document).ready(function () {
         if (deleteConirm) {
             jsonResult = DeleteMember(Members);
             if (jsonResult == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Deleted Successfully");
+                noty({ text: 'Deleted Successfully', type: 'success' });
                 FamilyMembersAutoBind();
                 clearControls();
                 $("#FamilyAdd").css("display", "none");
                 $("#familyAddDiv").css("display", "none");
                 $("#btnDiv").css("display", "none");
-                $("#FamilyAdd").css("margin-top", "3%");
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
         else
@@ -211,10 +179,10 @@ $(document).ready(function () {
     $(".CancelUnit").click(function (e) {
         $("#familyAddDiv").css("display", "none");
         $("#btnFamilyUnitDiv").css("display", "none");
-        $('#rowfluidDiv').hide();
         $("#txtUnitName").val("");
     });
     $(".SaveAdmin").click(function (e) {
+        debugger;
         var jsonResult = {};
         var position = $("#ddlRole option:selected").text();
         var IdAndOrder = $('#ddlRole').val();
@@ -234,32 +202,65 @@ $(document).ready(function () {
         Administrators.memberId = memberID;
         Administrators.Name = name;
         Administrators.Phone = mobile;
+   
         if ($("#AddOrEditAdmin").text() == "Add") {
+            if (adminID != null) {
+                ///////Image insert using handler
+                var imgresult = "";
+                var _URL = window.URL || window.webkitURL;
+                var formData = new FormData();
+                var imagefile, logoFile, img;
+
+                if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
+                    var formData = new FormData();
+                    var tempFile;
+                    if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
+                        tempFile.name = adminID;
+                        formData.append('NoticeAppImage', tempFile, tempFile.name);
+                        formData.append('GUID', adminID);
+                        formData.append('createdby', 'sadmin');
+                    }
+                    formData.append('ActionTyp', 'NoticeAppImageInsert');
+                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                    i = "1";
+                }
+
+            }
+            if (i == "1") {
+                Administrators.imageID = adminID;
+            }
             jsonResult = InsertAdministrator(Administrators);
             if (jsonResult == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Saved Successfully");
+                noty({ text: 'Saved Successfully', type: 'success' });
                 $("#divAdminDetals").css("display", "");
                 BindFamilyUnitMemebrs();
                 $('#modelAddAdmin').modal('hide');
-                $("#FamilyAdd").css("margin-top", "3%");
                 cancelAdminEdit();
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
         else
         {
             Administrators.adminId = $("#hdfAdminID").val();
+            var guid = createGuid();
+            if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
+                var formData = new FormData();
+                var tempFile;
+                if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
+                    tempFile.name = guid;
+                    formData.append('NoticeAppImage', tempFile, tempFile.name);
+                    formData.append('GUID', guid);
+                    formData.append('createdby', 'sadmin');
+                }
+                formData.append('ActionTyp', 'NoticeAppImageInsert');
+                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                Administrators.imageID = guid;
+            }
             jsonResult = UpdateAdministrator(Administrators);
             if (jsonResult == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Updated Successfully");
+                noty({ text: 'Updated Successfully', type: 'success' });
                 $("#divAdminDetals").css("display", "");
                 BindFamilyUnitMemebrs();
                 $('#modelAddAdmin').modal('hide');
@@ -267,18 +268,13 @@ $(document).ready(function () {
                 cancelAdminEdit();
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
     });
 
     $(".SaveUnit").click(function (e) {
         debugger;
-        $('.alert-info').hide();
-        $('.alert-error').hide();
-        $('.alert-success').hide();
         var jsonResult = {};
         var addOrEdit = $("#familyUnitAddOrEdit").text();
         var FamilyUnits = new Object();
@@ -290,42 +286,29 @@ $(document).ready(function () {
         {
             jsonResult = InsertFamilyUnits(FamilyUnits);
             if (jsonResult == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Saved Successfully");
+                noty({ text: 'Saved Successfully', type: 'success' });
                 BindFamilyUnitsAccordion();
-                $("#FamilyAdd").css("margin-top", "3%");
                 ClearTextboxes();
             }
             if(jsonResult=="2")
             {
-                $('#rowfluidDiv').show();
-                $('.alert-info').show();
-                $('.alert-info strong').text("Unit Name Already Exists");
+                noty({ text: 'Unit Name Already Exists', type: 'info' });
                 BindFamilyUnitsAccordion();
-                $("#FamilyAdd").css("margin-top", "3%");
             }
 
             if(jsonResult!="1" && jsonResult!="2"){
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
         else
         {
             jsonResult = UpdateFamilyUnit(FamilyUnits);
             if (jsonResult == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Updated Successfully");
+                noty({ text: 'Updated Successfully', type: 'success' });
                 BindFamilyUnitsAccordion();
-                $("#FamilyAdd").css("margin-top", "3%");
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
        
@@ -340,17 +323,12 @@ $(document).ready(function () {
         if (deleteConirm) {
             jsonResult = DeleteFamilyUnits(FamilyUnits);
             if (jsonResult == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Deleted Successfully");
+                noty({ text: 'Deleted Successfully', type: 'success' });
                 BindFamilyUnitsAccordion();
                 $("#txtUnitName").val("");
-                $("#FamilyAdd").css("margin-top", "3%");
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
         else
@@ -372,19 +350,14 @@ $(document).ready(function () {
         if (deleteConirm) {
             jsonResult = DeleteFamily(Family);
             if (jsonResult == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Deleted Successfully");
+                noty({ text: 'Deleted Successfully', type: 'success' });
                 FamilyAutoBind();
                 clearControls();
                 $("#familyAddDiv").css("display", "none");
                 $("#btnFamilyDiv").css("display", "none");
-                $("#FamilyAdd").css("margin-top", "3%");
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
         else {
@@ -393,17 +366,44 @@ $(document).ready(function () {
     });
 });
 //end of document.ready
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
 
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+            continue;
+        }
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e) {
+                $("#AdminImg").attr("src", e.target.result);
+            };
+        })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(f);
+    }
+}
 function cancelAdminEdit()
 {
     $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
     BindFamilyUnitMemebrs();
     $('#AdminEdit').attr('onclick', 'EditFamily(this);');
     $("#divAdminInfo").css("display", "none");
+    if ($("#divAdminDetals").find('#AdminBtnNew').length == 0) {
+       // $("#divAdminInfo").css("display", "");
+    }
+    //$("#divAdminDetals").css("display", "none");
 }
 function clearAdminControls()
 {
-    $('#rowfluidDiv').hide();
+  
     $("#txtMobile").val("");
     $('#ddlRole').val('-1').change();
     $('#ddlMember').val('-1').change();
@@ -411,6 +411,8 @@ function clearAdminControls()
 function EditFamily(e)
 {
     debugger;
+
+    $("#divAdminInfo").css("display", "none");
     $("#FamilyAdd").css("margin-top", "1%");
     $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white refresh");
     $('#AdminEdit').attr('onclick', 'cancelAdminEdit();');
@@ -419,7 +421,8 @@ function EditFamily(e)
             {
                 $("#divAdminDetals").css("display", "none");
                 $("#AdminBtnNew").css("display", "");
-                $("#divAdminInfo").css("margin-top", "7%");
+                 $("#divAdminInfo").css("margin-top", "7%");
+                $("#divAdminInfo").css("display", "");
             }
             else
             {
@@ -437,13 +440,14 @@ function EditFamily(e)
             $(".deleteAdmin").css("display", "");
             $(".editAdmin").css("display", "");
             clearAdminControls();
+           
 }
 function AddAdminImageHtml() {
     debugger;
     var html = (' <ul class="thumbnails span4"><li class="span12" style="position: relative;height:150px;">'
                               + ' <a class="btnNew" id="AdminBtnNew" onclick="OpenAdminModal();" style="position:relative!important;z-index:50;padding: 25px 18px 10px 18px !important;top: 40px!important;left: 25%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>'
                                +'<div class="thumbnail" id=imgThumbnail style="position:relative!important;top: -33px;opacity:0.7;">'
-                               + '<img class="img-rounded" style="height:159px" src="../img/gallery/Noimage.png"  alt=""/><address style="line-height:5px !important;text-align: center;"><br/>'
+                               + '<img class="img-rounded" style="height:159px" id="imgFamily" src="../img/gallery/Noimage.png"  alt=""/><address style="line-height:5px !important;text-align: center;"><br/>'
                                +'<strong><br/><br/>Add Executive</strong><br/></address></div><br /></li></ul>');
     //return html;
     $("#divAdminDetals").append(html);
@@ -451,6 +455,8 @@ function AddAdminImageHtml() {
 function OpenAdminModal()
 {
     $("#AddOrEditAdmin").text("Add");
+    $('#AdminImg').attr('src', '../img/gallery/Noimage.png');
+
 }
 function AddFamilyUnit()
 {
@@ -460,7 +466,6 @@ function AddFamilyUnit()
     $(".DeleteUnit").css("display", "none");
     $("#familyUnitAddOrEdit").text("Add");
     $("#txtUnitName").val("");
-    $('#rowfluidDiv').hide();
     $("#FamilyAdd").css("margin-top", "1%");
 }
 function BindSelect() {
@@ -504,10 +509,12 @@ function HideTextBoxesForUnit()
     $("#phoneDiv").hide();
     $("#addressDiv").hide();
     $("#isHeadDiv").hide();
+    $("#memberImgDiv").hide();
     $("#txtUnitName").removeAttr("disabled");
 }
 function HideTextBoxesForFamily()
 {
+    $("#memberImgDiv").hide();
     $("#firstNameDiv").hide();
     $("#lastNameDiv").hide();
     $("#phoneDiv").hide();
@@ -517,6 +524,7 @@ function HideTextBoxesForFamily()
 }
 function ShowTextBoxesForMember()
 {
+    $("#memberImgDiv").show();
     $("#firstNameDiv").show();
     $("#lastNameDiv").show();
     $("#familyNameDiv").show();
@@ -526,10 +534,23 @@ function ShowTextBoxesForMember()
     $("#txtUnitName").attr('disabled', 'disabled');
     $("#txtFamilyName").attr('disabled', 'disabled');
 }
+// Show Picture preview for file upload Admin
+function showpreviewAdmin(input) {
+    debugger;
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#fluImage').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 function Member()
 {
     clearControls();
     ShowTextBoxesForMember();
+    $("#familyHeadFirst").css("display", "none");
+    $("#familyHeadLast").css("display", "none");
     $("#FamilyHeader").css("display", ""); //member header
     $("#AddFamilyHeader").css("display", "none"); //family header
     $("#AddFamilyUnitHeader").css("display", "none"); //unit header
@@ -550,6 +571,8 @@ function Families()
 {
     clearControls();
     ShowTextBoxesForMember();
+    $("#familyHeadFirst").css("display", "");
+    $("#familyHeadLast").css("display", "");
     $("#btnDiv").css("display", "none");
     $("#btnFamilyDiv").css("display", "none");
     $("#btnFamilyUnitDiv").css("display", "none");  //unit btn div
@@ -570,6 +593,8 @@ function Families()
 }
 function Units()
 {
+    $("#familyHeadFirst").css("display", "none");
+    $("#familyHeadLast").css("display", "none");
     $("#familyAddDiv").css("display", "");
     $("#FamilyAdd").css("display", "");
     $("#executivesHeader").css("display", "none");
@@ -607,6 +632,7 @@ function BindGetAllFamilyMemeberData(Records) {
     }
     var familyName = $("#hdfFamilyName").val();
     $("#unitHeader").text(familyName + " Family Members");
+    //$("#divAdminDetals").css("display", "none");
 }
 //edit family members
 function EditMembers(e)
@@ -687,17 +713,13 @@ function DeleteAdministrator(e)
     if (deleteConirm) {
         jsonResult = DeleteAdmin(Administrators);
         if (jsonResult == "1") {
-            $('#rowfluidDiv').show();
-            $('.alert-success').show();
-            $('.alert-success strong').text("Deleted Successfully");
+            noty({ text: 'Deleted Successfully', type: 'success' });
             BindFamilyUnitMemebrs();
-            $("#FamilyAdd").css("margin-top", "3%");
             cancelAdminEdit();
+            $("#divAdminInfo").css("display", "");
         }
         else {
-            $('#rowfluidDiv').show();
-            $('.alert-error').show();
-            $('.alert-error strong').text("Error..!!!");
+            noty({ text: 'Error..!!!', type: 'error' });
         }
     }
     else
@@ -722,10 +744,17 @@ function EditAdministrator(e)
         $("#txtMobile").val(jsonResult[0].Phone);
         $('#ddlRole').val(jsonResult[0].DesigID + ":" + jsonResult[0].Order).change();
         $('#ddlMember').val(jsonResult[0].MembID).change();
+        if (jsonResult[0].URL != "" && jsonResult[0].URL!=undefined) {
+            $('#AdminImg').attr('src', jsonResult[0].URL)
+        }
+        else {
+            $('#AdminImg').attr('src', '../img/gallery/Noimage.jpg');
+        }
     }
 }
 function BindGetAllFamilyUnitMemeberData(Records)
 {
+    debugger;
     $("#divAdminDetals").css("display", "");
     $("#divAdminDetals").html('');
     debugger;
@@ -733,15 +762,23 @@ function BindGetAllFamilyUnitMemeberData(Records)
     var length = Records.length;
     $("#hdfExecutivesLength").val(length);
     $.each(Records, function (index, Records) {
-        i = i + 1;
-        if (i == 4) {
-            var html = '<ul class="thumbnails"><li class="span4"> <div class="thumbnail"></div><img src="../img/gallery/priest.png" alt=""><address> <strong>' + Records.FirstName + '</strong><p>' + Records.Position + '<br />' + Records.Contact + '</p></address><i class="icon-edit editAdmin" id=' + Records.ID + ' style="position: relative;top: -19px;left: 40px;cursor:pointer;display:none;" title="Edit Administrator" onclick="EditAdministrator(this)"></i><i class="icon-trash deleteAdmin" id=' + Records.ID + ' style="position: relative;top: -19px;left: 40px;cursor:pointer;display:none;" title="Delete Administrator" onclick="DeleteAdministrator(this);"></i></div></li></ul>'
-            i = 0;
-        }
-        else
-        {
-            var html = '<li class="span4"> <div class="thumbnail"></div><img src="../img/gallery/priest.png" alt=""><address> <strong>' + Records.FirstName + '</strong><p>' + Records.Position + '<br />' + Records.Contact + '</p></address><i class="icon-edit editAdmin" id=' + Records.ID + ' style="position: relative;top: -19px;left: 45px;cursor:pointer;display:none;" title="Edit Administrator" onclick="EditAdministrator(this)"></i><i class="icon-trash deleteAdmin" id=' + Records.ID + ' style="position: relative;top: -19px;left: 45px;cursor:pointer;display:none;" title="Delete Administrator" onclick="DeleteAdministrator(this);"></i></div></li>'
-        }
+        //i = i + 1;
+        //if (i == 4) {
+        //    var html = '<ul class="thumbnails"><li class="span4"> <div class="thumbnail"></div><img src="../img/gallery/priest.png" id="imgFamily" alt=""><address> <strong>' + Records.FirstName + '</strong><p>' + Records.Position + '<br />' + Records.Phone + '</p></address><i class="icon-edit editAdmin" id=' + Records.ID + ' style="position: relative;top: -19px;left: 40px;cursor:pointer;display:none;" title="Edit Administrator" onclick="EditAdministrator(this)"></i><i class="icon-trash deleteAdmin" id=' + Records.ID + ' style="position: relative;top: -19px;left: 40px;cursor:pointer;display:none;" title="Delete Administrator" onclick="DeleteAdministrator(this);"></i></div></li></ul>'
+        //    i = 0;
+        //}
+        //else
+        //{
+            if (Records.URL == null)
+            {
+                var html = '<li class="span4"> <div class="thumbnail"></div><img src="../img/gallery/priest.png" id="imgFamily" alt=""><address> <strong>' + Records.FirstName + '</strong><p>' + Records.Position + '<br />' + Records.Phone + '</p></address><i class="icon-edit editAdmin" id=' + Records.ID + ' style="position: relative;top: -19px;left: 45px;cursor:pointer;display:none;" title="Edit Administrator" onclick="EditAdministrator(this)"></i><i class="icon-trash deleteAdmin" id=' + Records.ID + ' style="position: relative;top: -19px;left: 45px;cursor:pointer;display:none;" title="Delete Administrator" onclick="DeleteAdministrator(this);"></i></div></li>'
+            }
+            else
+            {
+                var html = '<li class="span4"> <div class="thumbnail"></div><img src="' + Records.URL + '" id="imgFamily" alt=""><address> <strong>' + Records.FirstName + '</strong><p>' + Records.Position + '<br />' + Records.Phone + '</p></address><i class="icon-edit editAdmin" id=' + Records.ID + ' style="position: relative;top: -19px;left: 45px;cursor:pointer;display:none;" title="Edit Administrator" onclick="EditAdministrator(this)"></i><i class="icon-trash deleteAdmin" id=' + Records.ID + ' style="position: relative;top: -19px;left: 45px;cursor:pointer;display:none;" title="Delete Administrator" onclick="DeleteAdministrator(this);"></i></div></li>'
+            }
+            
+       // }
         $("#divAdminDetals").append(html);
     })
 
@@ -758,6 +795,7 @@ function BindGetAllFamilyUnitMemeberData(Records)
         $("#familyAddDiv").css("margin-top", "-15%");
        
     }
+   
 }
 function clearControls()
 {
@@ -768,7 +806,6 @@ function clearControls()
     $("#txtPhone").val("");
     $("#txtAddress").val("");
     $('#chkIsHead').closest('span').removeClass('checked');
-    $('#rowfluidDiv').hide();
 
 }
 
@@ -994,7 +1031,6 @@ function EditUnit(e)
     $("#txtUnitName").val(unitName);
     $("#hdfUnitID").val(unitID);
     $("#familyUnitAddOrEdit").text("Edit");
-    $('#rowfluidDiv').hide();
     $("#unitNameDiv").css("margin-top", "5%");
 }
 function BindGetAllFamilyUnitsTable(Records) {
