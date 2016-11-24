@@ -168,15 +168,16 @@ function SaveAdministrator()
             result = InsertAdministrator(Administrators);
 
             if (result.results == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Administrator Added Successfully");
-
+                //$('#rowfluidDiv').show();
+                //$('.alert-success').show();
+                //$('.alert-success strong').text("Administrator Added Successfully");
+                noty({ text: 'Administrator Added Successfully', type: 'success' });
             }
             if (result.results != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Saving Not Successful");
+                //$('#rowfluidDiv').show();
+                //$('.alert-error').show();
+                //$('.alert-error strong').text("Saving Not Successful");
+                noty({ text: 'Saving Not Successful', type: 'error' });
             }
 
 
@@ -210,15 +211,16 @@ function SaveAdministrator()
             result = UpdateAdministrator(Administrators);
 
             if (result.results == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Administrator Edited Successfully");
-
+                //$('#rowfluidDiv').show();
+                //$('.alert-success').show();
+                //$('.alert-success strong').text("Administrator Edited Successfully");
+                noty({ text: 'Administrator Edited Successfully', type: 'success' });
             }
             if (result.results != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Editing Not Successful");
+                //$('#rowfluidDiv').show();
+                //$('.alert-error').show();
+                //$('.alert-error strong').text("Editing Not Successful");
+                noty({ text: 'Editing Not Successful', type: 'error' });
             }
 
         }
@@ -296,9 +298,10 @@ function SaveInstitution()
             result = InsertInstitute(Institutions);
 
             if (result.results == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Institution Added Successfully");
+                //$('#rowfluidDiv').show();
+                //$('.alert-success').show();
+                //$('.alert-success strong').text("Institution Added Successfully");
+                noty({ text: 'Institution Added Successfully', type: 'success' });
                 $('#divAccoAdmininfo').show();
                 $('#divAdminInfo').show();
                 $('#EditdivAppend').empty();
@@ -313,9 +316,10 @@ function SaveInstitution()
 
             }
             if (result.results != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Saving Not Successful");
+                //$('#rowfluidDiv').show();
+                //$('.alert-error').show();
+                //$('.alert-error strong').text("Saving Not Successful");
+                noty({ text: 'Saving Not Successful', type: 'error' });
             }
 
             
@@ -359,15 +363,16 @@ function SaveInstitution()
             result = UpdateInstitute(Institutions);
 
             if (result.results == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Institution Edited Successfully");
-
+                //$('#rowfluidDiv').show();
+                //$('.alert-success').show();
+                //$('.alert-success strong').text("Institution Edited Successfully");
+                noty({ text: 'Institution Edited Successfully', type: 'success' });
             }
             if (result.results != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Saving Not Successful");
+                //$('#rowfluidDiv').show();
+                //$('.alert-error').show();
+                //$('.alert-error strong').text("Saving Not Successful");
+                noty({ text: 'Saving Not Successful', type: 'error' });
             }
 
         }

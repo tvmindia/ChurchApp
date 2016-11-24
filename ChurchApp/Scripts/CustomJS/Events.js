@@ -170,10 +170,10 @@ $("document").ready(function (e) {
             var UpdationStatus = UpdateEvent(Events);
 
             if (UpdationStatus == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Event Edited Successfully");
-
+                //$('#rowfluidDiv').show();
+                //$('.alert-success').show();
+                //$('.alert-success strong').text("Event Edited Successfully");
+                noty({ text: 'Event Edited Successfully', type: 'success' });
                 if (DeletedImgID != '' && (((imagefile = $('#UpEvent')[0].files[0]) != undefined))) {
                     var AppImages = new Object();
                     AppImages.appImageId = DeletedImgID;
@@ -206,9 +206,10 @@ $("document").ready(function (e) {
             }
 
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Event Editing Not Successful");
+                //$('#rowfluidDiv').show();
+                //$('.alert-error').show();
+                //$('.alert-error strong').text("Event Editing Not Successful");
+                noty({ text: 'Event Editing Not Successful', type: 'error' });
             }
 
             BindEvents();
@@ -226,9 +227,10 @@ $("document").ready(function (e) {
             var InsertionStatus = InsertEvent(Events);
 
             if (InsertionStatus.Status == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Event Added Successfully");
+                //$('#rowfluidDiv').show();
+                //$('.alert-success').show();
+                //$('.alert-success strong').text("Event Added Successfully");
+                noty({ text: 'Event Added Successfully', type: 'success' });
                 $("#hdfEventID").val(InsertionStatus.eventId);
 
                 if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
@@ -252,9 +254,10 @@ $("document").ready(function (e) {
             }
 
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Event Adding Not Successful");
+                //$('#rowfluidDiv').show();
+                //$('.alert-error').show();
+                //$('.alert-error strong').text("Event Adding Not Successful");
+                noty({ text: 'Event Adding Not Successful', type: 'error' });
             }
 
             BindEvents();
@@ -284,10 +287,10 @@ $("document").ready(function (e) {
             var DeletionStatus = DeleteEvent(Events);
 
             if (DeletionStatus == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Event Deleted Successfully");
-
+                //$('#rowfluidDiv').show();
+                //$('.alert-success').show();
+                //$('.alert-success strong').text("Event Deleted Successfully");
+                noty({ text: 'Event Deleted Successfully', type: 'success' });
                 var AppImages = new Object();
                 AppImages.appImageId = imageId;
                 DeleteAppImage(AppImages);
@@ -295,9 +298,10 @@ $("document").ready(function (e) {
                 DeleteFileFromFolder(imgPath);
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Deletion Not Successful");
+                //$('#rowfluidDiv').show();
+                //$('.alert-error').show();
+                //$('.alert-error strong').text("Deletion Not Successful");
+                noty({ text: 'Deletion Not Successful', type: 'error' });
             }
 
             BindEvents();

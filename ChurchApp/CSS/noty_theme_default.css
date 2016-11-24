@@ -43,7 +43,7 @@
 	.noty_bar.noty_theme_default .noty_message {
 		padding: 8px 14px;
 		font-size: 16px;
-		font-weight: bold;
+		font-weight: 500;
 		width: auto;
 	}
 	.noty_bar.noty_theme_default.noty_closable .noty_message {
@@ -198,12 +198,12 @@
   
 	/* noty_error */
 	.noty_bar.noty_theme_default.noty_error {
-		background-color: red;
+		background-color: #d15858;
 		color: #fff;
 		border-color: darkred;
 	}
 	.noty_bar.noty_theme_default.noty_error .noty_message {
-		font-weight: bold;
+		font-weight: 500;
 	}
 	.noty_bar.noty_theme_default.noty_error.noty_layout_topLeft .noty_message .noty_buttons,
 	.noty_bar.noty_theme_default.noty_error.noty_layout_topRight .noty_message .noty_buttons,
