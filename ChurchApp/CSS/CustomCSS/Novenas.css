@@ -152,6 +152,10 @@ ul.dashboard-list li{
      text-decoration: underline!important;
  }
 
+.btnEdit {
+    font-size: 14px;
+}
+
  /*-------------New Novena---------------*/
  /*.form-actions
  {

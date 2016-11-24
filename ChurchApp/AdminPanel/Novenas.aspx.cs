@@ -194,6 +194,69 @@ namespace ChurchApp.AdminPanel
 
         #endregion Add New Patron
 
+        #region Delete Patron
+
+        [System.Web.Services.WebMethod]
+        public static string DeletePatron(ChurchApp.DAL.PatronMaster PatrnObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            string status = null;
+            try
+            {
+                status = PatrnObj.DeletePatronMaster();
+                PatrnObj.Status = status;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(PatrnObj);
+
+        }
+
+
+        #endregion Delete Patron
+
+        #region Update Patron
+
+        [System.Web.Services.WebMethod]
+        public static string UpdatePatron(ChurchApp.DAL.PatronMaster PatrnObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            string status = null;
+            try
+            {
+                PatrnObj.updatedBy = UA.userName;
+                status = PatrnObj.UpdatePatronMaster();
+                PatrnObj.Status = status;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(PatrnObj);
+
+        }
+
+
+        #endregion Update Patron
+
         //-------------- Novena
 
         #region GetNovenaDetailsByPatronID

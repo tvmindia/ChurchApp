@@ -13,6 +13,7 @@ var NovenaDayAndTime = new Array();
 var PatronID = '';
 var NovenaTimes = new Array();
 
+var IsUpdateTimeClicked = false;
 
 $("document").ready(function (e)
 {
@@ -234,10 +235,8 @@ $("document").ready(function (e)
         //var IsValid = NewSaintValidation();
        
         debugger;
-       
-        
         var PatronMaster = new Object();
-        PatronMaster.patronMasterName = $("#txtSaintName").val();
+        PatronMaster.patronMasterName = $("#txtSaintName").val(); 
         PatronMaster.description = $("#txtSaintDescription").val();
 
         var guid = createGuid();
@@ -262,16 +261,39 @@ $("document").ready(function (e)
                 AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                 PatronMaster.imageID = guid;
             }
+        }
 
+        if (  $('#hdfPatronID').val() == "") {
+            PatronMaster.patronMasterId = $('#hdfPatronID').val();
+            result = UpdatePatron(PatronMaster);
+
+            if ($('#hdfPatronImageID').val() != '' && (((imagefile = $('#UpSaint')[0].files[0]) != undefined))) {
+                var AppImages = new Object();
+                AppImages.appImageId = $('#hdfPatronImageID').val();
+                DeleteAppImage(AppImages);
+
+                if (DeletedImgPath != '') {
+                    DeleteFileFromFolder($('#hdfPatronImageURL').val());
+                }
+
+                $('#hdfPatronImageID').val("");
+                $('#hdfPatronImageURL').val("");
+
+            }
+
+
+        }
+        else {
             result = InsertPatron(PatronMaster);
-
+        }
             if (result.Status == 1)
             {
                 BindPatrons();
                 $('#NewSaintModel').modal('hide');
                 //$('#btnCloseInModal').click();
             }
-        }
+            ClearModalControls();
+
     });
     
     //Delete Novena
@@ -312,9 +334,53 @@ $("document").ready(function (e)
             return false;
         }
     });
+    
+
+    $('#btnEditPatron').click(function (e) {
+        debugger;
+
+        var className = $('#iconPatronRefresh').attr('class');
+        if (className == "halflings-icon white pencil") {
+            BindPatronsInEditableFormat();
+
+            $('#iconPatronRefresh').removeClass("halflings-icon white pencil").addClass("halflings-icon white refresh");
+            $('#btnEditPatron').attr('onclick', 'BindPatrons();');
+
+        }
+
+        else
+        {
+            BindPatrons();
+            $('#iconPatronRefresh').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
+        }
+
+    })
 
 
 }); //End of Document ready
+
+
+function ClearModalControls()
+{
+    $(':input').each(function () {
+
+        if (this.type == 'text' || this.type == 'textarea' || this.type == 'file') {
+            this.value = '';
+        }
+        else if (this.type == 'radio' || this.type == 'checkbox') {
+            this.checked = false;
+        }
+        else if (this.type == 'select-one' || this.type == 'select-multiple') {
+            this.value = '-1';
+        }
+    });
+    $('#ModalHead').text("Add New Saint");
+
+    $('#hdfPatronID').val("");
+    $('#hdfPatronImageID').val("");
+    $('#hdfPatronImageURL').val("");
+}
+
 
 var DayNtimeHTML = '';
 function AddDayAndTimeToArray()
@@ -377,8 +443,9 @@ function AddDayAndTimeToArray()
          //time = time + mer;
 
          var novenaId = $('#hdfNovenaID').val();
-
+       
          var html = '<tr  ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
+         //var html = '<tr  ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#" onclick="UpdateTime(this)"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
          $("#tblNovenaTiming").append(html);
 
      }
@@ -409,8 +476,11 @@ function AddTimeToArray()
 
     var novenaId = $('#hdfNovenaID').val();
 
-  //  $('#lblSelectedTimes').text(timeHTML.replace(/^,/, ''));
+    //  $('#lblSelectedTimes').text(timeHTML.replace(/^,/, ''));
+    
     var html = '<tr ><td>' + "Daily" + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+
+    //var html = '<tr ><td>' + "Daily" + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#" onclick="UpdateTime(this)"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
     $("#tblNovenaTiming").append(html);
 
 }
@@ -547,7 +617,9 @@ function FixedEditClick()
                                               Time: time.split(',')[j]
                                           }
                                           );
-                                            var html = '<tr NovenaID='+novenaId+' ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[j] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                         var html = '<tr NovenaID=' + novenaId + ' ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[j] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                                                                                                                                                                                       
+                                            //var html = '<tr NovenaID=' + novenaId + ' ><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[j] + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#" onclick="UpdateTime(this)"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                             $("#tblNovenaTiming").append(html);
                                         }
                                     }
@@ -559,6 +631,8 @@ function FixedEditClick()
                                             }
                                             );
                                         var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+
+                                        //var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#" onclick="UpdateTime(this)"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                         $("#tblNovenaTiming").append(html);
                                     }
                                 }
@@ -575,7 +649,10 @@ function FixedEditClick()
                                               Time: time.split(',')[k]
                                           }
                                           );
+
                                             var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[k] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)" ><i class="halflings-icon white trash"></i> </a></td></tr>';
+
+                                            //var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[k] + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#" onclick="UpdateTime(this)"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)" ><i class="halflings-icon white trash"></i> </a></td></tr>';
                                             $("#tblNovenaTiming").append(html);
                                         }
                                     }
@@ -587,8 +664,8 @@ function FixedEditClick()
                                                 Time: time
                                             }
                                             );
-
                                         var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                        //var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#" onclick="UpdateTime(this)"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                         $("#tblNovenaTiming").append(html);
                                     }
                                 }
@@ -613,6 +690,7 @@ function FixedEditClick()
                                       }
                                       );
                                         var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[l] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                        //var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[l] + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#" onclick="UpdateTime(this)"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                         $("#tblNovenaTiming").append(html);
                                     }
                                 }
@@ -624,8 +702,8 @@ function FixedEditClick()
                                                Time: time
                                            }
                                            );
-
                                     var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                    //var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#" onclick="UpdateTime(this)"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                     $("#tblNovenaTiming").append(html);
                                 }
                             }
@@ -645,6 +723,7 @@ function FixedEditClick()
                                       }
                                       );
                                         var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[m] + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                        //var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time.split(',')[m] + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#" onclick="UpdateTime(this)"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                         $("#tblNovenaTiming").append(html);
 
                                     }
@@ -657,8 +736,8 @@ function FixedEditClick()
                                                Time: time
                                            }
                                            );
-
                                     var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                                    //var html = '<tr NovenaID=' + novenaId + '><td>' + (day != null ? day : "-") + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#" onclick="UpdateTime(this)" onclick="UpdateTime(this)"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash"></i> </a></td></tr>';
                                     $("#tblNovenaTiming").append(html);
                                 }
                             }
@@ -871,6 +950,152 @@ function GetAllPatrons(PatronMaster) {
     return table;
 }
 //--------------------------------//
+
+
+function BindPatronsInEditableFormat() {
+    var jsonResult = {};
+    var PatronMaster = new Object();
+    jsonResult = GetAllPatrons(PatronMaster);
+    if (jsonResult != undefined) {
+        FillPatronsInEditableFormat(jsonResult);
+    }
+}
+
+function FillPatronsInEditableFormat(Records) {
+
+    $('#DivSaints').html('');
+    // var TotalRecords = Records.length+1;
+    var TotalRecords = Records.length + 1;            // Adding 1 bcz ADD NEW EVENT div has to be appended first
+    var RecordsToBeProcessed = Records.length;      // Initially Sets to Record count , It will decrease by 1 , when processing
+    var NoOfRows = 0;
+    var SpanValue = 0;
+
+    //No of rows calculation 
+    if (TotalRecords % 6 == 0) {
+        NoOfRows = TotalRecords / 6;
+
+    }
+    else {
+        NoOfRows = parseInt(TotalRecords / 6) + 1
+    }
+
+    if (TotalRecords <= 6) {
+        NoOfRows = 1;
+    }
+
+    var html = '';
+    SpanValue = "span2";
+    var ul = '<ul class="thumbnails">'
+    var ObjUl;
+
+    $.each(Records, function (index, Records) {
+        var imgurl = Records.URL;
+        var ID = Records.ID;
+        var ImageID = Records.ImageID;
+        if (imgurl == null) {
+            imgurl = "../img/gallery/priest.png";
+        }
+
+        if (RecordsToBeProcessed > 0) {
+
+            if (index < 5) {            //First Row
+
+                if (RecordsToBeProcessed == (TotalRecords - 1)) {
+                    ObjUl = $('<ul></ul>');
+                    ObjUl.addClass("thumbnails");
+                    ObjUl.append('<div id="divAddSaint" class=' + SpanValue + '><img class="PlusImg" src="../img/Plussymbol.png"/><a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint" onclick="OpenNewSaintModal()">Add New Saint</></a></div><li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\' ID=\'' + Records.ID + '\' /><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" class="circlebtn circlebtn-danger deletetext" ID =' + ID + ' ImageID=' + ImageID + ' onclick="deletePatron(this)" ><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><a class="circlebtn circlebtn-success patronUpdate" title="Change" href="#" ID=' + ID + ' ImageID=' + ImageID + ' onclick="updatePatron(this)" URL="' + Records.URL + '" SaintName=\'' + Records.Name + '\' SaintDescription=\'' + Records.Description + '\'><i class="halflings-icon white pencil"></i> </a><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
+                }
+                else {
+                    ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\' ID=\'' + Records.ID + '\'/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" class="circlebtn circlebtn-danger deletetext" onclick="deletePatron(this)" ImageID=' + ImageID + ' ID =' + ID + '><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><a class="circlebtn circlebtn-success patronUpdate" title="Change" href="#" ID=' + ID + ' ImageID=' + ImageID + ' onclick="updatePatron(this)" URL="' + Records.URL + '" SaintName=\'' + Records.Name + '\' SaintDescription=\'' + Records.Description + '\'><i class="halflings-icon white pencil"></i> </a><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
+                }
+
+                RecordsToBeProcessed = RecordsToBeProcessed - 1;
+            }
+
+            else {
+
+                if (index == 5) {  //First Row (Including ADS SAINT Div)
+                    $('#DivSaints').append(ObjUl);
+                    ObjUl = $('<ul></ul>');
+                    ObjUl.addClass("thumbnails");
+                }
+                if ((index + 1) % 6 == 0) { //Max 6 per row, after that a new ul will be created
+                    $('#DivSaints').append(ObjUl);
+                    ObjUl = $('<ul></ul>');
+                    ObjUl.addClass("thumbnails");
+                }
+                ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\' ID=\'' + Records.ID + '\'/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" class="circlebtn circlebtn-danger deletetext" ImageID=' + ImageID + ' onclick="deletePatron(this)" ID =' + ID + '><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><a class="circlebtn circlebtn-success patronUpdate" title="Change" href="#" ImageID=' + ImageID + ' ID=' + ID + ' onclick="updatePatron(this)" URL="' + Records.URL + '" SaintName=\'' + Records.Name + '\' SaintDescription=\'' + Records.Description + '\'><i class="halflings-icon white pencil"></i> </a><strong>' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
+                RecordsToBeProcessed = RecordsToBeProcessed - 1;
+            }
+        }
+    })
+    $('#DivSaints').append(ObjUl);
+
+}
+
+function updatePatron(obj)
+{
+    $('#ModalHead').text("Edit Saint");
+
+    var patronID = $(obj).attr('ID');
+    var patronImageID = $(obj).attr('ImageID');
+    var PatronURL = $(obj).attr('URL');
+    var PatronName = $(obj).attr('SaintName');
+    var PatronDescription = $(obj).attr('SaintDescription');
+
+    OpenNewSaintModal();
+
+    $("#txtSaintName").val(PatronName);
+    $("#txtSaintDescription").val(PatronDescription);
+
+    $('#hdfPatronID').val(patronID);
+    $('#hdfPatronImageID').val(patronImageID);
+    $('#hdfPatronImageURL').val(PatronURL);
+    
+}
+
+function UpdatePatron(PatronMaster) {
+    var data = "{'PatrnObj':" + JSON.stringify(PatronMaster) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Novenas.aspx/UpdatePatron");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
+function deletePatron(obj)
+{
+    var patronID = $(obj).attr('ID');
+    var PatronImageID = $(obj).attr('ImageID');
+    var PatronImageURL = $(obj).attr('URL');
+
+    var PatronMaster = new Object();
+    PatronMaster.patronMasterId = patronID;
+    result = DeletePatron(PatronMaster);
+    if (result.Status == 1) {
+
+        $('#rowfluidDiv').show();
+        $('.alert-success').show();
+        $('.alert-success strong').text("patron deleted successfully");
+
+        BindPatrons();
+
+        var AppImages = new Object();
+        AppImages.appImageId = PatronImageID;
+        DeleteAppImage(AppImages);
+
+        DeleteFileFromFolder(PatronImageURL);
+
+    }
+}
+
+function DeletePatron(PatronMaster)
+{
+    var data = "{'PatrnObj':" + JSON.stringify(PatronMaster) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Novenas.aspx/DeletePatron");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
 
 //Bind Patron Dropdown
 function BindPatronDropdown()
@@ -1253,10 +1478,7 @@ function DeleteTime(Obj) {
         FixedEditClick();
         BindNovenasPatronID(PatronID);
     }
-    
-    debugger;
-
-    var c = NovenaDayAndTime;
+   
 
     }
     else {
@@ -1333,3 +1555,39 @@ function DeleteNovena(Novenas) {
     return table;
 }
 //--------------------------------//
+
+//General
+
+function UpdateTime(obj)
+{
+    debugger;
+
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+
+    var $row = $(obj).closest("tr"),       // Finds the closest row <tr> 
+    $tds = $row.find("td");             // Finds all children <td> elements
+
+    debugger;
+    var day = $tds[0].innerText;
+    var time = $tds[1].innerText;
+
+    $("#ddlDay").val(day).trigger("change");
+
+    $("#TxtTime").val(time);
+    NovenaDayAndTime = $.grep(NovenaDayAndTime, function (e) {
+        debugger;
+        return (e.Day !== day && e.Time !== time);
+    });
+
+
+    debugger;
+    var c = NovenaDayAndTime;
+
+}
+
+//--------------------------------//
+
+

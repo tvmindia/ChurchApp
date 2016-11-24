@@ -59,13 +59,19 @@
             <div class="box span12">
                 <div class="box-header" id="DivBoxHeader">
                     <h2><i class="halflings-icon picture"></i><span class="break" id="spnSaint">Saints</span></h2>
-
                     <div class="box-icon">
+							<%--<a id="toggle-fullscreen" class="hidden-phone hidden-tablet btnEdit"><i class="halflings-icon white fullscreen"></i></a>--%>
+					        <a class="btnEdit" style="position: relative; top: -1px;  right: 0px;" title="Edit" id="btnEditPatron"><i class="halflings-icon white pencil" id="iconPatronRefresh" aria-hidden="true"></i></a>
+                            <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
+                            <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>
+							
+						</div>
+                 <%--   <div class="box-icon">
                         <a href="#" id="toggle-fullscreen" class="hidden-phone hidden-tablet"><i class="halflings-icon fullscreen"></i></a>
                         <a class="btnEdit" style="position: relative; top: -1px; right: 0px;" title="Edit" id="EditPatron"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
                         <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 
-                    </div>
+                    </div>--%>
                 </div>
                 <div class="box-content">
                     <div class="span12" id="DivSaints">
@@ -360,7 +366,7 @@
                 <div class="modal hide fade" id="NewSaintModel">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h3>Add New Saint</h3>
+                        <h3 id="ModalHead">Add New Saint</h3>
                     </div>
                     <div class="modal-body">
                         <div class="form-horizontal">
@@ -398,6 +404,9 @@
             </div>
         </div>
         <input id="hdfNovenaID" type="hidden" />
+         <input id="hdfPatronID" type="hidden" />
+         <input id="hdfPatronImageID" type="hidden" value="" />
+         <input id="hdfPatronImageURL" type="hidden" />
     </div>
 
 </asp:Content>
