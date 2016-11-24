@@ -249,28 +249,15 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = DateTime.Parse(Founded);
                 }
-                else 
-                {
-                    cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = Founded;
-                }
                 cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
                 if(albumId!=null)
                 {
                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value= Guid.Parse(albumId);
                 }
-                else
-                {
-                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = albumId;
-                }
-                
                 if(imageId!=null)
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
-                }
-                else
-                {
-                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = imageId;
-                }                
+                }               
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -320,25 +307,20 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
                 cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website;
-                cmd.Parameters.Add("@Founded", SqlDbType.DateTime).Value = DateTime.Parse(Founded);
                 cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
+                if(Founded!=null)
+                {
+                    cmd.Parameters.Add("@Founded", SqlDbType.DateTime).Value = DateTime.Parse(Founded);
+                }
                 if (albumId != null)
                 {
                     cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
-                }
-                else
-                {
-                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = albumId;
                 }
 
                 if (imageId != null)
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
-                else
-                {
-                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = imageId;
-                } 
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
