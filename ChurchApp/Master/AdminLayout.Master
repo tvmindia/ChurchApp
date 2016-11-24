@@ -106,13 +106,13 @@ img{
     object-fit:cover!important;
 }
 #loading-img {
-    background: url('/img/LoadChurch.gif') center center no-repeat;
+    background: url('/img/loader1.gif') center center no-repeat;
     height: 100%;
     z-index: 1040;
 }
 
 .overlay {
-    background: #353333;
+    background: #faf8f8;
     display: none;
     position: fixed;
     top: 0;

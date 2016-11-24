@@ -735,22 +735,9 @@ function DeleteInstituteclick(this_Obj) {
             var AdminDetails = {};
             var InstituteRow = {};
             var intituteID = $(this_Obj).attr('name');
-            AdminDetails = BindAdminCard(intituteID);
+            //AdminDetails = BindAdminCard(intituteID);
             InstituteRow = GetInstituteDetailsUsingID(intituteID);
-            if (AdminDetails.length == 0) {
-                Adminresult = "sucess";
-            }
-            for (var i = 0; i < AdminDetails.length; i++) {
-                var AdminRow = new Object();
-                AdminRow.adminId = AdminDetails[i].ID;
-                AdminRow.imagePath = AdminDetails[i].URL;
-                result = DeleteAdmin(AdminRow);
-                if (result.results == "1") {
-                    Adminresult = "sucess";
-
-                }
-            }
-            if (Adminresult == "sucess") {
+           
                 result = DeleteInstitute(InstituteRow);
                 if (result.results == "1") {
                     $('#rowfluidDiv').show();
@@ -767,8 +754,6 @@ function DeleteInstituteclick(this_Obj) {
                 }
             }
         }
-
-    }
     catch (e) {
 
     }
@@ -1008,7 +993,7 @@ function DeleteInstitute(InstituteRow) {
         Institutions.institutionID = InstituteRow.institutionID;
         Institutions.imagepath = InstituteRow.imagepath;
         var data = "{'InstituteObj':" + JSON.stringify(Institutions) + "}";
-        jsonResult = getJsonData(data, "../AdminPanel/Institutions.aspx/DeleteInstitution");
+        jsonResult = getJsonData(data, "../AdminPanel/PiousOrganizations.aspx/DeleteInstitution");
         var table = {};
         table = JSON.parse(jsonResult.d);
         return table;
