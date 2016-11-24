@@ -347,6 +347,12 @@ $("document").ready(function (e)
     $('#btnEditPatron').click(function (e) {
         debugger;
 
+
+        $('#rowfluidDiv').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+
+
         var className = $('#iconPatronRefresh').attr('class');
         if (className == "halflings-icon white pencil") {
             BindPatronsInEditableFormat();
@@ -1081,13 +1087,14 @@ if (deleteConirm) {
     var PatronMaster = new Object();
     PatronMaster.patronMasterId = patronID;
     result = DeletePatron(PatronMaster);
+
+    BindPatrons();
+
     if (result.Status == 1) {
 
         $('#rowfluidDiv').show();
         $('.alert-success').show();
-        $('.alert-success strong').text("patron deleted successfully");
-
-        BindPatrons();
+        $('.alert-success strong').text("Patron deleted successfully");
 
         var AppImages = new Object();
         AppImages.appImageId = PatronImageID;
@@ -1096,6 +1103,15 @@ if (deleteConirm) {
         DeleteFileFromFolder(PatronImageURL);
 
     }
+
+    if (result.Status == 0) {
+
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+        $('.alert-error strong').text("Already Used.Can't be deleted");
+
+    }
+
 }
 
 else {
@@ -1259,6 +1275,12 @@ function GetNovenasByNovenaID(Novenas) {
 
 //Onclick Of Saint Image
 function ViewIndividualPatron(obj) {
+
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+
     IsNormal = true;
     debugger;
     $('#DivBoxHeader').hide();
