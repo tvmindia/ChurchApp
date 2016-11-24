@@ -644,7 +644,7 @@ namespace ChurchApp.WebServices
 
 
         [WebMethod]
-        public string GetNearByChurches(string Longitude, string Latitude, int churchcount, int maxdistance)
+        public string GetNearByChurches(string Latitude, string Longitude, int churchcount, int maxdistance)
         {
             DataTable dt, dt1 = new DataTable();
             String ChurchLat, ChurchLong, Source, Destination, result;
@@ -652,18 +652,18 @@ namespace ChurchApp.WebServices
             try
             {
                 ChurchApp.DAL.Church ChurchObj = new DAL.Church();
-                ChurchObj.longitude = Longitude;
                 ChurchObj.latitude = Latitude;
+                ChurchObj.longitude = Longitude;
                 dt = ChurchObj.GetNearByChurchDetails(maxdistance);
                 DataColumn km = dt.Columns.Add("Distance", typeof(String));
                 DataColumn kmvval = dt.Columns.Add("Value", typeof(int));
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    ChurchLong = dt.Rows[i]["Longitude"].ToString();
                     ChurchLat = dt.Rows[i]["Latitude"].ToString();
-                    Destination = ChurchLong + ',' + ChurchLat;
-                    Source = Longitude + ',' + Latitude;
+                    ChurchLong = dt.Rows[i]["Longitude"].ToString();
+                    Destination = ChurchLat + ',' + ChurchLong;
+                    Source = Latitude + ',' + Longitude;
 
                     result = ChurchObj.DistanceMatrixRequest(Source, Destination); //Finding distance using Google API
                     string[] km_value = result.Split('|');
