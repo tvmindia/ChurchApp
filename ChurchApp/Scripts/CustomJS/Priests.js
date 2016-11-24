@@ -123,11 +123,8 @@ function savePriest()
     if (priestID == null || priestID == "") {
         var guid = createGuid();
 
-        //DeletedImgID = imageId;
-        //DeletedImgPath = imgPath
-
         if (guid != null) {
-
+            var i = "0";
             var imgresult = "";
             var _URL = window.URL || window.webkitURL;
             var formData = new FormData();
@@ -144,7 +141,7 @@ function savePriest()
                 }
                 formData.append('ActionTyp', 'NoticeAppImageInsert');
                 AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-
+                i = "1";
             }
 
         }
@@ -162,7 +159,10 @@ function savePriest()
         Priest.address = $('#txtAddress').val();
         Priest.emailId = $('#txtEmail').val();
         Priest.mobile = $('#txtMobile').val();
-        Priest.imageId = guid;
+        if (i == "1")
+        {
+            Priest.imageId = guid;
+        }
         Priest.priestID = guid;
 
         result = InsertPriest(Priest);
@@ -231,16 +231,6 @@ function savePriest()
             //$('.alert-success').show();
             //$('.alert-success strong').text("Priest Edited Successfully");
             noty({ text: 'Priest Edited Successfully', type: 'success' });
-            //if (DeletedImgID != '') {
-            //    var AppImages = new Object();
-            //    AppImages.appImageId = DeletedImgID;
-            //    DeleteAppImage(AppImages);
-
-            //    if (DeletedImgPath != '') {
-            //        DeleteFileFromFolder(DeletedImgPath);
-            //    }
-            //}
-
         }
         if (result.result != "1") {
             //$('#rowfluidDiv').show();
@@ -346,6 +336,7 @@ function AutoComplete()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////*********************** Function for binding priest list vicar and asst vicar
     function check() {
+        debugger;
         var priestDetails = {};
         var elems = $();
         var elemsAsst = $();
@@ -358,18 +349,27 @@ function AutoComplete()
             $('#VicarDefault').remove();
             $('#AsstVicarDefault').remove();
             elemsEmtyVicar = elemsEmtyVicar.add(HtmlBindVicar());
+            $('#VicarDivDisplay').empty();
             $('#VicarDivDisplay').append(elemsEmtyVicar);
             elemsEmtyAsstVicar = elemsEmtyAsstVicar.add(HtmlBindAsstVicar());
+            $('#assVicardiv').empty();
             $('#assVicardiv').append(elemsEmtyAsstVicar);
 
         }
         else
         {
+            $('#VicarDefault').remove();
+            $('#AsstVicarDefault').remove();
+            elemsEmtyVicar = elemsEmtyVicar.add(HtmlBindVicar());
+            $('#VicarDivDisplay').empty();
+            $('#VicarDivDisplay').append(elemsEmtyVicar);
+            
             for (var i = 0; i < priestDetails.length; i++) {
                 if (priestDetails[i].IsActive != "False") {
                     if (priestDetails[i].Status == "Vicar") {
                         $('#VicarDefault').remove();
                         elems = elems.add(HtmlBindProductWithOffer(priestDetails[i]));
+                        $('#VicarDivDisplay').empty();
                         $('#VicarDivDisplay').append(elems);
                     }
                     if (priestDetails[i].Status == "Asst Vicar") {
@@ -377,8 +377,11 @@ function AutoComplete()
                         elemsAsst = elemsAsst.add(HtmlBindWithAsst(priestDetails[i]));
                         $('#assVicardiv').append(elemsAsst);
                     }
+                    
                 }
+                
             }
+           
         }
         
     }
@@ -464,6 +467,7 @@ function AutoComplete()
     }
 //Bind Details to view
     function BindDetails(priestID) {
+        debugger;
         var PriestRow = {};
         PriestRow = GetPriestDetailsUsingPiestID(priestID);
         

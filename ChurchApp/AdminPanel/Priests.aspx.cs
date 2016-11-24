@@ -194,6 +194,7 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Update Priest
+
         #region DeletePriest
         [System.Web.Services.WebMethod]
         public static string DeletePriest(ChurchApp.DAL.Priest PriestObj)
