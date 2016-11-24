@@ -253,17 +253,9 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@MembID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(memberId);
                 }
-                else
-                {
-                    cmd.Parameters.Add("@MembID", SqlDbType.UniqueIdentifier).Value = memberId;
-                }
                 if (imageID != null)
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
-                }
-                else
-                {
-                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = imageID;
                 }
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = Name;
                 cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 20).Value = Phone;
@@ -316,18 +308,10 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@MembID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(memberId);
                 }
-                else
-                {
-                    cmd.Parameters.Add("@MembID", SqlDbType.UniqueIdentifier).Value = memberId;
-                }
 
                 if (imageID != null)
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
-                }
-                else
-                {
-                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = imageID;
                 }
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = Name;
                 cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 100).Value = Phone;
