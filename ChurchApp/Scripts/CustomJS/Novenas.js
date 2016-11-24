@@ -314,8 +314,6 @@ function BindNovenasPatronID(patronId) {
 
         if (jsonResult.length > 5) {
             $(".aViewMore").show();
-
-            // $(".aViewMore").style.display = "";
         }
         else {
             $(".aViewMore").hide();
@@ -346,6 +344,15 @@ function FillNovenas(Records) {
         var StartDate = Records.StartDate;
         var EndDate = Records.EndDate;
         var DayAndTime = Records.DayAndTime;
+
+        //------- * STEPS
+        //Day and time is passed like mon-9am|tue-8,5|wed-6 
+        //So it will be splitted by |
+        //Take each Of splitted item
+        //Split by -
+        //then First item is set to day , others are times
+        //I day is null , day is passed as 'dai'(daily) from sp
+        //so it is also managed
 
         if (DayAndTime != null) {
 
