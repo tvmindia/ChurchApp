@@ -1191,7 +1191,7 @@ function UpdateTime(obj)
     debugger;
     var c = NovenaDayAndTime;
 
-}
+} //Not using now, Might be helpful if update functionality is giving for each novena time
 
 //------------------------------------------------------ * Methods related to Patron  *------------------------------------------------------//
 
