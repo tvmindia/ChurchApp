@@ -76,6 +76,10 @@ namespace ChurchApp.AdminPanel
             string status = null;
             try
             {
+                if (InstituteObj.Founded == "")
+                {
+                    InstituteObj.Founded = null;
+                }
                 InstituteObj.updatedBy =UA.userName;
                 status = InstituteObj.UpdateInstitution().ToString();
                 InstituteObj.results = status;
