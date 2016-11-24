@@ -51,7 +51,7 @@
 
                 <div>
                     <div id="divLatestEvents">
-                        <div class="" style="border-bottom:1.5px solid #F44336">
+                        <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
                             <h2>Latest Events</h2>
                             <a class="btnNew" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Event">+</i></a>
 

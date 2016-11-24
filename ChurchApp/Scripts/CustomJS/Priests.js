@@ -25,15 +25,17 @@
             result = UpdateChurchIDPriest(Priest);
 
             if (result.result == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Priest Added Successfully");
+                //$('#rowfluidDiv').show();
+                //$('.alert-success').show();
+                //$('.alert-success strong').text("Priest Added Successfully");
+                noty({ text: 'Priest Added Successfully', type: 'success' });
 
             }
             if (result.result != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Operation was Not Successful");
+                //$('#rowfluidDiv').show();
+                //$('.alert-error').show();
+                //$('.alert-error strong').text("Operation was Not Successful");
+                noty({ text: 'Operation was Not Successful', type: 'error' });
             }
             $('#assVicardiv').remove();
             debugger;
@@ -59,25 +61,16 @@
         result = DeletePriest(Priest);
 
         if (result.result == "1") {
-            $('#rowfluidDiv').show();
-            $('.alert-success').show();
-            $('.alert-success strong').text("Priest Deleted Successfully");
-
-            //if (DeletedImgID != '') {
-            //    var AppImages = new Object();
-            //    AppImages.appImageId = DeletedImgID;
-            //    DeleteAppImage(AppImages);
-
-            //    if (DeletedImgPath != '') {
-            //        DeleteFileFromFolder(DeletedImgPath);
-            //    }
-            //}
-
+            //$('#rowfluidDiv').show();
+            //$('.alert-success').show();
+            //$('.alert-success strong').text("Priest Deleted Successfully");
+            noty({ text: 'Priest Deleted Successfully', type: 'success' });
         }
         if (result.result != "1") {
-            $('#rowfluidDiv').show();
-            $('.alert-error').show();
-            $('.alert-error strong').text("Deleting Not Successful");
+            //$('#rowfluidDiv').show();
+            //$('.alert-error').show();
+            //$('.alert-error strong').text("Deleting Not Successful");
+            noty({ text: 'Deleting Not Successful', type: 'error' });
         }
         $('#assVicardiv').remove();
         debugger;
@@ -175,15 +168,17 @@ function savePriest()
         result = InsertPriest(Priest);
 
         if (result.result == "1") {
-            $('#rowfluidDiv').show();
-            $('.alert-success').show();
-            $('.alert-success strong').text("Priest Added Successfully");
+            //$('#rowfluidDiv').show();
+            //$('.alert-success').show();
+            //$('.alert-success strong').text("Priest Added Successfully");
+            noty({ text: 'Priest Added Successfully', type: 'success' });
 
         }
         if (result.result != "1") {
-            $('#rowfluidDiv').show();
-            $('.alert-error').show();
-            $('.alert-error strong').text("Saving Not Successful");
+            //$('#rowfluidDiv').show();
+            //$('.alert-error').show();
+            //$('.alert-error strong').text("Saving Not Successful");
+            noty({ text: 'Saving Not Successful', type: 'error' });
         }
 
         $('#assVicardiv').remove();
@@ -232,10 +227,10 @@ function savePriest()
         result = UpdatePriest(Priest);
 
         if (result.result == "1") {
-            $('#rowfluidDiv').show();
-            $('.alert-success').show();
-            $('.alert-success strong').text("Priest Edited Successfully");
-
+            //$('#rowfluidDiv').show();
+            //$('.alert-success').show();
+            //$('.alert-success strong').text("Priest Edited Successfully");
+            noty({ text: 'Priest Edited Successfully', type: 'success' });
             //if (DeletedImgID != '') {
             //    var AppImages = new Object();
             //    AppImages.appImageId = DeletedImgID;
@@ -248,9 +243,10 @@ function savePriest()
 
         }
         if (result.result != "1") {
-            $('#rowfluidDiv').show();
-            $('.alert-error').show();
-            $('.alert-error strong').text("Saving Not Successful");
+            //$('#rowfluidDiv').show();
+            //$('.alert-error').show();
+            //$('.alert-error strong').text("Saving Not Successful");
+            noty({ text: 'Saving Not Successful', type: 'error' });
         }
         $('#assVicardiv').remove();
         debugger;
