@@ -206,7 +206,7 @@ namespace ChurchApp.DAL
         /// Delete PatronMaster
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string DeletePatronMaster()
+        public string DeletePatronMaster(string churchId)
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -220,6 +220,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[DeletePatronMaster]";
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronMasterId);
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();

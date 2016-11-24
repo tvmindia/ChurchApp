@@ -208,7 +208,7 @@ namespace ChurchApp.AdminPanel
             string status = null;
             try
             {
-                status = PatrnObj.DeletePatronMaster();
+                status = PatrnObj.DeletePatronMaster(UA.ChurchID);
                 PatrnObj.Status = status;
             }
             catch (Exception)
