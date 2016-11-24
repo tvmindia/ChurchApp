@@ -56,10 +56,17 @@ $("document").ready(function (e)
 
     //Save Click
      $('#btnSave').click(function (e) {
-         
+        
+         var IsValid= NewSaintValidation();
+
          $('#rowfluidDiv').hide();
          $('.alert-success').hide();
          $('.alert-error').hide();
+
+         if (IsValid) {
+    
+         
+
          var SuccessMsg = '';
        
          if ($("#ddlPatron").val() != null && $("#ddlPatron").val() != "") {
@@ -137,25 +144,25 @@ $("document").ready(function (e)
                      }
                      
                      //Insertion of novena timing
-                         $.each(NovenaDayAndTime, function (index, NovenaDayAndTime) {
+                     $.each(NovenaDayAndTime, function (index, NovenaDayAndTime) {
 
-                             var day = NovenaDayAndTime.Day;
-                             var time = NovenaDayAndTime.Time;
+                         var day = NovenaDayAndTime.Day;
+                         var time = NovenaDayAndTime.Time;
 
-                             NovenaTiming.day = day;
-                             NovenaTiming.time = time;
-                             InsertNovenaTiming(NovenaTiming);
+                         NovenaTiming.day = day;
+                         NovenaTiming.time = time;
+                         InsertNovenaTiming(NovenaTiming);
                              
-                         });
+                     });
                     
-                        FixedEditClick();
+                     FixedEditClick();
 
-                         $('#rowfluidDiv').show();
-                         $('.alert-success').show();
-                         $('.alert-success strong').text(SuccessMsg);
+                     $('#rowfluidDiv').show();
+                     $('.alert-success').show();
+                     $('.alert-success strong').text(SuccessMsg);
                         
-                         BindNovenasPatronID(PatronID);
-                         ScrollPage();
+                     BindNovenasPatronID(PatronID);
+                     ScrollPage();
                  }
              }
 
@@ -163,6 +170,7 @@ $("document").ready(function (e)
          else {
              alert("Please select a patron");
          }
+     }
     });
    
     //Cancel Click
@@ -298,6 +306,12 @@ $("document").ready(function (e)
         }
 
     })
+
+    $('input:text').click(
+   function () {
+       RemoveStyle();
+   });
+
 
 }); //End of Document ready
 
@@ -966,7 +980,67 @@ function createGuid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 function NewSaintValidation() {
+    $('#Displaydiv').remove();
+    var Name = $('#txtNovenaCaption');
+    //   var Description = $('#txtDescription');
 
+    var container = [
+        { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
+      //  ,{ id: Description[0].id, name: Description[0].name, Value: Description[0].value }
+
+    ];
+
+    if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+    {
+        var StartDate = $('#dateStartDate');
+        var Expirydate = $('#dateExpiryDate');
+        var NotificationContent = $('#txtnotificationCOntent').val();
+        container = [
+        { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
+        , { id: StartDate[0].id, name: StartDate[0].name, Value: StartDate[0].value }
+        , { id: Expirydate[0].id, name: Expirydate[0].name, Value: Expirydate[0].value }
+        , { id: NotificationContent[0].id, name: NotificationContent[0].name, Value: NotificationContent[0].value }
+        ];
+
+    }
+
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+        if (container[i].Value == "") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+    }
+
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+        divs.appendChild(p);
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox').hide();
+        return true;
+    }
+
+}
+function RemoveStyle() {
+    debugger;
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
 }
 function showpreview(input) {
     if (input.files && input.files[0]) {

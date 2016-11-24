@@ -31,10 +31,7 @@
         <%--Alert boxes --%>
         <div id="rowfluidDiv" style="display: none;">
 
-            <div class="alert alert-block" id="ErrorBox" style="display: none; background-color: #fdeaea !important; color: #ca6f74 !important; border: 1px solid #f27b81 !important;">
-                <div id="Displaydiv">
-                </div>
-            </div>
+            
 
             <div class="alert alert-error" style="display: none;">
                 <strong>Operation Not Successfull.</strong>
@@ -135,6 +132,12 @@
                             <div class="box-content">
                                 <div class="form-horizontal">
                                     <fieldset>
+
+                                         <div class="alert alert-block" id="ErrorBox" style="display: none; background-color: #fdeaea !important; color: #ca6f74 !important; border: 1px solid #f27b81 !important;">
+                <div id="Displaydiv">
+                </div>
+            </div>
+
                                         <%--New Format--%>
                                         <div id="DivNewFormat">
 
