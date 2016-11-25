@@ -512,6 +512,28 @@ namespace ChurchApp.AdminPanel
         }
         #endregion InsertUsers
 
+#region DeleteUser
+        [System.Web.Services.WebMethod]
+        public static string DeleteUser(Users usersObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                usersObj.updatedBy = UA.userName;
+                usersObj.DeleteUser();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return jsSerializer.Serialize(usersObj);
+        }
+
+#endregion DeleteUser
+
 
     }
 }

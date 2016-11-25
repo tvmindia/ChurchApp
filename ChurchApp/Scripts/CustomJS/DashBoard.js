@@ -366,16 +366,9 @@
     });
 
     $('.UserClear').click(function (e) {
-
-
-
         $('#rowfluidDivAlert').hide();
         $('.alert').hide();
-        
         $(".ddlChurchuser").select2("val", "");
-
-       
-
     });
 
     $('#btnUserAdd').click(function (e) {
@@ -456,7 +449,7 @@
                         $('#rowfluidDivAlert').show();
                         $('.alert-success').show();
                         $('.alert-success strong').text("Inserted successfully");
-                        BindAllRoles();
+                        BindAllUsers();
                         break;
                     case "0":
                         $('.alert-success').hide();
@@ -480,7 +473,7 @@
                         $('#rowfluidDivAlert').show();
                         $('.alert-success').show();
                         $('.alert-success strong').text("Updated successfully");
-                        BindAllRoles();
+                        BindAllUsers();
                         break;
                     case "0":
                         $('.alert-success').hide();
@@ -581,6 +574,40 @@
     
     
 });//end of document.ready
+
+
+function RemoveUser(curobj)
+{
+    debugger;
+    var r = confirm("Are You Sure to Delete?");
+    if (r == true) {
+        var Users = new Object();
+        var Church = new Object();
+        Users.churchObj = Church;
+        Users.ID = $(curobj).attr('userid');
+        var result = DeleteUser(Users);
+
+        switch (result.status) {
+            case "1":
+                $('.alert-error').hide();
+                $('#rowfluidDivAlert').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text("Deleted successfully");
+                BindAllUsers();
+                break;
+            case "0":
+                $('.alert-success').hide();
+                $('#rowfluidDivAlert').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text("Deletion was not successfull");
+                break;
+            default:
+                break;
+        }
+
+    }
+
+}
 
 function UpdateChurch(Church)
 {
@@ -755,6 +782,21 @@ function RemoveRole(curobj)
 
     }
 }
+
+function DeleteUser(Users)
+{
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'usersObj':" + JSON.stringify(Users) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/DeleteUser");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+    }
+    return table;
+}
+
 function DeleteChurch(Church)
 {
     var ds = {};
@@ -1073,7 +1115,7 @@ function LoadUsers(Records) {
     try {
         $("#Userstable").find(".userrow").remove();
         $.each(Records, function (index, Record) {
-            var html = '<tr class="userrow"><td>' + Record.UserName + '</td><td class="center">' + Record.Mobile + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + Record.RoleName + '</td><td class="center"><a class="circlebtn circlebtn-info"><i userid=' + Record.UserID + ' class="halflings-icon white edit" onclick="EditRole(this)"></i></a><a class="circlebtn circlebtn-danger"><i userid=' + Record.RoleID + ' class="halflings-icon white trash" onclick="RemoveRole(this)"></i></a></td></tr>';
+            var html = '<tr class="userrow"><td>' + Record.UserName + '</td><td class="center">' + Record.Mobile + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + Record.RoleName + '</td><td class="center"><a class="circlebtn circlebtn-info"><i userid=' + Record.UserID + ' class="halflings-icon white edit" onclick="EditRole(this)"></i></a><a class="circlebtn circlebtn-danger"><i userid=' + Record.UserID + ' class="halflings-icon white trash" onclick="RemoveUser(this)"></i></a></td></tr>';
             $("#Userstable").append(html);
         })
     }
