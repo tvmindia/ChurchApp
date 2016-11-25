@@ -810,8 +810,9 @@ function EditOnClick(id) {
                    }
                 
                 $('#eventPreviewOnView').attr('src', url);
-
                 $("#aZoomEventImage").attr("href", url);
+                $('#aZoomEventImage').attr('data-title', jsonResult.EventName);
+
 
                 imageId = jsonResult.ImageID;
                 imgPath = jsonResult.URL;
