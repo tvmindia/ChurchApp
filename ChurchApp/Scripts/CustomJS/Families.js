@@ -142,12 +142,13 @@ $(document).ready(function () {
             }
             else
             {
+                debugger;
                 Members.memberId = $("#hdfMemberID").val();
                 var guid = createGuid();
-                if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
+                if (((imagefile = $('#mfluImage')[0].files[0]) != undefined)) {
                     var formData = new FormData();
                     var tempFile;
-                    if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
+                    if ((tempFile = $('#mfluImage')[0].files[0]) != undefined) {
                         tempFile.name = guid;
                         formData.append('NoticeAppImage', tempFile, tempFile.name);
                         formData.append('GUID', guid);
@@ -665,6 +666,7 @@ function Families()
     $("#AddFamilyUnitHeader").css("display", "none"); //unit header
     $("#txtFamilyName").removeAttr("disabled");
     $("#isHeadDiv").hide();
+    $("#memberImgDiv").hide();
 }
 function Units()
 {
