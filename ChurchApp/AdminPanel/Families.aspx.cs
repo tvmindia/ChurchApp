@@ -312,6 +312,8 @@ namespace ChurchApp.AdminPanel
                 {
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
                     memberObj.churchId = UA.ChurchID;
+                    memberObj.createdBy = UA.userName;
+                    memberObj.updatedBy = UA.userName;
                     if (memberObj.familyObj.familyId != "" && memberObj.familyObj.familyId != null)
                     {
                         memberObj.familyID = memberObj.familyObj.familyId;
