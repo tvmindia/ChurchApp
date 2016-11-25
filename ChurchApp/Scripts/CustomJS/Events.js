@@ -807,12 +807,11 @@ function EditOnClick(id) {
                
                 if (url == null) {
                     url = "../img/No-Img_Chosen.png";
-                    $('#eventPreviewOnView').attr('src', url);
-                }
-                else {
-                    $('#eventPreviewOnView').attr('src', url);
+                   }
+                
+                $('#eventPreviewOnView').attr('src', url);
 
-                }
+                $("#aZoomEventImage").attr("href", url);
 
                 imageId = jsonResult.ImageID;
                 imgPath = jsonResult.URL;
