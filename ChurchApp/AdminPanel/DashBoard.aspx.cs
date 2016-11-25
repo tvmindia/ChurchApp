@@ -512,7 +512,28 @@ namespace ChurchApp.AdminPanel
         }
         #endregion InsertUsers
 
-#region DeleteUser
+        #region UpdateUser
+        [System.Web.Services.WebMethod]
+        public static string UpdateUser(Users usersObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                usersObj.updatedBy = UA.userName;
+                usersObj.UpdateUser();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return jsSerializer.Serialize(usersObj);
+        }
+        #endregion UpdateUser
+
+        #region DeleteUser
         [System.Web.Services.WebMethod]
         public static string DeleteUser(Users usersObj)
         {
@@ -534,6 +555,145 @@ namespace ChurchApp.AdminPanel
 
 #endregion DeleteUser
 
+        #region GetUserDetailsByUserID
+        [System.Web.Services.WebMethod]
+        public static string GetUserDetailsByUserID(Users usersObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                DataSet ds = null;
+                ds = usersObj.GetUserDetailsByUserID();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion GetUserDetailsByUserID
+
+
+        //------------------------------------------------ * OrgDesignation Master Methods *---------------------------------------------------//
+
+        #region SelectAllDesignation
+
+        [System.Web.Services.WebMethod]
+        public static string SelectAllDesignation(OrgDesignationMaster designationObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            try
+            {
+
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                DataSet ds = null;
+
+                ds = designationObj.SelectOrgDesignationMaster();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion SelectAllDesignation
+
+        #region InsertChurch
+        [System.Web.Services.WebMethod]
+        public static string InsertDesignation(OrgDesignationMaster designationObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            string status = null;
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                designationObj.createdBy = UA.userName;
+                designationObj.InsertOrgDesignationMaster();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return jsSerializer.Serialize(status);
+        }
+
+        #endregion InsertChurch
+
+        #region GetAllOrgType
+        [System.Web.Services.WebMethod]
+        public static string GetAllOrgType(OrgDesignationMaster designationObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            try
+            {
+
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                DataSet ds = null;
+
+                ds = designationObj.GetAllOrgType();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion GetAllOrgType
 
     }
 }

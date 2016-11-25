@@ -454,6 +454,102 @@
         </div>
 
         <!--Userstable-->
+
+         <br />
+
+         <!--Designationtable-->
+     
+       <div class="row-fluid">
+            <div class="box span12">
+					<div class="box-header">
+						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Designation</h2>
+						<div class="box-icon">
+							
+							<a style="cursor:pointer;" class="btn-minimize"><i class="halflings-icon chevron-down"></i></a>
+						
+						</div>
+					</div>
+					<div class="box-content DesignationBox">
+						<table class="table table-bordered" id="Designationtable">
+							  <thead>
+								  <tr>
+									  <th>Position</th>
+									  <th>Order</th>
+									  <th>Organization</th>
+                                     <th>Actions</th>                                          
+								  </tr>
+							  </thead>   
+							  <tbody>
+								
+							                  
+							  </tbody>
+						 </table>  
+
+
+                         	<div class="form-horizontal">
+						
+							<fieldset>
+                                <br />
+                             <div class="span12">   
+				             <div class="span6">
+
+						      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Position</label>
+                               <div class="controls">
+                              
+                                    <input class="input-large focused" name="txtPosition" id="txtPosition" placeholder=""  type="text"/>
+                              </div>
+                              </div>
+
+                                 
+                                      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Organization</label>
+                               <div class="controls">
+                               <select class="ddlOrganization"><option></option></select>
+                              </div>
+                              </div>
+
+                          
+                   </div>
+                             <div class="span6">
+                                  
+						  
+
+                                     <div class="control-group">
+                             <label class="control-label" for="focusedInput">Hierarchical Order</label>
+                               <div class="controls">
+                                  <input class="input-large focused" name="txtOrder" id="txtOrder" placeholder=""  type="text"/>
+                                  
+                                 </div>
+                             </div>
+                                
+                                    </div>
+                             </div>
+                     
+                             
+                     
+                         </fieldset>
+
+                             <div class="form-actions">
+                                        <a class="btn btn-primary" id="btnDesignationAdd" href="#">Save</></a>
+                                        <a class="btn UserClear">Cancel</a>
+                                    </div>	
+                                 </div>
+						
+					</div>
+
+                  
+                
+
+
+		   </div><!--/span-->
+
+        </div>
+
+        <!--Designationtable-->
+       
         
      
 

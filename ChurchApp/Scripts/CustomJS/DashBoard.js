@@ -9,6 +9,8 @@
         $targetRolesBox.slideToggle();
         var $targetUserBox = $('.UserBox');
         $targetUserBox.slideToggle();
+        var $targetUserBox = $('.DesignationBox');
+        $targetUserBox.slideToggle();
     }
     catch(e)
     {
@@ -138,7 +140,29 @@
 
     }
 
-    
+    try {
+        $(".ddlOrganization").select2({
+            placeholder: "Choose Organization",
+            allowClear: true,
+            data: BindOrganizationTypeDropdown()
+        });
+    }
+    catch (e) {
+
+    }
+
+    try {
+        BindAllDesignation();
+        $('#Designationtable').DataTable(
+        {
+            order: [[0, 'asc'], [1, 'asc']],
+            searching: false,
+            paging: true
+        });
+    }
+    catch (e) {
+
+    }
    
 
     $('#btnChurchAdd').click(function (e) {
@@ -609,6 +633,59 @@ function RemoveUser(curobj)
 
 }
 
+function EditUsers(curobj)
+{
+    debugger;
+    $('#rowfluidDivAlert').hide();
+    $('.alert').hide();
+    var Users = new Object();
+    Users.ID = $(curobj).attr('userid');
+    $("#hdfUserID").val(Users.ID);
+    var userDetail = GetUserDetailsByUserID(Users);
+
+    $(".ddlChurchuser").val(userDetail[0].ChurchID).trigger("change");
+    $("#txtUserName").val(userDetail[0].UserName);
+    $("#txtUserAddress").val(userDetail[0].Address);
+    $("#txtMobile").val(userDetail[0].Mobile);
+    $("#txtEmail").val(userDetail[0].Email);
+    switch(userDetail[0].Gender)
+    {
+        case 'Male':
+            $("#optionMale").prop("checked", true);
+            break;
+        case 'Female':
+            $("#optionFeMale").prop("checked", true);
+            break;
+    }
+    $(".ddlRoles").val(userDetail[0].RoleID).trigger("change");
+
+    if (userDetail[0].Active == true)
+    {
+       $("#chkActive").parent().addClass('checked');
+    }
+    else
+    {
+        $("#chkActive").parent().removeClass('checked');
+    }
+
+    if (userDetail[0].Administrator == true)
+    {
+        $("#chkAdministrator").parent().addClass('checked');
+    }
+    else
+    {
+        $("#chkAdministrator").parent().removeClass('checked');
+    }
+
+    $("#txtLoginName").val(churchDetail[0].LoginName);
+
+    $("#datepickerdob").val(churchDetail[0].DOB);
+
+   
+   
+   
+}
+
 function UpdateChurch(Church)
 {
     var ds = {};
@@ -695,6 +772,20 @@ function GetChurchDetailsByChurchID(Church)
     try {
         var data = "{'churchObj':" + JSON.stringify(Church) + "}";
         ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetChurchDetailsByChurchID");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function GetUserDetailsByUserID(Users) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'usersObj':" + JSON.stringify(Users) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetUserDetailsByUserID");
         table = JSON.parse(ds.d);
     }
     catch (e) {
@@ -875,6 +966,19 @@ function InsertUser(Users) {
     try {
         var data = "{'usersObj':" + JSON.stringify(Users) + "}";
         ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/InsertUsers");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+function UpdateUser(Users) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'usersObj':" + JSON.stringify(Users) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/UpdateUser");
         table = JSON.parse(ds.d);
     }
     catch (e) {
@@ -1115,7 +1219,7 @@ function LoadUsers(Records) {
     try {
         $("#Userstable").find(".userrow").remove();
         $.each(Records, function (index, Record) {
-            var html = '<tr class="userrow"><td>' + Record.UserName + '</td><td class="center">' + Record.Mobile + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + Record.RoleName + '</td><td class="center"><a class="circlebtn circlebtn-info"><i userid=' + Record.UserID + ' class="halflings-icon white edit" onclick="EditRole(this)"></i></a><a class="circlebtn circlebtn-danger"><i userid=' + Record.UserID + ' class="halflings-icon white trash" onclick="RemoveUser(this)"></i></a></td></tr>';
+            var html = '<tr class="userrow"><td>' + Record.UserName + '</td><td class="center">' + Record.Mobile + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + Record.RoleName + '</td><td class="center"><a class="circlebtn circlebtn-info"><i userid=' + Record.UserID + ' class="halflings-icon white edit" onclick="EditUsers(this)"></i></a><a class="circlebtn circlebtn-danger"><i userid=' + Record.UserID + ' class="halflings-icon white trash" onclick="RemoveUser(this)"></i></a></td></tr>';
             $("#Userstable").append(html);
         })
     }
@@ -1125,5 +1229,57 @@ function LoadUsers(Records) {
 }
 
 
+function BindOrganizationTypeDropdown() {
+    var ds = {};
+    var table = {};
+    var OrgDesignationMaster = new Object();
+    try {
+        var data = "{'designationObj':" + JSON.stringify(OrgDesignationMaster) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllOrgType");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+    }
+    return table;
+}
 
+function BindAllDesignation() {
+    try {
+        var OrgDesignationMaster = new Object();
+        var jsonResultDesignation = GetAllDesignation(OrgDesignationMaster);
+        if (jsonResultDesignation != null) {
+            LoadDesignation(jsonResultDesignation);
+        }
+    }
+    catch (e) {
+
+    }
+}
+
+function LoadDesignation(Records) {
+    try {
+        $("#Designationtable").find(".designationrow").remove();
+        $.each(Records, function (index, Record) {
+            var html = '<tr class="designationrow"><td>' + Record.Position + '</td><td class="center">' + Record.Order + '</td><td class="center">' + Record.OrgType + '</td><td class="center"><a class="circlebtn circlebtn-info"><i designationid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditDesignation(this)"></i></a><a class="circlebtn circlebtn-danger"><i designationid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveDesignation(this)"></i></a></td></tr>';
+            $("#Designationtable").append(html);
+        })
+    }
+    catch (e) {
+
+    }
+}
+
+function GetAllDesignation(Designation) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'designationObj':" + JSON.stringify(Designation) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllDesignation");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
 

@@ -162,6 +162,42 @@ namespace ChurchApp.DAL
         }
         #endregion SelectAllUsers
 
+        #region GetUserDetailsByUserID
+        public DataSet GetUserDetailsByUserID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ID);
+                cmd.CommandText = "[GetUserDetailsByUserID]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetUserDetailsByUserID
+
         #region InsertUsers
         public string InsertUsers()
         {
@@ -218,6 +254,64 @@ namespace ChurchApp.DAL
         }
         #endregion InsertUsers
 
+        #region UpdateUser
+
+        public string UpdateUser()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+
+            try
+            {
+                //Encryption of password
+                ChurchApp.DAL.Security.CryptographyFunctions cryptOBj = new ChurchApp.DAL.Security.CryptographyFunctions();
+                Password = cryptOBj.Encrypt(Password);
+                //Encryption of password
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateUser]";
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ID);
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
+                cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 255).Value = Mobile;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
+                cmd.Parameters.Add("@Active", SqlDbType.Bit).Value = Active;
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchObj.churchId);
+                cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
+                cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = Administrator;
+                cmd.Parameters.Add("@Gender", SqlDbType.NChar, 6).Value = Gender;
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = Address;
+                cmd.Parameters.Add("@RoleID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(rolesObj.ID);
+                cmd.Parameters.Add("@LoginName", SqlDbType.NVarChar, 255).Value = LoginName;
+                cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 255).Value = Password;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+
+            status = outParam.Value.ToString();
+
+            return status;
+        }
+
+
+        #endregion UpdateUser
 
         #region DeleteUser
         public string DeleteUser()
@@ -257,6 +351,8 @@ namespace ChurchApp.DAL
             return status;
         }
         #endregion DeleteUser
+
+
         #endregion Methods
 
     }
