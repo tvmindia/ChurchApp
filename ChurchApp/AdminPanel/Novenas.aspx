@@ -372,6 +372,10 @@
                         <h3 id="ModalHead">Add New Saint</h3>
                     </div>
                     <div class="modal-body">
+                        <div class="alert alert-block" id="ErrorBox1" style="display: none; background-color: #fdeaea !important; color: #ca6f74 !important; border: 1px solid #f27b81 !important;">
+                <div id="Displaydiv1">
+                </div>
+            </div>
                         <div class="form-horizontal">
                             <div class="span12">
                                 <div class="span1"></div>

@@ -57,7 +57,7 @@ $("document").ready(function (e)
     //Save Click
      $('#btnSave').click(function (e) {
         
-         var IsValid= NewSaintValidation();
+         var IsValid = NewNovenaValidation();
 
          $('#rowfluidDiv').hide();
          $('.alert-success').hide();
@@ -219,12 +219,18 @@ $("document").ready(function (e)
 
     //Save - New Saint(Patron)
     $('#btnSaveInModal').click(function (e) {
+
+        var IsValid = NewPatronValidation();
+
+        if (IsValid) {
+    
+        
         var PatronMaster = new Object();
         PatronMaster.patronMasterName = $("#txtSaintName").val(); 
         PatronMaster.description = $("#txtSaintDescription").val();
 
         var guid = createGuid();
-         if (guid != null) {
+        if (guid != null) {
             var imgresult = "";
             var _URL = window.URL || window.webkitURL;
             var formData = new FormData();
@@ -251,7 +257,7 @@ $("document").ready(function (e)
             }
         }
 
-         if ($('#hdfPatronID').val() != "") { //Case Update
+        if ($('#hdfPatronID').val() != "") { //Case Update
             PatronMaster.patronMasterId = $('#hdfPatronID').val();
 
             result = UpdatePatron(PatronMaster);
@@ -273,12 +279,18 @@ $("document").ready(function (e)
         else {  //Case Insert
             result = InsertPatron(PatronMaster);
         }
-            if (result.Status == 1)
-            {
-                BindPatrons();
-                $('#NewSaintModel').modal('hide');
-            }
-            ClearModalControls();
+        if (result.Status == 1)
+        {
+            BindPatrons();
+            $('#NewSaintModel').modal('hide');
+        }
+        ClearModalControls();
+        }
+
+        else {
+            return false;
+        }
+
     });
 
     $('#btnEditPatron').click(function (e) {
@@ -979,7 +991,7 @@ function createGuid() {
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
-function NewSaintValidation() {
+function NewNovenaValidation() {
     $('#Displaydiv').remove();
     var Name = $('#txtNovenaCaption');
     //   var Description = $('#txtDescription');
@@ -1103,6 +1115,50 @@ function AddDayAndTimeToArray() {
     else {
         alert("Please select a time");
     }
+}
+function NewPatronValidation()
+{
+    $('#Displaydiv1').remove();
+    var Name = $('#txtSaintName');
+    //   var Description = $('#txtDescription');
+
+    var container = [
+        { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
+      //  ,{ id: Description[0].id, name: Description[0].name, Value: Description[0].value }
+
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox1');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv1");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+        if (container[i].Value == "") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+    }
+
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+        divs.appendChild(p);
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox1').hide();
+        return true;
+    }
+
 }
 //--------------------------------//
 
