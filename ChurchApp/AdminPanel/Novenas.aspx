@@ -8,13 +8,6 @@
     <script src="../Scripts/timepicki.js"></script>
     <link href="../CSS/timepicki.css" rel="stylesheet" />
 
-
-    <style>
-        #DivSaints ul {
-            display: ruby !important;
-        }
-    </style>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 
