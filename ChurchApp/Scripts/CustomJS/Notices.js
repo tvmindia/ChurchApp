@@ -133,10 +133,10 @@ $("document").ready(function (e) {
                     result = InsertNotice(Notices);
 
                     if (result.status == "1") {
-                        $('#rowfluidDiv').show();
-                        $('.alert-success').show();
-                        $('.alert-success strong').text("Notice Added Successfully");
-
+                        //$('#rowfluidDiv').show();
+                        //$('.alert-success').show();
+                        //$('.alert-success strong').text("Notice Added Successfully");
+                        noty({ text: 'Notice Added Successfully', type: 'success' });
                         if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
                         {
                             var Notification = new Object();
@@ -154,9 +154,10 @@ $("document").ready(function (e) {
                         }
                     }
                     if (result.status != "1") {
-                        $('#rowfluidDiv').show();
-                        $('.alert-error').show();
-                        $('.alert-error strong').text("Saving Not Successful");
+                        //$('#rowfluidDiv').show();
+                        //$('.alert-error').show();
+                        //$('.alert-error strong').text("Saving Not Successful");
+                        noty({ text: 'Saving Not Successful', type: 'error' });
                     }
 
                     BindNotices();
@@ -205,10 +206,10 @@ $("document").ready(function (e) {
                     result = UpdateNotice(Notices);
 
                     if (result.status == "1") {
-                        $('#rowfluidDiv').show();
-                        $('.alert-success').show();
-                        $('.alert-success strong').text("Notice Edited Successfully");
-
+                        //$('#rowfluidDiv').show();
+                        //$('.alert-success').show();
+                        //$('.alert-success strong').text("Notice Edited Successfully");
+                        noty({ text: 'Notice Edited Successfully', type: 'success' });
                         if (DeletedImgID != '' && (((imagefile = $('#UpNotice')[0].files[0]) != undefined))) {
                             var AppImages = new Object();
                             AppImages.appImageId = DeletedImgID;
@@ -238,9 +239,10 @@ $("document").ready(function (e) {
 
                     }
                     if (result.status != "1") {
-                        $('#rowfluidDiv').show();
-                        $('.alert-error').show();
-                        $('.alert-error strong').text("Saving Not Successful");
+                        //$('#rowfluidDiv').show();
+                        //$('.alert-error').show();
+                        //$('.alert-error strong').text("Saving Not Successful");
+                        noty({ text: 'Saving Not Successful', type: 'error' });
                     }
 
                     BindNotices();
@@ -311,10 +313,10 @@ $("document").ready(function (e) {
             var DeletionStatus = DeleteNotice(Notices);
 
             if (DeletionStatus.status == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Notice Deleted Successfully");
-
+                //$('#rowfluidDiv').show();
+                //$('.alert-success').show();
+                //$('.alert-success strong').text("Notice Deleted Successfully");
+                noty({ text: 'Notice Deleted Successfully', type: 'success' });
                 var AppImages = new Object();
                 AppImages.appImageId = imageId;
                 DeleteAppImage(AppImages);
@@ -322,9 +324,10 @@ $("document").ready(function (e) {
                 DeleteFileFromFolder(imgPath);
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Deletion Not Successful");
+                //$('#rowfluidDiv').show();
+                //$('.alert-error').show();
+                //$('.alert-error strong').text("Deletion Not Successful");
+                noty({ text: 'Deletion Not Successful', type: 'error' });
             }
 
             BindNotices();
@@ -528,9 +531,9 @@ function FillNotice(Records) {
     $.each(Records, function (index, Records) {
         debugger;
 
-        var url = Records.URL;
-      
-        var html = '<div class="accordion Card"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NoticeName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="noticeImage" id=img' + Records.ID + ' src=' + url + '/><p>' + Records.Description + '</p><span class="NoticeViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+        var url = Records.URL;//<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NoticeName + '</a></div><div class="accordion-body collapse in">
+        //<img class="noticeImage" id=img' + Records.ID + ' src=' + url + '/>
+        var html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.NoticeName + '</p><span class="fa fa-slack" id="spnStartDate"></span>  <span class="spnDateValues" >' + Records.NoticeType + '</span>&nbsp;<br /><p>' + Records.Description + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
         $("#DivNoticeType1").append(html);
 
         if (url != "") {
@@ -741,15 +744,18 @@ function InsertNotification(Notification) {
     return table;
 }
 //--------------------------------//
-
+function cancelEdit() {
+    $('#btnCancel').click();
+}
 
 //Edit
 //--- while select a notice , ther will appear a fixed edit icon ,its click functionality is given below
 function FixedEditClick() {
 
-    $('#NoticeEdit').hide();
+    //$('#NoticeEdit').hide();
     $('#UpNotice')[0].files[0] = null;
-
+    $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white refresh");
+    $('#NoticeEdit').attr('onclick', 'cancelEdit();');
     $("#lblStartDate").hide();
     $("#dateStartDate").show();
     $("#lblExpiryDate").hide();
@@ -836,6 +842,8 @@ function EditOnClick(id) {
     $('.alert-success').hide();
     $('.alert-error').hide();
     $("#NoticeEdit").show();
+    $('#NoticeEdit').attr('onclick', 'FixedEditClick();')
+    $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
     $("#btnDelete").hide();
     $("#divView").show();
     $("#divNotificationDates").hide();

@@ -53,12 +53,12 @@
 
             <div class="row-fluid">
 
-                <div class=" span5">
+                <div class=" span6">
 
                 <div>
                     <div id="divLatestEvents">
-                        <div class="priority high">
-                            <span class="latest">Latest Notices</span>
+                        <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
+                            <h2>Latest Notices</h2>
                            <a class="btnNew" title="" onclick="AddNewNoticeFormat();"><i title="Add New Notice">+</i></a>
 
                         </div>
@@ -68,9 +68,16 @@
                         </div>
 
                         <div id="viewAllLatest">
-                            <a class="aBack" style="display: none;">Back</a>
-                            <a class="aViewMore" id="aViewMore">View All>></a>
-                        </div>
+                            <ul class="pager">
+                               <li class="previous">
+                                   <a class="aBack" style="display: none;">&larr; Back</a>
+                                 </li>
+                                <li class="next">
+                                    <a class="aViewMore" id="aViewMore">View All →</a>
+                                    </li>
+                                 </ul>
+                            
+                            </div>
 
                     </div>
 
@@ -81,24 +88,35 @@
 
 
 
-                <div class="box span7" id="NoticeEditDivBox">
+                <div class="span6 noMarginLeft" id="NoticeEditDivBox" style="margin-top:1%">
+                    <div class="dark">
+                        <h2><span class="fa fa-bell-o"> </span>  <span id="h1Event">Notices</span></h2>
+                        <a id="NoticeEdit" class="btnEdit"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Notice"></i></a>
+                    <div class="box-content">
+                    <%--<%--<div class="form-horizontal">
                     <div class="box-header">
                          <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="h1Notice" style="position:absolute">Event</span> <a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Notice"></i></a></h2>
                        
                         <%--<h2 id="h1Notice"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Add Notice</h2>--%>
-                        <div class="box-icon">
+                        <%--<div class="box-icon">
                             
                             <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
-                        </div>
-                    </div>
+                        <%--</div>
+                    </div>--%>
 
                     <%--class="box-content"--%>
-                    <div >
+                    <%--<div >--%>
                         <div class="form-horizontal">
                             <fieldset>
 
                                 <%--<a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()" style="right: 1px; position: fixed;"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>--%>
-
+                                <%--Image--%>
+                                <div class="control-group " id="DivImg" style="margin-top: 20px">
+                                    <%--<label class="control-label" for="fileInput">Notice Image</label>--%>
+                                        <img class="imgNotices img-rounded" id="NoticePreview" src="../img/No-Img_Chosen.png" />
+                                        <%--onchange="showpreview(this);"--%>
+                                            <input type="file" id="UpNotice" value="Choose Image" onchange="showpreview(this);" />
+                                </div>
                                 <%--Notice Name--%>
                                 <div class="control-group" id="divnoticeName">
                                     <label class="control-label" for="focusedInput">Notice Name</label>
@@ -119,18 +137,7 @@
                                     </div>
                                 </div>
 
-                                <%--Image--%>
-                                <div class="control-group " id="DivImg">
-                                    <%--<label class="control-label" for="fileInput">Notice Image</label>--%>
-
-                                    <div class="controls">
-                                        <img class="imgNotices" id="NoticePreview" src="../img/No-Img_Chosen.png" />
-                                        <%--onchange="showpreview(this);"--%>
-                                        <div id="DivFile">
-                                            <input type="file" id="UpNotice" value="Choose Image" onchange="showpreview(this);" />
-                                        </div>
-                                    </div>
-                                </div>
+                                
 
 
                                 <%--Description--%>
@@ -138,7 +145,7 @@
                                     <label class="control-label" for="focusedInput" id="lblDescTitle">Description</label>
                                     <div class="controls">
                                         <label class="control-label" for="focusedInput" id="lblNoticeDescription" style="display: none">Notice Description</label>
-                                        <textarea tabindex="10" class="input-xlarge span10" id="txtDescription" name="Description" rows="25" placeholder=""></textarea>
+                                        <textarea tabindex="10" class="input-large" id="txtDescription" name="Description" rows="4" placeholder=""></textarea>
                                     </div>
                                 </div>
 
@@ -166,7 +173,7 @@
                                         <label class="control-label" for="date01">Start Date</label>
                                         <div class="controls">
                                             <label class="control-label" for="focusedInput" id="lblStartDate" style="display: none"></label>
-                                            <input type="text" class="input-xlarge datepicker" id="dateStartDate" />
+                                            <input type="text" class="input-large datepicker" id="dateStartDate" />
                                         </div>
                                     </div>
 
@@ -174,14 +181,14 @@
                                         <label class="control-label" for="date01">Expiry Date</label>
                                         <div class="controls">
                                             <label class="control-label" for="focusedInput" id="lblExpiryDate" style="display: none"></label>
-                                            <input type="text" class="input-xlarge datepicker" id="dateExpiryDate" />
+                                            <input type="text" class="input-large datepicker" id="dateExpiryDate" />
                                         </div>
                                     </div>
 
                                     <div class="control-group" id="DivNotificationContent">
                                     <label class="control-label" for="focusedInput">Notification Content</label>
                                     <div class="controls">
-                                        <textarea tabindex="10" class="input-xlarge span10" id="txtnotificationCOntent" name="Description" rows="5" placeholder="" style="width: 70%"></textarea>
+                                        <textarea tabindex="10" class="input-large" id="txtnotificationCOntent" name="Description" rows="4" placeholder=""></textarea>
 
                                     </div>
                                 </div>
@@ -190,8 +197,8 @@
 
                                 <div id="divView">
 
-                                    <div class="accordion">
-                                        <div class="accordion-group">
+                                    <div class="accordion" style="border-bottom: 1px solid #e6e2e2;">
+                                        <div class="">
 
                                             <%--   <div class="accordion-body collapse in">
                                     <div class="accordion-inner">
@@ -202,12 +209,12 @@
 
                                 </div>--%>
 
-                                            <div class="accordion-body collapse in">
-                                                <div class="accordion-inner">
+                                            <div class="">
+                                                <div class="accordion-inner" style="border-top:none;height:400px">
                                                     <%--<a class="btn btn-toolbar" style="border:1px solid white" href="../img/No-Img_Chosen.png"  ><i class="icon-zoom-in"></i></a>--%>
 
-                                                    <img class="noticeImage" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
-                                                    <span class="NoticeViewDetails" style="margin-bottom: 0px" id="spnNoticeType"></span>
+                                                    <img class="noticeImage img-polaroid" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
+                                                    <span class="NoticeViewDetails" id="spnNoticeType"></span>
                                                     <br />
                                                     <label for="focusedInput" id="lblNoticeDescriptionOnView"></label>
 
@@ -261,6 +268,7 @@
                             </fieldset>
                         </div>
                     </div>
+                        </div>
                 </div>
 
                 <input id="hdfImageID" type="hidden" value="" />

@@ -62,8 +62,14 @@
                         </div>
 
                         <div id="viewAllLatest">
-                            <a class="aBack" style="display: none;">Back</a>
-                            <a class="aViewMore" id="aViewMore">View All>></a>
+                            <ul class="pager">
+                               <li class="previous">
+                                   <a class="aBack" style="display: none;">&larr; Back</a>
+                                 </li>
+                                <li class="next">
+                                    <a class="aViewMore">View All →</a>
+                                    </li>
+                                 </ul>
                         </div>
 
                     </div>
@@ -75,8 +81,14 @@
                         <div id="OldEventsGrid">
                         </div>
                         <div id="viewAllOld">
-                            <a class="aOldBack" style="display: none;">Back</a>
-                            <a class="aOldViewMore">View All>></a>
+                            <ul class="pager">
+                               <li class="previous">
+                                   <a class="aOldBack" style="display: none;">&larr; Back</a>
+                                 </li>
+                                <li class="next">
+                                    <a class="aOldViewMore">View All →</a>
+                                    </li>
+                                 </ul>
                         </div>
                     </div>
                 </div>

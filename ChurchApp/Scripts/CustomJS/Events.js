@@ -365,7 +365,7 @@ $("document").ready(function (e) {
         click: function (e) {
             
             $(".aOldBack").show();
-            $(".aOldViewMore").hide();
+            $('.aOldViewMore').hide();
           //  $(".aOldViewMore").style.display = "none!important";
 
             BindAllOldEvents();

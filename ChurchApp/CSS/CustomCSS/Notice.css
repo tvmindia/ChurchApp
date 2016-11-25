@@ -9,7 +9,13 @@ color: #337ab7 !important;
 left: 82%;
 }*/
 
-
+ .lead
+ {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     font-size:16px;
+ }
 .task .Eventeditdiv {
     display: inline-block;
     float: right;
@@ -29,7 +35,7 @@ left: 82%;
 }
 
 #NoticePreview{
-    width:38%;height:100%;
+    width:34%;height:100%;
 }
 
 #NoticeEditDivBox
@@ -129,10 +135,7 @@ width: 150px;
 
  .btnNew
  {
-     margin-left: 315px;
+     left: 93%;
+     top:-14px;
  }
 
-#NoticeEdit {
-
-       left: 590px;
-}
