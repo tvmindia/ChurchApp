@@ -137,6 +137,7 @@ namespace ChurchApp.AdminPanel
                 if(UA!=null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
+                    NotificationsObj.createdBy = UA.userName;
                     status = NotificationsObj.InsertNotification();
                 }
             }
@@ -210,6 +211,7 @@ namespace ChurchApp.AdminPanel
                 if(UA!=null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
+                    NotificationsObj.updatedBy = UA.userName;
                     status = NotificationsObj.UpdateNotification();
                 }
             }

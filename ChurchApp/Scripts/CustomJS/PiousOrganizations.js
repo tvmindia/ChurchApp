@@ -2,7 +2,7 @@
 ///////////////////////////////////////////********Document ready section
 $(document).ready(function () {
     ///
-    ////Function for binding Institutions
+    ////Function for binding Pious Organization
     //
     BindInstituteslist();
     //
@@ -83,7 +83,7 @@ function createGuid() {
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
-// Show Picture preview for file upload Institution
+// Show Picture preview for file upload Pious Organization
 function showpreview(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -235,7 +235,7 @@ function SaveAdministrator()
 
 }
 //
-///function save and update institution
+///function save and update Pious Organization
 function SaveInstitution() {
     try {
         debugger;
@@ -452,7 +452,7 @@ function BindSelect() {
 
 }
 //
-/// Function for binding institution
+/// Function for binding Pious Organization
 function BindInstituteslist() {
     try {
         debugger;
@@ -478,7 +478,7 @@ function BindInstituteslist() {
 
 }
 //
-//Bind institution Details to view
+//Bind Pious Organization Details to view
 function BindDetails(intituteID) {
     try {
         var InstituteRow = {};
@@ -559,7 +559,7 @@ function BindEditCard(ID) {
 
 
 /////////////////////////////////////////////////////////////**************Html bind dynamic
-// Html code for binding Institution details
+// Html code for binding Pious Organization details
 function HtmlBindInstitutions(InstituteDetails, i) {
     debugger;
     var ID = "'" + InstituteDetails.ID + "'";
@@ -665,7 +665,7 @@ function DeleteAdministrator(this_Obj) {
     }
 
 }
-//View institution Details button onclick function
+//View Pious Organization Details button onclick function
 function OpenInstituteDetails(intituteID) {
     try {
         $('#rowfluidDiv').hide();
@@ -683,7 +683,7 @@ function OpenInstituteDetails(intituteID) {
 
 }
 //
-//Edit institution button onclick function
+//Edit Pious Organization button onclick function
 function EditInstitute(this_obj) {
     try {
 
@@ -726,33 +726,50 @@ function EditInstitute(this_obj) {
 
 }
 //
-//Delete institution button onclick function
+//Delete Pious Organization button onclick function
 function DeleteInstituteclick(this_Obj) {
     try {
+        debugger;
         var r = confirm("Are You Sure to Delete?");
         if (r == true) {
             var Adminresult = null;
             var AdminDetails = {};
             var InstituteRow = {};
             var intituteID = $(this_Obj).attr('name');
-            //AdminDetails = BindAdminCard(intituteID);
+            AdminDetails = BindAdminCard(intituteID);
             InstituteRow = GetInstituteDetailsUsingID(intituteID);
-           
+            if (AdminDetails.length == 0) {
+                Adminresult = "sucess";
+            }
+            for (var i = 0; i < AdminDetails.length; i++) {
+                var AdminRow = new Object();
+                AdminRow.adminId = AdminDetails[i].ID;
+                AdminRow.imagePath = AdminDetails[i].URL;
+                result = DeleteAdmin(AdminRow);
+                if (result.results == "1") {
+                    Adminresult = "sucess";
+
+                }
+            }
+            if (Adminresult == "sucess") {
                 result = DeleteInstitute(InstituteRow);
                 if (result.results == "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-                    $('.alert-success strong').text("Institution Deleted Successfully");
+                    //$('#rowfluidDiv').show();
+                    //$('.alert-success').show();
+                    //$('.alert-success strong').text("Institution Deleted Successfully");
+                    noty({ text: 'Institution Deleted Successfully', type: 'success' });
                     BindInstituteslist();
                     $('#InstituteEdit').hide();
                     $('#InstituteShow').hide();
                 }
                 if (result.results != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                    $('.alert-error strong').text("Deletion Not Successful");
+                    //$('#rowfluidDiv').show();
+                    //$('.alert-error').show();
+                    //$('.alert-error strong').text("Deletion Not Successful");
+                    noty({ text: 'Deletion Not Successful', type: 'error' });
                 }
             }
+        }
         }
     catch (e) {
 
@@ -761,7 +778,7 @@ function DeleteInstituteclick(this_Obj) {
 
 }
 //
-//Add new institution button onclick function
+//Add new Pious Organization button onclick function
 function NewInstitute() {
     try {
         ClearFields();
@@ -941,7 +958,7 @@ function GetInstitutionListChurchID() {
     }
 
 }
-//Select Institute with InstitueID
+//Select Pious Organization with InstitueID
 function GetInstituteDetailsUsingID(intituteID) {
     try {
         var ds = {};
@@ -958,7 +975,7 @@ function GetInstituteDetailsUsingID(intituteID) {
     }
 
 }
-//Insert Institute
+//Insert Pious Organization
 function InsertInstitute(PiousOrg) {
     try {
         var data = "{'PiousObj':" + JSON.stringify(PiousOrg) + "}";
@@ -972,7 +989,7 @@ function InsertInstitute(PiousOrg) {
     }
 
 }
-// Update Institute
+// Update Pious Organization
 function UpdateInstitute(PiousOrg) {
     try {
         var data = "{'PiousObj':" + JSON.stringify(PiousOrg) + "}";
@@ -986,13 +1003,14 @@ function UpdateInstitute(PiousOrg) {
     }
 
 }
-//Delete Institute
+//Delete Pious Organization
 function DeleteInstitute(InstituteRow) {
     try {
-        var Institutions = new Object();
-        Institutions.institutionID = InstituteRow.institutionID;
-        Institutions.imagepath = InstituteRow.imagepath;
-        var data = "{'InstituteObj':" + JSON.stringify(Institutions) + "}";
+        debugger;
+        var PiousOrg = new Object();
+        PiousOrg.piousOrgID = InstituteRow.piousOrgID;
+        //PiousOrg.imagepath = InstituteRow.imagepath;
+        var data = "{'PiousObj':" + JSON.stringify(PiousOrg) + "}";
         jsonResult = getJsonData(data, "../AdminPanel/PiousOrganizations.aspx/DeleteInstitution");
         var table = {};
         table = JSON.parse(jsonResult.d);

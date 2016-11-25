@@ -167,17 +167,17 @@ namespace ChurchApp.AdminPanel
 
         #region DeleteInstitution
         [System.Web.Services.WebMethod]
-        public static string DeleteInstitution(ChurchApp.DAL.Institutions InstituteObj)
+        public static string DeleteInstitution(PiousOrg PiousObj)
         {
             string status = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            InstituteObj.churchId = UA.ChurchID;
-            status = InstituteObj.DeleteInstitution();
-            InstituteObj.results = status;
-            return jsSerializer.Serialize(InstituteObj);
+            PiousObj.churchID = UA.ChurchID;
+            status = PiousObj.DeletePiousOrg();
+            PiousObj.results = status;
+            return jsSerializer.Serialize(PiousObj);
         }
 
         #endregion DeleteInstitution

@@ -158,14 +158,14 @@ namespace ChurchApp.DAL
                 }
                 if (expiryDate != null && expiryDate != string.Empty)
                 {
-                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value =DateTime.Parse(expiryDate);
+                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Parse(expiryDate));
                 }
                 
               //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -210,16 +210,16 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
                 if(startDate!=null && startDate !=string.Empty)
                 {
-                    cmd.Parameters.Add("@StartDate", SqlDbType.Date).Value = DateTime.Parse(startDate);
+                    cmd.Parameters.Add("@StartDate", SqlDbType.Date).Value = commonObj.ConvertDatenow(DateTime.Parse(startDate));
                 }
                 if(expiryDate!=null && expiryDate!=string.Empty)
                 {
-                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.Date).Value = DateTime.Parse(expiryDate);
+                    cmd.Parameters.Add("@ExpiryDate", SqlDbType.Date).Value = commonObj.ConvertDatenow(DateTime.Parse(expiryDate));
                 }                
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -443,6 +443,7 @@ namespace ChurchApp.DAL
     }
     public class NotificationType : Notification
     {
+        Common commonObj = new Common();
         #region NotificationType Methods
 
         #region SelectNotificationType
@@ -505,7 +506,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description;
                 cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = notificationType;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -546,7 +547,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
                 cmd.Parameters.Add("@NoticeType", SqlDbType.NVarChar, 20).Value = notificationType;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
