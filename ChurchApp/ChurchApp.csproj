@@ -213,6 +213,7 @@
     <Content Include="img\gallery\Cycle.jpg" />
     <Content Include="img\gallery\Institution.jpg" />
     <Content Include="img\gallery\kozhipadan.jpg" />
+    <Content Include="img\loader1.gif" />
     <Content Include="img\gallery\Noimage.png" />
     <Content Include="img\gallery\Pious.jpg" />
     <Content Include="img\gallery\priest.png" />

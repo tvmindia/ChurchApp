@@ -365,8 +365,21 @@
         $(".ddlChurch").select2("val", "");
     });
 
+    $('.UserClear').click(function (e) {
+
+
+
+        $('#rowfluidDivAlert').hide();
+        $('.alert').hide();
+        
+        $(".ddlChurchuser").select2("val", "");
+
+       
+
+    });
 
     $('#btnUserAdd').click(function (e) {
+        debugger;
         $('#rowfluidDivAlert').hide();
         $('.alert').hide();
 
@@ -395,21 +408,25 @@
             {
                 Users.Email = $("#txtEmail").val();
             }
-            //if(gender option button)
-            //{
-
-            //}
+            if ($('#optionMale').is(':checked')) {
+                Users.Gender = "Male"
+            }
+            else {
+                Users.Gender = "Female"
+            }
             if($('.ddlRoles').val()!="")
             {
                 Roles.ID = $('.ddlRoles').val();
             }
-            if($("#chkActive").val()!="")
+            if ($("#chkActive").parent().attr('class') != "")
             {
-                Users.Active = $("#chkActive").val();
+                Users.Active = 'True';
             }
-            if ($("#chkAdministrator").val() != "") {
-                Users.Active = $("#chkAdministrator").val();
+           
+            if ($("#chkAdministrator").parent().attr('class') != "") {
+                Users.Administrator = 'True';
             }
+
             if($("#datepickerdob").val()!="")
             {
                 Users.DOB = $("#datepickerdob").val();
@@ -420,9 +437,9 @@
                 Users.LoginName = $("#txtLoginName").val();
             }
 
-            if($("#txtLoginName").val()!="")
+            if ($("#txtconfirmpswd").val() != "")
             {
-                Users.Password = $("#txtLoginName").val();
+                Users.Password = $("#txtconfirmpswd").val();
             }
 
             Users.churchObj = Church;

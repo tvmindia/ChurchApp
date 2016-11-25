@@ -5,6 +5,7 @@ $(document).ready(function () {
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         // Great success! All the File APIs are supported.     
         document.getElementById('fluImage').addEventListener('change', handleFileSelect, false);
+        document.getElementById('mfluImage').addEventListener('change', handleMemberFileSelect, false);
     }
 
     $(".SaveFamily").click(function (e) {
@@ -99,7 +100,32 @@ $(document).ready(function () {
             Family.familyUnitsObj = FamilyUnits;
             Members.familyObj = Family;
             if ($("#memberAddOrEdit").text() == "Add")
-            {               
+            {
+                if (memberID != null) {
+                    ///////Image insert using handler
+                    var imgresult = "";
+                    var _URL = window.URL || window.webkitURL;
+                    var formData = new FormData();
+                    var imagefile, logoFile, img;
+
+                    if (((imagefile = $('#mfluImage')[0].files[0]) != undefined)) {
+                        var formData = new FormData();
+                        var tempFile;
+                        if ((tempFile = $('#mfluImage')[0].files[0]) != undefined) {
+                            tempFile.name = memberID;
+                            formData.append('NoticeAppImage', tempFile, tempFile.name);
+                            formData.append('GUID', memberID);
+                            formData.append('createdby', 'sadmin');
+                        }
+                        formData.append('ActionTyp', 'NoticeAppImageInsert');
+                        AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                        i = "1";
+                    }
+
+                }
+                if (i == "1") {
+                    Members.imageId = memberID;
+                }
                 jsonResult = InsertFamily(Members);
                 if(jsonResult=="1")
                 {
@@ -116,6 +142,21 @@ $(document).ready(function () {
             }
             else
             {
+                Members.memberId = $("#hdfMemberID").val();
+                var guid = createGuid();
+                if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
+                    var formData = new FormData();
+                    var tempFile;
+                    if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
+                        tempFile.name = guid;
+                        formData.append('NoticeAppImage', tempFile, tempFile.name);
+                        formData.append('GUID', guid);
+                        formData.append('createdby', 'sadmin');
+                    }
+                    formData.append('ActionTyp', 'NoticeAppImageInsert');
+                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                    Members.imageId = guid;
+                }
                 jsonResult = UpdateFamilyMember(Members);
                 if (jsonResult == "1") {
                     noty({ text: 'Updated Successfully', type: 'success' });
@@ -390,6 +431,30 @@ function handleFileSelect(evt) {
         reader.readAsDataURL(f);
     }
 }
+function handleMemberFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+            continue;
+        }
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e) {
+                $("#MemberImg").attr("src", e.target.result);
+            };
+        })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(f);
+    }
+}
 function cancelAdminEdit()
 {
     $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
@@ -545,6 +610,16 @@ function showpreviewAdmin(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+function showpreviewMember(input) {
+    debugger;
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#mfluImage').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 function Member()
 {
     clearControls();
@@ -669,7 +744,12 @@ function EditMembers(e)
             $('#chkIsHead').closest('span').removeClass('checked');
             $("#btnDelete").css("display", "");
         }
-        
+        if (jsonResult[0].URL != "" && jsonResult[0].URL != undefined) {
+            $('#MemberImg').attr('src', jsonResult[0].URL)
+        }
+        else {
+            $('#MemberImg').attr('src', '../img/gallery/Noimage.png');
+        }
         $("#memberAddOrEdit").text("Edit");
         $(".FamiliesEdit").css("display", "none");
         $("#txtFirstName").removeAttr('disabled');

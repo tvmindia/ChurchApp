@@ -8,7 +8,15 @@
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/DashBoard.js"></script>
 
-  
+ <%-- <style>
+ #datepickerdob
+{
+    background-image :url('../img/invalid.png');
+    background-position:95% center;
+    background-Repeat:no-repeat;
+    padding-left:30px;
+}
+  </style>--%>
     
 
     <div id="content" class="span10">
