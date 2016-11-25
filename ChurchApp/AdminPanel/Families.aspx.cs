@@ -135,6 +135,7 @@ namespace ChurchApp.AdminPanel
             {
                 if (UA != null)
                 {
+                    familyUnitsObj.createdBy = UA.userName;
                     familyUnitsObj.churchId = UA.ChurchID;
                     status = familyUnitsObj.InsertFamilyUnit();
                 }
@@ -312,6 +313,8 @@ namespace ChurchApp.AdminPanel
                 {
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
                     memberObj.churchId = UA.ChurchID;
+                    memberObj.createdBy = UA.userName;
+                    memberObj.updatedBy = UA.userName;
                     if (memberObj.familyObj.familyId != "" && memberObj.familyObj.familyId != null)
                     {
                         memberObj.familyID = memberObj.familyObj.familyId;
@@ -507,6 +510,7 @@ namespace ChurchApp.AdminPanel
                 if (UA != null)
                 {
                     memberObj.churchId = UA.ChurchID;
+                    memberObj.updatedBy = UA.userName;
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
                    
                         status = memberObj.UpdateMember();

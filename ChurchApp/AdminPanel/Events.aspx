@@ -8,6 +8,10 @@
     <script src="../Scripts/CustomJS/Events.js"></script>
     <script src="../Scripts/CustomJS/Common.js"></script>
    
+      <link href="../CSS/lightbox.css" rel="stylesheet" />
+    <script src="../Scripts/lightbox.js"></script>
+   <script src="../Scripts/progressbar.js"></script>
+
     <div id="content" class="span10">
         <ul class="breadcrumb" style="margin-bottom:0px;">
             <li>
@@ -205,9 +209,9 @@
                                     <div class="">
 
                                         <div class="">
-                                            <div class="accordion-inner" style="border-top:none;height:400px">
-
-                                                <img class="eventImage img-polaroid" id="eventPreviewOnView" src="../img/No-Img_Chosen.png" />
+                                            <div class="accordion-inner" style="border-top:none;height:400px" >
+                                                <a id="aZoomEventImage" class='example-image-link' href='../img/No-Img_Chosen.png' data-lightbox='example-set' data-title='Click anywhere to close.'>
+                                                <img class="eventImage img-polaroid" id="eventPreviewOnView" src="../img/No-Img_Chosen.png" /></a>
 
                                                 <label for="focusedInput" style="font-size:12px" id="lblEventDescriptionOnView"></label>
 
