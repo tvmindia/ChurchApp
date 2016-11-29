@@ -7,7 +7,7 @@
      <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Notifications.js"></script>
     <div id="content" class="span10">
-        <ul class="breadcrumb">
+        <ul class="breadcrumb" style="margin-bottom:0px;">
 				 <li>
 					<i class="icon-home"></i>
 					<a href="../AdminPanel/Home.aspx">Home</a> 
@@ -50,12 +50,14 @@
 					<%--<h1>Notifications</h1>--%>
 					<div>
 					<%--<div class="priority high">--%>
-                        <div class="priority high"><span class="latest">Latest Notifications</span><a class="btnNew" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
-                        <br />
+                        <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
+                            <h2>Latest Notifications</h2>
+                            <a class="btnNew" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
+                        
 					<%--</div>--%>
 					<%--<div class="task high" style="padding-left: 5px;" >--%>
                      
-	<div id="NewNotificationGrid">
+	                <div id="NewNotificationGrid">
 
 					</div>
                     
@@ -64,12 +66,11 @@
                       <a class="aViewMore" >View All Latest>></a>
 				</div>
                       
-                        <div id="pagination-here"></div>
+                        <%--<div id="pagination-here"></div>--%>
                         </div>
 					<%--</div>--%>
 					<%--<div class="priority low">--%>
-                        <div class="priority low"><span class="Old">Old Notifications</span></div>
-                    <br />
+                        <div class="" style="border-bottom:1.5px solid #87c16f"><h2>Old Notifications</h2></div>
 				<%--	</div>--%>
 
                   <div id="OldNotificationGrid">
@@ -85,21 +86,16 @@
 					
 				</div>
 				<%--<br />--%>
-                      <div id="NotificationDetails" class="span6 noMarginLeft"  style="display:none;">
+                      <div id="NotificationDetails" class="span6 noMarginLeft"  style="display:none;margin-top:1%">
                         <div class="dark">
+                            <h2><span class="fa fa-comments-o" aria-hidden="true"></span> <span id="captionHeading"></span></h2>
+                            <a id="NoticeEdit" class="btnEdit NotificationEdit"><i class="halflings-icon white pencil NotificationEdit" title="Edit" aria-hidden="true"></i></a>
                             <div class="box-content">
                                 <div class="form-horizontal">
                         <%--<h1 id="captionHeading" style="background-color:#f1f1f1;"></h1>--%>
                                       
-                                       <div class="box-header" >
-<h2 id="captionHeading"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span></h2>
-                        <div class="box-icon">
-
-                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
-
-                        </div>
-                    </div>
-                         <a class="circlebtn circlebtn-success NotificationEdit" style="right:1px;position: fixed;display:none;"><i class="halflings-icon white pencil NotificationEdit" aria-hidden="true"></i></a>
+                     
+                         
                            <br /><div class="spanDiv">
                                 <span class="spnDates">Start : </span>  <span class="spnDateValues" id="sDate">nov 1 2016</span>&nbsp;
                                      <span class="spnDates">Expire : </span>  <span class="spnDateValues" id="eDate">nov 1 2016</span>&nbsp;
@@ -110,7 +106,7 @@
                                     <br />
                                      <label id="desc"></label>
                            
-                                    <div class="form-actions" id="btnContainer" style="display:none;">
+                                    <div class="form-actions" id="btnContainer" style="display:none;margin-top:1%"">
 							  <a class="btn btn-primary Save">Save</a>
                                 <a class="btn btn-primary Delete">Delete</a>
 							  <a class="btn btn-primary Cancel" id="cancelDetail">Cancel</a>
@@ -123,14 +119,8 @@
 				<div id="NotificationEditDivBox" class="span6 noMarginLeft">
 					
 					<div class="dark">
-					      <div class="box-header" >
-                        <h2 id="detailsHeading"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span></h2>
-                        <div class="box-icon">
-
-                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
-
-                        </div>
-                    </div>
+                        <h2 ><span class="fa fa-comments-o" aria-hidden="true"></span> <span id="detailsHeading"></span></h2>
+					     
 					<%--<h1 id="detailsHeading"></h1>--%>
 						<div class="box-content">
 					   <div class="form-horizontal">
@@ -165,7 +155,7 @@
 								<label class="control-label" for="focusedInput" >Description</label>
 								<div class="controls">
 								 <label class="control-label" for="focusedInput" id="lblDescription"></label>
-                                     <textarea tabindex="10" class="input-xlarge span10" id="txtDescription" maxlength="200" name="Description" rows="5" placeholder="Enter your description here..."></textarea>
+                                     <textarea tabindex="10" class="input-large" id="txtDescription" maxlength="200" name="Description" rows="5" placeholder="Enter your description here..."></textarea>
 								  <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
 								</div>
 								</div>
@@ -174,7 +164,7 @@
 							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
 								 <label class="control-label" for="date01" id="lblStartDate"></label>
-								  <input  class="input-xlarge datepicker" name="StartDate" id="txtStartDate" type="text" placeholder="dd/mm/yyyy"/>
+								  <input  class="input-large datepicker" name="StartDate" id="txtStartDate" type="text" placeholder="dd/mm/yyyy"/>
 							  </div>
 							</div>
 
@@ -182,7 +172,7 @@
 							  <label class="control-label" for="date01" >Expiry Date</label>
 							  <div class="controls">
 								 <label class="control-label" for="date01" id="lblExpiryDate">Caption</label>
-								  <input  class="input-xlarge datepicker" name="ExpiryDate" id="txtExpiryDate" type="text" placeholder="dd/mm/yyyy"/>
+								  <input  class="input-large datepicker" name="ExpiryDate" id="txtExpiryDate" type="text" placeholder="dd/mm/yyyy"/>
 							  </div>
 							</div>
 

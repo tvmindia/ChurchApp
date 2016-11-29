@@ -43,8 +43,7 @@
                <div class="row-fluid">
               <%-- Div Institution list --%>
                 <div class="span6">
-			   <h1>Institutions</h1>
-               <div class="priority high"><span style="visibility:hidden">Institutions</span><a class="btnNew" style="left:75%!important;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+               <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Institutions</h2><a class="btnNew" style="left:93%;top:-14px;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   <div class="task high">
                     <div id="Institutediv">
             <div id="InstituteDefault">
@@ -67,7 +66,7 @@
                 </div>
                
 			  <%-- Show details portion for institution --%>	
-				<div id="InstituteShow" style="margin-top:4%;display:none;" class="span6 noMarginLeft">
+				<div id="InstituteShow" style="margin-top:1%;display:none;" class="span6 noMarginLeft">
 				<div class="dark">
 				<h1>Details</h1>
 				<div class="box-content">
@@ -155,7 +154,7 @@
 				
 				</div>	
               <!---------------------  Add New Priest and Edit details ----------------------------->
-                <div id="InstituteEdit" style="display:none;margin-top:4%;" class="span6 noMarginLeft">
+                <div id="InstituteEdit" style="display:none;margin-top:1%;" class="span6 noMarginLeft">
 					<div class="dark">
 					<h1 id="HeadDetails">Add Details</h1>
 					<div class="box-content">
