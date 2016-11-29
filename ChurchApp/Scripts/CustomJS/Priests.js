@@ -567,7 +567,7 @@ function AutoComplete()
     {
         debugger;
         var ID = "'" + priestDetails.ID + "'";
-        var html = ('<div id="VicarDefault"><div class="priority high"><span>Vicar</span></div>'
+        var html = ('<div id="VicarDefault"><div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Vicar</h2></div>'
           + '<div class="task high">'
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + priestDetails.URL + '"/></li>'
           + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
@@ -594,7 +594,7 @@ function AutoComplete()
 // Html code for no record found for vicar
     function HtmlBindVicar() {
         debugger;
-        var html = ('<div id="VicarDefault"><div class="priority high"><span>Vicar</span><a class="btnNew" style="left:83%!important;" title="ADD NEW" onclick=OpenNewAdd("Vicar")><i class="material-icons">+</i></a></div>'
+        var html = ('<div id="VicarDefault"><div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Vicar</h2><a class="btnNew" style="left:93%!important;top:-14px;" title="ADD NEW" onclick=OpenNewAdd("Vicar")><i class="material-icons">+</i></a></div>'
           + '<div class="task high">'
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/priest.png"/></li>'
           + '<li ><br /><br /><br />'

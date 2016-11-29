@@ -85,10 +85,9 @@
 	    <%--Alert boxes --%>
           <div class="row-fluid">
           <div class="span6">
-			<h1>Current Vicars</h1>
             <div id="VicarDivDisplay">
             <div id="VicarDefault">
-            <div class="priority high"><span>Vicar</span><a class="btnNew" style="left:83%!important;" title="ADD NEW" onclick="OpenNewAdd('Vicar');"><i class="material-icons">+</i></a></div>
+            <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Vicar</h2><a class="btnNew" style="left:93%!important;top:-14px;" title="ADD NEW" onclick="OpenNewAdd('Vicar');"><i class="material-icons">+</i></a></div>
 			<div class="task high">
              <ul class="dashboard-list vicarlist">
 				<li >
@@ -109,7 +108,7 @@
 			
             <%--<div id="assVicardiv">
             <div id="AsstVicarDefault">--%>
-            <div class="priority low" style="margin-top:4%!important;"><span>Asst Vicar</span><a class="btnNew" style="left:76%!important;" title="ADD NEW" onclick="OpenNewAdd('Asst');"><i class="material-icons">+</i></a></div>
+            <div class="" style="margin-top:4%!important;border-bottom:1.5px solid #78CD51;line-height:0px;"><h2>Asst Vicar</h2><a class="btnNew" style="left:93%!important;top:-14px;" title="ADD NEW" onclick="OpenNewAdd('Asst');"><i class="material-icons">+</i></a></div>
 			<div class="task low" id="AsstVicartask">
                  <div id="assVicardiv">
             <div id="AsstVicarDefault">
