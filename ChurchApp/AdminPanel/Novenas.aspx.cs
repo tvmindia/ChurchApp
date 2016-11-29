@@ -179,7 +179,7 @@ namespace ChurchApp.AdminPanel
             {
                 PatrnObj.createdBy = UA.userName;
                 status = PatrnObj.InsertPatronMaster();
-                PatrnObj.Status = status;
+               
             }
             catch (Exception)
             {
@@ -205,11 +205,11 @@ namespace ChurchApp.AdminPanel
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
 
-            string status = null;
+           
             try
             {
-                status = PatrnObj.DeletePatronMaster(UA.ChurchID);
-                PatrnObj.Status = status;
+             PatrnObj.DeletePatronMaster(UA.ChurchID);
+                
             }
             catch (Exception)
             {
@@ -241,7 +241,7 @@ namespace ChurchApp.AdminPanel
             {
                 PatrnObj.updatedBy = UA.userName;
                 status = PatrnObj.UpdatePatronMaster();
-                PatrnObj.Status = status;
+               
             }
             catch (Exception)
             {
@@ -525,6 +525,45 @@ namespace ChurchApp.AdminPanel
         }
 
         #endregion Delete Novena Timing By NovenaID
+
+        #region GetPatronDetailByID
+        [System.Web.Services.WebMethod]
+        public static string GetPatronDetailByID(PatronMaster PatrnObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            DataTable dt = null;
+
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            try
+            {
+
+                dt = PatrnObj.GetPatronDetailByID();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return jsSerializer.Serialize(parentRow);
+        }
+        #endregion GetPatronDetailByID
 
         #endregion Methods
 

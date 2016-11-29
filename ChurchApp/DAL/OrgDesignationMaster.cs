@@ -12,6 +12,8 @@ namespace ChurchApp.DAL
     public class OrgDesignationMaster
     {
         #region Public Properties
+
+        public Church churchObj;
         public string orgDesignationMasterID
         {
             get;
@@ -48,6 +50,11 @@ namespace ChurchApp.DAL
             set;
         }
         public DateTime updatedDate
+        {
+            get;
+            set;
+        }
+        public string status
         {
             get;
             set;
@@ -133,7 +140,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status = outParam.Value.ToString();
+            return status;
         }
         #endregion InsertOrgDesignationMaster
 
@@ -160,8 +168,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Order", SqlDbType.NVarChar, 250).Value = order;
                 cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar, 20).Value = orgType;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
-                outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
@@ -176,7 +184,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
         #endregion UpdateOrgDesignationMaster
 
@@ -214,8 +223,11 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
+            
+    
         #endregion OrgDesignationMaster
 
         #region GetAllOrgType
@@ -253,7 +265,44 @@ namespace ChurchApp.DAL
         }
         #endregion GetAllOrgType
 
-        
+
+        #region GetDesignationDetailByID
+        public DataSet GetDesignationDetailByID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetDesignationDetailByID]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(orgDesignationMasterID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetDesignationDetailByID
+
+
 
         #endregion Methods
     }

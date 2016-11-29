@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
      <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBGYAg9VLLllUHiLbNguOAHAB_scDP038E"></script>
-     <script src="dist/js/bootstrap-checkbox.min.js" defer></script>
+    
     <link href="../CSS/CustomCSS/DashBoard.css" rel="stylesheet" />
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/DashBoard.js"></script>
@@ -54,7 +54,7 @@
         <div class="row-fluid">		
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Churches</h2>
+						<h2>Churches</h2>
 						<div class="box-icon">
 						
 							<a  style="cursor:pointer;" class="btn-minimize churchdoublebox"><i id="churchchevronup" class="halflings-icon chevron-down"></i></a>
@@ -202,7 +202,7 @@
         <div class="row-fluid">
             <div class="box span12">
 					<div class="box-header">
-						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Roles</h2>
+						<h2>Roles</h2>
 						<div class="box-icon">
 							
 							<a style="cursor:pointer;" class="btn-minimize"><i class="halflings-icon chevron-down"></i></a>
@@ -287,7 +287,7 @@
           <div class="row-fluid">
             <div class="box span12">
 					<div class="box-header">
-						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Users</h2>
+						<h2>Users</h2>
 						<div class="box-icon">
 							
 							<a style="cursor:pointer;" class="btn-minimize"><i class="halflings-icon chevron-down"></i></a>
@@ -462,7 +462,7 @@
        <div class="row-fluid">
             <div class="box span12">
 					<div class="box-header">
-						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Designation</h2>
+						<h2>Designation</h2>
 						<div class="box-icon">
 							
 							<a style="cursor:pointer;" class="btn-minimize"><i class="halflings-icon chevron-down"></i></a>
@@ -534,7 +534,7 @@
 
                              <div class="form-actions">
                                         <a class="btn btn-primary" id="btnDesignationAdd" href="#">Save</></a>
-                                        <a class="btn UserClear">Cancel</a>
+                                        <a class="btn clearDesignation">Cancel</a>
                                     </div>	
                                  </div>
 						
@@ -551,7 +551,96 @@
         <!--Designationtable-->
        
         
-     
+
+        <!--Saint-->
+        <div class="row-fluid">
+             <div class="box span12">
+					<div class="box-header">
+						<h2>Saint</h2>
+						<div class="box-icon">
+							
+							<a style="cursor:pointer;" class="btn-minimize"><i class="halflings-icon chevron-down"></i></a>
+						
+						</div>
+					</div>
+					<div class="box-content DesignationBox">
+				
+                        	<table class="table table-bordered" id="Sainttable">
+							  <thead>
+								  <tr>
+									  <th>Name</th>
+									  <th>Created Date</th>
+								     <th>Actions</th>                                          
+								  </tr>
+							  </thead>   
+							  <tbody>
+								
+							                  
+							  </tbody>
+						 </table>  
+
+                         	<div class="form-horizontal">
+						
+							<fieldset>
+                                <br />
+                             <div class="span12">   
+				             <div class="span6">
+
+						      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Name</label>
+                               <div class="controls">
+                              
+                                    <input name="Caption" id="txtSaintName" type="text" />
+                              </div>
+                              </div>
+
+                                 
+                                      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Description</label>
+                               <div class="controls">
+                               <textarea id="txtSaintDescription" name="Description" rows="3" placeholder=""></textarea>
+                              </div>
+                              </div>
+
+                          
+                   </div>
+                             <div class="span6">
+                                  
+						  
+
+                                     <div class="control-group">
+                                <img class="Preview span6" id="imgSaint" src="../img/No-Img_Chosen.png" />
+                             
+                                 <input type="file" id="UpSaint" value="Choose Image" onchange="showpreview(this);" />
+                                  
+                                
+                             </div>
+                                
+                                    </div>
+                             </div>
+                     
+                             
+                     
+                         </fieldset>
+
+                             <div class="form-actions">
+                                       <a href="#" class="btn btn-primary" id="btnSaintAdd">Save</a>
+                                        <a href="#" class="btn">Close</a>
+                                    </div>	
+                                 </div>
+						
+					</div>
+
+                  
+                
+
+
+		   </div><!--/span-->
+        </div>
+
+        <!--Saint-->
 
        
 
@@ -572,7 +661,12 @@
 		</div>
 		
 	   </div>
+     <input type="hidden" id="hdfDesignationID"/>
      <input type="hidden" id="hdfChurchID"/>
      <input type="hidden" id="hdfRolesID"/>
      <input type="hidden" id="hdfUserID"/>
+  
+         <input id="hdfPatronID" type="hidden" />
+         <input id="hdfPatronImageID" type="hidden" value="" />
+         <input id="hdfPatronImageURL" type="hidden" />
 </asp:Content>

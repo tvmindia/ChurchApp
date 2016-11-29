@@ -633,12 +633,12 @@ namespace ChurchApp.AdminPanel
         }
         #endregion SelectAllDesignation
 
-        #region InsertChurch
+        #region InsertDesignation
         [System.Web.Services.WebMethod]
         public static string InsertDesignation(OrgDesignationMaster designationObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            string status = null;
+          
             try
             {
                 DAL.Security.UserAuthendication UA;
@@ -652,10 +652,10 @@ namespace ChurchApp.AdminPanel
             {
 
             }
-            return jsSerializer.Serialize(status);
+            return jsSerializer.Serialize(designationObj);
         }
 
-        #endregion InsertChurch
+        #endregion InsertDesignation
 
         #region GetAllOrgType
         [System.Web.Services.WebMethod]
@@ -695,5 +695,90 @@ namespace ChurchApp.AdminPanel
         }
         #endregion GetAllOrgType
 
+        #region GetDesignationDetailByID
+        [System.Web.Services.WebMethod]
+        public static string GetDesignationDetailByID(OrgDesignationMaster designationObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            try
+            {
+
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                DataSet ds = null;
+
+                ds = designationObj.GetDesignationDetailByID();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion GetDesignationDetailByID
+
+
+        #region UpdateDesignation
+        [System.Web.Services.WebMethod]
+        public static string UpdateDesignation(OrgDesignationMaster designationObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                designationObj.createdBy = UA.userName;
+                designationObj.UpdateOrgDesignationMaster();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return jsSerializer.Serialize(designationObj);
+        }
+
+        #endregion UpdateDesignation
+
+        #region DeleteDesignation
+        [System.Web.Services.WebMethod]
+        public static string DeleteDesignation(OrgDesignationMaster designationObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                designationObj.createdBy = UA.userName;
+                designationObj.DeleteOrgDesignationMaster();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return jsSerializer.Serialize(designationObj);
+        }
+        #endregion DeleteDesignation
     }
 }

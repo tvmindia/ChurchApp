@@ -218,80 +218,7 @@ $("document").ready(function (e)
     });
 
     //Save - New Saint(Patron)
-    $('#btnSaveInModal').click(function (e) {
-
-        var IsValid = NewPatronValidation();
-
-        if (IsValid) {
-    
-        
-        var PatronMaster = new Object();
-        PatronMaster.patronMasterName = $("#txtSaintName").val(); 
-        PatronMaster.description = $("#txtSaintDescription").val();
-
-        var guid = createGuid();
-        if (guid != null) {
-            var imgresult = "";
-            var _URL = window.URL || window.webkitURL;
-            var formData = new FormData();
-            var imagefile;
-             
-            if (((imagefile = $('#UpSaint')[0].files[0]) != undefined)) { //App image insertion to table as well as folder
-                var formData = new FormData();
-                var tempFile;
-                if ((tempFile = $('#UpSaint')[0].files[0]) != undefined) {
-                    tempFile.name = guid;
-                    formData.append('NoticeAppImage', tempFile, tempFile.name);
-                    formData.append('GUID', guid);
-                    formData.append('createdby', 'SHAMILA');
-                }
-                formData.append('ActionTyp', 'NoticeAppImageInsert');
-                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                PatronMaster.imageID = guid;
-            }
-            else {
-                if ($('#hdfPatronImageID').val() != '' )
-                {
-                    PatronMaster.imageID = $('#hdfPatronImageID').val(); // If no image is selected ,while updating, old imagid itself passed which is stored in hiddenfield
-                }
-            }
-        }
-
-        if ($('#hdfPatronID').val() != "") { //Case Update
-            PatronMaster.patronMasterId = $('#hdfPatronID').val();
-
-            result = UpdatePatron(PatronMaster);
-
-            if ($('#hdfPatronImageID').val() != '' && (((imagefile = $('#UpSaint')[0].files[0]) != undefined))) {
-
-                //--if patron is updated with new image, the old image should delete from folder and table
-                var AppImages = new Object();
-                AppImages.appImageId = $('#hdfPatronImageID').val();
-                DeleteAppImage(AppImages);
-
-                if ($('#hdfPatronImageURL').val() != "") {
-                    DeleteFileFromFolder($('#hdfPatronImageURL').val());
-                }
-                $('#hdfPatronImageID').val("");
-                $('#hdfPatronImageURL').val("");
-            }
-        }
-        else {  //Case Insert
-            result = InsertPatron(PatronMaster);
-        }
-        if (result.Status == 1)
-        {
-            BindPatrons();
-            $('#NewSaintModel').modal('hide');
-        }
-        ClearModalControls();
-        }
-
-        else {
-            return false;
-        }
-
-    });
+  
 
     $('#btnEditPatron').click(function (e) {
         debugger;
@@ -324,7 +251,78 @@ $("document").ready(function (e)
        RemoveStyle();
    });
 
+    $('#btnSaveInModal').click(function (e) {
 
+        var IsValid = NewPatronValidation();
+
+        if (IsValid) {
+
+
+            var PatronMaster = new Object();
+            PatronMaster.patronMasterName = $("#txtSaintName").val();
+            PatronMaster.description = $("#txtSaintDescription").val();
+
+            var guid = createGuid();
+            if (guid != null) {
+                var imgresult = "";
+                var _URL = window.URL || window.webkitURL;
+                var formData = new FormData();
+                var imagefile;
+
+                if (((imagefile = $('#UpSaint')[0].files[0]) != undefined)) { //App image insertion to table as well as folder
+                    var formData = new FormData();
+                    var tempFile;
+                    if ((tempFile = $('#UpSaint')[0].files[0]) != undefined) {
+                        tempFile.name = guid;
+                        formData.append('NoticeAppImage', tempFile, tempFile.name);
+                        formData.append('GUID', guid);
+                        formData.append('createdby', 'SHAMILA');
+                    }
+                    formData.append('ActionTyp', 'NoticeAppImageInsert');
+                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                    PatronMaster.imageID = guid;
+                }
+                else {
+                    if ($('#hdfPatronImageID').val() != '') {
+                        PatronMaster.imageID = $('#hdfPatronImageID').val(); // If no image is selected ,while updating, old imagid itself passed which is stored in hiddenfield
+                    }
+                }
+            }
+
+            if ($('#hdfPatronID').val() != "") { //Case Update
+                PatronMaster.patronMasterId = $('#hdfPatronID').val();
+
+                result = UpdatePatron(PatronMaster);
+
+                if ($('#hdfPatronImageID').val() != '' && (((imagefile = $('#UpSaint')[0].files[0]) != undefined))) {
+
+                    //--if patron is updated with new image, the old image should delete from folder and table
+                    var AppImages = new Object();
+                    AppImages.appImageId = $('#hdfPatronImageID').val();
+                    DeleteAppImage(AppImages);
+
+                    if ($('#hdfPatronImageURL').val() != "") {
+                        DeleteFileFromFolder($('#hdfPatronImageURL').val());
+                    }
+                    $('#hdfPatronImageID').val("");
+                    $('#hdfPatronImageURL').val("");
+                }
+            }
+            else {  //Case Insert
+                result = InsertPatron(PatronMaster);
+            }
+            if (result.Status == 1) {
+                BindPatrons();
+                $('#NewSaintModel').modal('hide');
+            }
+            ClearModalControls();
+        }
+
+        else {
+            return false;
+        }
+
+    });
 }); //End of Document ready
 
 
@@ -1319,6 +1317,7 @@ function BindPatronsInEditableFormat() {
         FillPatronsInEditableFormat(jsonResult);
     }
 }
+
 function FillPatronsInEditableFormat(Records) {
 
     $('#DivSaints').html('');

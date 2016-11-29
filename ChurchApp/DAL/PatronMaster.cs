@@ -52,7 +52,7 @@ namespace ChurchApp.DAL
             set;
         }
 
-        public string Status
+        public string status
         {
             get;
             set;
@@ -150,8 +150,10 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
+           
         #endregion InsertPatronMaster
 
         #region UpdatePatronMaster
@@ -197,7 +199,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
         #endregion UpdatePatronMaster
 
@@ -220,7 +223,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[DeletePatronMaster]";
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronMasterId);
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+              //  cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -236,7 +239,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
         #endregion DeletePatronMaster
 
@@ -326,6 +330,42 @@ namespace ChurchApp.DAL
 
         }
         #endregion SelectInstitutionusing InstituteID
+
+        #region GetPatronDetailByID
+        public DataTable GetPatronDetailByID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetPatronDetailByID]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronMasterId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+        #endregion GetPatronDetailByID
 
         #endregion Methods
     }
