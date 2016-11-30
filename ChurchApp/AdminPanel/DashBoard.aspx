@@ -85,7 +85,10 @@
 							<fieldset>
                              <div class="span12">   
 				             <div class="span6">
-						     
+						      <div class="alert alert-error" id="ErrorBox" style="display: none;">
+                             <div id="Displaydiv">
+                             </div>
+                            </div>
 						      <div class="control-group">
 
                               <label class="control-label" for="focusedInput">Church Name</label>
@@ -97,7 +100,7 @@
                               <div class="control-group">
                              <label class="control-label" for="focusedInput">Town Code</label>
                                <div class="controls">
-                                  <select class="ddlTownCode"><option></option></select>
+                                  <select id="idddlTownCode" name="ddlTownCode" class="ddlTownCode"><option></option></select>
                                   
                                  </div>
                              </div>
@@ -143,7 +146,13 @@
                               </div>
                               </div>
 
-                               
+                                <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Latitude</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtLatitude" id="txtLatitude" placeholder="" onfocus="GetMap();" type="text"/>
+                              </div>
+                              </div>
 
                                  <div class="control-group">
 
@@ -152,13 +161,7 @@
                                <input class="input-large focused"  name="txtLongitude" id="txtLongitude" placeholder="" onfocus="GetMap();" type="text"/>
                               </div>
                               </div>
-                                 <div class="control-group">
-
-                              <label class="control-label" for="focusedInput">Latitude</label>
-                               <div class="controls">
-                               <input class="input-large focused" name="txtLatitude" id="txtLatitude" placeholder="" onfocus="GetMap();" type="text"/>
-                              </div>
-                              </div>
+                                
 
                                    <div class="control-group">
 								<label class="control-label">Main Image</label>
@@ -233,13 +236,16 @@
 							<fieldset>
                              <div class="span12">   
 				             <div class="span6">
-						     
+						      <div class="alert alert-error" id="ErrorBox1" style="display: none;">
+                             <div id="Displaydiv1">
+                             </div>
+                            </div>
 						      <div class="control-group">
 
                               <label class="control-label" for="focusedInput">Role Name</label>
                                <div class="controls">
                               
-                                    <select class="ddlRoleName"><option>Admin</option><option>User</option></select>
+                                    <select id="idddlRoleName" name="RoleName" class="ddlRoleName"><option>Admin</option><option>User</option></select>
                               </div>
                               </div>
 
@@ -250,7 +256,7 @@
 						      <div class="control-group">
                              <label class="control-label" for="focusedInput">Church</label>
                                <div class="controls">
-                                  <select class="ddlChurch"><option></option></select>
+                                  <select id="idddlChurch" name="ddlChurch" class="ddlChurch"><option></option></select>
                                   
                                  </div>
                              </div>
@@ -317,11 +323,14 @@
 							<fieldset>
                              <div class="span12">   
 				             <div class="span6">
-
+                                  <div class="alert alert-error" id="ErrorBox2" style="display: none;">
+                             <div id="Displaydiv2">
+                             </div>
+                            </div>
                                      <div class="control-group">
                              <label class="control-label" for="focusedInput">Church</label>
                                <div class="controls">
-                                  <select class="ddlChurchuser"><option></option></select>
+                                  <select id="idddlchurchuser" name="churchuser" class="ddlChurchuser"><option></option></select>
                                   
                                  </div>
                              </div>
@@ -339,7 +348,7 @@
                                      <div class="control-group">
                              <label class="control-label" for="focusedInput">Address</label>
                                <div class="controls">
-                                  <textarea id="txtUserAddress" rows="3"></textarea>
+                                  <textarea id="txtUserAddress" name="UserAddress" rows="3"></textarea>
                                   
                                  </div>
                              </div>
@@ -348,7 +357,7 @@
                               <label class="control-label" for="focusedInput">Mobile</label>
                                <div class="controls">
                               
-                                    <input class="input-large focused" name="txtMobile" id="txtMobile" placeholder=""  type="text"/>
+                                    <input class="input-large focused" onkeypress="return isNumber(event);" name="txtMobile" id="txtMobile" placeholder=""  type="text"/>
                               </div>
                               </div>
 
@@ -383,7 +392,7 @@
                                        <div class="control-group">
                              <label class="control-label" for="focusedInput">Roles</label>
                                <div class="controls">
-                                  <select class="ddlRoles"><option></option></select>
+                                  <select id="idddlRoles" name="ddlRoles" class="ddlRoles"><option></option></select>
                                   
                                  </div>
                              </div>
@@ -405,7 +414,7 @@
                                 <div class="control-group">
                                 <label class="control-label" for="focusedInput">DOB</label>
                                <div class="controls">
-                                <input type="text" class="input-large datepicker" id="datepickerdob" value=""/>
+                                <input type="text" class="input-large datepicker" name="DOB" id="datepickerdob" value=""/>
                                   
                                  </div>
                              </div>
@@ -426,7 +435,7 @@
                                   <div class="control-group">
                                     <label class="control-label" for="focusedInput">Confirm Password</label>
                                    <div class="controls">
-                                   <input class="input-large focused" name="txtconfirmpswd" id="txtconfirmpswd" placeholder="Confirm password" type="password"/>
+                                   <input class="input-large focused" name="txtconfirmpswd" onkeyup="checkPass(); return false;" id="txtconfirmpswd" placeholder="Confirm password" type="password"/>
                                   </div>
                                  </div>
                                  
@@ -492,7 +501,10 @@
                                 <br />
                              <div class="span12">   
 				             <div class="span6">
-
+                                  <div class="alert alert-error" id="ErrorBox4" style="display: none;">
+                             <div id="Displaydiv4">
+                             </div>
+                            </div>
 						      <div class="control-group">
 
                               <label class="control-label" for="focusedInput">Position</label>
@@ -507,7 +519,7 @@
 
                               <label class="control-label" for="focusedInput">Organization</label>
                                <div class="controls">
-                               <select class="ddlOrganization"><option></option></select>
+                               <select id="idddlOrganization" name="Organization" class="ddlOrganization"><option></option></select>
                               </div>
                               </div>
 
@@ -520,7 +532,7 @@
                                      <div class="control-group">
                              <label class="control-label" for="focusedInput">Hierarchical Order</label>
                                <div class="controls">
-                                  <input class="input-large focused" name="txtOrder" id="txtOrder" placeholder=""  type="text"/>
+                                  <input class="input-large focused" onkeypress="return isNumber(event);" name="txtOrder" id="txtOrder" placeholder=""  type="text"/>
                                   
                                  </div>
                              </div>
@@ -585,13 +597,16 @@
                                 <br />
                              <div class="span12">   
 				             <div class="span6">
-
+                                  <div class="alert alert-error" id="ErrorBox5" style="display: none;">
+                             <div id="Displaydiv5">
+                             </div>
+                            </div>
 						      <div class="control-group">
 
                               <label class="control-label" for="focusedInput">Name</label>
                                <div class="controls">
                               
-                                    <input name="Caption" id="txtSaintName" type="text" />
+                                    <input name="Saintname" id="txtSaintName"  type="text" />
                               </div>
                               </div>
 
@@ -627,7 +642,7 @@
 
                              <div class="form-actions">
                                        <a href="#" class="btn btn-primary" id="btnSaintAdd">Save</a>
-                                        <a href="#" class="btn">Close</a>
+                                        <a href="#" class="btn ClearSaint">Close</a>
                                     </div>	
                                  </div>
 						

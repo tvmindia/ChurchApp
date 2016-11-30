@@ -10,6 +10,7 @@ namespace ChurchApp.DAL
 {
     public class PatronMaster
     {
+        public Church churchObj;
         #region Public Properties
         public string patronMasterId
         {
@@ -104,7 +105,50 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectPatronMaster
+        #region SelectAllPatronMasterByChurchID
+        /// <summary>
+        /// Select All PatronMaster
+        /// </summary>
+        /// <returns>All PatronMaster</returns>
+        public DataSet SelectAllPatronMasterByChurchID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                if(churchObj.churchId==null||churchObj.churchId=="")
+                {
+                    throw new Exception("ChurchID is Empty");
+                }
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectAllPatronMasterByChurchID]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchObj.churchId);
 
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectAllPatronMasterByChurchID
         #region InsertPatronMaster
         /// <summary>
         /// Add New PatronMaster
