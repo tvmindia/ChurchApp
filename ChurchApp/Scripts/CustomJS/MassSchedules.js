@@ -64,7 +64,11 @@
                 ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
                 noty({ text: 'Saved Successfully', type: 'success' });
             }
-            else {
+            if(result=="2")
+            {
+                noty({ text: 'Time Already Exists', type: 'info' });
+            }
+            if(result!="1" && result!="2") {
                 noty({ text: 'Error..!!!', type: 'error' });
             }
         }
