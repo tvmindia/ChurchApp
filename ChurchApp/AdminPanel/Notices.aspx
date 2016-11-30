@@ -59,7 +59,7 @@
                     <div id="divLatestEvents">
                         <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
                             <h2>Latest Notices</h2>
-                           <a class="btnNew" title="" onclick="AddNewNoticeFormat();"><i title="Add New Notice">+</i></a>
+                           <a class="btnNew" id="btnAddNew" runat="server" title="" onclick="AddNewNoticeFormat();"><i title="Add New Notice">+</i></a>
 
                         </div>
                         <%--class="box-content"--%> 

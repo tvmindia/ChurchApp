@@ -288,6 +288,13 @@ namespace ChurchApp.DAL
                 return "SuperAdmin";
             }
         }
+        public string User
+        {
+            get
+            {
+                return "User";
+            }
+        }
         public string Administrator
         {
             get

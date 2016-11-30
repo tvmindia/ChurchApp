@@ -52,7 +52,7 @@
 					<%--<div class="priority high">--%>
                         <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
                             <h2>Latest Notifications</h2>
-                            <a class="btnNew" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
+                            <a class="btnNew" id="btnAddNew" runat="server" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
                         
 					<%--</div>--%>
 					<%--<div class="task high" style="padding-left: 5px;" >--%>

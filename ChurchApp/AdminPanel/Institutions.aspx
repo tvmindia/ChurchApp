@@ -43,7 +43,7 @@
                <div class="row-fluid">
               <%-- Div Institution list --%>
                 <div class="span6">
-               <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Institutions</h2><a class="btnNew" style="left:93%;top:-14px;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+               <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Institutions</h2><a class="btnNew" style="left:93%;top:-14px;" title="ADD NEW" id="btnAddNew" runat="server" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   <div class="task high">
                     <div id="Institutediv">
             <div id="InstituteDefault">

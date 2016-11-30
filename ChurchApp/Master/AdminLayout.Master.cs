@@ -75,6 +75,20 @@ namespace ChurchApp.Master
                 }
 
             }
+                if(currRole==Const.User)
+                {
+                    System.Web.UI.HtmlControls.HtmlAnchor anchorNew = (System.Web.UI.HtmlControls.HtmlAnchor)ContentPlaceHolder2.FindControl("btnAddNew");
+                    System.Web.UI.HtmlControls.HtmlAnchor anchorNewVicar = (System.Web.UI.HtmlControls.HtmlAnchor)ContentPlaceHolder2.FindControl("btnNewVicar");
+                    if(anchorNew!=null)
+                    {
+                        anchorNew.Visible = false;
+                    }
+                    if (anchorNewVicar != null)
+                    {
+                        anchorNewVicar.Visible = false;
+                    }
+                    
+                }
             }
             catch(Exception ex)
             {
