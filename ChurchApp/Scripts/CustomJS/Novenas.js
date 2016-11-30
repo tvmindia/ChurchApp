@@ -765,10 +765,9 @@ function AddNewNovena() {
     debugger;
     $('#DivBoxHeader').hide();
     $('#EditPatron').hide();
-
     $('#DivSaints').hide();
     $('#DivIndividualPatron').show();
-
+    $('#DivNewNovena').show();
    // var SaintName = $(obj).attr('SaintName');
    // var SaintID = $(obj).attr('ID');
   //  BindNovenasPatronID(SaintID);
@@ -777,9 +776,9 @@ function AddNewNovena() {
 
     //document.getElementById("spnSaint").innerHTML = SaintName;
     //$('.latest').text(SaintName)  ;
-    //$(".Novena").remove();//removes novena li from breadcrumb
+    $(".Novena").remove();//removes novena li from breadcrumb
 
-    $("#breadcrumbNovena").append('<li><a href="../AdminPanel/Novenas.aspx"> Novenas </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + SaintName + '</li>');
+    $("#breadcrumbNovena").append('<li><a href="../AdminPanel/Novenas.aspx"> Novenas </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li>New Novena</li>');
 }
 
 
