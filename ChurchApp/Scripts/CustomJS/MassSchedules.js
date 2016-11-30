@@ -205,6 +205,15 @@
        
     });
 
+    var value = $('#ContentPlaceHolder2_btnAddNew').val();
+    if (value != "") {
+        debugger;
+        $("#MassTimeAdd").hide();
+        //$('#massTimingTable tr').find('th:last-child, td:last-child').remove();
+        $("#massTimingTable tr td,th").filter(':nth-child(' + (3) + ')').remove();
+       
+    }
+
 });//end of document.ready
 
 //----------Insert MassTiming--------------//
@@ -434,7 +443,7 @@ function BindMassTimingTable(Records) {
 
 
             // var html = '<tr class="MassTimingRows" ID="' + Records.ID + '"ChurchID="' + Records.ChurchID + '"><td>' + Records.Day + '</td><td class="center"><div id="tags"> <input type="text" value="" id="txtTags" /></div></td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEdit" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
-            var html = '<tr class="MassTimingRows" ID="' + Records.ID + '"ChurchID="' + Records.ChurchID + '"Day="' + Records.Day + '"Time="' + timeArray + '"><td>' + Records.Day + '</td><td class="center">' + timeArray + '</td></td><td class="center"><a class="circlebtn circlebtn-success massUpdate" title="Change" href="#" onClick=BindMassEditGrid(this);><i class="halflings-icon white pencil"></i> </a></td></tr>';
+            var html = '<tr class="MassTimingRows" ID="' + Records.ID + '"ChurchID="' + Records.ChurchID + '"Day="' + Records.Day + '"Time="' + timeArray + '"><td>' + Records.Day + '</td><td class="center">' + timeArray + '</td></td><td class="center" id="btnMassUpdate"><a class="circlebtn circlebtn-success massUpdate" title="Change" href="#" onClick=BindMassEditGrid(this);><i class="halflings-icon white pencil"></i> </a></td></tr>';
         }
         else {
             var time = Records.Time.split(':')[0] + ":" + Records.Time.split(':')[1];
@@ -469,6 +478,7 @@ function BindMassTimingTable(Records) {
         img.id = "NoData";
         $("#massTimingTable").append(img);
     }
+    $("#thActions").css("display", " ");
 }
 function timeTo12HrFormat(time) {   // Take a time in 24 hour format and format it in 12 hour format
     var time_part_array = time.split(":");

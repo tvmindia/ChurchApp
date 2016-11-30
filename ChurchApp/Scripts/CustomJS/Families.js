@@ -413,6 +413,13 @@ $(document).ready(function () {
             return false;
         }
     });
+
+    var value = $('#ContentPlaceHolder2_btnAddNew').val();
+    if (value != "") {
+        debugger;
+        $('#AdminEdit').remove();
+        $('.pencilEdit').remove();
+    }
 });
 //end of document.ready
 function handleFileSelect(evt) {
@@ -705,11 +712,23 @@ function BindGetAllFamilyMemeberData(Records) {
     $("#FamilyUnitsTableBox").html('');
     debugger;
     var length = Records.length;
-    $.each(Records, function (index, Records) {
-       // var html = '<div class="panel panel-default" style="opacity:1 !important;max-height:15000px !important;"><div class="panel-heading" id="' + Records.ID + '" role="tab"><h4 class="panel-title" id="familyLink"><a class="unitLink" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick="EditMembers(this);" id="' + Records.ID + ','+Records.FamilyID+'"><i class="fa fa-user" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + '</a></h4></div></div>'
-        var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;height:30px !important;"id="' + Records.ID + '" ><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + ',' + Records.FamilyID + '" onclick="EditMembers(this);"</a><i class="fa fa-user" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon edit pencilEdit" title="Edit Family" id="' + Records.ID + ',' + Records.FamilyID + '" onclick="EditMembers(this);"></i></div>'
-        $("#FamilyUnitsTableBox").append(html);
-    })
+    var value = $('#ContentPlaceHolder2_btnAddNew').val();
+    if (value == "") {
+        $.each(Records, function (index, Records) {
+            // var html = '<div class="panel panel-default" style="opacity:1 !important;max-height:15000px !important;"><div class="panel-heading" id="' + Records.ID + '" role="tab"><h4 class="panel-title" id="familyLink"><a class="unitLink" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick="EditMembers(this);" id="' + Records.ID + ','+Records.FamilyID+'"><i class="fa fa-user" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + '</a></h4></div></div>'
+            var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;height:30px !important;"id="' + Records.ID + '" ><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + ',' + Records.FamilyID + '" onclick="EditMembers(this);"</a><i class="fa fa-user" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon edit pencilEdit" title="Edit Family" id="' + Records.ID + ',' + Records.FamilyID + '" onclick="EditMembers(this);"></i></div>'
+            $("#FamilyUnitsTableBox").append(html);
+        })
+    }
+    else
+    {
+        $.each(Records, function (index, Records) {
+            // var html = '<div class="panel panel-default" style="opacity:1 !important;max-height:15000px !important;"><div class="panel-heading" id="' + Records.ID + '" role="tab"><h4 class="panel-title" id="familyLink"><a class="unitLink" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onclick="EditMembers(this);" id="' + Records.ID + ','+Records.FamilyID+'"><i class="fa fa-user" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + '</a></h4></div></div>'
+            var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;height:30px !important;"id="' + Records.ID + '" ><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + ',' + Records.FamilyID + '" onclick="EditMembers(this);"</a><i class="fa fa-user" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + '</a></h4></div></div></div></div>'
+            $("#FamilyUnitsTableBox").append(html);
+        })
+        $(".unitLink").removeAttr("onclick");
+    }
 
     if (length == 0) {
         $('#FamilyUnitsTableBox').css("height", "210px");
@@ -771,7 +790,7 @@ function EditMembers(e)
         $("#txtLastName").removeAttr('disabled');
         $("#txtPhone").removeAttr('disabled');
         $("#txtAddress").removeAttr('disabled');
-      
+        $(".unitLink").removeClass
     }
 }
 function BindFamilyUnitsAccordion()
@@ -887,7 +906,7 @@ function BindGetAllFamilyUnitMemeberData(Records)
         $("#divAdminDetals").append(img);
        // $("#divAdminInfo").css("display", "");
        // $("#familyAddDiv").css("margin-top", "-50px !important");
-        $("#familyAddDiv").css("margin-top", "-15%");
+        $("#familyAddDiv").css("margin-top", "25px");
        
     }
    
@@ -971,11 +990,23 @@ function BindFamilyTable(Records)
     $("#FamilyUnitsTableBox").html('');
     debugger;
     var length = Records.length;
-    $.each(Records, function (index, Records) {
-        //var html = '<div class="panel panel-default" style="opacity:1 !important;max-height:15000px !important;"><div class="panel-heading" id="' + Records.ID + '" role="tab"><h4 class="panel-title"><a class="unitLink" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="' + Records.ID + '" onclick="BindFamilyMembers(this);"><i class="fa fa-users" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + " " + Records.FamilyName + '</a></h4><i class="halflings-icon edit pencilEdit" id="' + Records.ID + '" onclick="UpdateFamily(this);" title="Edit Family"></i><i class="icon-chevron-right ViewUnit" id="' + Records.ID + " " + Records.FamilyName + '" onclick="BindIconFamilyMembers(this);" title="View Details"></i></div></div>'
-        var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"id="' + Records.ID + '"><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + " " + Records.FamilyName + '" onclick="BindFamilyMembers(this);"><i class="fa fa-users" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + " - " + Records.FamilyName + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon edit pencilEdit" title="Edit Family" id="' + Records.ID + '" onClick=UpdateFamily(this);></i><i class="icon-chevron-right ViewUnit" title="View Details" Unit" id="' + Records.ID + " " + Records.FamilyName + '" onclick="BindIconFamilyMembers(this);"></i></div>'
-        $("#FamilyUnitsTableBox").append(html);
-    })
+    var value = $('#ContentPlaceHolder2_btnAddNew').val();
+    if (value == "") {
+        $.each(Records, function (index, Records) {
+            //var html = '<div class="panel panel-default" style="opacity:1 !important;max-height:15000px !important;"><div class="panel-heading" id="' + Records.ID + '" role="tab"><h4 class="panel-title"><a class="unitLink" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="' + Records.ID + '" onclick="BindFamilyMembers(this);"><i class="fa fa-users" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + " " + Records.FamilyName + '</a></h4><i class="halflings-icon edit pencilEdit" id="' + Records.ID + '" onclick="UpdateFamily(this);" title="Edit Family"></i><i class="icon-chevron-right ViewUnit" id="' + Records.ID + " " + Records.FamilyName + '" onclick="BindIconFamilyMembers(this);" title="View Details"></i></div></div>'
+            var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"id="' + Records.ID + '"><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + " " + Records.FamilyName + '" onclick="BindFamilyMembers(this);"><i class="fa fa-users" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + " - " + Records.FamilyName + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon edit pencilEdit" title="Edit Family" id="' + Records.ID + '" onClick=UpdateFamily(this);></i><i class="icon-chevron-right ViewUnit" title="View Details" Unit" id="' + Records.ID + " " + Records.FamilyName + '" onclick="BindIconFamilyMembers(this);"></i></div>'
+            $("#FamilyUnitsTableBox").append(html);
+        })
+    }
+    else
+    {
+        $.each(Records, function (index, Records) {
+            //var html = '<div class="panel panel-default" style="opacity:1 !important;max-height:15000px !important;"><div class="panel-heading" id="' + Records.ID + '" role="tab"><h4 class="panel-title"><a class="unitLink" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="' + Records.ID + '" onclick="BindFamilyMembers(this);"><i class="fa fa-users" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + " " + Records.FamilyName + '</a></h4><i class="halflings-icon edit pencilEdit" id="' + Records.ID + '" onclick="UpdateFamily(this);" title="Edit Family"></i><i class="icon-chevron-right ViewUnit" id="' + Records.ID + " " + Records.FamilyName + '" onclick="BindIconFamilyMembers(this);" title="View Details"></i></div></div>'
+            var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"id="' + Records.ID + '"><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + " " + Records.FamilyName + '" onclick="BindFamilyMembers(this);"><i class="fa fa-users" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + " - " + Records.FamilyName + '</a></h4></div></div></div></div><div class="Edit"><i class="icon-chevron-right ViewUnit" title="View Details" Unit" id="' + Records.ID + " " + Records.FamilyName + '" onclick="BindIconFamilyMembers(this);"></i></div>'
+            $("#FamilyUnitsTableBox").append(html);
+        })
+    }
+    
 
     if (length == 0) {
         $('#FamilyUnitsTableBox').css("height", "210px");

@@ -63,7 +63,7 @@
 							  <tr>
 								  <th>Day</th>
 								  <th>Time</th>
-								  <th>Actions</th>
+								  <th id="thActions" style="display:none;">Actions</th>
 							  </tr>
 						  </thead>   
 						  <tbody id="massTimingTableBody">
@@ -72,7 +72,7 @@
 					  </table>            
 					</div>
 				</div>
-            <div class="box span6">
+            <div class="box span6" id="MassTimeAdd">
                 	<div class="box-header" data-original-title>
 						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="AddorEditSpan">Save</span> Mass Time</h2>
 						<div class="box-icon">
