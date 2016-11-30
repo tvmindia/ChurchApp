@@ -209,9 +209,13 @@
     if (value != "") {
         debugger;
         $("#MassTimeAdd").hide();
-        //$('#massTimingTable tr').find('th:last-child, td:last-child').remove();
-        $("#massTimingTable tr td,th").filter(':nth-child(' + (3) + ')').remove();
+        $('#massTimingTable tr').find('th:last-child, td:last-child').remove();
+       // $("#massTimingTable tr td,th").filter(':nth-child(' + (3) + ')').remove();
        
+    }
+    else
+    {
+        $("#thActions").css("display", "");
     }
 
 });//end of document.ready

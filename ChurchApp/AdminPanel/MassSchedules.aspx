@@ -47,7 +47,8 @@
 	    <%--Alert boxes --%>
 
            <!--MassTable-->
-        <div class="row-fluid sortable">		
+             <a class="btnNew" id="btnAddNew" runat="server" style="display:none" ></a>	
+        <div class="row-fluid sortable">	
 				<div class="box span6">
 					<div class="box-header" data-original-title>
 						<h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Mass Timing</h2>
