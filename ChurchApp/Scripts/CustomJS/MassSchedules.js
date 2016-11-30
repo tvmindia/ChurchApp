@@ -62,14 +62,10 @@
                 }
                 Time = BindTime(Time)
                 ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Added Successfully");
+                noty({ text: 'Saved Successfully', type: 'success' });
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
         else {
@@ -106,14 +102,10 @@
                 }
                 Time = BindTime(Time)
                 ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Updated Successfully");
+                noty({ text: 'Updated Successfully', type: 'success' });
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
 
@@ -182,14 +174,10 @@
                 }
                 Time = BindTime(Time)
                 ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Deleted Successfully");
+                noty({ text: 'Deleted Successfully', type: 'success' });
             }
             else {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
     });

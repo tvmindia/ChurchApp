@@ -77,7 +77,7 @@ namespace ChurchApp.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             try
             {
-                MassTimingsObj.churchId = UA.ChurchID;
+                MassTimingsObj.massChurchId = UA.ChurchID;
                 status = MassTimingsObj.InsertMassTiming();
             }
             catch(Exception ex)
@@ -188,7 +188,7 @@ namespace ChurchApp.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             try
             {
-                MassTimingsObj.churchId = UA.ChurchID;
+                MassTimingsObj.massChurchId = UA.ChurchID;
                 ds = MassTimingsObj.SelectMassTimingByDay();
 
                 //Converting to Json
