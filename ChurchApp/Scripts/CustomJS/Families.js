@@ -9,180 +9,17 @@ $(document).ready(function () {
     }
 
     $(".SaveFamily").click(function (e) {
-        var jsonResult = {};
-        var FamilyUnits = new Object();
-        var Family = new Object();
-        var Members = new Object();
-        debugger;
-        var firstName = $("#txtFirstName").val();
-        var lastName = $("#txtLastName").val();
-        var familyName = $("#txtFamilyName").val();
-        var unitName = $("#txtUnitName").val();
-        var phone = $("#txtPhone").val();
-        var address = $("#txtAddress").val();
-        var unitID = $("#hdfUnitID").val();
-        var memberID = $("#hdfMemberID").val();
-        var familyID = $("#hdfFamilyID").val();
-        var isHead = true;
-        Family.familyName = familyName;
-        Members.familyID = familyID;
-        FamilyUnits.unitId = unitID;
-        Members.familyName = familyName;
-        Members.firstName = firstName;
-        Members.lastName = lastName;
-        Members.contact = phone;
-        Members.address = address;
-        Members.isHead = isHead;
-        Members.memberId = memberID;
-        Family.familyUnitsObj = FamilyUnits;
-        Members.familyObj = Family;
-        if ($("#familyAddOrEdit").text() == "Add")
-        {
-            jsonResult = InsertFamily(Members);
-            if (jsonResult == "1") {
-                noty({ text: 'Saved Successfully', type: 'success' });
-                FamilyAutoBind();
-                ClearTextboxes();
-                BindMemberSelect();
-            }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
-            }
-        }
-        else
-        {
-            jsonResult = SaveUpdatedFamily(Members);
-            if (jsonResult == "1") {
-                noty({ text: 'Updated Successfully', type: 'success' });
-                FamilyAutoBind();
-                BindMemberSelect();
-            }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
-            }
-        }
+        FamilyValidation();
     });
-    $(".Save").live({
-        click:function(e)
-        {
-            var jsonResult = {};
-            var FamilyUnits = new Object();
-            var Family = new Object();
-            var Members = new Object();
-            debugger;
-            var firstName = $("#txtFirstName").val();
-            var lastName = $("#txtLastName").val();
-            var familyName = $("#txtFamilyName").val();
-            var unitName = $("#txtUnitName").val();
-            var phone = $("#txtPhone").val();
-            var address = $("#txtAddress").val();
-            var unitID = $("#hdfUnitID").val();
-            var memberID = $("#hdfMemberID").val();
-            var familyID = $("#hdfFamilyID").val();
-            var isHead = null;
-            if ($('#chkIsHead').closest('span').hasClass('checked') == true) {
-                isHead = true;
-            }
-            else {
-                isHead = false;
-            }
-            Family.unitId = "";
-            Family.familyName = familyName;
-            Family.familyId = familyID;
-            FamilyUnits.unitId = unitID;
-            Members.familyName = familyName;
-            Members.firstName = firstName;
-            Members.lastName = lastName;
-            Members.contact = phone;
-            Members.address = address;
-            Members.isHead = isHead;
-            Members.memberId = memberID;
-            Family.familyUnitsObj = FamilyUnits;
-            Members.familyObj = Family;
-            if ($("#memberAddOrEdit").text() == "Add")
-            {
-                if (memberID != null) {
-                    ///////Image insert using handler
-                    var imgresult = "";
-                    var _URL = window.URL || window.webkitURL;
-                    var formData = new FormData();
-                    var imagefile, logoFile, img;
-                    if (memberID == "")
-                    {
-                        memberID = createGuid();
-                    }
-                    if (((imagefile = $('#mfluImage')[0].files[0]) != undefined)) {
-                        var formData = new FormData();
-                        var tempFile;
-                        if ((tempFile = $('#mfluImage')[0].files[0]) != undefined) {
-                            tempFile.name = memberID;
-                            formData.append('NoticeAppImage', tempFile, tempFile.name);
-                            formData.append('GUID', memberID);
-                            formData.append('createdby', 'sadmin');
-                        }
-                        formData.append('ActionTyp', 'NoticeAppImageInsert');
-                        AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                        i = "1";
-                    }
-
-                }
-                if (i == "1") {
-                    Members.imageId = memberID;
-                }
-                jsonResult = InsertFamily(Members);
-                if(jsonResult=="1")
-                {
-                    noty({ text: 'Saved Successfully', type: 'success' });
-                    FamilyMembersAutoBind();
-                    $(".FamiliesEdit").css("display", "none");
-                    ClearTextboxes();
-                    BindMemberSelect();
-                }
-               if(jsonResult=="2")
-                {
-                   noty({ text: 'Member with the same name already exists', type: 'info' });
-               }
-               if(jsonResult!="1" && jsonResult!="2")
-               {
-                   noty({ text: 'Error..!!!', type: 'error' });
-               }
-            }
-            else
-            {
-                debugger;
-                Members.memberId = $("#hdfMemberID").val();
-                var guid = createGuid();
-                if (((imagefile = $('#mfluImage')[0].files[0]) != undefined)) {
-                    var formData = new FormData();
-                    var tempFile;
-                    if ((tempFile = $('#mfluImage')[0].files[0]) != undefined) {
-                        tempFile.name = guid;
-                        formData.append('NoticeAppImage', tempFile, tempFile.name);
-                        formData.append('GUID', guid);
-                        formData.append('createdby', 'sadmin');
-                    }
-                    formData.append('ActionTyp', 'NoticeAppImageInsert');
-                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    Members.imageId = guid;
-                }
-                jsonResult = UpdateFamilyMember(Members);
-                if (jsonResult == "1") {
-                    noty({ text: 'Updated Successfully', type: 'success' });
-                    FamilyMembersAutoBind();
-                    BindMemberSelect();
-                }
-                else {
-                    noty({ text: 'Error..!!!', type: 'error' });
-                }
-            }
-            
-
-        }
+    $(".Save").click(function(e){
+            MemberValidation();
     })
     $(".Cancel").live({
         click:function(e)
         {
-            debugger;
+            $('#ErrorBox,#ErrorBox1').hide(1000);
+            $('input[type=text],input[type=password]').css({ background: 'white' });
+            $('textarea,select').css({ background: 'white' });
             $("#FamilyAdd").css("display", "none");
             $("#familyAddDiv").css("display", "none");
             $("#btnDiv").css("display", "none");
@@ -222,10 +59,15 @@ $(document).ready(function () {
     });
 
     $(".CancelFamily").click(function (e) {
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+        $('input[type=text],input[type=password]').css({ background: 'white' });
+        $('textarea,select').css({ background: 'white' });
         $("#familyAddDiv").css("display", "none");
         $("#btnFamilyDiv").css("display", "none");
     });
     $(".CancelUnit").click(function (e) {
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+        $('input[type=text],input[type=password]').css({ background: 'white' });
         $("#familyAddDiv").css("display", "none");
         $("#btnFamilyUnitDiv").css("display", "none");
         $("#txtUnitName").val("");
@@ -323,43 +165,7 @@ $(document).ready(function () {
     });
 
     $(".SaveUnit").click(function (e) {
-        debugger;
-        var jsonResult = {};
-        var addOrEdit = $("#familyUnitAddOrEdit").text();
-        var FamilyUnits = new Object();
-        var unitName = $("#txtUnitName").val();
-        var unitID = $("#hdfUnitID").val();
-        FamilyUnits.unitId = unitID;
-        FamilyUnits.unitName = unitName;
-        if (addOrEdit == "Add")
-        {
-            jsonResult = InsertFamilyUnits(FamilyUnits);
-            if (jsonResult == "1") {
-                noty({ text: 'Saved Successfully', type: 'success' });
-                BindFamilyUnitsAccordion();
-                ClearTextboxes();
-            }
-            if(jsonResult=="2")
-            {
-                noty({ text: 'Unit Name Already Exists', type: 'info' });
-                BindFamilyUnitsAccordion();
-            }
-
-            if(jsonResult!="1" && jsonResult!="2"){
-                noty({ text: 'Error..!!!', type: 'error' });
-            }
-        }
-        else
-        {
-            jsonResult = UpdateFamilyUnit(FamilyUnits);
-            if (jsonResult == "1") {
-                noty({ text: 'Updated Successfully', type: 'success' });
-                BindFamilyUnitsAccordion();
-            }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
-            }
-        }
+        FamilyUnitsValidation();
        
     });
 
@@ -413,7 +219,17 @@ $(document).ready(function () {
             return false;
         }
     });
+    //Style setting for client side Validation
+    //CreatedBy Anija
 
+    $('input[type=text],input[type=password]').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+    });
+    $('textarea,select').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+    });
     var value = $('#ContentPlaceHolder2_btnAddNew').val();
     if (value != "") {
         debugger;
@@ -422,6 +238,396 @@ $(document).ready(function () {
     }
 });
 //end of document.ready
+
+//Basic Validation For New Family Unit
+//CreatedBy Anija
+function FamilyUnitsValidation() {
+    debugger;
+    $('#Displaydiv').remove();
+    var unitName = $('#txtUnitName');
+    
+    var container = [
+        { id: unitName[0].id, name: unitName[0].name, Value: unitName[0].value },
+            ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+        else if (container[i].Value == "-1") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "93% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+    }
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+
+        divs.appendChild(p);
+        //$('#btnAddAdmin').attr('name', 'failure');
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox').hide(1000);
+        //scriptvalidate();
+        saveFamilyUnit();
+        return true;
+    }
+}
+
+//Basic Validation For New Family
+function FamilyValidation() {
+    debugger;
+    $('#Displaydiv').remove();
+    var firstName = $('#txtFirstName');
+    var lastName = $('#txtLastName');
+    var familyName = $('#txtFamilyName');
+    var unitName = $('#txtUnitName');
+    var phone = $('#txtPhone');
+    var address = $('#txtAddress');
+
+    var container = [
+        { id: firstName[0].id, name: firstName[0].name, Value: firstName[0].value },
+        { id: lastName[0].id, name: lastName[0].name, Value: lastName[0].value },
+        { id: familyName[0].id, name: familyName[0].name, Value: familyName[0].value },
+        { id: unitName[0].id, name: unitName[0].name, Value: unitName[0].value },
+        { id: phone[0].id, name: phone[0].name, Value: phone[0].value },
+        { id: address[0].id, name: address[0].name, Value: address[0].value },
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+        else if (container[i].Value == "-1") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "93% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+    }
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+
+        divs.appendChild(p);
+        //$('#btnAddAdmin').attr('name', 'failure');
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox').hide(1000);
+        //scriptvalidate();
+        saveFamily();
+        return true;
+    }
+}
+
+//Basic Validation For New Member
+function MemberValidation() {
+    debugger;
+    $('#Displaydiv').remove();
+    var firstName = $('#txtFirstName');
+    var lastName = $('#txtLastName');
+    var familyName = $('#txtFamilyName');
+    var unitName = $('#txtUnitName');
+    var phone = $('#txtPhone');
+    var address = $('#txtAddress');
+
+    var container = [
+        { id: firstName[0].id, name: firstName[0].name, Value: firstName[0].value },
+        { id: lastName[0].id, name: lastName[0].name, Value: lastName[0].value },
+        { id: familyName[0].id, name: familyName[0].name, Value: familyName[0].value },
+        { id: unitName[0].id, name: unitName[0].name, Value: unitName[0].value },
+        { id: phone[0].id, name: phone[0].name, Value: phone[0].value },
+        { id: address[0].id, name: address[0].name, Value: address[0].value },
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+        else if (container[i].Value == "-1") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "93% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+    }
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+
+        divs.appendChild(p);
+        //$('#btnAddAdmin').attr('name', 'failure');
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox').hide(1000);
+        //scriptvalidate();
+        saveMember();
+        return true;
+    }
+}
+
+function saveMember()
+{
+    var jsonResult = {};
+    var FamilyUnits = new Object();
+    var Family = new Object();
+    var Members = new Object();
+    debugger;
+    var firstName = $("#txtFirstName").val();
+    var lastName = $("#txtLastName").val();
+    var familyName = $("#txtFamilyName").val();
+    var unitName = $("#txtUnitName").val();
+    var phone = $("#txtPhone").val();
+    var address = $("#txtAddress").val();
+    var unitID = $("#hdfUnitID").val();
+    var memberID = $("#hdfMemberID").val();
+    var familyID = $("#hdfFamilyID").val();
+    var isHead = null;
+    if ($('#chkIsHead').closest('span').hasClass('checked') == true) {
+        isHead = true;
+    }
+    else {
+        isHead = false;
+    }
+    Family.unitId = "";
+    Family.familyName = familyName;
+    Family.familyId = familyID;
+    FamilyUnits.unitId = unitID;
+    Members.familyName = familyName;
+    Members.firstName = firstName;
+    Members.lastName = lastName;
+    Members.contact = phone;
+    Members.address = address;
+    Members.isHead = isHead;
+    Members.memberId = memberID;
+    Family.familyUnitsObj = FamilyUnits;
+    Members.familyObj = Family;
+    if ($("#memberAddOrEdit").text() == "Add") {
+        if (memberID != null) {
+            ///////Image insert using handler
+            var imgresult = "";
+            var _URL = window.URL || window.webkitURL;
+            var formData = new FormData();
+            var imagefile, logoFile, img;
+            if (memberID == "") {
+                memberID = createGuid();
+            }
+            if (((imagefile = $('#mfluImage')[0].files[0]) != undefined)) {
+                var formData = new FormData();
+                var tempFile;
+                if ((tempFile = $('#mfluImage')[0].files[0]) != undefined) {
+                    tempFile.name = memberID;
+                    formData.append('NoticeAppImage', tempFile, tempFile.name);
+                    formData.append('GUID', memberID);
+                    formData.append('createdby', 'sadmin');
+                }
+                formData.append('ActionTyp', 'NoticeAppImageInsert');
+                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                i = "1";
+            }
+
+        }
+        if (i == "1") {
+            Members.imageId = memberID;
+        }
+        jsonResult = InsertFamily(Members);
+        if (jsonResult == "1") {
+            noty({ text: 'Saved Successfully', type: 'success' });
+            FamilyMembersAutoBind();
+            $(".FamiliesEdit").css("display", "none");
+            ClearTextboxes();
+            BindMemberSelect();
+        }
+        if (jsonResult == "2") {
+            noty({ text: 'Member with the same name already exists', type: 'info' });
+        }
+        if (jsonResult != "1" && jsonResult != "2") {
+            noty({ text: 'Error..!!!', type: 'error' });
+        }
+    }
+    else {
+        debugger;
+        Members.memberId = $("#hdfMemberID").val();
+        var guid = createGuid();
+        if (((imagefile = $('#mfluImage')[0].files[0]) != undefined)) {
+            var formData = new FormData();
+            var tempFile;
+            if ((tempFile = $('#mfluImage')[0].files[0]) != undefined) {
+                tempFile.name = guid;
+                formData.append('NoticeAppImage', tempFile, tempFile.name);
+                formData.append('GUID', guid);
+                formData.append('createdby', 'sadmin');
+            }
+            formData.append('ActionTyp', 'NoticeAppImageInsert');
+            AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+            Members.imageId = guid;
+        }
+        jsonResult = UpdateFamilyMember(Members);
+        if (jsonResult == "1") {
+            noty({ text: 'Updated Successfully', type: 'success' });
+            FamilyMembersAutoBind();
+            BindMemberSelect();
+        }
+        else {
+            noty({ text: 'Error..!!!', type: 'error' });
+        }
+    }
+}
+function saveFamily()
+{
+    var jsonResult = {};
+    var FamilyUnits = new Object();
+    var Family = new Object();
+    var Members = new Object();
+    debugger;
+    var firstName = $("#txtFirstName").val();
+    var lastName = $("#txtLastName").val();
+    var familyName = $("#txtFamilyName").val();
+    var unitName = $("#txtUnitName").val();
+    var phone = $("#txtPhone").val();
+    var address = $("#txtAddress").val();
+    var unitID = $("#hdfUnitID").val();
+    var memberID = $("#hdfMemberID").val();
+    var familyID = $("#hdfFamilyID").val();
+    var isHead = true;
+    Family.familyName = familyName;
+    Members.familyID = familyID;
+    FamilyUnits.unitId = unitID;
+    Members.familyName = familyName;
+    Members.firstName = firstName;
+    Members.lastName = lastName;
+    Members.contact = phone;
+    Members.address = address;
+    Members.isHead = isHead;
+    Members.memberId = memberID;
+    Family.familyUnitsObj = FamilyUnits;
+    Members.familyObj = Family;
+    if ($("#familyAddOrEdit").text() == "Add") {
+        jsonResult = InsertFamily(Members);
+        if (jsonResult == "1") {
+            noty({ text: 'Saved Successfully', type: 'success' });
+            FamilyAutoBind();
+            ClearTextboxes();
+            BindMemberSelect();
+        }
+        else {
+            noty({ text: 'Error..!!!', type: 'error' });
+        }
+    }
+    else {
+        jsonResult = SaveUpdatedFamily(Members);
+        if (jsonResult == "1") {
+            noty({ text: 'Updated Successfully', type: 'success' });
+            FamilyAutoBind();
+            BindMemberSelect();
+        }
+        else {
+            noty({ text: 'Error..!!!', type: 'error' });
+        }
+    }
+}
+function saveFamilyUnit()
+{
+    debugger;
+    var jsonResult = {};
+    var addOrEdit = $("#familyUnitAddOrEdit").text();
+    var FamilyUnits = new Object();
+    var unitName = $("#txtUnitName").val();
+    var unitID = $("#hdfUnitID").val();
+    FamilyUnits.unitId = unitID;
+    FamilyUnits.unitName = unitName;
+    if (addOrEdit == "Add") {
+        jsonResult = InsertFamilyUnits(FamilyUnits);
+        if (jsonResult == "1") {
+            noty({ text: 'Saved Successfully', type: 'success' });
+            BindFamilyUnitsAccordion();
+            ClearTextboxes();
+        }
+        if (jsonResult == "2") {
+            noty({ text: 'Unit Name Already Exists', type: 'info' });
+            BindFamilyUnitsAccordion();
+        }
+
+        if (jsonResult != "1" && jsonResult != "2") {
+            noty({ text: 'Error..!!!', type: 'error' });
+        }
+    }
+    else {
+        jsonResult = UpdateFamilyUnit(FamilyUnits);
+        if (jsonResult == "1") {
+            noty({ text: 'Updated Successfully', type: 'success' });
+            BindFamilyUnitsAccordion();
+        }
+        else {
+            noty({ text: 'Error..!!!', type: 'error' });
+        }
+    }
+}
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
 
@@ -660,6 +866,9 @@ function Member()
     $(".FamiliesEdit").css("display", "none");
     $("#divAdminInfo").hide();
     $("#familyAddDiv").css("margin-top", "-10px");
+    $('#ErrorBox,#ErrorBox1').hide(1000);
+    $('input[type=text],input[type=password]').css({ background: 'white' });
+    $('textarea,select').css({ background: 'white' });
 }
 function Families()
 {
@@ -687,6 +896,9 @@ function Families()
     $("#txtFamilyName").removeAttr("disabled");
     $("#isHeadDiv").hide();
     $("#memberImgDiv").hide();
+    $('#ErrorBox,#ErrorBox1').hide(1000);
+    $('input[type=text],input[type=password]').css({ background: 'white' });
+    $('textarea,select').css({ background: 'white' });
 }
 function Units()
 {
