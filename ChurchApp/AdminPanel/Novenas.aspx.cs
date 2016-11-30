@@ -136,6 +136,11 @@ namespace ChurchApp.AdminPanel
             DataSet ds = null;
             try
             {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                
+                PatrnObj.churchObj.churchId = UA.ChurchID;
                 ds = PatrnObj.SelectPatronMaster();
                 //Converting to Json
                 Dictionary<string, object> childRow;
@@ -163,6 +168,48 @@ namespace ChurchApp.AdminPanel
 
         #endregion Get All Patrons
 
+
+        #region SelectAllPatronMasterByChurchID
+        [System.Web.Services.WebMethod]
+        public static string SelectAllPatronMasterByChurchID(PatronMaster PatrnObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            DataSet ds = null;
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+                PatrnObj.churchObj.churchId = UA.ChurchID;
+                ds = PatrnObj.SelectAllPatronMasterByChurchID();  
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return jsSerializer.Serialize(parentRow);
+
+
+        }
+
+        #endregion SelectAllPatronMasterByChurchID
+
         #region Add New Patron
 
         [System.Web.Services.WebMethod]
@@ -174,11 +221,11 @@ namespace ChurchApp.AdminPanel
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
 
-           string status = null;
+          
             try
             {
                 PatrnObj.createdBy = UA.userName;
-                status = PatrnObj.InsertPatronMaster();
+                PatrnObj.InsertPatronMaster();
                
             }
             catch (Exception)

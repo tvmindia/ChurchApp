@@ -187,3 +187,15 @@ function ConvertJsonToDate(jsonDate) {
 }
 
 
+
+
+///Function remove style after validating
+function RemoveStyle() {
+    try {
+        $('input[type=text],input[type=password],textarea,select').css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3,#ErrorBox4,#ErrorBox5').hide(1000);
+    }
+    catch (e) {
+
+    }
+}

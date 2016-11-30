@@ -1,5 +1,14 @@
 ﻿$("document").ready(function (e) {
+   
     debugger;
+    $('input[type=text],input[type=password]').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3,#ErrorBox4,#ErrorBox5').hide(1000);
+    });
+    $('textarea,select').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3,#ErrorBox4,#ErrorBox5').hide(1000);
+    });
     try
     {
         //box content collapse
@@ -180,189 +189,167 @@
    
     $('#btnChurchAdd').click(function (e) {
         debugger;
-        try
+        var churchbit = ChurchValidation();
+        if (churchbit)
         {
-            var Church = new Object();
-            if ($('#txtChurchName').val() != "") {
-                Church.churchName = $('#txtChurchName').val();
-            }
-          
-            if ($(".ddlTownCode").val() != "")
-            {
-                Church.townCode = $(".ddlTownCode").val();
-            }
-          
-            if ($('#txtAddress').val() != "")
-            {
-                Church.address = $('#txtAddress').val();
-            }
-          
-            if ($('#txtDescription').val() != "")
-            {
-                Church.description = $('#txtDescription').val();
-            }
-           
-            if ($('#txtAbout').val() != "")
-            {
-                Church.about = $('#txtAbout').val();
-            }
-            
-            if ($('#txtPhone1').val() != "")
-            {
-                Church.phone1 = $('#txtPhone1').val();
-            }
-            
-            if ($('#txtPhone2').val() != "") {
-                Church.phone2 = $('#txtPhone2').val();
-            }
-           
-           
-            if ($('#txtLongitude').val() != "")
-            {
-                Church.longitude = $('#txtLongitude').val();
-            }
-            
-            if ($('#txtLatitude').val() != "")
-            {
-                Church.latitude = $('#txtLatitude').val();
-            }
-            if ($("#hdfChurchID").val() != "")
-            {
-                //UPDATE CHURCH
-                var churchimag;
-                if ((churchimag = $('#churchimageuploader')[0].files.length > 0)) {
-                    var formData = new FormData();
+            try {
+                var Church = new Object();
+                if ($('#txtChurchName').val() != "") {
+                    Church.churchName = $('#txtChurchName').val();
+                }
 
-                    formData.append('ChurchImage', $('#churchimageuploader')[0].files[0], $('#churchimageuploader')[0].files[0].name);
-                    formData.append('churchid', $("#hdfChurchID").val());
-                    formData.append('ChurchImageID', createGuid());
-                    formData.append('ActionTyp', 'ChurchUpdate');
-                    formData.append('churchName', Church.churchName);
-                    formData.append('townCode', Church.townCode);
-                    formData.append('description', Church.description);
-                    formData.append('about', Church.about);
-                    formData.append('address', Church.address);
-                    formData.append('latitude', Church.latitude);
-                    formData.append('longitude', Church.longitude);
-                    formData.append('phone1', Church.phone1);
-                    formData.append('phone2', Church.phone2);
-                  
-                    formData.append('updatedBy', Church.updatedBy);
-                    var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    switch (result) {
-                        case "1":
-                            $('.alert-error').hide();
-                            $('#rowfluidDivAlert').show();
-                            $('.alert-success').show();
-                            $('.alert-success strong').text("Updated successfully");
-                            BindAllChurches();
-                            break;
-                        case "0":
-                            $('.alert-success').hide();
-                            $('#rowfluidDivAlert').show();
-                            $('.alert-error').show();
-                            $('.alert-error strong').text("Updation was not successfull");
-                            break;
-                        default:
-                            break;
+                if ($(".ddlTownCode").val() != "") {
+                    Church.townCode = $(".ddlTownCode").val();
+                }
+
+                if ($('#txtAddress').val() != "") {
+                    Church.address = $('#txtAddress').val();
+                }
+
+                if ($('#txtDescription').val() != "") {
+                    Church.description = $('#txtDescription').val();
+                }
+
+                if ($('#txtAbout').val() != "") {
+                    Church.about = $('#txtAbout').val();
+                }
+
+                if ($('#txtPhone1').val() != "") {
+                    Church.phone1 = $('#txtPhone1').val();
+                }
+
+                if ($('#txtPhone2').val() != "") {
+                    Church.phone2 = $('#txtPhone2').val();
+                }
+
+
+                if ($('#txtLongitude').val() != "") {
+                    Church.longitude = $('#txtLongitude').val();
+                }
+
+                if ($('#txtLatitude').val() != "") {
+                    Church.latitude = $('#txtLatitude').val();
+                }
+                if ($("#hdfChurchID").val() != "") {
+                    //UPDATE CHURCH
+                    var churchimag;
+                    if ((churchimag = $('#churchimageuploader')[0].files.length > 0)) {
+                        var formData = new FormData();
+
+                        formData.append('ChurchImage', $('#churchimageuploader')[0].files[0], $('#churchimageuploader')[0].files[0].name);
+                        formData.append('churchid', $("#hdfChurchID").val());
+                        formData.append('ChurchImageID', createGuid());
+                        formData.append('ActionTyp', 'ChurchUpdate');
+                        formData.append('churchName', Church.churchName);
+                        formData.append('townCode', Church.townCode);
+                        formData.append('description', Church.description);
+                        formData.append('about', Church.about);
+                        formData.append('address', Church.address);
+                        formData.append('latitude', Church.latitude);
+                        formData.append('longitude', Church.longitude);
+                        formData.append('phone1', Church.phone1);
+                        formData.append('phone2', Church.phone2);
+
+                        formData.append('updatedBy', Church.updatedBy);
+                        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                        switch (result) {
+                            case "1":
+                               
+                                noty({ type: 'success', text: 'Updated successfully' });
+                                BindAllChurches();
+                                break;
+                            case "0":
+                               
+                                noty({ type: 'error', text: 'Updation was not successfull' });
+                                break;
+                            default:
+                                break;
+                        }
                     }
+                    else {
+                        Church.mainImageId = '00000000-0000-0000-0000-000000000000';//no image default id
+                        Church.churchId = $("#hdfChurchID").val();
+                        var result = UpdateChurch(Church);
+                        switch (result.status) {
+                            case "1":
+                               
+                                noty({ type: 'success', text: 'Updated successfully' });
+                                BindAllChurches();
+                                break;
+                            case "0":
+                                noty({ type: 'error', text: 'Updation was not successfull' });
+                                
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+
                 }
                 else {
-                    Church.mainImageId = '00000000-0000-0000-0000-000000000000';//no image default id
-                    Church.churchId=$("#hdfChurchID").val();
-                    var result = UpdateChurch(Church);
-                    switch (result.status) {
-                        case "1":
-                            $('.alert-error').hide();
-                            $('#rowfluidDivAlert').show();
-                            $('.alert-success').show();
-                            $('.alert-success strong').text("Updated successfully");
-                            BindAllChurches();
-                            break;
-                        case "0":
-                            $('.alert-success').hide();
-                            $('#rowfluidDivAlert').show();
-                            $('.alert-error').show();
-                            $('.alert-error strong').text("Updation was not successfull");
-                            break;
-                        default:
-                            break;
+
+                    //INSERT CHURCH
+                    var churchimag;
+                    if ((churchimag = $('#churchimageuploader')[0].files.length > 0)) {
+                        var formData = new FormData();
+
+                        formData.append('ChurchImage', $('#churchimageuploader')[0].files[0], $('#churchimageuploader')[0].files[0].name);
+                        formData.append('ChurchImageID', createGuid());
+                        formData.append('ActionTyp', 'ChurchInsert');
+                        formData.append('churchName', Church.churchName);
+                        formData.append('townCode', Church.townCode);
+                        formData.append('description', Church.description);
+                        formData.append('about', Church.about);
+                        formData.append('address', Church.address);
+                        formData.append('latitude', Church.latitude);
+                        formData.append('longitude', Church.longitude);
+                        formData.append('phone1', Church.phone1);
+                        formData.append('phone2', Church.phone2);
+
+                        formData.append('createdBy', Church.createdBy);
+                        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                        switch (result) {
+                            case "1":
+                               
+                                noty({ type: 'success', text: 'Inserted successfully' });
+                                BindAllChurches();
+                                break;
+                            case "0":
+                               
+                                noty({ type: 'error', text: 'Insertion was not successfull' });
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else {
+                        Church.mainImageId = '00000000-0000-0000-0000-000000000000';//no image default id
+                        var result = InsertChurch(Church);
+                        switch (result.status) {
+                            case "1":
+                                noty({ type: 'success', text: 'Inserted successfully' });
+                               
+                                BindAllChurches();
+                                break;
+                            case "0":
+                                noty({ type: 'error', text: 'Insertion was not successfull' });
+                               
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
+
 
 
             }
-            else
-            {
+            catch (e) {
 
-                //INSERT CHURCH
-                var churchimag;
-                if ((churchimag = $('#churchimageuploader')[0].files.length > 0)) {
-                    var formData = new FormData();
-
-                    formData.append('ChurchImage', $('#churchimageuploader')[0].files[0], $('#churchimageuploader')[0].files[0].name);
-                    formData.append('ChurchImageID', createGuid());
-                    formData.append('ActionTyp', 'ChurchInsert');
-                    formData.append('churchName', Church.churchName);
-                    formData.append('townCode', Church.townCode);
-                    formData.append('description', Church.description);
-                    formData.append('about', Church.about);
-                    formData.append('address', Church.address);
-                    formData.append('latitude', Church.latitude);
-                    formData.append('longitude', Church.longitude);
-                    formData.append('phone1', Church.phone1);
-                    formData.append('phone2', Church.phone2);
-                  
-                    formData.append('createdBy', Church.createdBy);
-                    var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    switch (result) {
-                        case "1":
-                            $('.alert-error').hide();
-                            $('#rowfluidDivAlert').show();
-                            $('.alert-success').show();
-                            $('.alert-success strong').text("Inserted successfully");
-                            BindAllChurches();
-                            break;
-                        case "0":
-                            $('.alert-success').hide();
-                            $('#rowfluidDivAlert').show();
-                            $('.alert-error').show();
-                            $('.alert-error strong').text("Insertion was not successfull");
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else {
-                    Church.mainImageId = '00000000-0000-0000-0000-000000000000';//no image default id
-                    var result = InsertChurch(Church);
-                    switch (result.status) {
-                        case "1":
-                            $('.alert-error').hide();
-                            $('#rowfluidDivAlert').show();
-                            $('.alert-success').show();
-                            $('.alert-success strong').text("Inserted successfully");
-                            BindAllChurches();
-                            break;
-                        case "0":
-                            $('.alert-success').hide();
-                            $('#rowfluidDivAlert').show();
-                            $('.alert-error').show();
-                            $('.alert-error strong').text("Insertion was not successfull");
-                            break;
-                        default:
-                            break;
-                    }
-                }
             }
-           
-           
-
         }
-        catch(e)
-        {
-
-        }
+        
         
        
 
@@ -373,7 +360,7 @@
     
     $('.ChurchClear').click(function (e) {
 
-
+        RemoveStyle();
 
         $('#rowfluidDivAlert').hide();
         $('.alert').hide();
@@ -384,7 +371,6 @@
         $("#txtAbout").val('');
         $("#txtPhone1").val('');
         $("#txtPhone2").val('');
-     
         $("#txtLongitude").val('');
         $("#txtLatitude").val('');
         $("#hdfChurchID").val('');
@@ -396,15 +382,17 @@
     
 
     $('.RolesClear').click(function (e) {
-        $('#rowfluidDivAlert').hide();
-        $('.alert').hide();
+        RemoveStyle();
+
+      
         $(".ddlRoleName").select2("val", "");
         $(".ddlChurch").select2("val", "");
     });
 
     $('.UserClear').click(function (e) {
-        $('#rowfluidDivAlert').hide();
-        $('.alert').hide();
+
+        RemoveStyle();
+       
         $(".ddlChurchuser").select2("val", "");
         $("#txtUserName").val('');
         $("#txtUserAddress").val('');
@@ -422,129 +410,136 @@
     
 
     $('.clearDesignation').click(function (e) {
-        $('#rowfluidDivAlert').hide();
-        $('.alert').hide();
+
+        RemoveStyle();
+       
         $(".ddlOrganization").select2("val", "");
         $("#txtPosition").val('');
         $("#txtOrder").val('');
        
         $("#hdfDesignationID").val('');
     });
+
+    $('.ClearSaint').click(function (e) {
+
+        RemoveStyle();
+       
+     
+        $("#txtSaintName").val('');
+        $("#txtSaintDescription").val('');
+        $("#imgSaint").attr('src', '/img/defaultalbumadd.jpg');
+        $("#hdfPatronID").val('');
+    });
+
+  
     $('#btnUserAdd').click(function (e) {
         debugger;
-        $('#rowfluidDivAlert').hide();
-        $('.alert').hide();
+     
 
         try
         {
-            Users = new Object();
-            Church = new Object();
-            Roles = new Object();
-            if($('.ddlChurchuser').val()!="")
+            var pasflag = false;
+            var userflag = UserValidation();
+            var pas = document.getElementById('txtPassword');
+            var conf = document.getElementById('txtconfirmpswd');
+            if (pas.value == conf.value)
             {
-                Church.churchId = $('.ddlChurchuser').val();
+                pasflag = true;
+            }
+            if (userflag&&pasflag)
+            {
+                Users = new Object();
+                Church = new Object();
+                Roles = new Object();
+                if ($('.ddlChurchuser').val() != "") {
+                    Church.churchId = $('.ddlChurchuser').val();
+                }
+
+                if ($("#txtUserName").val() != "") {
+                    Users.Name = $("#txtUserName").val();
+                }
+                if ($("#txtUserAddress").val() != "") {
+                    Users.Address = $("#txtUserAddress").val();
+                }
+
+                if ($("#txtMobile").val() != "") {
+                    Users.Mobile = $("#txtMobile").val();
+                }
+                if ($("#txtEmail").val() != "") {
+                    Users.Email = $("#txtEmail").val();
+                }
+                if ($('#optionMale').is(':checked')) {
+                    Users.Gender = "Male"
+                }
+                else {
+                    Users.Gender = "Female"
+                }
+                if ($('.ddlRoles').val() != "") {
+                    Roles.ID = $('.ddlRoles').val();
+                }
+                if ($("#chkActive").parent().attr('class') != "") {
+                    Users.Active = 'True';
+                }
+
+                if ($("#chkAdministrator").parent().attr('class') != "") {
+                    Users.Administrator = 'True';
+                }
+
+                if ($("#datepickerdob").val() != "") {
+                    Users.DOB = $("#datepickerdob").val();
+                }
+
+                if ($("#txtLoginName").val() != "") {
+                    Users.LoginName = $("#txtLoginName").val();
+                }
+
+                if ($("#txtconfirmpswd").val() != "") {
+                    Users.Password = $("#txtconfirmpswd").val();
+                }
+
+                Users.churchObj = Church;
+                Users.rolesObj = Roles;
+
+                if ($("#hdfUserID").val() == "") {
+                    //INSERT
+
+                    var result = InsertUser(Users);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Inserted successfully' });
+                           
+                            BindAllUsers();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Insertion was not successfull' });
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+                else {
+                    //UPDATE
+                    Users.ID = $("#hdfUserID").val();
+                    var result = UpdateUser(Users);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Updated successfully' });
+                           
+                            BindAllUsers();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Updation was not successfull' });
+                           
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
             }
 
-            if ($("#txtUserName").val() != "") {
-                Users.Name = $("#txtUserName").val();
-            }
-            if($("#txtUserAddress").val()!="")
-            {
-                Users.Address = $("#txtUserAddress").val();
-            }
-
-            if ($("#txtMobile").val() != "") {
-                Users.Mobile = $("#txtMobile").val();
-            }
-            if($("#txtEmail").val()!="")
-            {
-                Users.Email = $("#txtEmail").val();
-            }
-            if ($('#optionMale').is(':checked')) {
-                Users.Gender = "Male"
-            }
-            else {
-                Users.Gender = "Female"
-            }
-            if($('.ddlRoles').val()!="")
-            {
-                Roles.ID = $('.ddlRoles').val();
-            }
-            if ($("#chkActive").parent().attr('class') != "")
-            {
-                Users.Active = 'True';
-            }
            
-            if ($("#chkAdministrator").parent().attr('class') != "") {
-                Users.Administrator = 'True';
-            }
-
-            if($("#datepickerdob").val()!="")
-            {
-                Users.DOB = $("#datepickerdob").val();
-            }
-
-            if($("#txtLoginName").val()!="")
-            {
-                Users.LoginName = $("#txtLoginName").val();
-            }
-
-            if ($("#txtconfirmpswd").val() != "")
-            {
-                Users.Password = $("#txtconfirmpswd").val();
-            }
-
-            Users.churchObj = Church;
-            Users.rolesObj = Roles;
-
-            if($("#hdfUserID").val()=="")
-            {
-                //INSERT
-              
-                var result = InsertUser(Users);
-                switch (result.status) {
-                    case "1":
-                        $('.alert-error').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-success').show();
-                        $('.alert-success strong').text("Inserted successfully");
-                        BindAllUsers();
-                        break;
-                    case "0":
-                        $('.alert-success').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-error').show();
-                        $('.alert-error strong').text("Insertion was not successfull");
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-            else
-            {
-                //UPDATE
-                Users.ID = $("#hdfUserID").val();
-                var result = UpdateUser(Users);
-                switch (result.status) {
-                    case "1":
-                        $('.alert-error').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-success').show();
-                        $('.alert-success strong').text("Updated successfully");
-                        BindAllUsers();
-                        break;
-                    case "0":
-                        $('.alert-success').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-error').show();
-                        $('.alert-error strong').text("Updation was not successfull");
-                        break;
-                    default:
-                        break;
-                }
-
-            }
 
 
         }
@@ -561,68 +556,60 @@
         try
         {
             debugger;
-           
-            var Roles = new Object();
-            var Church = new Object();
-            if ($(".ddlRoleName").val() != "") {
-                Roles.RoleName = $(".ddlRoleName").val();
-            }
-
-            if ($(".ddlChurch").val() != "") {
-                Church.churchId = $(".ddlChurch").val();
-            }
-            if ($("#hdfRolesID").val() == '')
+            var rolesflag = RolesValidation();
+            if (rolesflag)
             {
-                //INSERT
-                Roles.churchObj = Church;
-                var result = InsertRoles(Roles);
-                switch (result.status) {
-                    case "1":
-                        $('.alert-error').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-success').show();
-                        $('.alert-success strong').text("Inserted successfully");
-                        BindAllRoles();
-                        break;
-                    case "0":
-                        $('.alert-success').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-error').show();
-                        $('.alert-error strong').text("Insertion was not successfull");
-                        break;
-                    default:
-                        break;
+                var Roles = new Object();
+                var Church = new Object();
+                if ($(".ddlRoleName").val() != "") {
+                    Roles.RoleName = $(".ddlRoleName").val();
                 }
 
-            }
-            else
-            {
-                //UPDATE
-                Roles.ID = $("#hdfRolesID").val();
-                Roles.churchObj = Church;
-                var result = UpdateRoles(Roles);
-                switch (result.status) {
-                    case "1":
-                        $('.alert-error').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-success').show();
-                        $('.alert-success strong').text("Updated successfully");
-                        BindAllRoles();
-                        break;
-                    case "0":
-                        $('.alert-success').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-error').show();
-                        $('.alert-error strong').text("Updation was not successfull");
-                        break;
-                    default:
-                        break;
+                if ($(".ddlChurch").val() != "") {
+                    Church.churchId = $(".ddlChurch").val();
+                }
+                if ($("#hdfRolesID").val() == '') {
+                    //INSERT
+                    Roles.churchObj = Church;
+                    var result = InsertRoles(Roles);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Inserted successfully' });
+                            BindAllRoles();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Insertion was not successfull' });
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+                else {
+                    //UPDATE
+                    Roles.ID = $("#hdfRolesID").val();
+                    Roles.churchObj = Church;
+                    var result = UpdateRoles(Roles);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Updated successfully' });
+                          
+                            BindAllRoles();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Updation was not successfull' });
+                            
+
+                            break;
+                        default:
+                            break;
+                    }
+
                 }
 
-            }
 
-           
-             
+            }
+  
         }
         catch(e)
         {
@@ -638,69 +625,63 @@
         try
         {
             debugger;
-
-            var OrgDesignationMaster = new Object();
-            var Church = new Object();
-            if ($("#txtPosition").val() != "") {
-                OrgDesignationMaster.position = $("#txtPosition").val();
-            }
-
-            if ($(".ddlOrganization").val() != "") {
-                OrgDesignationMaster.orgType = $(".ddlOrganization").val();
-            }
-
-            if ($("#txtOrder").val() != "")
+            var desiggflag = DesignationValidation();
+            if (desiggflag)
             {
-                OrgDesignationMaster.order = $("#txtOrder").val();
-            }
-
-            if ($("#hdfDesignationID").val() == '') {
-                //INSERT
-                OrgDesignationMaster.churchObj = Church;
-                var result = InsertDesignation(OrgDesignationMaster);
-                switch (result.status) {
-                    case "1":
-                        $('.alert-error').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-success').show();
-                        $('.alert-success strong').text("Inserted successfully");
-                        BindAllDesignation();
-                        break;
-                    case "0":
-                        $('.alert-success').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-error').show();
-                        $('.alert-error strong').text("Insertion was not successfull");
-                        break;
-                    default:
-                        break;
+                var OrgDesignationMaster = new Object();
+                var Church = new Object();
+                if ($("#txtPosition").val() != "") {
+                    OrgDesignationMaster.position = $("#txtPosition").val();
                 }
 
-            }
-            else {
-                //UPDATE
-                OrgDesignationMaster.orgDesignationMasterID = $("#hdfDesignationID").val()
-                OrgDesignationMaster.churchObj = Church;
-                var result = UpdateDesignation(OrgDesignationMaster);
-                switch (result.status) {
-                    case "1":
-                        $('.alert-error').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-success').show();
-                        $('.alert-success strong').text("Updated successfully");
-                        BindAllDesignation();
-                        break;
-                    case "0":
-                        $('.alert-success').hide();
-                        $('#rowfluidDivAlert').show();
-                        $('.alert-error').show();
-                        $('.alert-error strong').text("Updation was not successfull");
-                        break;
-                    default:
-                        break;
+                if ($(".ddlOrganization").val() != "") {
+                    OrgDesignationMaster.orgType = $(".ddlOrganization").val();
                 }
 
+                if ($("#txtOrder").val() != "") {
+                    OrgDesignationMaster.order = $("#txtOrder").val();
+                }
+
+                if ($("#hdfDesignationID").val() == '') {
+                    //INSERT
+                    OrgDesignationMaster.churchObj = Church;
+                    var result = InsertDesignation(OrgDesignationMaster);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Inserted successfully' });
+                            BindAllDesignation();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Insertion was not successfull' });
+                            
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+                else {
+                    //UPDATE
+                    OrgDesignationMaster.orgDesignationMasterID = $("#hdfDesignationID").val()
+                    OrgDesignationMaster.churchObj = Church;
+                    var result = UpdateDesignation(OrgDesignationMaster);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Updated successfully' });
+                            
+                            BindAllDesignation();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Updation was not successfull' });
+                           
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
             }
+           
 
 
         }
@@ -714,9 +695,9 @@
 
     $('#btnSaintAdd').click(function (e) {
         debugger;
-        var IsValid = true;//NewPatronValidation();
+        var saintflag = PatronValidation();
 
-        if (IsValid) {
+        if (saintflag) {
 
 
             var PatronMaster = new Object();
@@ -754,6 +735,18 @@
                 PatronMaster.patronMasterId = $('#hdfPatronID').val();
 
                 result = UpdatePatron(PatronMaster);
+                switch (result.status) {
+                    case "1":
+                        noty({ type: 'success', text: 'Updated successfully' });
+                        BindPatrons();
+                        break;
+                    case "0":
+                        noty({ type: 'error', text: 'Updation was not successfull' });
+
+                        break;
+                    default:
+                        break;
+                }
 
                 if ($('#hdfPatronImageID').val() != '' && (((imagefile = $('#UpSaint')[0].files[0]) != undefined))) {
 
@@ -771,11 +764,21 @@
             }
             else {  //Case Insert
                 result = InsertPatron(PatronMaster);
+                switch (result.status) {
+                    case "1":
+                        noty({ type: 'success', text: 'Inserted successfully' });
+                        BindPatrons();
+                        break;
+                    case "0":
+                        noty({ type: 'error', text: 'Insertion was not successfull' });
+
+                        break;
+                    default:
+                        break;
+                }
             }
-            if (result.Status == 1) {
-                BindPatrons();
-               
-            }
+            
+           
             //ClearModalControls();
         }
 
@@ -789,21 +792,293 @@
     
 });//end of document.ready
 
-function NewPatronValidation() {
-    $('#Displaydiv1').remove();
-    var Name = $('#txtSaintName');
-    //   var Description = $('#txtDescription');
+
+
+function DesignationValidation()
+{
+    debugger;
+    $('#Displaydiv4').remove();
+    var postion = $('#txtPosition');
+    var organization = $('#idddlOrganization');
+    var order = $('#txtOrder');
+   
+
+
 
     var container = [
-        { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
-      //  ,{ id: Description[0].id, name: Description[0].name, Value: Description[0].value }
+        { id: postion[0].id, name: postion[0].name, Value: postion[0].value },
+        { id: organization[0].id, name: organization[0].name, Value: organization[0].value },
+        { id: order[0].id, name: order[0].name, Value: order[0].value }
+     ];
 
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox4');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv4");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+        else if (container[i].Value == "-1") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "93% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+    }
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+
+        divs.appendChild(p);
+
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox4').hide(1000);
+        return true;
+    }
+}
+
+function ChurchValidation() {
+    debugger;
+    $('#Displaydiv').remove();
+    var ChurchName = $('#txtChurchName');
+    var TownCode = $('.ddlTownCode');
+    var ChurchAddress = $('#txtAddress');
+    var phone1 = $('#txtPhone1');
+    var longitude = $('#txtLongitude');
+    var lattitude = $('#txtLatitude');
+
+
+
+    var container = [
+        { id: ChurchName[0].id, name: ChurchName[0].name, Value: ChurchName[0].value },
+        { id: TownCode[0].id, name: TownCode[0].name, Value: TownCode[0].value },
+        { id: ChurchAddress[0].id, name: ChurchAddress[0].name, Value: ChurchAddress[0].value },
+        { id: phone1[0].id, name: phone1[0].name, Value: phone1[0].value },
+        { id: longitude[0].id, name: longitude[0].name, Value: longitude[0].value },
+        { id: lattitude[0].id, name: lattitude[0].name, Value: lattitude[0].value}
+            
+
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+        else if (container[i].Value == "-1") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "93% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+    }
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+
+        divs.appendChild(p);
+     
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox').hide(1000);
+       
+     
+        return true;
+    }
+}
+
+
+function RolesValidation()
+{
+    debugger;
+    $('#Displaydiv1').remove();
+    var RoleName = $('#idddlRoleName');
+    var churchrole = $('#idddlChurch');
+
+    var container = [
+        { id: RoleName[0].id, name: RoleName[0].name, Value: RoleName[0].value },
+        { id: churchrole[0].id, name: churchrole[0].name, Value: churchrole[0].value }
     ];
 
     var j = 0;
     var Errorbox = document.getElementById('ErrorBox1');
     var divs = document.createElement('div');
     divs.setAttribute("id", "Displaydiv1");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+        else if (container[i].Value == "-1") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "93% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+    }
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+
+        divs.appendChild(p);
+
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox1').hide(1000);
+
+
+        return true;
+    }
+}
+
+
+function UserValidation() {
+   
+    $('#Displaydiv2').remove();
+    var userchurch = $('#idddlchurchuser');
+    var username = $('#txtUserName');
+    var useraddress = $('#txtUserAddress');
+    var usermobile = $('#txtMobile');
+    var email = $('#txtEmail');
+    var userroles = $('#idddlRoles');
+
+    var userDOB = $('#datepickerdob');
+    var loginname = $('#txtLoginName');
+    var paswd = $('#txtPassword');
+
+
+
+    var container = [
+        { id: userchurch[0].id, name: userchurch[0].name, Value: userchurch[0].value },
+        { id: username[0].id, name: username[0].name, Value: username[0].value },
+        { id: useraddress[0].id, name: useraddress[0].name, Value: useraddress[0].value },
+        { id: usermobile[0].id, name: usermobile[0].name, Value: usermobile[0].value },
+        { id: email[0].id, name: email[0].name, Value: email[0].value },
+        { id: userroles[0].id, name: userroles[0].name, Value: userroles[0].value },
+        { id: userDOB[0].id, name: userDOB[0].name, Value: userDOB[0].value },
+        { id: loginname[0].id, name: loginname[0].name, Value: loginname[0].value },
+        { id: paswd[0].id, name: paswd[0].name, Value: paswd[0].value }
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox2');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv2");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+        else if (container[i].Value == "-1") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "93% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+    }
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+
+        divs.appendChild(p);
+
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox2').hide(1000);
+
+
+        return true;
+    }
+}
+
+
+
+function PatronValidation() {
+    $('#Displaydiv5').remove();
+    var SaintName = $('#txtSaintName');
+    var SaintDescription = $('#txtSaintDescription');
+
+    var container = [
+        { id: SaintName[0].id, name: SaintName[0].name, Value: SaintName[0].value },
+       { id: SaintDescription[0].id, name: SaintDescription[0].name, Value: SaintDescription[0].value }
+
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox5');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv5");
     Errorbox.appendChild(divs);
     for (var i = 0; i < container.length; i++) {
         if (container[i].Value == "") {
@@ -827,7 +1102,7 @@ function NewPatronValidation() {
         return false;
     }
     if (j == '0') {
-        $('#ErrorBox1').hide();
+        $('#ErrorBox5').hide();
         return true;
     }
 
@@ -836,6 +1111,7 @@ function NewPatronValidation() {
 function RemoveUser(curobj)
 {
     debugger;
+    RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
         var Users = new Object();
@@ -846,17 +1122,14 @@ function RemoveUser(curobj)
 
         switch (result.status) {
             case "1":
-                $('.alert-error').hide();
-                $('#rowfluidDivAlert').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Deleted successfully");
+                noty({ type: 'success', text: 'Deleted successfully' });
+                
                 BindAllUsers();
                 break;
             case "0":
-                $('.alert-success').hide();
-                $('#rowfluidDivAlert').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Deletion was not successfull");
+               
+                noty({ type: 'error', text: 'Deletion was not successfull' });
+               
                 break;
             default:
                 break;
@@ -870,6 +1143,7 @@ function RemoveSaint(curobj)
 {
 
     debugger;
+    RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
        
@@ -880,17 +1154,13 @@ function RemoveSaint(curobj)
 
         switch (result.status) {
             case "1":
-                $('.alert-error').hide();
-                $('#rowfluidDivAlert').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Deleted successfully");
+                noty({ type: 'success', text: 'Deleted successfully' });
+               
                 BindPatrons();
                 break;
             case "0":
-                $('.alert-success').hide();
-                $('#rowfluidDivAlert').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Deletion was not successfull");
+                noty({ type: 'error', text: 'Deletion was not successfull' });
+              
                 break;
             default:
                 break;
@@ -903,6 +1173,7 @@ function RemoveSaint(curobj)
 function EditUsers(curobj)
 {
     debugger;
+    RemoveStyle();
     $('#rowfluidDivAlert').hide();
     $('.alert').hide();
     var Users = new Object();
@@ -998,8 +1269,8 @@ function UpdateDesignation(OrgDesignationMaster) {
 function EditChurch(curobj)
 {
     debugger;
-    $('#rowfluidDivAlert').hide();
-    $('.alert').hide();
+    RemoveStyle();
+   
     var Church = new Object();
     var editedrow = $(curobj).closest('tr');
     Church.churchId = $(curobj).attr('churchid');
@@ -1035,8 +1306,8 @@ function EditChurch(curobj)
 function EditRole(curobj)
 {
     debugger;
-    $('#rowfluidDivAlert').hide();
-    $('.alert').hide();
+    RemoveStyle();
+   
     var Roles = new Object();
     var editedrow = $(curobj).closest('tr');
     Roles.ID = $(curobj).attr('roleid');
@@ -1049,8 +1320,8 @@ function EditRole(curobj)
 
 function EditDesignation(curobj)
 {
-    $('#rowfluidDivAlert').hide();
-    $('.alert').hide();
+    RemoveStyle();
+    
     var OrgDesignationMaster = new Object();
     
     OrgDesignationMaster.orgDesignationMasterID = $(curobj).attr('designationid');
@@ -1064,8 +1335,8 @@ function EditDesignation(curobj)
 
 function EditSaint(curobj) {
     debugger;
-    $('#rowfluidDivAlert').hide();
-    $('.alert').hide();
+    RemoveStyle();
+   
     var PatronMaster = new Object();
     PatronMaster.patronMasterId = $(curobj).attr('patronid');
     $("#hdfPatronID").val(PatronMaster.patronMasterId);
@@ -1152,8 +1423,8 @@ function GetPatronDetailByID(PatronMaster) {
 
 function RemoveChurch(curobj)
 {
-    $('#rowfluidDivAlert').hide();
-    $('.alert').hide();
+    RemoveStyle();
+   
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
         var Church = new Object();
@@ -1162,17 +1433,13 @@ function RemoveChurch(curobj)
         var result = DeleteChurch(Church);
         switch (result.status) {
             case "1":
-                $('.alert-error').hide();
-                $('#rowfluidDivAlert').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Deleted successfully");
+                noty({ type: 'success', text: 'Deleted successfully' });
+               
                 BindAllChurches();
                 break;
             case "0":
-                $('.alert-success').hide();
-                $('#rowfluidDivAlert').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Deletion was not successfull");
+                noty({ type: 'error', text: 'Deletion was not successfull' });
+               
                 break;
             default:
                 break;
@@ -1186,6 +1453,7 @@ function RemoveChurch(curobj)
 function RemoveRole(curobj)
 {
     debugger;
+    RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
         var Roles = new Object();
@@ -1194,18 +1462,12 @@ function RemoveRole(curobj)
         var result = DeleteRole(Roles);
         switch (result.status) {
             case "1":
-                $('.alert-error').hide();
-                $('#rowfluidDivAlert').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Deleted successfully");
+                noty({ type: 'success', text: 'Deleted successfully' });
                 BindAllRoles();
                 break;
             case "0":
-                $('.alert-success').hide();
-                $('#rowfluidDivAlert').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Deletion was not successfull");
-                break;
+                noty({ type: 'error', text: 'Deletion was not successfull' });
+               break;
             default:
                 break;
         }
@@ -1216,6 +1478,7 @@ function RemoveRole(curobj)
 
 function RemoveDesignation(curobj)
 {
+    RemoveStyle();
     $('#rowfluidDivAlert').hide();
     $('.alert').hide();
     var r = confirm("Are You Sure to Delete?");
@@ -1225,18 +1488,12 @@ function RemoveDesignation(curobj)
         var result = DeleteDesignation(OrgDesignationMaster);
         switch (result.status) {
             case "1":
-                $('.alert-error').hide();
-                $('#rowfluidDivAlert').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Deleted successfully");
+                noty({ type: 'success', text: 'Deleted successfully' });
                 BindAllDesignation();
                 break;
             case "0":
-                $('.alert-success').hide();
-                $('#rowfluidDivAlert').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Deletion was not successfull");
-                break;
+                noty({ type: 'success', text: 'Deletion was not successfull' });
+               break;
             default:
                 break;
         }
@@ -1748,6 +2005,8 @@ function BindPatrons() {
     debugger;
     var jsonResult = {};
     var PatronMaster = new Object();
+    var Church = new Object();
+    PatronMaster.churchObj = Church;
     jsonResult = GetAllPatrons(PatronMaster);
     if (jsonResult != undefined) {
         LoadPatrons(jsonResult);
@@ -1786,5 +2045,22 @@ function showpreview(input) {
             $('.Preview').attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+function checkPass() {
+    var pass1 = document.getElementById('txtPassword');
+    var pass2 = document.getElementById('txtconfirmpswd');
+     if (pass1.value == pass2.value) {
+      
+        pass2.style.backgroundColor ="#66cc66";
+       
+      
+    } else {
+       
+        pass2.style.backgroundColor = "#ff6666";
+    
+        
     }
 }

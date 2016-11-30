@@ -344,13 +344,13 @@ function BindNovenasPatronID(patronId) {
         }
     }
 }
-function GetNovenasByPatronID(Novenas) {
+function GetNovenasByPatronID(Novenas)
+{
     var ds = {};
     var table = {};
     var data = "{'NovenaObj':" + JSON.stringify(Novenas) + "}";
     ds = getJsonData(data, "../AdminPanel/Novenas.aspx/GetNovenasByPatronID");
     table = JSON.parse(ds.d);
-
     return table;
 }
 var NovenaTiming = '';
@@ -726,6 +726,65 @@ function FixedEditClick()
    
 
 }
+function ViewIndividualPatron(obj) {
+
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+
+    IsNormal = true;
+    debugger;
+    $('#DivBoxHeader').hide();
+    $('#EditPatron').hide();
+
+    $('#DivSaints').hide();
+    $('#DivIndividualPatron').show();
+
+    var SaintName = $(obj).attr('SaintName');
+    var SaintID = $(obj).attr('ID');
+    BindNovenasPatronID(SaintID);
+
+    PatronID = SaintID;
+
+    //document.getElementById("spnSaint").innerHTML = SaintName;
+    //$('.latest').text(SaintName)  ;
+    $(".Novena").remove();//removes novena li from breadcrumb
+
+    $("#breadcrumbNovena").append('<li><a href="../AdminPanel/Novenas.aspx"> Novenas </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + SaintName + '</li>');
+}
+
+function AddNewNovena() {
+
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+
+    IsNormal = true;
+    debugger;
+    $('#DivBoxHeader').hide();
+    $('#EditPatron').hide();
+
+    $('#DivSaints').hide();
+    $('#DivIndividualPatron').show();
+
+   // var SaintName = $(obj).attr('SaintName');
+   // var SaintID = $(obj).attr('ID');
+  //  BindNovenasPatronID(SaintID);
+
+  //  PatronID = SaintID;
+
+    //document.getElementById("spnSaint").innerHTML = SaintName;
+    //$('.latest').text(SaintName)  ;
+    //$(".Novena").remove();//removes novena li from breadcrumb
+
+    $("#breadcrumbNovena").append('<li><a href="../AdminPanel/Novenas.aspx"> Novenas </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + SaintName + '</li>');
+}
+
+
+
+
 //Onclick Of Saint Image
 function ViewIndividualPatron(obj) {
 
@@ -1312,7 +1371,9 @@ function UpdateTime(obj)
 function BindPatronsInEditableFormat() {
     var jsonResult = {};
     var PatronMaster = new Object();
-    jsonResult = GetAllPatrons(PatronMaster);
+    var Church = new Object();
+    PatronMaster.churchObj = Church;
+    jsonResult = SelectAllPatronMasterByChurchID(PatronMaster);
     if (jsonResult != undefined) {
         FillPatronsInEditableFormat(jsonResult);
     }
@@ -1505,7 +1566,9 @@ function GetAllPatronIdAndName(PatronMaster) {
 function BindPatrons() {
     var jsonResult = {};
     var PatronMaster = new Object();
-    jsonResult = GetAllPatrons(PatronMaster);
+    var Church = new Object();
+    PatronMaster.churchObj = Church;
+    jsonResult = SelectAllPatronMasterByChurchID(PatronMaster);
     if (jsonResult != undefined) {
         FillPatrons(jsonResult);
     }
@@ -1546,12 +1609,12 @@ function FillPatrons(Records) {
 
         if (RecordsToBeProcessed > 0) {
 
-            if (index < 5) {            //First Row
+            if (index < 5) {            //First Row1
 
                 if (RecordsToBeProcessed == (TotalRecords - 1)) {
                     ObjUl = $('<ul></ul>');
                     ObjUl.addClass("thumbnails");
-                    ObjUl.append('<div id="divAddSaint" class=' + SpanValue + '><img class="PlusImg" src="../img/Plussymbol.png"/><a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint" onclick="OpenNewSaintModal()">Add New Saint</></a></div><li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\' ID=\'' + Records.ID + '\' /><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
+                    ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\' ID=\'' + Records.ID + '\' /><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
                 }
                 else {
                     ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\' ID=\'' + Records.ID + '\'/><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
@@ -1593,6 +1656,16 @@ function GetAllPatrons(PatronMaster) {
     ds = getJsonData(data, "../AdminPanel/Novenas.aspx/GetAllPatrons");
     table = JSON.parse(ds.d);
 
+    return table;
+}
+
+function SelectAllPatronMasterByChurchID(PatronMaster)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'PatrnObj':" + JSON.stringify(PatronMaster) + "}";
+    ds = getJsonData(data, "../AdminPanel/Novenas.aspx/SelectAllPatronMasterByChurchID");
+    table = JSON.parse(ds.d);
     return table;
 }
 //--------------------------------//

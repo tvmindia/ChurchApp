@@ -207,12 +207,19 @@ namespace ChurchApp.DAL
            
             try
             {
-                //Encryption of password
-                ChurchApp.DAL.Security.CryptographyFunctions cryptOBj = new ChurchApp.DAL.Security.CryptographyFunctions();
-                Password=cryptOBj.Encrypt(Password);
-                //Encryption of password
+                
+
+               
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
+                if ((churchObj.churchId == null) || (churchObj.churchId == ""))
+                {
+                    throw new Exception("ChurchID is Empty");
+                }
+                if((rolesObj.ID==null)||(rolesObj.ID==""))
+                {
+                    throw new Exception("RoleID is Empty");
+                }
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -228,6 +235,10 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = Address;
                 cmd.Parameters.Add("@RoleID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(rolesObj.ID);
                 cmd.Parameters.Add("@LoginName", SqlDbType.NVarChar, 255).Value = LoginName;
+                //Encryption of password
+                ChurchApp.DAL.Security.CryptographyFunctions cryptOBj = new ChurchApp.DAL.Security.CryptographyFunctions();
+                Password = cryptOBj.Encrypt(Password);
+                //Encryption of password
                 cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 255).Value = Password;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;

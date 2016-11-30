@@ -107,17 +107,8 @@
     }
 
 });
-//
-///Function remove style after validating
-function RemoveStyle() {
-    try {
-        $('input[type=text],input[type=password],textarea,select').css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').hide(1000);
-    }
-    catch (e) {
 
-    }
-}
+
 function savePriest()
 {
     var AppImgURL = '';
