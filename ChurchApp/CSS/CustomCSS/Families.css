@@ -7,7 +7,10 @@
     position:absolute;
     right:25px;
 }
-
+.imgNoImage
+{
+    height:85px;
+}
 .unitViewDetails
 {
   position: relative;
@@ -198,14 +201,14 @@ i#faUser {
     line-height:20px;
 }
 .btnNew {
-    left: 490px !important;
-    top: -10px;
+    left: 93%!important;
+    top: -14px;
 }
 
-h2
+/*h2
 {
     margin:-4px 0px;
-}
+}*/
 .form-horizontal .control-label
 {
     margin-left:3%;

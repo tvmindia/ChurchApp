@@ -18,12 +18,12 @@
              <div class="span6">
 					<div>
                          <div id="divFamilyUnitsGrid">
-                              <div class="headerDiv" style="border-bottom:1.5px solid #F44336;margin-top:2%;">
-						<h2 id="unitHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span></h2>
+                              <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
+						<h2 id="unitHeader"></h2>
                       
-						<a class="btnNew" id="btnMemberNew" title="ADD NEW FAMILY MEMBER" onclick="AddFamilyMember();"><i>+</i></a>
-                         <a class="btnNew" id="btnfamilyAdd" title="ADD NEW FAMILY" onclick="AddFamily();"><i>+</i></a>
-                         <a class="btnNew" id="btnFamilyUnitAdd" title="ADD NEW FAMILY UNIT" onclick="AddFamilyUnit();"><i>+</i></a>
+						<%--<a class="btnNew" id="btnAddNew" runat="server"  title="ADD NEW FAMILY MEMBER" onclick="AddFamilyMember();" ><i>+</i></a>
+                         <a class="btnNew" id="btnfamilyAdd" runat="server"  title="ADD NEW FAMILY" onclick="AddFamily();"><i>+</i></a>--%>
+                         <a class="btnNew" id="btnAddNew" runat="server" title="ADD NEW FAMILY UNIT" onclick="AddFamilyUnit();"><i>+</i></a>
 							
 						</div>
                             
@@ -64,7 +64,7 @@
                                <img class="img-rounded" style="height:159px" src="../img/gallery/Noimage.png"  alt=""/>
                                 <address>
                                     <br/>
-                                    <strong><br/><br/>No Records Found</strong>
+                                    <strong><br/>No Records Found</strong>
                                     <br/>
                                 </address>                
                               </div>

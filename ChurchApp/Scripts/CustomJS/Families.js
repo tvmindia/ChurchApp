@@ -107,7 +107,10 @@ $(document).ready(function () {
                     var _URL = window.URL || window.webkitURL;
                     var formData = new FormData();
                     var imagefile, logoFile, img;
-
+                    if (memberID == "")
+                    {
+                        memberID = createGuid();
+                    }
                     if (((imagefile = $('#mfluImage')[0].files[0]) != undefined)) {
                         var formData = new FormData();
                         var tempFile;
@@ -135,10 +138,14 @@ $(document).ready(function () {
                     ClearTextboxes();
                     BindMemberSelect();
                 }
-                else
+               if(jsonResult=="2")
                 {
-                    noty({ text: 'Error..!!!', type: 'error' });
-                }
+                   noty({ text: 'Member with the same name already exists', type: 'info' });
+               }
+               if(jsonResult!="1" && jsonResult!="2")
+               {
+                   noty({ text: 'Error..!!!', type: 'error' });
+               }
             }
             else
             {
@@ -459,6 +466,8 @@ function handleMemberFileSelect(evt) {
 function cancelAdminEdit()
 {
     $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
+    $('#iconEdit').attr('title', 'Edit Unit Executives');
+    $('#AdminEdit').attr('title', 'Edit Unit Executives');
     BindFamilyUnitMemebrs();
     $('#AdminEdit').attr('onclick', 'EditFamily(this);');
     $("#divAdminInfo").css("display", "none");
@@ -481,6 +490,8 @@ function EditFamily(e)
     $("#divAdminInfo").css("display", "none");
     $("#FamilyAdd").css("margin-top", "1%");
     $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white refresh");
+    $('#iconEdit').attr('title', 'Refresh');
+    $('#AdminEdit').attr('title', 'Refresh');
     $('#AdminEdit').attr('onclick', 'cancelAdminEdit();');
             var executiveLength = $("#hdfExecutivesLength").val();
             if (executiveLength == "0")
@@ -658,8 +669,10 @@ function Families()
     $(".FamiliesEdit").css("display", "");
     $("#familyAddDiv").css("display", "none");
     $("#executivesHeader").css("display", "");
-    $("#btnMemberNew").css("display", "none");
-    $("#btnfamilyAdd").css("display", "");
+    //$("#btnMemberNew").css("display", "none");
+    //$("#btnfamilyAdd").css("display", "");
+    $("#ContentPlaceHolder2_btnAddNew").attr('onclick', 'AddFamily()');
+    $("#ContentPlaceHolder2_btnAddNew").attr('title','Add Family');
     $("#btnFamilyUnitAdd").css("display", "none");
     $("#AddFamilyHeader").css("display", "");
     $("#FamilyHeader").css("display", "none");
@@ -864,15 +877,15 @@ function BindGetAllFamilyUnitMemeberData(Records)
         $("#divAdminDetals").append(html);
     })
 
-    if (length == 0) {
+    if (length == 0 || $("#divAdminDetals img").length==0) {
         debugger;
         //$("#divAdminInfo").css("display", "");
         //$("#divAdminDetals").css("display","none");
-        //var img = document.createElement('img');
-        //img.src = "../img/nodata.jpg";
-        //img.id = "NoData";
-        //$("#divAdminDetals").append(img);
-        $("#divAdminInfo").css("display", "");
+        var img = document.createElement('img');
+        img.src = "../img/gallery/Noimage.png";
+        img.className = "imgNoImage";
+        $("#divAdminDetals").append(img);
+       // $("#divAdminInfo").css("display", "");
        // $("#familyAddDiv").css("margin-top", "-50px !important");
         $("#familyAddDiv").css("margin-top", "-15%");
        
@@ -927,6 +940,7 @@ function AddFamilyMember()
     $("#txtPhone").removeAttr('disabled');
     $("#txtAddress").removeAttr('disabled');
     $("#FamilyAdd").css("margin-top", "1%");
+    $("#MemberImg").attr("src", "../img/gallery/priest.png");
     } 
 function FamilyMembersAutoBind() {
     debugger;
@@ -1074,8 +1088,10 @@ function BindFamilyMembers(e) {
         $(".FamiliesEdit").css("display", "");
         $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
-        $("#btnfamilyAdd").css("display", "none");
-        $("#btnFamilyUnitAdd").css("display", "none");
+        //$("#btnfamilyAdd").css("display", "none");
+        //$("#btnFamilyUnitAdd").css("display", "none");
+        $("#ContentPlaceHolder2_btnAddNew").attr('onclick', 'AddFamilyMember()');
+        $("#ContentPlaceHolder2_btnAddNew").attr('title', 'Add Family Member');
         BindGetAllFamilyMemeberData(jsonResult);
     }
 }
@@ -1098,10 +1114,13 @@ function BindNavUnits()
     if ($('#iconEdit').hasClass('halflings-icon white refresh') == true)
     {
         $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
+        $('#iconEdit').attr('title', 'Edit Unit Executives');
+        $('#AdminEdit').attr('title', 'Edit Unit Executives');
         $('#AdminEdit').attr('onclick', 'EditFamily(this);');
     }
     BindFamilyUnitMemebrs();
     $("#FamilyAdd").css("margin-top", "1%");
+    $("#divAdminInfo").css("display", "none");
 } //display familyUnits
 function EditUnit(e)
 {
@@ -1137,7 +1156,8 @@ function BindGetAllFamilyUnitsTable(Records) {
        
     }
     $("#unitHeader").text("Family Units");
-    $(".btnNew").css("display", "none");
+    //$(".btnNew").css("display", "none");
+    $(".btnNewUnit").css("display","none")
     $("#btnFamilyUnitAdd").css("display", "");
 }
 //family grid

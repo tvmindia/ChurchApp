@@ -117,11 +117,11 @@ ul.dashboard-list li:last-child {
  {
      
  }
-.btnNew
+/*.btnNew
  {
      left: 93%;
      top:-14px;
- }
+ }*/
  ul.dashboard-list li {
     padding: 0px 0 !important;
     line-height: 22px !important;
