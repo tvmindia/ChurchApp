@@ -296,6 +296,11 @@
         allowClear: true,
         data: BindNotificationDropDown()
     });
+    var value = $('#ContentPlaceHolder2_btnAddNew').val();
+    if (value != "") {
+        debugger;
+        $('#NoticeEdit').remove();
+    }
 });
 //end of document.ready()
 

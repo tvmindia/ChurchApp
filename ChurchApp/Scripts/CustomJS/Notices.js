@@ -266,6 +266,7 @@ $("document").ready(function (e) {
                 alert("Please select a type");
             }
         }
+       
     });
 
     $('#btnCancel').click(function (e) {
@@ -391,6 +392,11 @@ $("document").ready(function (e) {
     function () {
         RemoveStyle();
     });
+    var value = $('#ContentPlaceHolder2_btnAddNew').val();
+    if (value != "") {
+        debugger;
+        $('#NoticeEdit').remove();
+    }
 
 });
 //------------End of document ready----------------//
@@ -841,7 +847,7 @@ function EditOnClick(id) {
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
-    $("#NoticeEdit").show();
+    //$("#NoticeEdit").show();
     $('#NoticeEdit').attr('onclick', 'FixedEditClick();')
     $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
     $("#btnDelete").hide();

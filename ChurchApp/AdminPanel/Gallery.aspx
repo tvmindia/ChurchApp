@@ -25,7 +25,7 @@
 				</li>
 				<li class="Gallery">
                     <i class="icon-home"></i> Gallery</li>
-			</ul>
+			</ul><a class="btnNew" id="btnAddNew" style="display:none;" runat="server" title=""><i title="Add New Notice">+</i></a>
               <%--Alert boxes --%>
                <div id="rowfluidDivImages" style="display:none;">	
 				       <div class="alert alert-error" style="display:none;">
@@ -51,12 +51,13 @@
             </div>
 			  <%--Alert boxes --%>
               <div class="row-fluid" id="divImageAlbum">
+                  
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon picture"></i><span class="break"></span> Albums</h2>
 						<div class="box-icon">
 							<a id="toggle-fullscreen" class="hidden-phone hidden-tablet btnEdit"><i class="halflings-icon white fullscreen"></i></a>
-					        <a class="btnEdit" style="position: relative; top: -1px;  right: 0px;" title="Edit" id="EditAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
+					        <a class="btnEdit pencilEdit" style="position: relative; top: -1px;  right: 0px;display:none;" title="Edit" id="EditAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
                             <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
                             <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>
 							
@@ -64,7 +65,7 @@
 					</div>
 					<div class="box-content">
 			       <div class="ImageAlbum-Gallery">
-                   <div id="divCreateAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                   <div id="divCreateAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 23%;display:none;float: left;padding-left: 5px;padding-bottom:8px;">
                    <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
                     <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;cursor:pointer;" id="newalbum">Create Album</></a>
 
@@ -77,18 +78,18 @@
 				    </div><!--/span-->
               </div>
               </div> 
-              <div class="row-fluid" id="divImages">
+              <div class="row-fluid" id="divImages" style="display:none;">
                 	<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon picture"></i><span class="break"></span><span id="ImageDivTitle">Album Images</span></h2>
 						<div class="box-icon">
-							<a class="btnEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditImageAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
+							<a class="btnEdit pencilEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditImageAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
                             <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshImageAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 						<div class="Image-Gallery">
-                             <div id="divAddMore" style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 229px;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                             <div id="divAddMore" style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 229px;float: left;padding-left: 5px;padding-bottom:8px;">
                          <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 129px;left: 112px;" src="../img/Plussymbol.png"/>
                             <a data-rel="tooltip" data-original-title="Add More Images"  style="top: 67%;left: 34%;position: relative;cursor:pointer;" id="newimage">Add More</></a>
                            </div>
@@ -135,15 +136,15 @@
 						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span> Video Album</h2>
 						<div class="box-icon">
 						<a id="toggle-fullscreenvid" class="hidden-phone hidden-tablet btnEdit"><i class="halflings-icon white fullscreen"></i></a>
-					        <a class="btnEdit" style="position: relative; top: -1px;  right: 0px;" title="Edit" id="EditVideoAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
-                            <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshVideoAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
+					        <a class="btnEdit pencilEdit" style="position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="EditVideoAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
+                            <a class="btnEdit" style="display:none;position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="RefreshVideoAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
                             <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 						<div class="VideoAlbum-gallery">
 
-                         <div id="divCreateVideoAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 23%;display: block;float: left;padding-left: 5px;padding-bottom:8px;">
+                         <div id="divCreateVideoAlbum"style="height: 238px!important;display:none;border: 2px dotted black;background-color: #fff;width: 23%;display: none;float: left;padding-left: 5px;padding-bottom:8px;">
                    <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
                     <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;cursor:pointer;" id="newVideoalbum">Create Album</></a>
 
@@ -159,19 +160,19 @@
 					</div>
 				</div><!--/span-->
 			</div>
-              <div class="row-fluid" id="divVideos">
+              <div class="row-fluid" id="divVideos" style="display:none;">
              <div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span><span id="VideoDivTitle">AlbumName Videos</span></h2>
                        <div class="box-icon">
-							<a class="btnEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditVideo"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
-                            <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshVideo"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
+							<a class="btnEdit pencilEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditVideo"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
+                            <a class="btnEdit" style="position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshVideo"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
 						
 						</div>
 					</div>
 					<div class="box-content">
 						<div class="Video-gallery">
-		                 <div id="divAddMoreVideos" style="height: 249px!important;border: 2px dotted black;background-color:#fff;width: 380px;display: block;float: left;margin-left:15px;">
+		                 <div id="divAddMoreVideos" style="height: 249px!important;display:none;border: 2px dotted black;background-color:#fff;width: 380px;display: block;float: left;margin-left:15px;">
                          <img style="text-align: center;display: block;position: relative;height: 47px;width: 43px;top: 93px;left: 40%;" src="../img/Plussymbol.png"/>
                             <a data-rel="tooltip" data-original-title="Add more videos" style="top: 44%;left: 38%;position: relative;cursor:pointer;" id="newvideo">Add More</></a>
                            </div>

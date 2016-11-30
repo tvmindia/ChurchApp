@@ -44,6 +44,11 @@ $(document).ready(function () {
         $('#ErrorBox,#ErrorBox1').hide(1000);
     });
     //////////////////////////////////////////////////////
+    var value = $('#ContentPlaceHolder2_btnAddNew').val();
+    if (value != "") {
+        debugger;
+        $('#iconEditInstitute').remove();
+    }
 });
 ///End document ready section
 

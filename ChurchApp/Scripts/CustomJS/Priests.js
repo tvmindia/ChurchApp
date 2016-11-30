@@ -100,6 +100,11 @@
         $(this).css({ background: 'white' });
         $('#ErrorBox,#ErrorBox1').hide(1000);
     });
+    var value = $('#ContentPlaceHolder2_btnAddNew').val();
+    if (value != "") {
+        debugger;
+        $('#iconEditPriest').remove();
+    }
 
 });
 //

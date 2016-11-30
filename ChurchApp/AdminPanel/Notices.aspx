@@ -92,20 +92,8 @@
                     <div class="dark">
                         <h2><span class="fa fa-bell-o"> </span>  <span id="h1Event">Notices</span></h2>
                         <a id="NoticeEdit" class="btnEdit"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Notice"></i></a>
+                        
                     <div class="box-content">
-                    <%--<%--<div class="form-horizontal">
-                    <div class="box-header">
-                         <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="h1Notice" style="position:absolute">Event</span> <a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i class="halflings-icon white pencil" aria-hidden="true" title="Edit Notice"></i></a></h2>
-                       
-                        <%--<h2 id="h1Notice"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Add Notice</h2>--%>
-                        <%--<div class="box-icon">
-                            
-                            <%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
-                        <%--</div>
-                    </div>--%>
-
-                    <%--class="box-content"--%>
-                    <%--<div >--%>
                         <div class="form-horizontal">
                             <fieldset>
 

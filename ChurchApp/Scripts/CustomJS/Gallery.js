@@ -526,9 +526,22 @@
     barinAlbum.animate(0.0);
 
 
+    var value = $('#ContentPlaceHolder2_btnAddNew').val();
+    if (value != "") {
+        debugger;
+        $('#divCreateAlbum').remove();
+        $('#divCreateVideoAlbum').remove();
+        $('.pencilEdit').remove();
+        $('#divAddMore').remove();
+        $('#divAddMoreVideos').remove();
 
+    }
 
-
+    $('#divCreateAlbum').show();
+    $('#divCreateVideoAlbum').show();
+    $('.pencilEdit').show();
+    $('#divAddMore').show();
+    $('#divAddMoreVideos').show();
 
 });//end of document.ready
 

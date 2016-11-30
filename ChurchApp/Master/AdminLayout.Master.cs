@@ -79,6 +79,8 @@ namespace ChurchApp.Master
                 {
                     System.Web.UI.HtmlControls.HtmlAnchor anchorNew = (System.Web.UI.HtmlControls.HtmlAnchor)ContentPlaceHolder2.FindControl("btnAddNew");
                     System.Web.UI.HtmlControls.HtmlAnchor anchorNewVicar = (System.Web.UI.HtmlControls.HtmlAnchor)ContentPlaceHolder2.FindControl("btnNewVicar");
+                    //System.Web.UI.HtmlControls.HtmlAnchor anchorEdit = (System.Web.UI.HtmlControls.HtmlAnchor)ContentPlaceHolder2.FindControl("NoticeEdit");
+                    
                     if(anchorNew!=null)
                     {
                         anchorNew.Visible = false;
@@ -87,7 +89,10 @@ namespace ChurchApp.Master
                     {
                         anchorNewVicar.Visible = false;
                     }
-                    
+                   // if (anchorEdit != null)
+                   // {
+                   //     anchorEdit.Visible = false;
+                   // }
                 }
             }
             catch(Exception ex)
