@@ -11,8 +11,8 @@ namespace ChurchApp.DAL
 {
     public class Novenas
     {
-    public    Common commonObj = new Common();
-
+    public Common commonObj = new Common();
+    public Church churchObj;
         #region Public Properties
         public string novenaId
         {
@@ -340,6 +340,48 @@ namespace ChurchApp.DAL
 
         #endregion Get Novenas By patronID
 
+        #region GetAllChurchNovenaByPatronID
+        /// <summary>
+        /// To Get Novenas By patronID
+        /// </summary>
+        /// <returns>Datatable contains filtered novena details</returns>
+        public DataTable GetAllChurchNovenaByPatronID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllChurchNovenaByPatronID]";
+                cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronId);
+               
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+
+        #endregion GetAllChurchNovenaByPatronID
+
         #region GetNovenaDetailsByNovenaID
 
         public DataTable GetNovenaDetailsByNovenaID()
@@ -378,6 +420,49 @@ namespace ChurchApp.DAL
         }
 
         #endregion GetNovenaDetailsByNovenaID
+
+      
+
+
+        #region GetAllNovenasByChurchID
+        public DataTable GetAllNovenasByChurchID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                if(churchObj.churchId==null||churchObj.churchId=="")
+                {
+                    throw new Exception("ChuchID is Empty");
+                }
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllNovenasByChurchID]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchObj.churchId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+        #endregion GetAllNovenasByChurchID
 
         #endregion Novenas Methods
     }

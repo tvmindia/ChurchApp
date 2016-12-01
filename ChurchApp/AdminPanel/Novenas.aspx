@@ -137,7 +137,7 @@
                                            
                                             <div class="span6">
                                                 <label for="name">Novena Caption</label>
-                                                <input name="Caption" id="txtNovenaCaption" type="text" />
+                                                <input name="Caption" id="txtNovenaCaption" type="text"/>
                                                 <label for="name">Patron</label>
                                                 <select id="ddlPatron">
                                                     <option></option>
