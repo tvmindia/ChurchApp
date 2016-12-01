@@ -23,7 +23,7 @@
 					<%--<h1>Notifications</h1>--%>
 					<div>
 					<%--<div class="priority high">--%>
-                        <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
+                        <div class="" id="highNoty" style="border-bottom:1.5px solid #F44336;line-height:0px;">
                             <h2>Latest Notifications</h2>
                             <a class="btnNew" id="btnAddNew" runat="server" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
                         
@@ -35,23 +35,39 @@
 					</div>
                     
 				<div id="viewAllLatest">
-                     <a class="aBack" style="display:none;">Back To Notifications</a>
-                      <a class="aViewMore" >View All Latest>></a>
+                       <ul class="pager">
+                               <li class="previous">
+                                   <a class="aBack" style="display: none;">&larr; Back</a>
+                                 </li>
+                                <li class="next">
+                                    <a class="aViewMore" id="aViewMore">View All →</a>
+                                    </li>
+                                 </ul>
+<%--                     <a class="aBack" style="display:none;">Back To Notifications</a>
+                      <a class="aViewMore" >View All Latest>></a>--%>
 				</div>
                       
                         <%--<div id="pagination-here"></div>--%>
                         </div>
 					<%--</div>--%>
 					<%--<div class="priority low">--%>
-                        <div class="" style="border-bottom:1.5px solid #87c16f"><h2>Old Notifications</h2></div>
+                        <div class="" id="oldNoty" style="border-bottom:1.5px solid #87c16f"><h2>Old Notifications</h2></div>
 				<%--	</div>--%>
 
                   <div id="OldNotificationGrid">
 
                   </div>
                     <div id="viewAllOld">
-                        <a class="aOldBack" style="display:none;">Back To Notifications</a>
-				 <a class="aOldViewMore" >View All Old>></a>
+                           <ul class="pager">
+                               <li class="previous">
+                                   <a class="aOldBack" style="display: none;">&larr; Back</a>
+                                 </li>
+                                <li class="next">
+                                    <a class="aOldViewMore" id="aViewMore">View All →</a>
+                                    </li>
+                                 </ul>
+        <%--                <a class="aOldBack" style="display:none;">Back To Notifications</a>
+				 <a class="aOldViewMore" >View All Old>></a>--%>
                     </div>
 				 
                    
@@ -96,6 +112,10 @@
 					     
 					<%--<h1 id="detailsHeading"></h1>--%>
 						<div class="box-content">
+                                   <div class="alert alert-error" id="ErrorBox" style="display: none;">
+                             <div id="Displaydiv">
+                             </div>
+                            </div>
 					   <div class="form-horizontal">
 				    <fieldset>
                       
