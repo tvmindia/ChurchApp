@@ -35,7 +35,7 @@
 							  <tr>
 								  <th>Day</th>
 								  <th>Time</th>
-								  <th id="thActions" style="display:none;">Actions</th>
+								  <th id="thActions" style="display:none;">Update</th>
 							  </tr>
 						  </thead>   
 						  <tbody id="massTimingTableBody">
