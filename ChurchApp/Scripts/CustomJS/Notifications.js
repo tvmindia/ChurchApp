@@ -11,7 +11,7 @@
     $(".aViewMore").live({
 
         click: function (e) {
-            $(".low").hide();
+            $("#oldNoty").hide();
             $("#OldNotificationGrid").hide();
             $(".aBack").show();
             $(".aOldBack").hide();
@@ -31,8 +31,8 @@
            // $("#NotificationDetails").hide();
             $("#OldNotificationGrid").show();
             $("#NewNotificationGrid").show();
-            $(".high").show();
-            $(".low").show();
+            $("#highNoty").show();
+            $("#oldNoty").show();
             $(".aBack").hide();
             $(".aViewMore").show();
            // $(".aOldViewMore").show();
@@ -48,11 +48,12 @@
           //  $("#NotificationDetails").hide();
             $("#OldNotificationGrid").show();
             $("#NewNotificationGrid").show();
-            $(".high").show();
-            $(".low").show();
+            $("#highNoty").show();
+            $("#oldNoty").show();
             $(".aBack").hide();
             $(".aViewMore").show();
             $(".aOldViewMore").show();
+            $(".aOldBack").hide();
         }
     });
 
@@ -60,7 +61,7 @@
     $(".aOldViewMore").live({
 
         click: function (e) {
-            $(".high").hide();
+            $("#highNoty").hide();
             $("#NewNotificationGrid").hide();
             $(".aViewMore").hide();
             //$(".aBack").hide();
@@ -86,9 +87,7 @@
             result = DeleteNotification(Notifications);
             if(result=="1")
             {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Deleted Successfully");
+                noty({ text: 'Deleted Successfully', type: 'success' });
                 BindAsyncNotificationTable();
                 BindAsynOldNotificationTable();
                 $('#NotificationEditDivBox').hide();
@@ -96,9 +95,7 @@
             }
             else
             {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
         else {
@@ -188,113 +185,22 @@
         $(".NotificationEdit").css("display", "none");
     });
     $(".Save").click(function () {
-        debugger;
-        //var value = BranchValidation();
-        //if (value == true)
-        //{
-        //    alert("true");
-        //}
-        //else
-        //{
-        //    alert("false");
-        //}
-        var result = "";
-        var caption = $("#txtCaption").val();
-        var type = $("#ddlType").val();
-        var description = $("#txtDescription").val();
-        var startDate = $("#txtStartDate").val();
-      
-        if (startDate.includes(","))
-        {
-            startDate = startDate.split(":")[1];
-        }
-        var expiryDate = $("#txtExpiryDate").val();
-       
-        if (expiryDate.includes(","))
-        {
-            expiryDate = expiryDate.split(":")[1];
-        }       
-        var churchId = $("#hdfChurchID").val();
-        var notificationID = $("#hdfNotificationID").val();
-        if ($("#LinkID").val() != undefined)
-        {
-            var linkID = $("#LinkID").val().replace('/', "");
-        }
-        
-        var Notifications = new Object();
-        Notifications.caption = caption;
-        Notifications.notificationType = type;
-        Notifications.description = description;
-        Notifications.startDate =startDate;
-        Notifications.expiryDate = expiryDate;
-        Notifications.churchId = churchId;
-        Notifications.linkID = linkID;
-        Notifications.notificationID = notificationID;
-        var addOrEdit = $("#detailsHeading").text();
-        debugger;
-        if (type != "" && type != null) {
-            if (startDate != "" && startDate != null) {
-
-                if (expiryDate != "" && expiryDate != null) {
-
-                    if (caption != "" && caption != null) {
-                        if (addOrEdit == "Add Notification") {
-                            result = InsertNotification(Notifications);
-                            if (result == "1") {
-                                BindAsyncNotificationTable();
-                                BindAsynOldNotificationTable();
-                                $("#NotificationEditDivBox").hide();
-                                $('#rowfluidDiv').show();
-                                $('.alert-success').show();
-                                $('.alert-success strong').text("Added Successfully");
-                            }
-                            else {
-                                $('#rowfluidDiv').show();
-                                $('.alert-error').show();
-                                $('.alert-error strong').text("Error..!!!");
-                            }
-                        }
-                        else {
-                            result = UpdateNotification(Notifications);
-                            if (result == "1") {
-                                BindAsyncNotificationTable();
-                                BindAsynOldNotificationTable();
-                                //$("#NotificationEditDivBox").hide();
-                                $(".dark").css("margin-top", "30px");
-                                $('#rowfluidDiv').show();
-                                $('.alert-success').show();
-                                $('.alert-success strong').text("Updated Successfully");
-                            }
-                            else {
-                                $('#rowfluidDiv').show();
-                                $('.alert-error').show();
-                                $('.alert-error strong').text("Error..!!!");
-                            }
-                        }
-
-                    }
-                    else {
-                        alert("Please add a caption");
-                    }
-                }
-                else {
-                    alert("Please select expiry date");
-                }
-            }
-            else {
-                alert("Please select start date");
-            }
-        }
-        else
-        {
-            alert("Please select notification type");
-        }
+        NotificationValidation();
        
     });
     $("#ddlType").select2({
         placeholder: "Choose Type ",
         allowClear: true,
         data: BindNotificationDropDown()
+    });
+
+    $('input[type=text],input[type=password]').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+    });
+    $('textarea,select').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
     });
     var value = $('#ContentPlaceHolder2_btnAddNew').val();
     if (value != "") {
@@ -304,60 +210,130 @@
 });
 //end of document.ready()
 
-function BranchValidation() {
+function NotificationValidation()
+{
     debugger;
+    $('#Displaydiv').remove();
+    var caption = $('#txtCaption');
+    var notyType = $('#ddlType');
+    var desc = $('#txtDescription');
+    var startDate = $('#txtStartDate');
+    var endDate = $('#txtExpiryDate');
 
-   // $('#Displaydiv2').remove();
-    var caption = $("#txtCaption");
-    var type = $("#ddlType");
-    var description = $("#txtDescription");
-    var startDate = $("#txtStartDate");
-    var endDate = $("#txtExpiryDate");
     var container = [
         { id: caption[0].id, name: caption[0].name, Value: caption[0].value },
-        { id: type[0].id, name: type[0].name, Value: type[0].value },
-        { id: description[0].id, name: description[0].name, Value: description[0].value },
+        { id: notyType[0].id, name: notyType[0].name, Value: notyType[0].value },
+        { id: desc[0].id, name: desc[0].name, Value: desc[0].value },
         { id: startDate[0].id, name: startDate[0].name, Value: startDate[0].value },
         { id: endDate[0].id, name: endDate[0].name, Value: endDate[0].value },
     ];
 
     var j = 0;
-    //var Errorbox = document.getElementById('ErrorBox2');
-    //var divs = document.createElement('div');
-    //divs.setAttribute("id", "NotificationEditDivBox");
-    //Errorbox.appendChild(divs);
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
     for (var i = 0; i < container.length; i++) {
 
         if (container[i].Value == "") {
             j = 1;
-           // Errorbox.style.borderRadius = "5px";
-           // Errorbox.style.display = "block";
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-           // Errorbox.style.paddingLeft = "30px";
+            Errorbox.style.paddingLeft = "30px";
 
         }
+        else if (container[i].Value == "-1") {
+            j = 1;
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "93% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
     }
-
     if (j == '1') {
-
         var p = document.createElement('p');
         p.innerHTML = "* Some Fields Are Empty ! ";
         p.style.color = "Red";
         p.style.fontSize = "14px";
-        $('#rowfluidDiv').show();
-        $('.alert-error').show();
-        $('.alert-error strong').append(p);
-        $(".dark").css("margin-top", "30px");
+
+        divs.appendChild(p);
+        //$('#btnAddAdmin').attr('name', 'failure');
         return false;
     }
     if (j == '0') {
-        $('#rowfluidDiv').hide();
-        //BranchAddValidation();
+        $('#ErrorBox').hide(1000);
+        //scriptvalidate();
+        SaveNotification();
         return true;
     }
+}
+
+function SaveNotification()
+{
+    debugger;
+    var result = "";
+    var caption = $("#txtCaption").val();
+    var type = $("#ddlType").val();
+    var description = $("#txtDescription").val();
+    var startDate = $("#txtStartDate").val();
+
+    if (startDate.includes(",")) {
+        startDate = startDate.split(":")[1];
+    }
+    var expiryDate = $("#txtExpiryDate").val();
+
+    if (expiryDate.includes(",")) {
+        expiryDate = expiryDate.split(":")[1];
+    }
+    var churchId = $("#hdfChurchID").val();
+    var notificationID = $("#hdfNotificationID").val();
+    if ($("#LinkID").val() != undefined) {
+        var linkID = $("#LinkID").val().replace('/', "");
+    }
+
+    var Notifications = new Object();
+    Notifications.caption = caption;
+    Notifications.notificationType = type;
+    Notifications.description = description;
+    Notifications.startDate = startDate;
+    Notifications.expiryDate = expiryDate;
+    Notifications.churchId = churchId;
+    Notifications.linkID = linkID;
+    Notifications.notificationID = notificationID;
+    var addOrEdit = $("#detailsHeading").text();
+    debugger;                             
+                    if (addOrEdit == "Add Notification") {
+                        result = InsertNotification(Notifications);
+                        if (result == "1") {
+                            BindAsyncNotificationTable();
+                            BindAsynOldNotificationTable();
+                            $("#NotificationEditDivBox").hide();
+                            noty({ text: 'Saved Successfully', type: 'success' });
+                        }
+                        else {
+                            noty({ text: 'Error..!!!', type: 'error' });
+                        }
+                    }
+                    else {
+                        result = UpdateNotification(Notifications);
+                        if (result == "1") {
+                            BindAsyncNotificationTable();
+                            BindAsynOldNotificationTable();
+                            //$("#NotificationEditDivBox").hide();
+                            $(".dark").css("margin-top", "30px");
+                            noty({ text: 'Updated Successfully', type: 'success' });
+                        }
+                        else {
+                            noty({ text: 'Error..!!!', type: 'error' });
+                        }
+                    }
 }
 
 function DetailsView()
@@ -430,7 +406,9 @@ function AddNotification()
     $("#txtStartDate").val("");
     $("#txtExpiryDate").val("");
     $('#rowfluidDiv').hide();
-    RemoveCaptionCustomization();
+    $('#ErrorBox,#ErrorBox1').hide(1000);
+    $('input[type=text],input[type=password]').css({ background: 'white' });
+    $('textarea,select').css({ background: 'white' });
 }
 
 function DeleteNotification(Notifications)

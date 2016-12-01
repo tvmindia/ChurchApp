@@ -77,7 +77,7 @@
                          <div class="span12" id="familyMembersPhotoDiv"  style="margin-top:10px!important;display:none;">  
                           
                              </div>
-                        
+                       
                         <div class=" span12" id="familyAddDiv"  style="margin-top:10px!important;display:none;">  
                                <div class="box-header" data-original-title="">
 						<h2 id="FamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="memberAddOrEdit"></span> Family Member</h2>
@@ -85,6 +85,10 @@
 						<h2 id="AddFamilyUnitHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="familyUnitAddOrEdit"></span> Family Unit </h2>
                                       
 					    </div>
+                             <div class="alert alert-error" id="ErrorBox" style="display: none;">
+                             <div id="Displaydiv">
+                             </div>
+                            </div>
                                <div class="control-group" id="firstNameDiv" style="margin-top:2%">
 								<label class="control-label" for="focusedInput"><span id="familyHeadFirst" style="display:none;">Family Head </span>First Name:</label>
 								<div class="controls">
