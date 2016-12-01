@@ -243,7 +243,10 @@ namespace ChurchApp.AdminPanel
                 DAL.Const Const = new DAL.Const();
                 UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
                 DataTable dt = null;
-
+                if(churchObj.churchId==null)
+                {
+                    churchObj.churchId = UA.ChurchID;
+                }
                 dt = churchObj.GetChurchDetailsByChurchID();
                 //Converting to Json
                 Dictionary<string, object> childRow;
