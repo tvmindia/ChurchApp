@@ -406,7 +406,9 @@ function AddNotification()
     $("#txtStartDate").val("");
     $("#txtExpiryDate").val("");
     $('#rowfluidDiv').hide();
-    RemoveCaptionCustomization();
+    $('#ErrorBox,#ErrorBox1').hide(1000);
+    $('input[type=text],input[type=password]').css({ background: 'white' });
+    $('textarea,select').css({ background: 'white' });
 }
 
 function DeleteNotification(Notifications)
