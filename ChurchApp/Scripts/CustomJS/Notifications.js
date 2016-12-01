@@ -86,9 +86,7 @@
             result = DeleteNotification(Notifications);
             if(result=="1")
             {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Deleted Successfully");
+                noty({ text: 'Deleted Successfully', type: 'success' });
                 BindAsyncNotificationTable();
                 BindAsynOldNotificationTable();
                 $('#NotificationEditDivBox').hide();
@@ -96,9 +94,7 @@
             }
             else
             {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Error..!!!");
+                noty({ text: 'Error..!!!', type: 'error' });
             }
         }
         else {
@@ -189,15 +185,6 @@
     });
     $(".Save").click(function () {
         debugger;
-        //var value = BranchValidation();
-        //if (value == true)
-        //{
-        //    alert("true");
-        //}
-        //else
-        //{
-        //    alert("false");
-        //}
         var result = "";
         var caption = $("#txtCaption").val();
         var type = $("#ddlType").val();
@@ -244,14 +231,10 @@
                                 BindAsyncNotificationTable();
                                 BindAsynOldNotificationTable();
                                 $("#NotificationEditDivBox").hide();
-                                $('#rowfluidDiv').show();
-                                $('.alert-success').show();
-                                $('.alert-success strong').text("Added Successfully");
+                                noty({ text: 'Saved Successfully', type: 'success' });
                             }
                             else {
-                                $('#rowfluidDiv').show();
-                                $('.alert-error').show();
-                                $('.alert-error strong').text("Error..!!!");
+                                noty({ text: 'Error..!!!', type: 'error' });
                             }
                         }
                         else {
@@ -261,14 +244,10 @@
                                 BindAsynOldNotificationTable();
                                 //$("#NotificationEditDivBox").hide();
                                 $(".dark").css("margin-top", "30px");
-                                $('#rowfluidDiv').show();
-                                $('.alert-success').show();
-                                $('.alert-success strong').text("Updated Successfully");
+                                noty({ text: 'Updated Successfully', type: 'success' });
                             }
                             else {
-                                $('#rowfluidDiv').show();
-                                $('.alert-error').show();
-                                $('.alert-error strong').text("Error..!!!");
+                                noty({ text: 'Error..!!!', type: 'error' });
                             }
                         }
 
