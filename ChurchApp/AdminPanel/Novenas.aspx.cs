@@ -347,6 +347,8 @@ namespace ChurchApp.AdminPanel
 
         #endregion GetNovenaDetailsByPatronID
 
+
+
         #region GetNovenaDetailsByNovenaID
 
         [System.Web.Services.WebMethod]
@@ -611,6 +613,46 @@ namespace ChurchApp.AdminPanel
             return jsSerializer.Serialize(parentRow);
         }
         #endregion GetPatronDetailByID
+
+        #region GetAllNovenasByChurchID
+
+        [System.Web.Services.WebMethod]
+        public static string GetAllNovenasByChurchID(DAL.Novenas novenaObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            DataTable dt = null;
+
+           
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                novenaObj.churchObj.churchId = UA.ChurchID;
+                dt= novenaObj.GetAllNovenasByChurchID();
+                //Converting to Json
+                Dictionary<string, object> childRow;
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return jsSerializer.Serialize(parentRow);
+        }
+        #endregion GetAllNovenasByChurchID
 
         #endregion Methods
 
