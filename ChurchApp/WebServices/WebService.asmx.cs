@@ -662,6 +662,7 @@ namespace ChurchApp.WebServices
                 ChurchObj.latitude = Latitude;
                 ChurchObj.longitude = Longitude;
                 dt = ChurchObj.GetNearByChurchDetails(maxdistance);
+                if (dt.Rows.Count == 0) throw new Exception("No items");
                 DataColumn km = dt.Columns.Add("Distance", typeof(String));
                 DataColumn kmvval = dt.Columns.Add("Value", typeof(int));
 
