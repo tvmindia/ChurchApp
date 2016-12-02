@@ -85,9 +85,10 @@ namespace ChurchApp.AdminPanel
                 InstituteObj.results = status;
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                status = "500";//Exception of foreign key
+                InstituteObj.results = e.Message;
+                //status = "500";//Exception of foreign key
             }
             finally
             {
