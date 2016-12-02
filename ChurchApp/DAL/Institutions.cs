@@ -371,7 +371,11 @@ namespace ChurchApp.DAL
                 {
                     try
                     {
-                        System.IO.File.Delete(HttpContext.Current.Server.MapPath(imagepath));
+                        if(imagepath!="")
+                        {
+                            System.IO.File.Delete(HttpContext.Current.Server.MapPath(imagepath));
+                        }
+                        
 
                     }
                     catch (System.IO.IOException e)

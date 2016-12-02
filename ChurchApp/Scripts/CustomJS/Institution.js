@@ -723,6 +723,7 @@ function DeleteInstituteclick(this_Obj)
 {
     try
     {
+        debugger;
         var r = confirm("Are You Sure to Delete?");
         if (r == true)
         {
