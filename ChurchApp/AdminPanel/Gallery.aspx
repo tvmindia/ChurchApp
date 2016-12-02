@@ -67,7 +67,7 @@
 			       <div class="ImageAlbum-Gallery">
                    <div id="divCreateAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 23%;display:none;float: left;padding-left: 5px;padding-bottom:8px;">
                    <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
-                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;cursor:pointer;" id="newalbum">Create Album</></a>
+                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 32%;position: relative;cursor:pointer;" id="newalbum">Create Album</></a>
 
 
                    </div>
@@ -90,7 +90,7 @@
 					<div class="box-content">
 						<div class="Image-Gallery">
                              <div id="divAddMore" style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 229px;float: left;padding-left: 5px;padding-bottom:8px;">
-                         <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 129px;left: 112px;" src="../img/Plussymbol.png"/>
+                         <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 103px;" src="../img/Plussymbol.png"/>
                             <a data-rel="tooltip" data-original-title="Add More Images"  style="top: 67%;left: 34%;position: relative;cursor:pointer;" id="newimage">Add More</></a>
                            </div>
                       
@@ -146,7 +146,7 @@
 
                          <div id="divCreateVideoAlbum"style="height: 238px!important;display:none;border: 2px dotted black;background-color: #fff;width: 23%;display: none;float: left;padding-left: 5px;padding-bottom:8px;">
                    <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
-                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 29%;position: relative;cursor:pointer;" id="newVideoalbum">Create Album</></a>
+                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 32%;position: relative;cursor:pointer;" id="newVideoalbum">Create Album</></a>
 
                    </div>
 								
@@ -206,7 +206,7 @@
                                
                             <output id="imageListAlbum" class=""> 
                        <span style="height: 176px!important;border: 2px dotted black;background-color: #fff;width: 180px;display: block;float: left;margin:4px;">
-                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 116px;left: 109px;" src="../img/Plussymbol.png"/>
+                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 126px;left: 109px;" src="../img/Plussymbol.png"/>
                         <a onclick="BtnImageUpload();" class="" style="top:59%;left:28%;position:relative;cursor:pointer;"  id="btnupload">Choose Image</a>
                        </span>
                                 

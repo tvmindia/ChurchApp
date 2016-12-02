@@ -293,7 +293,7 @@ namespace ChurchApp.WebServices
         #region More Details of Church (Dynamic)
 
         [WebMethod]
-        public string GetChurchExtraDetails(string ChurchID)
+        public string GetChurchExtraDetails(string ChurchID, string full)
         {
             DataTable dt = new DataTable();
 
@@ -301,7 +301,7 @@ namespace ChurchApp.WebServices
             {
                 ChurchApp.DAL.ChurchDetails chrchDetailobj = new DAL.ChurchDetails();
                 chrchDetailobj.churchId = ChurchID;
-                dt = chrchDetailobj.GetExtraChurchDetailsForApp();
+                dt = chrchDetailobj.GetExtraChurchDetailsForApp(full);
                 if (dt.Rows.Count == 0) throw new Exception("No items");                
             }
             catch (Exception ex)
@@ -713,6 +713,46 @@ namespace ChurchApp.WebServices
 
 
         #endregion Nearbychurch
+
+        #region PiousOrganisations
+
+        #region Get Pious Organisations Details
+        [WebMethod]
+        public string SearchPiousOrgbyChurchID(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.PiousOrg piousobj = new DAL.PiousOrg();
+                piousobj.churchID = ChurchID;
+                dt = piousobj.SelectPiousOrg().Tables[0];
+                if (dt.Rows.Count == 0) throw new Exception("No items");
+
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion Get Pious Organisations Details
+
+
+
+        #endregion PiousOrganisations
 
     }
 }
