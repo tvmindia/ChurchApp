@@ -56,7 +56,7 @@
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon picture"></i><span class="break"></span> Albums</h2>
 						<div class="box-icon">
-							<a id="toggle-fullscreen" class="hidden-phone hidden-tablet btnEdit"><i class="halflings-icon white fullscreen"></i></a>
+						
 					        <a class="btnEdit pencilEdit" style="position: relative; top: -1px;  right: 0px;display:none;" title="Edit" id="EditAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
                             <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
                             <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>
@@ -135,7 +135,7 @@
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span> Video Album</h2>
 						<div class="box-icon">
-						<a id="toggle-fullscreenvid" class="hidden-phone hidden-tablet btnEdit"><i class="halflings-icon white fullscreen"></i></a>
+						
 					        <a class="btnEdit pencilEdit" style="position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="EditVideoAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
                             <a class="btnEdit" style="display:none;position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="RefreshVideoAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
                             <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>

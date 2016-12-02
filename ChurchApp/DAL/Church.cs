@@ -865,7 +865,7 @@ namespace ChurchApp.DAL
         #endregion DeleteChurchDetail
 
         #region GetExtraChurchDetailsForApp
-        public DataTable GetExtraChurchDetailsForApp(string full)
+        public DataTable GetExtraChurchDetailsForApp()
         {
             dbConnection dcon = null;
             DataTable dt = null;
@@ -879,7 +879,6 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetExtraChurchDetailsForApp]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@Full", SqlDbType.Bit).Value = full;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 dt = new DataTable();
