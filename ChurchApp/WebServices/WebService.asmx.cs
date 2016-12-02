@@ -293,7 +293,7 @@ namespace ChurchApp.WebServices
         #region More Details of Church (Dynamic)
 
         [WebMethod]
-        public string GetChurchExtraDetails(string ChurchID, string full)
+        public string GetChurchExtraDetails(string ChurchID)
         {
             DataTable dt = new DataTable();
 
@@ -301,7 +301,7 @@ namespace ChurchApp.WebServices
             {
                 ChurchApp.DAL.ChurchDetails chrchDetailobj = new DAL.ChurchDetails();
                 chrchDetailobj.churchId = ChurchID;
-                dt = chrchDetailobj.GetExtraChurchDetailsForApp(full);
+                dt = chrchDetailobj.GetExtraChurchDetailsForApp();
                 if (dt.Rows.Count == 0) throw new Exception("No items");                
             }
             catch (Exception ex)

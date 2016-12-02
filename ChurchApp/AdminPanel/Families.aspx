@@ -198,15 +198,15 @@
                       <label class="control-label" for="inputIcon">Name</label>
 					  <div class="input-prepend span6">
                        <span class="add-on"><i class="icon-user"></i></span>
-                      <select class="span12" id="ddlMember">
+                      <select class="span12" id="ddlMember" onchange="AdminMemberChange();">
                            <option value="-1" selected disabled">Select Member</option>
                        </select>
                        </div>
 					  </div>     
                         <div class="control-group">
-                            <label class="control-label" for="inputIcon">Mobile</label>
+                            <label class="control-label" for="inputIcon">Phone</label>
 					  <div class="input-prepend span6">
-                       <span class="add-on"><i class="icon-book"></i></span>
+                       <span class="add-on"><i class="fa fa-phone"></i></span>
                        <input class="span12" id="txtMobile" type="text"/>
                        </div>
 					  </div> 
@@ -231,4 +231,6 @@
     <input type="hidden" value="" id="hdfFamilyID" />
     <input type="hidden" value="" id="hdfMemberID" />
        <input type="hidden" value="" id="hdfAdminID" />
+    <input type="hidden" value="" id="hdfPhone" />
+    <input type="hidden" value="" id="hdfAdminStatus" />
 </asp:Content>
