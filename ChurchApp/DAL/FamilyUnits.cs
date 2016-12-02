@@ -114,7 +114,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@UnitName", SqlDbType.NVarChar, 250).Value = unitName;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -156,7 +156,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@UnitName", SqlDbType.NVarChar, 250).Value = unitName;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -381,7 +381,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@UnitID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyUnitsObj.unitId);
                 cmd.Parameters.Add("@FamilyName", SqlDbType.NVarChar, 250).Value = familyName;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = familyUnitsObj.createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =commonObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 familyIdOut = cmd.Parameters.Add("@FamilyIDOut", SqlDbType.UniqueIdentifier);
@@ -426,7 +426,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@UnitID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyUnitsObj.unitId);
                 cmd.Parameters.Add("@FamilyName", SqlDbType.NVarChar, 250).Value = familyName;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = familyUnitsObj.updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
