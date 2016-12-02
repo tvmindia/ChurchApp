@@ -82,9 +82,13 @@
     });
     //////////-----------Main button event for Save, Update
     $('#btnSavePriest').click(function (e) {
-
         debugger;
-
+        var Role = $(this).attr('name');
+        if (($('#ddlstatus').val() == 'Vicar')&&(Role=='Asst'))
+        {
+            noty({ text: 'You Cant add multiple Vicars try Again', type: 'information' });
+            return false;
+        }
         PriestValidation();
 
     });
@@ -111,6 +115,10 @@
 
 function savePriest()
 {
+    if ($('#ddlstatus').val() == 'Vicar') {
+
+
+    }
     var AppImgURL = '';
     var priestID = $("#hdfPriestID").val();
 
@@ -147,7 +155,7 @@ function savePriest()
         Priest.BaptisumName = $('#txtPriestBaptismName').val();
         Priest.Parish = $('#txtParish').val();
         Priest.Diocese = $('#txtDiocese').val();
-        Priest.Status = $('#ddlstatus').val();
+        Priest.Status = $('#ddlstatus').val();       
         Priest.dob = $('#priestDOB').val();
         Priest.about = $('#txtAboutPriest').val();
         Priest.dateOrdination = $('#OrdinationDate').val();
