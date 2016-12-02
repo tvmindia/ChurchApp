@@ -361,20 +361,20 @@ namespace ChurchApp.DAL
 
                 if (startDate != string.Empty && startDate != null)
                 {
-                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Parse(startDate)); 
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = commonObj.Changeformat(startDate); 
                         //Convert.ToDateTime(startDate);
                 }
 
                 if (endDate != string.Empty && endDate != null)
                 {
-                    cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Parse(endDate)); 
+                    cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = commonObj.Changeformat(endDate); 
                         //Convert.ToDateTime(endDate);
 
                 }
 
                 if (eventExpiryDate != string.Empty && eventExpiryDate != null)
                 {
-                    cmd.Parameters.Add("@EventExpiryDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Parse(eventExpiryDate)); 
+                    cmd.Parameters.Add("@EventExpiryDate", SqlDbType.DateTime).Value = commonObj.Changeformat(eventExpiryDate); 
                         //Convert.ToDateTime(eventExpiryDate);
                 }
 
@@ -388,7 +388,7 @@ namespace ChurchApp.DAL
                // cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                     //DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -444,17 +444,17 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Descrtiption", SqlDbType.NVarChar, -1).Value = description;
                 if (startDate != string.Empty && startDate != null)
                 {
-                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Parse(startDate)); 
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = commonObj.Changeformat(startDate); 
                         //Convert.ToDateTime(startDate);
                 }
                 if (endDate != string.Empty && endDate != null)
                 {
-                    cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Parse(endDate)); 
+                    cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = commonObj.Changeformat(endDate); 
                         //Convert.ToDateTime(endDate);
                 }
                 if (eventExpiryDate != string.Empty && eventExpiryDate != null)
                 {
-                    cmd.Parameters.Add("@EventExpiryDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Parse(eventExpiryDate)); 
+                    cmd.Parameters.Add("@EventExpiryDate", SqlDbType.DateTime).Value = commonObj.Changeformat(eventExpiryDate); 
                         //Convert.ToDateTime(eventExpiryDate);
                 }
 
@@ -470,7 +470,7 @@ namespace ChurchApp.DAL
                 }
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                     //DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
