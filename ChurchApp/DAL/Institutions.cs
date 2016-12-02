@@ -10,6 +10,8 @@ namespace ChurchApp.DAL
 {
     public class Institutions
     {
+        Common commonObj = new Common();
+
         #region Public Properties
         public string institutionID
         {
@@ -193,7 +195,7 @@ namespace ChurchApp.DAL
                     Website = dr["Website"].ToString();
                     if (dr["Founded"].ToString()!="")
                     {
-                        Founded = (DateTime.Parse(dr["Founded"].ToString().ToString()).ToString("dd-MM-yyyy"));
+                        Founded = (commonObj.Changeformat(dr["Founded"].ToString().ToString()).ToString("dd-MM-yyyy"));
                     }
                     Mobile = dr["Mobile"].ToString();
                     churchId = dr["ChurchID"].ToString();
@@ -247,7 +249,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website;
                 if(Founded!=null)
                 {
-                    cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = DateTime.Parse(Founded);
+                    cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = commonObj.Changeformat(Founded);
                 }
                 cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
                 if(albumId!=null)
@@ -310,7 +312,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
                 if(Founded!=null)
                 {
-                    cmd.Parameters.Add("@Founded", SqlDbType.DateTime).Value = DateTime.Parse(Founded);
+                    cmd.Parameters.Add("@Founded", SqlDbType.DateTime).Value = commonObj.Changeformat(Founded);
                 }
                 if (albumId != null)
                 {
@@ -369,7 +371,11 @@ namespace ChurchApp.DAL
                 {
                     try
                     {
-                        System.IO.File.Delete(HttpContext.Current.Server.MapPath(imagepath));
+                        if(imagepath!="")
+                        {
+                            System.IO.File.Delete(HttpContext.Current.Server.MapPath(imagepath));
+                        }
+                        
 
                     }
                     catch (System.IO.IOException e)

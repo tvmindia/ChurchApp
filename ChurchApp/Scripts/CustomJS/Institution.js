@@ -325,7 +325,7 @@ function SaveInstitution()
                 //$('#rowfluidDiv').show();
                 //$('.alert-error').show();
                 //$('.alert-error strong').text("Saving Not Successful");
-                noty({ text: 'Saving Not Successful', type: 'error' });
+                noty({ text:result.results, type: 'error' });
             }
 
             
@@ -723,6 +723,7 @@ function DeleteInstituteclick(this_Obj)
 {
     try
     {
+        debugger;
         var r = confirm("Are You Sure to Delete?");
         if (r == true)
         {

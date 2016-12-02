@@ -177,7 +177,7 @@ namespace ChurchApp.AdminPanel
             string status = null;
             try
             {
-                PriestObj.createdBy = "Thomson";
+                PriestObj.createdBy = UA.userName;
                 status = PriestObj.UpdatePriest().ToString();
                 PriestObj.result = status;
 
