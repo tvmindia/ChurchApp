@@ -26,22 +26,29 @@
 
     }
    
-   
+    try
+    {
+        var mapOptions = {
+            center: new google.maps.LatLng(9.9816, 76.2998),//latlong
+            zoom: 14,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var infoWindow = new google.maps.InfoWindow();
+        var latlngbounds = new google.maps.LatLngBounds();
+        var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+        google.maps.event.addListener(map, 'click', function (e) {
+            alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+            $("#txtLongitude").val(e.latLng.lng());
+            $("#txtLatitude").val(e.latLng.lat());
 
-    var mapOptions = {
-        center: new google.maps.LatLng(9.9816, 76.2998),//latlong
-        zoom: 14,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var infoWindow = new google.maps.InfoWindow();
-    var latlngbounds = new google.maps.LatLngBounds();
-    var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-    google.maps.event.addListener(map, 'click', function (e) {
-        alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
-        $("#txtLongitude").val(e.latLng.lng());
-        $("#txtLatitude").val(e.latLng.lat());
+        });
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
 
-    });
+    
 
     try
     {
@@ -59,11 +66,12 @@
 
     try
     {
-        $(".ddlChurch").select2({
+      var $churchone=  $(".ddlChurch").select2({
             placeholder: "Choose Church",
             allowClear: true,
             data: BindChurchDropdown()
-        });
+      });
+     
     }
     catch(e)
     {
@@ -250,12 +258,29 @@
                         formData.append('phone1', Church.phone1);
                         formData.append('phone2', Church.phone2);
 
-                        formData.append('updatedBy', Church.updatedBy);
+                        formData.append('updatedBy', document.getElementById("LoginName").innerHTML);
                         var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                         switch (result) {
                             case "1":
                                
                                 noty({ type: 'success', text: 'Updated successfully' });
+                               
+                                try {
+                                    var $churchone = $(".ddlChurch").select2({
+                                        placeholder: "Choose Church",
+                                        allowClear: true,
+                                        data: BindChurchDropdown()
+                                    });
+                                    var $churchSelect = $(".ddlChurchuser").select2({
+                                        placeholder: "Choose Church",
+                                        allowClear: true,
+                                        data: BindChurchDropdown()
+                                    });
+                                }
+                                catch (e) {
+
+                                }
+                             
                                 BindAllChurches();
                                 break;
                             case "0":
@@ -274,6 +299,22 @@
                             case "1":
                                
                                 noty({ type: 'success', text: 'Updated successfully' });
+                              
+                                try {
+                                    var $churchone = $(".ddlChurch").select2({
+                                        placeholder: "Choose Church",
+                                        allowClear: true,
+                                        data: BindChurchDropdown()
+                                    });
+                                    var $churchSelect = $(".ddlChurchuser").select2({
+                                        placeholder: "Choose Church",
+                                        allowClear: true,
+                                        data: BindChurchDropdown()
+                                    });
+                                }
+                                catch (e) {
+
+                                }
                                 BindAllChurches();
                                 break;
                             case "0":
@@ -307,12 +348,28 @@
                         formData.append('phone1', Church.phone1);
                         formData.append('phone2', Church.phone2);
 
-                        formData.append('createdBy', Church.createdBy);
+                        formData.append('createdBy', document.getElementById("LoginName").innerHTML);
                         var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                         switch (result) {
                             case "1":
                                
                                 noty({ type: 'success', text: 'Inserted successfully' });
+                               
+                                try {
+                                    var $churchone = $(".ddlChurch").select2({
+                                        placeholder: "Choose Church",
+                                        allowClear: true,
+                                        data: BindChurchDropdown()
+                                    });
+                                    var $churchSelect = $(".ddlChurchuser").select2({
+                                        placeholder: "Choose Church",
+                                        allowClear: true,
+                                        data: BindChurchDropdown()
+                                    });
+                                }
+                                catch (e) {
+
+                                }
                                 BindAllChurches();
                                 break;
                             case "0":
@@ -330,6 +387,21 @@
                             case "1":
                                 noty({ type: 'success', text: 'Inserted successfully' });
                                
+                                try {
+                                    var $churchone = $(".ddlChurch").select2({
+                                        placeholder: "Choose Church",
+                                        allowClear: true,
+                                        data: BindChurchDropdown()
+                                    });
+                                    var $churchSelect = $(".ddlChurchuser").select2({
+                                        placeholder: "Choose Church",
+                                        allowClear: true,
+                                        data: BindChurchDropdown()
+                                    });
+                                }
+                                catch (e) {
+
+                                }
                                 BindAllChurches();
                                 break;
                             case "0":
@@ -718,7 +790,7 @@
                         tempFile.name = guid;
                         formData.append('NoticeAppImage', tempFile, tempFile.name);
                         formData.append('GUID', guid);
-                        formData.append('createdby', 'SHAMILA');
+                        formData.append('createdby', document.getElementById("LoginName").innerHTML);
                     }
                     formData.append('ActionTyp', 'NoticeAppImageInsert');
                     AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
@@ -1434,7 +1506,21 @@ function RemoveChurch(curobj)
         switch (result.status) {
             case "1":
                 noty({ type: 'success', text: 'Deleted successfully' });
-               
+                try {
+                    var $churchone = $(".ddlChurch").select2({
+                        placeholder: "Choose Church",
+                        allowClear: true,
+                        data: BindChurchDropdown()
+                    });
+                    var $churchSelect = $(".ddlChurchuser").select2({
+                        placeholder: "Choose Church",
+                        allowClear: true,
+                        data: BindChurchDropdown()
+                    });
+                }
+                catch (e) {
+
+                }
                 BindAllChurches();
                 break;
             case "0":

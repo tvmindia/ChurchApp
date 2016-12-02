@@ -37,6 +37,12 @@ namespace ChurchApp.AdminPanel
                     }
                     Response.Redirect("/AdminPanel/DashBoard.aspx");
                 }
+                    //If church not found
+                else
+                {
+                    Session.Remove(Const.LoginSession);
+                    Response.Redirect("/Login.aspx");
+                }
             }
 
         
