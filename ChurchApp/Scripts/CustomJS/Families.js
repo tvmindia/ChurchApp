@@ -735,9 +735,17 @@ function EditFamily(e)
 }
 function AdminMemberChange()
 {
+    debugger;
     var phone = $("#ddlMember option:selected").attr("name");
-    $("#txtMobile").val(phone);
-
+    if ($("#hdfPhone").val() != "" && $("#hdfPhone").val() != null)
+    {
+        $("#txtMobile").val($("#hdfPhone").val());
+    }
+    else
+    {
+        $("#txtMobile").val(phone);
+    }
+    $("#hdfPhone").val("")
 }
 function AddAdminImageHtml() {
     debugger;
@@ -795,7 +803,7 @@ function BindMemberSelect()
         {
             value: selectRow[i].ID,
             text: selectRow[i].FirstName + " " + selectRow[i].LastName + " " + selectRow[i].FamilyName,
-            name: selectRow[i].Contact
+            name: selectRow[i].Phone
         }));
     }
 }
@@ -1076,6 +1084,7 @@ function EditAdministrator(e)
     if(jsonResult!=undefined)
     {
         $("#txtMobile").val(jsonResult[0].Phone);
+        $("#hdfPhone").val(jsonResult[0].Phone);
         $('#ddlRole').val(jsonResult[0].DesigID + ":" + jsonResult[0].Order).change();
         if (jsonResult[0].URL != "" && jsonResult[0].URL!=undefined) {
             $('#AdminImg').attr('src', jsonResult[0].URL)

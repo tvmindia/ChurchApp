@@ -231,4 +231,6 @@
     <input type="hidden" value="" id="hdfFamilyID" />
     <input type="hidden" value="" id="hdfMemberID" />
        <input type="hidden" value="" id="hdfAdminID" />
+    <input type="hidden" value="" id="hdfPhone" />
+    <input type="hidden" value="" id="hdfAdminStatus" />
 </asp:Content>
