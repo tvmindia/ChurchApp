@@ -11,6 +11,7 @@ namespace ChurchApp.DAL
 {
     public class Priest
     {
+        Common commonObj = new Common();
         #region Public Properties
         public string priestID
         {
@@ -339,13 +340,13 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Status", SqlDbType.NVarChar, 150).Value = Status;
                 if(dob!="")
                 {
-                    cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = DateTime.Parse(dob);
+                    cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = commonObj.Changeformat(dob);
                 }
                 
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
                 if(dateOrdination!="")
                 {
-                    cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = DateTime.Parse(dateOrdination);
+                    cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = commonObj.Changeformat(dateOrdination);
                 }
                 cmd.Parameters.Add("@Designation", SqlDbType.NVarChar, 150).Value = designation;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
@@ -391,6 +392,8 @@ namespace ChurchApp.DAL
             SqlParameter outParam = null;
             try
             {
+                CultureInfo sa = new CultureInfo("fr-FR");
+                string format = "dd'-'MM'-'yyyy";
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -405,12 +408,12 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Status", SqlDbType.NVarChar, 150).Value = Status;
                 if(dob!="")
                 {
-                    cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = DateTime.Parse(dob);
+                    cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = DateTime.ParseExact(dob,format,sa);
                 }                
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
                 if(dateOrdination!="")
                 {
-                    cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = DateTime.Parse(dateOrdination);
+                    cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = DateTime.ParseExact(dateOrdination,format,sa);
                 }                
                 cmd.Parameters.Add("@Designation", SqlDbType.NVarChar, 150).Value = designation;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;

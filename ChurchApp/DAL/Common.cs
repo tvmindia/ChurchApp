@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -13,7 +14,14 @@ namespace ChurchApp.DAL
             string tz = System.Web.Configuration.WebConfigurationManager.AppSettings["TimeZone"]; 
             DateNow = DateTime.SpecifyKind(DateNow, DateTimeKind.Local);
             return (TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateNow,tz));
-        } 
+        }
+        public DateTime Changeformat(string DateNow)
+        {
+            string format = System.Web.Configuration.WebConfigurationManager.AppSettings["format"];
+            string culture = System.Web.Configuration.WebConfigurationManager.AppSettings["ourculture"];
+            CultureInfo sa = new CultureInfo(culture);
+            return DateTime.ParseExact(DateNow, format, sa);
+        }
 
     }
     public class Const
