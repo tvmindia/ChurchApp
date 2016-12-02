@@ -349,6 +349,6 @@ img{
 	</footer>
 
 
-    
+     <input id="hdfchid" type="hidden" runat="server" ClientIDMode ="static" />
 </body>
 </html>

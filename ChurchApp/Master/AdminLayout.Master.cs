@@ -26,6 +26,7 @@ namespace ChurchApp.Master
             }
             lblChurchName.Text = UA.Church;
             lblChurch.Text = UA.Church;
+            hdfchid.Value = UA.ChurchID;
             AccessCheck();
 
             if (UA.Role == Const.SuperAdministrator)
@@ -43,7 +44,7 @@ namespace ChurchApp.Master
                     anchor.Attributes.Add("href", "../AdminPanel/DashBoard.aspx?Session=" + dr["ID"].ToString());
                     anchor.InnerHtml = "" + dr["Name"].ToString();
                     liElement.Controls.Add(anchor);
-
+                    
                 }
 
 

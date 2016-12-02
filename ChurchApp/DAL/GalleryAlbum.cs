@@ -61,6 +61,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string message
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region GalleryAlbum Methods
