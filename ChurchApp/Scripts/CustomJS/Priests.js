@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     try
     {
+        
         //////////----------Function for check priest details and bind 
         check();
         ////////----------function Autocomplete for filter priest name
@@ -526,6 +527,7 @@ function AutoComplete()
         $('#PriestShowDetails').hide();
         $('#btnrefresh').hide();
         $('#PriestEd').show();
+        $('#txtPriestName').focus();
         
     }
     //Onclick function for view priest details

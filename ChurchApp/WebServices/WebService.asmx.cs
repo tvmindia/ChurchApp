@@ -790,5 +790,43 @@ namespace ChurchApp.WebServices
 
         #endregion PiousOrganisations
 
+        #region Institutions
+
+        #region GetInstitutionsbyChurchId
+        [WebMethod]
+        public string SearchInstitutionsbyChurchID(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Institutions Insobj = new DAL.Institutions();
+                Insobj.churchId = ChurchID;
+                dt = Insobj.SelectInstitutions().Tables[0];
+                if (dt.Rows.Count == 0) throw new Exception("No items");
+
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+
+        #endregion GetInstitutionsbyChurchId
+
+        #endregion Institutions
     }
 }

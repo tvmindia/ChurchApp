@@ -7,7 +7,7 @@
     <script src="../Scripts/CustomJS/Institution.js"></script>
     <style>
     </style>
-     <div id="content" class="span10">
+               <div id="content" class="span10">
         <ul class="breadcrumb" style="margin-bottom:0px">
 				 <li>
 					<i class="icon-home"></i>
@@ -16,30 +16,7 @@
 				</li>
 				<li>Institutions</li>
 			</ul>
-              <%--Alert boxes --%>
-               <div id="rowfluidDiv" style="display:none;">	
-				       <div class="alert alert-error" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Operation Not Successfull.</strong> 
-						</div>
-						<div class="alert alert-success" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Successfull.</strong> 
-						</div>
-						<div class="alert alert-info" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-						</div>
-						<div class="alert alert-block" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<h4 class="alert-heading">Warning!</h4>
-							<p>Best check yourself, you're not looking too good.</p>
-						</div>
-					
-
-              
-            </div>
-			  <%--Alert boxes --%>
+             
                <div class="row-fluid">
               <%-- Div Institution list --%>
                 <div class="span6">
@@ -77,7 +54,7 @@
 							  <img class="priestimage" id="instituteDetailPreview" src="../img/gallery/Institution.jpg"/>
 							</div> 
                         <div class="control-group span12" >
-						<label class="labelName" for="focusedInput" id="lblInstituteName">Amaljyothi Institute of science and technology</label>
+						<label class="labelName" for="focusedInput" id="lblInstituteName"> </label>
 					    </div>
                         <%-- Accordion Show details general information --%>
                          <div class="control-group accordion span12" id="divGendetailsacc" style="background-color:#FFEFEC;margin-bottom:0px!important;">
@@ -87,21 +64,21 @@
                          <div id="divGenDetals" class="panel span12">
                        <address>
                            <strong>Address</strong><br />
-                           <p><label id="lblAddress">Kottayam Kerala</label> </p>
+                           <p><label id="lblAddress"> </label> </p>
                        </address>
                        <address>
                            <strong>History</strong><br />
-                           <p><label id="lblHistory">suggestion for a separate Provincialate was approved by the Election Chapter of 1975. Though a plot of land adjacentto Nazareth Ashram was bought for the purpose, it was not foundvery convenient. Hence, with the approval of the ExtraordinaryChapter of 1976, another plot in Aluva was bought in 1977. All the arrangements for the purchase of the new plot was made by Br. Ignatius.</label></p>
+                           <p><label id="lblHistory"> </label></p>
                        </address>
                        <div>
 						<div class="span6">
                             <dl>
                             <dt>Founder</dt>
-                            <dd><label id="lblFounder">Bishop Andrews Thazhathu</label></dd>
+                            <dd><label id="lblFounder"> </label></dd>
                                 <dt>Founded</dt>
-                            <dd><label id="lblFounded">01 Jun 2000</label></dd>
+                            <dd><label id="lblFounded"> </label></dd>
                                 <dt>Email</dt>
-                            <dd><label id="lblEmail">0001.239.678.567.45</label></dd>
+                            <dd><label id="lblEmail"> </label></dd>
                             </dl>
                             
 						</div>	       
@@ -109,11 +86,11 @@
                         <div class="span6">
                             <dl>
                             <dt>Phone1</dt>
-                            <dd><label id="lblPhone1">04885223516</label></dd>
+                            <dd><label id="lblPhone1"> </label></dd>
                                 <dt>phone2</dt>
-                            <dd><label id="lblPhone2">04885223517</label></dd>
+                            <dd><label id="lblPhone2"> </label></dd>
                                 <dt>Mobile</dt>
-                            <dd><label id="lblMobile">9567677766</label></dd>
+                            <dd><label id="lblMobile"> </label></dd>
                             </dl>
                         </div>
                         </div>
@@ -160,7 +137,7 @@
 					<div class="box-content">
 					<div class="form-horizontal">
 				    <fieldset>
-                        <a class="btnEdit" style="right:40px;top:-41px;position: absolute;" title="EDIT" id="iconShowInstitute" name="Edit" onclick="Cancel(this);"><i class="halflings-icon white refresh" aria-hidden="true" ></i></a>
+                        <a class="btnEdit" style="right:40px;top:-41px;position:absolute;" title="EDIT" id="iconShowInstitute" name="Edit" onclick="Cancel(this);"><i class="halflings-icon white refresh" aria-hidden="true" ></i></a>
                     <%--<a class="btnEdit" style="right:30px;position: absolute;" onclick="EditInstitute();"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>--%>
                         <div class="control-group span12">
 					    <img class="priestimage" id="priestPreview" src="../img/gallery/Institution.jpg"/>
@@ -344,7 +321,7 @@
 			<a id="btnAddAdmin" name="" class="btn btn-primary">Save changes</a>
 		</div>
 	      </div>
-    <script>
+               <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
 
