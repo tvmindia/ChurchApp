@@ -4,13 +4,30 @@
     ////////----------function Autocomplete for filter priest name
     AutoComplete();
     $('#btnCancelPriest').click(function (e) {
-        $('#PriestEd').hide();
-        $('#PriestShowDetails').show();
+        var action = $(this).attr('name');
+        if (action == "New") {
+            $('#PriestEd').hide();
+            $('#PriestShowDetails').hide();
+        }
+        else {
+            $('#PriestEd').hide();
+            $('#PriestShowDetails').show();
+        }
 
     });
     $('#bthCancelDetails').click(function (e) {
-        $('#PriestEd').show();
-        $('#PriestShowDetails').hide();
+        var action = $(this).attr('name');
+        if (action == "View")
+        {
+            $('#PriestEd').hide();
+            $('#PriestShowDetails').hide();
+        }
+        else
+        {
+            $('#PriestEd').show();
+            $('#PriestShowDetails').hide();
+        }
+        $('#priestPreview').attr('src', '../img/gallery/priest.png');
         ClearFields();
     });
     $('#btnAddPriest').click(function (e) {
@@ -411,6 +428,7 @@ function AutoComplete()
     function OpenNewAdd(Tag) {
         RemoveStyle();
         ClearFields();
+        $('#btnCancelPriest').attr('name', 'New');
         $('#priestPreview').attr('src', "../img/gallery/priest.png");
         $('#hdfPriestID').val('');
         if (Tag == "Asst")
@@ -426,6 +444,7 @@ function AutoComplete()
             $('#btnAddPriest').attr('name', 'Vicar');
         }
         $('#PriestShowDetails').hide();
+        $('#btnrefresh').hide();
         $('#PriestEd').show();
         
     }
@@ -457,11 +476,18 @@ function AutoComplete()
         document.getElementById('lblStatus').innerText = PriestRow.Status;
         $('#priestDetailPreview').attr('src', PriestRow.imagePath);
         $('#iconEditPriest').attr('name', PriestRow.priestID);
+        $('#bthCancelDetails').attr('name', 'View');
         
+    }
+    function cancel()
+    {
+        $('#PriestEd').hide();
+        $('#PriestShowDetails').show();
     }
 // Bind Details for edit
     function editPriestDetails(this_obj)
     {
+        $('#btnCancelPriest').attr('name', '');
         var priestid = $(this_obj).attr('name');
         var PriestRow = {};
         PriestRow = GetPriestDetailsUsingPiestID(priestid);
@@ -481,6 +507,8 @@ function AutoComplete()
         document.getElementById('HeadDetails').innerText = "Edit Details";
         $('#hdfPriestID').val( priestid);
         $('#PriestShowDetails').hide();
+        $('#btnrefresh').show();
+        $('#btnrefresh').attr('onclick','cancel();')
         $('#PriestEd').show();
     }
     // Create Guid

@@ -276,7 +276,7 @@
 					<div class="box-content">
 					<div class="form-horizontal">
 				    <fieldset>
-                    <%--<a style="right:30px;position: fixed;"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>--%>
+                    <a class="btnEdit" style="right:40px;top:-41px;position: absolute;display:none;" title="Back" id="btnrefresh"><i class="halflings-icon white refresh" aria-hidden="true" ></i></a>
 
 							<div class="control-group">
 							  <img class="priestimage" id="priestPreview" src="../img/gallery/priest.png"/>
