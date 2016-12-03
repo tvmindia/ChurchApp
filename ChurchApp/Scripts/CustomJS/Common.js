@@ -161,7 +161,15 @@ function getJsonData(data, page) {
         dataType: "json"
 
     }).done(function (data) {
-
+       
+        if (data != null)
+        {
+            var vald = JSON.parse(data.d);
+            if(vald.statusCode=='555')
+            {
+                window.location.replace(window.location.protocol + "//" + window.location.host + vald.url );
+            }
+        }
         $('#displaywait').hide();
         jsonResult = data;
     });
