@@ -893,15 +893,15 @@ function FixedEditClick() {
             imgPath = url;
 
             if (jsonResult.StartDate != null && jsonResult.StartDate != "") {
-                $("#dateStartDate").val(ConvertJsonToDate(jsonResult.StartDate));
+                $("#dateStartDate").val(ConvertJsonToDateTextbox(jsonResult.StartDate));
             }
 
             if (jsonResult.EndDate != null && jsonResult.EndDate != "") {
-                $("#dateEndDate").val(ConvertJsonToDate(jsonResult.EndDate));
+                $("#dateEndDate").val(ConvertJsonToDateTextbox(jsonResult.EndDate));
             }
 
             if (jsonResult.EventExpiryDate != null && jsonResult.EventExpiryDate != "") {
-                $("#dateExpiryDate").val(ConvertJsonToDate(jsonResult.EventExpiryDate));
+                $("#dateExpiryDate").val(ConvertJsonToDateTextbox(jsonResult.EventExpiryDate));
             }
 
             if (jsonResult.IsAutoHide == true) {

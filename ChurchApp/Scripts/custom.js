@@ -108,24 +108,24 @@ $(document).ready(function(){
 	/* ---------- Acivate Functions ---------- */
 	template_functions();
 	//init_masonry();
-	sparkline_charts();
-	charts();
+	//sparkline_charts();
+	//charts();
 	calendars();
-	growlLikeNotifications();
+	//growlLikeNotifications();
 	widthFunctions();
 	
-	if(jQuery.browser.version.substring(0, 2) == "8.") {
+	//if(jQuery.browser.version.substring(0, 2) == "8.") {
 		 
 		//disable jQuery Knob
 		
-	} else {
+	//} else {
 		
-		circle_progess();
+		//circle_progess();
 		
-	}
+	//}
 	
-	chart();
-	messageLike();	
+	//chart();
+	//messageLike();	
 	
 });
 

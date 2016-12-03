@@ -185,6 +185,28 @@ function ConvertJsonToDate(jsonDate) {
         return result;
     }
 }
+function ConvertJsonToDateTextbox(jsonDate) {
+    if (jsonDate != null) {
+        var dateString = jsonDate.substr(6);
+        var currentTime = new Date(parseInt(dateString));
+        var month = currentTime.getMonth();
+        var day = currentTime.getDate();
+        var year = currentTime.getFullYear();
+        var monthNames = [
+                      "01", "02", "03",
+                      "04", "05", "06", "07",
+                      "08", "09", "10",
+                      "11", "12"
+        ];
+        debugger;
+        if (day < 10)
+        {
+            day = "0" + day;
+        }
+        var result = day + '-' + monthNames[month] + '-' + year;
+        return result;
+    }
+}
 
 
 
