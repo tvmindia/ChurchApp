@@ -45,9 +45,26 @@ jQuery(document).ready(function($){
 	
 });	
 
-$(document).ready(function(){
-		
-			
+$(document).ready(function () {
+    //Enter acts like tab
+    $('input').keydown(function (e) {
+        var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+        if (key == 13) {
+            e.preventDefault();
+            var inputs = $(this).closest('form').find(':input:visible');
+            inputs.eq(inputs.index(this) + 1).focus();
+        }
+    });
+    //ctrl+Enter New Add for all pages
+    var isCtrl = false; $(document).keyup(function (e) {
+        if (e.which == 17) isCtrl = false;
+    }).keydown(function (e) {
+        if (e.which == 17) isCtrl = true;
+        if (e.which == 13 && isCtrl == true) {
+            $('.btnNew').click();
+            return false;
+        }
+    });
 	$("#username").focus(function() {
 		
 		$(this).parent(".input-prepend").addClass("input-prepend-focus");
@@ -309,7 +326,11 @@ function template_functions(){
 	$('.datepicker').datepicker({
 	    changeMonth: true,
 	    changeYear: true,
-	    dateFormat: 'dd-mm-yy'
+	    dateFormat: 'dd-mm-yy',
+	    onSelect: function () {
+	        // The "this" keyword refers to the input (in this case: #someinput)
+	        this.focus();
+	    }
 	});
 	
 	/* ---------- Notifications ---------- */
