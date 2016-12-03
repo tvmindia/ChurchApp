@@ -164,24 +164,36 @@
         $("#NotificationDetails").hide();
         $("#NotificationEditDivBox").show();
         $("#detailsHeading").text("Edit Notification");
-        var type = $("#hdfType").val();
-        $("#ddlType").val(type).trigger("change");
-        var caption = $("#captionHeading").text();
-        var description = $("#desc").text();
-        var startDate = $("#sDate").text();
-        if (startDate.includes(":")) {
-            startDate = startDate.split(":")[1];
-        }
-        var expiryDate = $("#eDate").text();
-        if (expiryDate.includes(":")) {
-            expiryDate = expiryDate.split(":")[1];
-        }
+        //var type = $("#hdfType").val();
+        //$("#ddlType").val(type).trigger("change");
+        //var caption = $("#captionHeading").text();
+        //var description = $("#desc").text();
+        //var startDate = $("#sDate").text();
+        //if (startDate.includes(":")) {
+        //    startDate = startDate.split(":")[1];
+        //}
+        //var expiryDate = $("#eDate").text();
+        //if (expiryDate.includes(":")) {
+        //    expiryDate = expiryDate.split(":")[1];
+        //}
         HideAllLabels();
         ShowAllTextBoxes();
-        $("#txtCaption").val(caption);
-        $("#txtDescription").val(description);
-        $("#txtStartDate").val(startDate);
-        $("#txtExpiryDate").val(expiryDate);
+        //$("#txtCaption").val(caption);
+        //$("#txtDescription").val(description);
+        //$("#txtStartDate").val(startDate);
+        //$("#txtExpiryDate").val(expiryDate);
+        var NotificationID = $("#hdfEditID").val();
+        if (NotificationID == "") {
+            $("#NotificationEditDivBox").hide();
+        }
+        else {
+            $("#hdfNotificationID").val(NotificationID.replace('/', ""));
+            var churchID = $("#hdfChurchID").val();
+            var Notification = new Object();
+            Notification.notificationID = NotificationID;
+            Notification.churchId = churchID;
+            BindControlsOnEdit(Notification);
+        }
         $(".NotificationEdit").css("display", "none");
     });
     $(".Save").click(function () {
@@ -283,7 +295,8 @@ function SaveNotification()
     var type = $("#ddlType").val();
     var description = $("#txtDescription").val();
     var startDate = $("#txtStartDate").val();
-
+   // var month = startDate.split(" ")[1];
+    //startDate = parseDate(startDate);
     if (startDate.includes(",")) {
         startDate = startDate.split(":")[1];
     }
@@ -454,6 +467,37 @@ function BindControlsOnViewDetails(Records)
         });
     }
 
+}
+function BindControlsOnEdit(Records)
+{
+    debugger;
+    var jsonResult = {};
+    var description = "";
+    jsonResult = GetNotificationByID(Records);
+    if (jsonResult != undefined) {
+        $.each(jsonResult, function (index, jsonResult) {
+            var startDate = new Date(parseInt(jsonResult.StartDate.substr(6)));
+            startDate = formattedDate(startDate);
+            startDate = startDate.split("/").join("-");
+            startDate = toDate(startDate);
+            debugger;
+            var ExpiryDate = new Date(parseInt(jsonResult.ExpiryDate.substr(6)));
+            ExpiryDate = formattedDate(ExpiryDate);
+            ExpiryDate = ExpiryDate.split("/").join("-");
+            ExpiryDate = toDate(ExpiryDate);
+            $("#ddlType").val(jsonResult.Type).trigger("change");
+            $("#txtCaption").val(jsonResult.Caption);
+            description = jsonResult.Description;
+            $("#txtDescription").val(description);
+            $("#txtStartDate").val(startDate);
+            $("#txtExpiryDate").val(ExpiryDate);
+        });
+    }
+}
+function toDate(dateStr) {
+    debugger;
+    var parts = dateStr.split("-");
+    return parts[1]+"-"+ parts[0]+"-"+ parts[2];
 }
 function getFormattedDate(input) {
     debugger;
