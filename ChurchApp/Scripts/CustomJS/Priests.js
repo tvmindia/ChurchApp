@@ -1,144 +1,249 @@
 ﻿$(document).ready(function () {
-    //////////----------Function for check priest details and bind 
-    check();
-    ////////----------function Autocomplete for filter priest name
-    AutoComplete();
-    $('#btnCancelPriest').click(function (e) {
-        var action = $(this).attr('name');
-        if (action == "New") {
-            $('#PriestEd').hide();
-            $('#PriestShowDetails').hide();
-        }
-        else {
-            $('#PriestEd').hide();
-            $('#PriestShowDetails').show();
-        }
+    try
+    {
+        //////////----------Function for check priest details and bind 
+        check();
+        ////////----------function Autocomplete for filter priest name
+        AutoComplete();
+        ///////--------------function Cancel Add priest wizad
+        $('#btnCancelPriest').click(function (e) {
+            var action = $(this).attr('name');
+            if (action == "New") {
+                $('#PriestEd').hide();
+                $('#PriestShowDetails').hide();
+            }
+            else {
+                $('#PriestEd').hide();
+                $('#PriestShowDetails').show();
+            }
 
-    });
-    $('#bthCancelDetails').click(function (e) {
-        var action = $(this).attr('name');
-        if (action == "View")
+        });
+        //////--------------function cancel details wizad
+        $('#bthCancelDetails').click(function (e) {
+            var action = $(this).attr('name');
+            if (action == "View")
+            {
+                $('#PriestEd').hide();
+                $('#PriestShowDetails').hide();
+            }
+            else
+            {
+                $('#PriestEd').show();
+                $('#PriestShowDetails').hide();
+            }
+            $('#priestPreview').attr('src', '../img/gallery/priest.png');
+            ClearFields();
+        });
+        /////---------------function Add priest from existing data using autocomplete
+        $('#btnAddPriest').click(function (e) {
+        
+            var status=$(this).attr('name');
+            var priestID = $('#hdnAddPriestID').val();
+            if(priestID!=null||priestID!="")
+            {
+                var Priest = new Object();
+                Priest.priestID = priestID;
+                Priest.Status = status;
+                result = UpdateChurchIDPriest(Priest);
+
+                if (result.result == "1") {
+                    //$('#rowfluidDiv').show();
+                    //$('.alert-success').show();
+                    //$('.alert-success strong').text("Priest Added Successfully");
+                    noty({ text: 'Priest Added Successfully', type: 'success' });
+
+                }
+                if (result.result != "1") {
+                    //$('#rowfluidDiv').show();
+                    //$('.alert-error').show();
+                    //$('.alert-error strong').text("Operation was Not Successful");
+                    noty({ text: 'Operation was Not Successful', type: 'error' });
+                }
+                $('#assVicardiv').remove();
+            
+                $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+                check();
+                $('#PriestEd').hide();
+                $('#PriestShowDetails').hide();
+                ClearFields();
+            }
+        });
+        ///////////-----------Delete button Event
+        $('#btnDelete').click(function (e)
         {
-            $('#PriestEd').hide();
-            $('#PriestShowDetails').hide();
-        }
-        else
-        {
-            $('#PriestEd').show();
-            $('#PriestShowDetails').hide();
-        }
-        $('#priestPreview').attr('src', '../img/gallery/priest.png');
-        ClearFields();
-    });
-    $('#btnAddPriest').click(function (e) {
-        debugger;
-        var status=$(this).attr('name');
-        var priestID = $('#hdnAddPriestID').val();
-        if(priestID!=null||priestID!="")
-        {
+            var priestID = $("#hdfPriestID").val();
             var Priest = new Object();
-            Priest.priestID = priestID;
-            Priest.Status = status;
-            result = UpdateChurchIDPriest(Priest);
+            Priest.churchID = null;
+            Priest.priestID = $("#hdfPriestID").val();
+        
+        
+            result = DeletePriest(Priest);
 
             if (result.result == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Priest Added Successfully");
-                noty({ text: 'Priest Added Successfully', type: 'success' });
-
+                noty({ text: 'Priest Deleted Successfully', type: 'success' });
             }
             if (result.result != "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Operation was Not Successful");
-                noty({ text: 'Operation was Not Successful', type: 'error' });
+                noty({ text: 'Deleting Not Successful', type: 'error' });
             }
             $('#assVicardiv').remove();
-            debugger;
+        
             $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
             check();
             $('#PriestEd').hide();
             $('#PriestShowDetails').hide();
-            ClearFields();
-        }
-    });
-    ///////////-----------Delete button Event
-    $('#btnDelete').click(function (e)
-    {
-        var priestID = $("#hdfPriestID").val();
-        var Priest = new Object();
-        Priest.churchID = null;
-        Priest.priestID = $("#hdfPriestID").val();
-        debugger;
+        });
+        //////////-----------Main button event for Save, Update
+        $('#btnSavePriest').click(function (e) {
+            var Role = $(this).attr('name');
+            if (($('#ddlstatus').val() == 'Vicar')&&(Role=='Asst'))
+            {
+                noty({ text: 'You Cant add multiple Vicars try Again !', type: 'information' });
+                return false;
+            }
         
-        result = DeletePriest(Priest);
+        
+            var today = new Date();
+            var dobcheck = $('#priestDOB').val();
+            var ordcheck = $('#OrdinationDate').val();
+            if (dobcheck != "")
+            {
+                if (Datecheck(dobcheck) > today) {
+                    noty({ text: 'Invalid Date of birth !', type: 'information' });
+                    return false;
+                }
+            }
+        
+            if (ordcheck != "")
+            {
+                if (Datecheck(ordcheck) > today) {
+                    noty({ text: 'Invalid Ordination Date !', type: 'information' });
+                    return false;
+                }
+            }
+        
+            PriestValidation();
 
-        if (result.result == "1") {
-            noty({ text: 'Priest Deleted Successfully', type: 'success' });
+        });
+        //
+        //Style setting for client side Validation
+        //CreatedBy Thomson
+        $('input[type=text],input[type=password]').on('focus', function () {
+            $(this).css({ background: 'white' });
+            $('#ErrorBox,#ErrorBox1').hide(1000);
+        });
+        $('textarea,select').on('focus', function () {
+            $(this).css({ background: 'white' });
+            $('#ErrorBox,#ErrorBox1').hide(1000);
+        });
+        //Acess check for login User
+        var value = $('#ContentPlaceHolder2_btnAddNew').val();
+        if (value != "") {
+            $('#iconEditPriest').remove();
         }
-        if (result.result != "1") {
-            noty({ text: 'Deleting Not Successful', type: 'error' });
-        }
-        $('#assVicardiv').remove();
-        debugger;
-        $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
-        check();
-        $('#PriestEd').hide();
-        $('#PriestShowDetails').hide();
-    });
-    //////////-----------Main button event for Save, Update
-    $('#btnSavePriest').click(function (e) {
-        var Role = $(this).attr('name');
-        if (($('#ddlstatus').val() == 'Vicar')&&(Role=='Asst'))
-        {
-            noty({ text: 'You Cant add multiple Vicars try Again', type: 'information' });
-            return false;
-        }
-        PriestValidation();
-
-    });
-    //
-    //Style setting for client side Validation
-    //CreatedBy Thomson
-
-    $('input[type=text],input[type=password]').on('focus', function () {
-        $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').hide(1000);
-    });
-    $('textarea,select').on('focus', function () {
-        $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').hide(1000);
-    });
-    var value = $('#ContentPlaceHolder2_btnAddNew').val();
-    if (value != "") {
-        $('#iconEditPriest').remove();
     }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+    
 
 });
-
-
+//Date validation is the date is valid
+function Datecheck(DateNow)
+{
+    var date = DateNow.substring(0, 2);
+    var month = DateNow.substring(3, 5);
+    var year = DateNow.substring(6, 10);
+    var myDate = new Date(year, month - 1, date);
+    return myDate;
+}
+//Save priest (functon with insert and update)
 function savePriest()
 {
-    if ($('#ddlstatus').val() == 'Vicar') {
+    try
+    {
+        var AppImgURL = '';
+        var priestID = $("#hdfPriestID").val();
+
+        //-----------------------INSERT-------------------//
+
+        if (priestID == null || priestID == "") {
+            var guid = createGuid();
+
+            if (guid != null) {
+                var i = "0";
+                var imgresult = "";
+                var _URL = window.URL || window.webkitURL;
+                var formData = new FormData();
+                var imagefile, logoFile, img;
+
+                if (((imagefile = $('#priestimg')[0].files[0]) != undefined)) {
+                    var formData = new FormData();
+                    var tempFile;
+                    if ((tempFile = $('#priestimg')[0].files[0]) != undefined) {
+                        tempFile.name = guid;
+                        formData.append('NoticeAppImage', tempFile, tempFile.name);
+                        formData.append('GUID', guid);
+                        formData.append('createdby', 'sadmin');
+                    }
+                    formData.append('ActionTyp', 'NoticeAppImageInsert');
+                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                    i = "1";
+                }
+
+            }
+
+            var Priest = new Object();
+            Priest.priestName = $('#txtPriestName').val();
+            Priest.BaptisumName = $('#txtPriestBaptismName').val();
+            Priest.Parish = $('#txtParish').val();
+            Priest.Diocese = $('#txtDiocese').val();
+            Priest.Status = $('#ddlstatus').val();       
+            Priest.dob = $('#priestDOB').val();
+            Priest.about = $('#txtAboutPriest').val();
+            Priest.dateOrdination = $('#OrdinationDate').val();
+            Priest.designation = $('#txtDesignation').val();
+            Priest.address = $('#txtAddress').val();
+            Priest.emailId = $('#txtEmail').val();
+            Priest.mobile = $('#txtMobile').val();
+            if (i == "1")
+            {
+                Priest.imageId = guid;
+            }
+            Priest.priestID = guid;
+            result = InsertPriest(Priest);
+
+            if (result.result == "1") {
+                noty({ text: 'Priest Added Successfully', type: 'success' });
+
+            }
+            if (result.result != "1") {
+                noty({ text: 'Saving Not Successful', type: 'error' });
+            }
+
+            $('#assVicardiv').remove();
+            $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+            check();
 
 
-    }
-    var AppImgURL = '';
-    var priestID = $("#hdfPriestID").val();
-
-    //-----------------------INSERT-------------------//
-
-    if (priestID == null || priestID == "") {
-        var guid = createGuid();
-
-        if (guid != null) {
-            var i = "0";
-            var imgresult = "";
-            var _URL = window.URL || window.webkitURL;
-            var formData = new FormData();
-            var imagefile, logoFile, img;
-
+        }
+            //-----------------------UPDATE-------------------//
+        else {
+            var Priest = new Object();
+            Priest.priestName = $('#txtPriestName').val();
+            Priest.BaptisumName = $('#txtPriestBaptismName').val();
+            Priest.Parish = $('#txtParish').val();
+            Priest.Diocese = $('#txtDiocese').val();
+            Priest.Status = $('#ddlstatus').val();
+            Priest.dob = $('#priestDOB').val();
+            Priest.about = $('#txtAboutPriest').val();
+            Priest.dateOrdination = $('#OrdinationDate').val();
+            Priest.designation = $('#txtDesignation').val();
+            Priest.address = $('#txtAddress').val();
+            Priest.emailId = $('#txtEmail').val();
+            Priest.mobile = $('#txtMobile').val();
+            Priest.priestID = $("#hdfPriestID").val();
+            var guid = createGuid();
             if (((imagefile = $('#priestimg')[0].files[0]) != undefined)) {
                 var formData = new FormData();
                 var tempFile;
@@ -150,140 +255,86 @@ function savePriest()
                 }
                 formData.append('ActionTyp', 'NoticeAppImageInsert');
                 AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                i = "1";
+                Priest.imageId = guid;
             }
 
+            result = UpdatePriest(Priest);
+
+            if (result.result == "1") {
+                noty({ text: 'Priest Edited Successfully', type: 'success' });
+            }
+            if (result.result != "1") {
+                noty({ text: 'Saving Not Successful', type: 'error' });
+            }
+            $('#assVicardiv').remove();
+        
+            $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+            check();
         }
-
-        var Priest = new Object();
-        Priest.priestName = $('#txtPriestName').val();
-        Priest.BaptisumName = $('#txtPriestBaptismName').val();
-        Priest.Parish = $('#txtParish').val();
-        Priest.Diocese = $('#txtDiocese').val();
-        Priest.Status = $('#ddlstatus').val();       
-        Priest.dob = $('#priestDOB').val();
-        Priest.about = $('#txtAboutPriest').val();
-        Priest.dateOrdination = $('#OrdinationDate').val();
-        Priest.designation = $('#txtDesignation').val();
-        Priest.address = $('#txtAddress').val();
-        Priest.emailId = $('#txtEmail').val();
-        Priest.mobile = $('#txtMobile').val();
-        if (i == "1")
-        {
-            Priest.imageId = guid;
-        }
-        Priest.priestID = guid;
-        result = InsertPriest(Priest);
-
-        if (result.result == "1") {
-            noty({ text: 'Priest Added Successfully', type: 'success' });
-
-        }
-        if (result.result != "1") {
-            noty({ text: 'Saving Not Successful', type: 'error' });
-        }
-
-        $('#assVicardiv').remove();
-        $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
-        check();
-
-
     }
-        //-----------------------UPDATE-------------------//
-    else {
-        var Priest = new Object();
-        Priest.priestName = $('#txtPriestName').val();
-        Priest.BaptisumName = $('#txtPriestBaptismName').val();
-        Priest.Parish = $('#txtParish').val();
-        Priest.Diocese = $('#txtDiocese').val();
-        Priest.Status = $('#ddlstatus').val();
-        Priest.dob = $('#priestDOB').val();
-        Priest.about = $('#txtAboutPriest').val();
-        Priest.dateOrdination = $('#OrdinationDate').val();
-        Priest.designation = $('#txtDesignation').val();
-        Priest.address = $('#txtAddress').val();
-        Priest.emailId = $('#txtEmail').val();
-        Priest.mobile = $('#txtMobile').val();
-        Priest.priestID = $("#hdfPriestID").val();
-        var guid = createGuid();
-        if (((imagefile = $('#priestimg')[0].files[0]) != undefined)) {
-            var formData = new FormData();
-            var tempFile;
-            if ((tempFile = $('#priestimg')[0].files[0]) != undefined) {
-                tempFile.name = guid;
-                formData.append('NoticeAppImage', tempFile, tempFile.name);
-                formData.append('GUID', guid);
-                formData.append('createdby', 'sadmin');
-            }
-            formData.append('ActionTyp', 'NoticeAppImageInsert');
-            AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-            Priest.imageId = guid;
-        }
-
-        result = UpdatePriest(Priest);
-
-        if (result.result == "1") {
-            noty({ text: 'Priest Edited Successfully', type: 'success' });
-        }
-        if (result.result != "1") {
-            noty({ text: 'Saving Not Successful', type: 'error' });
-        }
-        $('#assVicardiv').remove();
-        debugger;
-        $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
-        check();
+    catch(e)
+    {
+        
     }
 }
+//Autocomplete for textbox priest name for quick search priest and add to church
 function AutoComplete()
 {
-    var ac=null;
-    ac = GetPriest();
+    try
+    {
+        var ac = null;
+        ac = GetPriest();
 
-    var length= ac.length;
-    var projects = new Array();
-    for (i=0;i<length;i++)
-    {  
-        var name= ac[i].split('🏠');
-        projects.push({  value : name[0], label: name[0], desc: name[1]})   
-    }
-              
-    $("#txtPriestName").autocomplete({
-        maxResults: 10,
-        source: function(request, response) {
-            //--- Search by name or description(file no , mobile no, address) , by accessing matched results with search term and setting this result to the source for autocomplete
-            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-            var matching = $.grep(projects, function (value) {
-
-                var name = value.value;
-                var  label= value.label;
-                var desc= value.desc;
-
-                return matcher.test(name) || matcher.test(desc);
-            });
-            var results = matching; // Matched set of result is set to variable 'result'
-
-            response(results.slice(0, this.options.maxResults));
-        },
-        focus: function( event, ui ) {
-            $("#txtPriestName").val(ui.item.label);
-                       
-            return false;
-        },
-        select: function( event, ui ) {
-
-            //var FileName =    ui.item.desc.split('|')[0].split('📰')[1];
-            // var Address =  ui.item.desc.split('|')[1];
-            var priestID = ui.item.desc;
-            $('#hdnAddPriestID').val(priestID);
-            OpenPriestDetails(priestID);
-            $('#iconEditPriest').hide();
-            $('#btnAddPriest').show();
-            //document.getElementById('<%=Errorbox.ClientID %>').style.display = "none";
-
-
-            return false;
+        var length = ac.length;
+        var projects = new Array();
+        for (i = 0; i < length; i++) {
+            var name = ac[i].split('🏠');
+            projects.push({ value: name[0], label: name[0], desc: name[1] })
         }
-    })
+
+        $("#txtPriestName").autocomplete({
+            maxResults: 10,
+            source: function (request, response) {
+                //--- Search by name or description(file no , mobile no, address) , by accessing matched results with search term and setting this result to the source for autocomplete
+                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                var matching = $.grep(projects, function (value) {
+
+                    var name = value.value;
+                    var label = value.label;
+                    var desc = value.desc;
+
+                    return matcher.test(name) || matcher.test(desc);
+                });
+                var results = matching; // Matched set of result is set to variable 'result'
+
+                response(results.slice(0, this.options.maxResults));
+            },
+            focus: function (event, ui) {
+                $("#txtPriestName").val(ui.item.label);
+
+                return false;
+            },
+            select: function (event, ui) {
+
+                //var FileName =    ui.item.desc.split('|')[0].split('📰')[1];
+                // var Address =  ui.item.desc.split('|')[1];
+                var priestID = ui.item.desc;
+                $('#hdnAddPriestID').val(priestID);
+                OpenPriestDetails(priestID);
+                $('#iconEditPriest').hide();
+                $('#btnAddPriest').show();
+                //document.getElementById('<%=Errorbox.ClientID %>').style.display = "none";
+
+
+                return false;
+            }
+        })
+    }
+    catch(e)
+    {
+
+    }
+    
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////---------Json data transfer
@@ -325,7 +376,7 @@ function AutoComplete()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////*********************** Function for binding priest list vicar and asst vicar
     function check() {
-        debugger;
+        
         var priestDetails = {};
         var elems = $();
         var elemsAsst = $();
@@ -394,7 +445,7 @@ function AutoComplete()
     }
     //Check if Priest Exist for church and obtain the details
     function GetPriestUsingChurchID() {
-        debugger;
+        
         var ds = {};
         var table = {};
         var Priest = new Object();
@@ -456,9 +507,9 @@ function AutoComplete()
         $('#PriestEd').hide();
         $('btnAddPriest').hide();
     }
-//Bind Details to view
+    //Bind Details to view
     function BindDetails(priestID) {
-        debugger;
+        
         var PriestRow = {};
         PriestRow = GetPriestDetailsUsingPiestID(priestID);
         
@@ -479,12 +530,13 @@ function AutoComplete()
         $('#bthCancelDetails').attr('name', 'View');
         
     }
+    //Onclick refresh on edit
     function cancel()
     {
         $('#PriestEd').hide();
         $('#PriestShowDetails').show();
     }
-// Bind Details for edit
+    // Bind Details for edit
     function editPriestDetails(this_obj)
     {
         $('#btnCancelPriest').attr('name', '');
@@ -543,7 +595,7 @@ function AutoComplete()
         table = JSON.parse(jsonResult.d);
         return table;
     }
-//Delete Priest
+    //Delete Priest
     function DeletePriest(Priest) {
         var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
         jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/DeletePriest");
@@ -565,7 +617,7 @@ function AutoComplete()
     // Html code for binding Vicar with details
     function HtmlBindProductWithOffer(priestDetails, i)
     {
-        debugger;
+        
         var ID = "'" + priestDetails.ID + "'";
         var html = ('<div id="VicarDefault"><div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Vicar</h2></div>'
           + '<div class="task high">'
@@ -580,7 +632,7 @@ function AutoComplete()
     }
     // Html code for binding Asst Vicar details
     function HtmlBindWithAsst(priestDetails, i) {
-        debugger;
+        
         var ID ="'"+priestDetails.ID+"'";
         var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + priestDetails.URL + '"/></li>'
           + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
@@ -593,7 +645,7 @@ function AutoComplete()
     }
 // Html code for no record found for vicar
     function HtmlBindVicar() {
-        debugger;
+        
         var html = ('<div id="VicarDefault"><div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Vicar</h2><a class="btnNew" style="left:93%!important;top:-14px;" title="ADD NEW" onclick=OpenNewAdd("Vicar")><i class="material-icons">+</i></a></div>'
           + '<div class="task high">'
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/priest.png"/></li>'
@@ -605,7 +657,7 @@ function AutoComplete()
     }
 // Html code for no record found for Asst Vicar
     function HtmlBindAsstVicar() {
-        debugger;
+        
         var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="../img/gallery/priest.png"/></li>'
           + '<li ><br /><br /><br />'
           + '<span style="color:#647587!important" class="choosepic"> No record Found</span> <br/>'
@@ -617,7 +669,7 @@ function AutoComplete()
     //Basic Validation For New Administrator
     //CreatedBy Thomson
     function PriestValidation() {
-        debugger;
+        
         $('#Displaydiv1').remove();
         var Name = $('#txtPriestName');
         var OrdinationDate = $('#OrdinationDate');
