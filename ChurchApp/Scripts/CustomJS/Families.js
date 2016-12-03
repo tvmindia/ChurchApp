@@ -736,16 +736,40 @@ function EditFamily(e)
 function AdminMemberChange()
 {
     debugger;
-    var phone = $("#ddlMember option:selected").attr("name");
-    if ($("#hdfPhone").val() != "" && $("#hdfPhone").val() != null)
+    //var phone = $("#ddlMember option:selected").attr("name");
+    //if ($("#hdfPhone").val() != "" && $("#hdfPhone").val() != null)
+    //{
+    //    $("#txtMobile").val($("#hdfPhone").val());
+    //}
+    //else
+    //{
+    //    $("#txtMobile").val(phone);
+    //}
+    //$("#hdfPhone").val("")
+    if ($("#ddlMember").val() != "" && $("#ddlMember").val() != null && $("#ddlMember").val()!="-1")
     {
-        $("#txtMobile").val($("#hdfPhone").val());
+        var FamilyUnits = new Object();
+        var Family = new Object();
+        var Members = new Object();
+        var unitID = $("#hdfUnitID").val();
+        FamilyUnits.unitId = unitID;
+        Family.familyUnitsObj = FamilyUnits;
+        Members.familyObj = Family;
+        Members.memberId = $("#ddlMember").val();
+        var jsonResult = GetAdminMemberDetails(Members);
+        if (jsonResult != undefined && jsonResult != null) {
+            if (jsonResult[0].Phone != "" && jsonResult[0].Phone != undefined && jsonResult[0].Phone != null)
+            {
+                $("#txtMobile").val(jsonResult[0].Phone);
+            }
+            else
+            {
+                $("#txtMobile").val(jsonResult[0].Contact);
+            }
+           
+        }
     }
-    else
-    {
-        $("#txtMobile").val(phone);
-    }
-    $("#hdfPhone").val("")
+    
 }
 function AddAdminImageHtml() {
     debugger;
@@ -802,8 +826,8 @@ function BindMemberSelect()
         $('#ddlMember').append($('<option>',
         {
             value: selectRow[i].ID,
-            text: selectRow[i].FirstName + " " + selectRow[i].LastName + " " + selectRow[i].FamilyName,
-            name: selectRow[i].Phone
+            text: selectRow[i].FirstName + " " + selectRow[i].LastName + " " + selectRow[i].FamilyName
+            //name: selectRow[i].Phone
         }));
     }
 }
@@ -1503,7 +1527,16 @@ function DeleteAdmin(Administrators) {
         var table = {};
         table = JSON.parse(jsonResult.d);
         return table;
-    }
+}
+function GetAdminMemberDetails(Members)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'memberObj':" + JSON.stringify(Members) + "}";
+    ds = getJsonData(data, "../AdminPanel/Families.aspx/GetAdminMemberDetails");
+    table = JSON.parse(ds.d);
+    return table;
+}
 function UpdateFamilyUnit(FamilyUnits)
 {
     var ds = {};

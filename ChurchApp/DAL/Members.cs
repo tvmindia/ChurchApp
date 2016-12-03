@@ -130,6 +130,48 @@ namespace ChurchApp.DAL
         }
         #endregion SelectMembers
 
+        #region SelectMemberDetailsForAdmin
+        /// <summary>
+        /// Select All Members based on Church
+        /// </summary>
+        /// <returns>Member Details</returns>
+        public DataSet SelectMemberDetailsForAdmin()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetMemberDetailsForAdmin]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyObj.familyUnitsObj.churchId);
+                //cmd.Parameters.Add("@UnitID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyObj.familyUnitsObj.unitId);
+                cmd.Parameters.Add("@memberID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(memberId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectMembers
+
         #region SelectPatronMaster
         /// <summary>
         /// Select All PatronMaster
