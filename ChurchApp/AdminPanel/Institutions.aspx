@@ -7,7 +7,7 @@
     <script src="../Scripts/CustomJS/Institution.js"></script>
     <style>
     </style>
-     <div id="content" class="span10">
+               <div id="content" class="span10">
         <ul class="breadcrumb" style="margin-bottom:0px">
 				 <li>
 					<i class="icon-home"></i>
@@ -321,7 +321,7 @@
 			<a id="btnAddAdmin" name="" class="btn btn-primary">Save changes</a>
 		</div>
 	      </div>
-    <script>
+               <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
 
