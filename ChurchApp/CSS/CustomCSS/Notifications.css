@@ -178,16 +178,16 @@ padding: 8px 10px 8px 13px;
 {
     line-height:10px !important;
 }
-#viewAllLatest
+/*#viewAllLatest
 {
     background-color:#f1f9ed;
     /*border-bottom: 1px solid #78cd51;*/
 }
-#viewAllLatest
+/*#viewAllLatest
 {
     background-color: #ffefec;
-    /*border-bottom: 1px solid #fa603d;*/
-}
+    /*border-bottom: 1px solid #fa603d;
+}*/
 .spnDates
   {
       font-size:10px;font-weight:100
