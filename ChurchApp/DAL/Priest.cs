@@ -301,6 +301,7 @@ namespace ChurchApp.DAL
             }
             catch (Exception ex)
             {
+                result = ex.Message;
                 throw ex;
             }
             finally
@@ -319,7 +320,7 @@ namespace ChurchApp.DAL
         /// Add new Priest
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string InsertPriest()
+        public void InsertPriest()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -367,6 +368,7 @@ namespace ChurchApp.DAL
             }
             catch (Exception ex)
             {
+                result = ex.Message;
                 throw ex;
             }
             finally
@@ -376,7 +378,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            result= outParam.Value.ToString();
         }
         #endregion InsertPriest
 
@@ -385,7 +387,7 @@ namespace ChurchApp.DAL
         /// Update Priest
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string UpdatePriest()
+        public void UpdatePriest()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -430,6 +432,7 @@ namespace ChurchApp.DAL
             }
             catch (Exception ex)
             {
+                result = ex.Message;
                 throw ex;
             }
             finally
@@ -439,7 +442,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            result=outParam.Value.ToString();
         }
         #endregion UpdatePriest
 
@@ -448,7 +451,7 @@ namespace ChurchApp.DAL
         /// Delete Priest
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string DeletePriest()
+        public void DeletePriest()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -470,6 +473,7 @@ namespace ChurchApp.DAL
             }
             catch (Exception ex)
             {
+                result = ex.Message;
                 throw ex;
             }
             finally
@@ -479,7 +483,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            result= outParam.Value.ToString();
         }
         #endregion DeletePriest
 
@@ -488,7 +492,7 @@ namespace ChurchApp.DAL
         /// Update ChurchID for seleted Priest
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string UpdateChurchIDPriest()
+        public void UpdateChurchIDPriest()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -512,6 +516,7 @@ namespace ChurchApp.DAL
             }
             catch (Exception ex)
             {
+                result = ex.Message;
                 throw ex;
             }
             finally
@@ -521,7 +526,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            result= outParam.Value.ToString();
         }
         #endregion UpdateChurchIDPriest
 

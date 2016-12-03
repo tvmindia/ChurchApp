@@ -24,11 +24,18 @@ namespace ChurchApp.AdminPanel
         #region Pageload
         protected void Page_Load(object sender, EventArgs e)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            ChurchIDScript = null;
-            ChurchIDScript = UA.ChurchID; 
+            try
+            {
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                ChurchIDScript = null;
+                ChurchIDScript = UA.ChurchID; 
+            }
+           catch(Exception ex)
+            {
+              
+            }
         }
         #endregion Pageload
 
@@ -38,40 +45,43 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetPriestsDetails(Priest priestObj)
         {
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            priestObj.churchID = UA.ChurchID;
-           
-
-            if (priestObj.churchID != "")
+            try
             {
-               // productObj.ChurchID = UA.ChurchID;
-                DataSet ds = null;
-                ds = priestObj.SelectPriests();
-               
-          
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                DAL.Security.UserAuthendication UA;
+                DAL.Const Const = new DAL.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                priestObj.churchID = UA.ChurchID;
 
 
-                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                Dictionary<string, object> childRow;
-
-                if (ds.Tables[0].Rows.Count > 0)
+                if (priestObj.churchID != "")
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    // productObj.ChurchID = UA.ChurchID;
+                    DataSet ds = null;
+                    ds = priestObj.SelectPriests();
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
                     }
+                    return jsSerializer.Serialize(parentRow);
                 }
-                return jsSerializer.Serialize(parentRow);
+                return jsSerializer.Serialize("");
             }
-            return jsSerializer.Serialize("");
+            catch(Exception ex)
+            {
+                return "";
+            }
         }
         #endregion GetAllpriest Details
 
@@ -84,19 +94,27 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetPriest(Priest priestObj)
         {
-            DataTable dt = priestObj.SelectPriestsAutocomplete(); //Function call to get  Search BoxData
-            StringBuilder output = new StringBuilder();
-            output.Append("[");
-            for (int i = 0; i < dt.Rows.Count; ++i)
+            try
             {
-                output.Append("\"" + dt.Rows[i]["Name"].ToString() + "🏠" + dt.Rows[i]["ID"].ToString() +"\"");
-                if (i != (dt.Rows.Count - 1))
+                DataTable dt = priestObj.SelectPriestsAutocomplete(); //Function call to get  Search BoxData
+                StringBuilder output = new StringBuilder();
+                output.Append("[");
+                for (int i = 0; i < dt.Rows.Count; ++i)
                 {
-                    output.Append(",");
+                    output.Append("\"" + dt.Rows[i]["Name"].ToString() + "🏠" + dt.Rows[i]["ID"].ToString() + "\"");
+                    if (i != (dt.Rows.Count - 1))
+                    {
+                        output.Append(",");
+                    }
                 }
+                output.Append("]");
+                return output.ToString();
             }
-            output.Append("]");
-            return output.ToString();
+            catch(Exception ex)
+            {
+                return "";
+            }
+            
         }
         #endregion GetAllpriest DetailsAutocomplete
 
@@ -109,18 +127,23 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetPriestsDetailsUsingPriestID(Priest priestObj)
         {
-            //    DAL.Security.UserAuthendication UA;
-            //    UIClasses.Const Const = new UIClasses.Const();
-            //    UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            if (priestObj.priestID != "")
+            try
             {
-                priestObj.SelectPriestsUsingPriestID();
+                ChurchApp.DAL.Church churchObj = new DAL.Church();
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
 
+                if (priestObj.priestID != "")
+                {
+                    priestObj.SelectPriestsUsingPriestID();
+
+                }
+                return jsSerializer.Serialize(priestObj);
             }
-            return jsSerializer.Serialize(priestObj);
+            catch(Exception ex)
+            {
+                return "";
+            }
+            
         }
         #endregion GetPriestUsingPriestID
 
@@ -138,18 +161,16 @@ namespace ChurchApp.AdminPanel
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             PriestObj.churchID = UA.ChurchID;
-            //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
-            string status = null;
             try
             {
-                PriestObj.createdBy = "Thomson";
-                status = PriestObj.InsertPriest().ToString();
-                PriestObj.result = status;
+                PriestObj.createdBy =UA.userName;
+                PriestObj.InsertPriest();
                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                status = "500";//Exception of foreign key
+                PriestObj.result = ex.Message;//Exception
+                return jsSerializer.Serialize(PriestObj);
             }
             finally
             {
@@ -174,17 +195,17 @@ namespace ChurchApp.AdminPanel
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             PriestObj.churchID = UA.ChurchID;
-            string status = null;
+            //string status = null;
             try
             {
                 PriestObj.createdBy = UA.userName;
-                status = PriestObj.UpdatePriest().ToString();
-                PriestObj.result = status;
+                PriestObj.UpdatePriest();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                status = "500";//Exception of foreign key
+                PriestObj.result = ex.Message;//Exception
+                return jsSerializer.Serialize(PriestObj);
             }
             finally
             {
@@ -200,19 +221,19 @@ namespace ChurchApp.AdminPanel
         public static string DeletePriest(ChurchApp.DAL.Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            //PriestObj.churchID = "99311E06-65DD-471E-904E-04702F2C4FB0";
-            //  NoticeObj.noticeId = "1817569f-5375-4e96-b734-7f3e82801b31";
-            string status = null;
+             DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             try
             {
-                PriestObj.createdBy = "Thomson";
-                status = PriestObj.DeletePriest().ToString();
-                PriestObj.result = status;
+                PriestObj.createdBy = UA.userName;
+                PriestObj.DeletePriest();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                status = "500";//Exception of foreign key
+                PriestObj.result = ex.Message;//Exception
+                return jsSerializer.Serialize(PriestObj);
             }
             finally
             {
@@ -243,14 +264,14 @@ namespace ChurchApp.AdminPanel
                     PriestObj.Status = "Vicar";
                 }
                 PriestObj.churchID = UA.ChurchID;
-                PriestObj.createdBy = "Thomson";
-                status = PriestObj.UpdateChurchIDPriest().ToString();
-                PriestObj.result = status;
+                PriestObj.createdBy = UA.userName;
+                PriestObj.UpdateChurchIDPriest();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                status = "500";//Exception of foreign key
+                PriestObj.result = ex.Message;//Exception
+                return jsSerializer.Serialize(PriestObj);
             }
             finally
             {

@@ -7,19 +7,34 @@
         AutoComplete();
         ///////--------------function Cancel Add priest wizad
         $('#btnCancelPriest').click(function (e) {
-            var action = $(this).attr('name');
-            if (action == "New") {
-                $('#PriestEd').hide();
-                $('#PriestShowDetails').hide();
+            try
+            {
+                var action = $(this).attr('name');
+                if (action == "New") {
+                    $('#PriestEd').hide();
+                    $('#PriestShowDetails').hide();
+                }
+                else {
+                    $('#PriestEd').hide();
+                    $('#PriestShowDetails').show();
+                }
             }
-            else {
-                $('#PriestEd').hide();
-                $('#PriestShowDetails').show();
+            catch(e)
+            {
+                noty({ type: 'error', text: e.message });
             }
-
+           
         });
         //////--------------function cancel details wizad
         $('#bthCancelDetails').click(function (e) {
+            try
+            {
+
+            }
+            catch(e)
+            {
+                noty({ type: 'error', text: e.message });
+            }
             var action = $(this).attr('name');
             if (action == "View")
             {
@@ -36,93 +51,105 @@
         });
         /////---------------function Add priest from existing data using autocomplete
         $('#btnAddPriest').click(function (e) {
-        
-            var status=$(this).attr('name');
-            var priestID = $('#hdnAddPriestID').val();
-            if(priestID!=null||priestID!="")
+            try 
             {
-                var Priest = new Object();
-                Priest.priestID = priestID;
-                Priest.Status = status;
-                result = UpdateChurchIDPriest(Priest);
+                var status=$(this).attr('name');
+                var priestID = $('#hdnAddPriestID').val();
+                if(priestID!=null||priestID!="")
+                {
+                    var Priest = new Object();
+                    Priest.priestID = priestID;
+                    Priest.Status = status;
+                    result = UpdateChurchIDPriest(Priest);
 
-                if (result.result == "1") {
-                    //$('#rowfluidDiv').show();
-                    //$('.alert-success').show();
-                    //$('.alert-success strong').text("Priest Added Successfully");
-                    noty({ text: 'Priest Added Successfully', type: 'success' });
-
+                    if (result.result == "1") {
+                        noty({ text: 'Priest Added Successfully', type: 'success' });
+                        $('#assVicardiv').remove();
+                        $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+                        check();
+                        $('#PriestEd').hide();
+                        $('#PriestShowDetails').hide();
+                        ClearFields();
+                    }
+                    else
+                    {
+                        noty({ text: result.result, type: 'error' });
+                    }
+                    
                 }
-                if (result.result != "1") {
-                    //$('#rowfluidDiv').show();
-                    //$('.alert-error').show();
-                    //$('.alert-error strong').text("Operation was Not Successful");
-                    noty({ text: 'Operation was Not Successful', type: 'error' });
-                }
-                $('#assVicardiv').remove();
-            
-                $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
-                check();
-                $('#PriestEd').hide();
-                $('#PriestShowDetails').hide();
-                ClearFields();
             }
+            catch (e) {
+                noty({ type: 'error', text: e.message });
+            }
+            
+            
         });
         ///////////-----------Delete button Event
         $('#btnDelete').click(function (e)
         {
-            var priestID = $("#hdfPriestID").val();
-            var Priest = new Object();
-            Priest.churchID = null;
-            Priest.priestID = $("#hdfPriestID").val();
-        
-        
-            result = DeletePriest(Priest);
+            try
+            {
+                var priestID = $("#hdfPriestID").val();
+                var Priest = new Object();
+                Priest.churchID = null;
+                Priest.priestID = $("#hdfPriestID").val();
 
-            if (result.result == "1") {
-                noty({ text: 'Priest Deleted Successfully', type: 'success' });
+
+                result = DeletePriest(Priest);
+
+                if (result.result == "1") {
+                    noty({ text: 'Priest Deleted Successfully', type: 'success' });
+                    $('#assVicardiv').remove();
+                    $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+                    check();
+                    $('#PriestEd').hide();
+                    $('#PriestShowDetails').hide();
+                }
+                else
+                {
+                    noty({ text: result.result, type: 'error' });
+                }
+               
             }
-            if (result.result != "1") {
-                noty({ text: 'Deleting Not Successful', type: 'error' });
+            catch (e) {
+                noty({ type: 'error', text: e.message });
             }
-            $('#assVicardiv').remove();
-        
-            $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
-            check();
-            $('#PriestEd').hide();
-            $('#PriestShowDetails').hide();
+            
         });
         //////////-----------Main button event for Save, Update
         $('#btnSavePriest').click(function (e) {
-            var Role = $(this).attr('name');
-            if (($('#ddlstatus').val() == 'Vicar')&&(Role=='Asst'))
+            try
             {
-                noty({ text: 'You Cant add multiple Vicars try Again !', type: 'information' });
-                return false;
-            }
-        
-        
-            var today = new Date();
-            var dobcheck = $('#priestDOB').val();
-            var ordcheck = $('#OrdinationDate').val();
-            if (dobcheck != "")
-            {
-                if (Datecheck(dobcheck) > today) {
-                    noty({ text: 'Invalid Date of birth !', type: 'information' });
+                var Role = $(this).attr('name');
+                if (($('#ddlstatus').val() == 'Vicar') && (Role == 'Asst')) {
+                    noty({ text: 'You Cant add multiple Vicars try Again !', type: 'information' });
                     return false;
                 }
-            }
-        
-            if (ordcheck != "")
-            {
-                if (Datecheck(ordcheck) > today) {
-                    noty({ text: 'Invalid Ordination Date !', type: 'information' });
-                    return false;
-                }
-            }
-        
-            PriestValidation();
 
+
+                var today = new Date();
+                var dobcheck = $('#priestDOB').val();
+                var ordcheck = $('#OrdinationDate').val();
+                if (dobcheck != "") {
+                    if (Datecheck(dobcheck) > today) {
+                        noty({ text: 'Invalid Date of birth !', type: 'information' });
+                        return false;
+                    }
+                }
+
+                if (ordcheck != "") {
+                    if (Datecheck(ordcheck) > today) {
+                        noty({ text: 'Invalid Ordination Date !', type: 'information' });
+                        return false;
+                    }
+                }
+
+                PriestValidation();
+            }
+            catch (e) {
+                noty({ type: 'error', text: e.message });
+            }
+            
         });
         //
         //Style setting for client side Validation
@@ -217,8 +244,9 @@ function savePriest()
                 noty({ text: 'Priest Added Successfully', type: 'success' });
 
             }
-            if (result.result != "1") {
-                noty({ text: 'Saving Not Successful', type: 'error' });
+            else
+            {
+                noty({ text: result.result, type: 'error' });
             }
 
             $('#assVicardiv').remove();
@@ -263,8 +291,9 @@ function savePriest()
             if (result.result == "1") {
                 noty({ text: 'Priest Edited Successfully', type: 'success' });
             }
-            if (result.result != "1") {
-                noty({ text: 'Saving Not Successful', type: 'error' });
+            else
+            {
+                noty({ text: result.result, type: 'error' });
             }
             $('#assVicardiv').remove();
         
@@ -332,7 +361,7 @@ function AutoComplete()
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
     
 }
@@ -376,7 +405,7 @@ function AutoComplete()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////*********************** Function for binding priest list vicar and asst vicar
     function check() {
-        
+        debugger;
         var priestDetails = {};
         var elems = $();
         var elemsAsst = $();
@@ -399,7 +428,7 @@ function AutoComplete()
         else
         {
             $('#VicarDefault').remove();
-            $('#AsstVicarDefault').remove();
+            //$('#AsstVicarDefault').remove();
             elemsEmtyVicar = elemsEmtyVicar.add(HtmlBindVicar());
             $('#VicarDivDisplay').empty();
             $('#VicarDivDisplay').append(elemsEmtyVicar);
@@ -509,26 +538,38 @@ function AutoComplete()
     }
     //Bind Details to view
     function BindDetails(priestID) {
-        
-        var PriestRow = {};
-        PriestRow = GetPriestDetailsUsingPiestID(priestID);
-        
-        document.getElementById('lblName').innerText = PriestRow.priestName;
-        document.getElementById('lblBapName').innerText = PriestRow.BaptisumName;
-        document.getElementById('lblEmail').innerText = PriestRow.emailId;
-        document.getElementById('lblMobile').innerText = PriestRow.mobile;
-        document.getElementById('lblParish').innerText = PriestRow.Parish;
-        document.getElementById('lblAddress').innerText = PriestRow.address;
-        document.getElementById('lblDiocese').innerText = PriestRow.Diocese;
-        document.getElementById('lblDob').innerText = PriestRow.dob;
-        document.getElementById('lblAbout').innerText = PriestRow.about;
-        document.getElementById('lblOrdination').innerText = PriestRow.dateOrdination;
-        document.getElementById('lblDesignation').innerText = PriestRow.designation;
-        document.getElementById('lblStatus').innerText = PriestRow.Status;
-        $('#priestDetailPreview').attr('src', PriestRow.imagePath);
-        $('#iconEditPriest').attr('name', PriestRow.priestID);
-        $('#bthCancelDetails').attr('name', 'View');
-        
+        try
+        {
+            var PriestRow = {};
+            PriestRow = GetPriestDetailsUsingPiestID(priestID);
+            if (PriestRow.result ==null)
+            {
+                document.getElementById('lblName').innerText = PriestRow.priestName;
+                document.getElementById('lblBapName').innerText = PriestRow.BaptisumName;
+                document.getElementById('lblEmail').innerText = PriestRow.emailId;
+                document.getElementById('lblMobile').innerText = PriestRow.mobile;
+                document.getElementById('lblParish').innerText = PriestRow.Parish;
+                document.getElementById('lblAddress').innerText = PriestRow.address;
+                document.getElementById('lblDiocese').innerText = PriestRow.Diocese;
+                document.getElementById('lblDob').innerText = PriestRow.dob;
+                document.getElementById('lblAbout').innerText = PriestRow.about;
+                document.getElementById('lblOrdination').innerText = PriestRow.dateOrdination;
+                document.getElementById('lblDesignation').innerText = PriestRow.designation;
+                document.getElementById('lblStatus').innerText = PriestRow.Status;
+                $('#priestDetailPreview').attr('src', PriestRow.imagePath);
+                $('#iconEditPriest').attr('name', PriestRow.priestID);
+                $('#bthCancelDetails').attr('name', 'View');
+            }
+            else
+            {
+                noty({ type: 'error', text: PriestRow.result });
+            }
+        }
+        catch(e)
+        {
+            noty({ type: 'error', text: e.message });
+        }
+               
     }
     //Onclick refresh on edit
     function cancel()
