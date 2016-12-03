@@ -539,6 +539,7 @@ function AutoComplete()
     // Bind Details for edit
     function editPriestDetails(this_obj)
     {
+        RemoveStyle();
         $('#btnCancelPriest').attr('name', '');
         var priestid = $(this_obj).attr('name');
         var PriestRow = {};
@@ -670,7 +671,7 @@ function AutoComplete()
     //CreatedBy Thomson
     function PriestValidation() {
         
-        $('#Displaydiv1').remove();
+        $('#Displaydiv').remove();
         var Name = $('#txtPriestName');
         var OrdinationDate = $('#OrdinationDate');
         var Role = $('#ddlstatus');
