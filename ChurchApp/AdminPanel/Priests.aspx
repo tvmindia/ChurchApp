@@ -105,9 +105,6 @@
 				</div>
                 </div>
             </div>
-			
-            <%--<div id="assVicardiv">
-            <div id="AsstVicarDefault">--%>
             <div class="" style="margin-top:4%!important;border-bottom:1.5px solid #78CD51;line-height:0px;"><h2>Asst Vicar</h2><a class="btnNew" id="btnAddNew" runat="server" style="left:93%!important;top:-14px;" title="ADD NEW" onclick="OpenNewAdd('Asst');"><i class="material-icons">+</i></a></div>
 			<div class="task low" id="AsstVicartask">
                  <div id="assVicardiv">
@@ -130,42 +127,7 @@
             </div>
             <div class="clearfix"></div>		
 			</div>
-                <%-- <div class="priority low"><span>Asst. Vicar</span><a href="#" class="btn btn-lg btn-round btn-primary" style="left:75%!important;" title="">NEW <i class="glyph-icon icon-plus"></i></a></div>
-                    <div class="task low">
-                    <ul class="dashboard-list vicarlist">
-				<li >
-				<img class="priestimage" src="../img/gallery/kozhipadan.jpg"/>
-                    </li>
-                 <li >
-				<span style="font-size:32px;font-weight:500;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color:#9e5d5d"> Fr.Varghees Kozhipadan</span> <br/>
-				<strong>Baptismal Name:</strong> Varghese <br/>
-                     <strong>House Name</strong> Kozhippadan <br/>
-				<strong>Status:</strong> Priest<br/>
-                     <strong>Date of Birth:</strong>  30-08-1982<br />
-                     <strong>Date of Ordination:</strong> 21-11-2009<br />
-                     <a href="#" style="color:saddlebrown;font-weight:700;">View more details</a>  <%-- left:75%;position:relative;--%>
-		        <%--</li>
-                </ul>
-					
-					</div>--%>
-                <%-- <div class="task low">
-                           
-                      <ul class="dashboard-list vicarlist">
-				<li >
-				<img class="priestimage" src="../img/gallery/priest.png"/>
-                    </li>
-                 <li >
-				<span style="font-size:32px;font-weight:500;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color:#9e5d5d"> No record Found</span> <br/>
-				<strong>Baptismal Name:</strong> No record Found <br/>
-                     <strong>House Name</strong> No record Found <br/>
-				<strong>Status:</strong> No record Found<br/>
-                     <strong>Date of Birth:</strong> No record Found<br />
-                     <strong>Date of Ordination:</strong> No record Found   
-				</li>
-                </ul>
-					
-					</div>--%>
-					
+                					
 				<div id="PriestShowDetails" style="display:none;margin-top:4%;" class="span6 noMarginLeft">
 				<div class="dark">
 				<h1>Details</h1>
