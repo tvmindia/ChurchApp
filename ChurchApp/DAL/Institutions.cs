@@ -195,7 +195,7 @@ namespace ChurchApp.DAL
                     Website = dr["Website"].ToString();
                     if (dr["Founded"].ToString()!="")
                     {
-                        Founded = (commonObj.Changeformat(dr["Founded"].ToString().ToString()).ToString("dd-MM-yyyy"));
+                        Founded = DateTime.Parse(dr["Founded"].ToString().ToString()).ToString("dd-MM-yyyy");
                     }
                     Mobile = dr["Mobile"].ToString();
                     churchId = dr["ChurchID"].ToString();

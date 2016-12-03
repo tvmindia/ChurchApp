@@ -1,14 +1,22 @@
 ﻿$("document").ready(function (e) {
    
     debugger;
-    $('input[type=text],input[type=password]').on('focus', function () {
-        $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3,#ErrorBox4,#ErrorBox5').hide(1000);
-    });
-    $('textarea,select').on('focus', function () {
-        $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3,#ErrorBox4,#ErrorBox5').hide(1000);
-    });
+    try
+    {
+        $('input[type=text],input[type=password]').on('focus', function () {
+            $(this).css({ background: 'white' });
+            $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3,#ErrorBox4,#ErrorBox5').hide(1000);
+        });
+        $('textarea,select').on('focus', function () {
+            $(this).css({ background: 'white' });
+            $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3,#ErrorBox4,#ErrorBox5').hide(1000);
+        });
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+   
     try
     {
         //box content collapse
@@ -23,7 +31,7 @@
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
     try
@@ -60,7 +68,7 @@
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
 
 
@@ -75,7 +83,7 @@
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
 
     try{ 
@@ -99,7 +107,8 @@
             });
                  
         });
-        } catch (e) { }
+    } catch (e)
+    { noty({ type: 'error', text: e.message }); }
 
     try {
         $(".ddlRoleName").select2({
@@ -109,7 +118,7 @@
         });
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
    
    
@@ -125,7 +134,7 @@
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 
@@ -141,7 +150,7 @@
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
 
     try {
@@ -154,7 +163,7 @@
         });
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
     try {
@@ -165,7 +174,7 @@
         });
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
     try {
@@ -178,7 +187,7 @@
         });
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
     try {
@@ -191,7 +200,7 @@
         });
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
    
    
@@ -418,7 +427,7 @@
 
             }
             catch (e) {
-
+                noty({ type: 'error', text: e.message });
             }
         }
         
@@ -431,22 +440,26 @@
 
     
     $('.ChurchClear').click(function (e) {
-
-        RemoveStyle();
-
-        $('#rowfluidDivAlert').hide();
-        $('.alert').hide();
-        $("#txtChurchName").val('');
-        $(".ddlTownCode").select2("val", "");
-        $("#txtAddress").val('');
-        $("#txtDescription").val('');
-        $("#txtAbout").val('');
-        $("#txtPhone1").val('');
-        $("#txtPhone2").val('');
-        $("#txtLongitude").val('');
-        $("#txtLatitude").val('');
-        $("#hdfChurchID").val('');
-        $("#ChurchPreview").attr('src', '/img/defaultalbumadd.jpg');
+        try
+        {
+            RemoveStyle();
+            $("#txtChurchName").val('');
+            $(".ddlTownCode").select2("val", "");
+            $("#txtAddress").val('');
+            $("#txtDescription").val('');
+            $("#txtAbout").val('');
+            $("#txtPhone1").val('');
+            $("#txtPhone2").val('');
+            $("#txtLongitude").val('');
+            $("#txtLatitude").val('');
+            $("#hdfChurchID").val('');
+            $("#ChurchPreview").attr('src', '/img/defaultalbumadd.jpg');
+        }
+        catch(e)
+        {
+            noty({ type: 'error', text: e.message });
+        }
+     
 
     });
 
@@ -454,58 +467,81 @@
     
 
     $('.RolesClear').click(function (e) {
-        RemoveStyle();
-
-      
-        $(".ddlRoleName").select2("val", "");
-        $(".ddlChurch").select2("val", "");
+        try
+        {
+            RemoveStyle();
+            $(".ddlRoleName").select2("val", "");
+            $(".ddlChurch").select2("val", "");
+        }
+        catch(e)
+        {
+            noty({ type: 'error', text: e.message });
+        }
+       
     });
 
     $('.UserClear').click(function (e) {
-
-        RemoveStyle();
+        try
+        {
+            RemoveStyle();
        
-        $(".ddlChurchuser").select2("val", "");
-        $("#txtUserName").val('');
-        $("#txtUserAddress").val('');
-        $("#txtMobile").val('');
-        $("#txtEmail").val('');
+            $(".ddlChurchuser").select2("val", "");
+            $("#txtUserName").val('');
+            $("#txtUserAddress").val('');
+            $("#txtMobile").val('');
+            $("#txtEmail").val('');
         
-        $("#datepickerdob").val('');
-        $("#txtLoginName").val('');
-        $("#txtPassword").val('');
-        $("#txtconfirmpswd").val('');
+            $("#datepickerdob").val('');
+            $("#txtLoginName").val('');
+            $("#txtPassword").val('');
+            $("#txtconfirmpswd").val('');
 
-        $(".ddlRoles").select2("val", "");
+            $(".ddlRoles").select2("val", "");
+        }
+        catch (e) {
+            noty({ type: 'error', text: e.message });
+        }
+        
     });
 
     
 
     $('.clearDesignation').click(function (e) {
+        try
+        {
+            RemoveStyle();
 
-        RemoveStyle();
-       
-        $(".ddlOrganization").select2("val", "");
-        $("#txtPosition").val('');
-        $("#txtOrder").val('');
-       
-        $("#hdfDesignationID").val('');
+            $(".ddlOrganization").select2("val", "");
+            $("#txtPosition").val('');
+            $("#txtOrder").val('');
+
+            $("#hdfDesignationID").val('');
+        }
+      
+        catch(e)
+        {
+            noty({ type: 'error', text: e.message });
+        }
     });
 
     $('.ClearSaint').click(function (e) {
-
-        RemoveStyle();
-       
+        try
+        {
+            RemoveStyle();
+            $("#txtSaintName").val('');
+            $("#txtSaintDescription").val('');
+            $("#imgSaint").attr('src', '/img/defaultalbumadd.jpg');
+            $("#hdfPatronID").val('');
+        }
+        catch (e) {
+            noty({ type: 'error', text: e.message });
+        }
      
-        $("#txtSaintName").val('');
-        $("#txtSaintDescription").val('');
-        $("#imgSaint").attr('src', '/img/defaultalbumadd.jpg');
-        $("#hdfPatronID").val('');
     });
 
   
     $('#btnUserAdd').click(function (e) {
-        debugger;
+       
      
 
         try
@@ -617,7 +653,7 @@
         }
         catch(e)
         {
-
+            noty({ type: 'error', text: e.message });
         }
 
 
@@ -685,15 +721,14 @@
         }
         catch(e)
         {
-
+            noty({ type: 'error', text: e.message });
         }
 
     });
 
 
     $('#btnDesignationAdd').click(function (e) {
-        $('#rowfluidDivAlert').hide();
-        $('.alert').hide();
+      
         try
         {
             debugger;
@@ -759,104 +794,110 @@
         }
         catch(e)
         {
-
+            noty({ type: 'error', text: e.message });
         }
        
     });
 
 
     $('#btnSaintAdd').click(function (e) {
-        debugger;
-        var saintflag = PatronValidation();
+        try
+        {
+            var saintflag = PatronValidation();
 
-        if (saintflag) {
+            if (saintflag) {
 
 
-            var PatronMaster = new Object();
-            PatronMaster.patronMasterName = $("#txtSaintName").val();
-            PatronMaster.description = $("#txtSaintDescription").val();
+                var PatronMaster = new Object();
+                PatronMaster.patronMasterName = $("#txtSaintName").val();
+                PatronMaster.description = $("#txtSaintDescription").val();
 
-            var guid = createGuid();
-            if (guid != null) {
-                var imgresult = "";
-                var _URL = window.URL || window.webkitURL;
-                var formData = new FormData();
-                var imagefile;
-
-                if (((imagefile = $('#UpSaint')[0].files[0]) != undefined)) { //App image insertion to table as well as folder
+                var guid = createGuid();
+                if (guid != null) {
+                    var imgresult = "";
+                    var _URL = window.URL || window.webkitURL;
                     var formData = new FormData();
-                    var tempFile;
-                    if ((tempFile = $('#UpSaint')[0].files[0]) != undefined) {
-                        tempFile.name = guid;
-                        formData.append('NoticeAppImage', tempFile, tempFile.name);
-                        formData.append('GUID', guid);
-                        formData.append('createdby', document.getElementById("LoginName").innerHTML);
+                    var imagefile;
+
+                    if (((imagefile = $('#UpSaint')[0].files[0]) != undefined)) { //App image insertion to table as well as folder
+                        var formData = new FormData();
+                        var tempFile;
+                        if ((tempFile = $('#UpSaint')[0].files[0]) != undefined) {
+                            tempFile.name = guid;
+                            formData.append('NoticeAppImage', tempFile, tempFile.name);
+                            formData.append('GUID', guid);
+                            formData.append('createdby', document.getElementById("LoginName").innerHTML);
+                        }
+                        formData.append('ActionTyp', 'NoticeAppImageInsert');
+                        AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                        PatronMaster.imageID = guid;
                     }
-                    formData.append('ActionTyp', 'NoticeAppImageInsert');
-                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    PatronMaster.imageID = guid;
-                }
-                else {
-                    if ($('#hdfPatronImageID').val() != '') {
-                        PatronMaster.imageID = $('#hdfPatronImageID').val(); // If no image is selected ,while updating, old imagid itself passed which is stored in hiddenfield
+                    else {
+                        if ($('#hdfPatronImageID').val() != '') {
+                            PatronMaster.imageID = $('#hdfPatronImageID').val(); // If no image is selected ,while updating, old imagid itself passed which is stored in hiddenfield
+                        }
                     }
                 }
+
+                if ($('#hdfPatronID').val() != "") { //Case Update
+                    PatronMaster.patronMasterId = $('#hdfPatronID').val();
+
+                    result = UpdatePatron(PatronMaster);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Updated successfully' });
+                            BindPatrons();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Updation was not successfull' });
+
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if ($('#hdfPatronImageID').val() != '' && (((imagefile = $('#UpSaint')[0].files[0]) != undefined))) {
+
+                        //--if patron is updated with new image, the old image should delete from folder and table
+                        var AppImages = new Object();
+                        AppImages.appImageId = $('#hdfPatronImageID').val();
+                        DeleteAppImage(AppImages);
+
+                        if ($('#hdfPatronImageURL').val() != "") {
+                            DeleteFileFromFolder($('#hdfPatronImageURL').val());
+                        }
+                        $('#hdfPatronImageID').val("");
+                        $('#hdfPatronImageURL').val("");
+                    }
+                }
+                else {  //Case Insert
+                    result = InsertPatron(PatronMaster);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Inserted successfully' });
+                            BindPatrons();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Insertion was not successfull' });
+
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+
+                //ClearModalControls();
             }
 
-            if ($('#hdfPatronID').val() != "") { //Case Update
-                PatronMaster.patronMasterId = $('#hdfPatronID').val();
-
-                result = UpdatePatron(PatronMaster);
-                switch (result.status) {
-                    case "1":
-                        noty({ type: 'success', text: 'Updated successfully' });
-                        BindPatrons();
-                        break;
-                    case "0":
-                        noty({ type: 'error', text: 'Updation was not successfull' });
-
-                        break;
-                    default:
-                        break;
-                }
-
-                if ($('#hdfPatronImageID').val() != '' && (((imagefile = $('#UpSaint')[0].files[0]) != undefined))) {
-
-                    //--if patron is updated with new image, the old image should delete from folder and table
-                    var AppImages = new Object();
-                    AppImages.appImageId = $('#hdfPatronImageID').val();
-                    DeleteAppImage(AppImages);
-
-                    if ($('#hdfPatronImageURL').val() != "") {
-                        DeleteFileFromFolder($('#hdfPatronImageURL').val());
-                    }
-                    $('#hdfPatronImageID').val("");
-                    $('#hdfPatronImageURL').val("");
-                }
+            else {
+                return false;
             }
-            else {  //Case Insert
-                result = InsertPatron(PatronMaster);
-                switch (result.status) {
-                    case "1":
-                        noty({ type: 'success', text: 'Inserted successfully' });
-                        BindPatrons();
-                        break;
-                    case "0":
-                        noty({ type: 'error', text: 'Insertion was not successfull' });
-
-                        break;
-                    default:
-                        break;
-                }
-            }
-            
-           
-            //ClearModalControls();
         }
-
-        else {
-            return false;
+        catch (e) {
+            noty({ type: 'error', text: e.message });
         }
+      
 
     });
 
@@ -1507,12 +1548,12 @@ function RemoveChurch(curobj)
             case "1":
                 noty({ type: 'success', text: 'Deleted successfully' });
                 try {
-                    var $churchone = $(".ddlChurch").select2({
+                     $(".ddlChurch").select2({
                         placeholder: "Choose Church",
                         allowClear: true,
                         data: BindChurchDropdown()
                     });
-                    var $churchSelect = $(".ddlChurchuser").select2({
+                    $(".ddlChurchuser").select2({
                         placeholder: "Choose Church",
                         allowClear: true,
                         data: BindChurchDropdown()
