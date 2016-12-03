@@ -422,6 +422,7 @@ function AddNotification()
     $('#ErrorBox,#ErrorBox1').hide(1000);
     $('input[type=text],input[type=password]').css({ background: 'white' });
     $('textarea,select').css({ background: 'white' });
+    $("#txtCaption").focus();
 }
 
 function DeleteNotification(Notifications)
