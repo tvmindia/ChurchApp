@@ -40,7 +40,7 @@
 	<!-- end: CSS -->
 
     <style type="text/css">
-			body { background: url(img/bgChurch.jpg) no-repeat !important; 
+			body { background: url(img/Bgrepeat.jpg) 50% 0% !important; 
                    background-position:left!important;
 			}
     </style>
