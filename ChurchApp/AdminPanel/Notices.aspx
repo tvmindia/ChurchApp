@@ -59,7 +59,7 @@
                     <div id="divLatestEvents">
                         <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
                             <h2>Latest Notices</h2>
-                           <a class="btnNew" id="btnAddNew" runat="server" title="" onclick="AddNewNoticeFormat();"><i title="Add New Notice">+</i></a>
+                           <a class="btnNew AddNew" id="btnAddNew" runat="server" title="" onclick="AddNewNoticeFormat();"><i title="Add New Notice">+</i></a>
 
                         </div>
                         <%--class="box-content"--%> 
@@ -133,7 +133,7 @@
                                     <label class="control-label" for="focusedInput" id="lblDescTitle">Description</label>
                                     <div class="controls">
                                         <label class="control-label" for="focusedInput" id="lblNoticeDescription" style="display: none">Notice Description</label>
-                                        <textarea tabindex="10" class="input-large" id="txtDescription" name="Description" rows="4" placeholder=""></textarea>
+                                        <textarea class="input-large" id="txtDescription" name="Description" rows="4" placeholder=""></textarea>
                                     </div>
                                 </div>
 
@@ -176,7 +176,7 @@
                                     <div class="control-group" id="DivNotificationContent">
                                     <label class="control-label" for="focusedInput">Notification Content</label>
                                     <div class="controls">
-                                        <textarea tabindex="10" class="input-large" id="txtnotificationCOntent" name="Description" rows="4" placeholder=""></textarea>
+                                        <textarea class="input-large" id="txtnotificationCOntent" name="Description" rows="4" placeholder=""></textarea>
 
                                     </div>
                                 </div>
@@ -198,7 +198,7 @@
                                 </div>--%>
 
                                             <div class="">
-                                                <div class="accordion-inner" style="border-top:none;height:400px">
+                                                <div class="accordion-inner" style="border-top:none;height:auto;min-height:400px;">
                                                     <%--<a class="btn btn-toolbar" style="border:1px solid white" href="../img/No-Img_Chosen.png"  ><i class="icon-zoom-in"></i></a>--%>
 
                                                     <img class="noticeImage img-polaroid" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />
@@ -249,8 +249,8 @@
 
 
                                 <div class="form-actions">
-                                    <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
-                                    <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
+                                    <a class="btn btn-primary saveAll" id="btnSave"><span></span>Save</a>
+                                    <a class="btn btn-primary cancelAll" id="btnCancel"><span></span>Cancel</a>
                                     <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
                                 </div>
                             </fieldset>

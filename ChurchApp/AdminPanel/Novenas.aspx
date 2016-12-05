@@ -50,7 +50,7 @@
                 <div class="box-header" id="DivBoxHeader">
                     <h2><i class="halflings-icon picture"></i><span class="break" id="spnSaint">Novenas</span></h2>
                     <div class="box-icon">
-                            <a class="btnNew" onclick="AddNewNovena();"><i title="Add New Novena">+</i></a>
+                            <a class="btnNew AddNew" onclick="AddNewNovena();"><i title="Add New Novena">+</i></a>
 					        <a class="btnEdit" style="position: relative; top: -1px;  right: 0px;" title="Edit" id="btnEditPatron"><i class="halflings-icon white pencil" id="iconPatronRefresh" aria-hidden="true"></i></a>
                             <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
                             <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>
@@ -339,7 +339,7 @@
                                     </fieldset>
                                 </div>
                                 <div class="form-actions">
-                                    <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
+                                    <a class="btn btn-primary saveAll" id="btnSave"><span></span>Save</a>
                                     <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
                                     <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
 

@@ -83,6 +83,14 @@ function OnUpload(f) {
     }
     return true;
 }
+//Date validation is the date is valid
+function Datecheck(DateNow) {
+    var date = DateNow.substring(0, 2);
+    var month = DateNow.substring(3, 5);
+    var year = DateNow.substring(6, 10);
+    var myDate = new Date(year, month - 1, date);
+    return myDate;
+}
 function scriptvalidate() {
 
     var ictrl;
@@ -161,7 +169,15 @@ function getJsonData(data, page) {
         dataType: "json"
 
     }).done(function (data) {
-
+       
+        if (data != null)
+        {
+            var vald = JSON.parse(data.d);
+            if(vald.statusCode=='555')
+            {
+                window.location.replace(window.location.protocol + "//" + window.location.host + vald.url );
+            }
+        }
         $('#displaywait').hide();
         jsonResult = data;
     });

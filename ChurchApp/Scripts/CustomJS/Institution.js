@@ -49,7 +49,7 @@ $(document).ready(function () {
 
     var value = $('#ContentPlaceHolder2_btnAddNew').val();
     if (value != "") {
-        debugger;
+        
         $('#iconEditInstitute').remove();
     }
 });
@@ -125,7 +125,7 @@ function SaveAdministrator()
 {
     try
     {
-        debugger;
+        
         var AppImgURL = '';
         var AdminID = $('#hdnAdminID').val();
         var InstituteID = $('#hdnInstituteID').val();
@@ -332,7 +332,7 @@ function SaveInstitution()
         }
             //-----------------------UPDATE-------------------//
         else {
-            debugger;
+            
             var Institutions = new Object();
             Institutions.name = $('#txtInstituteName').val();
             Institutions.address = $('#txtAddress').val();
@@ -350,7 +350,7 @@ function SaveInstitution()
 
             // DeletedImgID = imageId;
             // DeletedImgPath = imgPath
-            debugger;
+            
             var guid = createGuid();
             if (((imagefile = $('#instituteimg')[0].files[0]) != undefined)) {
                 var formData = new FormData();
@@ -531,7 +531,7 @@ function BindEditCard(ID) {
 /////////////////////////////////////////////////////////////**************Html bind dynamic
 // Html code for binding Institution details
 function HtmlBindInstitutions(InstituteDetails, i) {
-    debugger;
+    
     var ID = "'" + InstituteDetails.ID + "'";
     var imageurl = null;
     if (InstituteDetails.URL != null)
@@ -571,7 +571,7 @@ function HtmlBindCardsEmpty() {
 }
 //Html code for binding Edit admincard details
 function HtmlEditBindCards(AdminDetails, i) {
-    debugger;
+    
     var ID = "'" + AdminDetails.ID + "'";
     var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '"/>'
       + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address><i class="icon-edit" name=' + ID + ' style="position: relative;top: -19px;left: 105px;cursor:pointer;" onclick="EditAdministrator(this)"></i><i class="icon-trash" name=' + ID + ' style="position: relative;top: -19px;left: 109px;cursor:pointer;" onclick="DeleteAdministrator(this);"></i></div>'
@@ -590,6 +590,7 @@ function EditAdministrator(this_Obj)
 {
     try
     {
+        RemoveStyle();
         var AdminRow = {};
         var AdminID = $(this_Obj).attr('name');
         $('#hdnAdminID').val(AdminID);
@@ -671,6 +672,7 @@ function OpenInstituteDetails(intituteID) {
 function EditInstitute(this_obj) {
     try
     {
+        RemoveStyle();
         var intituteID = $(this_obj).attr('name');
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);;
@@ -723,7 +725,7 @@ function DeleteInstituteclick(this_Obj)
 {
     try
     {
-        debugger;
+        
         var r = confirm("Are You Sure to Delete?");
         if (r == true)
         {
@@ -781,6 +783,7 @@ function NewInstitute() {
         debugger;
         ClearFields();
         RemoveStyle();
+        
         $('#rowfluidDiv').hide();
         $('#instituteimg').val('');
         $('#divAccoAdmininfo').hide();
@@ -797,6 +800,7 @@ function NewInstitute() {
             $('#EditGenDetails').toggleClass("active");
             $('#EditGen').toggleClass("show");
         }
+        $('#txtInstituteName').focus();
     }
     catch (e) {
 
@@ -1037,7 +1041,7 @@ function DeleteInstitute(InstituteRow) {
 //Basic Validation For New Institution
 //CreatedBy Thomson
 function InstitutionValidation() {
-    debugger;
+    
     $('#Displaydiv').remove();
     var Name = $('#txtInstituteName');
     var Address = $('#txtAddress');
@@ -1102,7 +1106,7 @@ function InstitutionValidation() {
 //Basic Validation For New Administrator
 //CreatedBy Thomson
 function AdminValidation() {
-    debugger;
+    
     $('#Displaydiv1').remove();
     var Name = $('#txtName');
     var Phone = $('#txtMobile');

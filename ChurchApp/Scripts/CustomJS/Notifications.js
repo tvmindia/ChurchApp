@@ -291,6 +291,7 @@ function SaveNotification()
 {
     debugger;
     var result = "";
+    var today = new Date();
     var caption = $("#txtCaption").val();
     var type = $("#ddlType").val();
     var description = $("#txtDescription").val();
@@ -310,43 +311,49 @@ function SaveNotification()
     if ($("#LinkID").val() != undefined) {
         var linkID = $("#LinkID").val().replace('/', "");
     }
-
-    var Notifications = new Object();
-    Notifications.caption = caption;
-    Notifications.notificationType = type;
-    Notifications.description = description;
-    Notifications.startDate = startDate;
-    Notifications.expiryDate = expiryDate;
-    Notifications.churchId = churchId;
-    Notifications.linkID = linkID;
-    Notifications.notificationID = notificationID;
-    var addOrEdit = $("#detailsHeading").text();
-    debugger;                             
-                    if (addOrEdit == "Add Notification") {
-                        result = InsertNotification(Notifications);
-                        if (result == "1") {
-                            BindAsyncNotificationTable();
-                            BindAsynOldNotificationTable();
-                            $("#NotificationEditDivBox").hide();
-                            noty({ text: 'Saved Successfully', type: 'success' });
-                        }
-                        else {
-                            noty({ text: 'Error..!!!', type: 'error' });
-                        }
-                    }
-                    else {
-                        result = UpdateNotification(Notifications);
-                        if (result == "1") {
-                            BindAsyncNotificationTable();
-                            BindAsynOldNotificationTable();
-                            //$("#NotificationEditDivBox").hide();
-                            $(".dark").css("margin-top", "30px");
-                            noty({ text: 'Updated Successfully', type: 'success' });
-                        }
-                        else {
-                            noty({ text: 'Error..!!!', type: 'error' });
-                        }
-                    }
+    if (expiryDate < startDate)
+    {
+        noty({ text: 'Expiry date should be greater than start date', type: 'info' });
+    }
+    else
+    {
+        var Notifications = new Object();
+        Notifications.caption = caption;
+        Notifications.notificationType = type;
+        Notifications.description = description;
+        Notifications.startDate = startDate;
+        Notifications.expiryDate = expiryDate;
+        Notifications.churchId = churchId;
+        Notifications.linkID = linkID;
+        Notifications.notificationID = notificationID;
+        var addOrEdit = $("#detailsHeading").text();
+        debugger;
+        if (addOrEdit == "Add Notification") {
+            result = InsertNotification(Notifications);
+            if (result == "1") {
+                BindAsyncNotificationTable();
+                BindAsynOldNotificationTable();
+                $("#NotificationEditDivBox").hide();
+                noty({ text: 'Saved Successfully', type: 'success' });
+            }
+            else {
+                noty({ text: 'Error..!!!', type: 'error' });
+            }
+        }
+        else {
+            result = UpdateNotification(Notifications);
+            if (result == "1") {
+                BindAsyncNotificationTable();
+                BindAsynOldNotificationTable();
+                //$("#NotificationEditDivBox").hide();
+                $(".dark").css("margin-top", "30px");
+                noty({ text: 'Updated Successfully', type: 'success' });
+            }
+            else {
+                noty({ text: 'Error..!!!', type: 'error' });
+            }
+        }
+    }
 }
 
 function DetailsView()
@@ -422,6 +429,7 @@ function AddNotification()
     $('#ErrorBox,#ErrorBox1').hide(1000);
     $('input[type=text],input[type=password]').css({ background: 'white' });
     $('textarea,select').css({ background: 'white' });
+    $("#txtCaption").focus();
 }
 
 function DeleteNotification(Notifications)

@@ -25,7 +25,7 @@
 					<%--<div class="priority high">--%>
                         <div class="" id="highNoty" style="border-bottom:1.5px solid #F44336;line-height:0px;">
                             <h2>Latest Notifications</h2>
-                            <a class="btnNew" id="btnAddNew" runat="server" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
+                            <a class="btnNew AddNew" id="btnAddNew" runat="server" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
                         
 					<%--</div>--%>
 					<%--<div class="task high" style="padding-left: 5px;" >--%>
@@ -148,7 +148,7 @@
 								<label class="control-label" for="focusedInput" >Description</label>
 								<div class="controls">
 								 <label class="control-label" for="focusedInput" id="lblDescription"></label>
-                                     <textarea tabindex="10" class="input-large" id="txtDescription" maxlength="200" name="Description" rows="5" placeholder="Enter your description here..."></textarea>
+                                     <textarea class="input-large" id="txtDescription" name="Description" rows="5" placeholder="Enter your description here..."></textarea>
 								  <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
 								</div>
 								</div>
@@ -170,9 +170,9 @@
 							</div>
 
 							<div class="form-actions">
-							  <a class="btn btn-primary Save">Save</a>
+							  <a class="saveAll btn btn-primary Save">Save</a>
                                 <a class="btn btn-primary Delete">Delete</a>
-							  <a class="btn btn-primary Cancel">Cancel</a>
+							  <a class="cancelAll btn btn-primary Cancel">Cancel</a>
 							</div>
 						  </fieldset>
 					</div>   

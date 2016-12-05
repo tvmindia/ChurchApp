@@ -106,6 +106,25 @@ $("document").ready(function (e) {
     $('#btnSave').click(function (e) {
         $('#rowfluidDiv').show();
         debugger;
+        if ($("#hdfEventID").val() == "") {
+            var today = new Date();
+            var startcheck = $('#dateStartDate').val();
+            var endcheck = $('#dateEndDate').val();
+            var Expirecheck = $('#dateExpiryDate').val();
+            if (startcheck != "") {
+                if (Datecheck(startcheck) < today) {
+                    noty({ text: 'Invalid Start Date !', type: 'information' });
+                    return false;
+                }
+            }
+
+            if (endcheck != "" || Expirecheck != "") {
+                if ((Datecheck(endcheck) < today) || (Datecheck(Expirecheck) < today)) {
+                    noty({ text: 'Invalid End/Expiry Date !', type: 'information' });
+                    return false;
+                }
+            }
+        }
         var IsValid = EventValidation();
 
         if (IsValid) {
@@ -690,7 +709,7 @@ function ClearControls() {
 
 function SetControlsInNewEventFormat() {
     ClearControls();
-
+    RemoveStyle();
     $("#lblEventName").hide();
     $("#lblDescription").hide();
     $("#lblStartDate").hide();
@@ -711,7 +730,7 @@ function SetControlsInNewEventFormat() {
     $("#EventEditDivBox").show();
     $("#EditContent").show();
     $("#divView").hide();
-
+    $("#txtEventName").focus();
     $("#btnSave").show();
     $("#btnCancel").show();
     $("#btnDelete").hide();
@@ -732,8 +751,7 @@ function SetControlsInViewFormat() {
     //$("#lblStartDate").show();
     //$("#lblEndDate").show();
     //$("#lblExpiryDate").show();
-
-    //$("#txtEventName").hide();
+    //$("#txtEventName").focus();
     //$("#txtDescription").hide();
     //$("#dateStartDate").hide();
     //$("#dateEndDate").hide();
@@ -782,6 +800,8 @@ function SetControlsInEditableFormat() {
 
 //Edit -- view only
 function EditOnClick(id) {
+    RemoveStyle();
+
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();

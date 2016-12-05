@@ -42,7 +42,7 @@
               
                <div class="span6">
                    <h2>Pious Organizations</h2>
-                   <div class="" style="border-bottom: 1.5px solid #FA603D;line-height: 0px;"><a class="btnNew" id="btnAddNew" runat="server" style="left:93%!important;top:-14px;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+                   <div class="" style="border-bottom: 1.5px solid #FA603D;line-height: 0px;"><a class="btnNew AddNew" id="btnAddNew" runat="server" style="left:93%!important;top:-14px;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   
             <div id="Institutediv" style="margin-top:6%">
             <div id="InstituteDefault">
@@ -206,8 +206,8 @@
 						<input type="hidden" id="hdnInstutID" />
                         <input type="hidden" id="hdnPatron" />
 							<div class="form-actions span12">
-							  <a class="btn btn-primary" name="" id="btnSaveInstitute">Save changes</a>
-                                <a id="btncancelInstitute" name="" class="btn btn-primary" onclick="Cancel(this);">Cancel</a>
+							  <a class="btn btn-primary saveAll" name="" id="btnSaveInstitute">Save changes</a>
+                                <a id="btncancelInstitute" name="" class="btn btn-primary cancelAll" onclick="Cancel(this);">Cancel</a>
                                 <a class="btn btn-primary" name="" id="btnDeleteInstitute">Delete</a>
 							  
 							</div>

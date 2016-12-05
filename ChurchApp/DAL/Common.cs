@@ -22,6 +22,18 @@ namespace ChurchApp.DAL
             CultureInfo sa = new CultureInfo(culture);
             return DateTime.ParseExact(DateNow, format, sa);
         }
+        public Object RedirctCurrentRequest()
+        {
+            DAL.Const Const = new DAL.Const();
+            Object sessionOutObj = new
+            {
+                //Normal code is 200 here i session is out so adding 555
+                statusCode = 555,
+                url = Const.LoginPageURL
+
+            };
+            return sessionOutObj;
+        }
 
     }
     public class Const
@@ -322,6 +334,8 @@ namespace ChurchApp.DAL
             string sRet = oInfo.Name;
             return sRet;
         }
+
+     
 
         //---* Order Status Notification * ---//
         //public string OrderReady

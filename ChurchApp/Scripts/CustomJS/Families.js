@@ -796,6 +796,7 @@ function AddFamilyUnit()
     $("#familyUnitAddOrEdit").text("Add");
     $("#txtUnitName").val("");
     $("#FamilyAdd").css("margin-top", "1%");
+    $("#txtUnitName").focus();
 }
 function BindSelect() {
     debugger;
@@ -1194,7 +1195,8 @@ function AddFamily()
     $("#txtLastName").removeAttr('disabled');
     $("#txtPhone").removeAttr('disabled');
     $("#txtAddress").removeAttr('disabled');
-   // $("#divAdminInfo").css("margin-top", "7%");
+    // $("#divAdminInfo").css("margin-top", "7%");
+    $("#txtFirstName").focus();
 }
 
 // display div to add family member
@@ -1214,6 +1216,7 @@ function AddFamilyMember()
     $("#txtAddress").removeAttr('disabled');
     $("#FamilyAdd").css("margin-top", "1%");
     $("#MemberImg").attr("src", "../img/gallery/priest.png");
+    $("#txtFirstName").focus();
     } 
 function FamilyMembersAutoBind() {
     debugger;

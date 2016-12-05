@@ -1,7 +1,5 @@
 ﻿$("document").ready(function (e) {
-   
-    debugger;
-    try
+  try
     {
         $('input[type=text],input[type=password]').on('focus', function () {
             $(this).css({ background: 'white' });
@@ -48,7 +46,6 @@
             alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
             $("#txtLongitude").val(e.latLng.lng());
             $("#txtLatitude").val(e.latLng.lat());
-
         });
     }
     catch(e)
@@ -1564,7 +1561,7 @@ function RemoveChurch(curobj)
                 }
                 BindAllChurches();
                 break;
-            case "0":
+           case "0":
                 noty({ type: 'error', text: 'Deletion was not successfull' });
                
                 break;

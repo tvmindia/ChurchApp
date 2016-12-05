@@ -4,9 +4,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <link href="../CSS/CustomCSS/Events.css" rel="stylesheet" />
-
-    <script src="../Scripts/CustomJS/Events.js"></script>
     <script src="../Scripts/CustomJS/Common.js"></script>
+    <script src="../Scripts/CustomJS/Events.js"></script>
+    
    
       <link href="../CSS/lightbox.css" rel="stylesheet" />
     <script src="../Scripts/lightbox.js"></script>
@@ -53,7 +53,7 @@
                     <div id="divLatestEvents">
                         <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
                             <h2>Latest Events</h2>
-                            <a class="btnNew" id="btnAddNew" runat="server" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Event">+</i></a>
+                            <a class="btnNew AddNew" id="btnAddNew" runat="server" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Event">+</i></a>
 
                         </div>
                        
@@ -133,7 +133,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="focusedInput">Description</label>
                                     <div class="controls">
-                                        <textarea tabindex="10" class="input-xlarge" id="txtDescription" name="Description" rows="4" placeholder="" ></textarea>
+                                        <textarea class="input-xlarge" id="txtDescription" name="Description" rows="4" placeholder="" ></textarea>
                                         <label class="control-label" id="lblDescription" for="focusedInput"></label>
 
                                     </div>
@@ -207,7 +207,7 @@
                                 <div class="control-group" id="DivNotificationContent">
                                     <label class="control-label" for="focusedInput">Notification Content</label>
                                     <div class="controls">
-                                        <textarea tabindex="10" class="input-xlarge" id="txtnotificationCOntent" name="Description" rows="5" placeholder="" style="width: 70%"></textarea>
+                                        <textarea class="input-xlarge" id="txtnotificationCOntent" name="Description" rows="5" placeholder="" style="width: 70%"></textarea>
 
                                     </div>
                                 </div>
@@ -221,7 +221,7 @@
                                     <div class="">
 
                                         <div class="">
-                                            <div class="accordion-inner" style="border-top:none;height:400px" >
+                                            <div class="accordion-inner" style="border-top:none;height:auto;min-height:400px;" >
                                                 <a id="aZoomEventImage" class='example-image-link' href='../img/No-Img_Chosen.png' data-lightbox='example-set' data-title='Click anywhere to close.'>
                                                 <img class="eventImage img-polaroid" id="eventPreviewOnView" src="../img/No-Img_Chosen.png" /></a>
 
@@ -255,8 +255,8 @@
 
 
                             <div class="form-actions">
-                                <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
-                                <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
+                                <a class="btn btn-primary saveAll" id="btnSave"><span></span>Save</a>
+                                <a class="btn btn-primary cancelAll" id="btnCancel"><span></span>Cancel</a>
                                 <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
 
                             </div>

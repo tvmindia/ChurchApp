@@ -100,7 +100,7 @@
                              </div>
                         </div>
                       <div class="form-actions">
-								<a class="btn btn-primary AddMass">Save</a>
+								<a class="btn btn-primary AddMass saveAll">Save</a>
 								<a class="btn cancel">Cancel</a>
 							  </div>
                 </div>
