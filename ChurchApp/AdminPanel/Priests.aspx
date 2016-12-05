@@ -252,7 +252,7 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtPriestName" autocomplete="off" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtPriestName" placeholder="Search / Add.." autocomplete="off" type="text"/>
                                 </div>
 								</div>
                          <div class="control-group">

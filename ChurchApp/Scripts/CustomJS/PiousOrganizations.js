@@ -486,6 +486,7 @@ function BindInstituteslist() {
 //Bind Pious Organization Details to view
 function BindDetails(intituteID) {
     try {
+        debugger;
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);
         ClearFields();
@@ -805,6 +806,7 @@ function NewInstitute() {
             $('#EditGenDetails').toggleClass("active");
             $('#EditGen').toggleClass("show");
         }
+        $('#txtInstituteName').focus();
     }
     catch (e) {
 

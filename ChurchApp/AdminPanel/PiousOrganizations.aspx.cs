@@ -147,6 +147,11 @@ namespace ChurchApp.AdminPanel
             string status = null;
             try
             {
+                if(PiousObj.PatronID=="")
+                {
+                    PiousObj.PatronID = null;
+                }
+                
                 PiousObj.updatedBy = UA.userName;
                 status = PiousObj.UpdatePiousOrg().ToString();
                 PiousObj.results = status;

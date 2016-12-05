@@ -192,7 +192,10 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdatePiousOrg]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(piousOrgID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
-                cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(PatronID);
+                if(PatronID!=null)
+                {
+                    cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(PatronID);
+                }
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = Name;
                 cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description;
                 if(albumId!=null)

@@ -160,7 +160,7 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Patron:</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Patron" id="txtPatron" type="text"/>
+								  <input class="input-large focused" name="Patron" id="txtPatron" type="text" placeholder="Search Patron"/>
                                 </div>
 								</div>
                      
