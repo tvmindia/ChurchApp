@@ -20,7 +20,7 @@
                <div class="row-fluid">
               <%-- Div Institution list --%>
                 <div class="span6">
-               <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Institutions</h2><a class="btnNew" style="left:93%;top:-14px;" title="ADD NEW" id="btnAddNew" runat="server" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+               <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Institutions</h2><a class="btnNew AddNew" style="left:93%;top:-14px;" title="ADD NEW" id="btnAddNew" runat="server" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
 			   <div class="task high">
                     <div id="Institutediv">
             <div id="InstituteDefault">
@@ -249,8 +249,8 @@
                         <%-- End div Administrator information --%>
 						<input type="hidden" id="hdnInstutID" />
 							<div class="form-actions span12">
-							  <a class="btn btn-primary" name="" id="btnSaveInstitute">Save changes</a>
-                                <a id="btncancelInstitute" name="" class="btn btn-primary" onclick="Cancel(this);">Cancel</a>
+							  <a class="btn btn-primary saveAll" name="" id="btnSaveInstitute">Save changes</a>
+                                <a id="btncancelInstitute" name="" class="btn btn-primary cancelAll" onclick="Cancel(this);">Cancel</a>
                                 <a class="btn btn-primary" name="" id="btnDeleteInstitute">Delete</a>
 							  
 							</div>

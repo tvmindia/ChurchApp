@@ -61,7 +61,28 @@ $(document).ready(function () {
     }).keydown(function (e) {
         if (e.which == 17) isCtrl = true;
         if (e.which == 13 && isCtrl == true) {
-            $('.btnNew').click();
+            $('.AddNew').click();
+            return false;
+        }
+    });
+    //ctrl+s Save for all pages
+    var isCtrl = false; $(document).keyup(function (e) {
+        if (e.which == 17) isCtrl = false;
+    }).keydown(function (e) {
+        if (e.which == 17) isCtrl = true;
+        if (e.which == 83 && isCtrl == true) {
+            $('.saveAll').click();
+            return false;
+        }
+    });
+    //ctrl+s Save for all pages
+    var isCtrl = false; $(document).keyup(function (e) {
+        debugger;
+        if (e.which == 17) isCtrl = false;
+    }).keydown(function (e) {
+        if (e.which == 17) isCtrl = true;
+        if (e.which == 90 && isCtrl == true) {
+            $('.cancelAll').click();
             return false;
         }
     });

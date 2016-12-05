@@ -53,7 +53,7 @@
                     <div id="divLatestEvents">
                         <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
                             <h2>Latest Events</h2>
-                            <a class="btnNew" id="btnAddNew" runat="server" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Event">+</i></a>
+                            <a class="btnNew AddNew" id="btnAddNew" runat="server" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Event">+</i></a>
 
                         </div>
                        
@@ -255,8 +255,8 @@
 
 
                             <div class="form-actions">
-                                <a class="btn btn-primary" id="btnSave"><span></span>Save</a>
-                                <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
+                                <a class="btn btn-primary saveAll" id="btnSave"><span></span>Save</a>
+                                <a class="btn btn-primary cancelAll" id="btnCancel"><span></span>Cancel</a>
                                 <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
 
                             </div>

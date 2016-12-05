@@ -105,7 +105,7 @@
 				</div>
                 </div>
             </div>
-            <div class="" style="margin-top:4%!important;border-bottom:1.5px solid #78CD51;line-height:0px;"><h2>Asst Vicar</h2><a class="btnNew" id="btnAddNew" runat="server" style="left:93%!important;top:-14px;" title="ADD NEW" onclick="OpenNewAdd('Asst');"><i class="material-icons">+</i></a></div>
+            <div class="" style="margin-top:4%!important;border-bottom:1.5px solid #78CD51;line-height:0px;"><h2>Asst Vicar</h2><a class="btnNew AddNew" id="btnAddNew" runat="server" style="left:93%!important;top:-14px;" title="ADD NEW" onclick="OpenNewAdd('Asst');"><i class="material-icons">+</i></a></div>
 			<div class="task low" id="AsstVicartask">
                  <div id="assVicardiv">
             <div id="AsstVicarDefault">
@@ -333,8 +333,8 @@
                         
 						<input type="hidden" id="hdfPriestID" />
 							<div class="form-actions">
-							  <a class="btn btn-primary" name="" id="btnSavePriest">Save changes</a>
-                                <a id="btnCancelPriest" class="btn btn-primary">Cancel</a>
+							  <a class="btn btn-primary saveAll" name="" id="btnSavePriest">Save changes</a>
+                                <a id="btnCancelPriest" class="btn btn-primary cancelAll">Cancel</a>
                                 <a class="btn btn-primary" name="" id="btnDelete">Delete</a>
 							  
 							</div>

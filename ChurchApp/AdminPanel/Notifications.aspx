@@ -25,7 +25,7 @@
 					<%--<div class="priority high">--%>
                         <div class="" id="highNoty" style="border-bottom:1.5px solid #F44336;line-height:0px;">
                             <h2>Latest Notifications</h2>
-                            <a class="btnNew" id="btnAddNew" runat="server" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
+                            <a class="btnNew AddNew" id="btnAddNew" runat="server" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
                         
 					<%--</div>--%>
 					<%--<div class="task high" style="padding-left: 5px;" >--%>
@@ -170,9 +170,9 @@
 							</div>
 
 							<div class="form-actions">
-							  <a class="btn btn-primary Save">Save</a>
+							  <a class="saveAll btn btn-primary Save">Save</a>
                                 <a class="btn btn-primary Delete">Delete</a>
-							  <a class="btn btn-primary Cancel">Cancel</a>
+							  <a class="cancelAll btn btn-primary Cancel">Cancel</a>
 							</div>
 						  </fieldset>
 					</div>   

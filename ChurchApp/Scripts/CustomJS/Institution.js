@@ -672,6 +672,7 @@ function OpenInstituteDetails(intituteID) {
 function EditInstitute(this_obj) {
     try
     {
+        RemoveStyle();
         var intituteID = $(this_obj).attr('name');
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);;
@@ -779,9 +780,10 @@ function DeleteInstituteclick(this_Obj)
 //Add new institution button onclick function
 function NewInstitute() {
     try {
-        
+        debugger;
         ClearFields();
         RemoveStyle();
+        
         $('#rowfluidDiv').hide();
         $('#instituteimg').val('');
         $('#divAccoAdmininfo').hide();
@@ -798,6 +800,7 @@ function NewInstitute() {
             $('#EditGenDetails').toggleClass("active");
             $('#EditGen').toggleClass("show");
         }
+        $('#txtInstituteName').focus();
     }
     catch (e) {
 
