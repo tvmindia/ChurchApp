@@ -14,7 +14,12 @@ color: #04273B!important;
 {
  color:#04273B!important;
 }
-
+.dark h2 span{
+     overflow: hidden;
+     text-overflow: ellipsis;
+     word-break:break-all;
+     line-height:22px;
+}
 .box-header .fa
 {
     color: #004e96!important;

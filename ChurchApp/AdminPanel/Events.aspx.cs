@@ -5,6 +5,7 @@
 #endregion CopyRight
 
 #region Included Namespaces
+using ChurchApp.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -42,21 +43,41 @@ namespace ChurchApp.AdminPanel
 
         #region Delete From Server Folder
         [System.Web.Services.WebMethod]
-        public static void DeleteFileFromFolder(string imgPath)
+        public static string DeleteFileFromFolder(string imgPath)
         {
-            if (imgPath.Contains('/'))
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
+            try
             {
-                string imgName = imgPath.Split('/').Last();
-
-                string ServerPath = HttpContext.Current.Server.MapPath("~/img/AppImages/" + imgName);
-
-                FileInfo file = new FileInfo(ServerPath);
-                if (file.Exists)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    file.Delete();
+                    if (imgPath.Contains('/'))
+                    {
+                        string imgName = imgPath.Split('/').Last();
+
+                        string ServerPath = HttpContext.Current.Server.MapPath("~/img/AppImages/" + imgName);
+
+                        FileInfo file = new FileInfo(ServerPath);
+                        if (file.Exists)
+                        {
+                            file.Delete();
+                        }
+
+                    }
                 }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch(Exception ex)
+            {
 
             }
+            return "";
         }
 
         #endregion 
@@ -71,33 +92,52 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetEvents(ChurchApp.DAL.Events EventsObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            string jsonResult = null;
-            DataSet ds = null;
-            EventsObj.churchId = UA.ChurchID;
-            ds = EventsObj.GetLatestEvents();
-
-            //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
-            
-            if (ds.Tables[0].Rows.Count > 0)
+            string jsonResult = null;
+            DAL.Security.UserAuthendication UA;
+            DAL.Const Const = new DAL.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    
+                    DataSet ds = null;
+                    EventsObj.churchId = UA.ChurchID;
+                    ds = EventsObj.GetLatestEvents();
+
+                    //Converting to Json
+                   
+
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
                     }
-                    parentRow.Add(childRow);
+
+                    
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
-           
+            catch(Exception ex)
+            {
+
+            }
             jsonResult = jsSerializer.Serialize(parentRow);
 
             return jsonResult;
@@ -111,33 +151,51 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllLatestEvents(ChurchApp.DAL.Events EventsObj)
         {
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
             DAL.Security.UserAuthendication UA;
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
 
             string jsonResult = null;
             DataSet ds = null;
-            EventsObj.churchId = UA.ChurchID;
-            ds = EventsObj.GetAllLatestEvents();
-
-            //Converting to Json
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                EventsObj.churchId = UA.ChurchID;
+                ds = EventsObj.GetAllLatestEvents();
+
+
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
                     }
-                    parentRow.Add(childRow);
                 }
             }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch(Exception ex)
+            {
 
+            }
+           
             jsonResult = jsSerializer.Serialize(parentRow);
 
             return jsonResult;
@@ -156,31 +214,47 @@ namespace ChurchApp.AdminPanel
         public static string GetOldEvents(ChurchApp.DAL.Events EventsObj)
         {
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            string jsonResult = null;
-            DataSet ds = null;
-            EventsObj.churchId = UA.ChurchID;
-            ds = EventsObj.SelectOldEvents();
-
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
-
-            if (ds.Tables[0].Rows.Count > 0)
+            string jsonResult = null;
+            DataSet ds = null;
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    EventsObj.churchId = UA.ChurchID;
+                    ds = EventsObj.SelectOldEvents();
+
+
+
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
                     }
-                    parentRow.Add(childRow);
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
+            catch(Exception ex)
+            {
+               
+            }
+               
 
             jsonResult = jsSerializer.Serialize(parentRow);
 
@@ -195,36 +269,46 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllOldEvents(ChurchApp.DAL.Events EventsObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            string jsonResult = null;
-            DataSet ds = null;
-            EventsObj.churchId = UA.ChurchID;
-            ds = EventsObj.SelectAllOldEvents();
-
-            //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
-
-            if (ds.Tables[0].Rows.Count > 0)
+            Security.UserAuthendication UA = null;
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    DataSet ds = null;
+                    EventsObj.churchId = UA.ChurchID;
+                    ds = EventsObj.SelectAllOldEvents();
+                    
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
                     }
-                    parentRow.Add(childRow);
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
+            catch (Exception ex)
+            {
 
-            jsonResult = jsSerializer.Serialize(parentRow);
+            }
 
-            return jsonResult;
+            return jsSerializer.Serialize(parentRow);;
         }
 
         #endregion Get All Old Events   // TOP 5
@@ -237,35 +321,47 @@ namespace ChurchApp.AdminPanel
         public static string GetEventsByEventID(ChurchApp.DAL.Events EventsObj)
         {
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            string jsonResult = null;
-            DataSet ds = null;
-            //EventsObj.churchId = UA.ChurchID;
-            ds = EventsObj.GetEventsByEventID();
-
-            //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
-            
-            if (ds.Tables[0].Rows.Count > 0)
+            DataSet ds = null;
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    //EventsObj.churchId = UA.ChurchID;
+                    ds = EventsObj.GetEventsByEventID();
+
+                    //Converting to Json
+
+
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
-                    }
-                    parentRow.Add(childRow);
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    } 
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
-           
-            jsonResult = jsSerializer.Serialize(parentRow);
+            catch(Exception ex)
+            {
 
-            return jsonResult;
+            }
+             return jsSerializer.Serialize(parentRow);
         }
 
         #endregion Get Events By EventID
@@ -309,23 +405,29 @@ namespace ChurchApp.AdminPanel
         public static string UpdateEvent(ChurchApp.DAL.Events EventsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            EventsObj.churchId = UA.ChurchID;
             string status = null;
+            DAL.Security.UserAuthendication UA;
             try
             {
-                EventsObj.updatedBy = UA.userName;
-                status = EventsObj.UpdateEvent().ToString();
-
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    EventsObj.churchId = UA.ChurchID;
+                    EventsObj.updatedBy = UA.userName;
+                    status = EventsObj.UpdateEvent().ToString();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
-            catch (Exception)
+            catch(Exception ex)
             {
-                status = "500";//Exception of foreign key
-            }
+                status = "500";
+            }            
             finally
             {
             }
@@ -342,17 +444,24 @@ namespace ChurchApp.AdminPanel
         public static string DeleteEvent(ChurchApp.DAL.Events EventsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            EventsObj.churchId = UA.ChurchID;
+            DAL.Security.UserAuthendication UA;          
             string status = null;
             try
             {
-                EventsObj.updatedBy = UA.userName;
-                status = EventsObj.DeleteEvent().ToString();
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    EventsObj.churchId = UA.ChurchID;
+                    EventsObj.updatedBy = UA.userName;
+                    status = EventsObj.DeleteEvent().ToString();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
 
             }
             catch (Exception)
@@ -376,11 +485,23 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteAppImage(ChurchApp.DAL.AppImages AppImgObj)
         {
+            DAL.Security.UserAuthendication UA;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             string status = null;
             try
             {
-                status = AppImgObj.DeleteAppImage();
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    status = AppImgObj.DeleteAppImage();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
             catch (Exception)
             {
@@ -404,16 +525,24 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            NotificationObj.churchId = UA.ChurchID;
+               
             string status = null;
             try
             {
-                NotificationObj.createdBy = UA.userName;
-                status = NotificationObj.InsertNotification().ToString();
-                // NotificationObj.status = status;
+                 DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    NotificationObj.churchId = UA.ChurchID;
+                    NotificationObj.createdBy = UA.userName;
+                    status = NotificationObj.InsertNotification().ToString();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
 
             }
             catch (Exception)

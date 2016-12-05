@@ -10,6 +10,14 @@ body
 {
     display:none;
 }
+.lead
+ {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     font-size:16px;
+ }
+
 ul.dashboard-list li{
     box-shadow: #4745b44d 3px 0px 25px -3px;
     padding: 69px 0;

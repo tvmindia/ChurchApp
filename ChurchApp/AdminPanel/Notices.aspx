@@ -198,7 +198,7 @@
                                 </div>--%>
 
                                             <div class="">
-                                                <div class="accordion-inner" style="border-top:none;height:400px">
+                                                <div class="accordion-inner" style="border-top:none;height:auto;min-height:400px;">
                                                     <%--<a class="btn btn-toolbar" style="border:1px solid white" href="../img/No-Img_Chosen.png"  ><i class="icon-zoom-in"></i></a>--%>
 
                                                     <img class="noticeImage img-polaroid" id="NoticePreviewOnView" src="../img/No-Img_Chosen.png" />

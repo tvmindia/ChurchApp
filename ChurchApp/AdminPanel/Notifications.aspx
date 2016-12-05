@@ -148,7 +148,7 @@
 								<label class="control-label" for="focusedInput" >Description</label>
 								<div class="controls">
 								 <label class="control-label" for="focusedInput" id="lblDescription"></label>
-                                     <textarea tabindex="10" class="input-large" id="txtDescription" maxlength="200" name="Description" rows="5" placeholder="Enter your description here..."></textarea>
+                                     <textarea class="input-large" id="txtDescription" name="Description" rows="5" placeholder="Enter your description here..."></textarea>
 								  <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
 								</div>
 								</div>
