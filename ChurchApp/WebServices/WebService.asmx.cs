@@ -754,7 +754,7 @@ namespace ChurchApp.WebServices
 
         #region Get Pious Organisations Details
         [WebMethod]
-        public string SearchPiousOrgbyChurchID(string ChurchID)
+        public string GetPiousOrgsByChurchID(string ChurchID)
         {
             DataTable dt = new DataTable();
 
