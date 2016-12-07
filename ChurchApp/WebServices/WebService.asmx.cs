@@ -754,7 +754,7 @@ namespace ChurchApp.WebServices
 
         #region Get Pious Organisations Details
         [WebMethod]
-        public string SearchPiousOrgbyChurchID(string ChurchID)
+        public string GetPiousOrgsByChurchID(string ChurchID)
         {
             DataTable dt = new DataTable();
 
@@ -792,19 +792,17 @@ namespace ChurchApp.WebServices
 
         #region Institutions
 
-        #region GetInstitutionsbyChurchId
+        #region Get Institutions by ChurchID
         [WebMethod]
-        public string SearchInstitutionsbyChurchID(string ChurchID)
+        public string GetInstitutionsByChurchID(string ChurchID)
         {
             DataTable dt = new DataTable();
-
             try
             {
                 ChurchApp.DAL.Institutions Insobj = new DAL.Institutions();
                 Insobj.churchId = ChurchID;
                 dt = Insobj.SelectInstitutions().Tables[0];
                 if (dt.Rows.Count == 0) throw new Exception("No items");
-
             }
             catch (Exception ex)
             {
@@ -819,13 +817,11 @@ namespace ChurchApp.WebServices
             }
             finally
             {
-
             }
             return getDbDataAsJSON(dt);
         }
 
-
-        #endregion GetInstitutionsbyChurchId
+        #endregion
 
         #endregion Institutions
 
