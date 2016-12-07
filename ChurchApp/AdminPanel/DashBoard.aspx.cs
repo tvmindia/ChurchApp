@@ -161,7 +161,7 @@ namespace ChurchApp.AdminPanel
                     }
 
                 }
-                //Session is out
+             
                 else
                 {
                     Common comonObj = new Common();
