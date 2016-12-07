@@ -754,7 +754,7 @@ namespace ChurchApp.WebServices
 
         #region Get Pious Organisations Details
         [WebMethod]
-        public string SearchPiousOrgbyChurchID(string ChurchID)
+        public string GetPiousOrgsByChurchID(string ChurchID)
         {
             DataTable dt = new DataTable();
 
@@ -792,17 +792,52 @@ namespace ChurchApp.WebServices
 
         #region Institutions
 
-        #region GetInstitutionsbyChurchId
+        #region Get Institutions by ChurchID
         [WebMethod]
-        public string SearchInstitutionsbyChurchID(string ChurchID)
+        public string GetInstitutionsByChurchID(string ChurchID)
         {
             DataTable dt = new DataTable();
-
             try
             {
                 ChurchApp.DAL.Institutions Insobj = new DAL.Institutions();
                 Insobj.churchId = ChurchID;
                 dt = Insobj.SelectInstitutions().Tables[0];
+                if (dt.Rows.Count == 0) throw new Exception("No items");
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion
+
+        #endregion Institutions
+
+        #region Events
+
+        #region GetAllLatestEventsbyChurchId
+        [WebMethod]
+        public string GetAllLatestEventsbyChurchID(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Events Evtobj = new DAL.Events();
+                Evtobj.churchId = ChurchID;
+                dt = Evtobj.GetAllLatestEvents().Tables[0];
                 if (dt.Rows.Count == 0) throw new Exception("No items");
 
             }
@@ -825,8 +860,8 @@ namespace ChurchApp.WebServices
         }
 
 
-        #endregion GetInstitutionsbyChurchId
+        #endregion GetAllLatestEventsbyChurchId
 
-        #endregion Institutions
+        #endregion Events
     }
 }
