@@ -370,17 +370,32 @@
 
                                     <div class="control-group">
                                     <label class="control-label" for="focusedInput">Gender</label>
-                                   <div class="controls">
+                                  <%-- <div class="controls">
                                     <label class="radio">
 									<input type="radio" name="optionsRadios" id="optionMale" value="option1" checked=""/>
 									Male
 								  </label>
 								  <div style="clear:both"></div>
 								  <label class="radio">
-									<input type="radio" name="optionsRadios" id="optionFemale" value="option2"/>
+									<input type="radio" name="optionsRadios" id="optionFemale" value="option2"  checked=""/>
 									Female
 								  </label>
-                                  </div>
+                                  </div>--%>
+                                         <div class="controls">
+                                                      <%--  <label class="checkbox inline">
+                                                          
+                                                         <input type="checkbox" id="chkActiveAdmin" checked="checked" />Yes</label>--%>
+                                                         <label class="radio">
+								                      	<input type="radio" name="optionsRadios" id="optionMale" value="true" checked=""/>
+								                        Male
+								                        </label>
+								
+								                     <label class="radio">
+								                      	<input type="radio" name="optionsRadios" id="optionFemale" value="false"/>
+								                         	Female
+							                    	 </label>
+
+                                                    </div>
                                  </div>
 
                           
@@ -526,15 +541,11 @@
                           
                    </div>
                              <div class="span6">
-                                  
-						  
-
-                                     <div class="control-group">
+                           <div class="control-group">
                              <label class="control-label" for="focusedInput">Hierarchical Order</label>
                                <div class="controls">
-                                  <input class="input-large focused" onkeypress="return isNumber(event);" name="txtOrder" id="txtOrder" placeholder=""  type="text"/>
-                                  
-                                 </div>
+                                  <input class="input-small focused" onkeypress="return isNumber(event);" name="txtOrder" id="txtOrder" placeholder="Order No"  type="text"/>
+                            </div>
                              </div>
                                 
                                     </div>

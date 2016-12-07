@@ -95,33 +95,45 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            DataSet ds = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                ds = PatrnObj.GetPatronIDAndName();
-                //Converting to Json
-                Dictionary<string, object> childRow;
-                if (ds.Tables[0].Rows.Count > 0)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    DataSet ds = null;
+                    ds = PatrnObj.GetPatronIDAndName();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
                     }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+
             return jsSerializer.Serialize(parentRow);
-
-
-        }
+       }
 
 
         #endregion Get patron ID And Name
@@ -133,38 +145,46 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            DataSet ds = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                DAL.Security.UserAuthendication UA;
-                DAL.Const Const = new DAL.Const();
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-                
-                PatrnObj.churchObj.churchId = UA.ChurchID;
-                ds = PatrnObj.SelectPatronMaster();
-                //Converting to Json
-                Dictionary<string, object> childRow;
-                if (ds.Tables[0].Rows.Count > 0)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    DataSet ds = null;
+                    PatrnObj.churchObj.churchId = UA.ChurchID;
+                    ds = PatrnObj.SelectPatronMaster();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
                     }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+
             return jsSerializer.Serialize(parentRow);
-
-
-        }
+         }
 
         #endregion Get All Patrons
 
@@ -175,38 +195,46 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            DataSet ds = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                DAL.Security.UserAuthendication UA;
-                DAL.Const Const = new DAL.Const();
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-                PatrnObj.churchObj.churchId = UA.ChurchID;
-                ds = PatrnObj.SelectAllPatronMasterByChurchID();  
-                //Converting to Json
-                Dictionary<string, object> childRow;
-                if (ds.Tables[0].Rows.Count > 0)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    DataSet ds = null;
+                    PatrnObj.churchObj.churchId = UA.ChurchID;
+                    ds = PatrnObj.SelectAllPatronMasterByChurchID();  
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
                     }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+
             return jsSerializer.Serialize(parentRow);
-
-
-        }
+  }
 
         #endregion SelectAllPatronMasterByChurchID
 
@@ -216,26 +244,32 @@ namespace ChurchApp.AdminPanel
         public static string InsertPatron(ChurchApp.DAL.PatronMaster PatrnObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-          
+            Security.UserAuthendication UA = null;
             try
             {
-                PatrnObj.createdBy = UA.userName;
-                PatrnObj.InsertPatronMaster();
-               
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+
+                    PatrnObj.createdBy = UA.userName;
+                    PatrnObj.InsertPatronMaster();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                PatrnObj.status = ex.Message;
+
             }
-            finally
-            {
-            }
+
             return jsSerializer.Serialize(PatrnObj);
+          
 
         }
 
@@ -247,26 +281,30 @@ namespace ChurchApp.AdminPanel
         public static string DeletePatron(ChurchApp.DAL.PatronMaster PatrnObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-           
+            Security.UserAuthendication UA = null;
             try
             {
-             PatrnObj.DeletePatronMaster(UA.ChurchID);
-                
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-            }
-            return jsSerializer.Serialize(PatrnObj);
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
 
+                    PatrnObj.DeletePatronMaster(UA.ChurchID);
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                PatrnObj.status = ex.Message;
+
+            }
+
+            return jsSerializer.Serialize(PatrnObj);
         }
 
 
@@ -278,27 +316,34 @@ namespace ChurchApp.AdminPanel
         public static string UpdatePatron(ChurchApp.DAL.PatronMaster PatrnObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            string status = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                PatrnObj.updatedBy = UA.userName;
-                status = PatrnObj.UpdatePatronMaster();
-               
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-            }
-            return jsSerializer.Serialize(PatrnObj);
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                string status = null;
+                if (UA != null)
+                {
 
+                    PatrnObj.updatedBy = UA.userName;
+                    status = PatrnObj.UpdatePatronMaster();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                PatrnObj.status = ex.Message;
+
+            }
+
+            return jsSerializer.Serialize(PatrnObj);
+           
+     
         }
 
 
@@ -313,36 +358,48 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            DataTable dt = null;
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
+            Security.UserAuthendication UA = null;
             try
             {
-                NovenaObj.churchId = UA.ChurchID;
-                dt = NovenaObj.GetNovenaDetailsByPatronID();
-                //Converting to Json
-                Dictionary<string, object> childRow;
-                if (dt.Rows.Count > 0)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    foreach (DataRow row in dt.Rows)
+
+                    DataTable dt = null;
+                    NovenaObj.churchId = UA.ChurchID;
+                    dt = NovenaObj.GetNovenaDetailsByPatronID();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (dt.Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in dt.Columns)
+                        foreach (DataRow row in dt.Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in dt.Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
                     }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+
             }
+
+
             return jsSerializer.Serialize(parentRow);
+     
         }
 
         #endregion GetNovenaDetailsByPatronID
@@ -356,38 +413,47 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            DataTable dt = null;
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-
+            Security.UserAuthendication UA = null;
             try
             {
-                NovenaObj.churchId = UA.ChurchID;
-
-                dt = NovenaObj.GetNovenaDetailsByNovenaID();
-                //Converting to Json
-                Dictionary<string, object> childRow;
-                if (dt.Rows.Count > 0)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    foreach (DataRow row in dt.Rows)
+
+                    DataTable dt = null;
+                    NovenaObj.churchId = UA.ChurchID;
+
+                    dt = NovenaObj.GetNovenaDetailsByNovenaID();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (dt.Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in dt.Columns)
+                        foreach (DataRow row in dt.Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in dt.Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
                     }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+
             }
             return jsSerializer.Serialize(parentRow);
+           
         }
 
         #endregion GetNovenaDetailsByNovenaID
@@ -398,27 +464,34 @@ namespace ChurchApp.AdminPanel
         public static string InsertNovena(ChurchApp.DAL.Novenas NovenaObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            string status = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                NovenaObj.createdBy = UA.userName;
-                NovenaObj.churchId = UA.ChurchID;
-                status = NovenaObj.InsertNovena();
-                NovenaObj.Status = status;
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                
+                if (UA != null)
+                {
+
+                    NovenaObj.createdBy = UA.userName;
+                    NovenaObj.churchId = UA.ChurchID;
+                    NovenaObj.status = NovenaObj.InsertNovena();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                NovenaObj.status = ex.Message;
+
             }
-            finally
-            {
-            }
+
             return jsSerializer.Serialize(NovenaObj);
+            
 
         }
 
@@ -430,26 +503,35 @@ namespace ChurchApp.AdminPanel
         public static string DeleteNovena(ChurchApp.DAL.Novenas NovenaObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            string status = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                NovenaObj.churchId = UA.ChurchID;
-                status = NovenaObj.DeleteNovena();
-                NovenaObj.Status = status;
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+               
+                if (UA != null)
+                {
+
+                    NovenaObj.churchId = UA.ChurchID;
+                    NovenaObj.status = NovenaObj.DeleteNovena();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                NovenaObj.status = ex.Message;
+
             }
-            finally
-            {
-            }
+
             return jsSerializer.Serialize(NovenaObj);
+            
+
+          
 
         }
 
@@ -462,27 +544,35 @@ namespace ChurchApp.AdminPanel
         public static string UpdateNovena(ChurchApp.DAL.Novenas NovenaObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            string status = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                NovenaObj.createdBy = UA.userName;
-                NovenaObj.churchId = UA.ChurchID;
-                status = NovenaObj.UpdateNovena();
-                NovenaObj.Status = status;
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+               
+                if (UA != null)
+                {
+
+                    NovenaObj.createdBy = UA.userName;
+                    NovenaObj.churchId = UA.ChurchID;
+
+                    NovenaObj.status = NovenaObj.UpdateNovena();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                NovenaObj.status = ex.Message;
+
             }
-            finally
-            {
-            }
+
             return jsSerializer.Serialize(NovenaObj);
+           
         }
 
         #endregion Update Novena
@@ -497,28 +587,32 @@ namespace ChurchApp.AdminPanel
         public static string InsertNovenaTiming(ChurchApp.DAL.NovenaTiming NovenaTimingObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            string status = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                NovenaTimingObj.createdBy = UA.userName;
-                status = NovenaTimingObj.InsertNovenaTiming();
-                //NovenaTimingObj.Status = status;
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+               
+                if (UA != null)
+                {
+                    NovenaTimingObj.createdBy = UA.userName;
+                    NovenaTimingObj.status = NovenaTimingObj.InsertNovenaTiming();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
-            }
-            finally
-            {
-            }
-            return jsSerializer.Serialize(NovenaTimingObj);
+                NovenaTimingObj.status = ex.Message;
 
-        }
+            }
+
+            return jsSerializer.Serialize(NovenaTimingObj);
+         }
 
         #endregion Add Novena Timing
 
@@ -528,21 +622,32 @@ namespace ChurchApp.AdminPanel
         public static string DeleteNovenaTiming(ChurchApp.DAL.NovenaTiming NovenaTimingObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            string status = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                status = NovenaTimingObj.DeleteNovenaTimingByTimingDetails();
-                NovenaTimingObj.Status = status;
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+               
+                if (UA != null)
+                {
+
+                    NovenaTimingObj.status = NovenaTimingObj.DeleteNovenaTimingByTimingDetails();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                NovenaTimingObj.status = ex.Message;
+
             }
-            finally
-            {
-            }
+
             return jsSerializer.Serialize(NovenaTimingObj);
+           
 
         }
 
@@ -554,22 +659,35 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteNovenaTimingByNovenaID(ChurchApp.DAL.NovenaTiming NovenaTimingObj)
         {
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
 
-            string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
-                status = NovenaTimingObj.DeleteNovenaTimingsByNovenaID();
-                NovenaTimingObj.Status = status;
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+              
+                if (UA != null)
+                {
+
+                    NovenaTimingObj.status = NovenaTimingObj.DeleteNovenaTimingsByNovenaID();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                NovenaTimingObj.status = ex.Message;
+
             }
-            finally
-            {
-            }
+
             return jsSerializer.Serialize(NovenaTimingObj);
+           
+          
 
         }
 
@@ -581,36 +699,46 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            DataTable dt = null;
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
+            Security.UserAuthendication UA = null;
             try
             {
-
-                dt = PatrnObj.GetPatronDetailByID();
-                //Converting to Json
-                Dictionary<string, object> childRow;
-                if (dt.Rows.Count > 0)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    foreach (DataRow row in dt.Rows)
+
+                    DataTable dt = null;
+                    dt = PatrnObj.GetPatronDetailByID();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (dt.Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in dt.Columns)
+                        foreach (DataRow row in dt.Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in dt.Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
                     }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+
             }
             return jsSerializer.Serialize(parentRow);
+
+        
         }
         #endregion GetPatronDetailByID
 
@@ -621,34 +749,43 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            DataTable dt = null;
-
-           
+            Security.UserAuthendication UA = null;
             try
             {
-                DAL.Security.UserAuthendication UA;
-                DAL.Const Const = new DAL.Const();
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-                novenaObj.churchObj.churchId = UA.ChurchID;
-                dt= novenaObj.GetAllNovenasByChurchID();
-                //Converting to Json
-                Dictionary<string, object> childRow;
-                if (dt.Rows.Count > 0)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    foreach (DataRow row in dt.Rows)
+
+                    DataTable dt = null;
+                    novenaObj.churchObj.churchId = UA.ChurchID;
+                    dt = novenaObj.GetAllNovenasByChurchID();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (dt.Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in dt.Columns)
+                        foreach (DataRow row in dt.Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in dt.Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
                     }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+
             }
             return jsSerializer.Serialize(parentRow);
         }

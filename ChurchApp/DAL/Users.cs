@@ -203,7 +203,7 @@ namespace ChurchApp.DAL
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            SqlParameter outParam = null;
+            SqlParameter outParam = null,outparamUSerID=null;
            
             try
             {
@@ -231,7 +231,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchObj.churchId);
                 cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
                 cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = Administrator;
-                cmd.Parameters.Add("@Gender", SqlDbType.NChar,6).Value = Gender;
+                cmd.Parameters.Add("@Gender", SqlDbType.NVarChar,10).Value = Gender;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = Address;
                 cmd.Parameters.Add("@RoleID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(rolesObj.ID);
                 cmd.Parameters.Add("@LoginName", SqlDbType.NVarChar, 255).Value = LoginName;
@@ -244,6 +244,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
+                outparamUSerID = cmd.Parameters.Add("@OutUserID", SqlDbType.UniqueIdentifier);
+                outparamUSerID.Direction = ParameterDirection.Output;
                 
                 cmd.ExecuteNonQuery();
             }
@@ -258,7 +260,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-          
+            ID = outparamUSerID.Value.ToString();
             status = outParam.Value.ToString();
 
             return status;
@@ -293,7 +295,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchObj.churchId);
                 cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
                 cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = Administrator;
-                cmd.Parameters.Add("@Gender", SqlDbType.NChar, 6).Value = Gender;
+                cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 10).Value = Gender;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = Address;
                 cmd.Parameters.Add("@RoleID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(rolesObj.ID);
                 cmd.Parameters.Add("@LoginName", SqlDbType.NVarChar, 255).Value = LoginName;

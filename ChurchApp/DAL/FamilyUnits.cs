@@ -49,6 +49,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string status
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region FamilyUnit Methods
@@ -130,7 +135,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status = outParam.Value.ToString();
+            return status;
         }
         #endregion InsertFamilyUnit
 
@@ -172,7 +178,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
         #endregion UpdateFamilyUnit
 
@@ -211,7 +218,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
         #endregion DeleteFamilyUnit
 
@@ -269,6 +277,11 @@ namespace ChurchApp.DAL
             set;
         }
         public string familyName
+        {
+            get;
+            set;
+        }
+        public string status
         {
             get;
             set;
@@ -399,6 +412,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
+            status = outParam.Value.ToString();
             return familyIdOut.Value.ToString();
         }
         #endregion InsertFamily
@@ -442,7 +456,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
         #endregion UpdateFamily
 
@@ -482,7 +497,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
         #endregion DeleteFamily
 
