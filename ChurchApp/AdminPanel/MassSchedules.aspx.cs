@@ -32,10 +32,11 @@ namespace ChurchApp.AdminPanel
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+           
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     MassTimingsObj.massChurchId = UA.ChurchID;
@@ -82,10 +83,11 @@ namespace ChurchApp.AdminPanel
             string status = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+          
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     MassTimingsObj.massChurchId = UA.ChurchID;
@@ -113,10 +115,11 @@ namespace ChurchApp.AdminPanel
             string status = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                  
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     MassTimingsObj.churchId = UA.ChurchID;
@@ -144,10 +147,11 @@ namespace ChurchApp.AdminPanel
             string status = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+          
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     status = MassTimingsObj.DeleteMassTiming();
@@ -175,10 +179,11 @@ namespace ChurchApp.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DataSet ds = null;
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     MassTimingsObj.churchId = UA.ChurchID;
@@ -228,10 +233,11 @@ namespace ChurchApp.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DataSet ds = null;
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+           
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     MassTimingsObj.massChurchId = UA.ChurchID;

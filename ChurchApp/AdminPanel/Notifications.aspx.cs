@@ -32,13 +32,14 @@ namespace ChurchApp.AdminPanel
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+         
             string jsonResult = null;
             DataSet ds = null;
             ChurchApp.DAL.Church churchObj=new DAL.Church();
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
@@ -86,13 +87,14 @@ namespace ChurchApp.AdminPanel
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+           
             string jsonResult = null;
             DataSet ds = null;
             ChurchApp.DAL.Church churchObj = new DAL.Church();
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
@@ -141,11 +143,12 @@ namespace ChurchApp.AdminPanel
 
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+           
             string status = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
@@ -174,13 +177,14 @@ namespace ChurchApp.AdminPanel
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+           
             string jsonResult = null;
             DataSet ds = null;
             ChurchApp.DAL.Church churchObj = new DAL.Church();
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     NotificationTypeObj.churchId = UA.ChurchID;
@@ -227,11 +231,12 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
              DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+           
             string status = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
@@ -259,11 +264,12 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+           
             string status = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
@@ -292,13 +298,14 @@ namespace ChurchApp.AdminPanel
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+           
             string jsonResult = null;
             DataSet ds = null;
             ChurchApp.DAL.Church churchObj = new DAL.Church();
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
@@ -346,13 +353,14 @@ namespace ChurchApp.AdminPanel
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+          
             string jsonResult = null;
             DataSet ds = null;
             ChurchApp.DAL.Church churchObj = new DAL.Church();
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
@@ -398,13 +406,14 @@ namespace ChurchApp.AdminPanel
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            
             string jsonResult = null;
             DataSet ds = null;
             ChurchApp.DAL.Church churchObj = new DAL.Church();
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
