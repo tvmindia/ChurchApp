@@ -28,34 +28,42 @@ namespace ChurchApp.AdminPanel
         {
             string jsonResult = null;
             DataSet ds = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
             DAL.Security.UserAuthendication UA;
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             try
             {
-                MassTimingsObj.massChurchId = UA.ChurchID;
-                ds = MassTimingsObj.SelectMassTimings();
-
-                //Converting to Json
-                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                Dictionary<string, object> childRow;
-                if (ds.Tables[0].Rows.Count > 0)
+                if(UA!=null)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    MassTimingsObj.massChurchId = UA.ChurchID;
+                    ds = MassTimingsObj.SelectMassTimings();
+
+                    //Converting to Json
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
+
                     }
 
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
                 }
-
-
-                jsonResult = jsSerializer.Serialize(parentRow);
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
             catch(Exception ex)
             {
@@ -72,17 +80,26 @@ namespace ChurchApp.AdminPanel
         public static string InsertMassTiming(MassTimings MassTimingsObj)
         {       
             string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             try
             {
-                MassTimingsObj.massChurchId = UA.ChurchID;
-                status = MassTimingsObj.InsertMassTiming();
+                if(UA!=null)
+                {
+                    MassTimingsObj.massChurchId = UA.ChurchID;
+                    status = MassTimingsObj.InsertMassTiming();
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
             catch(Exception ex)
             {
-                throw ex;
+                status = ex.Message;
             }
            
             return status;
@@ -94,17 +111,26 @@ namespace ChurchApp.AdminPanel
         public static string UpdateMassTiming(MassTimings MassTimingsObj)
         {
             string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             try
             {
-                MassTimingsObj.churchId = UA.ChurchID;
-                status = MassTimingsObj.UpdateMassTiming();
+                if(UA!=null)
+                {
+                    MassTimingsObj.churchId = UA.ChurchID;
+                    status = MassTimingsObj.UpdateMassTiming();
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
             catch(Exception ex)
             {
-                throw ex;
+                status = ex.Message;
             }
             
             return status;
@@ -116,16 +142,25 @@ namespace ChurchApp.AdminPanel
         public static string DeleteMassTiming(MassTimings MassTimingsObj)
         {
             string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             try
             {
-                status = MassTimingsObj.DeleteMassTiming();
+                if(UA!=null)
+                {
+                    status = MassTimingsObj.DeleteMassTiming();
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
             catch(Exception ex)
             {
-                throw ex;
+                status = ex.Message;
             }
           
             return status;
@@ -137,35 +172,43 @@ namespace ChurchApp.AdminPanel
         public static string selectMassTimeByMassID(MassTimings MassTimingsObj)
         {
             string jsonResult = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DataSet ds = null;
             DAL.Security.UserAuthendication UA;
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             try
             {
-                MassTimingsObj.churchId = UA.ChurchID;
-                ds = MassTimingsObj.SelectMassTimingByMassID();
-
-                //Converting to Json
-                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                Dictionary<string, object> childRow;
-                if (ds.Tables[0].Rows.Count > 0)
+                if(UA!=null)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    MassTimingsObj.churchId = UA.ChurchID;
+                    ds = MassTimingsObj.SelectMassTimingByMassID();
+
+                    //Converting to Json
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
+
                     }
 
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
                 }
-
-
-                jsonResult = jsSerializer.Serialize(parentRow);
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
             catch(Exception ex)
             {
@@ -182,35 +225,43 @@ namespace ChurchApp.AdminPanel
         public static string selectMassTimeByDay(MassTimings MassTimingsObj)
         {
             string jsonResult = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DataSet ds = null;
             DAL.Security.UserAuthendication UA;
             DAL.Const Const = new DAL.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             try
             {
-                MassTimingsObj.massChurchId = UA.ChurchID;
-                ds = MassTimingsObj.SelectMassTimingByDay();
-
-                //Converting to Json
-                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                Dictionary<string, object> childRow;
-                if (ds.Tables[0].Rows.Count > 0)
+                if(UA!=null)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    MassTimingsObj.massChurchId = UA.ChurchID;
+                    ds = MassTimingsObj.SelectMassTimingByDay();
+
+                    //Converting to Json
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
+
                     }
 
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
                 }
-
-
-                jsonResult = jsSerializer.Serialize(parentRow);
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
             catch(Exception ex)
             {
