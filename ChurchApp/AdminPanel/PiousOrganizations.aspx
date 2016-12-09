@@ -50,12 +50,12 @@
                 <li class="media">
                <a class="pull-left"><img class="media-object" src="../img/gallery/Institution.jpg" style="max-height:80px;"/></a>
                 <div class="media-body">
-                <h4 class="media-heading">SENIOR C.L.C<span> </span><span class="fa fa-flag"></span></h4>
-                 Cristian Life Community<br />
-              description
+                <h4 class="media-heading">No Record Found<span> </span><span class="fa fa-flag"></span></h4>
+                 <br />
+                    <br />
       <!-- Nested media object -->
       <div class="media">
-          <a>View more</a>
+          <a style="visibility:hidden">View more</a>
      </div>
     </div>
   </li>
