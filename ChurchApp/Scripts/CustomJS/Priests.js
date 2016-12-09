@@ -407,7 +407,6 @@ function AutoComplete()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////*********************** Function for binding priest list vicar and asst vicar
     function check() {
-        debugger;
         var priestDetails = {};
         var elems = $();
         var elemsAsst = $();
