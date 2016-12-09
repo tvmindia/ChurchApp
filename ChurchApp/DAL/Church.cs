@@ -31,7 +31,7 @@ namespace ChurchApp.DAL
         //public Novenas novenas = new Novenas();
         //public PiousOrg piousOrg = new PiousOrg();
         //public Priest priest = new Priest();
-
+        public Common comnObj = new Common();
         #region Public Properties
 
         public string churchId
@@ -208,11 +208,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address!=null&&address!=""?address:null;
                 if(latitude!=null&&latitude!="")
                 {
-                   // decimal m = 12.878999m;
-
-                 // decimal df = Math.Truncate(Decimal.Parse(latitude) * 1000m) / 1000m;
-
-                    cmd.Parameters.Add("@Latitude", SqlDbType.Decimal).Value = Math.Truncate(Decimal.Parse(latitude) * 1000000m) / 1000000m;
+                     cmd.Parameters.Add("@Latitude", SqlDbType.Decimal).Value = Math.Truncate(Decimal.Parse(latitude) * 1000000m) / 1000000m;
                 }
                 if (longitude != null && longitude != "")
                 {
@@ -222,7 +218,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2!=null&&phone2!=""?phone2:null;
               
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outchurchid = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
                 outchurchid.Direction = ParameterDirection.Output;
@@ -283,7 +279,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1;
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -331,6 +327,8 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[DeleteChurch]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
