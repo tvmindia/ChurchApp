@@ -22,15 +22,12 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
             try
             {
-              
-                 DAL.Security.UserAuthendication UA;
-              //  DAL.Const Const = new DAL.Const();
-             //   UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
                 DashBoard dashBoardObj = new DashBoard();
-                UA=dashBoardObj.GetCurrentUserSession();
-                if(UA!=null)
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
                     DataSet ds = null;
                     GalleryAlbumObj.churchId = UA.ChurchID.ToString();
@@ -49,21 +46,21 @@ namespace ChurchApp.AdminPanel
                             parentRow.Add(childRow);
                         }
                     }
+
                 }
+                //Session is out
                 else
                 {
                     Common comonObj = new Common();
                     return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
-                
-                
-
-
-               
             }
             catch (Exception ex)
             {
+
             }
+          
+            
             return jsSerializer.Serialize(parentRow);
 
         }
@@ -74,40 +71,46 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllImageByAlbumID(GalleryItems GalleryItemsObj)
         {
-           
-
-
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            
+            Security.UserAuthendication UA = null;
             try
             {
-                DAL.Security.UserAuthendication UA;
-                DAL.Const Const = new DAL.Const();
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-                DataSet ds = null;
-
-
-                GalleryItemsObj.churchId = UA.ChurchID;
-                ds = GalleryItemsObj.SelectGalleryItems();
-                //Converting to Json
-                Dictionary<string, object> childRow;
-                if (ds.Tables[0].Rows.Count > 0)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    DataSet ds = null;
+                    GalleryItemsObj.churchId = UA.ChurchID;
+                    ds = GalleryItemsObj.SelectGalleryItems();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
                     }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
+
             }
+           
             return jsSerializer.Serialize(parentRow);
 
         }
@@ -118,25 +121,31 @@ namespace ChurchApp.AdminPanel
         public static string InsertImageAlbum(GalleryAlbum GalleryAlbumObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
-                DAL.Security.UserAuthendication UA;
-                DAL.Const Const = new DAL.Const();
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-                GalleryAlbumObj.churchId = UA.ChurchID;
-                GalleryAlbumObj.albumType = "image";
-                GalleryAlbumObj.createdBy = UA.userName;
-                GalleryAlbumObj.InsertGalleryAlbum();
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    GalleryAlbumObj.churchId = UA.ChurchID;
+                    GalleryAlbumObj.albumType = "image";
+                    GalleryAlbumObj.createdBy = UA.userName;
+                    GalleryAlbumObj.InsertGalleryAlbum();
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
-            finally
-            {
-
-            }
-           
+         
             return jsSerializer.Serialize(GalleryAlbumObj);
 
         }
@@ -149,23 +158,29 @@ namespace ChurchApp.AdminPanel
         {
 
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
-                DAL.Security.UserAuthendication UA;
-                DAL.Const Const = new DAL.Const();
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-                GalleryItemsObj.churchId = UA.ChurchID;
-                GalleryItemsObj.DeleteGalleryItem();
-            
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    GalleryItemsObj.churchId = UA.ChurchID;
+                    GalleryItemsObj.DeleteGalleryItem();
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
-            finally
-            {
-
-            }
+          
         
             return jsSerializer.Serialize(GalleryItemsObj);
         }
@@ -177,40 +192,44 @@ namespace ChurchApp.AdminPanel
         public static string DeleteAlbumItem(GalleryItems GalleryItemsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
-                DAL.Security.UserAuthendication UA;
-                DAL.Const Const = new DAL.Const();
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-                DataSet ds = null;
-
-                GalleryItemsObj.GalleryAlbObj.churchId = UA.ChurchID;
-                ds = GalleryItemsObj.SelectGalleryItems();
-                if (ds != null)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    DataSet ds = null;
+                    GalleryItemsObj.GalleryAlbObj.churchId = UA.ChurchID;
+                    ds = GalleryItemsObj.SelectGalleryItems();
+                    if (ds != null)
                     {
-                        GalleryItemsObj.galleryItemID = dr["ID"].ToString();
-                        GalleryItemsObj.url = dr["URL"].ToString();
-                        GalleryItemsObj.DeleteGalleryItem();
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            GalleryItemsObj.galleryItemID = dr["ID"].ToString();
+                            GalleryItemsObj.url = dr["URL"].ToString();
+                            GalleryItemsObj.DeleteGalleryItem();
+                        }
+                        GalleryItemsObj.GalleryAlbObj.DeleteGalleryAlbum();
                     }
-                    GalleryItemsObj.GalleryAlbObj.DeleteGalleryAlbum();
                 }
-        
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
             catch (Exception ex)
             {
- 
+
             }
+           
             finally
             {
 
             }
-            
-           
-
-
-            return jsSerializer.Serialize(GalleryItemsObj);
+       return jsSerializer.Serialize(GalleryItemsObj);
         }
 
         #endregion DeleteAlbumItem
@@ -222,33 +241,45 @@ public static string GetAllGalleryVideoAlbumByChurchID(GalleryAlbum GalleryAlbum
 
     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
     List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-   
+    Security.UserAuthendication UA = null;
     try
     {
-        DAL.Security.UserAuthendication UA;
-        DAL.Const Const = new DAL.Const();
-        UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-        DataSet ds = null;
-        GalleryAlbumObj.churchId = UA.ChurchID;
-        ds = GalleryAlbumObj.GetAllGalleryVideoAlbumByChurchID();
-        //Converting to Json
-        Dictionary<string, object> childRow;
-        if (ds.Tables[0].Rows.Count > 0)
+        DashBoard dashBoardObj = new DashBoard();
+        UA = dashBoardObj.GetCurrentUserSession();
+        if (UA != null)
         {
-            foreach (DataRow row in ds.Tables[0].Rows)
+
+            DataSet ds = null;
+            GalleryAlbumObj.churchId = UA.ChurchID;
+            ds = GalleryAlbumObj.GetAllGalleryVideoAlbumByChurchID();
+            //Converting to Json
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
             {
-                childRow = new Dictionary<string, object>();
-                foreach (DataColumn col in ds.Tables[0].Columns)
+                foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    childRow.Add(col.ColumnName, row[col]);
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
                 }
-                parentRow.Add(childRow);
             }
+
+        }
+        //Session is out
+        else
+        {
+            Common comonObj = new Common();
+            return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
         }
     }
     catch (Exception ex)
     {
+
     }
+  
     return jsSerializer.Serialize(parentRow);
 }
 #endregion GetAllGalleryVideoAlbumByChurchID
@@ -261,32 +292,45 @@ public static string GetAllVideosByAlbumID(GalleryItems GalleryItemsObj)
 {
     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
     List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-    DataSet ds = null;
+    Security.UserAuthendication UA = null;
     try
     {
-        DAL.Security.UserAuthendication UA;
-        DAL.Const Const = new DAL.Const();
-        UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-        GalleryItemsObj.churchId = UA.ChurchID;
-        ds = GalleryItemsObj.SelectGalleryItems();
-        //Converting to Json
-        Dictionary<string, object> childRow;
-        if (ds.Tables[0].Rows.Count > 0)
+        DashBoard dashBoardObj = new DashBoard();
+        UA = dashBoardObj.GetCurrentUserSession();
+        if (UA != null)
         {
-            foreach (DataRow row in ds.Tables[0].Rows)
+
+            DataSet ds = null;
+            GalleryItemsObj.churchId = UA.ChurchID;
+            ds = GalleryItemsObj.SelectGalleryItems();
+            //Converting to Json
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
             {
-                childRow = new Dictionary<string, object>();
-                foreach (DataColumn col in ds.Tables[0].Columns)
+                foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    childRow.Add(col.ColumnName, row[col]);
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
                 }
-                parentRow.Add(childRow);
             }
+
+        }
+        //Session is out
+        else
+        {
+            Common comonObj = new Common();
+            return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
         }
     }
     catch (Exception ex)
     {
+
     }
+   
     return jsSerializer.Serialize(parentRow);
 }
 #endregion GetAllVideosByAlbumID
@@ -297,18 +341,31 @@ public static string GetAllVideosByAlbumID(GalleryItems GalleryItemsObj)
 public static string DeleteVideoItem(GalleryItems GalleryItemsObj)
 {
     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+    Security.UserAuthendication UA = null;
     try
     {
-        DAL.Security.UserAuthendication UA;
+        DashBoard dashBoardObj = new DashBoard();
+        UA = dashBoardObj.GetCurrentUserSession();
+        if (UA != null)
+        {
+
         DAL.Const Const = new DAL.Const();
         UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
         GalleryItemsObj.churchId = UA.ChurchID;
         GalleryItemsObj.DeleteGalleryItem();
+        }
+        //Session is out
+        else
+        {
+            Common comonObj = new Common();
+            return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+        }
     }
-    catch(Exception ex)
+    catch (Exception ex)
     {
 
     }
+  
     finally
     {
 
@@ -324,31 +381,40 @@ public static string DeleteVideoItem(GalleryItems GalleryItemsObj)
 public static string DeleteVideoAlbumItem(GalleryItems GalleryItemsObj)
 {
     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+    Security.UserAuthendication UA = null;
     try
     {
-        DAL.Security.UserAuthendication UA;
-        DAL.Const Const = new DAL.Const();
-        UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-        DataSet ds = null;
-
-        GalleryItemsObj.GalleryAlbObj.churchId = UA.ChurchID;
-        ds = GalleryItemsObj.SelectGalleryItems();
-        if (ds != null)
+        DashBoard dashBoardObj = new DashBoard();
+        UA = dashBoardObj.GetCurrentUserSession();
+        if (UA != null)
         {
-            foreach (DataRow dr in ds.Tables[0].Rows)
+
+            DataSet ds = null;
+            GalleryItemsObj.GalleryAlbObj.churchId = UA.ChurchID;
+            ds = GalleryItemsObj.SelectGalleryItems();
+            if (ds != null)
             {
-                GalleryItemsObj.galleryItemID = dr["ID"].ToString();
-                GalleryItemsObj.url = dr["URL"].ToString();
-                GalleryItemsObj.DeleteGalleryItem();
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    GalleryItemsObj.galleryItemID = dr["ID"].ToString();
+                    GalleryItemsObj.url = dr["URL"].ToString();
+                    GalleryItemsObj.DeleteGalleryItem();
+                }
+                GalleryItemsObj.GalleryAlbObj.DeleteGalleryAlbum();
             }
-            GalleryItemsObj.GalleryAlbObj.DeleteGalleryAlbum();
+        }
+        //Session is out
+        else
+        {
+            Common comonObj = new Common();
+            return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
         }
     }
-    catch(Exception ex)
+    catch (Exception ex)
     {
 
     }
+   
     finally
     {
 

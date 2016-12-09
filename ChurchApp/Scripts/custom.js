@@ -77,7 +77,7 @@ $(document).ready(function () {
     });
     //ctrl+s Save for all pages
     var isCtrl = false; $(document).keyup(function (e) {
-        debugger;
+        
         if (e.which == 17) isCtrl = false;
     }).keydown(function (e) {
         if (e.which == 17) isCtrl = true;

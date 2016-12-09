@@ -32,27 +32,21 @@
         noty({ type: 'error', text: e.message });
     }
    
-    try
-    {
-        var mapOptions = {
-            center: new google.maps.LatLng(9.9816, 76.2998),//latlong
-            zoom: 14,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var infoWindow = new google.maps.InfoWindow();
-        var latlngbounds = new google.maps.LatLngBounds();
-        var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-        google.maps.event.addListener(map, 'click', function (e) {
-            alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
-            $("#txtLongitude").val(e.latLng.lng());
-            $("#txtLatitude").val(e.latLng.lat());
-        });
-    }
-    catch(e)
-    {
-        noty({ type: 'error', text: e.message });
-    }
+    
+    //try
+    //{
+    //    initGoogleMap();
+    //    $('#mapModal').on('shown.bs.modal', function () {
 
+    //        google.maps.event.trigger(map, "resize");
+    //    });
+
+    //}
+    //catch(e)
+    //{
+
+    //}
+    
     
 
     try
@@ -211,38 +205,74 @@
                 if ($('#txtChurchName').val() != "") {
                     Church.churchName = $('#txtChurchName').val();
                 }
+                else
+                {
+                    Church.churchName = '';
+                }
 
                 if ($(".ddlTownCode").val() != "") {
                     Church.townCode = $(".ddlTownCode").val();
+                }
+                else
+                {
+                    Church.townCode = '';
                 }
 
                 if ($('#txtAddress').val() != "") {
                     Church.address = $('#txtAddress').val();
                 }
+                else
+                {
+                    Church.address = '';
+                }
 
                 if ($('#txtDescription').val() != "") {
                     Church.description = $('#txtDescription').val();
+                }
+                else
+                {
+                    Church.description = '';
                 }
 
                 if ($('#txtAbout').val() != "") {
                     Church.about = $('#txtAbout').val();
                 }
+                else
+                {
+                    Church.about = '';
+                }
 
                 if ($('#txtPhone1').val() != "") {
                     Church.phone1 = $('#txtPhone1').val();
                 }
+                else
+                {
+                    Church.phone1 = '';
+                }
 
                 if ($('#txtPhone2').val() != "") {
                     Church.phone2 = $('#txtPhone2').val();
+                }
+                else
+                {
+                    Church.phone2 = '';
                 }
 
 
                 if ($('#txtLongitude').val() != "") {
                     Church.longitude = $('#txtLongitude').val();
                 }
+                else
+                {
+                    Church.longitude = '';
+                }
 
                 if ($('#txtLatitude').val() != "") {
                     Church.latitude = $('#txtLatitude').val();
+                }
+                else
+                {
+                    Church.latitude = '';
                 }
                 if ($("#hdfChurchID").val() != "") {
                     //UPDATE CHURCH
@@ -294,6 +324,7 @@
                                 noty({ type: 'error', text: 'Updation was not successfull' });
                                 break;
                             default:
+                                noty({ type: 'error', text: result });
                                 break;
                         }
                     }
@@ -328,6 +359,7 @@
                                 
                                 break;
                             default:
+                                noty({ type: 'error', text: result.status });
                                 break;
                         }
                     }
@@ -383,6 +415,7 @@
                                 noty({ type: 'error', text: 'Insertion was not successfull' });
                                 break;
                             default:
+                                noty({ type: 'error', text: result });
                                 break;
                         }
                     }
@@ -415,6 +448,7 @@
                                
                                 break;
                             default:
+                                noty({ type: 'error', text: result.status });
                                 break;
                         }
                     }
@@ -487,13 +521,14 @@
             $("#txtUserAddress").val('');
             $("#txtMobile").val('');
             $("#txtEmail").val('');
-        
+            $("#chkActive").parent().removeClass('checked');
+            $("#chkAdministrator").parent().removeClass('checked');
             $("#datepickerdob").val('');
             $("#txtLoginName").val('');
             $("#txtPassword").val('');
             $("#txtconfirmpswd").val('');
-
             $(".ddlRoles").select2("val", "");
+            $("#hdfUserID").val('');
         }
         catch (e) {
             noty({ type: 'error', text: e.message });
@@ -538,11 +573,9 @@
 
   
     $('#btnUserAdd').click(function (e) {
-       
-     
-
-        try
-        {
+      try
+      {
+          debugger;
             var pasflag = false;
             var userflag = UserValidation();
             var pas = document.getElementById('txtPassword');
@@ -550,6 +583,10 @@
             if (pas.value == conf.value)
             {
                 pasflag = true;
+            }
+            else
+            {
+                alert('Passwords does not match');
             }
             if (userflag&&pasflag)
             {
@@ -559,28 +596,52 @@
                 if ($('.ddlChurchuser').val() != "") {
                     Church.churchId = $('.ddlChurchuser').val();
                 }
+                else
+                {
+                    Church.churchId = '';
+                }
 
                 if ($("#txtUserName").val() != "") {
                     Users.Name = $("#txtUserName").val();
                 }
+                else
+                {
+                    Users.Name = '';
+                }
                 if ($("#txtUserAddress").val() != "") {
                     Users.Address = $("#txtUserAddress").val();
+                }
+                else
+                {
+                    Users.Address = '';
                 }
 
                 if ($("#txtMobile").val() != "") {
                     Users.Mobile = $("#txtMobile").val();
                 }
+                else
+                {
+                    Users.Mobile = '';
+                }
                 if ($("#txtEmail").val() != "") {
                     Users.Email = $("#txtEmail").val();
                 }
+                else
+                {
+                    Users.Email = '';
+                }
                 if ($('#optionMale').is(':checked')) {
-                    Users.Gender = "Male"
+                    Users.Gender = "Male";
                 }
                 else {
-                    Users.Gender = "Female"
+                    Users.Gender = "Female";
                 }
                 if ($('.ddlRoles').val() != "") {
                     Roles.ID = $('.ddlRoles').val();
+                }
+                else
+                {
+                    Roles.ID = '';
                 }
                 if ($("#chkActive").parent().attr('class') != "") {
                     Users.Active = 'True';
@@ -592,6 +653,10 @@
 
                 if ($("#datepickerdob").val() != "") {
                     Users.DOB = $("#datepickerdob").val();
+                }
+                else
+                {
+                    Users.DOB = '';
                 }
 
                 if ($("#txtLoginName").val() != "") {
@@ -612,13 +677,26 @@
                     switch (result.status) {
                         case "1":
                             noty({ type: 'success', text: 'Inserted successfully' });
-                           
                             BindAllUsers();
+                            $("#hdfUserID").val(result.ID);
+                            $('#txtPassword').val('');
+                            $('#txtconfirmpswd').val('');
+                            var cofirmpswd = document.getElementById('txtconfirmpswd');
+                            cofirmpswd.removeAttribute('style');
                             break;
                         case "0":
                             noty({ type: 'error', text: 'Insertion was not successfull' });
+                            $('#txtPassword').val('');
+                            $('#txtconfirmpswd').val('');
+                            var cofirmpswd = document.getElementById('txtconfirmpswd');
+                            cofirmpswd.removeAttribute('style');
                             break;
                         default:
+                            noty({ type: 'error', text: result.status });
+                            $('#txtPassword').val('');
+                            $('#txtconfirmpswd').val('');
+                            var cofirmpswd = document.getElementById('txtconfirmpswd');
+                            cofirmpswd.removeAttribute('style');
                             break;
                     }
 
@@ -630,14 +708,25 @@
                     switch (result.status) {
                         case "1":
                             noty({ type: 'success', text: 'Updated successfully' });
-                           
                             BindAllUsers();
+                            $('#txtPassword').val('');
+                            $('#txtconfirmpswd').val('');
+                            var cofirmpswd = document.getElementById('txtconfirmpswd');
+                            cofirmpswd.removeAttribute('style');
                             break;
                         case "0":
                             noty({ type: 'error', text: 'Updation was not successfull' });
-                           
+                            $('#txtPassword').val('');
+                            $('#txtconfirmpswd').val('');
+                            var cofirmpswd = document.getElementById('txtconfirmpswd');
+                            cofirmpswd.removeAttribute('style');
                             break;
                         default:
+                            noty({ type: 'error', text: result.status });
+                            $('#txtPassword').val('');
+                            $('#txtconfirmpswd').val('');
+                            var cofirmpswd = document.getElementById('txtconfirmpswd');
+                            cofirmpswd.removeAttribute('style');
                             break;
                     }
 
@@ -669,6 +758,7 @@
                 if ($(".ddlRoleName").val() != "") {
                     Roles.RoleName = $(".ddlRoleName").val();
                 }
+             
 
                 if ($(".ddlChurch").val() != "") {
                     Church.churchId = $(".ddlChurch").val();
@@ -685,7 +775,11 @@
                         case "0":
                             noty({ type: 'error', text: 'Insertion was not successfull' });
                             break;
+                        case "2":
+                            noty({ type: 'error', text: 'Insertion was not successfull,Duplicate Entry!' });
+                            break;
                         default:
+                            noty({ type: 'error', text: result.status });
                             break;
                     }
 
@@ -703,10 +797,9 @@
                             break;
                         case "0":
                             noty({ type: 'error', text: 'Updation was not successfull' });
-                            
-
                             break;
                         default:
+                            noty({ type: 'error', text: result.status });
                             break;
                     }
 
@@ -759,7 +852,11 @@
                             noty({ type: 'error', text: 'Insertion was not successfull' });
                             
                             break;
+                        case "2":
+                            noty({ type: 'error', text: 'Insertion was not successfull,Order can not Duplicate for organization' });
+                            break;
                         default:
+                            noty({ type: 'error', text: result.status });
                             break;
                     }
 
@@ -779,7 +876,11 @@
                             noty({ type: 'error', text: 'Updation was not successfull' });
                            
                             break;
+                        case "2":
+                            noty({ type: 'error', text: 'Updation was not successfull,Order can not Duplicate for organization' });
+                            break;
                         default:
+                            noty({ type: 'error', text: result.status });
                             break;
                     }
 
@@ -850,6 +951,7 @@
 
                             break;
                         default:
+                            noty({ type: 'error', text: result.status });
                             break;
                     }
 
@@ -879,6 +981,7 @@
 
                             break;
                         default:
+                            noty({ type: 'error', text: result.status });
                             break;
                     }
                 }
@@ -898,9 +1001,12 @@
 
     });
 
+   
+    initialize();
     
     
 });//end of document.ready
+
 
 
 
@@ -1235,13 +1341,19 @@ function RemoveUser(curobj)
                 noty({ type: 'success', text: 'Deleted successfully' });
                 
                 BindAllUsers();
+                $('txtPassword').val('');
+                $('txtconfirmpswd').val('');
                 break;
             case "0":
                
                 noty({ type: 'error', text: 'Deletion was not successfull' });
-               
+                $('txtPassword').val('');
+                $('txtconfirmpswd').val('');
                 break;
             default:
+                noty({ type: 'error', text: result.status });
+                $('txtPassword').val('');
+                $('txtconfirmpswd').val('');
                 break;
         }
 
@@ -1273,6 +1385,7 @@ function RemoveSaint(curobj)
               
                 break;
             default:
+                noty({ type: 'error', text: result.status });
                 break;
         }
 
@@ -1299,10 +1412,17 @@ function EditUsers(curobj)
     switch(userDetail[0].Gender)
     {
         case 'Male':
-            $("#optionMale").prop("checked", true);
+              $("#optionFemale").parent().removeClass('checked');
+             $("#optionMale").parent().addClass('checked');
+          //  $('#optionMale').click();
+          
             break;
         case 'Female':
-            $("#optionFeMale").prop("checked", true);
+            $("#optionMale").parent().removeClass('checked');
+            $("#optionFemale").parent().addClass('checked');
+          //  $('#optionFemale').click();
+         
+           
             break;
     }
     $(".ddlRoles").val(userDetail[0].RoleID).trigger("change");
@@ -1329,7 +1449,8 @@ function EditUsers(curobj)
 
     $("#datepickerdob").val(ConvertJsonToDate(userDetail[0].DOB));
 
-   
+    $('txtPassword').val('');
+    $('txtconfirmpswd').val('');
    
    
 }
@@ -1566,6 +1687,7 @@ function RemoveChurch(curobj)
                
                 break;
             default:
+                noty({ type: 'error', text: result.status });
                 break;
         }
 
@@ -1581,8 +1703,11 @@ function RemoveRole(curobj)
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
         var Roles = new Object();
+        var Church = new Object();
         var editedrow = $(curobj).closest('tr');
+        Church.churchId = $(curobj).attr('chid');
         Roles.ID = $(curobj).attr('roleid');
+        Roles.churchObj = Church;
         var result = DeleteRole(Roles);
         switch (result.status) {
             case "1":
@@ -1593,6 +1718,7 @@ function RemoveRole(curobj)
                 noty({ type: 'error', text: 'Deletion was not successfull' });
                break;
             default:
+                noty({ type: 'error', text: result.status });
                 break;
         }
 
@@ -1619,6 +1745,7 @@ function RemoveDesignation(curobj)
                 noty({ type: 'success', text: 'Deletion was not successfull' });
                break;
             default:
+                noty({ type: 'error', text: result.status });
                 break;
         }
 
@@ -1938,10 +2065,7 @@ function createGuid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-function GetMap()
-{
-    $('#mapModal').modal('show');
-}
+
 
 function BindAllRoles() {
     try {
@@ -1974,7 +2098,7 @@ function LoadRoles(Records) {
     try {
         $("#Rolestable").find(".rolerow").remove();
         $.each(Records, function (index, Record) {
-            var html = '<tr class="rolerow"><td>' + Record.RoleName + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i roleid=' + Record.RoleID + ' class="halflings-icon white edit" onclick="EditRole(this)"></i></a><a class="circlebtn circlebtn-danger"><i roleid=' + Record.RoleID + ' class="halflings-icon white trash" onclick="RemoveRole(this)"></i></a></td></tr>';
+            var html = '<tr class="rolerow"><td>' + Record.RoleName + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i roleid=' + Record.RoleID + ' class="halflings-icon white edit" onclick="EditRole(this)"></i></a><a class="circlebtn circlebtn-danger"><i chid='+ Record.ChurchID +' roleid=' + Record.RoleID + ' class="halflings-icon white trash" onclick="RemoveRole(this)"></i></a></td></tr>';
             $("#Rolestable").append(html);
         })
     }
@@ -2179,12 +2303,85 @@ function checkPass() {
      if (pass1.value == pass2.value) {
       
         pass2.style.backgroundColor ="#66cc66";
-       
-      
-    } else {
-       
-        pass2.style.backgroundColor = "#ff6666";
+     } else {
     
-        
+        pass2.style.backgroundColor = "#ff6666";
+       }
+}
+
+//function initGoogleMap()
+//{
+//    try {
+//        var mapOptions = {
+//            center: new google.maps.LatLng(9.9816, 76.2998),//latlong
+//            zoom: 14,
+//            mapTypeId: google.maps.MapTypeId.ROADMAP
+//        };
+//        var infoWindow = new google.maps.InfoWindow();
+//        var latlngbounds = new google.maps.LatLngBounds();
+//        var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+//        google.maps.event.addListener(map, 'click', function (e) {
+//            alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+//            $("#txtLongitude").val(e.latLng.lng());
+//            $("#txtLatitude").val(e.latLng.lat());
+//        });
+       
+//    }
+//    catch (e) {
+//        noty({ type: 'error', text: e.message });
+//    }
+//}
+
+
+var map;
+function initialize() {
+    try
+    {
+        var center = new google.maps.LatLng(9.9816, 76.2998);
+        var mapOptions = {
+            zoom: 7,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: center
+        };
+
+        map = new google.maps.Map(document.getElementById('dvMap'), mapOptions);
+        google.maps.event.addListener(map, 'click', function (e) {
+            alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+            $("#txtLongitude").val(e.latLng.lng());
+            $("#txtLatitude").val(e.latLng.lat());
+        });
+
+        var marker = new google.maps.Marker({
+            map: map,
+            position: center
+        });
     }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+
+   
+}
+
+
+function GetMap() {
+    try
+    {
+        var center = new google.maps.LatLng(9.9816, 76.2998);
+        //$('#mapModal').modal('show');
+        $('#mapModal').modal({
+            backdrop: 'static',
+            keyboard: false
+        }).on('shown.bs.modal', function () {
+            google.maps.event.trigger(map, 'resize');
+            map.setCenter(center);
+        });
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+  
+
 }

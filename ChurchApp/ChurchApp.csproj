@@ -270,8 +270,6 @@
     <Content Include="Scripts\progressbar.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\timepicki.js" />
-    <Content Include="vid\AH-64D Apache .mp4" />
-    <Content Include="vid\mosco.mp4" />
     <Content Include="WebServices\WebService.asmx" />
     <Content Include="ImageHandler\UploadHandler.ashx" />
     <Content Include="Font\trench.100.otf" />

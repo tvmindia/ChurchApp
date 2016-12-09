@@ -85,6 +85,12 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+
+        public string status
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Methods
@@ -259,7 +265,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
 
         #endregion InsertMember
@@ -312,7 +319,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
         #endregion UpdateMember
 
@@ -352,7 +360,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
         #endregion DeleteMember
 

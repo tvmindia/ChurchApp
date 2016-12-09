@@ -119,7 +119,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+               
             }
           
             return jsSerializer.Serialize(parentRow);
@@ -161,7 +161,7 @@ namespace ChurchApp.AdminPanel
                     }
 
                 }
-                //Session is out
+             
                 else
                 {
                     Common comonObj = new Common();
@@ -259,6 +259,7 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
+                churchObj.status = ex.Message;
 
             }
           
@@ -295,7 +296,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                churchObj.status = ex.Message;
             }
             
             return jsSerializer.Serialize(churchObj);
@@ -329,7 +330,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                churchObj.status = ex.Message;
             }
           
             return jsSerializer.Serialize(churchObj);
@@ -405,9 +406,7 @@ namespace ChurchApp.AdminPanel
                 UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
-
                     DataSet ds = null;
-
                     ds = rolesObj.SelectAllRoles();
                     //Converting to Json
                     Dictionary<string, object> childRow;
@@ -520,7 +519,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                rolesObj.status = ex.Message;
             }
            
             return jsSerializer.Serialize(rolesObj);
@@ -554,7 +553,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                rolesObj.status = ex.Message;
             }
           
             return jsSerializer.Serialize(rolesObj);
@@ -639,7 +638,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                rolesObj.status = ex.Message;
             }
             
             return jsSerializer.Serialize(rolesObj);
@@ -720,7 +719,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                usersObj.status = ex.Message;
             }
            
             return jsSerializer.Serialize(usersObj);
@@ -751,7 +750,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                usersObj.status = ex.Message;
             }
            
             return jsSerializer.Serialize(usersObj);
@@ -782,7 +781,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                usersObj.status = ex.Message;
             }
            
             return jsSerializer.Serialize(usersObj);
@@ -912,7 +911,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                designationObj.status = ex.Message;
             }
           
            
@@ -1041,7 +1040,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                designationObj.status = ex.Message;
             }
           
             return jsSerializer.Serialize(designationObj);
@@ -1073,7 +1072,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                designationObj.status = ex.Message;
             }
             
             return jsSerializer.Serialize(designationObj);

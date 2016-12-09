@@ -29,23 +29,18 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllFamilyUnits(FamilyUnits familyUnitsObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string jsonResult = null;
-            DataSet ds = null;
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
+                    DataSet ds = null;
                     familyUnitsObj.churchId = UA.ChurchID;
                     ds = familyUnitsObj.SelectFamilyUnits();
-                    // ds = N
-
-                    //Converting to Json
-                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                     Dictionary<string, object> childRow;
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -60,17 +55,19 @@ namespace ChurchApp.AdminPanel
                         }
 
                     }
-
-
-                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
 
-            return jsonResult;
+            }
+           return jsSerializer.Serialize(parentRow);
         }
         #endregion GetAllFamilyUnits
 
@@ -78,23 +75,18 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllFamilyUnitMembers(FamilyUnits familyUnitsObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string jsonResult = null;
-            DataSet ds = null;
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
+                    DataSet ds = null;
                     familyUnitsObj.churchId = UA.ChurchID;
                     ds = familyUnitsObj.SelectFamilyUnitMembers();
-                    // ds = N
-
-                    //Converting to Json
-                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                     Dictionary<string, object> childRow;
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -109,42 +101,54 @@ namespace ChurchApp.AdminPanel
                         }
 
                     }
-
-
-                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
 
-            return jsonResult;
-        }
+            }
+            return jsSerializer.Serialize(parentRow);
+         }
         #endregion GetAllFamilyUnitMembers
 
         #region InsertFamilyUnit
         [System.Web.Services.WebMethod]
         public static string InsertFamilyUnit(FamilyUnits familyUnitsObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
+
                     familyUnitsObj.createdBy = UA.userName;
                     familyUnitsObj.churchId = UA.ChurchID;
-                    status = familyUnitsObj.InsertFamilyUnit();
+                    familyUnitsObj.InsertFamilyUnit();
+
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                familyUnitsObj.status = ex.Message;
             }
-            return status;
+         
+            return jsSerializer.Serialize(familyUnitsObj);
         }
         #endregion InsertFamilyUnit
 
@@ -152,24 +156,32 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string UpdateFamilyUnit(FamilyUnits familyUnitsObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
                     familyUnitsObj.churchId = UA.ChurchID;
                     familyUnitsObj.updatedBy = UA.userName;
-                    status = familyUnitsObj.UpdateFamilyUnit();
+                    familyUnitsObj.UpdateFamilyUnit();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                familyUnitsObj.status = ex.Message;
             }
-            return status;
+
+            return jsSerializer.Serialize(familyUnitsObj);
+          
         }
         #endregion UpdateFamilyUnit
 
@@ -177,23 +189,31 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteFamilyUnit(FamilyUnits familyUnitsObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
                     familyUnitsObj.churchId = UA.ChurchID;
-                    status = familyUnitsObj.DeleteFamilyUnit();
+                    familyUnitsObj.DeleteFamilyUnit();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                familyUnitsObj.status = ex.Message;
             }
-            return status;
+
+            return jsSerializer.Serialize(familyUnitsObj);
+        
         }
         #endregion DeleteFamilyUnit
 
@@ -203,24 +223,18 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllFamilys(Family familyObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string jsonResult = null;
-            DataSet ds = null;
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
             try
             {
-                if (UA != null) 
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
+                    DataSet ds = null;
                     familyObj.familyUnitsObj.churchId = UA.ChurchID;
-                   // familyUnitsObj.familyObj.unitId
                     ds = familyObj.SelectFamilies();
-                    // ds = N
-
-                    //Converting to Json
-                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                     Dictionary<string, object> childRow;
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -235,42 +249,41 @@ namespace ChurchApp.AdminPanel
                         }
 
                     }
-
-
-                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
 
-            return jsonResult;
+            }
+            return jsSerializer.Serialize(parentRow);
+          
+           
         }
         #endregion GetAllFamilys
+
 
         #region GetAllFamilyMembers
         [System.Web.Services.WebMethod]
         public static string GetAllFamilyMembers(Family familyObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string jsonResult = null;
-            DataSet ds = null;
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
+                    DataSet ds = null;
                     familyObj.familyUnitsObj.churchId = UA.ChurchID;
-                    // familyUnitsObj.familyObj.unitId
                     ds = familyObj.SelectFamilyMembers();
-                    // ds = N
-
-                    //Converting to Json
-                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                     Dictionary<string, object> childRow;
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -283,32 +296,33 @@ namespace ChurchApp.AdminPanel
                             }
                             parentRow.Add(childRow);
                         }
-
                     }
-
-
-                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
 
-            return jsonResult;
-        }
+            }
+            return jsSerializer.Serialize(parentRow);
+         }
         #endregion GetAllFamilyMembers
 
         #region InsertFamily
         [System.Web.Services.WebMethod]
         public static string InsertFamily(Members memberObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
@@ -316,27 +330,30 @@ namespace ChurchApp.AdminPanel
                     memberObj.createdBy = UA.userName;
                     memberObj.updatedBy = UA.userName;
                     if (memberObj.familyObj.familyId != "" && memberObj.familyObj.familyId != null)
-                    {
-                        memberObj.familyID = memberObj.familyObj.familyId;
-                        status = memberObj.InsertMember();
+                    {   memberObj.familyID = memberObj.familyObj.familyId;
+                        memberObj.InsertMember();
                     }
                     else
                     {
                         memberObj.familyID = memberObj.familyObj.InsertFamily();
                         if (memberObj.familyID != "" && memberObj.familyID != null)
                         {
-                            status = memberObj.InsertMember();
+                            memberObj.InsertMember();
                         }
                     }
-                   
-                    
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+
             }
-            return status;
+            return jsSerializer.Serialize(memberObj);
         }
         #endregion InsertFamily
 
@@ -344,24 +361,18 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string SelectFamily(Family familyObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string jsonResult = null;
-            DataSet ds = null;
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
+                    DataSet ds = null;
                     familyObj.familyUnitsObj.churchId = UA.ChurchID;
-                    // familyUnitsObj.familyObj.unitId
                     ds = familyObj.SelectFamily();
-                    // ds = N
-
-                    //Converting to Json
-                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                     Dictionary<string, object> childRow;
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -374,19 +385,21 @@ namespace ChurchApp.AdminPanel
                             }
                             parentRow.Add(childRow);
                         }
-
                     }
-
-
-                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
 
-            return jsonResult;
+            }
+            return jsSerializer.Serialize(parentRow);
+          
         }
         #endregion SelectFamily
 
@@ -394,31 +407,36 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string UpdateFamily(Members memberObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
                     memberObj.churchId = UA.ChurchID;
-                    //memberObj.familyID = memberObj.familyObj.InsertFamily();
                     memberObj.familyObj.familyUnitsObj.updatedBy = UA.userName;
                     if (memberObj.familyID != "" && memberObj.familyID != null)
                     {
                         memberObj.familyObj.familyId = memberObj.familyID;
-                        status = memberObj.familyObj.UpdateFamily();
+                        memberObj.familyObj.UpdateFamily();
                     }
-
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+
             }
-            return status;
+            return jsSerializer.Serialize(memberObj);
+           
         }
         #endregion UpdateFamily
 
@@ -426,23 +444,30 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteFamily(Family familyObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
                     familyObj.familyUnitsObj.churchId = UA.ChurchID;
-                    status = familyObj.DeleteFamily();
+                    familyObj.DeleteFamily();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+
             }
-            return status;
+            return jsSerializer.Serialize(familyObj);
+          
         }
         #endregion DeleteFamily
 
@@ -451,25 +476,21 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetFamilyMember(Members memberObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string jsonResult = null;
-            DataSet ds = null;
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
-                    // familyUnitsObj.familyObj.unitId
+                    DataSet ds = null;
                     ds = memberObj.SelectFamilyMember();
-                    // ds = N
-
-                    //Converting to Json
-                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                    Dictionary<string, object> childRow;
+                  
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         foreach (DataRow row in ds.Tables[0].Rows)
@@ -483,44 +504,52 @@ namespace ChurchApp.AdminPanel
                         }
 
                     }
-
-
-                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
 
-            return jsonResult;
-        }
+            }
+            return jsSerializer.Serialize(parentRow);
+    }
         #endregion GetFamilyMember
 
         #region UpdateFamilyMember
         [System.Web.Services.WebMethod]
         public static string UpdateFamilyMember(Members memberObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
                     memberObj.churchId = UA.ChurchID;
                     memberObj.updatedBy = UA.userName;
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
-                   
-                        status = memberObj.UpdateMember();
+                    memberObj.UpdateMember();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+
             }
-            return status;
+            return jsSerializer.Serialize(memberObj);
+           
         }
         #endregion UpdateFamilyMember
 
@@ -528,26 +557,32 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteFamilyMember(Members memberObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
                     memberObj.churchId = UA.ChurchID;
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
-                    
-                        status = memberObj.DeleteMember();
-                    
+
+                    memberObj.DeleteMember();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+
             }
-            return status;
+            return jsSerializer.Serialize(memberObj);
+           
         }
         #endregion UpdateFamilyMember
 
@@ -555,25 +590,21 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllFamilyMember(Members memberObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string jsonResult = null;
-            DataSet ds = null;
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
-                    // familyUnitsObj.familyObj.unitId
+                    DataSet ds = null;
                     ds = memberObj.SelectMembers();
-                    // ds = N
 
-                    //Converting to Json
-                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                    Dictionary<string, object> childRow;
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         foreach (DataRow row in ds.Tables[0].Rows)
@@ -587,17 +618,21 @@ namespace ChurchApp.AdminPanel
                         }
 
                     }
-
-
-                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
 
-            return jsonResult;
+            }
+            return jsSerializer.Serialize(parentRow);
+
+            
         }
         #endregion GetAllFamilyMember
 
@@ -613,26 +648,29 @@ namespace ChurchApp.AdminPanel
         public static string InsertAdministrator(ChurchApp.DAL.Administrators AdminObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                AdminObj.churchId = UA.ChurchID;
-                AdminObj.createdBy = UA.userName;
-                status = AdminObj.InsertAdministrator().ToString();
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    AdminObj.churchId = UA.ChurchID;
+                    AdminObj.createdBy = UA.userName;
+                    AdminObj.InsertAdministrator();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
 
             }
-            catch (Exception)
-            {
-                status = "500";//Exception of foreign key
-            }
-            finally
-            {
-            }
-            return status;
-
+            return jsSerializer.Serialize(AdminObj);
         }
 
         #endregion Insert Administrator
@@ -642,24 +680,29 @@ namespace ChurchApp.AdminPanel
         public static string DeleteAdministrator(ChurchApp.DAL.Administrators AdminObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                AdminObj.churchId = UA.ChurchID;
-                status = AdminObj.DeleteAdministrator();
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    AdminObj.churchId = UA.ChurchID;
+                    AdminObj.DeleteAdministrator();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
 
             }
-            catch (Exception)
-            {
-                status = "500";//Exception of foreign key
-            }
-            finally
-            {
-            }
-            return status;
+            return jsSerializer.Serialize(AdminObj);
+           
         }
 
         #endregion DeleteAdministrator
@@ -668,23 +711,20 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string SelectAdministrator(ChurchApp.DAL.Administrators AdminObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string jsonResult = null;
-            DataSet ds = null;
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
+                    DataSet ds = null;
                     AdminObj.churchId = UA.ChurchID;
                     ds = AdminObj.SelectAdministrator();
-                
-                    //Converting to Json
-                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                    Dictionary<string, object> childRow;
+
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         foreach (DataRow row in ds.Tables[0].Rows)
@@ -698,17 +738,21 @@ namespace ChurchApp.AdminPanel
                         }
 
                     }
-
-
-                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
 
-            return jsonResult;
+            }
+            return jsSerializer.Serialize(parentRow);
+          
+           
         }
         #endregion SelectAdministrator
 
@@ -722,25 +766,31 @@ namespace ChurchApp.AdminPanel
         public static string UpdateAdministrator(ChurchApp.DAL.Administrators AdminObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                AdminObj.churchId = UA.ChurchID;
-                AdminObj.updatedBy = UA.userName;
-                status = AdminObj.UpdateAdministrator().ToString();
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    AdminObj.churchId = UA.ChurchID;
+                    AdminObj.updatedBy = UA.userName;
+                    AdminObj.UpdateAdministrator();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
 
             }
-            catch (Exception)
-            {
-                status = "500";//Exception of foreign key
-            }
-            finally
-            {
-            }
-            return status;
+            return jsSerializer.Serialize(AdminObj);
+           
+           
 
         }
 
@@ -750,26 +800,20 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAdminMemberDetails(Members memberObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string jsonResult = null;
-            DataSet ds = null;
-            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            Security.UserAuthendication UA = null;
             try
             {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
+                    DataSet ds = null;
                     memberObj.familyObj.familyUnitsObj.churchId = UA.ChurchID;
-                    // familyUnitsObj.familyObj.unitId
                     ds = memberObj.SelectMemberDetailsForAdmin();
-                    // ds = N
-
-                    //Converting to Json
-                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                    Dictionary<string, object> childRow;
-                    if (ds.Tables[0].Rows.Count > 0)
+                   if (ds.Tables[0].Rows.Count > 0)
                     {
                         foreach (DataRow row in ds.Tables[0].Rows)
                         {
@@ -782,17 +826,19 @@ namespace ChurchApp.AdminPanel
                         }
 
                     }
-
-
-                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
 
-            return jsonResult;
+            }
+            return jsSerializer.Serialize(parentRow);
         }
         #endregion GetAdminMemberDetails
     }

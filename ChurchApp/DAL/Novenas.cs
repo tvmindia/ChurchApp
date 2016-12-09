@@ -79,7 +79,7 @@ namespace ChurchApp.DAL
             get;
             set;
         }
-        public string Status
+        public string status
         {
             get;
             set;

@@ -27,6 +27,7 @@ $(document).ready(function () {
         }
     })
     $(".Delete").click(function (e) {
+        debugger;
         var jsonResult = {};
         var FamilyUnits = new Object();
         var Family = new Object();
@@ -40,17 +41,23 @@ $(document).ready(function () {
         var deleteConirm = confirm("Want to delete?");
         if (deleteConirm) {
             jsonResult = DeleteMember(Members);
-            if (jsonResult == "1") {
-                noty({ text: 'Deleted Successfully', type: 'success' });
-                FamilyMembersAutoBind();
-                clearControls();
-                $("#FamilyAdd").css("display", "none");
-                $("#familyAddDiv").css("display", "none");
-                $("#btnDiv").css("display", "none");
+            switch (jsonResult.status) {
+                case "1":
+                    noty({ text: 'Deleted Successfully', type: 'success' });
+                    FamilyMembersAutoBind();
+                    clearControls();
+                    $("#FamilyAdd").css("display", "none");
+                    $("#familyAddDiv").css("display", "none");
+                    $("#btnDiv").css("display", "none");
+                    break;
+                case "0":
+                    noty({ text: 'Error..!!!', type: 'error' });
+                    break;
+                default:
+                    noty({ text: jsonResult.status, type: 'error' });
+                    break;
             }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
-            }
+          
         }
         else
         {
@@ -121,16 +128,22 @@ $(document).ready(function () {
                 Administrators.imageID = adminID;
             }
             jsonResult = InsertAdministrator(Administrators);
-            if (jsonResult == "1") {
-                noty({ text: 'Saved Successfully', type: 'success' });
-                $("#divAdminDetals").css("display", "");
-                BindFamilyUnitMemebrs();
-                $('#modelAddAdmin').modal('hide');
-                cancelAdminEdit();
+            switch (jsonResult.status) {
+                case "1":
+                    noty({ text: 'Saved Successfully', type: 'success' });
+                    $("#divAdminDetals").css("display", "");
+                    BindFamilyUnitMemebrs();
+                    $('#modelAddAdmin').modal('hide');
+                    cancelAdminEdit();
+                    break;
+                case "0":
+                    noty({ text: 'Error..!!!', type: 'error' });
+                    break;
+                default:
+                    noty({ text: jsonResult.status, type: 'error' });
+                    break;
             }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
-            }
+           
         }
         else
         {
@@ -150,17 +163,23 @@ $(document).ready(function () {
                 Administrators.imageID = guid;
             }
             jsonResult = UpdateAdministrator(Administrators);
-            if (jsonResult == "1") {
-                noty({ text: 'Updated Successfully', type: 'success' });
-                $("#divAdminDetals").css("display", "");
-                BindFamilyUnitMemebrs();
-                $('#modelAddAdmin').modal('hide');
-                $("#FamilyAdd").css("margin-top", "3%");
-                cancelAdminEdit();
+            switch (jsonResult.status) {
+                case "1":
+                    noty({ text: 'Updated Successfully', type: 'success' });
+                    $("#divAdminDetals").css("display", "");
+                    BindFamilyUnitMemebrs();
+                    $('#modelAddAdmin').modal('hide');
+                    $("#FamilyAdd").css("margin-top", "3%");
+                    cancelAdminEdit();
+                    break;
+                case "0":
+                    noty({ text: 'Error..!!!', type: 'error' });
+                    break;
+                default:
+                    noty({ text: jsonResult.status, type: 'error' });
+                    break;
             }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
-            }
+        
         }
     });
 
@@ -170,6 +189,7 @@ $(document).ready(function () {
     });
 
     $(".DeleteUnit").click(function (e) {
+        debugger;
         var jsonResult = {};
         var FamilyUnits = new Object();
         var unitID = $("#hdfUnitID").val();
@@ -177,14 +197,20 @@ $(document).ready(function () {
         var deleteConirm = confirm("Want to delete?");
         if (deleteConirm) {
             jsonResult = DeleteFamilyUnits(FamilyUnits);
-            if (jsonResult == "1") {
-                noty({ text: 'Deleted Successfully', type: 'success' });
-                BindFamilyUnitsAccordion();
-                $("#txtUnitName").val("");
+            switch (jsonResult.status) {
+                case "1":
+                    noty({ text: 'Deleted Successfully', type: 'success' });
+                    BindFamilyUnitsAccordion();
+                    $("#txtUnitName").val("");
+                    break;
+                case "0":
+                    noty({ text: 'Error..!!!', type: 'error' });
+                    break;
+                default:
+                    noty({ text: jsonResult.status, type: 'error' });
+                    break;
             }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
-            }
+         
         }
         else
         {
@@ -193,6 +219,7 @@ $(document).ready(function () {
     });
     $(".DeleteFamily").click(function (e)
     {
+        debugger;
         var jsonResult = {};
         var FamilyUnits = new Object();
         var Family = new Object();
@@ -204,16 +231,22 @@ $(document).ready(function () {
         var deleteConirm = confirm("Want to delete?");
         if (deleteConirm) {
             jsonResult = DeleteFamily(Family);
-            if (jsonResult == "1") {
-                noty({ text: 'Deleted Successfully', type: 'success' });
-                FamilyAutoBind();
-                clearControls();
-                $("#familyAddDiv").css("display", "none");
-                $("#btnFamilyDiv").css("display", "none");
+            switch (jsonResult.status) {
+                case "1":
+                    noty({ text: 'Deleted Successfully', type: 'success' });
+                    FamilyAutoBind();
+                    clearControls();
+                    $("#familyAddDiv").css("display", "none");
+                    $("#btnFamilyDiv").css("display", "none");
+                    break;
+                case "0":
+                    noty({ text: 'Error..!!!', type: 'error' });
+                    break;
+                default:
+                    noty({ text: jsonResult.status, type: 'error' });
+                    break;
             }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
-            }
+           
         }
         else {
             return false;
@@ -496,19 +529,25 @@ function saveMember()
             Members.imageId = memberID;
         }
         jsonResult = InsertFamily(Members);
-        if (jsonResult == "1") {
-            noty({ text: 'Saved Successfully', type: 'success' });
-            FamilyMembersAutoBind();
-            $(".FamiliesEdit").css("display", "none");
-            ClearTextboxes();
-            BindMemberSelect();
+        switch (jsonResult.status) {
+            case "1":
+                noty({ text: 'Saved Successfully', type: 'success' });
+                FamilyMembersAutoBind();
+                $(".FamiliesEdit").css("display", "none");
+                ClearTextboxes();
+                BindMemberSelect();
+                break;
+            case "2":
+                noty({ text: 'Member with the same name already exists', type: 'info' });
+                break;
+            case "0":
+                noty({ text: 'Error..!!!', type: 'error' });
+                break;
+            default:
+                noty({ text: jsonResult.status, type: 'error' });
+                break;
         }
-        if (jsonResult == "2") {
-            noty({ text: 'Member with the same name already exists', type: 'info' });
-        }
-        if (jsonResult != "1" && jsonResult != "2") {
-            noty({ text: 'Error..!!!', type: 'error' });
-        }
+      
     }
     else {
         debugger;
@@ -528,14 +567,21 @@ function saveMember()
             Members.imageId = guid;
         }
         jsonResult = UpdateFamilyMember(Members);
-        if (jsonResult == "1") {
-            noty({ text: 'Updated Successfully', type: 'success' });
-            FamilyMembersAutoBind();
-            BindMemberSelect();
+        switch (jsonResult.status) {
+            case "1":
+                noty({ text: 'Updated Successfully', type: 'success' });
+                FamilyMembersAutoBind();
+                BindMemberSelect();
+                break;
+            
+            case "0":
+                noty({ text: 'Error..!!!', type: 'error' });
+                break;
+            default:
+                noty({ text: jsonResult.status, type: 'error' });
+                break;
         }
-        else {
-            noty({ text: 'Error..!!!', type: 'error' });
-        }
+     
     }
 }
 function saveFamily()
@@ -569,26 +615,41 @@ function saveFamily()
     Members.familyObj = Family;
     if ($("#familyAddOrEdit").text() == "Add") {
         jsonResult = InsertFamily(Members);
-        if (jsonResult == "1") {
-            noty({ text: 'Saved Successfully', type: 'success' });
-            FamilyAutoBind();
-            ClearTextboxes();
-            BindMemberSelect();
+
+        switch (jsonResult.status) {
+            case "1":
+                noty({ text: 'Saved Successfully', type: 'success' });
+                FamilyAutoBind();
+                ClearTextboxes();
+                BindMemberSelect();
+                break;
+
+            case "0":
+                noty({ text: 'Error..!!!', type: 'error' });
+                break;
+            default:
+                noty({ text: jsonResult.status, type: 'error' });
+                break;
         }
-        else {
-            noty({ text: 'Error..!!!', type: 'error' });
-        }
+       
     }
     else {
         jsonResult = SaveUpdatedFamily(Members);
-        if (jsonResult == "1") {
-            noty({ text: 'Updated Successfully', type: 'success' });
-            FamilyAutoBind();
-            BindMemberSelect();
+        switch (jsonResult.status) {
+            case "1":
+                noty({ text: 'Updated Successfully', type: 'success' });
+                FamilyAutoBind();
+                BindMemberSelect();
+                break;
+
+            case "0":
+                noty({ text: 'Error..!!!', type: 'error' });
+                break;
+            default:
+                noty({ text: jsonResult.status, type: 'error' });
+                break;
         }
-        else {
-            noty({ text: 'Error..!!!', type: 'error' });
-        }
+       
     }
 }
 function saveFamilyUnit()
@@ -603,29 +664,40 @@ function saveFamilyUnit()
     FamilyUnits.unitName = unitName;
     if (addOrEdit == "Add") {
         jsonResult = InsertFamilyUnits(FamilyUnits);
-        if (jsonResult == "1") {
-            noty({ text: 'Saved Successfully', type: 'success' });
-            BindFamilyUnitsAccordion();
-            ClearTextboxes();
+        switch (jsonResult.status) {
+            case "1":
+                noty({ text: 'Saved Successfully', type: 'success' });
+                BindFamilyUnitsAccordion();
+                ClearTextboxes();
+                break;
+            case "2":
+                noty({ text: 'Unit Name Already Exists', type: 'info' });
+                BindFamilyUnitsAccordion();
+                break;
+            case "0":
+                noty({ text: 'Error..!!!', type: 'error' });
+                break;
+            default:
+                noty({ text: jsonResult.status, type: 'error' });
+                break;
         }
-        if (jsonResult == "2") {
-            noty({ text: 'Unit Name Already Exists', type: 'info' });
-            BindFamilyUnitsAccordion();
-        }
-
-        if (jsonResult != "1" && jsonResult != "2") {
-            noty({ text: 'Error..!!!', type: 'error' });
-        }
+       
     }
     else {
         jsonResult = UpdateFamilyUnit(FamilyUnits);
-        if (jsonResult == "1") {
-            noty({ text: 'Updated Successfully', type: 'success' });
-            BindFamilyUnitsAccordion();
+        switch (jsonResult.status) {
+            case "1":
+                noty({ text: 'Updated Successfully', type: 'success' });
+                BindFamilyUnitsAccordion();
+                break;
+            case "0":
+                noty({ text: 'Error..!!!', type: 'error' });
+                break;
+            default:
+                noty({ text: jsonResult.status, type: 'error' });
+                break;
         }
-        else {
-            noty({ text: 'Error..!!!', type: 'error' });
-        }
+      
     }
 }
 function handleFileSelect(evt) {
@@ -1079,15 +1151,21 @@ function DeleteAdministrator(e)
     var deleteConirm = confirm("Want to delete?");
     if (deleteConirm) {
         jsonResult = DeleteAdmin(Administrators);
-        if (jsonResult == "1") {
-            noty({ text: 'Deleted Successfully', type: 'success' });
-            BindFamilyUnitMemebrs();
-            cancelAdminEdit();
-            $("#divAdminInfo").css("display", "none");
+        switch (jsonResult.status) {
+            case "1":
+                noty({ text: 'Deleted Successfully', type: 'success' });
+                BindFamilyUnitMemebrs();
+                cancelAdminEdit();
+                $("#divAdminInfo").css("display", "none");
+                break;
+            case "0":
+                noty({ type: 'error', text: 'Deletion was not successfull' });
+                break;
+            default:
+                noty({ type: 'error', text: jsonResult.status });
+                break;
         }
-        else {
-            noty({ text: 'Error..!!!', type: 'error' });
-        }
+       
     }
     else
     {

@@ -58,9 +58,8 @@ $("document").ready(function (e)
 
     //Save Click
      $('#btnSave').click(function (e) {
-         ;
+         debugger;
          var IsValid = NewNovenaValidation();
-
          $('#rowfluidDiv').hide();
          $('.alert-success').hide();
          $('.alert-error').hide();
@@ -121,12 +120,13 @@ $("document").ready(function (e)
                          AppImages.appImageId = DeletedImgID;
                          DeleteAppImage(AppImages);
 
-                         if (DeletedImgPath != '') {
+                         if (DeletedImgPath != '')
+                         {
                              DeleteFileFromFolder(DeletedImgPath);
                          }
                      }
                  }
-                 switch (result.Status) {
+                 switch (result.status) {
                      case "1":
                          var NovenaTiming = new Object();
                          if ($('#hdfNovenaID').val() == "") {
@@ -165,6 +165,7 @@ $("document").ready(function (e)
                          noty({ type: 'error', text: 'Operation was not successfull' });
                          break;
                      default:
+                         noty({ type: 'error', text: result.status });
                          break;
                  }
 
@@ -243,7 +244,7 @@ $("document").ready(function (e)
             Novenas.novenaId = $('#hdfNovenaID').val();
 
             result = DeleteNovena(Novenas);
-            switch (result.Status)
+            switch (result.status)
             {
                 case "1":
                     SetControlsInNovenaFormat(true);
@@ -267,6 +268,7 @@ $("document").ready(function (e)
 
                     break;
                 default:
+                    noty({ type: 'error', text: result.status });
                     break;
             }
             //if (result.Status == 1)
@@ -396,7 +398,7 @@ $("document").ready(function (e)
             else {  //Case Insert
                 result = InsertPatron(PatronMaster);
             }
-            if (result.Status == 1) {
+            if (result.status == 1) {
                 BindPatrons();
                 $('#NewSaintModel').modal('hide');
             }
@@ -590,6 +592,7 @@ function DeleteNovena(Novenas) {
 //------------------CLICKS
 function FixedEditClick()
 {
+    debugger;
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -632,8 +635,8 @@ function FixedEditClick()
                     $("#divStartDate").show();
                     $("#divEndDate").show();
 
-                    $('#dateStartDate').val(ConvertJsonToDate(jsonResult.StartDate));
-                    $('#dateEndDate').val(ConvertJsonToDate(jsonResult.EndDate));
+                    $('#dateStartDate').val(ConvertJsonToDateTextbox(jsonResult.StartDate));
+                    $('#dateEndDate').val(ConvertJsonToDateTextbox(jsonResult.EndDate));
 
                 }
                 else {
@@ -1563,7 +1566,7 @@ function deletePatron(obj) {
 
         BindPatrons();
 
-        if (result.Status == 1) {
+        if (result.status == 1) {
 
             $('#rowfluidDiv').show();
             $('.alert-success').show();
@@ -1577,7 +1580,7 @@ function deletePatron(obj) {
 
         }
 
-        if (result.Status == 0) {
+        if (result.status == 0) {
 
             $('#rowfluidDiv').show();
             $('.alert-error').show();
