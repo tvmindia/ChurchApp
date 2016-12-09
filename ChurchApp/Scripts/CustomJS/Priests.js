@@ -167,6 +167,7 @@
         var value = $('#ContentPlaceHolder2_btnAddNew').val();
         if (value != "") {
             $('#iconEditPriest').remove();
+            $('#btnAddNew').remove();
         }
     }
     catch(e)
