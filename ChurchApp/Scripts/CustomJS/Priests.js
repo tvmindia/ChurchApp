@@ -740,7 +740,7 @@ function AutoComplete()
                 txtB.style.backgroundImage = "url('../img/invalid.png')";
                 txtB.style.backgroundPosition = "95% center";
                 txtB.style.backgroundRepeat = "no-repeat";
-                Errorbox.style.paddingLeft = "30px";
+                //Errorbox.style.paddingLeft = "30px";
 
             }
             else if (container[i].Value == "-1") {
@@ -751,7 +751,7 @@ function AutoComplete()
                 txtB.style.backgroundImage = "url('../img/invalid.png')";
                 txtB.style.backgroundPosition = "93% center";
                 txtB.style.backgroundRepeat = "no-repeat";
-                Errorbox.style.paddingLeft = "30px";
+                //Errorbox.style.paddingLeft = "30px";
             }
         }
         if (j == '1') {
@@ -759,13 +759,13 @@ function AutoComplete()
             //p.innerHTML = "* Some Fields Are Empty ! ";
             //p.style.color = "Red";
             //p.style.fontSize = "14px";
-            noty({ type: '', text: Messages.Validation });
-            divs.appendChild(p);
+            noty({ type: 'error', text: Messages.Validation });
+            //divs.appendChild(p);
             //$('#btnAddAdmin').attr('name', 'failure');
             return false;
         }
         if (j == '0') {
-            $('#ErrorBox').hide(1000);
+            //$('#ErrorBox').hide(1000);
             //scriptvalidate();
             savePriest();
             return true;
