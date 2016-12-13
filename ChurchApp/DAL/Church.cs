@@ -927,6 +927,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string status
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region MassTiming Methods
@@ -1010,7 +1015,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
 
         #endregion InsertMassTiming
@@ -1055,7 +1061,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status=outParam.Value.ToString();
+            return status;
         }
         #endregion UpdateMassTiming
 
@@ -1094,7 +1101,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam1.Value.ToString();
+            status=outParam1.Value.ToString();
+            return status;
         }
         #endregion DeleteMassTiming
 

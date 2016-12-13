@@ -41,35 +41,35 @@
             MassTimings.day = day;
             MassTimings.massTime = time;
             result = InsertMassTiming(MassTimings);
-            if (result == "1") {
-                BindAsyncAdminsTable();
-                var jsonResult = {};
-                //MassTimings.massChurchId = churchId;
-                MassTimings.day = day;
-                jsonResult = selectMassTimeByDay(MassTimings);
-                var length = jsonResult.length;
-                var MassID = new Array();
-                var massChurchID = "";
-                var Day = "";
-                var Time = new Array();
-                for (var i = 0; i < length; i++) {
-                    var ID = jsonResult[i]["ID"];
-                    massChurchID = jsonResult[i]["ChurchID"];
-                    Day = jsonResult[i]["Day"];
-                    var MassTime = jsonResult[i]["Time"];
-                    MassID.push(ID);
-                    Time.push(MassTime);
-                }
-                Time = BindTime(Time)
-                ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
-                noty({ text: 'Saved Successfully', type: 'success' });
-            }
-            if(result=="2")
-            {
-                noty({ text: 'Time Already Exists', type: 'info' });
-            }
-            if(result!="1" && result!="2") {
-                noty({ text: 'Error..!!!', type: 'error' });
+            switch (result.status) {
+                case "1":
+                    BindAsyncAdminsTable();
+                    var jsonResult = {};
+                    MassTimings.day = day;
+                    jsonResult = selectMassTimeByDay(MassTimings);
+                    var length = jsonResult.length;
+                    var MassID = new Array();
+                    var massChurchID = "";
+                    var Day = "";
+                    var Time = new Array();
+                    for (var i = 0; i < length; i++) {
+                        var ID = jsonResult[i]["ID"];
+                        massChurchID = jsonResult[i]["ChurchID"];
+                        Day = jsonResult[i]["Day"];
+                        var MassTime = jsonResult[i]["Time"];
+                        MassID.push(ID);
+                        Time.push(MassTime);
+                    }
+                    Time = BindTime(Time)
+                    ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
+                    noty({ text: 'Saved Successfully', type: 'success' });
+                    break;
+                case "2":
+                    noty({ text: 'Time Already Exists', type: 'info' });
+                    break;
+                default:
+                    noty({ text: 'Error..!!!', type: 'error' });
+                    break;
             }
         }
         else {
@@ -85,31 +85,34 @@
             MassTimings.massTime = time;
             MassTimings.massTimingID = massId;
             result = UpdateMassTiming(MassTimings);
-            if (result == "1") {
-                BindAsyncAdminsTable();
-                var jsonResult = {};
-                MassTimings.massChurchId = churchId;
-                MassTimings.day = day;
-                jsonResult = selectMassTimeByDay(MassTimings);
-                var length = jsonResult.length;
-                var MassID = new Array();
-                var massChurchID = "";
-                var Day = "";
-                var Time = new Array();
-                for (var i = 0; i < length; i++) {
-                    var ID = jsonResult[i]["ID"];
-                    massChurchID = jsonResult[i]["ChurchID"];
-                    Day = jsonResult[i]["Day"];
-                    var MassTime = jsonResult[i]["Time"];
-                    MassID.push(ID);
-                    Time.push(MassTime);
-                }
-                Time = BindTime(Time)
-                ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
-                noty({ text: 'Updated Successfully', type: 'success' });
-            }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
+            switch(result.status)
+            {
+                case "1":
+                    BindAsyncAdminsTable();
+                    var jsonResult = {};
+                    MassTimings.massChurchId = churchId;
+                    MassTimings.day = day;
+                    jsonResult = selectMassTimeByDay(MassTimings);
+                    var length = jsonResult.length;
+                    var MassID = new Array();
+                    var massChurchID = "";
+                    var Day = "";
+                    var Time = new Array();
+                    for (var i = 0; i < length; i++) {
+                        var ID = jsonResult[i]["ID"];
+                        massChurchID = jsonResult[i]["ChurchID"];
+                        Day = jsonResult[i]["Day"];
+                        var MassTime = jsonResult[i]["Time"];
+                        MassID.push(ID);
+                        Time.push(MassTime);
+                    }
+                    Time = BindTime(Time)
+                    ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
+                    noty({ text: 'Updated Successfully', type: 'success' });
+                    break;
+                default:
+                    noty({ text: 'Error..!!!', type: 'error' });
+                    break;
             }
         }
 
@@ -157,31 +160,34 @@
             {
                 return false;
             }
-            if (result == "1") {
-                BindAsyncAdminsTable();
-                var jsonResult = {};
-                MassTimings.massChurchId = churchId;
-                MassTimings.day = day;
-                jsonResult = selectMassTimeByDay(MassTimings);
-                var length = jsonResult.length;
-                var MassID = new Array();
-                var massChurchID = "";
-                var Day = "";
-                var Time = new Array();
-                for (var i = 0; i < length; i++) {
-                    var ID = jsonResult[i]["ID"];
-                    massChurchID = jsonResult[i]["ChurchID"];
-                    Day = jsonResult[i]["Day"];
-                    var MassTime = jsonResult[i]["Time"];
-                    MassID.push(ID);
-                    Time.push(MassTime);
-                }
-                Time = BindTime(Time)
-                ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
-                noty({ text: 'Deleted Successfully', type: 'success' });
-            }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
+            switch(result.status)
+            {
+                case "1":
+                    BindAsyncAdminsTable();
+                    var jsonResult = {};
+                    MassTimings.massChurchId = churchId;
+                    MassTimings.day = day;
+                    jsonResult = selectMassTimeByDay(MassTimings);
+                    var length = jsonResult.length;
+                    var MassID = new Array();
+                    var massChurchID = "";
+                    var Day = "";
+                    var Time = new Array();
+                    for (var i = 0; i < length; i++) {
+                        var ID = jsonResult[i]["ID"];
+                        massChurchID = jsonResult[i]["ChurchID"];
+                        Day = jsonResult[i]["Day"];
+                        var MassTime = jsonResult[i]["Time"];
+                        MassID.push(ID);
+                        Time.push(MassTime);
+                    }
+                    Time = BindTime(Time)
+                    ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
+                    noty({ text: 'Deleted Successfully', type: 'success' });
+                    break;
+                default:
+                    noty({ text: 'Error..!!!', type: 'error' });
+                    break;
             }
         }
     });

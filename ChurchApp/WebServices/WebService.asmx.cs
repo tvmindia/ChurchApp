@@ -598,9 +598,8 @@ namespace ChurchApp.WebServices
 
         #region Gallery Album
 
-        [WebMethod]
-        ///Album
-        public string GetMyChurchGallery(string ChurchID)
+        [WebMethod]        
+        public string GetGalleryAlbums(string ChurchID)
         {
             DataTable dt = new DataTable();
 
@@ -609,11 +608,18 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.GalleryAlbum galleryObj = new DAL.GalleryAlbum();
                 galleryObj.churchId = ChurchID;
                 dt = galleryObj.SelectGalleryAlbums().Tables[0];
-
+                if (dt.Rows.Count == 0) throw new Exception("No items");
             }
             catch (Exception ex)
             {
-                throw ex;
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
             }
             finally
             {
@@ -901,5 +907,44 @@ namespace ChurchApp.WebServices
 
 
         #endregion Priests
+
+        //GetNoticesByChurchID
+        #region Notices
+
+        #region GetNoticesByChurchID
+        [WebMethod]
+        public string GetNoticesByChurchID(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Notices Nobj = new DAL.Notices();
+                Nobj.churchId = ChurchID;
+                dt = Nobj.SelectNotices().Tables[0];
+                if (dt.Rows.Count == 0) throw new Exception("No items");
+
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion GetNoticesByChurchID
+
+
+        #endregion Notices
     }
 }

@@ -144,7 +144,6 @@ namespace ChurchApp.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
            
-            string status = null;
             try
             {
                 DashBoard dashBoardObj = new DashBoard();
@@ -153,7 +152,7 @@ namespace ChurchApp.AdminPanel
                 {
                     NotificationsObj.churchId = UA.ChurchID;
                     NotificationsObj.createdBy = UA.userName;
-                    status = NotificationsObj.InsertNotification();
+                    NotificationsObj.status = NotificationsObj.InsertNotification();
                 }
                 else
                 {
@@ -163,9 +162,9 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-                status = ex.Message;
+                NotificationsObj.status = ex.Message;
             }
-            return status;
+            return jsSerializer.Serialize(NotificationsObj);
         }
         #endregion InsertNotification
 
@@ -232,7 +231,6 @@ namespace ChurchApp.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
              DAL.Security.UserAuthendication UA;
            
-            string status = null;
             try
             {
                 DashBoard dashBoardObj = new DashBoard();
@@ -241,7 +239,7 @@ namespace ChurchApp.AdminPanel
                 {
                     NotificationsObj.churchId = UA.ChurchID;
                     NotificationsObj.updatedBy = UA.userName;
-                    status = NotificationsObj.UpdateNotification();
+                    NotificationsObj.status = NotificationsObj.UpdateNotification();
                 }
                 else
                 {
@@ -251,10 +249,10 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-                status = ex.Message;
+                NotificationsObj.status = ex.Message;
             }
-           
-            return status;
+
+            return jsSerializer.Serialize(NotificationsObj);
         }
         #endregion UpdateNotification
 
@@ -265,7 +263,6 @@ namespace ChurchApp.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
            
-            string status = null;
             try
             {
                 DashBoard dashBoardObj = new DashBoard();
@@ -273,7 +270,7 @@ namespace ChurchApp.AdminPanel
                 if(UA!=null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
-                    status = NotificationsObj.DeleteNotification();
+                    NotificationsObj.status = NotificationsObj.DeleteNotification();
                 }
                 else
                 {
@@ -284,9 +281,9 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-                status = ex.Message;
+                NotificationsObj.status = ex.Message;
             }
-            return status;
+            return jsSerializer.Serialize(NotificationsObj);
         }
         #endregion DeleteNotification
 

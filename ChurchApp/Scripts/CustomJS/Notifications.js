@@ -85,17 +85,18 @@
         var deleteConirm = confirm("Want to delete?");
         if (deleteConirm) {
             result = DeleteNotification(Notifications);
-            if(result=="1")
+            switch(result.status)
             {
-                noty({ text: 'Deleted Successfully', type: 'success' });
-                BindAsyncNotificationTable();
-                BindAsynOldNotificationTable();
-                $('#NotificationEditDivBox').hide();
-                $("#NotificationDetails").hide();
-            }
-            else
-            {
-                noty({ text: 'Error..!!!', type: 'error' });
+                case "1":
+                    noty({ text: 'Deleted Successfully', type: 'success' });
+                    BindAsyncNotificationTable();
+                    BindAsynOldNotificationTable();
+                    $('#NotificationEditDivBox').hide();
+                    $("#NotificationDetails").hide();
+                    break;
+                default:
+                    noty({ text: 'Error..!!!', type: 'error' });
+                    break;
             }
         }
         else {
@@ -330,27 +331,32 @@ function SaveNotification()
         debugger;
         if (addOrEdit == "Add Notification") {
             result = InsertNotification(Notifications);
-            if (result == "1") {
-                BindAsyncNotificationTable();
-                BindAsynOldNotificationTable();
-                $("#NotificationEditDivBox").hide();
-                noty({ text: 'Saved Successfully', type: 'success' });
-            }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
+            switch(result.status)
+            {
+                case "1":
+                    BindAsyncNotificationTable();
+                    BindAsynOldNotificationTable();
+                    $("#NotificationEditDivBox").hide();
+                    noty({ text: 'Saved Successfully', type: 'success' });
+                    break;
+                default:
+                    noty({ text: 'Error..!!!', type: 'error' });
+                    break;
             }
         }
         else {
             result = UpdateNotification(Notifications);
-            if (result == "1") {
-                BindAsyncNotificationTable();
-                BindAsynOldNotificationTable();
-                //$("#NotificationEditDivBox").hide();
-                $(".dark").css("margin-top", "30px");
-                noty({ text: 'Updated Successfully', type: 'success' });
-            }
-            else {
-                noty({ text: 'Error..!!!', type: 'error' });
+            switch(result.status)
+            {
+                case "1":
+                    BindAsyncNotificationTable();
+                    BindAsynOldNotificationTable();
+                    $(".dark").css("margin-top", "30px");
+                    noty({ text: 'Updated Successfully', type: 'success' });
+                    break;
+                default:
+                    noty({ text: 'Error..!!!', type: 'error' });
+                    break;
             }
         }
     }
