@@ -12,9 +12,6 @@
         $target.slideToggle(500);
 
     });
-
-
-
     $('.btn-setting').click(function(e){
      
         if ($('#IdDivChurchDisplay').is(':visible'))
@@ -41,7 +38,6 @@
 
 function BindDetails()
 {
-    debugger;
     var churchDetail = GetChurchDetailsByChurchID();
     $('.grayscale').attr('src', churchDetail[0].ImageURL);
     $('#h2ChurchName').text(churchDetail[0].ChurchName);

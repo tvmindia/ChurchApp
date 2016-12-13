@@ -237,3 +237,76 @@ function RemoveStyle() {
 
     }
 }
+
+//--------------* Pages * ---------------//
+var Pages = {
+    Home: "Home",
+    Dashboard: "DashBoard",
+    Priests: "Priests",
+    Login: "Login",
+    Events: "Events",
+    FamilyUnits: "Family Units",
+    Gallery: "Gallery",
+    Institutions: "Institutions",
+    PiousInstitution: "Pious Institutions",
+    MassShedules: "Mass Shedules",
+    Novenas: "Novenas",
+    Notifications: "Notifications"
+}
+
+//--------------* Messages * ---------------//
+var Messages = {
+    FileFormaterror: "Please select a valid Image",
+    exists: "The operation can’t be completed because the category is in use .",
+    existsBoutique: "The operation can’t be completed because the Boutique is in use .",
+
+    Html5: "The File APIs are not fully supported in this browser.",
+
+    MandatoryFields: "Please fill out all the fields",
+    EmailInstruction: "Please check your email for a message with verification code.Your code is 4 digit long . We sent code to ",
+    VerificationCodeMismatch: "Passwords does not match. Please confirm passwords are Same",
+    InvalidEmailID: "Enter A valid Email-ID",
+    TimeExpired: "Time expired",
+    IncorrectVerificationCode: "Verification Code is invalid",
+    ErrorNumber: "ErrorNumber=",
+    Imagesupport: "The Image Is not Supporting Save a new one",
+    Validation:"* Some fields are empty !",
+    ExceptionMsgCaption: "Exception!",
+    SuccessMsgCaption: "Success!",
+    WarningMsgCaption: "Warning!",
+    InsertionFailureMsgCaption: "Somthing Wrong try Again!",
+    FailureMsgCaption: "Failure!",
+    AlreadyExistsMsgCaption: "Already exists!",
+    Confirm: "Please Confirm!",
+
+    LoginSuccess: "Successfully logged in",
+    InsertionSuccessFull: "Successfully Inserted",
+    UpdationSuccessFull: "Successfully Edited",
+    DeletionSuccessFull: "Deleted Successfully",
+    SuccessfulUpload: "Successfully Uploaded",
+    SavedSuccessfull: "Successfully Saved!",
+    PriestAdded: "Priest Added Successfully",
+    VicarExist: "You are not permitted to add multiple Vicars !",
+    ProductAddSuccessfull: "New Product Created Successfully.",
+    DboInvalid: "Rejected - Invalid Data Entitys date of birth",
+    OrdinationInvalid: "Rejected - Invalid Data Entitys ordination date",
+    LoginFailed: "User Name / Password is wrong!",
+    InsertionFailure: "Not Successfuly Saved Try Again",
+    UpdationFailure: "Edit Failed Try Again Later",
+    Warning: "Warning Msg ",
+    DeletionFailure: "Deletion Not Successful ",
+    SavingFailure: "Saving Not Successful ",
+    AlreadyUsedForDeletion: "Already used . Can't be deleted",
+    AlreadyUsedForUpdation: "Already used . Can't be changed",
+    MailSendSuccessfully: "Mail Send Successfully",
+    ProductAddFailure: "Product Creation was not Successfull.",
+
+    ErrorFix: "Bug Rectified Successfully.",
+    ErrorFixNOT: "Operation was Not Successfull.",
+
+    ProductReviewEmpty: "No Items To Display.",
+    ReviveSucces: "Restored Product Successfully.",
+    ReviveNotSuccess: "Restoring Product was not Successfull.",
+
+    HtmlFileFormatError: "Please select html file"
+}

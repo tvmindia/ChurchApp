@@ -3,20 +3,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
      <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBGYAg9VLLllUHiLbNguOAHAB_scDP038E"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYAg9VLLllUHiLbNguOAHAB_scDP038E&libraries=places"></script>
     
     <link href="../CSS/CustomCSS/DashBoard.css" rel="stylesheet" />
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/DashBoard.js"></script>
 
- <%-- <style>
- #datepickerdob
-{
-    background-image :url('../img/invalid.png');
-    background-position:95% center;
-    background-Repeat:no-repeat;
-    padding-left:30px;
-}
-  </style>--%>
+
     
 
     <div id="content" class="span10">
@@ -66,11 +59,13 @@
 						<table class="table table-bordered table-striped table-condensed" id="churchtable">
 							   <thead>
 							  <tr>
+                                  <th>ID</th>
 								  <th>Name</th>
-								  <th>Town</th>
 								  <th>Address</th>
 								  <th>Phone1</th>
-								  <th>Actions</th>
+								  <th>TownName</th>
+                                  <th>Actions</th>
+								  
 							  </tr>
 						  </thead>   
 						  <tbody>
@@ -184,7 +179,7 @@
                          </fieldset>
                             <div id="footer" runat="server" class="form-actions">
                                         <a class="btn btn-primary" id="btnChurchAdd" href="#">Save</></a>
-                                        <a class="btn ChurchClear">Cancel</a>
+                                        <a class="btn btn-primary ChurchClear">Cancel</a>
                                     </div>	
                         </div>
                         
@@ -270,7 +265,7 @@
                          </fieldset>
                                   <div  class="form-actions">
                                         <a class="btn btn-primary" id="btnRolesAdd" href="#">Save</></a>
-                                        <a class="btn RolesClear">Cancel</a>
+                                        <a class="btn btn-primary RolesClear">Cancel</a>
                                     </div>	
                                  </div>
 						
@@ -463,7 +458,7 @@
 
                              <div class="form-actions">
                                         <a class="btn btn-primary" id="btnUserAdd" href="#">Save</></a>
-                                        <a class="btn UserClear">Cancel</a>
+                                        <a class="btn btn-primary UserClear">Cancel</a>
                                     </div>	
                                  </div>
 						
@@ -557,7 +552,7 @@
 
                              <div class="form-actions">
                                         <a class="btn btn-primary" id="btnDesignationAdd" href="#">Save</></a>
-                                        <a class="btn clearDesignation">Cancel</a>
+                                        <a class="btn btn-primary clearDesignation">Cancel</a>
                                     </div>	
                                  </div>
 						
@@ -653,7 +648,7 @@
 
                              <div class="form-actions">
                                        <a href="#" class="btn btn-primary" id="btnSaintAdd">Save</a>
-                                        <a href="#" class="btn ClearSaint">Close</a>
+                                        <a href="#" class="btn btn-primary ClearSaint">Close</a>
                                     </div>	
                                  </div>
 						
@@ -683,7 +678,13 @@
 			<h3>Google Map</h3>
 		</div>
 		<div class="modal-body">
-			 <div id="dvMap" style="width: 500px; height: 350px"/>
+			 <div id="dvMap" style="width: 530px; height: 350px"/>
+            
+		</div>
+        
+        <div class="modal-footer">
+         <span>Latitude:</span><span id="spanLatitude"></span><span>   Longitude:</span><span id="spanLongitude"></span>
+         <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
 		</div>
 		
 	   </div>

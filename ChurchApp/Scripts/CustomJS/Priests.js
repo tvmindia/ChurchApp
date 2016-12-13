@@ -64,7 +64,7 @@
                     result = UpdateChurchIDPriest(Priest);
 
                     if (result.result == "1") {
-                        noty({ text: 'Priest Added Successfully', type: 'success' });
+                        noty({ text: Messages.PriestAdded, type: 'success' });
                         $('#assVicardiv').remove();
                         $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
                         check();
@@ -99,7 +99,7 @@
                 result = DeletePriest(Priest);
 
                 if (result.result == "1") {
-                    noty({ text: 'Priest Deleted Successfully', type: 'success' });
+                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
                     $('#assVicardiv').remove();
                     $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
                     check();
@@ -123,7 +123,7 @@
             {
                 var Role = $(this).attr('name');
                 if (($('#ddlstatus').val() == 'Vicar') && (Role == 'Asst')) {
-                    noty({ text: 'You Cant add multiple Vicars try Again !', type: 'information' });
+                    noty({ text: Messages.VicarExist, type: 'information' });
                     return false;
                 }
 
@@ -133,14 +133,14 @@
                 var ordcheck = $('#OrdinationDate').val();
                 if (dobcheck != "") {
                     if (Datecheck(dobcheck) > today) {
-                        noty({ text: 'Invalid Date of birth !', type: 'information' });
+                        noty({ text: Messages.DboInvalid, type: 'information' });
                         return false;
                     }
                 }
 
                 if (ordcheck != "") {
                     if (Datecheck(ordcheck) > today) {
-                        noty({ text: 'Invalid Ordination Date !', type: 'information' });
+                        noty({ text: Messages.OrdinationInvalid, type: 'information' });
                         return false;
                     }
                 }
@@ -167,6 +167,7 @@
         var value = $('#ContentPlaceHolder2_btnAddNew').val();
         if (value != "") {
             $('#iconEditPriest').remove();
+            $('#btnAddNew').remove();
         }
     }
     catch(e)
@@ -242,7 +243,7 @@ function savePriest()
             result = InsertPriest(Priest);
 
             if (result.result == "1") {
-                noty({ text: 'Priest Added Successfully', type: 'success' });
+                noty({ text: Messages.SavedSuccessfull, type: 'success' });
 
             }
             else
@@ -290,13 +291,13 @@ function savePriest()
             result = UpdatePriest(Priest);
 
             if (result.result == "1") {
-                noty({ text: 'Priest Edited Successfully', type: 'success' });
+                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
             }
             else
             {
                 noty({ text: result.result, type: 'error' });
             }
-            $('#assVicardiv').remove();
+            $('#assVicardiv').remove(); 
         
             $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
             check();
@@ -406,7 +407,6 @@ function AutoComplete()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////*********************** Function for binding priest list vicar and asst vicar
     function check() {
-        debugger;
         var priestDetails = {};
         var elems = $();
         var elemsAsst = $();
@@ -714,7 +714,7 @@ function AutoComplete()
     //CreatedBy Thomson
     function PriestValidation() {
         
-        $('#Displaydiv').remove();
+        //$('#Displaydiv').remove();
         var Name = $('#txtPriestName');
         var OrdinationDate = $('#OrdinationDate');
         var Role = $('#ddlstatus');
@@ -726,46 +726,46 @@ function AutoComplete()
         ];
 
         var j = 0;
-        var Errorbox = document.getElementById('ErrorBox');
-        var divs = document.createElement('div');
-        divs.setAttribute("id", "Displaydiv");
-        Errorbox.appendChild(divs);
+        //var Errorbox = document.getElementById('ErrorBox');
+        //var divs = document.createElement('div');
+        //divs.setAttribute("id", "Displaydiv");
+        //Errorbox.appendChild(divs);
         for (var i = 0; i < container.length; i++) {
 
             if (container[i].Value == "") {
                 j = 1;
-                Errorbox.style.borderRadius = "5px";
-                Errorbox.style.display = "block";
+                //Errorbox.style.borderRadius = "5px";
+               // Errorbox.style.display = "block";
                 var txtB = document.getElementById(container[i].id);
                 txtB.style.backgroundImage = "url('../img/invalid.png')";
                 txtB.style.backgroundPosition = "95% center";
                 txtB.style.backgroundRepeat = "no-repeat";
-                Errorbox.style.paddingLeft = "30px";
+                //Errorbox.style.paddingLeft = "30px";
 
             }
             else if (container[i].Value == "-1") {
                 j = 1;
-                Errorbox.style.borderRadius = "5px";
-                Errorbox.style.display = "block";
+               // Errorbox.style.borderRadius = "5px";
+                //Errorbox.style.display = "block";
                 var txtB = document.getElementById(container[i].id);
                 txtB.style.backgroundImage = "url('../img/invalid.png')";
                 txtB.style.backgroundPosition = "93% center";
                 txtB.style.backgroundRepeat = "no-repeat";
-                Errorbox.style.paddingLeft = "30px";
+                //Errorbox.style.paddingLeft = "30px";
             }
         }
         if (j == '1') {
-            var p = document.createElement('p');
-            p.innerHTML = "* Some Fields Are Empty ! ";
-            p.style.color = "Red";
-            p.style.fontSize = "14px";
-
-            divs.appendChild(p);
+            //var p = document.createElement('p');
+            //p.innerHTML = "* Some Fields Are Empty ! ";
+            //p.style.color = "Red";
+            //p.style.fontSize = "14px";
+            noty({ type: 'error', text: Messages.Validation });
+            //divs.appendChild(p);
             //$('#btnAddAdmin').attr('name', 'failure');
             return false;
         }
         if (j == '0') {
-            $('#ErrorBox').hide(1000);
+            //$('#ErrorBox').hide(1000);
             //scriptvalidate();
             savePriest();
             return true;

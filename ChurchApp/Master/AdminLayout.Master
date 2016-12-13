@@ -125,8 +125,8 @@ img{
     opacity: 0.5;
     z-index: 1040;
 }
-.dropdown-menu{
-    height:400px;
+#ChurchList{
+    max-height:400px;
     overflow-y:scroll;
 }
     </style>
