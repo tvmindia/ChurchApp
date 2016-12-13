@@ -528,9 +528,10 @@
 						<table class="table table-bordered" id="Designationtable">
 							  <thead>
 								  <tr>
-									  <th>Position</th>
+                                      <th>DesigID</th>
+                                      <th>Position</th>
 									  <th>Order</th>
-									  <th>Organization</th>
+									  <th>Organization Type</th>
                                      <th>Actions</th>                                          
 								  </tr>
 							  </thead>   
@@ -563,7 +564,7 @@
                                  
                                       <div class="control-group">
 
-                              <label class="control-label" for="focusedInput">Organization</label>
+                              <label class="control-label" for="focusedInput">Organization Type</label>
                                <div class="controls">
                                <select id="idddlOrganization" name="Organization" class="ddlOrganization"><option></option></select>
                               </div>
