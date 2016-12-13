@@ -901,5 +901,44 @@ namespace ChurchApp.WebServices
 
 
         #endregion Priests
+
+        //GetNoticesByChurchID
+        #region Notices
+
+        #region GetNoticesByChurchID
+        [WebMethod]
+        public string GetNoticesByChurchID(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Notices Nobj = new DAL.Notices();
+                Nobj.churchId = ChurchID;
+                dt = Nobj.SelectNotices().Tables[0];
+                if (dt.Rows.Count == 0) throw new Exception("No items");
+
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion GetNoticesByChurchID
+
+
+        #endregion Notices
     }
 }
