@@ -79,6 +79,7 @@
     <Content Include="AdminPanel\Novenas.aspx" />
     <Content Include="AdminPanel\PiousOrganizations.aspx" />
     <Content Include="AdminPanel\Priests.aspx" />
+    <Content Include="CSS\bootstrap-multiselect.css" />
     <Content Include="CSS\bootstrap-responsive.css" />
     <Content Include="CSS\bootstrap-responsive.min.css" />
     <Content Include="CSS\bootstrap.min.css" />
@@ -239,6 +240,7 @@
     <Content Include="Font\fontawesome-webfont.woff2" />
     <Content Include="Font\FontAwesome.otf" />
     <Content Include="readme.txt" />
+    <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\CustomJS\Events.js" />
     <Content Include="Scripts\CustomJS\Families.js" />
     <Content Include="Scripts\CustomJS\Gallery.js" />
