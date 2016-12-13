@@ -10,11 +10,11 @@
         "bInfo": false,
         "oLanguage":false
     });
-    $("#ddlDay").select2({
-        placeholder: "Select Day",
-        allowClear: true,
-    });
-    $("#ddlDay").val("").trigger("change");
+    //$("#ddlDay").select2({
+    //    placeholder: "Select Day",
+    //    allowClear: true,
+    //});
+    //$("#ddlDay").val("").trigger("change");
     //--------------- *Save MassTiming* ----------------//
     $(".cancel").click(function (e) {
         $("#AddorEditSpan").text("Save");
@@ -192,17 +192,21 @@
         }
     });
 
-    var $eventDaySelect = $("#ddlDay");
-    $eventDaySelect.on("change", function (e) {
-        debugger;
-        if ($("#ddlDay").val() != null)
-        {
-            BindGridOnDaySelect();
-        }
+    //var $eventDaySelect = $("#ddlDay");
+    //$eventDaySelect.on("change", function (e) {
+    //    debugger;
+    //    if ($("#ddlDay").val() != null)
+    //    {
+    //        BindGridOnDaySelect();
+    //    }
        
        
-    });
+    //});
+    $('#ddlDay').multiselect({
 
+        includeSelectAllOption: true
+
+    });
     var value = $('#ContentPlaceHolder2_btnAddNew').val();
     if (value != "") {
         debugger;

@@ -105,3 +105,39 @@
     width: 745px;
     text-align: center;
 }
+/*.btnmulti
+{
+      background-color: #ffffff !important;
+    color:#000000 !important;
+}*/
+ .multiselect {
+        width: 200px;
+    }
+    .selectBox {
+        position: relative;
+    }
+    .selectBox select {
+        width: 100%;
+        font-weight: bold;
+    }
+    .overSelect {
+        position: absolute;
+        left: 0; right: 0; top: 0; bottom: 0;
+    }
+    #checkboxes {
+        display: none;
+        border: 1px #dadada solid;
+    }
+    #checkboxes label {
+        display: block;
+    }
+    #checkboxes label:hover {
+        background-color: #808080;
+    }
+    .dropcheck
+    {
+       
+            background-image : url('/img/invalid.png')!important;
+            background-position : 95% center!important;
+            background-repeat : no-repeat!important;
+    }

@@ -2,6 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+    <link href="../CSS/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="../Scripts/bootstrap-multiselect.js"></script>
+
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/MassSchedules.js"></script>
     <link href="../CSS/CustomCSS/MassSchedules.css" rel="stylesheet" />
@@ -62,7 +65,7 @@
 
                             <label class="control-label" for="focusedInput">Day</label>
                             <div class="controls">
-                                <select id="ddlDay" name="DaySelect">
+                                <select id="ddlDay" class="btnmulti" multiple="multiple" name="DaySelect">
                                     <option value="Sun">Sunday</option>
                                     <option value="Mon">Monday</option>
                                     <option value="Tue">Tuesday</option>
@@ -101,7 +104,7 @@
                         </div>
                       <div class="form-actions">
 								<a class="btn btn-primary AddMass saveAll">Save</a>
-								<a class="btn cancel">Cancel</a>
+								<a class="btn btn-primary cancel">Cancel</a>
 							  </div>
                 </div>
                 </div>
