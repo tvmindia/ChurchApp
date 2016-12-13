@@ -564,7 +564,7 @@
                                  
                                       <div class="control-group">
 
-                              <label class="control-label" for="focusedInput">Organization</label>
+                              <label class="control-label" for="focusedInput">Organization Type</label>
                                <div class="controls">
                                <select id="idddlOrganization" name="Organization" class="ddlOrganization"><option></option></select>
                               </div>
