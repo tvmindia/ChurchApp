@@ -140,7 +140,7 @@ function postBlobAjax(formData, page) {
 
         success: function (data) {
             $('#displaywait').hide();
-            jsonResult = data;
+           jsonResult = JSON.parse(data);
         },
         processData: false,
 

@@ -240,6 +240,7 @@ namespace ChurchApp.DAL
                 }
             }
             //insert success or failure
+            churchId = outchurchid.Value.ToString();
             status = outParameter.Value.ToString();
             return status;
 

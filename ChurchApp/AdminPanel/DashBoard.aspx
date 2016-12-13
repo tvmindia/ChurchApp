@@ -2,14 +2,33 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBGYAg9VLLllUHiLbNguOAHAB_scDP038E"></script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYAg9VLLllUHiLbNguOAHAB_scDP038E&libraries=places"></script>
+
     
+    <style>
+    
+#searchInput {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 50%;
+}
+#searchInput:focus {
+    border-color: #4d90fe;
+}
+    </style>
     <link href="../CSS/CustomCSS/DashBoard.css" rel="stylesheet" />
+  
     <script src="../Scripts/CustomJS/Common.js"></script>
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYAg9VLLllUHiLbNguOAHAB_scDP038E&libraries=places&callback=initMap"async defer></script>
     <script src="../Scripts/CustomJS/DashBoard.js"></script>
+     
+    <script>
 
-
+</script>
     
 
     <div id="content" class="span10">
@@ -73,6 +92,19 @@
 						</tbody>
 						 </table>  
 
+                        <br />
+                      <%--  <div>
+                             <input id="searchInput" class="controls" type="text" placeholder="Enter a location"/>
+                                  <div id="map" style="width: 100%;height: 400px;"></div>
+                                  <ul id="geoData">
+                                  <li>Full Address: <span id="location"></span></li>
+                                  <li>Postal Code: <span id="postal_code"></span></li>
+                                  <li>Country: <span id="country"></span></li>
+                                  <li>Latitude: <span id="lat"></span></li>
+                                  <li>Longitude: <span id="lon"></span></li>
+                                  </ul>
+                        </div>--%>
+                       
                         <br />
 
                         <div class="form-horizontal">
@@ -211,6 +243,8 @@
 						<table class="table table-bordered" id="Rolestable">
 							  <thead>
 								  <tr>
+                                      <th>RoleID</th>
+                                      <th>ChurchID</th>
 									  <th>Role</th>
 									  <th>Church</th>
 									  <th>Created Date</th>
@@ -299,6 +333,8 @@
 						<table class="table table-bordered" id="Userstable">
 							  <thead>
 								  <tr>
+                                      <th>UserID</th>
+                                      <th>ChurchID</th>
 									  <th>Name</th>
 									  <th>Mobile</th>
 									  <th>Church</th>
@@ -678,8 +714,17 @@
 			<h3>Google Map</h3>
 		</div>
 		<div class="modal-body">
-			 <div id="dvMap" style="width: 530px; height: 350px"/>
-            
+			 <%--<div id="dvMap" style="width: 530px; height: 350px"/>--%>
+                 <div>
+                             <input id="searchInput" class="controls" type="text" placeholder="Enter a location"/>
+                                  <div id="map" style="width: 100%;height: 350px;"></div>
+                                  <ul id="geoData">
+                                  <li>Full Address: <span id="location"></span></li>
+                                  <li>Postal Code: <span id="postal_code"></span></li>
+                                  
+                                
+                                  </ul>
+                        </div>
 		</div>
         
         <div class="modal-footer">
