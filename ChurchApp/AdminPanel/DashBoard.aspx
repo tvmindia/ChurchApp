@@ -528,9 +528,10 @@
 						<table class="table table-bordered" id="Designationtable">
 							  <thead>
 								  <tr>
-									  <th>Position</th>
+                                      <th>DesigID</th>
+                                      <th>Position</th>
 									  <th>Order</th>
-									  <th>Organization</th>
+									  <th>Organization Type</th>
                                      <th>Actions</th>                                          
 								  </tr>
 							  </thead>   

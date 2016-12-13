@@ -199,7 +199,7 @@ $("document").ready(function (e) {
     }
 
     try {
-        // BindAllUsers();
+        
         var Users = new Object();
         DashDataTables.userTable=$('#Userstable').DataTable(
         {
@@ -248,12 +248,34 @@ $("document").ready(function (e) {
     }
 
     try {
-        BindAllDesignation();
-        $('#Designationtable').DataTable(
+      
+        var Designation = new Object();
+        DashDataTables.designationTable= $('#Designationtable').DataTable(
         {
-            order: [[0, 'asc'], [1, 'asc']],
-            searching: false,
-            paging: true
+            order: [],
+            searching: true,
+            paging: true,
+            data: GetAllDesignation(Designation),
+            columns: [
+              { "data": "DesigID" },
+              { "data": "Position", "defaultContent": "<i>-</i>" },
+              { "data": "Order", "defaultContent": "<i>-</i>" },
+              { "data": "OrgType", "defaultContent": "<i>-</i>" },
+              { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditDesignation(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveDesignation(this)"></i></a>' }
+            ],
+            columnDefs: [//this object is to alter the display cell value not the actual value
+             {
+                 //hiding hidden column fields 
+                 "targets": [0],
+                 "visible": false,
+                 "searchable": false
+             }
+
+
+
+            ]
+
+
         });
     }
     catch (e) {
@@ -952,7 +974,6 @@ $("document").ready(function (e) {
                     switch (result.status) {
                         case "1":
                             noty({ type: 'success', text: 'Updated successfully' });
-                            
                             BindAllDesignation();
                             break;
                         case "0":
@@ -1101,7 +1122,7 @@ function BindAllChurches()
 function DesignationValidation()
 {
     debugger;
-    $('#Displaydiv4').remove();
+  
     var postion = $('#txtPosition');
     var organization = $('#idddlOrganization');
     var order = $('#txtOrder');
@@ -1116,46 +1137,36 @@ function DesignationValidation()
      ];
 
     var j = 0;
-    var Errorbox = document.getElementById('ErrorBox4');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv4");
-    Errorbox.appendChild(divs);
+  
     for (var i = 0; i < container.length; i++) {
 
         if (container[i].Value == "") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+          
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+          
 
         }
         else if (container[i].Value == "-1") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+           
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "93% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+           
         }
     }
     if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-
-        divs.appendChild(p);
-
+       
+        noty({ type: 'error', text: Messages.Validation });
         return false;
     }
     if (j == '0') {
-        $('#ErrorBox4').hide(1000);
+       // $('#ErrorBox4').hide(1000);
         return true;
     }
 }
@@ -1200,7 +1211,7 @@ function ChurchValidation() {
         return false;
     }
     if (j == '0') {
-        $('#ErrorBox').hide(1000);
+       // $('#ErrorBox').hide(1000);
        
      
         return true;
@@ -1211,7 +1222,7 @@ function ChurchValidation() {
 function RolesValidation()
 {
     debugger;
-    $('#Displaydiv1').remove();
+    
     var RoleName = $('#idddlRoleName');
     var churchrole = $('#idddlChurch');
 
@@ -1221,46 +1232,35 @@ function RolesValidation()
     ];
 
     var j = 0;
-    var Errorbox = document.getElementById('ErrorBox1');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv1");
-    Errorbox.appendChild(divs);
+   
     for (var i = 0; i < container.length; i++) {
 
         if (container[i].Value == "") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+            
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
-
+           
         }
         else if (container[i].Value == "-1") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+           
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "93% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+           
         }
     }
     if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-
-        divs.appendChild(p);
+        noty({ type: 'error', text: Messages.Validation });
 
         return false;
     }
     if (j == '0') {
-        $('#ErrorBox1').hide(1000);
+      //  $('#ErrorBox1').hide(1000);
 
 
         return true;
@@ -1270,7 +1270,7 @@ function RolesValidation()
 
 function UserValidation() {
    
-    $('#Displaydiv2').remove();
+  
     var userchurch = $('#idddlchurchuser');
     var username = $('#txtUserName');
     var useraddress = $('#txtUserAddress');
@@ -1297,46 +1297,36 @@ function UserValidation() {
     ];
 
     var j = 0;
-    var Errorbox = document.getElementById('ErrorBox2');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv2");
-    Errorbox.appendChild(divs);
+   
     for (var i = 0; i < container.length; i++) {
 
         if (container[i].Value == "") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+           
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+          
 
         }
         else if (container[i].Value == "-1") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+          
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "93% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+           
         }
     }
     if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-
-        divs.appendChild(p);
+        noty({ type: 'error', text: Messages.Validation });
 
         return false;
     }
     if (j == '0') {
-        $('#ErrorBox2').hide(1000);
+      //  $('#ErrorBox2').hide(1000);
 
 
         return true;
@@ -1346,7 +1336,7 @@ function UserValidation() {
 
 
 function PatronValidation() {
-    $('#Displaydiv5').remove();
+    
     var SaintName = $('#txtSaintName');
     var SaintDescription = $('#txtSaintDescription');
 
@@ -1357,29 +1347,21 @@ function PatronValidation() {
     ];
 
     var j = 0;
-    var Errorbox = document.getElementById('ErrorBox5');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv5");
-    Errorbox.appendChild(divs);
+   
     for (var i = 0; i < container.length; i++) {
         if (container[i].Value == "") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+           
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+            
         }
     }
 
     if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-        divs.appendChild(p);
+        noty({ type: 'error', text: Messages.Validation });
         return false;
     }
     if (j == '0') {
@@ -1392,7 +1374,7 @@ function PatronValidation() {
 function RemoveUser(curobj)
 {
     debugger;
-    var data = DashDataTables.roleTable.row($(curobj).parents('tr')).data();
+    var data = DashDataTables.userTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
@@ -1614,11 +1596,13 @@ function EditRole(curobj)
 
 function EditDesignation(curobj)
 {
+
+    var data = DashDataTables.designationTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     
     var OrgDesignationMaster = new Object();
     
-    OrgDesignationMaster.orgDesignationMasterID = $(curobj).attr('designationid');
+    OrgDesignationMaster.orgDesignationMasterID = data.DesigID;
     $("#hdfDesignationID").val(OrgDesignationMaster.orgDesignationMasterID);
     var designationDetail = GetDesignationDetailByID(OrgDesignationMaster);
     $("#txtPosition").val(designationDetail[0].Position);
@@ -1798,13 +1782,13 @@ function RemoveRole(curobj)
 
 function RemoveDesignation(curobj)
 {
+    var data = DashDataTables.designationTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
-    $('#rowfluidDivAlert').hide();
-    $('.alert').hide();
+ 
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
         var OrgDesignationMaster = new Object();
-        OrgDesignationMaster.orgDesignationMasterID = $(curobj).attr('designationid');
+        OrgDesignationMaster.orgDesignationMasterID = data.DesigID;
         var result = DeleteDesignation(OrgDesignationMaster);
         switch (result.status) {
             case "1":
@@ -2198,28 +2182,25 @@ function BindOrganizationTypeDropdown() {
 function BindAllDesignation() {
     try {
         var OrgDesignationMaster = new Object();
-        var jsonResultDesignation = GetAllDesignation(OrgDesignationMaster);
-        if (jsonResultDesignation != null) {
-            LoadDesignation(jsonResultDesignation);
-        }
+        DashDataTables.designationTable.clear().rows.add(GetAllDesignation(OrgDesignationMaster)).draw(false);
     }
     catch (e) {
 
     }
 }
 
-function LoadDesignation(Records) {
-    try {
-        $("#Designationtable").find(".designationrow").remove();
-        $.each(Records, function (index, Record) {
-            var html = '<tr class="designationrow"><td>' + Record.Position + '</td><td class="center">' + Record.Order + '</td><td class="center">' + Record.OrgType + '</td><td class="center"><a class="circlebtn circlebtn-info"><i designationid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditDesignation(this)"></i></a><a class="circlebtn circlebtn-danger"><i designationid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveDesignation(this)"></i></a></td></tr>';
-            $("#Designationtable").append(html);
-        })
-    }
-    catch (e) {
+//function LoadDesignation(Records) {
+//    try {
+//        $("#Designationtable").find(".designationrow").remove();
+//        $.each(Records, function (index, Record) {
+//            var html = '<tr class="designationrow"><td>' + Record.Position + '</td><td class="center">' + Record.Order + '</td><td class="center">' + Record.OrgType + '</td><td class="center"><a class="circlebtn circlebtn-info"><i designationid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditDesignation(this)"></i></a><a class="circlebtn circlebtn-danger"><i designationid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveDesignation(this)"></i></a></td></tr>';
+//            $("#Designationtable").append(html);
+//        })
+//    }
+//    catch (e) {
 
-    }
-}
+//    }
+//}
 
 function GetAllDesignation(Designation) {
     var ds = {};
