@@ -4,7 +4,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <link href="../CSS/bootstrap-multiselect.css" rel="stylesheet" />
     <script src="../Scripts/bootstrap-multiselect.js"></script>
-
+    <link href="../CSS/jquery.timepicker.min.css" rel="stylesheet" />
+    <script src="../Scripts/jquery.timepicker.min.js"></script>
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/MassSchedules.js"></script>
     <link href="../CSS/CustomCSS/MassSchedules.css" rel="stylesheet" />
@@ -83,7 +84,7 @@
 							
 								  <label class="control-label" for="focusedInput">Time</label>
 								<div class="controls">
-                                     <input type="text" class="timePikerClass" id="TxtTime" name="time" />
+                                     <input type="text" class="timepicker" id="TxtTime" name="time" />
 								 <%-- <input class="input-large focused" id="txtTime" type="text"/>--%>
 								</div>
 								</div>

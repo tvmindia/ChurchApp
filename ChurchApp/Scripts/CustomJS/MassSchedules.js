@@ -1,7 +1,11 @@
 ﻿$("document").ready(function (e) {
     BindAsyncAdminsTable();
     parent.$("#MassSchedule").addClass("active");
-    $("#TxtTime").timepicki();
+    $("#TxtTime").timepicker({
+        timeFormat: 'h:mm p',
+        interval: 15,
+        dropdown: true
+    });
     $('#massTimingTable').dataTable({
 
         "bPaginate": false,
