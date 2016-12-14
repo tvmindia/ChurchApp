@@ -270,9 +270,6 @@ $("document").ready(function (e) {
                  "visible": false,
                  "searchable": false
              }
-
-
-
             ]
 
 
@@ -283,12 +280,36 @@ $("document").ready(function (e) {
     }
 
     try {
-        BindPatrons();
-        $('#Sainttable').DataTable(
-        {
-            order: [[0, 'asc'], [1, 'asc']],
-            searching: false,
-            paging: true
+      //  BindPatrons();
+        var PatronMaster = new Object();
+        var Church = new Object();
+        PatronMaster.churchObj = Church;
+        DashDataTables.patronTable= $('#Sainttable').DataTable({
+            order: [],
+            searching: true,
+            paging: true,
+            data: GetAllPatrons(PatronMaster),
+            columns: [
+              { "data": "ID" },
+              { "data": "Name", "defaultContent": "<i>-</i>" },
+              { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
+              { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditSaint(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveSaint(this)"></i></a>' }
+            ],
+            columnDefs: [//this object is to alter the display cell value not the actual value
+             {
+                 //hiding hidden column fields 
+                 "targets": [0],
+                 "visible": false,
+                 "searchable": false
+             },
+              {
+                  "render": function (data, type, row) {
+                      return ConvertJsonToDate(data);
+                  },
+                  "targets": 2
+              }
+            ]
+           
         });
     }
     catch (e) {
@@ -1106,10 +1127,350 @@ $("document").ready(function (e) {
     });
 
    
-    initialize();
+   
+
+    try {
+          
+        debugger;
+        var TownMaster = new Object();
+        DashDataTables.townTable= $('#Townstable').DataTable(
+        {
+           
+                order: [],
+                searching: true,
+                paging: true,
+                data: GetAllTowns(TownMaster),
+                columns: [
+                  { "data": "Code" },
+                  { "data": "Name", "defaultContent": "<i>-</i>" },
+                  { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
+                  { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditTown(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveTown(this)"></i></a>' }
+                ],
+                columnDefs: [//this object is to alter the display cell value not the actual value
+                 {
+                     //hiding hidden column fields 
+                     "targets": [0],
+                     "visible": false,
+                     "searchable": false
+                 },
+                  {
+                      "render": function (data, type, row) {
+                          return ConvertJsonToDate(data);
+                      },
+                      "targets": 2
+                  }
+                ]
+           
+           
+           
+        });
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+    $(".clearTown").click(function (e) {
+        $("#hdfTownCode").val('');
+        $("#txtName").val('');
+        $("#TownPreview").attr('src', '/img/defaultalbumadd.jpg');
+    });
+
+    $('#btnTownAdd').click(function (e) {
+
+        try {
+            debugger;
+            var i;
+            var townflag = TownValidation();
+            if (townflag) {
+                var TownMaster = new Object();
+                if ($("#txtName").val() != "") {
+                    TownMaster.name = $("#txtName").val();
+                }
+                ///////Image insert using handler
+                var imgresult;
+                if ((imgresult = $('#townimageuploader')[0].files.length > 0)) {
+                    debugger;
+                    var formData = new FormData();
+                    var imagefile, logoFile, img;
+                    var imgId = createGuid();
+                    imagefile = $('#townimageuploader')[0].files[0];
+                    imagefile.name = imgId;
+                    formData.append('NoticeAppImage', imagefile, imagefile.name);
+                    formData.append('GUID', imgId);
+                    formData.append('createdby', 'sadmin');
+
+                    formData.append('ActionTyp', 'NoticeAppImageInsert');
+                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                    i = "1";
+
+
+                }
+                if (i == "1") {
+                    TownMaster.ImageID = imgId;
+                }
+                if ($("#hdfTownCode").val() == '') {
+                    //INSERT
+                    var result = InsertTown(TownMaster);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Inserted successfully' });
+                            BindAllTown();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Insertion was not successfull' });
+
+                            break;
+                        case "2":
+                            noty({ type: 'info', text: 'Town Name Already Exists' });
+                            break;
+                        default:
+                            noty({ type: 'info', text: result });
+                            break;
+                    }
+
+                }
+                else {
+                    //UPDATE
+                    TownMaster.code = $("#hdfTownCode").val();
+                    var result = UpdateTown(TownMaster);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Updated successfully' });
+
+                            BindAllTown();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Updation was not successfull' });
+
+                            break;
+                        case "2":
+                            noty({ type: 'error', text: 'Updation was not successfull,Town name already exists' });
+                            break;
+                        default:
+                            noty({ type: 'error', text: result.status });
+                            break;
+                    }
+
+                }
+            }
+
+
+
+        }
+        catch (e) {
+            noty({ type: 'error', text: e.message });
+        }
+
+    });
+
     
     
 });//end of document.ready
+
+function TownValidation() {
+    debugger;
+   
+    var name = $('#txtName');
+
+
+    var container = [
+        { id: name[0].id, name: name[0].name, Value: name[0].value },
+    ];
+
+    var j = 0;
+   
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+            
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+           
+
+        }
+        else if (container[i].Value == "-1") {
+            j = 1;
+          
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "93% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+         
+        }
+    }
+    if (j == '1') {
+   
+        noty({ type: 'error', text: Messages.Validation });
+        return false;
+    }
+    if (j == '0') {
+       // $('#ErrorBox6').hide(1000);
+        return true;
+    }
+}
+
+function EditTown(curobj) {
+
+    var data = DashDataTables.townTable.row($(curobj).parents('tr')).data();
+    RemoveStyle();
+    debugger;
+    var TownMaster = new Object();
+
+    TownMaster.code = data.Code;
+    $("#hdfTownCode").val(TownMaster.code);
+    var townDetail = GetTownDetailByCode(TownMaster);
+    if (townDetail != undefined && townDetail != null) {
+        $("#txtName").val(townDetail[0].Name);
+        if (townDetail[0].URL == null) {
+            $("#TownPreview").attr('src', '/img/defaultalbumadd.jpg');
+        }
+        else {
+            $("#TownPreview").attr('src', townDetail[0].URL);
+        }
+    }
+
+}
+
+function GetTownDetailByCode(Town) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townObj':" + JSON.stringify(Town) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectTown");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function InsertTown(Town) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townObj':" + JSON.stringify(Town) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/InsertTown");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+function UpdateTown(Town) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townObj':" + JSON.stringify(Town) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/UpdateTown");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function SelectTownMastersIDandText(TownMaster) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townMasterObj':" + JSON.stringify(TownMaster) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectTownMastersIDandText");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+    }
+    return table;
+}
+
+function TownImagePreview(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#TownPreview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+//function LoadTown(Records) {
+//    try {
+//        $("#Townstable").find(".townrow").remove();
+//        $.each(Records, function (index, Record) {
+//            var html = '<tr class="townrow"><td>' + Record.Name + '</td><td class="center">' + ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i townCode=' + Record.Code + ' class="halflings-icon white edit" onclick="EditTown(this)"></i></a><a class="circlebtn circlebtn-danger"><i townCode=' + Record.Code + ' class="halflings-icon white trash" onclick="RemoveTown(this)"></i></a></td></tr>';
+//            $("#Townstable").append(html);
+//        })
+//    }
+//    catch (e) {
+
+//    }
+//}
+
+function RemoveTown(curobj) {
+    try {
+        var data = DashDataTables.townTable.row($(curobj).parents('tr')).data();
+        debugger;
+       
+        var TownMaster = new Object();
+        TownMaster.code = data.Code;
+        var jsonResultTown = DeleteTown(TownMaster);
+        switch (jsonResultTown.status) {
+            case "1":
+                noty({ type: 'success', text: 'Deleted successfully' });
+                BindAllTown();
+                break;
+            case "0":
+                noty({ type: 'error', text: 'Deletion was not successfull' });
+
+                break;
+            default:
+                noty({ type: 'info', text: result });
+                break;
+        }
+    }
+    catch (e) {
+
+    }
+}
+
+function DeleteTown(TownMaster) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townObj':" + JSON.stringify(TownMaster) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/DeleteTown");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function BindAllTown() {
+    var TownMaster = new Object();
+    DashDataTables.townTable.clear().rows.add(GetAllTowns(TownMaster)).draw(false);
+   
+}
+
+function GetAllTowns(TownMaster) {
+    debugger;
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townMasterObj':" + JSON.stringify(TownMaster) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllTown");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
 
 function BindAllChurches()
 {
@@ -1237,7 +1598,6 @@ function RolesValidation()
 
         if (container[i].Value == "") {
             j = 1;
-            
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
@@ -1246,24 +1606,18 @@ function RolesValidation()
         }
         else if (container[i].Value == "-1") {
             j = 1;
-           
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "93% center";
             txtB.style.backgroundRepeat = "no-repeat";
-           
-        }
+         }
     }
     if (j == '1') {
         noty({ type: 'error', text: Messages.Validation });
-
         return false;
     }
     if (j == '0') {
-      //  $('#ErrorBox1').hide(1000);
-
-
-        return true;
+      return true;
     }
 }
 
@@ -1411,15 +1765,15 @@ function RemoveUser(curobj)
 
 function RemoveSaint(curobj)
 {
-
     debugger;
+    var data = DashDataTables.patronTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
        
         var PatronMaster = new Object();
        
-        PatronMaster.patronMasterId = $(curobj).attr('patronid');
+        PatronMaster.patronMasterId = data.ID;
         var result = DeleteSaint(PatronMaster);
 
         switch (result.status) {
@@ -1613,10 +1967,11 @@ function EditDesignation(curobj)
 
 function EditSaint(curobj) {
     debugger;
+    var data = DashDataTables.patronTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
    
     var PatronMaster = new Object();
-    PatronMaster.patronMasterId = $(curobj).attr('patronid');
+    PatronMaster.patronMasterId = data.ID;
     $("#hdfPatronID").val(PatronMaster.patronMasterId);
     var PatronDetail = GetPatronDetailByID(PatronMaster);
     $("#txtSaintName").val(PatronDetail[0].Name);
@@ -1969,27 +2324,27 @@ function GetAllChurches(Church) {
 
 
 
-function BindTownMasterDropdown() {
-    try
-    {
-        var jsonResult = {};
-        var TownMaster = new Object();
-        jsonResult = GetAllTowns(TownMaster);
-        if (jsonResult != undefined) {
-            return jsonResult;
-        }
-    }
-    catch(e)
-    {
+//function BindTownMasterDropdown() {
+//    try
+//    {
+//        var jsonResult = {};
+//        var TownMaster = new Object();
+//        jsonResult = GetAllTowns(TownMaster);
+//        if (jsonResult != undefined) {
+//            return jsonResult;
+//        }
+//    }
+//    catch(e)
+//    {
 
-    }
+//    }
     
-}
+//}
 function BindTownMasterDropdown() {
     try {
         var jsonResult = {};
         var TownMaster = new Object();
-        jsonResult = GetAllTowns(TownMaster);
+        jsonResult = SelectTownMastersIDandText(TownMaster);
         if (jsonResult != undefined) {
             return jsonResult;
         }
@@ -2031,18 +2386,7 @@ function BindRolesDropdown(chid) {
     }
 
 }
-function GetAllTowns(TownMaster) {
-    var ds = {};
-    var table = {};
-    try {
-        var data = "{'townMasterObj':" + JSON.stringify(TownMaster) + "}";
-        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllTowns");
-        table = JSON.parse(ds.d);
-    }
-    catch (e) {
-    }
-    return table;
-}
+
 
 function GetAllRolesIDandText(Roles) {
     var ds = {};
@@ -2263,14 +2607,14 @@ function InsertPatron(PatronMaster) {
 //--------------------------------//
 
 function BindPatrons() {
-    debugger;
-    var jsonResult = {};
-    var PatronMaster = new Object();
-    var Church = new Object();
-    PatronMaster.churchObj = Church;
-    jsonResult = GetAllPatrons(PatronMaster);
-    if (jsonResult != undefined) {
-        LoadPatrons(jsonResult);
+    try {
+        var PatronMaster = new Object();
+        var Church = new Object();
+        PatronMaster.churchObj = Church;
+        DashDataTables.patronTable.clear().rows.add(GetAllPatrons(PatronMaster)).draw(false);
+    }
+    catch (e) {
+
     }
 }
 
@@ -2284,19 +2628,19 @@ function GetAllPatrons(PatronMaster) {
     return table;
 }
 
-function LoadPatrons(Records)
-{
-    try {
-        $("#Sainttable").find(".saintrow").remove();
-        $.each(Records, function (index, Record) {
-            var html = '<tr class="saintrow"><td>' + Record.Name + '</td><td class="center">' +ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i patronid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditSaint(this)"></i></a><a class="circlebtn circlebtn-danger"><i patronid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveSaint(this)"></i></a></td></tr>';
-            $("#Sainttable").append(html);
-        })
-    }
-    catch (e) {
+//function LoadPatrons(Records)
+//{
+//    try {
+//        $("#Sainttable").find(".saintrow").remove();
+//        $.each(Records, function (index, Record) {
+//            var html = '<tr class="saintrow"><td>' + Record.Name + '</td><td class="center">' +ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i patronid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditSaint(this)"></i></a><a class="circlebtn circlebtn-danger"><i patronid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveSaint(this)"></i></a></td></tr>';
+//            $("#Sainttable").append(html);
+//        })
+//    }
+//    catch (e) {
 
-    }
-}
+//    }
+//}
 
 function showpreview(input) {
     if (input.files && input.files[0]) {

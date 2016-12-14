@@ -115,6 +115,7 @@
     <Content Include="CSS\jquery.gritter.css" />
     <Content Include="CSS\jquery.iphone.toggle.css" />
     <Content Include="CSS\jquery.noty.css" />
+    <Content Include="CSS\jquery.timepicker.min.css" />
     <Content Include="CSS\lightbox.css" />
     <Content Include="CSS\lightbox.min.css" />
     <Content Include="CSS\noty_theme_default.css" />
@@ -139,6 +140,7 @@
     <Content Include="Font\glyphiconshalflings-regular.woff" />
     <Content Include="GoogleMaps.LocationServices.readme.txt" />
     <Content Include="img\00000000-0000-0000-0000-000000000000.jpg" />
+    <Content Include="img\ad.png" />
     <Content Include="img\AppImages\00000000-0000-0000-0000-000000000000.jpg" />
     <Content Include="img\AppImages\040cb5d2-fdbf-40e0-1b21-1fe3bc08e82b.jpg" />
     <Content Include="img\AppImages\06437727-380e-a0f8-2860-c12f7f4b8124.jpg" />
@@ -206,7 +208,6 @@
     <Content Include="img\church-black-silhouette-with-a-cross-on-topblack1616.png" />
     <Content Include="img\close.png" />
     <Content Include="img\defaultalbumadd.jpg" />
-    <Content Include="img\down-arrow %281%29.png" />
     <Content Include="img\gallery\1.jpg" />
     <Content Include="img\gallery\2.jpg" />
     <Content Include="img\gallery\3.JPG" />
@@ -268,6 +269,7 @@
     <Content Include="Scripts\dataTables.uikit.js" />
     <Content Include="Scripts\dataTables.uikit.min.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
+    <Content Include="Scripts\jquery.timepicker.min.js" />
     <Content Include="Scripts\lightbox-plus-jquery.min.js" />
     <Content Include="Scripts\lightbox.js" />
     <Content Include="Scripts\progressbar.js" />

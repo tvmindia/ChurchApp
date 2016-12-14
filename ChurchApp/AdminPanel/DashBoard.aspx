@@ -623,6 +623,7 @@
                         	<table class="table table-bordered" id="Sainttable">
 							  <thead>
 								  <tr>
+                                      <th>ID</th>
 									  <th>Name</th>
 									  <th>Created Date</th>
 								     <th>Actions</th>                                          
@@ -700,7 +701,92 @@
 
         <!--Saint-->
 
-       
+        <!--TownsTable-->
+
+          <div class="row-fluid">
+            <div class="box span12">
+					<div class="box-header">
+						<h2>Towns</h2>
+						<div class="box-icon">
+							
+							<a style="cursor:pointer;" class="btn-minimize"><i class="halflings-icon chevron-down"></i></a>
+						
+						</div>
+					</div>
+					<div class="box-content DesignationBox">
+						<table class="table table-bordered" id="Townstable">
+							  <thead>
+								  <tr>
+                                      <th>Code</th>
+									  <th>Name</th>
+                                      <th>Created Date</th>
+                                      <th>Actions</th>                                          
+								  </tr>
+							  </thead>   
+							  <tbody>
+								
+							                  
+							  </tbody>
+						 </table>  
+
+
+                         	<div class="form-horizontal">
+						
+							<fieldset>
+                                <br />
+                             <div class="span12">   
+				             <div class="span6">
+                                  <div class="alert alert-error" id="ErrorBox6" style="display: none;">
+                             <div id="Displaydiv6">
+                             </div>
+                            </div>
+						      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Name</label>
+                               <div class="controls">
+                              
+                                    <input class="input-large focused" name="txtName" id="txtName" placeholder=""  type="text"/>
+                              </div>
+                              </div>
+
+                                 
+                                                   
+                   </div>
+                             <div class="span6">
+                            <div class="control-group">
+								<label class="control-label">Image</label>
+								<div class="controls">
+                                  <img id="TownPreview" src="../img/defaultalbumadd.jpg" style="max-height:159px" class="img-rounded"/>
+								  <input type="file" accept="image/*" id="townimageuploader" onchange="OnUpload(this);TownImagePreview(this);"/>
+                              
+								</div>
+                                     
+							  </div>
+                                
+                                    </div>
+                             </div>
+                     
+                             
+                     
+                         </fieldset>
+
+                             <div class="form-actions">
+                                        <a class="btn btn-primary" id="btnTownAdd" href="#">Save</></a>
+                                        <a class="btn btn-primary clearTown">Cancel</a>
+                                    </div>	
+                                 </div>
+						
+					</div>
+
+                  
+                
+
+
+		   </div><!--/span-->
+
+        </div>
+
+        <!--TownsTable-->
 
 
 
@@ -738,7 +824,7 @@
      <input type="hidden" id="hdfChurchID"/>
      <input type="hidden" id="hdfRolesID"/>
      <input type="hidden" id="hdfUserID"/>
-  
+     <input id="hdfTownCode" type="hidden" />
          <input id="hdfPatronID" type="hidden" />
          <input id="hdfPatronImageID" type="hidden" value="" />
          <input id="hdfPatronImageURL" type="hidden" />

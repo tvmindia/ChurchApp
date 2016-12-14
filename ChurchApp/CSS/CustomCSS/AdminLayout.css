@@ -121,4 +121,57 @@ box-header {
     
 }
 
-
+ .multiselect {
+        width: 200px;
+    }
+    .selectBox {
+        position: relative;
+    }
+    .selectBox select {
+        width: 100%;
+        font-weight: bold;
+    }
+    .overSelect {
+        position: absolute;
+        left: 0; right: 0; top: 0; bottom: 0;
+    }
+    #checkboxes {
+        display: none;
+        border: 1px #dadada solid;
+    }
+    #checkboxes label {
+        display: block;
+    }
+    #checkboxes label:hover {
+        background-color: #808080;
+    }
+    .dropdown-menu
+    {
+        min-width:219px;
+    }
+    .dropcheck
+    {
+       
+            background-image : url('/img/ad.png')!important;
+            background-size:12px 12px;
+            background-position : 95% center!important;
+            background-repeat : no-repeat!important;
+    }
+    .dropdown-menu .active > a
+    {
+        background:#dadada;
+        color:#000000;
+    }
+    input[readonly]
+    {
+        cursor:pointer;
+        background-color:white;
+    }
+    .ui-state-hover
+    {
+        background:#1f55eb;
+    }
+    .ui-widget
+    {
+        font-size:1em;
+    }

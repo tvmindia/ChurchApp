@@ -2,14 +2,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <link href="../CSS/bootstrap-multiselect.css" rel="stylesheet" />
-    <script src="../Scripts/bootstrap-multiselect.js"></script>
-
+ 
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/MassSchedules.js"></script>
+    <link href="../CSS/CustomCSS/AdminLayout.css" rel="stylesheet" />
     <link href="../CSS/CustomCSS/MassSchedules.css" rel="stylesheet" />
-    <script src="../Scripts/timepicki.js"></script>
-    <link href="../CSS/timepicki.css" rel="stylesheet" />
+  <%--  <script src="../Scripts/timepicki.js"></script>--%>
+  <%--  <link href="../CSS/timepicki.css" rel="stylesheet" />--%>
      <div id="content" class="span10">
         <ul class="breadcrumb">
 			 <li>
@@ -83,7 +82,7 @@
 							
 								  <label class="control-label" for="focusedInput">Time</label>
 								<div class="controls">
-                                     <input type="text" class="timePikerClass" id="TxtTime" name="time" />
+                                     <input type="text" class="timepicker" placeholder="Select Time" id="TxtTime" name="time" />
 								 <%-- <input class="input-large focused" id="txtTime" type="text"/>--%>
 								</div>
 								</div>
