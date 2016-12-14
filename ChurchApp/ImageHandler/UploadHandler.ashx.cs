@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 #endregion Included Namespaces
 
 namespace ChurchApp.ImageHandler
@@ -35,7 +36,7 @@ namespace ChurchApp.ImageHandler
                 AppImages AppImgObj = null;
                 HttpPostedFile churchFile = null;
                 ChurchApp.DAL.Church churchObj = null;
-
+                JavaScriptSerializer jsSerializer = null;
                  if (context.Request.Files.Count > 0)
                 {
                     #region Album
@@ -201,7 +202,11 @@ namespace ChurchApp.ImageHandler
                                         churchObj.phone1 = context.Request.Form.GetValues("phone1")[0];
                                         churchObj.phone2 = context.Request.Form.GetValues("phone2")[0];
                                         churchObj.createdBy = AppImgObj.createdBy;
-                                        context.Response.Write(churchObj.InsertChurch());
+                                        churchObj.InsertChurch();
+                                        //context.Response.ContentType = "text/json";
+                                        jsSerializer = new JavaScriptSerializer();
+
+                                        context.Response.Write(jsSerializer.Serialize(churchObj));
 
                             break;
                             case "ChurchUpdate":

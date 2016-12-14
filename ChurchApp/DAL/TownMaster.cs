@@ -46,6 +46,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string status
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Methods
@@ -89,6 +94,45 @@ namespace ChurchApp.DAL
         }
         #endregion SelectTownMasters
 
+        #region SelectTown
+        /// <summary>
+        /// Select Town
+        /// </summary>
+        /// <returns>Town Details</returns>
+        public DataSet SelectTown()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectTownByCode]";
+                cmd.Parameters.Add("@code", SqlDbType.NVarChar, 10).Value = code;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectTownMasters
 
         #region SelectTownMastersIDandText
         /// <summary>
@@ -147,14 +191,21 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertIntoTownMaster]";
-                cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 10).Value = code;
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = name;
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                if (imageId != null && imageId != "")
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                }
+                else
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Empty;
+                }
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+                status = outParam.Value.ToString();
             }
             catch (Exception ex)
             {
@@ -167,7 +218,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            return status;
         }
         #endregion InsertTownMaster
 
@@ -193,7 +244,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = name;
                 cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -209,7 +260,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status = outParam.Value.ToString();
+            return status;
         }
         #endregion UpdateTownMaster
 
@@ -247,7 +299,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return outParam.Value.ToString();
+            status = outParam.Value.ToString();
+            return status;
         }
         #endregion DeleteTownMaster
 

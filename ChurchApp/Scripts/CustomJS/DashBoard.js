@@ -13,6 +13,7 @@ $("document").ready(function (e) {
             $(this).css({ background: 'white' });
             $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3,#ErrorBox4,#ErrorBox5').hide(1000);
         });
+      
     }
     catch(e)
     {
@@ -157,12 +158,39 @@ $("document").ready(function (e) {
 
     try
     {
-        BindAllRoles();
-        $('#Rolestable').DataTable(
+        var Roles = new Object();
+        DashDataTables.roleTable= $('#Rolestable').DataTable(
         {
-            order: [[0, 'asc'], [1, 'asc']],
-            searching: false,
-            paging: true
+            order: [],
+            searching: true,
+            paging: true,
+            data: GetAllRoles(Roles),
+            columns: [
+
+              { "data": "RoleID" },
+              { "data": "ChurchID"},
+              { "data": "RoleName", "defaultContent": "<i>-</i>" },
+              { "data": "ChurchName", "defaultContent": "<i>-</i>" },
+              { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
+              { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditRole(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveRole(this)"></i></a>' }
+                                                                    
+            ],
+            columnDefs: [//this object is to alter the display cell value not the actual value
+             {
+                 //hiding hidden column fields 
+                 "targets": [0,1],
+                 "visible": false,
+                 "searchable": false
+             },
+             {
+                 "render": function (data, type, row) {
+                      return ConvertJsonToDate(data);
+                 },
+                 "targets": 4
+             }
+
+
+            ]
         });
     }
     catch(e)
@@ -171,12 +199,37 @@ $("document").ready(function (e) {
     }
 
     try {
-        BindAllUsers();
-        $('#Userstable').DataTable(
+        
+        var Users = new Object();
+        DashDataTables.userTable=$('#Userstable').DataTable(
         {
-            order: [[0, 'asc'], [1, 'asc']],
-            searching: false,
-            paging: true
+            order: [],
+            searching: true,
+            paging: true,
+            data: GetAllUsers(Users),
+            columns: [
+
+              { "data": "UserID" },
+              { "data": "ChurchID" },
+              { "data": "UserName", "defaultContent": "<i>-</i>" },
+               { "data": "Mobile", "defaultContent": "<i>-</i>" },
+              { "data": "ChurchName", "defaultContent": "<i>-</i>" },
+             
+              { "data": "RoleName","defaultContent": "<i>-</i>"},
+              { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditUsers(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveUser(this)"></i></a>' }
+
+            ],
+            columnDefs: [//this object is to alter the display cell value not the actual value
+             {
+                 //hiding hidden column fields 
+                 "targets": [0, 1],
+                 "visible": false,
+                 "searchable": false
+             }
+            
+
+
+            ]
         });
     }
     catch (e) {
@@ -195,12 +248,31 @@ $("document").ready(function (e) {
     }
 
     try {
-        BindAllDesignation();
-        $('#Designationtable').DataTable(
+      
+        var Designation = new Object();
+        DashDataTables.designationTable= $('#Designationtable').DataTable(
         {
-            order: [[0, 'asc'], [1, 'asc']],
-            searching: false,
-            paging: true
+            order: [],
+            searching: true,
+            paging: true,
+            data: GetAllDesignation(Designation),
+            columns: [
+              { "data": "DesigID" },
+              { "data": "Position", "defaultContent": "<i>-</i>" },
+              { "data": "Order", "defaultContent": "<i>-</i>" },
+              { "data": "OrgType", "defaultContent": "<i>-</i>" },
+              { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditDesignation(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveDesignation(this)"></i></a>' }
+            ],
+            columnDefs: [//this object is to alter the display cell value not the actual value
+             {
+                 //hiding hidden column fields 
+                 "targets": [0],
+                 "visible": false,
+                 "searchable": false
+             }
+            ]
+
+
         });
     }
     catch (e) {
@@ -208,12 +280,36 @@ $("document").ready(function (e) {
     }
 
     try {
-        BindPatrons();
-        $('#Sainttable').DataTable(
-        {
-            order: [[0, 'asc'], [1, 'asc']],
-            searching: false,
-            paging: true
+      //  BindPatrons();
+        var PatronMaster = new Object();
+        var Church = new Object();
+        PatronMaster.churchObj = Church;
+        DashDataTables.patronTable= $('#Sainttable').DataTable({
+            order: [],
+            searching: true,
+            paging: true,
+            data: GetAllPatrons(PatronMaster),
+            columns: [
+              { "data": "ID" },
+              { "data": "Name", "defaultContent": "<i>-</i>" },
+              { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
+              { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditSaint(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveSaint(this)"></i></a>' }
+            ],
+            columnDefs: [//this object is to alter the display cell value not the actual value
+             {
+                 //hiding hidden column fields 
+                 "targets": [0],
+                 "visible": false,
+                 "searchable": false
+             },
+              {
+                  "render": function (data, type, row) {
+                      return ConvertJsonToDate(data);
+                  },
+                  "targets": 2
+              }
+            ]
+           
         });
     }
     catch (e) {
@@ -324,7 +420,7 @@ $("document").ready(function (e) {
                         formData.append('updatedBy', document.getElementById("LoginName").innerHTML);
                         var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                         switch (result) {
-                            case "1":
+                            case 1:
                                
                                 noty({ type: 'success', text: Messages.UpdationSuccessFull });
                                
@@ -345,7 +441,7 @@ $("document").ready(function (e) {
                                     noty({ type: 'error', text: e.message });
                                 }
                                 break;
-                            case "0":
+                            case 0:
                                
                                 noty({ type: 'error', text: Messages.FailureMsgCaption });
                                 break;
@@ -415,7 +511,7 @@ $("document").ready(function (e) {
                         formData.append('createdBy', document.getElementById("LoginName").innerHTML);
                         
                         var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                        switch (result) {
+                        switch (result.status) {
                             case "1":
                                
                                 noty({ type: 'success', text: Messages.InsertionSuccessFull });
@@ -431,6 +527,7 @@ $("document").ready(function (e) {
                                         allowClear: true,
                                         data: BindChurchDropdown()
                                     });
+                                    $("#hdfChurchID").val(result.churchId);
                                     BindAllChurches();
                                 }
                                 catch (e) {
@@ -465,6 +562,7 @@ $("document").ready(function (e) {
                                         allowClear: true,
                                         data: BindChurchDropdown()
                                     });
+                                    $("#hdfChurchID").val(result.churchId);
                                     BindAllChurches();
 
                                 }
@@ -789,8 +887,6 @@ $("document").ready(function (e) {
                 if ($(".ddlRoleName").val() != "") {
                     Roles.RoleName = $(".ddlRoleName").val();
                 }
-             
-
                 if ($(".ddlChurch").val() != "") {
                     Church.churchId = $(".ddlChurch").val();
                 }
@@ -813,7 +909,6 @@ $("document").ready(function (e) {
                             noty({ type: 'error', text: result.status });
                             break;
                     }
-
                 }
                 else {
                     //UPDATE
@@ -823,7 +918,7 @@ $("document").ready(function (e) {
                     switch (result.status) {
                         case "1":
                             noty({ type: 'success', text: 'Updated successfully' });
-                          
+
                             BindAllRoles();
                             break;
                         case "0":
@@ -900,7 +995,6 @@ $("document").ready(function (e) {
                     switch (result.status) {
                         case "1":
                             noty({ type: 'success', text: 'Updated successfully' });
-                            
                             BindAllDesignation();
                             break;
                         case "0":
@@ -1033,10 +1127,350 @@ $("document").ready(function (e) {
     });
 
    
-    initialize();
+   
+
+    try {
+          
+        debugger;
+        var TownMaster = new Object();
+        DashDataTables.townTable= $('#Townstable').DataTable(
+        {
+           
+                order: [],
+                searching: true,
+                paging: true,
+                data: GetAllTowns(TownMaster),
+                columns: [
+                  { "data": "Code" },
+                  { "data": "Name", "defaultContent": "<i>-</i>" },
+                  { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
+                  { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditTown(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveTown(this)"></i></a>' }
+                ],
+                columnDefs: [//this object is to alter the display cell value not the actual value
+                 {
+                     //hiding hidden column fields 
+                     "targets": [0],
+                     "visible": false,
+                     "searchable": false
+                 },
+                  {
+                      "render": function (data, type, row) {
+                          return ConvertJsonToDate(data);
+                      },
+                      "targets": 2
+                  }
+                ]
+           
+           
+           
+        });
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+    $(".clearTown").click(function (e) {
+        $("#hdfTownCode").val('');
+        $("#txtName").val('');
+        $("#TownPreview").attr('src', '/img/defaultalbumadd.jpg');
+    });
+
+    $('#btnTownAdd').click(function (e) {
+
+        try {
+            debugger;
+            var i;
+            var townflag = TownValidation();
+            if (townflag) {
+                var TownMaster = new Object();
+                if ($("#txtName").val() != "") {
+                    TownMaster.name = $("#txtName").val();
+                }
+                ///////Image insert using handler
+                var imgresult;
+                if ((imgresult = $('#townimageuploader')[0].files.length > 0)) {
+                    debugger;
+                    var formData = new FormData();
+                    var imagefile, logoFile, img;
+                    var imgId = createGuid();
+                    imagefile = $('#townimageuploader')[0].files[0];
+                    imagefile.name = imgId;
+                    formData.append('NoticeAppImage', imagefile, imagefile.name);
+                    formData.append('GUID', imgId);
+                    formData.append('createdby', 'sadmin');
+
+                    formData.append('ActionTyp', 'NoticeAppImageInsert');
+                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                    i = "1";
+
+
+                }
+                if (i == "1") {
+                    TownMaster.ImageID = imgId;
+                }
+                if ($("#hdfTownCode").val() == '') {
+                    //INSERT
+                    var result = InsertTown(TownMaster);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Inserted successfully' });
+                            BindAllTown();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Insertion was not successfull' });
+
+                            break;
+                        case "2":
+                            noty({ type: 'info', text: 'Town Name Already Exists' });
+                            break;
+                        default:
+                            noty({ type: 'info', text: result });
+                            break;
+                    }
+
+                }
+                else {
+                    //UPDATE
+                    TownMaster.code = $("#hdfTownCode").val();
+                    var result = UpdateTown(TownMaster);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: 'Updated successfully' });
+
+                            BindAllTown();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: 'Updation was not successfull' });
+
+                            break;
+                        case "2":
+                            noty({ type: 'error', text: 'Updation was not successfull,Town name already exists' });
+                            break;
+                        default:
+                            noty({ type: 'error', text: result.status });
+                            break;
+                    }
+
+                }
+            }
+
+
+
+        }
+        catch (e) {
+            noty({ type: 'error', text: e.message });
+        }
+
+    });
+
     
     
 });//end of document.ready
+
+function TownValidation() {
+    debugger;
+   
+    var name = $('#txtName');
+
+
+    var container = [
+        { id: name[0].id, name: name[0].name, Value: name[0].value },
+    ];
+
+    var j = 0;
+   
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+            
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+           
+
+        }
+        else if (container[i].Value == "-1") {
+            j = 1;
+          
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "93% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+         
+        }
+    }
+    if (j == '1') {
+   
+        noty({ type: 'error', text: Messages.Validation });
+        return false;
+    }
+    if (j == '0') {
+       // $('#ErrorBox6').hide(1000);
+        return true;
+    }
+}
+
+function EditTown(curobj) {
+
+    var data = DashDataTables.townTable.row($(curobj).parents('tr')).data();
+    RemoveStyle();
+    debugger;
+    var TownMaster = new Object();
+
+    TownMaster.code = data.Code;
+    $("#hdfTownCode").val(TownMaster.code);
+    var townDetail = GetTownDetailByCode(TownMaster);
+    if (townDetail != undefined && townDetail != null) {
+        $("#txtName").val(townDetail[0].Name);
+        if (townDetail[0].URL == null) {
+            $("#TownPreview").attr('src', '/img/defaultalbumadd.jpg');
+        }
+        else {
+            $("#TownPreview").attr('src', townDetail[0].URL);
+        }
+    }
+
+}
+
+function GetTownDetailByCode(Town) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townObj':" + JSON.stringify(Town) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectTown");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function InsertTown(Town) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townObj':" + JSON.stringify(Town) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/InsertTown");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+function UpdateTown(Town) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townObj':" + JSON.stringify(Town) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/UpdateTown");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function SelectTownMastersIDandText(TownMaster) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townMasterObj':" + JSON.stringify(TownMaster) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectTownMastersIDandText");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+    }
+    return table;
+}
+
+function TownImagePreview(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#TownPreview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+//function LoadTown(Records) {
+//    try {
+//        $("#Townstable").find(".townrow").remove();
+//        $.each(Records, function (index, Record) {
+//            var html = '<tr class="townrow"><td>' + Record.Name + '</td><td class="center">' + ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i townCode=' + Record.Code + ' class="halflings-icon white edit" onclick="EditTown(this)"></i></a><a class="circlebtn circlebtn-danger"><i townCode=' + Record.Code + ' class="halflings-icon white trash" onclick="RemoveTown(this)"></i></a></td></tr>';
+//            $("#Townstable").append(html);
+//        })
+//    }
+//    catch (e) {
+
+//    }
+//}
+
+function RemoveTown(curobj) {
+    try {
+        var data = DashDataTables.townTable.row($(curobj).parents('tr')).data();
+        debugger;
+       
+        var TownMaster = new Object();
+        TownMaster.code = data.Code;
+        var jsonResultTown = DeleteTown(TownMaster);
+        switch (jsonResultTown.status) {
+            case "1":
+                noty({ type: 'success', text: 'Deleted successfully' });
+                BindAllTown();
+                break;
+            case "0":
+                noty({ type: 'error', text: 'Deletion was not successfull' });
+
+                break;
+            default:
+                noty({ type: 'info', text: result });
+                break;
+        }
+    }
+    catch (e) {
+
+    }
+}
+
+function DeleteTown(TownMaster) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townObj':" + JSON.stringify(TownMaster) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/DeleteTown");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function BindAllTown() {
+    var TownMaster = new Object();
+    DashDataTables.townTable.clear().rows.add(GetAllTowns(TownMaster)).draw(false);
+   
+}
+
+function GetAllTowns(TownMaster) {
+    debugger;
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'townMasterObj':" + JSON.stringify(TownMaster) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllTown");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
 
 function BindAllChurches()
 {
@@ -1049,7 +1483,7 @@ function BindAllChurches()
 function DesignationValidation()
 {
     debugger;
-    $('#Displaydiv4').remove();
+  
     var postion = $('#txtPosition');
     var organization = $('#idddlOrganization');
     var order = $('#txtOrder');
@@ -1064,46 +1498,36 @@ function DesignationValidation()
      ];
 
     var j = 0;
-    var Errorbox = document.getElementById('ErrorBox4');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv4");
-    Errorbox.appendChild(divs);
+  
     for (var i = 0; i < container.length; i++) {
 
         if (container[i].Value == "") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+          
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+          
 
         }
         else if (container[i].Value == "-1") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+           
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "93% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+           
         }
     }
     if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-
-        divs.appendChild(p);
-
+       
+        noty({ type: 'error', text: Messages.Validation });
         return false;
     }
     if (j == '0') {
-        $('#ErrorBox4').hide(1000);
+       // $('#ErrorBox4').hide(1000);
         return true;
     }
 }
@@ -1148,7 +1572,7 @@ function ChurchValidation() {
         return false;
     }
     if (j == '0') {
-        $('#ErrorBox').hide(1000);
+       // $('#ErrorBox').hide(1000);
        
      
         return true;
@@ -1159,7 +1583,7 @@ function ChurchValidation() {
 function RolesValidation()
 {
     debugger;
-    $('#Displaydiv1').remove();
+    
     var RoleName = $('#idddlRoleName');
     var churchrole = $('#idddlChurch');
 
@@ -1169,56 +1593,38 @@ function RolesValidation()
     ];
 
     var j = 0;
-    var Errorbox = document.getElementById('ErrorBox1');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv1");
-    Errorbox.appendChild(divs);
+   
     for (var i = 0; i < container.length; i++) {
 
         if (container[i].Value == "") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
-
+           
         }
         else if (container[i].Value == "-1") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "93% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
-        }
+         }
     }
     if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-
-        divs.appendChild(p);
-
+        noty({ type: 'error', text: Messages.Validation });
         return false;
     }
     if (j == '0') {
-        $('#ErrorBox1').hide(1000);
-
-
-        return true;
+      return true;
     }
 }
 
 
 function UserValidation() {
    
-    $('#Displaydiv2').remove();
+  
     var userchurch = $('#idddlchurchuser');
     var username = $('#txtUserName');
     var useraddress = $('#txtUserAddress');
@@ -1245,46 +1651,36 @@ function UserValidation() {
     ];
 
     var j = 0;
-    var Errorbox = document.getElementById('ErrorBox2');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv2");
-    Errorbox.appendChild(divs);
+   
     for (var i = 0; i < container.length; i++) {
 
         if (container[i].Value == "") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+           
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+          
 
         }
         else if (container[i].Value == "-1") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+          
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "93% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+           
         }
     }
     if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-
-        divs.appendChild(p);
+        noty({ type: 'error', text: Messages.Validation });
 
         return false;
     }
     if (j == '0') {
-        $('#ErrorBox2').hide(1000);
+      //  $('#ErrorBox2').hide(1000);
 
 
         return true;
@@ -1294,7 +1690,7 @@ function UserValidation() {
 
 
 function PatronValidation() {
-    $('#Displaydiv5').remove();
+    
     var SaintName = $('#txtSaintName');
     var SaintDescription = $('#txtSaintDescription');
 
@@ -1305,29 +1701,21 @@ function PatronValidation() {
     ];
 
     var j = 0;
-    var Errorbox = document.getElementById('ErrorBox5');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv5");
-    Errorbox.appendChild(divs);
+   
     for (var i = 0; i < container.length; i++) {
         if (container[i].Value == "") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+           
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+            
         }
     }
 
     if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-        divs.appendChild(p);
+        noty({ type: 'error', text: Messages.Validation });
         return false;
     }
     if (j == '0') {
@@ -1340,13 +1728,14 @@ function PatronValidation() {
 function RemoveUser(curobj)
 {
     debugger;
+    var data = DashDataTables.userTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
         var Users = new Object();
         var Church = new Object();
         Users.churchObj = Church;
-        Users.ID = $(curobj).attr('userid');
+        Users.ID = data.UserID;
         var result = DeleteUser(Users);
 
         switch (result.status) {
@@ -1376,15 +1765,15 @@ function RemoveUser(curobj)
 
 function RemoveSaint(curobj)
 {
-
     debugger;
+    var data = DashDataTables.patronTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
        
         var PatronMaster = new Object();
        
-        PatronMaster.patronMasterId = $(curobj).attr('patronid');
+        PatronMaster.patronMasterId = data.ID;
         var result = DeleteSaint(PatronMaster);
 
         switch (result.status) {
@@ -1443,10 +1832,9 @@ function EditUsers(curobj)
 {
     debugger;
     RemoveStyle();
-    $('#rowfluidDivAlert').hide();
-    $('.alert').hide();
+    var data = DashDataTables.userTable.row($(curobj).parents('tr')).data();
     var Users = new Object();
-    Users.ID = $(curobj).attr('userid');
+    Users.ID = data.UserID;
     $("#hdfUserID").val(Users.ID);
     var userDetail = GetUserDetailsByUserID(Users);
 
@@ -1548,11 +1936,11 @@ function UpdateDesignation(OrgDesignationMaster) {
 function EditRole(curobj)
 {
     debugger;
+    var data = DashDataTables.roleTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
    
     var Roles = new Object();
-    var editedrow = $(curobj).closest('tr');
-    Roles.ID = $(curobj).attr('roleid');
+    Roles.ID = data.RoleID;
     $("#hdfRolesID").val(Roles.ID);
     var roleDetail = GetRoleDetailByRoleID(Roles);
     $(".ddlRoleName").val(roleDetail[0].RoleName).trigger("change");
@@ -1562,11 +1950,13 @@ function EditRole(curobj)
 
 function EditDesignation(curobj)
 {
+
+    var data = DashDataTables.designationTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     
     var OrgDesignationMaster = new Object();
     
-    OrgDesignationMaster.orgDesignationMasterID = $(curobj).attr('designationid');
+    OrgDesignationMaster.orgDesignationMasterID = data.DesigID;
     $("#hdfDesignationID").val(OrgDesignationMaster.orgDesignationMasterID);
     var designationDetail = GetDesignationDetailByID(OrgDesignationMaster);
     $("#txtPosition").val(designationDetail[0].Position);
@@ -1577,10 +1967,11 @@ function EditDesignation(curobj)
 
 function EditSaint(curobj) {
     debugger;
+    var data = DashDataTables.patronTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
    
     var PatronMaster = new Object();
-    PatronMaster.patronMasterId = $(curobj).attr('patronid');
+    PatronMaster.patronMasterId = data.ID;
     $("#hdfPatronID").val(PatronMaster.patronMasterId);
     var PatronDetail = GetPatronDetailByID(PatronMaster);
     $("#txtSaintName").val(PatronDetail[0].Name);
@@ -1719,11 +2110,12 @@ function RemoveRole(curobj)
     RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
+        var data = DashDataTables.roleTable.row($(curobj).parents('tr')).data();
         var Roles = new Object();
         var Church = new Object();
-        var editedrow = $(curobj).closest('tr');
-        Church.churchId = $(curobj).attr('chid');
-        Roles.ID = $(curobj).attr('roleid');
+        
+        Church.churchId = data.ChurchID;
+        Roles.ID = data.RoleID;
         Roles.churchObj = Church;
         var result = DeleteRole(Roles);
         switch (result.status) {
@@ -1745,13 +2137,13 @@ function RemoveRole(curobj)
 
 function RemoveDesignation(curobj)
 {
+    var data = DashDataTables.designationTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
-    $('#rowfluidDivAlert').hide();
-    $('.alert').hide();
+ 
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
         var OrgDesignationMaster = new Object();
-        OrgDesignationMaster.orgDesignationMasterID = $(curobj).attr('designationid');
+        OrgDesignationMaster.orgDesignationMasterID = data.DesigID;
         var result = DeleteDesignation(OrgDesignationMaster);
         switch (result.status) {
             case "1":
@@ -1916,7 +2308,7 @@ function UpdateUser(Users) {
 }
 
 function GetAllChurches(Church) {
-    debugger;
+    
     var ds = {};
     var table = {};
    try {
@@ -1932,27 +2324,27 @@ function GetAllChurches(Church) {
 
 
 
-function BindTownMasterDropdown() {
-    try
-    {
-        var jsonResult = {};
-        var TownMaster = new Object();
-        jsonResult = GetAllTowns(TownMaster);
-        if (jsonResult != undefined) {
-            return jsonResult;
-        }
-    }
-    catch(e)
-    {
+//function BindTownMasterDropdown() {
+//    try
+//    {
+//        var jsonResult = {};
+//        var TownMaster = new Object();
+//        jsonResult = GetAllTowns(TownMaster);
+//        if (jsonResult != undefined) {
+//            return jsonResult;
+//        }
+//    }
+//    catch(e)
+//    {
 
-    }
+//    }
     
-}
+//}
 function BindTownMasterDropdown() {
     try {
         var jsonResult = {};
         var TownMaster = new Object();
-        jsonResult = GetAllTowns(TownMaster);
+        jsonResult = SelectTownMastersIDandText(TownMaster);
         if (jsonResult != undefined) {
             return jsonResult;
         }
@@ -1994,18 +2386,7 @@ function BindRolesDropdown(chid) {
     }
 
 }
-function GetAllTowns(TownMaster) {
-    var ds = {};
-    var table = {};
-    try {
-        var data = "{'townMasterObj':" + JSON.stringify(TownMaster) + "}";
-        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllTowns");
-        table = JSON.parse(ds.d);
-    }
-    catch (e) {
-    }
-    return table;
-}
+
 
 function GetAllRolesIDandText(Roles) {
     var ds = {};
@@ -2057,40 +2438,32 @@ function createGuid() {
 
 
 
+function GetAllRoles(Roles) {
+    try {
+       
+        var ds = {};
+        var table = {};
+        try {
+            var data = "{'rolesObj':" + JSON.stringify(Roles) + "}";
+            ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllRoles");
+            table = JSON.parse(ds.d);
+        }
+        catch (e) {
+
+        }
+        return table;
+    }
+    catch (e) {
+
+    }
+}
+
+
+
 function BindAllRoles() {
     try {
         var Roles = new Object();
-        var jsonResultRole = GetAllRoles(Roles);
-        if (jsonResultRole != null) {
-            LoadRoles(jsonResultRole);
-        }
-    }
-    catch (e) {
-
-    }
-}
-
-function GetAllRoles(Roles) {
-    var ds = {};
-    var table = {};
-    try {
-        var data = "{'rolesObj':" + JSON.stringify(Roles) + "}";
-        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllRoles");
-        table = JSON.parse(ds.d);
-    }
-    catch (e) {
-
-    }
-    return table;
-}
-
-function LoadRoles(Records) {
-    try {
-        $("#Rolestable").find(".rolerow").remove();
-        $.each(Records, function (index, Record) {
-            var html = '<tr class="rolerow"><td>' + Record.RoleName + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i roleid=' + Record.RoleID + ' class="halflings-icon white edit" onclick="EditRole(this)"></i></a><a class="circlebtn circlebtn-danger"><i chid='+ Record.ChurchID +' roleid=' + Record.RoleID + ' class="halflings-icon white trash" onclick="RemoveRole(this)"></i></a></td></tr>';
-            $("#Rolestable").append(html);
-        })
+        DashDataTables.roleTable.clear().rows.add(GetAllRoles(Roles)).draw(false);
     }
     catch (e) {
 
@@ -2101,10 +2474,7 @@ function LoadRoles(Records) {
 function BindAllUsers() {
     try {
         var Users = new Object();
-        var jsonResultUser = GetAllUsers(Users);
-        if (jsonResultUser != null) {
-            LoadUsers(jsonResultUser);
-        }
+        DashDataTables.userTable.clear().rows.add(GetAllUsers(Users)).draw(false);
     }
     catch (e) {
 
@@ -2125,18 +2495,18 @@ function GetAllUsers(Users) {
     return table;
 }
 
-function LoadUsers(Records) {
-    try {
-        $("#Userstable").find(".userrow").remove();
-        $.each(Records, function (index, Record) {
-            var html = '<tr class="userrow"><td>' + Record.UserName + '</td><td class="center">' + Record.Mobile + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + Record.RoleName + '</td><td class="center"><a class="circlebtn circlebtn-info"><i userid=' + Record.UserID + ' class="halflings-icon white edit" onclick="EditUsers(this)"></i></a><a class="circlebtn circlebtn-danger"><i userid=' + Record.UserID + ' class="halflings-icon white trash" onclick="RemoveUser(this)"></i></a></td></tr>';
-            $("#Userstable").append(html);
-        })
-    }
-    catch (e) {
+//function LoadUsers(Records) {
+//    try {
+//        $("#Userstable").find(".userrow").remove();
+//        $.each(Records, function (index, Record) {
+//            var html = '<tr class="userrow"><td>' + Record.UserName + '</td><td class="center">' + Record.Mobile + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + Record.RoleName + '</td><td class="center"><a class="circlebtn circlebtn-info"><i userid=' + Record.UserID + ' class="halflings-icon white edit" onclick="EditUsers(this)"></i></a><a class="circlebtn circlebtn-danger"><i userid=' + Record.UserID + ' class="halflings-icon white trash" onclick="RemoveUser(this)"></i></a></td></tr>';
+//            $("#Userstable").append(html);
+//        })
+//    }
+//    catch (e) {
 
-    }
-}
+//    }
+//}
 
 
 function BindOrganizationTypeDropdown() {
@@ -2156,28 +2526,25 @@ function BindOrganizationTypeDropdown() {
 function BindAllDesignation() {
     try {
         var OrgDesignationMaster = new Object();
-        var jsonResultDesignation = GetAllDesignation(OrgDesignationMaster);
-        if (jsonResultDesignation != null) {
-            LoadDesignation(jsonResultDesignation);
-        }
+        DashDataTables.designationTable.clear().rows.add(GetAllDesignation(OrgDesignationMaster)).draw(false);
     }
     catch (e) {
 
     }
 }
 
-function LoadDesignation(Records) {
-    try {
-        $("#Designationtable").find(".designationrow").remove();
-        $.each(Records, function (index, Record) {
-            var html = '<tr class="designationrow"><td>' + Record.Position + '</td><td class="center">' + Record.Order + '</td><td class="center">' + Record.OrgType + '</td><td class="center"><a class="circlebtn circlebtn-info"><i designationid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditDesignation(this)"></i></a><a class="circlebtn circlebtn-danger"><i designationid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveDesignation(this)"></i></a></td></tr>';
-            $("#Designationtable").append(html);
-        })
-    }
-    catch (e) {
+//function LoadDesignation(Records) {
+//    try {
+//        $("#Designationtable").find(".designationrow").remove();
+//        $.each(Records, function (index, Record) {
+//            var html = '<tr class="designationrow"><td>' + Record.Position + '</td><td class="center">' + Record.Order + '</td><td class="center">' + Record.OrgType + '</td><td class="center"><a class="circlebtn circlebtn-info"><i designationid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditDesignation(this)"></i></a><a class="circlebtn circlebtn-danger"><i designationid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveDesignation(this)"></i></a></td></tr>';
+//            $("#Designationtable").append(html);
+//        })
+//    }
+//    catch (e) {
 
-    }
-}
+//    }
+//}
 
 function GetAllDesignation(Designation) {
     var ds = {};
@@ -2240,14 +2607,14 @@ function InsertPatron(PatronMaster) {
 //--------------------------------//
 
 function BindPatrons() {
-    debugger;
-    var jsonResult = {};
-    var PatronMaster = new Object();
-    var Church = new Object();
-    PatronMaster.churchObj = Church;
-    jsonResult = GetAllPatrons(PatronMaster);
-    if (jsonResult != undefined) {
-        LoadPatrons(jsonResult);
+    try {
+        var PatronMaster = new Object();
+        var Church = new Object();
+        PatronMaster.churchObj = Church;
+        DashDataTables.patronTable.clear().rows.add(GetAllPatrons(PatronMaster)).draw(false);
+    }
+    catch (e) {
+
     }
 }
 
@@ -2261,19 +2628,19 @@ function GetAllPatrons(PatronMaster) {
     return table;
 }
 
-function LoadPatrons(Records)
-{
-    try {
-        $("#Sainttable").find(".saintrow").remove();
-        $.each(Records, function (index, Record) {
-            var html = '<tr class="saintrow"><td>' + Record.Name + '</td><td class="center">' +ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i patronid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditSaint(this)"></i></a><a class="circlebtn circlebtn-danger"><i patronid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveSaint(this)"></i></a></td></tr>';
-            $("#Sainttable").append(html);
-        })
-    }
-    catch (e) {
+//function LoadPatrons(Records)
+//{
+//    try {
+//        $("#Sainttable").find(".saintrow").remove();
+//        $.each(Records, function (index, Record) {
+//            var html = '<tr class="saintrow"><td>' + Record.Name + '</td><td class="center">' +ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i patronid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditSaint(this)"></i></a><a class="circlebtn circlebtn-danger"><i patronid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveSaint(this)"></i></a></td></tr>';
+//            $("#Sainttable").append(html);
+//        })
+//    }
+//    catch (e) {
 
-    }
-}
+//    }
+//}
 
 function showpreview(input) {
     if (input.files && input.files[0]) {
@@ -2323,56 +2690,220 @@ function checkPass() {
 //}
 
 
-var map;
-function initialize() {
-    try
-    {
-        var center = new google.maps.LatLng(9.9816, 76.2998);
-        var mapOptions = {
-            zoom: 14,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            center: center
-        };
+//var map;
+//function initialize() {
+//    try
+//    {
+//        var center = new google.maps.LatLng(9.9816, 76.2998);
+//        var mapOptions = {
+//            zoom: 14,
+//            mapTypeId: google.maps.MapTypeId.ROADMAP,
+//            center: center
+//        };
 
-        map = new google.maps.Map(document.getElementById('dvMap'), mapOptions);
-        google.maps.event.addListener(map, 'click', function (e) {
-            //alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
-            document.getElementById("spanLatitude").innerHTML = e.latLng.lat();
-            document.getElementById("spanLongitude").innerHTML = e.latLng.lng();
+//        map = new google.maps.Map(document.getElementById('dvMap'), mapOptions);
+//        google.maps.event.addListener(map, 'click', function (e) {
+//            //alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+//            document.getElementById("spanLatitude").innerHTML = e.latLng.lat();
+//            document.getElementById("spanLongitude").innerHTML = e.latLng.lng();
            
-            $("#txtLongitude").val(e.latLng.lng());
-            $("#txtLatitude").val(e.latLng.lat());
-        });
+//            $("#txtLongitude").val(e.latLng.lng());
+//            $("#txtLatitude").val(e.latLng.lat());
+//        });
 
-        var marker = new google.maps.Marker({
-            map: map,
-            position: center
-        });
-    }
-    catch(e)
-    {
-        noty({ type: 'error', text: e.message });
-    }
+//        var marker = new google.maps.Marker({
+//            map: map,
+//            position: center
+//        });
+//    }
+//    catch(e)
+//    {
+//        noty({ type: 'error', text: e.message });
+//    }
 
    
-}
+//}
 
 
 function GetMap() {
     try
     {
-        var center = new google.maps.LatLng(9.9816, 76.2998);
+        
+         var center = new google.maps.LatLng(9.9816, 76.2998);
         //$('#mapModal').modal('show');
         $('#mapModal').modal({
             backdrop: 'static',
             keyboard: false
         }).on('shown.bs.modal', function () {
-            google.maps.event.trigger(map, 'resize');
+       
+           // Resize code
+             var center = new google.maps.LatLng(9.9816, 76.2998);
+             google.maps.event.trigger(map, 'resize');
             map.setCenter(center);
+         ///   Resize code
         });
     }
     catch(e)
     {
         noty({ type: 'error', text: e.message });
     }
- }
+}
+
+//function initAutocomplete() {
+//    debugger;
+//    var map = new google.maps.Map(document.getElementById('dvMap'), {
+//        center: { lat: 9.9816, lng: 76.2998 },
+//        zoom: 13,
+//        mapTypeId: 'roadmap'
+//    });
+
+//    // Create the search box and link it to the UI element.
+//    var input = document.getElementById('pac-input');
+//    var searchBox = new google.maps.places.SearchBox(input);
+//    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+//    // Bias the SearchBox results towards current map's viewport.
+//    map.addListener('bounds_changed', function () {
+//        searchBox.setBounds(map.getBounds());
+//    });
+
+//    var markers = [];
+//    // Listen for the event fired when the user selects a prediction and retrieve
+//    // more details for that place.
+//    searchBox.addListener('places_changed', function () {
+//        var places = searchBox.getPlaces();
+
+//        if (places.length == 0) {
+//            return;
+//        }
+
+//        // Clear out the old markers.
+//        markers.forEach(function (marker) {
+//            marker.setMap(null);
+//        });
+//        markers = [];
+
+//        // For each place, get the icon, name and location.
+//        var bounds = new google.maps.LatLngBounds();
+//        places.forEach(function (place) {
+//            if (!place.geometry) {
+//                console.log("Returned place contains no geometry");
+//                return;
+//            }
+//            var icon = {
+//                url: place.icon,
+//                size: new google.maps.Size(71, 71),
+//                origin: new google.maps.Point(0, 0),
+//                anchor: new google.maps.Point(17, 34),
+//                scaledSize: new google.maps.Size(25, 25)
+//            };
+
+//            // Create a marker for each place.
+//            markers.push(new google.maps.Marker({
+//                map: map,
+//                icon: icon,
+//                title: place.name,
+//                position: place.geometry.location
+//            }));
+
+//            if (place.geometry.viewport) {
+//                // Only geocodes have viewport.
+//                bounds.union(place.geometry.viewport);
+//            } else {
+//                bounds.extend(place.geometry.location);
+//            }
+//        });
+//        map.fitBounds(bounds);
+//    });
+//}
+
+
+function initMap() {
+    try {
+       
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 9.9816, lng: 76.2998 },
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoom: 17
+        });
+        //              
+                       
+        //
+        var input = document.getElementById('searchInput');
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+        var infowindow = new google.maps.InfoWindow();
+        var marker = new google.maps.Marker({
+            map: map,
+            anchorPoint: new google.maps.Point(0, -29)
+        });
+        autocomplete.addListener('place_changed', function () {
+            infowindow.close();
+            marker.setVisible(false);
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                window.alert("Geometry is not available");
+                
+                return;
+            }
+            // If the place has a geometry, then present it on a map.
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17);
+            }
+            marker.setIcon(({
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(35, 35)
+            }));
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+
+            var address = '';
+            if (place.address_components) {
+                address = [
+                  (place.address_components[0] && place.address_components[0].short_name || ''),
+                  (place.address_components[1] && place.address_components[1].short_name || ''),
+                  (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+            }
+
+            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+            infowindow.open(map, marker);
+
+            //Location details
+            for (var i = 0; i < place.address_components.length; i++) {
+                if (place.address_components[i].types[0] == 'postal_code') {
+                    document.getElementById('postal_code').innerHTML = place.address_components[i].long_name;
+                }
+                if (place.address_components[i].types[0] == 'country') {
+                    document.getElementById('country').innerHTML = place.address_components[i].long_name;
+                }
+            }
+            document.getElementById('location').innerHTML = place.formatted_address;
+            document.getElementById("spanLatitude").innerHTML = place.geometry.location.lat();
+            document.getElementById("spanLongitude").innerHTML = place.geometry.location.lng();
+            $("#txtLongitude").val(place.geometry.location.lng());
+            $("#txtLatitude").val(place.geometry.location.lat());
+        });
+
+       // var jlm = new google.maps.Map(document.getElementById('map'), map);
+        google.maps.event.addListener(map, 'click', function (e) {
+           
+            $("#txtLongitude").val(e.latLng.lng());
+            $("#txtLatitude").val(e.latLng.lat());
+            document.getElementById("spanLatitude").innerHTML = e.latLng.lat();
+            document.getElementById("spanLongitude").innerHTML = e.latLng.lng();
+        });
+
+      
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+}

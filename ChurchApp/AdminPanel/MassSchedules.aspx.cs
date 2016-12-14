@@ -80,7 +80,6 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string InsertMassTiming(MassTimings MassTimingsObj)
         {       
-            string status = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
           
@@ -91,7 +90,7 @@ namespace ChurchApp.AdminPanel
                 if(UA!=null)
                 {
                     MassTimingsObj.massChurchId = UA.ChurchID;
-                    status = MassTimingsObj.InsertMassTiming();
+                    MassTimingsObj.status = MassTimingsObj.InsertMassTiming();
                 }
                 else
                 {
@@ -101,10 +100,10 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-                status = ex.Message;
+                MassTimingsObj.status = ex.Message;
             }
-           
-            return status;
+
+            return jsSerializer.Serialize(MassTimingsObj);
         }
         #endregion InsertMassTiming
 
@@ -112,7 +111,6 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string UpdateMassTiming(MassTimings MassTimingsObj)
         {
-            string status = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
                   
@@ -123,7 +121,7 @@ namespace ChurchApp.AdminPanel
                 if(UA!=null)
                 {
                     MassTimingsObj.churchId = UA.ChurchID;
-                    status = MassTimingsObj.UpdateMassTiming();
+                    MassTimingsObj.status = MassTimingsObj.UpdateMassTiming();
                 }
                 else
                 {
@@ -133,10 +131,10 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-                status = ex.Message;
+                MassTimingsObj.status = ex.Message;
             }
-            
-            return status;
+
+            return jsSerializer.Serialize(MassTimingsObj);
         }
         #endregion UpdateMassTiming
 
@@ -144,7 +142,6 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteMassTiming(MassTimings MassTimingsObj)
         {
-            string status = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
           
@@ -154,7 +151,7 @@ namespace ChurchApp.AdminPanel
                 UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
-                    status = MassTimingsObj.DeleteMassTiming();
+                    MassTimingsObj.status = MassTimingsObj.DeleteMassTiming();
                 }
                 else
                 {
@@ -164,10 +161,10 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-                status = ex.Message;
+                MassTimingsObj.status = ex.Message;
             }
-          
-            return status;
+
+            return jsSerializer.Serialize(MassTimingsObj);
         }
         #endregion DeleteMassTiming
 
