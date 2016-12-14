@@ -141,7 +141,8 @@
     .dropcheck
     {
        
-            background-image : url('/img/down.png')!important;
+            background-image : url('/img/ad.png')!important;
+            background-size:12px 12px;
             background-position : 95% center!important;
             background-repeat : no-repeat!important;
     }
@@ -149,4 +150,9 @@
     {
         background:#dadada;
         color:#000000;
+    }
+    input[readonly]
+    {
+        cursor:pointer;
+        background-color:white;
     }
