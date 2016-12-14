@@ -1027,14 +1027,10 @@ $("document").ready(function (e) {
         try
         {
             var saintflag = PatronValidation();
-
             if (saintflag) {
-
-
                 var PatronMaster = new Object();
                 PatronMaster.patronMasterName = $("#txtSaintName").val();
                 PatronMaster.description = $("#txtSaintDescription").val();
-
                 var guid = createGuid();
                 if (guid != null) {
                     var imgresult = "";
@@ -1180,78 +1176,130 @@ $("document").ready(function (e) {
             debugger;
             var i;
             var townflag = TownValidation();
-            if (townflag) {
+            if (townflag)
+            {
                 var TownMaster = new Object();
-                if ($("#txtName").val() != "") {
-                    TownMaster.name = $("#txtName").val();
+                if ($("#txtName").val() != "")
+                {
+                 TownMaster.name = $("#txtName").val();
                 }
+
+                if ($("#hdfTownCode").val() == '') {
+                    //INSERT
                 ///////Image insert using handler
                 var imgresult;
                 if ((imgresult = $('#townimageuploader')[0].files.length > 0)) {
                     debugger;
                     var formData = new FormData();
-                    var imagefile, logoFile, img;
-                    var imgId = createGuid();
+                    var imagefile;
                     imagefile = $('#townimageuploader')[0].files[0];
-                    imagefile.name = imgId;
-                    formData.append('NoticeAppImage', imagefile, imagefile.name);
-                    formData.append('GUID', imgId);
-                    formData.append('createdby', 'sadmin');
+                   // imagefile.name = imgId;
+                    formData.append('upImageFile', imagefile, imagefile.name);
+                    formData.append('townName', TownMaster.name);
+                    formData.append('createdby', document.getElementById("LoginName").innerHTML);
+                    formData.append('ActionTyp', 'TownImageInsert');
+                    var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
 
-                    formData.append('ActionTyp', 'NoticeAppImageInsert');
-                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    i = "1";
-
-
-                }
-                if (i == "1") {
-                    TownMaster.ImageID = imgId;
-                }
-                if ($("#hdfTownCode").val() == '') {
-                    //INSERT
-                    var result = InsertTown(TownMaster);
-                    switch (result.status) {
+                    switch (result.status)
+                    {
                         case "1":
-                            noty({ type: 'success', text: 'Inserted successfully' });
-                            BindAllTown();
+
+                            noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                            $("#hdfTownCode").val(result.code);
+                            $("#hdfTownImageID").val(result.imageId);
+                            
+                                BindAllTown();
+                                break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
                             break;
                         case "0":
-                            noty({ type: 'error', text: 'Insertion was not successfull' });
-
-                            break;
-                        case "2":
-                            noty({ type: 'info', text: 'Town Name Already Exists' });
-                            break;
-                        default:
-                            noty({ type: 'info', text: result });
-                            break;
-                    }
-
-                }
-                else {
-                    //UPDATE
-                    TownMaster.code = $("#hdfTownCode").val();
-                    var result = UpdateTown(TownMaster);
-                    switch (result.status) {
-                        case "1":
-                            noty({ type: 'success', text: 'Updated successfully' });
-
-                            BindAllTown();
-                            break;
-                        case "0":
-                            noty({ type: 'error', text: 'Updation was not successfull' });
-
-                            break;
-                        case "2":
-                            noty({ type: 'error', text: 'Updation was not successfull,Town name already exists' });
+                            noty({ type: 'error', text: Messages.FailureMsgCaption });
                             break;
                         default:
                             noty({ type: 'error', text: result.status });
                             break;
                     }
-
                 }
-            }
+                else
+                {
+                    var result = InsertTown(TownMaster);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                            $("#hdfTownCode").val(result.code);
+                            $("#hdfTownImageID").val(result.imageId);
+                            BindAllTown();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: Messages.FailureMsgCaption });
+
+                            break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            break;
+                        default:
+                            noty({ type: 'error', text: result.status });
+                            break;
+                    }
+                }
+                } //UPDATE
+                else {
+                    //check image for updat
+                    if ((imgresult = $('#townimageuploader')[0].files.length > 0)) {
+                        debugger;
+                        var formData = new FormData();
+                        var imagefile;
+                        imagefile = $('#townimageuploader')[0].files[0];
+                        formData.append('upImageFile', imagefile, imagefile.name);
+                        formData.append('code',$("#hdfTownCode").val())
+                        formData.append('townName', TownMaster.name);
+                        formData.append('townImageID', $("#hdfTownImageID").val())
+                        formData.append('updatedby', document.getElementById("LoginName").innerHTML);
+                        formData.append('ActionTyp', 'TownImageUpdate');
+                        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+
+                        switch (result.status) {
+                            case "1":
+
+                                noty({ type: 'success', text: Messages.UpdationSuccessFull });
+                                BindAllTown();
+                                break;
+                            case "2":
+                                noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                                break;
+                            case "0":
+                                noty({ type: 'error', text: Messages.FailureMsgCaption });
+                                break;
+                            default:
+                                noty({ type: 'error', text: result });
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        TownMaster.code = $("#hdfTownCode").val();
+                        var result = UpdateTown(TownMaster);
+                        switch (result.status) {
+                            case "1":
+                                noty({ type: 'success', text: Messages.UpdationSuccessFull });
+
+                                BindAllTown();
+                                break;
+                            case "0":
+                                noty({ type: 'error', text: Messages.FailureMsgCaption });
+
+                                break;
+                            case "2":
+                                noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                                break;
+                            default:
+                                noty({ type: 'error', text: result.status });
+                                break;
+                        }
+                    }//else
+               }//else
+            }//townflag if
 
 
 
@@ -1950,26 +1998,21 @@ function EditRole(curobj)
 
 function EditDesignation(curobj)
 {
-
     var data = DashDataTables.designationTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
-    
     var OrgDesignationMaster = new Object();
-    
     OrgDesignationMaster.orgDesignationMasterID = data.DesigID;
     $("#hdfDesignationID").val(OrgDesignationMaster.orgDesignationMasterID);
     var designationDetail = GetDesignationDetailByID(OrgDesignationMaster);
     $("#txtPosition").val(designationDetail[0].Position);
     $("#txtOrder").val(designationDetail[0].Order);
     $(".ddlOrganization").val(designationDetail[0].OrgType).trigger("change");
-   
-}
+ }
 
 function EditSaint(curobj) {
     debugger;
     var data = DashDataTables.patronTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
-   
     var PatronMaster = new Object();
     PatronMaster.patronMasterId = data.ID;
     $("#hdfPatronID").val(PatronMaster.patronMasterId);

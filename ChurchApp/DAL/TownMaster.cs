@@ -8,8 +8,12 @@ using System.Web;
 
 namespace ChurchApp.DAL
 {
+
+    
     public class TownMaster
     {
+        public AppImages appImagesObj;
+
         #region Public Properties
         public string code
         {
@@ -182,7 +186,7 @@ namespace ChurchApp.DAL
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            SqlParameter outParam = null;
+            SqlParameter outParam = null,outParamCode=null;
             try
             {
                 dcon = new dbConnection();
@@ -196,15 +200,18 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
-                else
-                {
-                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Empty;
-                }
+                //else
+                //{
+                //    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Empty;
+                //}
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
+                outParamCode = cmd.Parameters.Add("@OutCode", SqlDbType.NVarChar, 10);
+                outParamCode.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+                code = outParamCode.Value.ToString();
                 status = outParam.Value.ToString();
             }
             catch (Exception ex)

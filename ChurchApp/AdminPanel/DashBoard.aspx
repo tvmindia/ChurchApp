@@ -824,7 +824,9 @@
      <input type="hidden" id="hdfChurchID"/>
      <input type="hidden" id="hdfRolesID"/>
      <input type="hidden" id="hdfUserID"/>
-     <input id="hdfTownCode" type="hidden" />
+     <input type="hidden" id="hdfTownCode" />
+     <input type="hidden" id="hdfTownImageID" />
+
          <input id="hdfPatronID" type="hidden" />
          <input id="hdfPatronImageID" type="hidden" value="" />
          <input id="hdfPatronImageURL" type="hidden" />
