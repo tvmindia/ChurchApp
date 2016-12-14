@@ -134,10 +134,19 @@
     #checkboxes label:hover {
         background-color: #808080;
     }
+    .dropdown-menu
+    {
+        min-width:219px;
+    }
     .dropcheck
     {
        
-            background-image : url('/img/down-arrow.png')!important;
+            background-image : url('/img/down-arrow (1).png')!important;
             background-position : 95% center!important;
             background-repeat : no-repeat!important;
+    }
+    .dropdown-menu .active > a
+    {
+        background:#dadada;
+        color:#000000;
     }

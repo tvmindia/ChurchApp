@@ -79,6 +79,10 @@ span.multiselect-native-select select
     margin-left:-20px;
     margin-right:0
 }
+.dropdown-menu:after,.dropdown-menu:before
+{
+    content:none;
+}
 /*.btn
 {
     background-color: #ffffff;

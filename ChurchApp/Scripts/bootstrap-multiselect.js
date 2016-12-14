@@ -400,7 +400,7 @@
             maxHeight: false,
             includeSelectAllOption: false,
             includeSelectAllIfMoreThan: 0,
-            selectAllText: ' Select all',
+            selectAllText: ' Daily',
             selectAllValue: 'multiselect-all',
             selectAllName: false,
             selectAllNumber: true,
@@ -423,7 +423,7 @@
             disabledText: '',
             delimiterText: ', ',
             templates: {
-                button: '<input disabled="disabled" type="text" class="" placeholder="Select Days" data-toggle="dropdown"></input>',
+                button: '<input type="text" class="" placeholder="Select Days" data-toggle="dropdown" disabled></input>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
                 filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
                 filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',

@@ -192,16 +192,23 @@
         }
     });
 
-    //var $eventDaySelect = $("#ddlDay");
-    //$eventDaySelect.on("change", function (e) {
-    //    debugger;
-    //    if ($("#ddlDay").val() != null)
-    //    {
-    //        BindGridOnDaySelect();
-    //    }
+    var $eventDaySelect = $("#ddlDay");
+    $eventDaySelect.on("change", function (e) {
+        debugger;
+        var dayarr = new Array();
+        if ($("#ddlDay").val() != null)
+        {
+            // BindGridOnDaySelect();
+            $('#ddlDay :selected').each(function (i, sel) {
+                dayarr.push($(sel).val());
+                
+            });
+            alert(dayarr);
+           // BindGridOnDaySelect(dayarr);
+        }
+        dayarr.clear();
        
-       
-    //});
+    });
     $('#ddlDay').multiselect({
 
         includeSelectAllOption: true
@@ -224,12 +231,14 @@
 
 //----------Insert MassTiming--------------//
 
-function BindGridOnDaySelect()
+function BindGridOnDaySelect(dayarr)
 {
+    debugger;
     var jsonResult = {};
     var MassTimings = new Object();
     MassTimings.massChurchId = $("#hdfChurchID").val();
-    MassTimings.day = $("#ddlDay").val();
+    dayarr = dayarr + ",";
+    MassTimings.day = dayarr.toString();
     jsonResult = selectMassTimeByDay(MassTimings);
     var length = jsonResult.length;
     var MassID = new Array();
