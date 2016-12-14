@@ -137,7 +137,7 @@
     .dropcheck
     {
        
-            background-image : url('/img/invalid.png')!important;
+            background-image : url('/img/down-arrow.png')!important;
             background-position : 95% center!important;
             background-repeat : no-repeat!important;
     }
