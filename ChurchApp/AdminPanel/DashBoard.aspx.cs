@@ -224,7 +224,7 @@ namespace ChurchApp.AdminPanel
 
         #region GetAllTowns
         [System.Web.Services.WebMethod]
-        public static string GetAllTowns(TownMaster townMasterObj)
+        public static string SelectTownMastersIDandText(TownMaster townMasterObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -1118,5 +1118,202 @@ namespace ChurchApp.AdminPanel
             return jsSerializer.Serialize(designationObj);
         }
         #endregion DeleteDesignation
+
+        #region SelectAllTown
+
+        [System.Web.Services.WebMethod]
+        public static string SelectAllTown(TownMaster townMasterObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    DataSet ds = null;
+                    ds = townMasterObj.SelectTownMasters();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    }
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion SelectAllTown
+
+        #region SelectTown
+
+        [System.Web.Services.WebMethod]
+        public static string SelectTown(TownMaster townObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    DataSet ds = null;
+                    ds = townObj.SelectTown();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    }
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion SelectTown
+
+        #region InsertTown
+        [System.Web.Services.WebMethod]
+        public static string InsertTown(TownMaster townObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    townObj.createdBy = UA.userName;
+                    townObj.InsertTownMaster();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                townObj.status = ex.Message;
+            }
+
+
+            return jsSerializer.Serialize(townObj);
+        }
+
+        #endregion InsertTown
+
+        #region DeleteTown
+        [System.Web.Services.WebMethod]
+        public static string DeleteTown(TownMaster townObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    townObj.createdBy = UA.userName;
+                    townObj.DeleteTownMaster();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                townObj.status = ex.Message;
+            }
+
+
+            return jsSerializer.Serialize(townObj);
+        }
+
+        #endregion DeleteTown
+
+        #region UpdateTown
+        [System.Web.Services.WebMethod]
+        public static string UpdateTown(TownMaster townObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    townObj.createdBy = UA.userName;
+                    townObj.UpdateTownMaster();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                townObj.status = ex.Message;
+            }
+
+
+            return jsSerializer.Serialize(townObj);
+        }
+
+        #endregion UpdateTown
+
+
     }
 }
