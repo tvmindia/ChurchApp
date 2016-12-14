@@ -270,9 +270,6 @@ $("document").ready(function (e) {
                  "visible": false,
                  "searchable": false
              }
-
-
-
             ]
 
 
@@ -283,12 +280,36 @@ $("document").ready(function (e) {
     }
 
     try {
-        BindPatrons();
-        $('#Sainttable').DataTable(
-        {
-            order: [[0, 'asc'], [1, 'asc']],
-            searching: false,
-            paging: true
+      //  BindPatrons();
+        var PatronMaster = new Object();
+        var Church = new Object();
+        PatronMaster.churchObj = Church;
+        DashDataTables.patronTable= $('#Sainttable').DataTable({
+            order: [],
+            searching: true,
+            paging: true,
+            data: GetAllPatrons(PatronMaster),
+            columns: [
+              { "data": "ID" },
+              { "data": "Name", "defaultContent": "<i>-</i>" },
+              { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
+              { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditSaint(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveSaint(this)"></i></a>' }
+            ],
+            columnDefs: [//this object is to alter the display cell value not the actual value
+             {
+                 //hiding hidden column fields 
+                 "targets": [0],
+                 "visible": false,
+                 "searchable": false
+             },
+              {
+                  "render": function (data, type, row) {
+                      return ConvertJsonToDate(data);
+                  },
+                  "targets": 2
+              }
+            ]
+           
         });
     }
     catch (e) {
@@ -1106,7 +1127,7 @@ $("document").ready(function (e) {
     });
 
    
-    initialize();
+  //  initialize();
     
     
 });//end of document.ready
@@ -1237,7 +1258,6 @@ function RolesValidation()
 
         if (container[i].Value == "") {
             j = 1;
-            
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
@@ -1246,24 +1266,18 @@ function RolesValidation()
         }
         else if (container[i].Value == "-1") {
             j = 1;
-           
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/invalid.png')";
             txtB.style.backgroundPosition = "93% center";
             txtB.style.backgroundRepeat = "no-repeat";
-           
-        }
+         }
     }
     if (j == '1') {
         noty({ type: 'error', text: Messages.Validation });
-
         return false;
     }
     if (j == '0') {
-      //  $('#ErrorBox1').hide(1000);
-
-
-        return true;
+      return true;
     }
 }
 
@@ -1411,15 +1425,15 @@ function RemoveUser(curobj)
 
 function RemoveSaint(curobj)
 {
-
     debugger;
+    var data = DashDataTables.patronTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
        
         var PatronMaster = new Object();
        
-        PatronMaster.patronMasterId = $(curobj).attr('patronid');
+        PatronMaster.patronMasterId = data.ID;
         var result = DeleteSaint(PatronMaster);
 
         switch (result.status) {
@@ -1613,10 +1627,11 @@ function EditDesignation(curobj)
 
 function EditSaint(curobj) {
     debugger;
+    var data = DashDataTables.patronTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
    
     var PatronMaster = new Object();
-    PatronMaster.patronMasterId = $(curobj).attr('patronid');
+    PatronMaster.patronMasterId = data.ID;
     $("#hdfPatronID").val(PatronMaster.patronMasterId);
     var PatronDetail = GetPatronDetailByID(PatronMaster);
     $("#txtSaintName").val(PatronDetail[0].Name);
@@ -2263,14 +2278,14 @@ function InsertPatron(PatronMaster) {
 //--------------------------------//
 
 function BindPatrons() {
-    debugger;
-    var jsonResult = {};
-    var PatronMaster = new Object();
-    var Church = new Object();
-    PatronMaster.churchObj = Church;
-    jsonResult = GetAllPatrons(PatronMaster);
-    if (jsonResult != undefined) {
-        LoadPatrons(jsonResult);
+    try {
+        var PatronMaster = new Object();
+        var Church = new Object();
+        PatronMaster.churchObj = Church;
+        DashDataTables.patronTable.clear().rows.add(GetAllPatrons(PatronMaster)).draw(false);
+    }
+    catch (e) {
+
     }
 }
 
@@ -2284,19 +2299,19 @@ function GetAllPatrons(PatronMaster) {
     return table;
 }
 
-function LoadPatrons(Records)
-{
-    try {
-        $("#Sainttable").find(".saintrow").remove();
-        $.each(Records, function (index, Record) {
-            var html = '<tr class="saintrow"><td>' + Record.Name + '</td><td class="center">' +ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i patronid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditSaint(this)"></i></a><a class="circlebtn circlebtn-danger"><i patronid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveSaint(this)"></i></a></td></tr>';
-            $("#Sainttable").append(html);
-        })
-    }
-    catch (e) {
+//function LoadPatrons(Records)
+//{
+//    try {
+//        $("#Sainttable").find(".saintrow").remove();
+//        $.each(Records, function (index, Record) {
+//            var html = '<tr class="saintrow"><td>' + Record.Name + '</td><td class="center">' +ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i patronid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditSaint(this)"></i></a><a class="circlebtn circlebtn-danger"><i patronid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveSaint(this)"></i></a></td></tr>';
+//            $("#Sainttable").append(html);
+//        })
+//    }
+//    catch (e) {
 
-    }
-}
+//    }
+//}
 
 function showpreview(input) {
     if (input.files && input.files[0]) {
