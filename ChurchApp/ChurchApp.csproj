@@ -140,6 +140,7 @@
     <Content Include="Font\glyphiconshalflings-regular.woff" />
     <Content Include="GoogleMaps.LocationServices.readme.txt" />
     <Content Include="img\00000000-0000-0000-0000-000000000000.jpg" />
+    <Content Include="img\ad.png" />
     <Content Include="img\AppImages\00000000-0000-0000-0000-000000000000.jpg" />
     <Content Include="img\AppImages\040cb5d2-fdbf-40e0-1b21-1fe3bc08e82b.jpg" />
     <Content Include="img\AppImages\06437727-380e-a0f8-2860-c12f7f4b8124.jpg" />
@@ -207,7 +208,6 @@
     <Content Include="img\church-black-silhouette-with-a-cross-on-topblack1616.png" />
     <Content Include="img\close.png" />
     <Content Include="img\defaultalbumadd.jpg" />
-    <Content Include="img\down.png" />
     <Content Include="img\gallery\1.jpg" />
     <Content Include="img\gallery\2.jpg" />
     <Content Include="img\gallery\3.JPG" />
