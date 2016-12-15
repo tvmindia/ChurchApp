@@ -1293,7 +1293,7 @@ namespace ChurchApp.AdminPanel
                 UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
-                    townObj.createdBy = UA.userName;
+                    townObj.updatedBy = UA.userName;
                     townObj.UpdateTownMaster();
                 }
                 //Session is out

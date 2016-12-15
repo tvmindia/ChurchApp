@@ -249,7 +249,11 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateTownMaster]";
                 cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 10).Value = code;
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = name;
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                if(imageId!=null)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                }
+               
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);

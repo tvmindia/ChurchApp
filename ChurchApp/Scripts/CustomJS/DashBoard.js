@@ -1132,7 +1132,7 @@ $("document").ready(function (e) {
         DashDataTables.townTable= $('#Townstable').DataTable(
         {
            
-                order: [],
+                order: [0],
                 searching: true,
                 paging: true,
                 data: GetAllTowns(TownMaster),
@@ -1166,8 +1166,14 @@ $("document").ready(function (e) {
     }
     $(".clearTown").click(function (e) {
         $("#hdfTownCode").val('');
+        $("#hdfTownImageID").val('');
         $("#txtName").val('');
         $("#TownPreview").attr('src', '/img/defaultalbumadd.jpg');
+        //resetting the upload control
+        //$('#townimageuploader')[0].files.length = 0;
+        //it clears all child page form elemets 
+        //clears upload control
+        $('#form1').get(0).reset();
     });
 
     $('#btnTownAdd').click(function (e) {
@@ -1377,6 +1383,7 @@ function EditTown(curobj) {
         else {
             $("#TownPreview").attr('src', townDetail[0].URL);
         }
+        $("#hdfTownImageID").val(townDetail[0].ImageID);
     }
 
 }

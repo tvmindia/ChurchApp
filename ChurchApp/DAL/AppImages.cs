@@ -57,6 +57,17 @@ namespace ChurchApp.DAL
             set;
         }
 
+        public HttpPostedFile postedFile
+        {
+            get;
+            set;
+        }
+        public string Extension
+        {
+            get;
+            set;
+        }
+
         #endregion Public Properties
 
         #region Methods
@@ -198,41 +209,30 @@ namespace ChurchApp.DAL
         /// update AppImage
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string UpdateAppImage()
+        public void UpdateCurrentAppImageInFolder()
         {
-            dbConnection dcon = null;
-            SqlCommand cmd = null;
-            SqlParameter outParam = null;
             try
             {
-                dcon = new dbConnection();
-                dcon.GetDBConnection();
-                cmd = new SqlCommand();
-                cmd.Connection = dcon.SQLCon;
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[]";
-                cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(appImageId);
-                cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
-                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = type;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
-                outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
-                outParam.Direction = ParameterDirection.Output;
-                cmd.ExecuteNonQuery();
+                //delete current appimage from folder
+                System.IO.File.Delete(HttpContext.Current.Server.MapPath(url));
+               // System.IO.File.Delete(HttpContext.Current.Server.MapPath("/vid/Poster/" + galleryItemID + ".jpg"));
+                    
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            finally
+            try
             {
-                if (dcon.SQLCon != null)
-                {
-                    dcon.DisconectDB();
-                }
+                string appImgLoc = HttpContext.Current.Server.MapPath("~/img/AppImages/");
+                postedFile.SaveAs(appImgLoc + @"\" + appImageId + Extension);
+              
             }
-            return outParam.Value.ToString();
-        }
+            catch(Exception ex)
+            {
+
+            }
+          }
         #endregion UpdateAppImage
 
         #region DeleteAppImage

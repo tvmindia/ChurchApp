@@ -27,7 +27,7 @@ namespace ChurchApp.ImageHandler
             try
             {
                 //new variables
-                string appImgLoc = "";
+                string appImgLoc = HttpContext.Current.Server.MapPath("~/img/AppImages/");
                 HttpPostedFile postFile = null;
                 TownMaster townMasterObj = null;
                 //
@@ -264,7 +264,7 @@ namespace ChurchApp.ImageHandler
                                 townMasterObj.createdBy = AppImgObj.createdBy;
                                 townMasterObj.imageId = AppImgObj.appImageId;
                                 townMasterObj.InsertTownMaster();
-                                 appImgLoc = HttpContext.Current.Server.MapPath("~/img/AppImages/");
+                               
                                  fileName = AppImgObj.appImageId + fileExtension;
                                  postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
                                 jsSerializer = new JavaScriptSerializer();
@@ -272,30 +272,44 @@ namespace ChurchApp.ImageHandler
                                 break;
 
                             case "TownImageUpdate":
-
                             townMasterObj = new TownMaster();
-                            //update to table
-                            //AppImgObj = new AppImages();
+                            AppImgObj = new AppImages();
                             postFile = context.Request.Files["upImageFile"];
                             fileExtension = Path.GetExtension(postFile.FileName);
-                            townMasterObj.appImagesObj.appImageId = context.Request.Form.GetValues("townImageID")[0];
-                           // AppImgObj.appImageId = ChurchImageID;
-                            townMasterObj.appImagesObj.url = "/img/AppImages/" + townMasterObj.appImagesObj.appImageId + fileExtension;
-                            townMasterObj.appImagesObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
-                            townMasterObj.appImagesObj.type = "image";
-                            townMasterObj.appImagesObj.UpdateAppImage().ToString();
-                       
+                            if ((context.Request.Form.GetValues("townImageID")[0]!="")&&(context.Request.Form.GetValues("townImageID")[0]!=null))
+                            {
+                                //update currrent town image with new one
+                                AppImgObj.appImageId = context.Request.Form.GetValues("townImageID")[0];
+                                AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                                AppImgObj.type = "image";
+                                AppImgObj.Extension = fileExtension;
+                                AppImgObj.postedFile = postFile;
+                                //Delete Previous image from folder and save new folder 
+                                AppImgObj.UpdateCurrentAppImageInFolder();
+                            }
+                            else
+                            {
+                                //insert new image for imageless town
+                                AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                AppImgObj.createdBy = context.Request.Form.GetValues("updatedby")[0];
+                                AppImgObj.type = "image";
+                                AppImgObj.Extension = fileExtension;
+                                AppImgObj.postedFile = postFile;
+                                AppImgObj.InsertAppImage1().ToString();
+                                postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
 
-                                townMasterObj.name = context.Request.Form.GetValues("townName")[0];
-                                townMasterObj.updatedBy = townMasterObj.appImagesObj.updatedBy;
-                                townMasterObj.imageId = townMasterObj.appImagesObj.appImageId;
-                                townMasterObj.UpdateTownMaster();
-                                appImgLoc = HttpContext.Current.Server.MapPath("~/img/AppImages/");
-                                fileName = townMasterObj.appImagesObj.appImageId + fileExtension;
-                                postFile.SaveAs(appImgLoc + @"\" + townMasterObj.appImagesObj.appImageId + fileExtension);
-                                jsSerializer = new JavaScriptSerializer();
-                                context.Response.Write(jsSerializer.Serialize(townMasterObj));
-                                break;
+                            }
+                            //Update TownMaster
+                            townMasterObj.code = context.Request.Form.GetValues("code")[0];
+                            townMasterObj.name = context.Request.Form.GetValues("townName")[0];
+                            townMasterObj.updatedBy = AppImgObj.updatedBy;
+                            townMasterObj.imageId = AppImgObj.appImageId;
+                            townMasterObj.UpdateTownMaster();
+
+                            jsSerializer = new JavaScriptSerializer();
+                            context.Response.Write(jsSerializer.Serialize(townMasterObj));
+                            break;
 
                         }
                     }
