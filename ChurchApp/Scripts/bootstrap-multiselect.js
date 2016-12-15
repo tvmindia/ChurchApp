@@ -415,7 +415,7 @@
             filterBehavior: 'text',
             includeFilterClearBtn: true,
             preventInputChangeEvent: false,
-            nonSelectedText: 'None selected',
+            nonSelectedText: 'Select Days',
             nSelectedText: 'selected',
             allSelectedText: 'All selected',
             numberDisplayed: 3,
@@ -1605,7 +1605,7 @@
          */
         updateButtonText: function() {
             var options = this.getSelected();
-
+            debugger;
             // First update the displayed button text.
             if (this.options.enableHTML) {
                 $('.multiselect .multiselect-selected-text', this.$container).html(this.options.buttonText(options, this.$select));
@@ -1615,7 +1615,24 @@
             }
 
             // Now update the title attribute of the button.
-            $('.multiselect', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
+            if (options.length == 7)
+            {
+                $('.dropcheck', this.$container).attr('placeholder','Daily');
+            }
+            else if(options.length>0)
+            {
+                var days = new Array();
+                $(options).each(function (i, sel) {
+                    days.push($(sel).val());
+
+                });
+                $('.dropcheck', this.$container).attr('placeholder', days);
+            }
+            else
+            {              
+                $('.dropcheck', this.$container).attr('placeholder', this.options.buttonTitle(options, this.$select));
+            }
+            
         },
 
         /**
