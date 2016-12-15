@@ -218,6 +218,11 @@
             //alert(dayarr);
             BindGridOnDaySelect(dayarr);
         }
+        else
+        {
+            dayarr.length = 0;
+            BindGridOnDaySelect(dayarr);
+        }
         dayarr.length = 0;
        
     });
