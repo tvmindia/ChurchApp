@@ -38,6 +38,10 @@
             var result = "";
             //var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
             var day = $('.dropcheck').attr('placeholder');
+            if (day == "Daily")
+            {
+                day = $("#ddlDay").val();
+            }
             var time = hrsTo24hrormat();
             time = time + ":00.0000000";
             var MassTimings = new Object();
