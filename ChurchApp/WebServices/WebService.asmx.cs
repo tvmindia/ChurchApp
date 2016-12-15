@@ -633,25 +633,30 @@ namespace ChurchApp.WebServices
         #region Gallery Items
 
         [WebMethod]
-        ///Album
-        public string GetMyChurchGalleryItems(string AlbumID)
+        public string GetGalleryItems(string albumID)
         {
             DataTable dt = new DataTable();
-
             try
             {
                 ChurchApp.DAL.GalleryItems galleryItemObj = new DAL.GalleryItems();
-                galleryItemObj.albumId = AlbumID;
-                galleryItemObj.SelectGalleryItems();
-
+                galleryItemObj.GalleryAlbObj=new DAL.GalleryAlbum();
+                galleryItemObj.GalleryAlbObj.albumId = albumID;
+                dt=galleryItemObj.SelectGalleryItems().Tables[0];
+                if (dt.Rows.Count == 0) throw new Exception("No items");
             }
             catch (Exception ex)
             {
-                throw ex;
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
             }
             finally
             {
-
             }
             return getDbDataAsJSON(dt);
         }
@@ -908,7 +913,6 @@ namespace ChurchApp.WebServices
 
         #endregion Priests
 
-        //GetNoticesByChurchID
         #region Notices
 
         #region GetNoticesByChurchID
@@ -946,5 +950,51 @@ namespace ChurchApp.WebServices
 
 
         #endregion Notices
+
+        #region Families
+
+        #region GetFamilyUnitsByChurchID
+
+        [WebMethod]
+        public string GetFamilyUnitsByChurchID(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.FamilyUnits FUobj = new DAL.FamilyUnits();
+                FUobj.churchId = ChurchID;
+                dt = FUobj.SelectFamilyUnits().Tables[0];
+                if (dt.Rows.Count == 0) throw new Exception("No items");
+
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+
+        #endregion GetFamilyUnitsByChurchID
+
+
+        //#region GetFamilyByFamilyUnits
+
+
+        //#endregion GetFamilyByFamilyUnits
+
+        #endregion Families
     }
 }

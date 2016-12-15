@@ -26,12 +26,18 @@ namespace ChurchApp.ImageHandler
            context.Response.ContentType = "text/plain";
             try
             {
+                //new variables
+                string appImgLoc = "";
+                HttpPostedFile postFile = null;
+                TownMaster townMasterObj = null;
+                //
 
                 string AppImagePath = "";
                 string fileExtension = "";
                 string status = "";
                 string ChurchImageID="";
                 string fileName = "";
+                
                 string ChurchImgLoc = "";
                 AppImages AppImgObj = null;
                 HttpPostedFile churchFile = null;
@@ -241,11 +247,57 @@ namespace ChurchApp.ImageHandler
                                         context.Response.Write(churchObj.UpdateChurch());
 
                             break;
+                            case "TownImageInsert":
+                            townMasterObj = new TownMaster();
+                            //Insert to table
+                            AppImgObj = new AppImages();
+                            postFile = context.Request.Files["upImageFile"];
+                            fileExtension = Path.GetExtension(postFile.FileName);
+                           // AppImgObj.appImageId = ChurchImageID;
+                            AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                            AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                            AppImgObj.type = "image";
+                            AppImgObj.InsertAppImage1().ToString();
+                       
+
+                                townMasterObj.name = context.Request.Form.GetValues("townName")[0];
+                                townMasterObj.createdBy = AppImgObj.createdBy;
+                                townMasterObj.imageId = AppImgObj.appImageId;
+                                townMasterObj.InsertTownMaster();
+                                 appImgLoc = HttpContext.Current.Server.MapPath("~/img/AppImages/");
+                                 fileName = AppImgObj.appImageId + fileExtension;
+                                 postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                jsSerializer = new JavaScriptSerializer();
+                                context.Response.Write(jsSerializer.Serialize(townMasterObj));
+                                break;
+
+                            case "TownImageUpdate":
+
+                            townMasterObj = new TownMaster();
+                            //update to table
+                            //AppImgObj = new AppImages();
+                            postFile = context.Request.Files["upImageFile"];
+                            fileExtension = Path.GetExtension(postFile.FileName);
+                            townMasterObj.appImagesObj.appImageId = context.Request.Form.GetValues("townImageID")[0];
+                           // AppImgObj.appImageId = ChurchImageID;
+                            townMasterObj.appImagesObj.url = "/img/AppImages/" + townMasterObj.appImagesObj.appImageId + fileExtension;
+                            townMasterObj.appImagesObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                            townMasterObj.appImagesObj.type = "image";
+                            townMasterObj.appImagesObj.UpdateAppImage().ToString();
+                       
+
+                                townMasterObj.name = context.Request.Form.GetValues("townName")[0];
+                                townMasterObj.updatedBy = townMasterObj.appImagesObj.updatedBy;
+                                townMasterObj.imageId = townMasterObj.appImagesObj.appImageId;
+                                townMasterObj.UpdateTownMaster();
+                                appImgLoc = HttpContext.Current.Server.MapPath("~/img/AppImages/");
+                                fileName = townMasterObj.appImagesObj.appImageId + fileExtension;
+                                postFile.SaveAs(appImgLoc + @"\" + townMasterObj.appImagesObj.appImageId + fileExtension);
+                                jsSerializer = new JavaScriptSerializer();
+                                context.Response.Write(jsSerializer.Serialize(townMasterObj));
+                                break;
 
                         }
-                  
-
-
                     }
                     #endregion ActionTyp
 

@@ -234,10 +234,10 @@ namespace ChurchApp.AdminPanel
 
         #endregion DeleteAlbumItem
 
-#region GetAllGalleryVideoAlbumByChurchID
-[System.Web.Services.WebMethod]
-public static string GetAllGalleryVideoAlbumByChurchID(GalleryAlbum GalleryAlbumObj)
-{
+ #region GetAllGalleryVideoAlbumByChurchID
+ [System.Web.Services.WebMethod]
+ public static string GetAllGalleryVideoAlbumByChurchID(GalleryAlbum GalleryAlbumObj)
+ {
 
     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
     List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -248,7 +248,6 @@ public static string GetAllGalleryVideoAlbumByChurchID(GalleryAlbum GalleryAlbum
         UA = dashBoardObj.GetCurrentUserSession();
         if (UA != null)
         {
-
             DataSet ds = null;
             GalleryAlbumObj.churchId = UA.ChurchID;
             ds = GalleryAlbumObj.GetAllGalleryVideoAlbumByChurchID();
@@ -266,7 +265,6 @@ public static string GetAllGalleryVideoAlbumByChurchID(GalleryAlbum GalleryAlbum
                     parentRow.Add(childRow);
                 }
             }
-
         }
         //Session is out
         else
@@ -281,8 +279,8 @@ public static string GetAllGalleryVideoAlbumByChurchID(GalleryAlbum GalleryAlbum
     }
   
     return jsSerializer.Serialize(parentRow);
-}
-#endregion GetAllGalleryVideoAlbumByChurchID
+ }
+ #endregion GetAllGalleryVideoAlbumByChurchID
 
 
 
