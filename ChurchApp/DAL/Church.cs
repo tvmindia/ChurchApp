@@ -995,7 +995,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertMassTiming]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
-                cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
+                cmd.Parameters.Add("@list", SqlDbType.NVarChar, -1).Value = day;
                 massTime = massTime.Replace(" ", "");
                 cmd.Parameters.Add("@Time", SqlDbType.Time, 7).Value = TimeSpan.Parse(massTime);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
@@ -1167,7 +1167,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[SelectMassTimingByChurchIdAndDay]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
-                cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
+                cmd.Parameters.Add("@list", SqlDbType.NVarChar, -1).Value = day;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
