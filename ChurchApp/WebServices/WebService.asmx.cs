@@ -16,6 +16,7 @@ using System.Data;
 using System.Collections;
 using System.Drawing;
 using System.IO;
+using ChurchApp.DAL;
 
 #endregion Included Namespaces
 
@@ -985,10 +986,39 @@ namespace ChurchApp.WebServices
         #endregion GetFamilyUnitsByChurchID
 
 
-        //#region GetFamilyByFamilyUnits
+        #region GetFamilyByFamilyUnitsNameandChurchId
+        //
+        [WebMethod]
+        public string GetFamilyDetails(string ChurchID, string UnitID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ChurchApp.DAL.Family fmlyObj = new DAL.Family();
+                fmlyObj.familyUnitsObj = new FamilyUnits();
+                fmlyObj.familyUnitsObj.churchId = ChurchID;
+                fmlyObj.familyUnitsObj.unitId = UnitID;
+                dt = fmlyObj.SelectFamilies().Tables[0];
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
 
+            }
+            return getDbDataAsJSON(dt);
+        }
 
-        //#endregion GetFamilyByFamilyUnits
+        #endregion GetFamilyByFamilyUnitsNameandChurchId
 
         #endregion Families
     }
