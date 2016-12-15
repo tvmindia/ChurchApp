@@ -10,6 +10,11 @@ namespace ChurchApp.DAL
 {
     public class AppImages
     {
+        Common comnObj = new Common();
+        public AppImages()
+        {
+            appImageId = Guid.NewGuid().ToString();
+        }
         #region Public Properties
         public string appImageId
         {
@@ -119,9 +124,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(appImageId);
                 cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
                 cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = type;
-                //cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
 
@@ -147,6 +151,89 @@ namespace ChurchApp.DAL
             return outParam.Value.ToString();
         }
         #endregion InsertAppImage
+        #region InsertAppImage1
+        /// <summary>
+        /// Add new AppImage
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string InsertAppImage1()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertAppImages1]";
+                cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(appImageId);
+                cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
+                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = type;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
+                outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+           return outParam.Value.ToString();
+        }
+        #endregion InsertAppImage1
+
+        #region UpdateAppImage
+        /// <summary>
+        /// update AppImage
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string UpdateAppImage()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[]";
+                cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(appImageId);
+                cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
+                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = type;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
+                outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion UpdateAppImage
 
         #region DeleteAppImage
         /// <summary>

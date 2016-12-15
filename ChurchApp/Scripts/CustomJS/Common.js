@@ -308,5 +308,6 @@ var Messages = {
     ReviveSucces: "Restored Product Successfully.",
     ReviveNotSuccess: "Restoring Product was not Successfull.",
 
-    HtmlFileFormatError: "Please select html file"
+    HtmlFileFormatError: "Please select html file",
+    OperationDuplicateFailure:"Operation Failure... Duplicate Entry!"
 }
