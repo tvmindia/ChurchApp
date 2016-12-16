@@ -243,7 +243,14 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[SelectMembersOfFamilyUnits]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@unitName", SqlDbType.NVarChar, 250).Value = unitName;
+                if(unitId!=null && unitId!=string.Empty)
+                {
+                    cmd.Parameters.Add("@unitID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(unitId);
+                }
+                else
+                {
+                    cmd.Parameters.Add("@unitID", SqlDbType.UniqueIdentifier).Value = Guid.Empty;
+                }
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();

@@ -4,7 +4,10 @@
     $("#TxtTime").timepicker({
         timeFormat: 'h:mm p',
         interval: 15,
-        dropdown: true
+        dropdown: true,
+        change: function (time) {
+            AddTempTable();
+        }
     });
     $('#massTimingTable').dataTable({
 
@@ -21,11 +24,24 @@
     //$("#ddlDay").val("").trigger("change");
     //--------------- *Save MassTiming* ----------------//
     $(".cancel").click(function (e) {
+        debugger;
         $("#AddorEditSpan").text("Save");
-        $("#ddlDay").val("").trigger("change");
+        $('.dropcheck', this.$container).attr('placeholder', " ");
         $("#TxtTime").val("");
-        document.getElementById("massTimingsUpdate").style.display = "none";
+        $("input[type=checkbox]").prop('checked', false);
         $('#rowfluidDiv').hide();
+        if ($("#hdfEditMassDay").val() == null && $("#hdfEditMassDay").val() == "")
+        {
+            document.getElementById("massTimingsUpdate").style.display = "none";
+        }
+        else
+        {
+            document.getElementById("massTimingsUpdate").style.display = " ";
+            var day=new Array();
+            var dayElem = $("#hdfEditMassDay").val();
+            day.push(dayElem);
+            BindGridOnDaySelect(day);
+        }
     });
 
     $(".AddMass").click(function (e) {
@@ -204,6 +220,14 @@
         }
     });
 
+    //$("#TxtTime").timepicker({
+    //    timeFormat: 'h:mm p',
+    //    interval: 15,
+    //    dropdown: true,
+    //    change: function (time) {
+    //        AddTempTable();
+    //    }
+    //});
     var $eventDaySelect = $("#ddlDay");
     $eventDaySelect.on("change", function (e) {
         debugger;
@@ -216,13 +240,14 @@
                 
             });
             //alert(dayarr);
-            BindGridOnDaySelect(dayarr);
+            //BindGridOnDaySelect(dayarr);
         }
         else
         {
             dayarr.length = 0;
             BindGridOnDaySelect(dayarr);
         }
+        AddTempTable();
         dayarr.length = 0;
        
     });
@@ -243,7 +268,7 @@
         $("#MassTimeAdd").show();
         $("#thActions").css("display", "");
     }
-
+   
 });//end of document.ready
 
 //----------Insert MassTiming--------------//
@@ -296,7 +321,7 @@ function ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
         }
         else {
 
-            var html = '<tr class="MassTimingUpdateRows" ID="' + MassID + '"ChurchID="' + massChurchID + '"Day="' + MassDay + '"Time="' + Time + '"><td>' + MassDay + '</td><td class="center">' + Time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+            var html = '<tr class="MassTimingUpdateRows" ID="' + MassID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + Time + '"><td>' + Day + '</td><td class="center">' + Time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
             $("#massTimingUpdateTable").append(html);
 
         }
@@ -308,6 +333,49 @@ function ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
         document.getElementById("massTimingsUpdate").style.display = "none";
     }
     $("#TxtTime").val("");
+}
+function AddTempTable()
+{
+    debugger;
+    $("#massTimingUpdateTable").html('');
+    var time = hrsTo24hrormat();
+    var dayarr = new Array();
+    if ($("#ddlDay").val() != null) {
+        $('#ddlDay :selected').each(function (i, sel) {
+            dayarr.push($(sel).val());
+
+        });
+    }
+    var len = dayarr.length;
+    if ($("#TxtTime").val() != "" && $("#TxtTime").val() != null)
+    {
+        if (len > 1) {
+            for (var i = 0; i < dayarr.length; i++) {
+                var html = '<tr  ><td>' + dayarr[i] + '</td><td class="center">' + (time != "NaN:NaN" ? time : "-") + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
+                $("#massTimingUpdateTable").append(html);
+                $("#massTimingsUpdate").show();
+            }
+        }
+        else
+        {
+            var html = '<tr  ><td>' + dayarr != null ? time : "-" + '</td><td class="center">' + (time != "NaN:NaN" ? time : "-") + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
+            $("#massTimingUpdateTable").append(html);
+            $("#massTimingsUpdate").show();
+        }
+    }
+    
+}
+function DeleteTime(Obj)
+{
+
+    var deleteConirm = confirm("Want to delete?");
+    if (deleteConirm) {
+        $(Obj).closest("tr").remove();
+    }
+    else
+    {
+        return false;
+    }
 }
 function BindTime(Time) {
     var timeArray = [];
@@ -337,8 +405,9 @@ function BindTime(Time) {
     return timeArray;
 }
 function BindMassEditGrid(e) {
+    debugger;
     $('#rowfluidDiv').hide();
-    $("#ddlDay").val("").trigger("change");
+    $('.dropcheck', this.$container).attr('placeholder', " ");
     $("#TxtTime").val("");
     editedrow = e.closest('tr');
     var MassID = editedrow.attributes["id"].textContent;
@@ -349,6 +418,7 @@ function BindMassEditGrid(e) {
     $("#hdfChurchIDs").val(massChurchID);
     $("#hdfDay").val(Day);
     $("#hdfTime").val(Time);
+    $("#hdfEditMassDay").val(Day);
     BindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
 }
 function BindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
@@ -376,7 +446,6 @@ function BindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
     document.getElementById("massTimingsUpdate").style.display = "";
 }
 function hrsTo24hrormat() {
-    debugger;
     var h = 0;
     var addTime = 12;
     var time = $("#TxtTime").val();
