@@ -341,6 +341,7 @@ $("document").ready(function (e)
             AddDayAndTimeToArray();
         }
     });
+    $('[data-toggle="popover"]').popover();
 }); //End of Document ready
 
 
@@ -998,7 +999,7 @@ else {
 }
 function ClearControls() {
     $("#ddlPatron").select2("val", "");
-    $('#ddlDay').multiselect('deselect', ['multiselect-all']);
+   // $('#ddlDay').multiselect('deselect', ['multiselect-all']);
     $(':input').each(function () {
 
         if (this.type == 'text' || this.type == 'textarea' || this.type == 'file') {

@@ -256,8 +256,8 @@ a._p {
                                             </div>
                                             
                                            
-
-                                            <div id="DivNovenaTiming" class="span12" >
+                                             
+                                            <div id="DivNovenaTiming" class="span12" ><i class="halflings-icon question-sign" data-toggle="popover" data-trigger="hover" data-content="You can select multiple Days and add timmings respectively"></i>
                                 <h2>Novena Timings</h2>
                                                
                            <%-- <div class="box-header">
