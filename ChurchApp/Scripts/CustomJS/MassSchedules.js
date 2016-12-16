@@ -25,34 +25,32 @@
     //--------------- *Save MassTiming* ----------------//
     $(".cancel").click(function (e) {
         debugger;
+        $("#massTimingTempTable").html('');
         $("#AddorEditSpan").text("Save");
         var day = $("#hdfEditMassDay").val();
         if (day != null && day != "")
         {
             $('.dropcheck', this.$container).attr('placeholder', day);
+            if (document.getElementById("massTimingUpdateTable").getElementsByTagName("tr").length != 0) {
+                document.getElementById("massTimingUpdateTable").style.display = '';
+            }
+            else
+            {
+                document.getElementById("massTimingUpdateTable").style.display = '';
+                BindGridOnDaySelect(day);
+            }
+           
         }
         else
         {
-            $('.dropcheck', this.$container).attr('placeholder', " ");
+            $('.dropcheck', this.$container).attr('placeholder', "Select Days");
         }
        
         $("#TxtTime").val("");
         $("input[type=checkbox]").prop('checked', false);
         $('#rowfluidDiv').hide();
-        if ($("#massTimingsUpdate").is(':hidden') == true)
-        {
-            document.getElementById("massTimingsUpdate").style.display = " ";
-
-            var day = new Array();
-            var dayElem = $("#hdfEditMassDay").val();
-            day.push(dayElem);
-            BindGridOnDaySelect(day);
-        }
-        else
-        {
-            $("#massTimingTempTable").hide();
-                                 
-        }
+       
+       
     });
 
     $(".AddMass").click(function (e) {
@@ -376,14 +374,12 @@ function AddTempTable()
             for (var i = 0; i < dayarr.length; i++) {
                 var html = '<tr  ><td>' + dayarr[i] + '</td><td class="center">' + (time != "NaN:NaN" ? time : "-") + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
                 $("#massTimingTempTable").append(html);
-                $("#massTimingsUpdate").show();
             }
         }
         else
         {
             var html = '<tr  ><td>' + dayarr != null ? time : "-" + '</td><td class="center">' + (time != "NaN:NaN" ? time : "-") + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
             $("#massTimingTempTable").append(html);
-            $("#massTimingsUpdate").show();
         }
     }
     
@@ -431,6 +427,8 @@ function BindMassEditGrid(e) {
     debugger;
     $('#rowfluidDiv').hide();
     $("#TxtTime").val("");
+    $("#massTimingTempTable").hide();
+    document.getElementById("massTimingUpdateTable").style.display = '';
     editedrow = e.closest('tr');
     var MassID = editedrow.attributes["id"].textContent;
     var massChurchID = editedrow.attributes["ChurchID"].textContent;
