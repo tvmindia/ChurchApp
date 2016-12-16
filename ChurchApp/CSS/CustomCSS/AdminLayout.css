@@ -153,7 +153,7 @@ box-header {
     {
        
             background-image : url('/img/ad.png')!important;
-            background-size:12px 12px;
+            background-size:12px 12px!important;
             background-position : 95% center!important;
             background-repeat : no-repeat!important;
     }
@@ -175,3 +175,14 @@ box-header {
     {
         font-size:1em;
     }
+    #DivNovenaTiming input[type="text"]
+    {
+        border:none;
+    }
+.box {
+    border: none;
+}
+#DivIndividualPatron .box-header {
+    background:none;
+    border-bottom: 2px solid black;
+}

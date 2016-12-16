@@ -1134,7 +1134,7 @@ function BindFamilyUnitMemebrs()
     debugger;
     var jsonResult = {};
     var FamilyUnits = new Object();
-    FamilyUnits.unitName = $("#hdfUnitName").val();
+    FamilyUnits.unitId = $("#hdfUnitID").val();
     jsonResult = GetAllFamilyUnitMembers(FamilyUnits);
     if (jsonResult != undefined) {
         $(".FamiliesEdit").css("display", "");

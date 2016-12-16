@@ -122,6 +122,7 @@
     <input type="hidden" id="hdfChurchIDs" />
     <input type="hidden" id="hdfDay" />
     <input type="hidden" id="hdfTime"/>
+    <input type="hidden" id="hdfEditMassDay" />
 
 
 

@@ -57,9 +57,9 @@
 						<h2><i class="halflings-icon picture"></i><span class="break"></span> Albums</h2>
 						<div class="box-icon">
 						
-					        <a class="btnEdit pencilEdit" style="position: relative; top: -1px;  right: 0px;display:none;" title="Edit" id="EditAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
-                            <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
-                            <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>
+					        <a class="pencilEdit" style="position: relative; top: -1px;  right: 0px;display:none;" title="Edit" id="EditAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
+                            <a class="" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon refresh" aria-hidden="true"></i></a>
+                            <a class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 							
 						</div>
 					</div>
@@ -83,8 +83,8 @@
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon picture"></i><span class="break"></span><span id="ImageDivTitle">Album Images</span></h2>
 						<div class="box-icon">
-							<a class="btnEdit pencilEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditImageAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
-                            <a class="btnEdit" style="display:none;position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshImageAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
+							<a class="pencilEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditImageAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
+                            <a class="" style="display:none;position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshImageAlbum"><i class="halflings-icon refresh" aria-hidden="true"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
@@ -136,9 +136,9 @@
 						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span> Video Album</h2>
 						<div class="box-icon">
 						
-					        <a class="btnEdit pencilEdit" style="position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="EditVideoAlbum"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
-                            <a class="btnEdit" style="display:none;position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="RefreshVideoAlbum"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
-                            <a class="btn-minimize btnEdit"><i class="halflings-icon white chevron-up"></i></a>
+					        <a class="pencilEdit" style="position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="EditVideoAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
+                            <a class="" style="display:none;position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="RefreshVideoAlbum"><i class="halflings-icon refresh" aria-hidden="true"></i></a>
+                            <a class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
@@ -165,8 +165,8 @@
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span><span id="VideoDivTitle">AlbumName Videos</span></h2>
                        <div class="box-icon">
-							<a class="btnEdit pencilEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditVideo"><i class="halflings-icon white pencil" aria-hidden="true"></i></a>
-                            <a class="btnEdit" style="position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshVideo"><i class="halflings-icon white refresh" aria-hidden="true"></i></a>
+							<a class=" pencilEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditVideo"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
+                            <a class="" style="position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshVideo"><i class="halflings-icon refresh" aria-hidden="true"></i></a>
 						
 						</div>
 					</div>
