@@ -156,7 +156,7 @@ ul.dashboard-list li{
  }
 
 .btnEdit {
-    font-size: 14px;
+        padding: 6px 10px 1px 12px;
 }
 
  /*-------------New Novena---------------*/
@@ -208,7 +208,7 @@ ul.dashboard-list li{
     min-width:241px;
     min-height:182px;
     max-height: 182px;
-    margin: 9% 0% 0% 5%;
+    margin: 17% 0% 0% 5%;
     object-fit:cover;
 }
 
@@ -316,5 +316,5 @@ ul.dashboard-list li{
           /*----------*/
 
 #NoticeEdit {
-    margin-left: 200px;
+    left: 410px;
 }

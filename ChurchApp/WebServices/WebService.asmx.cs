@@ -991,7 +991,7 @@ namespace ChurchApp.WebServices
         #endregion GetFamilyUnitsByChurchID
 
 
-        #region GetFamilyByFamilyUnitsNameandChurchId
+        #region GetFamilyByFamilyUnitsID
         //
         [WebMethod]
         public string GetFamilyDetails(string ChurchID, string UnitID)
@@ -1023,8 +1023,92 @@ namespace ChurchApp.WebServices
             return getDbDataAsJSON(dt);
         }
 
-        #endregion GetFamilyByFamilyUnitsNameandChurchId
+        #endregion GetFamilyByFamilyUnitsID
+
+        #region GetFamilyExexutiveByUnintID
+        //
+        [WebMethod]
+        public string GetFamilyExecutives(string ChurchID, string UnitID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ChurchApp.DAL.FamilyUnits fmlyObj = new DAL.FamilyUnits();
+            
+                fmlyObj.churchId = ChurchID;
+                fmlyObj.unitId = UnitID;
+               dt = fmlyObj.SelectFamilyUnitMembers().Tables[0];
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion GetFamilyExexutiveByUnintID
 
         #endregion Families
+
+        #region Error Detection
+        [WebMethod]
+        public string ErrorDetection(string REPORT_ID, string PACKAGE_NAME, Object BUILD, string LOGCAT, string ANDROID_VERSION, string APP_VERSION_CODE, string AVAILABLE_MEM_SIZE, Object CRASH_CONFIGURATION)
+        {
+            DataTable dt = new DataTable();
+            Common cmn = new Common();
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            try
+            {   //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.UserID = Guid.Empty.ToString();
+                ETObj.ErrorID = REPORT_ID;
+                ETObj.Description = "CRASH_CONFIGURATION\n\n" + serializer.Serialize(CRASH_CONFIGURATION)
+                                    + "\n\nAVAILABLE_MEM_SIZE\n\n" + AVAILABLE_MEM_SIZE
+                                    +"\n\nREPORT_ID\n\n" + REPORT_ID;
+                ETObj.AppBuild = serializer.Serialize(BUILD);
+                ETObj.AppLogCat = LOGCAT;
+                ETObj.Date =cmn.ConvertDatenow(DateTime.Now).ToString();
+                ETObj.Module = PACKAGE_NAME;
+                ETObj.ErrorSource = "App";
+                ETObj.IsMobile = true;
+                ETObj.Version = ANDROID_VERSION + "/" + APP_VERSION_CODE;
+                ETObj.CreatedBy = "App";
+                ETObj.InsertErrorDetailsFromApp();
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Error Detection";
+                ETObj.Method = "ErrorDetection";
+                ETObj.InsertErrorDetailsFromWebService();
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
     }
 }

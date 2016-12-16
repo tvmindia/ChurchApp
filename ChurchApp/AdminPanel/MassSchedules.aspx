@@ -98,6 +98,18 @@
 						  <tbody id="massTimingUpdateTableBody">
 							
 						</tbody>
+					  </table>    
+                              <table id="massTimingTempTable" class="table table-striped table-bordered bootstrap-datatable" style="display:none;">
+						  <thead>
+							  <tr>
+								  <th>Day</th>
+								  <th>Time</th>
+								  <th>Actions</th>
+							  </tr>
+						  </thead>   
+						  <tbody id="massTimingTempTableBody">
+							
+						</tbody>
 					  </table>         
                              </div>
                         </div>
@@ -122,6 +134,7 @@
     <input type="hidden" id="hdfChurchIDs" />
     <input type="hidden" id="hdfDay" />
     <input type="hidden" id="hdfTime"/>
+    <input type="hidden" id="hdfEditMassDay" />
 
 
 

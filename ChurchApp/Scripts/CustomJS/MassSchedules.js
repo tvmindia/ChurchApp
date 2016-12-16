@@ -4,7 +4,10 @@
     $("#TxtTime").timepicker({
         timeFormat: 'h:mm p',
         interval: 15,
-        dropdown: true
+        dropdown: true,
+        change: function (time) {
+            AddTempTable();
+        }
     });
     $('#massTimingTable').dataTable({
 
@@ -21,16 +24,39 @@
     //$("#ddlDay").val("").trigger("change");
     //--------------- *Save MassTiming* ----------------//
     $(".cancel").click(function (e) {
+        debugger;
+        $("#massTimingTempTable").html('');
         $("#AddorEditSpan").text("Save");
-        $("#ddlDay").val("").trigger("change");
+        var day = $("#hdfEditMassDay").val();
+        if (day != null && day != "")
+        {
+            $('.dropcheck', this.$container).attr('placeholder', day);
+            if (document.getElementById("massTimingUpdateTable").getElementsByTagName("tr").length != 0) {
+                document.getElementById("massTimingUpdateTable").style.display = '';
+            }
+            else
+            {
+                document.getElementById("massTimingUpdateTable").style.display = '';
+                BindGridOnDaySelect(day);
+            }
+           
+        }
+        else
+        {
+            $('.dropcheck', this.$container).attr('placeholder', "Select Days");
+        }
+       
         $("#TxtTime").val("");
-        document.getElementById("massTimingsUpdate").style.display = "none";
+        $("input[type=checkbox]").prop('checked', false);
         $('#rowfluidDiv').hide();
+       
+       
     });
 
     $(".AddMass").click(function (e) {
         debugger;
         $("#NoData").remove();
+        $("#massTimingUpdateTable").html('');
         $('#massTimingTableBox').css("height", "auto");
         var saveOrEdit = $("#AddorEditSpan").text();
         if (saveOrEdit == "Save") {
@@ -204,6 +230,14 @@
         }
     });
 
+    //$("#TxtTime").timepicker({
+    //    timeFormat: 'h:mm p',
+    //    interval: 15,
+    //    dropdown: true,
+    //    change: function (time) {
+    //        AddTempTable();
+    //    }
+    //});
     var $eventDaySelect = $("#ddlDay");
     $eventDaySelect.on("change", function (e) {
         debugger;
@@ -216,12 +250,21 @@
                 
             });
             //alert(dayarr);
-            BindGridOnDaySelect(dayarr);
+            //BindGridOnDaySelect(dayarr);
+            AddTempTable();
         }
         else
         {
-            dayarr.length = 0;
-            BindGridOnDaySelect(dayarr);
+            if ($("#hdfEditMassDay").val() != null && $("#hdfEditMassDay").val() != "")
+            {
+                dayarr.push($("#hdfEditMassDay").val());
+                BindGridOnDaySelect(dayarr);
+            }
+            else
+            {
+                dayarr.length = 0;
+            }
+           
         }
         dayarr.length = 0;
        
@@ -243,7 +286,7 @@
         $("#MassTimeAdd").show();
         $("#thActions").css("display", "");
     }
-
+   
 });//end of document.ready
 
 //----------Insert MassTiming--------------//
@@ -277,11 +320,12 @@ function BindGridOnDaySelect(dayarr)
 }
 
 function ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
-    document.getElementById("massTimingUpdateTable").innerHTML = "";
+    //document.getElementById("massTimingUpdateTable").innerHTML = "";
     var ChurchMassID = "";
     var MassDay = "";
     var massTime = "";
     var massLength = MassID.length;
+    $("#massTimingUpdateTable").append("");
     if (MassID != "")
     {
         if (massLength > 1) {
@@ -296,7 +340,7 @@ function ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
         }
         else {
 
-            var html = '<tr class="MassTimingUpdateRows" ID="' + MassID + '"ChurchID="' + massChurchID + '"Day="' + MassDay + '"Time="' + Time + '"><td>' + MassDay + '</td><td class="center">' + Time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+            var html = '<tr class="MassTimingUpdateRows" ID="' + MassID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + Time + '"><td>' + Day + '</td><td class="center">' + Time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
             $("#massTimingUpdateTable").append(html);
 
         }
@@ -308,6 +352,47 @@ function ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
         document.getElementById("massTimingsUpdate").style.display = "none";
     }
     $("#TxtTime").val("");
+}
+function AddTempTable()
+{
+    debugger;
+    // $("#massTimingUpdateTable").html('');
+    document.getElementById("massTimingsUpdate").style.display ='';
+    
+    $("#massTimingTempTable").show();
+    document.getElementById("massTimingUpdateTable").style.display = "none ";
+    var time = $("#TxtTime").val();
+    var dayarr = new Array();
+    if ($("#ddlDay").val() != null) {
+        $('#ddlDay :selected').each(function (i, sel) {
+            dayarr.push($(sel).val());
+
+        });
+    }
+    var len = dayarr.length;
+    if ($("#TxtTime").val() != "" && $("#TxtTime").val() != null && len!=0)
+    {
+        if (len > 0) {
+            for (var i = 0; i < dayarr.length; i++) {
+                var html = '<tr  ><td>' + dayarr[i] + '</td><td class="center">' + (time != "NaN:NaN" ? time : "-") + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
+                $("#massTimingTempTable").append(html);
+            }
+        }
+        
+    }
+    
+}
+function DeleteTime(Obj)
+{
+
+    var deleteConirm = confirm("Want to delete?");
+    if (deleteConirm) {
+        $(Obj).closest("tr").remove();
+    }
+    else
+    {
+        return false;
+    }
 }
 function BindTime(Time) {
     var timeArray = [];
@@ -337,18 +422,22 @@ function BindTime(Time) {
     return timeArray;
 }
 function BindMassEditGrid(e) {
+    debugger;
     $('#rowfluidDiv').hide();
-    $("#ddlDay").val("").trigger("change");
     $("#TxtTime").val("");
+    $("#massTimingTempTable").hide();
+    document.getElementById("massTimingUpdateTable").style.display = '';
     editedrow = e.closest('tr');
     var MassID = editedrow.attributes["id"].textContent;
     var massChurchID = editedrow.attributes["ChurchID"].textContent;
     var Day = editedrow.attributes["Day"].textContent;
     var Time = editedrow.attributes["Time"].textContent;
+    $('.dropcheck', this.$container).attr('placeholder', Day);
     $("#hdfMassIDs").val(MassID);
     $("#hdfChurchIDs").val(massChurchID);
     $("#hdfDay").val(Day);
     $("#hdfTime").val(Time);
+    $("#hdfEditMassDay").val(Day);
     BindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
 }
 function BindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
@@ -376,7 +465,6 @@ function BindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
     document.getElementById("massTimingsUpdate").style.display = "";
 }
 function hrsTo24hrormat() {
-    debugger;
     var h = 0;
     var addTime = 12;
     var time = $("#TxtTime").val();

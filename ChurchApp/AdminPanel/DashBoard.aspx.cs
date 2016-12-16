@@ -395,7 +395,11 @@ namespace ChurchApp.AdminPanel
                 {
 
                     DataTable dt = null;
-                 
+                    if (churchObj.churchId==null)
+                    {
+                        churchObj.churchId = UA.ChurchID;
+                    }
+                    
                     dt = churchObj.GetChurchDetailsByChurchID();
                     //Converting to Json
                     Dictionary<string, object> childRow;
