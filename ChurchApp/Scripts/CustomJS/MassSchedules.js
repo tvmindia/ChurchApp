@@ -370,17 +370,13 @@ function AddTempTable()
     var len = dayarr.length;
     if ($("#TxtTime").val() != "" && $("#TxtTime").val() != null && len!=0)
     {
-        if (len > 1) {
+        if (len > 0) {
             for (var i = 0; i < dayarr.length; i++) {
                 var html = '<tr  ><td>' + dayarr[i] + '</td><td class="center">' + (time != "NaN:NaN" ? time : "-") + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
                 $("#massTimingTempTable").append(html);
             }
         }
-        else
-        {
-            var html = '<tr  ><td>' + dayarr != null ? time : "-" + '</td><td class="center">' + (time != "NaN:NaN" ? time : "-") + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
-            $("#massTimingTempTable").append(html);
-        }
+        
     }
     
 }
