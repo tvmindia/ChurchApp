@@ -1,6 +1,7 @@
 ﻿
-
+//Container for datatables 
 var DashDataTables = {};
+var dropdownContainer = {};
 
 $("document").ready(function (e) {
   try
@@ -56,7 +57,7 @@ $("document").ready(function (e) {
 
     try
     {
-        $(".ddlTownCode").select2({
+        dropdownContainer.ddlTown=$(".ddlTownCode").select2({
             placeholder: "Choose Town",
             allowClear: true,
             data: BindTownMasterDropdown()
@@ -70,7 +71,7 @@ $("document").ready(function (e) {
 
     try
     {
-      var $churchone=  $(".ddlChurch").select2({
+        dropdownContainer.ddlChurch = $(".ddlChurch").select2({
             placeholder: "Choose Church",
             allowClear: true,
             data: BindChurchDropdown()
@@ -83,12 +84,9 @@ $("document").ready(function (e) {
     }
 
     try{ 
-        var $churchSelect = $(".ddlChurchuser").select2({
-            placeholder: "Choose Church",
-            allowClear: true,
-            data: BindChurchDropdown()
-        });
-        $churchSelect.on("change", function (e)
+       
+
+        $("#idddlchurchuser").on("change", function (e)
         {
             var $selectRoles = $(".ddlRoles").select2();
             $selectRoles.select2().empty();
@@ -101,19 +99,30 @@ $("document").ready(function (e) {
                  
         });
     } catch (e)
-    { noty({ type: 'error', text: e.message }); }
+    {
+        noty({ type: 'error', text: e.message });
+    }
 
     try {
-        $(".ddlRoleName").select2({
+
+        dropdownContainer.ddlRoles= $(".ddlRoleName").select2({
             placeholder: "Choose Role",
             allowClear: true
-       
         });
     }
     catch (e) {
         noty({ type: 'error', text: e.message });
     }
-   
+    try {
+        dropdownContainer.ddlOrganization = $(".ddlOrganization").select2({
+            placeholder: "Choose Organization",
+            allowClear: true,
+            data: BindOrganizationTypeDropdown()
+        });
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
    
     try
     {
@@ -236,16 +245,7 @@ $("document").ready(function (e) {
         noty({ type: 'error', text: e.message });
     }
 
-    try {
-        $(".ddlOrganization").select2({
-            placeholder: "Choose Organization",
-            allowClear: true,
-            data: BindOrganizationTypeDropdown()
-        });
-    }
-    catch (e) {
-        noty({ type: 'error', text: e.message });
-    }
+  
 
     try {
       
@@ -425,16 +425,22 @@ $("document").ready(function (e) {
                                 noty({ type: 'success', text: Messages.UpdationSuccessFull });
                                
                                 try {
-                                    var $churchone = $(".ddlChurch").select2({
+                                    dropdownContainer.ddlChurch.select2().empty();
+                                    dropdownContainer.ddlChurch.select2({
                                         placeholder: "Choose Church",
                                         allowClear: true,
                                         data: BindChurchDropdown()
                                     });
-                                    var $churchSelect = $(".ddlChurchuser").select2({
-                                        placeholder: "Choose Church",
-                                        allowClear: true,
-                                        data: BindChurchDropdown()
-                                    });
+                                    //var $churchone = $(".ddlChurch").select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
+                                    //var $churchSelect = $(".ddlChurchuser").select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
                                     BindAllChurches();
                                 }
                                 catch (e) {
@@ -460,16 +466,22 @@ $("document").ready(function (e) {
                                 noty({ type: 'success', text: Messages.UpdationSuccessFull });
                               
                                 try {
-                                    var $churchone = $(".ddlChurch").select2({
+                                    dropdownContainer.ddlChurch.select2().empty();
+                                    dropdownContainer.ddlChurch.select2({
                                         placeholder: "Choose Church",
                                         allowClear: true,
                                         data: BindChurchDropdown()
                                     });
-                                    var $churchSelect = $(".ddlChurchuser").select2({
-                                        placeholder: "Choose Church",
-                                        allowClear: true,
-                                        data: BindChurchDropdown()
-                                    });
+                                    //var $churchone = $(".ddlChurch").select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
+                                    //var $churchSelect = $(".ddlChurchuser").select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
                                     BindAllChurches();
                                 }
                                 catch (e) {
@@ -517,12 +529,18 @@ $("document").ready(function (e) {
                                 noty({ type: 'success', text: Messages.InsertionSuccessFull });
                                
                                 try {
-                                    var $churchone = $(".ddlChurch").select2({
-                                        placeholder: "Choose Church",
-                                        allowClear: true,
-                                        data: BindChurchDropdown()
-                                    });
-                                    var $churchSelect = $(".ddlChurchuser").select2({
+                                    //var $churchone = $(".ddlChurch").select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
+                                    //var $churchSelect = $(".ddlChurchuser").select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
+                                    dropdownContainer.ddlChurch.select2().empty();
+                                    dropdownContainer.ddlChurch.select2({
                                         placeholder: "Choose Church",
                                         allowClear: true,
                                         data: BindChurchDropdown()
@@ -552,12 +570,18 @@ $("document").ready(function (e) {
                                 noty({ type: 'success', text: Messages.InsertionSuccessFull });
                                
                                 try {
-                                    var $churchone = $(".ddlChurch").select2({
-                                        placeholder: "Choose Church",
-                                        allowClear: true,
-                                        data: BindChurchDropdown()
-                                    });
-                                    var $churchSelect = $(".ddlChurchuser").select2({
+                                    //var $churchone = $(".ddlChurch").select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
+                                    //var $churchSelect = $(".ddlChurchuser").select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
+                                    dropdownContainer.ddlChurch.select2().empty();
+                                    dropdownContainer.ddlChurch.select2({
                                         placeholder: "Choose Church",
                                         allowClear: true,
                                         data: BindChurchDropdown()
@@ -614,6 +638,9 @@ $("document").ready(function (e) {
             $("#txtLatitude").val('');
             $("#hdfChurchID").val('');
             $("#ChurchPreview").attr('src', '/img/defaultalbumadd.jpg');
+            //it clears all child page form elemets 
+            //clears upload control
+            $('#form1').get(0).reset();
         }
         catch(e)
         {
@@ -632,6 +659,9 @@ $("document").ready(function (e) {
             RemoveStyle();
             $(".ddlRoleName").select2("val", "");
             $(".ddlChurch").select2("val", "");
+            //it clears all child page form elemets 
+            //clears upload control
+            $('#form1').get(0).reset();
         }
         catch(e)
         {
@@ -658,6 +688,9 @@ $("document").ready(function (e) {
             $("#txtconfirmpswd").val('');
             $(".ddlRoles").select2("val", "");
             $("#hdfUserID").val('');
+            //it clears all child page form elemets 
+            //clears upload control
+            $('#form1').get(0).reset();
         }
         catch (e) {
             noty({ type: 'error', text: e.message });
@@ -677,6 +710,9 @@ $("document").ready(function (e) {
             $("#txtOrder").val('');
 
             $("#hdfDesignationID").val('');
+            //it clears all child page form elemets 
+            //clears upload control
+            $('#form1').get(0).reset();
         }
       
         catch(e)
@@ -693,6 +729,9 @@ $("document").ready(function (e) {
             $("#txtSaintDescription").val('');
             $("#imgSaint").attr('src', '/img/defaultalbumadd.jpg');
             $("#hdfPatronID").val('');
+            //it clears all child page form elemets 
+            //clears upload control
+            $('#form1').get(0).reset();
         }
         catch (e) {
             noty({ type: 'error', text: e.message });
@@ -1138,6 +1177,7 @@ $("document").ready(function (e) {
                 data: GetAllTowns(TownMaster),
                 columns: [
                   { "data": "Code" },
+                  { "data": "ImageID" },
                   { "data": "Name", "defaultContent": "<i>-</i>" },
                   { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
                   { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditTown(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveTown(this)"></i></a>' }
@@ -1145,7 +1185,7 @@ $("document").ready(function (e) {
                 columnDefs: [//this object is to alter the display cell value not the actual value
                  {
                      //hiding hidden column fields 
-                     "targets": [0],
+                     "targets": [0,1],
                      "visible": false,
                      "searchable": false
                  },
@@ -1153,7 +1193,7 @@ $("document").ready(function (e) {
                       "render": function (data, type, row) {
                           return ConvertJsonToDate(data);
                       },
-                      "targets": 2
+                      "targets": 3
                   }
                 ]
            
@@ -1452,43 +1492,34 @@ function TownImagePreview(input) {
     }
 }
 
-//function LoadTown(Records) {
-//    try {
-//        $("#Townstable").find(".townrow").remove();
-//        $.each(Records, function (index, Record) {
-//            var html = '<tr class="townrow"><td>' + Record.Name + '</td><td class="center">' + ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i townCode=' + Record.Code + ' class="halflings-icon white edit" onclick="EditTown(this)"></i></a><a class="circlebtn circlebtn-danger"><i townCode=' + Record.Code + ' class="halflings-icon white trash" onclick="RemoveTown(this)"></i></a></td></tr>';
-//            $("#Townstable").append(html);
-//        })
-//    }
-//    catch (e) {
 
-//    }
-//}
 
 function RemoveTown(curobj) {
+    debugger;
     try {
         var data = DashDataTables.townTable.row($(curobj).parents('tr')).data();
-        debugger;
-       
         var TownMaster = new Object();
+        var AppImages = new Object();
+        TownMaster.imageId = data.ImageID;
         TownMaster.code = data.Code;
+        TownMaster.appImagesObj = AppImages;
         var jsonResultTown = DeleteTown(TownMaster);
         switch (jsonResultTown.status) {
             case "1":
-                noty({ type: 'success', text: 'Deleted successfully' });
+                noty({ type: 'success', text: Messages.DeletionSuccessFull });
                 BindAllTown();
                 break;
             case "0":
-                noty({ type: 'error', text: 'Deletion was not successfull' });
+                noty({ type: 'error', text: Messages.DeletionFailure });
 
                 break;
             default:
-                noty({ type: 'info', text: result });
+                noty({ type: 'error', text: jsonResultTown.status });
                 break;
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 }
 
@@ -1537,7 +1568,7 @@ function BindAllChurches()
 
 function DesignationValidation()
 {
-    debugger;
+   
   
     var postion = $('#txtPosition');
     var organization = $('#idddlOrganization');
@@ -1582,7 +1613,7 @@ function DesignationValidation()
         return false;
     }
     if (j == '0') {
-       // $('#ErrorBox4').hide(1000);
+      
         return true;
     }
 }
@@ -1627,17 +1658,14 @@ function ChurchValidation() {
         return false;
     }
     if (j == '0') {
-       // $('#ErrorBox').hide(1000);
-       
-     
-        return true;
+      return true;
     }
 }
 
 
 function RolesValidation()
 {
-    debugger;
+  
     
     var RoleName = $('#idddlRoleName');
     var churchrole = $('#idddlChurch');
@@ -1735,10 +1763,7 @@ function UserValidation() {
         return false;
     }
     if (j == '0') {
-      //  $('#ErrorBox2').hide(1000);
-
-
-        return true;
+           return true;
     }
 }
 
@@ -1774,7 +1799,7 @@ function PatronValidation() {
         return false;
     }
     if (j == '0') {
-        $('#ErrorBox5').hide();
+      
         return true;
     }
 
@@ -1795,7 +1820,7 @@ function RemoveUser(curobj)
 
         switch (result.status) {
             case "1":
-                noty({ type: 'success', text: 'Deleted successfully' });
+                noty({ type: 'success', text: Messages.DeletionSuccessFull });
                 
                 BindAllUsers();
                 $('txtPassword').val('');
@@ -1803,7 +1828,7 @@ function RemoveUser(curobj)
                 break;
             case "0":
                
-                noty({ type: 'error', text: 'Deletion was not successfull' });
+                noty({ type: 'error', text: Messages.DeletionFailure });
                 $('txtPassword').val('');
                 $('txtconfirmpswd').val('');
                 break;
@@ -1833,12 +1858,12 @@ function RemoveSaint(curobj)
 
         switch (result.status) {
             case "1":
-                noty({ type: 'success', text: 'Deleted successfully' });
+                noty({ type: 'success', text: Messages.DeletionSuccessFull });
                
                 BindPatrons();
                 break;
             case "0":
-                noty({ type: 'error', text: 'Deletion was not successfull' });
+                noty({ type: 'error', text: Messages.DeletionFailure });
               
                 break;
             default:
@@ -1854,17 +1879,11 @@ function EditChurch(curobj)
     debugger;
     //Get Current table row data
     var data = DashDataTables.churchTable.row($(curobj).parents('tr')).data();
-
-
     RemoveStyle();
-
     var Church = new Object();
     Church.churchId = data.ID;
     $("#hdfChurchID").val(Church.churchId);
     var churchDetail = GetChurchDetailsByChurchID(Church);
-
-
-
     $("#txtChurchName").val(churchDetail[0].ChurchName);
     $(".ddlTownCode").val(churchDetail[0].TownCode).trigger("change");
     $("#txtAddress").val(churchDetail[0].Address);
@@ -2106,12 +2125,10 @@ function GetPatronDetailByID(PatronMaster) {
 
 function RemoveChurch(curobj)
 {
-    
+    debugger;
     var data = DashDataTables.churchTable.row($(curobj).parents('tr')).data();
-    
-
     RemoveStyle();
-   
+
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
         var Church = new Object();
@@ -2122,17 +2139,25 @@ function RemoveChurch(curobj)
             case "1":
                 noty({ type: 'success', text: Messages.DeletionSuccessFull });
                 try {
-                     $(".ddlChurch").select2({
-                        placeholder: "Choose Church",
-                        allowClear: true,
-                        data: BindChurchDropdown()
-                    });
-                    $(".ddlChurchuser").select2({
-                        placeholder: "Choose Church",
-                        allowClear: true,
-                        data: BindChurchDropdown()
+                    dropdownContainer.ddlChurch.select2().empty();
+                    dropdownContainer.ddlChurch.select2({
+                            placeholder: "Choose Church",
+                            allowClear: true,
+                            data: BindChurchDropdown()
+                         });
+                    //$(".ddlChurch").select2().empty();
+                    // $(".ddlChurch").select2({
+                    //    placeholder: "Choose Church",
+                    //    allowClear: true,
+                    //    data: BindChurchDropdown()
+                    // });
+                    // $(".ddlChurchuser").select2().empty();
+                    //$(".ddlChurchuser").select2({
+                    //    placeholder: "Choose Church",
+                    //    allowClear: true,
+                    //    data: BindChurchDropdown()
 
-                    });
+                    //});
                     BindAllChurches();
                 }
                 catch (e) {
@@ -2170,11 +2195,11 @@ function RemoveRole(curobj)
         var result = DeleteRole(Roles);
         switch (result.status) {
             case "1":
-                noty({ type: 'success', text: 'Deleted successfully' });
+                noty({ type: 'success', text: Messages.DeletionSuccessFull });
                 BindAllRoles();
                 break;
             case "0":
-                noty({ type: 'error', text: 'Deletion was not successfull' });
+                noty({ type: 'error', text: Messages.DeletionFailure });
                break;
             default:
                 noty({ type: 'error', text: result.status });
@@ -2197,11 +2222,11 @@ function RemoveDesignation(curobj)
         var result = DeleteDesignation(OrgDesignationMaster);
         switch (result.status) {
             case "1":
-                noty({ type: 'success', text: 'Deleted successfully' });
+                noty({ type: 'success', text: Messages.DeletionSuccessFull });
                 BindAllDesignation();
                 break;
             case "0":
-                noty({ type: 'success', text: 'Deletion was not successfull' });
+                noty({ type: 'success', text: Messages.DeletionFailure });
                break;
             default:
                 noty({ type: 'error', text: result.status });

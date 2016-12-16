@@ -189,6 +189,7 @@ namespace ChurchApp.DAL
             SqlParameter outParam = null,outParamCode=null;
             try
             {
+                Common comnObj = new Common();
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -200,12 +201,8 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
-                //else
-                //{
-                //    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Empty;
-                //}
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 outParamCode = cmd.Parameters.Add("@OutCode", SqlDbType.NVarChar, 10);
@@ -241,6 +238,7 @@ namespace ChurchApp.DAL
             SqlParameter outParam = null;
             try
             {
+                Common comnObj = new Common();
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -255,7 +253,7 @@ namespace ChurchApp.DAL
                 }
                
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -298,6 +296,14 @@ namespace ChurchApp.DAL
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+
+                if ((imageId != null) && (imageId != ""))
+                {
+                    
+                    appImagesObj.DeleteAppImage();
+                }
+
+
             }
             catch (Exception ex)
             {

@@ -1260,7 +1260,15 @@ namespace ChurchApp.AdminPanel
                 UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
-                    townObj.createdBy = UA.userName;
+                    //Check town has image and delete it
+                    if ((townObj.imageId!=null)&&(townObj.imageId!=""))
+                    {
+                        //overwrite appImagesObj.appImageId to townObj.imageId
+                        townObj.appImagesObj.appImageId = townObj.imageId;
+                        townObj.appImagesObj.SelectAppImageByID();
+                    }
+                    
+                    townObj.updatedBy = UA.userName;
                     townObj.DeleteTownMaster();
                 }
                 //Session is out

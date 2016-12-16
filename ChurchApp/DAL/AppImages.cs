@@ -10,7 +10,7 @@ namespace ChurchApp.DAL
 {
     public class AppImages
     {
-        Common comnObj = new Common();
+        
         public AppImages()
         {
             appImageId = Guid.NewGuid().ToString();
@@ -77,7 +77,7 @@ namespace ChurchApp.DAL
         /// Get All AppImages
         /// </summary>
         /// <returns>All AppImages</returns>
-        public DataSet SelectAppImages()
+        public void SelectAppImageByID()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -90,11 +90,19 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllAppImages]";
+                cmd.CommandText = "[GetAppImageByID]";
+                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(appImageId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
+                if ((ds.Tables[0].Rows.Count > 0)&&(ds!=null))
+                {
+                    appImageId = ds.Tables[0].Rows[0]["ID"].ToString();
+                    url = ds.Tables[0].Rows[0]["URL"].ToString();
+                    type = ds.Tables[0].Rows[0]["Type"].ToString();
+                }
+            
             }
             catch (Exception ex)
             {
@@ -107,7 +115,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return ds;
+           
         }
         #endregion SelectAppImages
 
@@ -124,6 +132,7 @@ namespace ChurchApp.DAL
             SqlParameter outParam1 = null;
             try
             {
+                Common comnObj = new Common();
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -174,6 +183,7 @@ namespace ChurchApp.DAL
             SqlParameter outParam = null;
             try
             {
+                Common comnObj = new Common();
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -245,6 +255,7 @@ namespace ChurchApp.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
+          
             try
             {
                 dcon = new dbConnection();
@@ -257,6 +268,15 @@ namespace ChurchApp.DAL
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+                try
+                {
+                    //delete current appimage from folder
+                    System.IO.File.Delete(HttpContext.Current.Server.MapPath(url));
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
             catch (Exception ex)
             {

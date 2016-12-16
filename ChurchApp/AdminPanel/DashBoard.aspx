@@ -361,7 +361,7 @@
                                      <div class="control-group">
                              <label class="control-label" for="focusedInput">Church</label>
                                <div class="controls">
-                                  <select id="idddlchurchuser" name="churchuser" class="ddlChurchuser"><option></option></select>
+                                  <select id="idddlchurchuser" name="churchuser" class="ddlChurch"><option></option></select>
                                   
                                  </div>
                              </div>
@@ -717,6 +717,7 @@
 						<table class="table table-bordered" id="Townstable">
 							  <thead>
 								  <tr>
+                                      <th>TownImageID</th>
                                       <th>Code</th>
 									  <th>Name</th>
                                       <th>Created Date</th>
