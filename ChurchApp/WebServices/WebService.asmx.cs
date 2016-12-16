@@ -991,7 +991,7 @@ namespace ChurchApp.WebServices
         #endregion GetFamilyUnitsByChurchID
 
 
-        #region GetFamilyByFamilyUnitsNameandChurchId
+        #region GetFamilyByFamilyUnitsID
         //
         [WebMethod]
         public string GetFamilyDetails(string ChurchID, string UnitID)
@@ -1023,7 +1023,41 @@ namespace ChurchApp.WebServices
             return getDbDataAsJSON(dt);
         }
 
-        #endregion GetFamilyByFamilyUnitsNameandChurchId
+        #endregion GetFamilyByFamilyUnitsID
+
+        #region GetFamilyExexutiveByUnintID
+        //
+        [WebMethod]
+        public string GetFamilyExecutives(string ChurchID, string UnitID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ChurchApp.DAL.FamilyUnits fmlyObj = new DAL.FamilyUnits();
+            
+                fmlyObj.churchId = ChurchID;
+                fmlyObj.unitId = UnitID;
+               dt = fmlyObj.SelectFamilyUnitMembers().Tables[0];
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion GetFamilyExexutiveByUnintID
 
         #endregion Families
     }
