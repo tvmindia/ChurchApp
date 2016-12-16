@@ -119,7 +119,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@UnitName", SqlDbType.NVarChar, 250).Value = unitName;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();

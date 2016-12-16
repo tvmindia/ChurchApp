@@ -357,6 +357,8 @@ function AddTempTable()
 {
     debugger;
     // $("#massTimingUpdateTable").html('');
+    document.getElementById("massTimingsUpdate").style.display ='';
+    
     $("#massTimingTempTable").show();
     document.getElementById("massTimingUpdateTable").style.display = "none ";
     var time = $("#TxtTime").val();
