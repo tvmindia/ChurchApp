@@ -201,7 +201,8 @@ a._p {
                         <div id="DivNewNovena" class="span6 noMarginLeft">
 
                             <div class="box-header">
-                                <h2><i class="fa fa-anchor" aria-hidden="true"></i><span class="break"></span><span id="h1Event" style="position: absolute">New Novena</span><a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Novena"></i></a></h2>
+                                <h2><i class="fa fa-anchor" aria-hidden="true"></i><span class="break"></span><span id="h1Event" style="position: absolute">New Novena</span>
+                                    <a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Novena"></i></a></h2>
 
                                 <%--   <h2>
                                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -211,9 +212,6 @@ a._p {
                                         <i class="halflings-icon white pencil" aria-hidden="true" title="Edit Novena"></i>
                                     </a>
                                 </h2>--%>
-
-                                <div class="box-icon">
-                                </div>
                             </div>
                             <div class="box-content">
                                 <div class="form-horizontal">
@@ -230,7 +228,7 @@ a._p {
                                            
                                             <div class="span6">
                                                 <label for="name">Patron</label>
-                                                <select id="ddlPatron">
+                                                <select id="ddlPatron" name="Patron">
                                                     <option></option>
                                                 </select>
                                                 <label for="name">Novena Caption</label>
