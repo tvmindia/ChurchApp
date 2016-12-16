@@ -204,29 +204,17 @@ a._p {
                                 <h2><i class="fa fa-anchor" aria-hidden="true"></i><span class="break"></span><span id="h1Event" style="position: absolute">New Novena</span>
                                     <a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Novena"></i></a></h2>
 
-                                <%--   <h2>
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                    <span class="break"></span>
-                                    <span id="NovenaHeading">New Novena</span>
-                                    <a id="novenaEdit" class="btnEdit" onclick="FixedEditClick()">
-                                        <i class="halflings-icon white pencil" aria-hidden="true" title="Edit Novena"></i>
-                                    </a>
-                                </h2>--%>
                             </div>
                             <div class="box-content">
                                 <div class="form-horizontal">
                                     <fieldset>
-
-                                         <div class="alert alert-block" id="ErrorBox" style="display: none; background-color: #fdeaea !important; color: #ca6f74 !important; border: 1px solid #f27b81 !important;">
-                <div id="Displaydiv">
-                </div>
-            </div>
 
                                         <%--New Format--%>
                                         <div id="DivNewFormat">
 
                                            
                                             <div class="span6">
+                                                <i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" data-content="If Patron you prefer not in the list Add from dashboard saints !"></i>
                                                 <label for="name">Patron</label>
                                                 <select id="ddlPatron" name="Patron">
                                                     <option></option>
@@ -250,27 +238,17 @@ a._p {
                                                 <span class="_30w0 _50f7">Change Picture</span>
                                                  </div>
                                                  </a>
-                             <%--<input type="file" onchange="UploadNow();" id="flupCoverpic" style="display:none" />--%>
-                          </div>
+                                                <%--<input type="file" onchange="UploadNow();" id="flupCoverpic" style="display:none" />--%>
+                                               </div>
                                                 <input type="file" id="flupCoverpic" style="display:none" value="Choose Image" onchange="showpreview(this);UploadNow();" />
                                             </div>
                                             
                                            
                                              
-                                            <div id="DivNovenaTiming" class="span12" ><i class="halflings-icon question-sign" data-toggle="popover" data-trigger="hover" data-content="You can select multiple Days and add timmings respectively"></i>
-                                <h2>Novena Timings</h2>
-                                               
-                           <%-- <div class="box-header">
-                                <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span style="position: absolute">Novena Timings</span>
-                                </h2>
-
-                                <div class="box-icon">
-                                </div>
-                            </div>--%>
-
-                           
-                                <div class="form-horizontal">
-                                    <fieldset>
+                                            <div id="DivNovenaTiming" class="span12" ><i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" data-content="You can select multiple Days and add timmings respectively !"></i>
+                                              <h2>Novena Timings</h2>
+                                                <div class="form-horizontal">
+                                                 <fieldset>
 
 
                                         <%--Novena Type --%>
@@ -289,16 +267,6 @@ a._p {
                                             </div>
 
                                         </div>
-
-
-
-                                       
-                                       
-
-                                       <%-- <div class="span1">
-                                             <a id="addBtn" class="btn btn-primary button" ><span>+</span></></a>
-
-                                        </div>--%>
 
 
                                         <%--Start Date--%>
@@ -366,6 +334,7 @@ a._p {
 								  <th>Day</th>
 								  <th>Time</th>
 								  <th>Actions</th>
+                                  <%--<th><i class="fa fa-remove" onclick="Cleartime()"></i></th>--%>
 							  </tr>
 						  </thead>   
 						  <tbody id="tblBdyNovenaTiming">
