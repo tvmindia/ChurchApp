@@ -1032,6 +1032,7 @@ namespace ChurchApp.WebServices
         public string ErrorDetection(string REPORT_ID, string PACKAGE_NAME, Object BUILD, string LOGCAT, string ANDROID_VERSION, string APP_VERSION_CODE, string AVAILABLE_MEM_SIZE, Object CRASH_CONFIGURATION)
         {
             DataTable dt = new DataTable();
+            Common cmn = new Common();
             System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             try
             {   //Code For Exception Track insert
@@ -1043,7 +1044,7 @@ namespace ChurchApp.WebServices
                                     +"\n\nREPORT_ID\n\n" + REPORT_ID;
                 ETObj.AppBuild = serializer.Serialize(BUILD);
                 ETObj.AppLogCat = LOGCAT;
-                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Date =cmn.ConvertDatenow(DateTime.Now).ToString();
                 ETObj.Module = PACKAGE_NAME;
                 ETObj.ErrorSource = "App";
                 ETObj.IsMobile = true;
