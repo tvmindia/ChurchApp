@@ -278,7 +278,9 @@ var Messages = {
     FailureMsgCaption: "Failure!",
     AlreadyExistsMsgCaption: "Already exists!",
     Confirm: "Please Confirm!",
-
+    ShedulleAdded: "The schedule already added",
+    SelectDay: "Select days you preffer",
+    SelectPatron: "Select Patron includes",
     LoginSuccess: "Successfully logged in",
     InsertionSuccessFull: "Successfully Inserted",
     UpdationSuccessFull: "Successfully Edited",

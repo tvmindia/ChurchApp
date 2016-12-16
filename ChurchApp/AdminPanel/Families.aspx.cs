@@ -421,7 +421,7 @@ namespace ChurchApp.AdminPanel
                     if (memberObj.familyID != "" && memberObj.familyID != null)
                     {
                         memberObj.familyObj.familyId = memberObj.familyID;
-                        memberObj.familyObj.UpdateFamily();
+                        memberObj.status=memberObj.familyObj.UpdateFamily();
                     }
                 }
                 //Session is out
