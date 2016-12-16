@@ -77,6 +77,16 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string AppBuild
+        {
+            get;
+            set;
+        }
+        public string AppLogCat
+        {
+            get;
+            set;
+        }
         public string CreatedBy
         {
             get;
@@ -245,6 +255,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Module", SqlDbType.NVarChar, 50).Value = Module;
                 cmd.Parameters.Add("@ErrorSource", SqlDbType.NVarChar, 25).Value = ErrorSource;
                 cmd.Parameters.Add("@IsMobile", SqlDbType.Bit).Value = IsMobile;
+                cmd.Parameters.Add("@AppBuild", SqlDbType.NVarChar, -1).Value = AppBuild;
+                cmd.Parameters.Add("@AppLogCat", SqlDbType.NVarChar, -1).Value = AppLogCat;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@Version", SqlDbType.NVarChar, 50).Value = Version;
