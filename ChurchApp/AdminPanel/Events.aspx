@@ -23,26 +23,6 @@
 
         </ul>
 
-        <%--Alert boxes --%>
-        <div id="rowfluidDiv" style="display: none;">
-
-          
-            <div class="alert alert-error" style="display: none;">
-                <strong>Operation Not Successfull.</strong>
-            </div>
-            <div class="alert alert-success" style="display: none;">
-                <strong>Successfull.</strong>
-            </div>
-            <div class="alert alert-info" style="display: none;">
-                <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-            </div>
-            <div class="alert alert-block" style="display: none;">
-                <h4 class="alert-heading">Warning!</h4>
-                <p>Best check yourself, you're not looking too good.</p>
-            </div>
-
-        </div>
-
         <%--END : Alert boxes --%>
 
         <div class="row-fluid">

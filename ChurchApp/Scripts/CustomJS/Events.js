@@ -15,497 +15,536 @@ var MaxCharacterLimit = 200;
 
 
 $("document").ready(function (e) {
+    try
+    {
+         
 
-    debugger;
-
-    BindEvents();
-    BindOldEvents();
+        BindEvents();
+        BindOldEvents();
 
 
-    //--Limit Notification Content 
-    $('#txtnotificationCOntent').keypress(function (e) {
-        debugger;
-        if (this.value.length == MaxCharacterLimit) {
-            e.preventDefault();
-            $("#lblAlreadyNotificationSend").show();
-            $("#lblAlreadyNotificationSend").text("Maximum " + MaxCharacterLimit + " characters");
-        }
-
-        else
-        {
-            $("#lblAlreadyNotificationSend").text("Already Notification added");
-            $("#lblAlreadyNotificationSend").hide();
-
-        }
-    });
-
-    $('#txtnotificationCOntent').keydown(function (e) {
-        if (this.value.length == MaxCharacterLimit) {
-            $("#lblAlreadyNotificationSend").text("Already Notification added");
-            $("#lblAlreadyNotificationSend").hide();
-        }
-
-    });
-
-    $("#rdoNotificationYes").click(function () {
-
-        debugger;
-
-        if (IsAlreadyNotified) {
-            $("#lblAlreadyNotificationSend").show();
-            $("#lblAlreadyNotificationSend").text("Already Notification added");
-        }
-        else {
-            $("#lblAlreadyNotificationSend").hide();
-        }
-        $("#DivNotificationContent").show();
-
-        //--- Making of notification content by trimming description after 200 characters 
-
-        if ($("#txtDescription").val() != "") {
-
-            if ($("#txtDescription").val().length > MaxCharacterLimit) {
-                $("#txtnotificationCOntent").val($("#txtDescription").val().substring(0, MaxCharacterLimit));
-            }
-
-            else
+        //--Limit Notification Content 
+        $('#txtnotificationCOntent').keypress(function (e) {
+            try
             {
-                $("#txtnotificationCOntent").val($("#txtDescription").val());
+                if (this.value.length == MaxCharacterLimit) {
+                    e.preventDefault();
+                    $("#lblAlreadyNotificationSend").show();
+                    $("#lblAlreadyNotificationSend").text("Maximum " + MaxCharacterLimit + " characters");
+                }
+
+                else
+                {
+                    $("#lblAlreadyNotificationSend").text("Already Notification added");
+                    $("#lblAlreadyNotificationSend").hide();
+
+                }
             }
-        }
+            catch(e)
+            {
+                noty({ type: 'error', text: e.message });
+            }
+        });
+
+        $('#txtnotificationCOntent').keydown(function (e) {
+            try
+            {
+                if (this.value.length == MaxCharacterLimit) {
+                    $("#lblAlreadyNotificationSend").text("Already Notification added");
+                    $("#lblAlreadyNotificationSend").hide();
+                }
+            }
+            catch(e)
+            {
+                noty({ type: 'error', text: e.message });
+            }
+           
+
+        });
+
+        $("#rdoNotificationYes").click(function () {
+
+             
+            try
+            {
+                if (IsAlreadyNotified) {
+                    $("#lblAlreadyNotificationSend").show();
+                    $("#lblAlreadyNotificationSend").text("Already Notification added");
+                }
+                else {
+                    $("#lblAlreadyNotificationSend").hide();
+                }
+                $("#DivNotificationContent").show();
+
+                //--- Making of notification content by trimming description after 200 characters 
+
+                if ($("#txtDescription").val() != "") {
+
+                    if ($("#txtDescription").val().length > MaxCharacterLimit) {
+                        $("#txtnotificationCOntent").val($("#txtDescription").val().substring(0, MaxCharacterLimit));
+                    }
+
+                    else {
+                        $("#txtnotificationCOntent").val($("#txtDescription").val());
+                    }
+                }
+            }
+            catch(e)
+            {
+                noty({ type: 'error', text: e.message });
+            }
+            
 
        
 
-    });
+        });
 
-    $("#rdoNotificationNo").click(function () {
-        $("#DivNotificationContent").hide();
-        $("#lblAlreadyNotificationSend").hide();
+        $("#rdoNotificationNo").click(function () {
 
-    });
+            $("#DivNotificationContent").hide();
+            $("#lblAlreadyNotificationSend").hide();
 
-    $('#btnCancel').click(function (e) {
-        ClearControls();
-        $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
-        if ($("#hdfEventID").val() != "") {
-            EditOnClick($("#hdfEventID").val());
-        }
-        else {
-            $("#NoticeEdit").hide();
-        }
+        });
 
-        $("#optHideNo").parent().removeClass('checked');
-        $('#optHideYes').parent().addClass('checked');
+        $('#btnCancel').click(function (e) {
+            try
+            {
+                 
+                ClearControls();
+                $('#iconEdit').removeClass("halflings-icon white repeat").addClass("halflings-icon white pencil");
+                if ($("#hdfEventID").val() != "") {
+                    EditOnClick($("#hdfEventID").val());
+                }
+                else {
+                    $("#NoticeEdit").hide();
+                }
 
-        $("#rdoNotificationYes").parent().removeClass('checked');
-        $('#rdoNotificationNo').parent().addClass('checked');
+                $("#optHideNo").parent().removeClass('checked');
+                $('#optHideYes').parent().addClass('checked');
 
-        RemoveStyle();
-    });
+                $("#rdoNotificationYes").parent().removeClass('checked');
+                $('#rdoNotificationNo').parent().addClass('checked');
 
-    $('#btnSave').click(function (e) {
-        $('#rowfluidDiv').show();
-        debugger;
-        if ($("#hdfEventID").val() == "") {
-            var today = new Date();
-            var startcheck = $('#dateStartDate').val();
-            var endcheck = $('#dateEndDate').val();
-            var Expirecheck = $('#dateExpiryDate').val();
-            if (startcheck != "") {
-                if (Datecheck(startcheck) < today) {
-                    noty({ text: 'Invalid Start Date !', type: 'information' });
-                    return false;
+                RemoveStyle();
+            }
+            catch(e)
+            {
+                noty({ type: 'error', text: e.message });
+            }
+            
+        });
+
+        $('#btnSave').click(function (e) {
+            try
+            {
+                if ($("#hdfEventID").val() == "") {
+                    var today = new Date();
+                    var startcheck = $('#dateStartDate').val();
+                    var endcheck = $('#dateEndDate').val();
+                    var Expirecheck = $('#dateExpiryDate').val();
+                    if (startcheck != "") {
+                        if (Datecheck(startcheck) < today) {
+                            noty({ text: Messages.InvalidStartDate, type: 'information' });
+                            return false;
+                        }
+                    }
+
+                    if (endcheck != "" || Expirecheck != "") {
+                        if ((Datecheck(endcheck) < today) || (Datecheck(Expirecheck) < today)) {
+                            noty({ text: Messages.InvalidExpiry, type: 'information' });
+                            return false;
+                        }
+                    }
+                }
+                var IsValid = EventValidation();
+
+                if (IsValid) {
+
+                    var Events = new Object();
+                    Events.eventName = $("#txtEventName").val();
+                    Events.description = $("#txtDescription").val();
+                    Events.startDate = $("#dateStartDate").val();
+                    Events.endDate = $("#dateEndDate").val();
+                    Events.eventExpiryDate = $("#dateExpiryDate").val();
+                    Events.isAutoHide = $("#hdfIsAutoHide").val();
+
+
+                    Events.isAutoHide = true;
+
+                     ;
+
+                    if ($('input[name=rdoHide]:checked').val() == "No") //Add Notification
+                    {
+                        Events.isAutoHide = false;
+
+                    }
+
+
+                    $("#hdfIsAutoHide").val(Events.isAutoHide);
+                    var guid = createGuid();
+
+                    //DeletedImgID = imageId;
+                    //DeletedImgPath = imgPath
+
+                    if (guid != null) {
+
+                        var imgresult = "";
+                        var _URL = window.URL || window.webkitURL;
+                        var formData = new FormData();
+                        var imagefile, logoFile, img;
+
+                        if (((imagefile = $('#UpEvent')[0].files[0]) != undefined)) {
+                            var formData = new FormData();
+                            var tempFile;
+                            if ((tempFile = $('#UpEvent')[0].files[0]) != undefined) {
+                                tempFile.name = guid;
+                                formData.append('NoticeAppImage', tempFile, tempFile.name);
+                                formData.append('GUID', guid);
+                                formData.append('createdby', document.getElementById('LoginName').innerHTML);
+                            }
+                            formData.append('ActionTyp', 'NoticeAppImageInsert');
+                            AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                            Events.imageId = guid;
+                        }
+                        else {
+                            if ($("#hdfEventID").val() != "" && $("#hdfEventID").val() != null) {
+                                Events.imageId = imageId;
+                            }
+                        }
+
+                    }
+
+                    if ($("#hdfEventID").val() != "" && $("#hdfEventID").val() != null) {
+                        Events.eventId = $("#hdfEventID").val();
+
+                        var UpdationStatus = UpdateEvent(Events);
+
+                        if (UpdationStatus.Status == "1") {
+                            noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                            if (DeletedImgID != '' && (((imagefile = $('#UpEvent')[0].files[0]) != undefined))) {
+                                var AppImages = new Object();
+                                AppImages.appImageId = DeletedImgID;
+                                DeleteAppImage(AppImages);
+
+                                if (DeletedImgPath != '') {
+                                    DeleteFileFromFolder(DeletedImgPath);
+                                }
+                            }
+
+                            if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+                            {
+                                var Notification = new Object();
+                                Notification.notificationType = NotificationTypeCode;
+                                Notification.linkID = Events.eventId;
+                                Notification.caption = Events.eventName;
+                                Notification.description = $('#txtnotificationCOntent').val();
+                                //Events.description;
+                                if ($('#dateStartDate').val() != "") {
+                                    Notification.startDate = $('#dateStartDate').val();
+                                }
+                                if ($('#dateExpiryDate').val() != "") {
+                                    Notification.expiryDate = $('#dateExpiryDate').val();
+                                }
+
+                                InsertNotification(Notification);
+                            }
+
+
+                        }
+
+                        else {
+                            noty({ text: UpdationStatus.Status, type: 'error' });
+                        }
+
+                        BindEvents();
+
+                        if (((imagefile = $('#UpEvent')[0].files[0]) != undefined)) {
+                            imageId = Events.imageId;
+                            imgPath = AppImgURL;
+
+                            DeletedImgID = imageId;
+                            DeletedImgPath = imgPath;
+                        }
+
+                    }
+                    else {
+                        var InsertionStatus = InsertEvent(Events);
+
+                        if (InsertionStatus.Status == "1") {
+                            noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                            $("#hdfEventID").val(InsertionStatus.eventId);
+
+                            if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+                            {
+                                var Notification = new Object();
+                                Notification.notificationType = NotificationTypeCode;
+                                Notification.linkID = InsertionStatus.eventId;
+                                Notification.caption = Events.eventName;
+                                Notification.description = $('#txtnotificationCOntent').val();
+                                if ($('#dateStartDate').val() != "") {
+                                    Notification.startDate = $('#dateStartDate').val();
+                                }
+                                if ($('#dateExpiryDate').val() != "") {
+                                    Notification.expiryDate = $('#dateExpiryDate').val();
+                                }
+
+                                InsertNotification(Notification);
+                            }
+
+
+                        }
+
+                        else {
+                            noty({ text: InsertionStatus.Status, type: 'error' });
+                        }
+
+                        BindEvents();
+
+                        if (((imagefile = $('#UpEvent')[0].files[0]) != undefined)) {
+                            imageId = Events.imageId;
+                            imgPath = AppImgURL;
+
+                            DeletedImgID = imageId;
+                            DeletedImgPath = imgPath;
+                        }
+                    }
                 }
             }
+            catch(e)
+            {
+                noty({ type: 'error', text: e.message });
+            }
+            
+        });
 
-            if (endcheck != "" || Expirecheck != "") {
-                if ((Datecheck(endcheck) < today) || (Datecheck(Expirecheck) < today)) {
-                    noty({ text: 'Invalid End/Expiry Date !', type: 'information' });
-                    return false;
+        $('#btnDelete').click(function (e) {
+            try
+            {
+                var deleteConirm = confirm("Want to delete?");
+
+                if (deleteConirm) {
+                    var EventID = $("#hdfEventID").val()
+
+                    var Events = new Object();
+                    Events.eventId = EventID;
+
+                    var DeletionStatus = DeleteEvent(Events);
+
+                    if (DeletionStatus.Status == "1") {
+                        noty({ text: Messages.DeletionSuccessFull, type: 'success' });
+                        var AppImages = new Object();
+                        AppImages.appImageId = imageId;
+                        DeleteAppImage(AppImages);
+
+                        DeleteFileFromFolder(imgPath);
+                    }
+                    else
+                    {
+                        noty({ text: DeletionStatus.Status, type: 'error' });
+                    }
+
+                    BindEvents();
+                    SetControlsInNewEventFormat();
+
                 }
             }
-        }
-        var IsValid = EventValidation();
+            catch(e)
+            {
+                noty({ type: 'error', text: e.message });
+            }
+            
 
-        if (IsValid) {
+        });
+
+        //------------- * LATEST Events view more,Back  *------------//
+
+        //VIEW MORE Click Click of LATEST Events
+        $(".aViewMore").live({
+
+            click: function (e) {
+                try {
+                    BindAllLatestEvents();
+                    $(".aBack").show();
+                    $(".aViewMore").hide();
+                    $("#divOldEvents").hide();
+
+                }
+                catch (e) {
+                    noty({ type: 'error', text: e.message });
+                }
+            }
+        });
+        //BACK Click of LATEST Events
+        $(".aBack").live({
+
+            click: function (e) {
+                try
+                {
+                    BindEvents();
+
+                    $(".aBack").hide();
+                    $(".aViewMore").show();
+
+                    $("#divOldEvents").show();
+
+                }
+                catch (e) {
+                    noty({ type: 'error', text: e.message });
+                }
+                
+            }
+        });
+
+        //------------- * OLD Events view more,Back  *------------//
+
+        //VIEW MORE Click Of OLD Events 
+        $(".aOldViewMore").live({
+
+            click: function (e) {           
+                try
+                {
+                    $(".aOldBack").show();
+                    $('.aOldViewMore').hide();
+                    BindAllOldEvents();
+                    $("#divLatestEvents").hide();
+                }
+                catch (e) {
+                    noty({ type: 'error', text: e.message });
+                }
+            }
+        });
+
+        //BACK Click of OLD Events
+        $(".aOldBack").live({
+
+            click: function (e) {               
+                try
+                {
+                    $(".aOldBack").hide();
+                    $(".aOldViewMore").show();
+                    BindOldEvents();
+
+                    $("#divLatestEvents").show();
+                    BindEvents();
+                }
+                catch (e) {
+                    noty({ type: 'error', text: e.message });
+                }
+            }
+        });
+
+        $('input:text').click(
+        function () {
+            RemoveStyle();
+        });
+        var value = $('#ContentPlaceHolder2_btnAddNew').val();
+        if (value != "")
+         {
+            $('#NoticeEdit').remove();
+         }
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
     
-        var Events = new Object();
-        Events.eventName = $("#txtEventName").val();
-        Events.description = $("#txtDescription").val();
-        Events.startDate = $("#dateStartDate").val();
-        Events.endDate = $("#dateEndDate").val();
-        Events.eventExpiryDate = $("#dateExpiryDate").val();
-        Events.isAutoHide = $("#hdfIsAutoHide").val();
-        
-       
-            Events.isAutoHide = true;
-        
-        debugger;
-
-        if ($('input[name=rdoHide]:checked').val() == "No") //Add Notification
-        {
-            Events.isAutoHide = false;
-         
-        }
-
-       
-        $("#hdfIsAutoHide").val(Events.isAutoHide);
-        var guid = createGuid();
-
-        //DeletedImgID = imageId;
-        //DeletedImgPath = imgPath
-
-        if (guid != null) {
-
-            var imgresult = "";
-            var _URL = window.URL || window.webkitURL;
-            var formData = new FormData();
-            var imagefile, logoFile, img;
-
-            if (((imagefile = $('#UpEvent')[0].files[0]) != undefined)) {
-                var formData = new FormData();
-                var tempFile;
-                if ((tempFile = $('#UpEvent')[0].files[0]) != undefined) {
-                    tempFile.name = guid;
-                    formData.append('NoticeAppImage', tempFile, tempFile.name);
-                    formData.append('GUID', guid);
-                    formData.append('createdby', 'SHAMILA');
-                }
-                formData.append('ActionTyp', 'NoticeAppImageInsert');
-                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                Events.imageId = guid;
-            }
-            else {
-                if ($("#hdfEventID").val() != "" && $("#hdfEventID").val() != null) {
-                    Events.imageId = imageId;
-                }
-            }
-
-        }
-
-        if ($("#hdfEventID").val() != "" && $("#hdfEventID").val() != null) {
-            Events.eventId = $("#hdfEventID").val();
-
-            var UpdationStatus = UpdateEvent(Events);
-
-            if (UpdationStatus == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Event Edited Successfully");
-                noty({ text: 'Event Edited Successfully', type: 'success' });
-                if (DeletedImgID != '' && (((imagefile = $('#UpEvent')[0].files[0]) != undefined))) {
-                    var AppImages = new Object();
-                    AppImages.appImageId = DeletedImgID;
-                    DeleteAppImage(AppImages);
-
-                    if (DeletedImgPath != '') {
-                        DeleteFileFromFolder(DeletedImgPath);
-                    }
-                }
-
-                if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
-                {
-                    var Notification = new Object();
-                    Notification.notificationType = NotificationTypeCode;
-                    Notification.linkID = Events.eventId;
-                    Notification.caption = Events.eventName;
-                    Notification.description = $('#txtnotificationCOntent').val();
-                        //Events.description;
-                    if ($('#dateStartDate').val() != "") {
-                        Notification.startDate = $('#dateStartDate').val();
-                    }
-                    if ($('#dateExpiryDate').val() != "") {
-                        Notification.expiryDate = $('#dateExpiryDate').val();
-                    }
-
-                    InsertNotification(Notification);
-                }
-
-
-            }
-
-            else {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Event Editing Not Successful");
-                noty({ text: 'Event Editing Not Successful', type: 'error' });
-            }
-
-            BindEvents();
-
-            if (((imagefile = $('#UpEvent')[0].files[0]) != undefined)) {
-                imageId = Events.imageId;
-                imgPath = AppImgURL;
-
-                DeletedImgID = imageId;
-                DeletedImgPath = imgPath;
-            }
-
-        }
-        else {
-            var InsertionStatus = InsertEvent(Events);
-
-            if (InsertionStatus.Status == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Event Added Successfully");
-                noty({ text: 'Event Added Successfully', type: 'success' });
-                $("#hdfEventID").val(InsertionStatus.eventId);
-
-                if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
-                {
-                    var Notification = new Object();
-                    Notification.notificationType = NotificationTypeCode;
-                    Notification.linkID = InsertionStatus.eventId;
-                    Notification.caption = Events.eventName;
-                    Notification.description = $('#txtnotificationCOntent').val();
-                    if ($('#dateStartDate').val() != "") {
-                        Notification.startDate = $('#dateStartDate').val();
-                    }
-                    if ($('#dateExpiryDate').val() != "") {
-                        Notification.expiryDate = $('#dateExpiryDate').val();
-                    }
-
-                    InsertNotification(Notification);
-                }
-
-
-            }
-
-            else {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Event Adding Not Successful");
-                noty({ text: 'Event Adding Not Successful', type: 'error' });
-            }
-
-            BindEvents();
-
-            if (((imagefile = $('#UpEvent')[0].files[0]) != undefined)) {
-                imageId = Events.imageId;
-                imgPath = AppImgURL;
-
-                DeletedImgID = imageId;
-                DeletedImgPath = imgPath;
-            }
-        }
-    }
-    });
-
-    $('#btnDelete').click(function (e) {
-        var deleteConirm = confirm("Want to delete?");
-
-        debugger;
-
-        if (deleteConirm) {
-            var EventID = $("#hdfEventID").val()
-
-            var Events = new Object();
-            Events.eventId = EventID;
-
-            var DeletionStatus = DeleteEvent(Events);
-
-            if (DeletionStatus == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Event Deleted Successfully");
-                noty({ text: 'Event Deleted Successfully', type: 'success' });
-                var AppImages = new Object();
-                AppImages.appImageId = imageId;
-                DeleteAppImage(AppImages);
-
-                DeleteFileFromFolder(imgPath);
-            }
-            else {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Deletion Not Successful");
-                noty({ text: 'Deletion Not Successful', type: 'error' });
-            }
-
-            BindEvents();
-            SetControlsInNewEventFormat();
-
-        }
-
-    });
-
-    //------------- * LATEST Events view more,Back  *------------//
-
-    //VIEW MORE Click Click of LATEST Events
-    $(".aViewMore").live({
-
-        click: function (e) {
-
-            debugger;
-
-            BindAllLatestEvents();
-
-          $(".aBack").show();
-          $(".aViewMore").hide();
-
-        //  $(".aViewMore").style.display = "none!important";
-         
-
-          $("#divOldEvents").hide();
-
-          $('#rowfluidDiv').hide();
-          $('.alert-success').hide();
-          $('.alert-error').hide();
-
-        }
-    });
-
-
-    //BACK Click of LATEST Events
-    $(".aBack").live({
-
-        click: function (e) {
-          
-            BindEvents();
-
-            $(".aBack").hide();
-            $(".aViewMore").show();
-            
-            $("#divOldEvents").show();
-
-            $('#rowfluidDiv').hide();
-            $('.alert-success').hide();
-            $('.alert-error').hide();
-
-        }
-    });
-
-    //------------- * OLD Events view more,Back  *------------//
-
-    //VIEW MORE Click Of OLD Events 
-    $(".aOldViewMore").live({
-
-        click: function (e) {
-            
-            $(".aOldBack").show();
-            $('.aOldViewMore').hide();
-          //  $(".aOldViewMore").style.display = "none!important";
-
-            BindAllOldEvents();
-            $("#divLatestEvents").hide();
-
-            $('#rowfluidDiv').hide();
-            $('.alert-success').hide();
-            $('.alert-error').hide();
-
-        }
-    });
-
-    //BACK Click of OLD Events
-    $(".aOldBack").live({
-
-        click: function (e) {
-            $(".aOldBack").hide();
-            $(".aOldViewMore").show();
-            BindOldEvents();
-
-            $("#divLatestEvents").show();
-            BindEvents();
-
-            $('#rowfluidDiv').hide();
-            $('.alert-success').hide();
-            $('.alert-error').hide();
-
-        }
-    });
-
-    $('input:text').click(
-    function () {
-       RemoveStyle();
-    });
-    var value = $('#ContentPlaceHolder2_btnAddNew').val();
-    if (value != "") {
-        debugger;
-        $('#NoticeEdit').remove();
-    }
 });//end of document.ready
 
 
 
 // Bind Latest Events - Top5
 function BindEvents() {
+    try
+    {
+        var jsonResult = {};
+        var Events = new Object();
+        jsonResult = GetEvents(Events);
+        if (jsonResult != undefined) {
+            FillEvents(jsonResult);
 
-    debugger;
+            if (jsonResult.length >= 5) {
+                $(".aViewMore").show();
 
-    var jsonResult = {};
-    var Events = new Object();
-    jsonResult = GetEvents(Events);
-    if (jsonResult != undefined) {
-        FillEvents(jsonResult);
+                // $(".aViewMore").style.display = "";
+            }
+            else {
+                $(".aViewMore").hide();
+            }
 
-        if (jsonResult.length >= 5) {
-            $(".aViewMore").show();
-
-            // $(".aViewMore").style.display = "";
         }
-        else {
-            $(".aViewMore").hide();
-        }
+    }
+    catch(e)
+    {
 
     }
+   
 }
 
 function FillEvents(Records) {
-    $('#DivNoticeType1').html('');
+    try
+    {
+        $('#DivNoticeType1').html('');
 
-    $.each(Records, function (index, Records) {
-        debugger;
+        $.each(Records, function (index, Records) {
+             ;
 
-        var url = Records.URL;
-        var html = '';
+            var url = Records.URL;
+            var html = '';
 
-        if (Records.StartDate == null && Records.EndDate == null && Records.EventExpiryDate == null) {
-            html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class="accordion-group"><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead">' + Records.EventName + '</p><p>' + Records.Descrtiption + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
-        }
-
-        else {
-            html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<br /><p>' + Records.Descrtiption + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
-             }
-        //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
-        $("#DivNoticeType1").append(html);
-
-        if (url != "" && url != null) {
-            var imgControl = document.getElementById("img" + Records.ID);
-            if (imgControl != null) {
-                document.getElementById("img" + Records.ID).src = url;
-                $('#img' + Records.ID).attr('src', url);
+            if (Records.StartDate == null && Records.EndDate == null && Records.EventExpiryDate == null) {
+                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class="accordion-group"><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead">' + Records.EventName + '</p><p>' + Records.Descrtiption + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
             }
-        }
-        if (url == null) {
-            url = "../img/No-Img_Chosen.png";
-            $('#img' + Records.ID).attr('src', url);
 
-        }
-    });
+            else {
+                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<br /><p>' + Records.Descrtiption + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+            }
+            //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+            $("#DivNoticeType1").append(html);
 
-    if (Records.length == 0) {
-        //$('.dataTables_empty').parent().parent().remove();
-        var img = document.createElement('img');
-        img.src = "../img/nodata.jpg";
-        img.id = "NoData";
-        $("#DivNoticeType1").append(img);
+            if (url != "" && url != null) {
+                var imgControl = document.getElementById("img" + Records.ID);
+                if (imgControl != null) {
+                    document.getElementById("img" + Records.ID).src = url;
+                    $('#img' + Records.ID).attr('src', url);
+                }
+            }
+            if (url == null) {
+                url = "../img/No-Img_Chosen.png";
+                $('#img' + Records.ID).attr('src', url);
+
+            }
+        });
+
+        if (Records.length == 0) {
+            //$('.dataTables_empty').parent().parent().remove();
+            var img = document.createElement('img');
+            img.src = "../img/nodata.jpg";
+            img.id = "NoData";
+            $("#DivNoticeType1").append(img);
+        }
     }
-    debugger;
-
-
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+   
 }
 
 function GetEvents(Events) {
+    try
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+        ds = getJsonData(data, "../AdminPanel/Events.aspx/GetEvents");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch(e)
+    {
 
-    debugger;
-
-    var ds = {};
-    var table = {};
-    var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-    ds = getJsonData(data, "../AdminPanel/Events.aspx/GetEvents");
-    table = JSON.parse(ds.d);
-    return table;
+    }
+    
 }
 //--------------------------------//
 
@@ -513,123 +552,149 @@ function GetEvents(Events) {
 
 //Bind All latest events
 function BindAllLatestEvents() {
+    try
+    {
+       var jsonResult = {};
+        var Events = new Object();
+        jsonResult = GetAllLatestEvents(Events);
+        if (jsonResult != undefined) {
+            FillEvents(jsonResult);
 
-    debugger;
+            if (jsonResult.length >= 5) {
+                $(".aViewMore").show();
 
-    var jsonResult = {};
-    var Events = new Object();
-    jsonResult = GetAllLatestEvents(Events);
-    if (jsonResult != undefined) {
-        FillEvents(jsonResult);
+                // $(".aViewMore").style.display = "";
+            }
+            else {
+                $(".aViewMore").hide();
+            }
 
-        if (jsonResult.length >= 5) {
-            $(".aViewMore").show();
-
-            // $(".aViewMore").style.display = "";
         }
-        else {
-            $(".aViewMore").hide();
-        }
+    }
+    catch(e)
+    {
 
     }
+    
 }
 
 function GetAllLatestEvents(Events) {
+    try
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+        ds = getJsonData(data, "../AdminPanel/Events.aspx/GetAllLatestEvents");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch(e)
+    {
 
-    debugger;
-
-    var ds = {};
-    var table = {};
-    var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-    ds = getJsonData(data, "../AdminPanel/Events.aspx/GetAllLatestEvents");
-    table = JSON.parse(ds.d);
-    return table;
+    }
+    
 }
 //--------------------------------//
 
 
 //Bind old Events - Top5
 function BindOldEvents() {
+    try
+    {
+        var jsonResult = {};
+        var Events = new Object();
+        jsonResult = GetOldEvents(Events);
+        if (jsonResult != undefined) {
+            FillOldEvents(jsonResult);
 
-    debugger;
+            if (jsonResult.length >= 5) {
+                $(".aOldViewMore").show();
 
-    var jsonResult = {};
-    var Events = new Object();
-    jsonResult = GetOldEvents(Events);
-    if (jsonResult != undefined) {
-        FillOldEvents(jsonResult);
-
-        if (jsonResult.length >= 5) {
-            $(".aOldViewMore").show();
-
-            // $(".aViewMore").style.display = "";
-        }
-        else {
-            $(".aOldViewMore").hide();
+                // $(".aViewMore").style.display = "";
+            }
+            else {
+                $(".aOldViewMore").hide();
+            }
         }
     }
+    catch(e)
+    {
+
+    }
+    
 }
 
 function GetOldEvents(Events) {
+    try
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+        ds = getJsonData(data, "../AdminPanel/Events.aspx/GetOldEvents");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch(e)
+    {
 
-    debugger;
-
-    var ds = {};
-    var table = {};
-    var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-    ds = getJsonData(data, "../AdminPanel/Events.aspx/GetOldEvents");
-    table = JSON.parse(ds.d);
-    return table;
+    }
+    
 }
 
 function FillOldEvents(Records) {
-    $('#OldEventsGrid').html('');
+    try
+    {
+        $('#OldEventsGrid').html('');
 
-    $.each(Records, function (index, Records) {
-        debugger;
+        $.each(Records, function (index, Records) {
+             
 
-        var url = Records.URL;
-        var html = '';
+            var url = Records.URL;
+            var html = '';
 
-        if (Records.StartDate == null && Records.EndDate == null && Records.EventExpiryDate == null) {
-            html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><p>' + Records.Descrtiption + '</p><span class="" style="float:right;><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div>>/div>'
-        }
-
-        else {
-
-            html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span> <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<br /><p>' + Records.Descrtiption + '</p><span class="" style="float:right;><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div>'
-
-        }
-
-
-        //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
-        $("#OldEventsGrid").append(html);
-        debugger;
-        if (url != "" && url != null) {
-            var imgControl = document.getElementById("img" + Records.ID);
-            if (imgControl != null) {
-                document.getElementById("img" + Records.ID).src = url;
-                $('#img' + Records.ID).attr('src', url);
+            if (Records.StartDate == null && Records.EndDate == null && Records.EventExpiryDate == null) {
+                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><p>' + Records.Descrtiption + '</p><span class="" style="float:right;><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div>>/div>'
             }
+
+            else {
+
+                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span> <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<br /><p>' + Records.Descrtiption + '</p><span class="" style="float:right;><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div>'
+
+            }
+
+
+            //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+            $("#OldEventsGrid").append(html);
+             
+            if (url != "" && url != null) {
+                var imgControl = document.getElementById("img" + Records.ID);
+                if (imgControl != null) {
+                    document.getElementById("img" + Records.ID).src = url;
+                    $('#img' + Records.ID).attr('src', url);
+                }
+            }
+            if (url == null) {
+                url = "../img/No-Img_Chosen.png";
+                $('#img' + Records.ID).attr('src', url);
+
+            }
+
+
+        });
+
+        if (Records.length == 0) {
+            //$('.dataTables_empty').parent().parent().remove();
+            var img = document.createElement('img');
+            img.src = "../img/nodata.jpg";
+            img.id = "NoData";
+            $("#OldEventsGrid").append(img);
         }
-        if (url == null) {
-            url = "../img/No-Img_Chosen.png";
-            $('#img' + Records.ID).attr('src', url);
 
-        }
-
-
-    });
-
-    if (Records.length == 0) {
-        //$('.dataTables_empty').parent().parent().remove();
-        var img = document.createElement('img');
-        img.src = "../img/nodata.jpg";
-        img.id = "NoData";
-        $("#OldEventsGrid").append(img);
     }
-
-
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }  
 }
 
 //--------------------------------//
@@ -637,239 +702,285 @@ function FillOldEvents(Records) {
 
 //Bind All old
 function BindAllOldEvents() {
+    try
+    {
+        var jsonResult = {};
+        var Events = new Object();
+        jsonResult = GetAllOldEvents(Events);
+        if (jsonResult != undefined) {
+            FillOldEvents(jsonResult);
 
-    debugger;
+            if (jsonResult.length >= 5) {
+                $(".aOldViewMore").show();
 
-    var jsonResult = {};
-    var Events = new Object();
-    jsonResult = GetAllOldEvents(Events);
-    if (jsonResult != undefined) {
-        FillOldEvents(jsonResult);
-
-        if (jsonResult.length >= 5) {
-            $(".aOldViewMore").show();
-
-            // $(".aViewMore").style.display = "";
-        }
-        else {
-            $(".aOldViewMore").hide();
+                // $(".aViewMore").style.display = "";
+            }
+            else {
+                $(".aOldViewMore").hide();
+            }
         }
     }
+    catch(e)
+    {
+
+    }
+    
 }
 
 function GetAllOldEvents(Events) {
+    try
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+        ds = getJsonData(data, "../AdminPanel/Events.aspx/GetAllOldEvents");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch(e)
+    {
 
-    debugger;
-
-    var ds = {};
-    var table = {};
-    var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-    ds = getJsonData(data, "../AdminPanel/Events.aspx/GetAllOldEvents");
-    table = JSON.parse(ds.d);
-    return table;
+    }
+    
 }
 //--------------------------------//
 
 
 //Clear Controls
 function ClearControls() {
-    $(':input').each(function () {
+    try
+    {
+        $(':input').each(function () {
 
-        if (this.type == 'text' || this.type == 'textarea' || this.type == 'file') {
-            this.value = '';
-        }
-        else if (this.type == 'radio' || this.type == 'checkbox') {
-            this.checked = false;
-        }
-        else if (this.type == 'select-one' || this.type == 'select-multiple') {
-            this.value = '-1';
-        }
-    });
+            if (this.type == 'text' || this.type == 'textarea' || this.type == 'file') {
+                this.value = '';
+            }
+            else if (this.type == 'radio' || this.type == 'checkbox') {
+                this.checked = false;
+            }
+            else if (this.type == 'select-one' || this.type == 'select-multiple') {
+                this.value = '-1';
+            }
+        });
 
-    $("#lblEventName").text("");
-    $("#lblDescription").text("");
-    $("#lblStartDate").text("");
-    $("#lblEndDate").text("");
-    $("#lblExpiryDate").text("");
-    $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
+        $("#lblEventName").text("");
+        $("#lblDescription").text("");
+        $("#lblStartDate").text("");
+        $("#lblEndDate").text("");
+        $("#lblExpiryDate").text("");
+        $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
 
-    $('#rowfluidDiv').hide();
-    $('.alert-success').hide();
-    $('.alert-error').hide();
+        $('#UpEvent')[0].files[0] = null;
 
-    $('#UpEvent')[0].files[0] = null;
+        $("#rdoNotificationYes").parent().removeClass('checked');
+        $('#rdoNotificationNo').parent().addClass('checked');
 
-    $("#rdoNotificationYes").parent().removeClass('checked');
-    $('#rdoNotificationNo').parent().addClass('checked');
+        $("#lblAlreadyNotificationSend").hide();
+        $("#DivNotificationContent").hide();
+        IsAlreadyNotified = false;
+    }
+    catch(e)
+    {
 
-    $("#lblAlreadyNotificationSend").hide();
-    $("#DivNotificationContent").hide();
-    IsAlreadyNotified = false;
+    }
+   
 }
 
 function SetControlsInNewEventFormat() {
-    ClearControls();
-    RemoveStyle();
-    $("#lblEventName").hide();
-    $("#lblDescription").hide();
-    $("#lblStartDate").hide();
-    $("#lblEndDate").hide();
-    $("#lblExpiryDate").hide();
+    try
+    {
+        ClearControls();
+        RemoveStyle();
+        $("#lblEventName").hide();
+        $("#lblDescription").hide();
+        $("#lblStartDate").hide();
+        $("#lblEndDate").hide();
+        $("#lblExpiryDate").hide();
 
-    $("#txtEventName").show();
-    $("#txtDescription").show();
-    $("#dateStartDate").show();
-    $("#dateEndDate").show();
-    $("#dateExpiryDate").show();
+        $("#txtEventName").show();
+        $("#txtDescription").show();
+        $("#dateStartDate").show();
+        $("#dateEndDate").show();
+        $("#dateExpiryDate").show();
 
-    $("#optHideNo").parent().removeClass('checked');
-    $('#optHideYes').parent().addClass('checked');
+        $("#optHideNo").parent().removeClass('checked');
+        $('#optHideYes').parent().addClass('checked');
 
-    $("#h1Event").text("New Event");
+        $("#h1Event").text("New Event");
 
-    $("#EventEditDivBox").show();
-    $("#EditContent").show();
-    $("#divView").hide();
-    $("#txtEventName").focus();
-    $("#btnSave").show();
-    $("#btnCancel").show();
-    $("#btnDelete").hide();
+        $("#EventEditDivBox").show();
+        $("#EditContent").show();
+        $("#divView").hide();
+        $("#txtEventName").focus();
+        $("#btnSave").show();
+        $("#btnCancel").show();
+        $("#btnDelete").hide();
 
-    $("#hdfEventID").val("");
+        $("#hdfEventID").val("");
 
-    $("#NoticeEdit").hide();
+        $("#NoticeEdit").hide();
+    }
+    catch(e)
+    {
 
-    $('#rowfluidDiv').hide();
-    $('.alert-success').hide();
-    $('.alert-error').hide();
+    }
+   
 
 }
 
 function SetControlsInViewFormat() {
-    //$("#lblEventName").show();
-    //$("#lblDescription").show();
-    //$("#lblStartDate").show();
-    //$("#lblEndDate").show();
-    //$("#lblExpiryDate").show();
-    //$("#txtEventName").focus();
-    //$("#txtDescription").hide();
-    //$("#dateStartDate").hide();
-    //$("#dateEndDate").hide();
-    //$("#dateExpiryDate").hide();
+    try
+    {
+        //$("#lblEventName").show();
+        //$("#lblDescription").show();
+        //$("#lblStartDate").show();
+        //$("#lblEndDate").show();
+        //$("#lblExpiryDate").show();
+        //$("#txtEventName").focus();
+        //$("#txtDescription").hide();
+        //$("#dateStartDate").hide();
+        //$("#dateEndDate").hide();
+        //$("#dateExpiryDate").hide();
 
-    $("#EventEditDivBox").show();
-    $("#EditContent").hide();
-    $("#divView").show();
+        $("#EventEditDivBox").show();
+        $("#EditContent").hide();
+        $("#divView").show();
 
 
-    $("#btnSave").hide();
-    $("#btnCancel").hide();
-    $("#btnDelete").hide();
+        $("#btnSave").hide();
+        $("#btnCancel").hide();
+        $("#btnDelete").hide();
 
-    $("#NoticeEdit").show();
+        $("#NoticeEdit").show();
+    }
+    catch(e)
+    {
+
+    }
+   
 }
 
 function SetControlsInEditableFormat() {
-    $("#lblEventName").hide();
-    $("#lblDescription").hide();
-    $("#lblStartDate").hide();
-    $("#lblEndDate").hide();
-    $("#lblExpiryDate").hide();
+    try
+    {
+        $("#lblEventName").hide();
+        $("#lblDescription").hide();
+        $("#lblStartDate").hide();
+        $("#lblEndDate").hide();
+        $("#lblExpiryDate").hide();
 
-    $("#txtEventName").show();
-    $("#txtDescription").show();
-    $("#dateStartDate").show();
-    $("#dateEndDate").show();
-    $("#dateExpiryDate").show();
+        $("#txtEventName").show();
+        $("#txtDescription").show();
+        $("#dateStartDate").show();
+        $("#dateEndDate").show();
+        $("#dateExpiryDate").show();
 
-    $("#EventEditDivBox").show();
-    $("#EditContent").show();
-    $("#divView").hide();
+        $("#EventEditDivBox").show();
+        $("#EditContent").show();
+        $("#divView").hide();
 
-    $("#btnSave").show();
-    $("#btnCancel").show();
-    $("#btnDelete").show();
+        $("#btnSave").show();
+        $("#btnCancel").show();
+        $("#btnDelete").show();
 
-    $("#rdoNotificationYes").parent().removeClass('checked');
-    $('#rdoNotificationNo').parent().addClass('checked');
+        $("#rdoNotificationYes").parent().removeClass('checked');
+        $('#rdoNotificationNo').parent().addClass('checked');
 
-    $("#lblAlreadyNotificationSend").hide();
-    IsAlreadyNotified = false;
+        $("#lblAlreadyNotificationSend").hide();
+        IsAlreadyNotified = false;
+    }
+    catch(e)
+    {
+
+    }
+   
 }
 //--------------------------------//
 
 //Edit -- view only
 function EditOnClick(id) {
-    RemoveStyle();
+    try
+    {
+        RemoveStyle();
+        $('#NoticeEdit').attr('onclick', 'FixedEditClick();')
+        $('#iconEdit').removeClass("halflings-icon white repeat").addClass("halflings-icon white pencil");
 
-    $('#rowfluidDiv').hide();
-    $('.alert-success').hide();
-    $('.alert-error').hide();
-    $('#NoticeEdit').attr('onclick', 'FixedEditClick();')
-    $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
+        SetControlsInViewFormat();
 
-    SetControlsInViewFormat();
+        var Events = new Object();
+        Events.eventId = id;
 
-    var Events = new Object();
-    Events.eventId = id;
+        if (id != "" && id != null) {
 
-    if (id != "" && id != null) {
+            $("#hdfEventID").val(id);
 
-        $("#hdfEventID").val(id);
+            var jsonResult = {};
 
-        var jsonResult = {};
+            jsonResult = GetEventsByEventID(Events);
 
-        jsonResult = GetEventsByEventID(Events);
+            if (jsonResult != undefined) {
+                $.each(jsonResult, function (index, jsonResult) {
+                    $("#h1Event").text(jsonResult.EventName);
 
-        if (jsonResult != undefined) {
-            $.each(jsonResult, function (index, jsonResult) {
-                $("#h1Event").text(jsonResult.EventName);
+                     
 
-                debugger;
+                    url = jsonResult.URL;
 
-                url = jsonResult.URL;
-               
-                if (url == null) {
-                    url = "../img/No-Img_Chosen.png";
-                   }
-                
-                $('#eventPreviewOnView').attr('src', url);
-                $("#aZoomEventImage").attr("href", url);
-                $('#aZoomEventImage').attr('data-title', jsonResult.EventName);
+                    if (url == null) {
+                        url = "../img/No-Img_Chosen.png";
+                    }
+
+                    $('#eventPreviewOnView').attr('src', url);
+                    $("#aZoomEventImage").attr("href", url);
+                    $('#aZoomEventImage').attr('data-title', jsonResult.EventName);
 
 
-                imageId = jsonResult.ImageID;
-                imgPath = jsonResult.URL;
+                    imageId = jsonResult.ImageID;
+                    imgPath = jsonResult.URL;
 
-                DeletedImgID = imageId;
-                DeletedImgPath = imgPath;
+                    DeletedImgID = imageId;
+                    DeletedImgPath = imgPath;
 
-                debugger;
-                if (jsonResult.Descrtiption == null || jsonResult.Descrtiption == "" || jsonResult.Descrtiption == undefined) {
-                    //$("#NoticePreviewOnView").css('width', '300px!important');
-                    $('#eventPreviewOnView').width(600);
-                    $('#eventPreviewOnView').height('auto');
-                    $('#lblEventDescriptionOnView').text("");
-                }
+                     
+                    if (jsonResult.Descrtiption == null || jsonResult.Descrtiption == "" || jsonResult.Descrtiption == undefined) {
+                        //$("#NoticePreviewOnView").css('width', '300px!important');
+                        $('#eventPreviewOnView').width(600);
+                        $('#eventPreviewOnView').height('auto');
+                        $('#lblEventDescriptionOnView').text("");
+                    }
 
-                else {
-                    $('#eventPreviewOnView').height(200);
-                    $('#eventPreviewOnView').width(150);
-                    $('#lblEventDescriptionOnView').text(jsonResult.Descrtiption);
-                }
+                    else {
+                        $('#eventPreviewOnView').height(200);
+                        $('#eventPreviewOnView').width(150);
+                        $('#lblEventDescriptionOnView').text(jsonResult.Descrtiption);
+                    }
 
-            });
+                });
+            }
         }
     }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+    
 }
 
 function GetEventsByEventID(Events) {
-    var ds = {};
-    var table = {};
-    var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-    ds = getJsonData(data, "../AdminPanel/Events.aspx/GetEventsByEventID");
-    table = JSON.parse(ds.d);
-    return table;
+    try
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+        ds = getJsonData(data, "../AdminPanel/Events.aspx/GetEventsByEventID");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch(e)
+    {
+
+    }
+    
 }
 function cancelEdit()
 {
@@ -877,130 +988,168 @@ function cancelEdit()
 }
 
 function FixedEditClick() {
-    debugger;
+    try
+    {
+         
 
-    $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white refresh");
-    $('#NoticeEdit').attr('onclick', 'cancelEdit();');
-    
-    ClearControls();
-    SetControlsInEditableFormat();
-    $("#h1Event").text("Edit Event");
+        $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white repeat");
+        $('#NoticeEdit').attr('onclick', 'cancelEdit();');
 
-    var Events = new Object();
-    Events.eventId = $("#hdfEventID").val();
+        ClearControls();
+        SetControlsInEditableFormat();
+        $("#h1Event").text("Edit Event");
 
-    var jsonResult = {};
+        var Events = new Object();
+        Events.eventId = $("#hdfEventID").val();
 
-    jsonResult = GetEventsByEventID(Events);
+        var jsonResult = {};
 
-    if (jsonResult != undefined) {
-        $.each(jsonResult, function (index, jsonResult) {
-            debugger;
-            $("#txtEventName").val(jsonResult.EventName);
-            $("#txtDescription").val(jsonResult.Descrtiption);
+        jsonResult = GetEventsByEventID(Events);
 
-            url = jsonResult.URL;
+        if (jsonResult != undefined) {
+            $.each(jsonResult, function (index, jsonResult) {
+                 
+                $("#txtEventName").val(jsonResult.EventName);
+                $("#txtDescription").val(jsonResult.Descrtiption);
 
-            if (url == null) {
-                url = "../img/No-Img_Chosen.png";
-                $('#NoticePreview').attr('src', url);
-            }
-            else {
-                $('#NoticePreview').attr('src', url);
-            }
+                url = jsonResult.URL;
 
-            imageId = jsonResult.ImageID;
-            imgPath = url;
+                if (url == null) {
+                    url = "../img/No-Img_Chosen.png";
+                    $('#NoticePreview').attr('src', url);
+                }
+                else {
+                    $('#NoticePreview').attr('src', url);
+                }
 
-            if (jsonResult.StartDate != null && jsonResult.StartDate != "") {
-                $("#dateStartDate").val(ConvertJsonToDateTextbox(jsonResult.StartDate));
-            }
+                imageId = jsonResult.ImageID;
+                imgPath = url;
 
-            if (jsonResult.EndDate != null && jsonResult.EndDate != "") {
-                $("#dateEndDate").val(ConvertJsonToDateTextbox(jsonResult.EndDate));
-            }
+                if (jsonResult.StartDate != null && jsonResult.StartDate != "") {
+                    $("#dateStartDate").val(ConvertJsonToDateTextbox(jsonResult.StartDate));
+                }
 
-            if (jsonResult.EventExpiryDate != null && jsonResult.EventExpiryDate != "") {
-                $("#dateExpiryDate").val(ConvertJsonToDateTextbox(jsonResult.EventExpiryDate));
-            }
+                if (jsonResult.EndDate != null && jsonResult.EndDate != "") {
+                    $("#dateEndDate").val(ConvertJsonToDateTextbox(jsonResult.EndDate));
+                }
 
-            if (jsonResult.IsAutoHide == true) {
-                $('#optHideYes').parent().addClass('checked');
-                $("#optHideNo").parent().removeClass('checked');
-                $("#hdfIsAutoHide").val(true)
+                if (jsonResult.EventExpiryDate != null && jsonResult.EventExpiryDate != "") {
+                    $("#dateExpiryDate").val(ConvertJsonToDateTextbox(jsonResult.EventExpiryDate));
+                }
 
-            }
-            else {
-                $('#optHideNo').parent().addClass('checked');
-                $("#optHideYes").parent().removeClass('checked');
+                if (jsonResult.IsAutoHide == true) {
+                    $('#optHideYes').parent().addClass('checked');
+                    $("#optHideNo").parent().removeClass('checked');
+                    $("#hdfIsAutoHide").val(true)
 
-                $("#hdfIsAutoHide").val(false)
-            }
-            if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
-                IsAlreadyNotified = true;
-            }
-            else {
+                }
+                else {
+                    $('#optHideNo').parent().addClass('checked');
+                    $("#optHideYes").parent().removeClass('checked');
 
-                IsAlreadyNotified = false;
-            }
-        });
+                    $("#hdfIsAutoHide").val(false)
+                }
+                if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
+                    IsAlreadyNotified = true;
+                }
+                else {
+
+                    IsAlreadyNotified = false;
+                }
+            });
+        }
+        RemoveStyle();
     }
-    RemoveStyle();
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+   
 }
 //--------------------------------//
 
 //Insert
 function InsertEvent(Events) {
-    var ds = {};
-    var table = {};
-    var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-    ds = getJsonData(data, "../AdminPanel/Events.aspx/InsertEvent");
-    table = JSON.parse(ds.d);
-    return table;
+    try
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+        ds = getJsonData(data, "../AdminPanel/Events.aspx/InsertEvent");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch(e)
+    {
+
+    }
+   
 }
 //--------------------------------//
 
 
 //update
 function UpdateEvent(Events) {
-    var ds = {};
-    var table = {};
-    var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-    ds = getJsonData(data, "../AdminPanel/Events.aspx/UpdateEvent");
-    table = JSON.parse(ds.d);
-    return table;
+    try
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+        ds = getJsonData(data, "../AdminPanel/Events.aspx/UpdateEvent");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch(e)
+    {
+
+    }
+    
 }
 //--------------------------------//
 
 
 //Delete
 function DeleteEvent(Events) {
-    var ds = {};
-    var table = {};
-    var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-    ds = getJsonData(data, "../AdminPanel/Events.aspx/DeleteEvent");
-    table = JSON.parse(ds.d);
-    return table;
+    try
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+        ds = getJsonData(data, "../AdminPanel/Events.aspx/DeleteEvent");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch(e)
+    {
+
+    }
 }
 
 function DeleteFileFromFolder(imgPath) {
+    try
+    {
+        $.ajax({
+            type: "POST",
+            url: "../AdminPanel/Events.aspx/DeleteFileFromFolder",
+            data: '{imgPath: "' + imgPath + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: imgPath,
+            failure: function (response) {
 
-    $.ajax({
-        type: "POST",
-        url: "../AdminPanel/Events.aspx/DeleteFileFromFolder",
-        data: '{imgPath: "' + imgPath + '"}',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: imgPath,
-        failure: function (response) {
+                // alert(response.d);
+            },
+            error: function (response) {
 
-            // alert(response.d);
-        },
-        error: function (response) {
-
-            // alert(response.d);
-        }
-    });
+                // alert(response.d);
+            }
+        });
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+    
 }
 
 function DeleteAppImage(AppImages) {
@@ -1016,7 +1165,7 @@ function DeleteAppImage(AppImages) {
 
 //Insert Notification
 function InsertNotification(Notification) {
-    debugger;
+     
 
     var data = "{'NotificationObj':" + JSON.stringify(Notification) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Events.aspx/InsertNotification");
@@ -1047,7 +1196,7 @@ function showpreview(input) {
 
 function SetExpiryDate() {
     
-    debugger;
+     
     var EndDate     = $("#dateEndDate").val();
     var ExpireDate = $("#dateExpiryDate").val();
     if (EndDate != "" && EndDate != null && EndDate != undefined && $("#hdfEventID").val() == "" && ExpireDate == "" ) {
@@ -1056,68 +1205,60 @@ function SetExpiryDate() {
 }
 
 function EventValidation() {
-    debugger;
-    $('#Displaydiv').remove();
-    var Name = $('#txtEventName');
-    //   var Description = $('#txtDescription');
-
-    var container = [
-        { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
-      //  ,{ id: Description[0].id, name: Description[0].name, Value: Description[0].value }
-
-    ];
-
-    if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+    try
     {
-        var StartDate = $('#dateStartDate');
-        var Expirydate = $('#dateExpiryDate');
-        var NotificationContent = $('#txtnotificationCOntent').val();
-        container = [
-        { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
-        , { id: StartDate[0].id, name: StartDate[0].name, Value: StartDate[0].value }
-        , { id: Expirydate[0].id, name: Expirydate[0].name, Value: Expirydate[0].value }
-        , { id: NotificationContent[0].id, name: NotificationContent[0].name, Value: NotificationContent[0].value }
-        ];
+       
+        var Name = $('#txtEventName');
 
-    }
+        var container = [
+            { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
+                        ];
 
+        if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+        {
+            var StartDate = $('#dateStartDate');
+            var Expirydate = $('#dateExpiryDate');
+            var NotificationContent = $('#txtnotificationCOntent').val();
+            container = [
+            { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
+            , { id: StartDate[0].id, name: StartDate[0].name, Value: StartDate[0].value }
+            , { id: Expirydate[0].id, name: Expirydate[0].name, Value: Expirydate[0].value }
+            , { id: NotificationContent[0].id, name: NotificationContent[0].name, Value: NotificationContent[0].value }
+                        ];
 
-    var j = 0;
-    var Errorbox = document.getElementById('ErrorBox');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv");
-    Errorbox.appendChild(divs);
-    for (var i = 0; i < container.length; i++) {
-        if (container[i].Value == "") {
-            j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
-            var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundImage = "url('../img/invalid.png')";
-            txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
         }
-    }
 
-    if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-        divs.appendChild(p);
-        return false;
-    }
-    if (j == '0') {
-        $('#ErrorBox').hide();
-        return true;
-    }
 
+        var j = 0;
+        for (var i = 0; i < container.length; i++) {
+            if (container[i].Value == "") {
+                j = 1;
+                var txtB = document.getElementById(container[i].id);
+                txtB.style.backgroundImage = "url('../img/invalid.png')";
+                txtB.style.backgroundPosition = "95% center";
+                txtB.style.backgroundRepeat = "no-repeat";
+            }
+        }
+
+        if (j == '1') {
+            noty({ type: 'error', text: Messages.Validation });
+            return false;
+        }
+        if (j == '0') {
+            return true;
+        }
+
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+    
 
 }
 
 function RemoveStyle() {
-    debugger;
+     
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
     $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
 }

@@ -34,6 +34,7 @@ $("document").ready(function (e)
             }
             catch(e)
             {
+                noty({ type: 'error', text: e.message });
             }
         });
         $("#rdoNovenaSpecial").click(function () {
@@ -50,7 +51,7 @@ $("document").ready(function (e)
             }
             catch(e)
             {
-
+                noty({ type: 'error', text: e.message });
             }
          
         });
@@ -67,7 +68,7 @@ $("document").ready(function (e)
             }
             catch(e)
             {
-
+                noty({ type: 'error', text: e.message });
             }
             
         });
@@ -191,7 +192,7 @@ $("document").ready(function (e)
             }
             catch(e)
             {
-
+                noty({ type: 'error', text: e.message });
             }
            
         });
@@ -204,7 +205,7 @@ $("document").ready(function (e)
             }
             catch(e)
             {
-
+                noty({ type: 'error', text: e.message });
             }
         });
 
@@ -258,7 +259,7 @@ $("document").ready(function (e)
             }
             catch(e)
             {
-
+                noty({ type: 'error', text: e.message });
             }
         });
 
@@ -292,7 +293,7 @@ $("document").ready(function (e)
             }
             catch(e)
             {
-
+                noty({ type: 'error', text: e.message });
             }
             
 
@@ -341,8 +342,9 @@ function BindPatron(patronID) {
         
       
     }
-    catch (e) {
-
+    catch (e)
+    {
+        noty({ type: 'error', text: e.message });
     }
 }
 //Get Patron By ID
@@ -823,7 +825,7 @@ function FixedEditClick()
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
     
 
@@ -859,7 +861,7 @@ function ViewIndividualPatron(obj) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
     }
 
@@ -916,7 +918,7 @@ function ViewIndividualPatron(obj) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    }
 var DayAndTimeTemp = '';
@@ -1023,7 +1025,7 @@ function BindNovenaMoreDetails(ID) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
     
 }
@@ -1080,7 +1082,7 @@ function SetControlsInNovenaFormat(IsNewButtonClicked)
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }
@@ -1299,7 +1301,7 @@ function AddDayAndTimeToArray() {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
     
 }
@@ -1394,19 +1396,26 @@ function DeleteNovenaTiming(NovenaTiming) {
    
 }
 function DeleteFileFromFolder(imgPath) {
-
-    $.ajax({
-        type: "POST",
-        url: "../AdminPanel/Novenas.aspx/DeleteFileFromFolder",
-        data: '{imgPath: "' + imgPath + '"}',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: imgPath,
-        failure: function (response) {
-        },
-        error: function (response) {
-        }
-    });
+    try
+    {
+        $.ajax({
+            type: "POST",
+            url: "../AdminPanel/Novenas.aspx/DeleteFileFromFolder",
+            data: '{imgPath: "' + imgPath + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: imgPath,
+            failure: function (response) {
+            },
+            error: function (response) {
+            }
+        });
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+    
 }
 function DeleteAppImage(AppImages) {
     try
@@ -1476,7 +1485,7 @@ function UpdateTime(obj)
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
 
 } 

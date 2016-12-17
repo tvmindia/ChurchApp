@@ -372,22 +372,30 @@ namespace ChurchApp.AdminPanel
         public static string InsertEvent(ChurchApp.DAL.Events EventsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            EventsObj.churchId = UA.ChurchID;
+            
             string status = null;
             try
             {
-                EventsObj.createdBy = UA.userName;
-                status = EventsObj.InsertEvent().ToString();
-                EventsObj.Status = status;
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if(UA!=null)
+                {
+                    EventsObj.churchId = UA.ChurchID;
+                    EventsObj.createdBy = UA.userName;
+                    status = EventsObj.InsertEvent().ToString();
+                    EventsObj.Status = status;
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                status = "500";//Exception of foreign key
+                EventsObj.Status = ex.Message;
             }
             finally
             {
@@ -416,6 +424,7 @@ namespace ChurchApp.AdminPanel
                     EventsObj.churchId = UA.ChurchID;
                     EventsObj.updatedBy = UA.userName;
                     status = EventsObj.UpdateEvent().ToString();
+                    EventsObj.Status = status;
                 }
                 //Session is out
                 else
@@ -426,12 +435,12 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-                status = "500";
+                EventsObj.Status = ex.Message;
             }            
             finally
             {
             }
-            return jsSerializer.Serialize(status);
+            return jsSerializer.Serialize(EventsObj);
 
         }
 
@@ -455,6 +464,7 @@ namespace ChurchApp.AdminPanel
                     EventsObj.churchId = UA.ChurchID;
                     EventsObj.updatedBy = UA.userName;
                     status = EventsObj.DeleteEvent().ToString();
+                    EventsObj.Status = status;
                 }
                 //Session is out
                 else
@@ -464,14 +474,14 @@ namespace ChurchApp.AdminPanel
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                status = "500";//Exception of foreign key
+                EventsObj.Status = ex.Message;
             }
             finally
             {
             }
-            return jsSerializer.Serialize(status);
+            return jsSerializer.Serialize(EventsObj);
 
         }
 

@@ -146,7 +146,7 @@ function postBlobAjax(formData, page) {
 
         error: function () {
             $('#displaywait').hide();
-            alert("Whoops something went wrong!");
+            noty({text:'Somthing went wrong',type:'error'})
         }
     });
     
@@ -292,6 +292,8 @@ var Messages = {
     ProductAddSuccessfull: "New Product Created Successfully.",
     DboInvalid: "Rejected - Invalid Data Entitys date of birth",
     OrdinationInvalid: "Rejected - Invalid Data Entitys ordination date",
+    InvalidStartDate: "Invalid Start Date !",
+    InvalidExpiry: "Invalid End/Expiry Date !",
     LoginFailed: "User Name / Password is wrong!",
     InsertionFailure: "Not Successfuly Saved Try Again",
     UpdationFailure: "Edit Failed Try Again Later",
@@ -302,7 +304,7 @@ var Messages = {
     AlreadyUsedForUpdation: "Already used . Can't be changed",
     MailSendSuccessfully: "Mail Send Successfully",
     ProductAddFailure: "Product Creation was not Successfull.",
-
+    
     ErrorFix: "Bug Rectified Successfully.",
     ErrorFixNOT: "Operation was Not Successfull.",
 
