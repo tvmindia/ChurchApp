@@ -207,9 +207,9 @@ namespace ChurchApp.DAL
            
             try
             {
-                
 
-               
+
+                Common cmnObj = new Common();
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 if ((churchObj.churchId == null) || (churchObj.churchId == ""))
@@ -241,7 +241,7 @@ namespace ChurchApp.DAL
                 //Encryption of password
                 cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 255).Value = Password;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 outparamUSerID = cmd.Parameters.Add("@OutUserID", SqlDbType.UniqueIdentifier);
@@ -271,6 +271,7 @@ namespace ChurchApp.DAL
 
         public string UpdateUser()
         {
+            Common cmnObj = new Common();
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
@@ -301,7 +302,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@LoginName", SqlDbType.NVarChar, 255).Value = LoginName;
                 cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 255).Value = Password;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -329,6 +330,7 @@ namespace ChurchApp.DAL
         #region DeleteUser
         public string DeleteUser()
         {
+            Common cmnObj = new Common();
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
@@ -342,7 +344,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[DeleteUser]";
                 cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ID);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -372,6 +374,7 @@ namespace ChurchApp.DAL
     public class Roles
     {
         public Church churchObj;
+        Common cmnObj = new Common();
         #region Rolesproperties
         public string ID
         {
@@ -431,7 +434,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@RoleName", SqlDbType.NVarChar, 25).Value = RoleName;
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchObj.churchId);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =cmnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 outParam1 = cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier);
@@ -546,7 +549,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@RoleID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchObj.churchId);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParam.Direction = ParameterDirection.Output;
                
@@ -632,7 +635,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@RoleName", SqlDbType.NVarChar, 25).Value = RoleName;
                 cmd.Parameters.Add("@ChurchID",SqlDbType.UniqueIdentifier).Value=Guid.Parse(churchObj.churchId);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParam.Direction = ParameterDirection.Output;
 

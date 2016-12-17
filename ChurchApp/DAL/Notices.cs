@@ -10,6 +10,7 @@ namespace ChurchApp.DAL
 {
     public class Notices
     {
+        Common commonObj = new Common();
         #region Public Properties
         public string noticeId
         {
@@ -187,7 +188,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@NoticeType", SqlDbType.NVarChar, 20).Value = noticeType;
               //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
 
@@ -247,7 +248,7 @@ namespace ChurchApp.DAL
 
                // cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -401,6 +402,7 @@ namespace ChurchApp.DAL
             SqlParameter outParam = null;
             try
             {
+                Common commObj = new Common();
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -410,7 +412,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description;
                 cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = noticeType;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -437,6 +439,7 @@ namespace ChurchApp.DAL
         /// <returns>Success/Failure</returns>
         public string UpdateNoticeType()
         {
+            Common commObj = new Common();
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
@@ -451,7 +454,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
                 cmd.Parameters.Add("@NoticeType", SqlDbType.NVarChar, 20).Value = noticeType;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value =commObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();

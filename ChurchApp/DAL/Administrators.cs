@@ -10,6 +10,7 @@ namespace ChurchApp.DAL
 {
     public class Administrators
     {
+        Common cmn = new Common();
         #region Public Properties
 
         public string adminId
@@ -265,7 +266,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = Name;
                 cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 20).Value = Phone;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =cmn.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -322,7 +323,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = Name;
                 cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 100).Value = Phone;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = cmn.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();

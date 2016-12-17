@@ -10,6 +10,7 @@ namespace ChurchApp.DAL
 {
     public class GalleryAlbum
     {
+        Common commonObj = new Common();
         #region Public Properties
         public string albumId
         {
@@ -175,7 +176,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@AlbumName", SqlDbType.NVarChar, 100).Value = albumName;
                 cmd.Parameters.Add("@AlbumType", SqlDbType.NVarChar, 20).Value = albumType;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outIDparam = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
                 outIDparam.Direction = ParameterDirection.Output;
@@ -223,7 +224,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@AlbumType", SqlDbType.NVarChar, 20).Value = albumType;
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -403,6 +404,7 @@ namespace ChurchApp.DAL
         /// <returns>success/failure</returns>
         public string InsertGalleryItem()
         {
+            Common commonObj = new Common();
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
@@ -419,7 +421,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
                 cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = itemType;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
               
                 outParam.Direction = ParameterDirection.Output;

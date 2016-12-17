@@ -156,6 +156,7 @@ namespace ChurchApp.DAL
         #region InsertErrorDetails
         public Int16 InsertErrorDetails()
         {
+            Common cmnObj = new Common();
             DAL.Security.UserAuthendication UA;
             Const Const = new Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
@@ -188,7 +189,7 @@ namespace ChurchApp.DAL
                 }
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
 
-                cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = (Date == null) ? DateTime.UtcNow : DateTime.Parse(Date);
+                cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = (Date == null) ? cmnObj.ConvertDatenow(DateTime.Now) : DateTime.Parse(Date);
                 cmd.Parameters.Add("@Module", SqlDbType.NVarChar, 50).Value = Module;
                 cmd.Parameters.Add("@Method", SqlDbType.NVarChar, 50).Value = Method;
                 //  cmd.Parameters.Add("@IsFixed", SqlDbType.Bit, -1).Value = IsFixed;
@@ -203,7 +204,7 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = UA.userName;
                 }
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
                 if (Version != null)
                 {
                     cmd.Parameters.Add("@Version", SqlDbType.NVarChar, 50).Value = Version;
@@ -284,6 +285,7 @@ namespace ChurchApp.DAL
 
         public Int16 InsertErrorDetailsFromWebService()
         {
+            Common cmnObj = new Common();
             Const constants = new Const();
             if (Description == constants.NoItems)   //Not actually a logable exception
                 return 0;
@@ -303,13 +305,13 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertErrorLog]";
                 if (ChurchID != null) cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
-                cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = (Date == null) ? DateTime.UtcNow : DateTime.Parse(Date);
+                cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = (Date == null) ? cmnObj.ConvertDatenow(DateTime.Now) : DateTime.Parse(Date);
                 cmd.Parameters.Add("@Module", SqlDbType.NVarChar, 50).Value = Module;
                 cmd.Parameters.Add("@Method", SqlDbType.NVarChar, 50).Value = Method;
                 cmd.Parameters.Add("@ErrorSource", SqlDbType.NVarChar, 25).Value = ErrorSource;
                 cmd.Parameters.Add("@IsMobile", SqlDbType.Bit).Value = IsMobile;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParameter2 = cmd.Parameters.Add("@OutErrorID", SqlDbType.NVarChar, 50);
                 outParameter2.Direction = ParameterDirection.Output;
@@ -334,6 +336,7 @@ namespace ChurchApp.DAL
         #region UpdateErrorDetails
         public string UpdateErrorDetails()
         {
+            Common cmnObj = new Common();
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParameter = null;
@@ -357,12 +360,12 @@ namespace ChurchApp.DAL
                 // cmd.Parameters.Add("@Module", SqlDbType.NVarChar, 50).Value = Module;
                 // cmd.Parameters.Add("@Method", SqlDbType.NVarChar, 50).Value = Method;
                 cmd.Parameters.Add("@IsFixed", SqlDbType.Bit, -1).Value = IsFixed;
-                BugFixDate = DateTime.Now.ToString();
+                BugFixDate = cmnObj.ConvertDatenow(DateTime.Now).ToString();
                 cmd.Parameters.Add("@BugFixDate", SqlDbType.DateTime).Value = BugFixDate;
                 //cmd.Parameters.Add("@ErrorSource", SqlDbType.NVarChar, 25).Value = ErrorSource;
                 //  cmd.Parameters.Add("@IsMobile", SqlDbType.Bit).Value = IsMobile;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = UpdatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
                 // cmd.Parameters.Add("@Version", SqlDbType.NVarChar, 50).Value = Version;
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParameter.Direction = ParameterDirection.Output;

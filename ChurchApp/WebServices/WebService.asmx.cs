@@ -1099,7 +1099,7 @@ namespace ChurchApp.WebServices
                 //Code For Exception Track insert
                 ExceptionTrack ETObj = new ExceptionTrack();
                 ETObj.Description = ex.Message;
-                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Date =cmn.ConvertDatenow(DateTime.Now).ToString();
                 ETObj.Module = "Error Detection";
                 ETObj.Method = "ErrorDetection";
                 ETObj.InsertErrorDetailsFromWebService();

@@ -13,7 +13,7 @@ namespace ChurchApp.DAL
     public class TownMaster
     {
         public AppImages appImagesObj;
-
+        Common cmnObj = new Common();
         #region Public Properties
         public string code
         {

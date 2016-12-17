@@ -11,6 +11,7 @@ namespace ChurchApp.DAL
 {
     public class OrgDesignationMaster
     {
+        Common commonObj = new Common();
         #region Public Properties
 
         public Church churchObj;
@@ -124,7 +125,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Order", SqlDbType.NVarChar, 250).Value = order;
                 cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar, 20).Value = orgType;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -168,7 +169,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Order", SqlDbType.NVarChar, 250).Value = order;
                 cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar, 20).Value = orgType;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
