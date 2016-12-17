@@ -291,6 +291,7 @@ $("document").ready(function (e) {
             data: GetAllPatrons(PatronMaster),
             columns: [
               { "data": "ID" },
+              { "data": "ImageID" },
               { "data": "Name", "defaultContent": "<i>-</i>" },
               { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
               { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditSaint(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveSaint(this)"></i></a>' }
@@ -298,7 +299,7 @@ $("document").ready(function (e) {
             columnDefs: [//this object is to alter the display cell value not the actual value
              {
                  //hiding hidden column fields 
-                 "targets": [0],
+                 "targets": [0,1],
                  "visible": false,
                  "searchable": false
              },
@@ -306,7 +307,7 @@ $("document").ready(function (e) {
                   "render": function (data, type, row) {
                       return ConvertJsonToDate(data);
                   },
-                  "targets": 2
+                  "targets": 3
               }
             ]
            
@@ -844,7 +845,7 @@ $("document").ready(function (e) {
                     var result = InsertUser(Users);
                     switch (result.status) {
                         case "1":
-                            noty({ type: 'success', text: 'Inserted successfully' });
+                            noty({ type: 'success', text: Messages.InsertionSuccessFull });
                             BindAllUsers();
                             $("#hdfUserID").val(result.ID);
                             $('#txtPassword').val('');
@@ -853,7 +854,7 @@ $("document").ready(function (e) {
                             cofirmpswd.removeAttribute('style');
                             break;
                         case "0":
-                            noty({ type: 'error', text: 'Insertion was not successfull' });
+                            noty({ type: 'error', text: Messages.InsertionFailure });
                             $('#txtPassword').val('');
                             $('#txtconfirmpswd').val('');
                             var cofirmpswd = document.getElementById('txtconfirmpswd');
@@ -875,7 +876,7 @@ $("document").ready(function (e) {
                     var result = UpdateUser(Users);
                     switch (result.status) {
                         case "1":
-                            noty({ type: 'success', text: 'Updated successfully' });
+                            noty({ type: 'success', text: Messages.UpdationSuccessFull });
                             BindAllUsers();
                             $('#txtPassword').val('');
                             $('#txtconfirmpswd').val('');
@@ -883,7 +884,7 @@ $("document").ready(function (e) {
                             cofirmpswd.removeAttribute('style');
                             break;
                         case "0":
-                            noty({ type: 'error', text: 'Updation was not successfull' });
+                            noty({ type: 'error', text: Messages.UpdationFailure });
                             $('#txtPassword').val('');
                             $('#txtconfirmpswd').val('');
                             var cofirmpswd = document.getElementById('txtconfirmpswd');
@@ -935,14 +936,14 @@ $("document").ready(function (e) {
                     var result = InsertRoles(Roles);
                     switch (result.status) {
                         case "1":
-                            noty({ type: 'success', text: 'Inserted successfully' });
+                            noty({ type: 'success', text: Messages.InsertionSuccessFull });
                             BindAllRoles();
                             break;
                         case "0":
-                            noty({ type: 'error', text: 'Insertion was not successfull' });
+                            noty({ type: 'error', text: Messages.InsertionFailure });
                             break;
                         case "2":
-                            noty({ type: 'error', text: 'Insertion was not successfull,Duplicate Entry!' });
+                            noty({ type: 'error', text: Messages.AlreadyExistsMsgCaption });
                             break;
                         default:
                             noty({ type: 'error', text: result.status });
@@ -956,12 +957,12 @@ $("document").ready(function (e) {
                     var result = UpdateRoles(Roles);
                     switch (result.status) {
                         case "1":
-                            noty({ type: 'success', text: 'Updated successfully' });
+                            noty({ type: 'success', text: Messages.UpdationSuccessFull });
 
                             BindAllRoles();
                             break;
                         case "0":
-                            noty({ type: 'error', text: 'Updation was not successfull' });
+                            noty({ type: 'error', text: Messages.UpdationFailure });
                             break;
                         default:
                             noty({ type: 'error', text: result.status });
@@ -1010,15 +1011,15 @@ $("document").ready(function (e) {
                     var result = InsertDesignation(OrgDesignationMaster);
                     switch (result.status) {
                         case "1":
-                            noty({ type: 'success', text: 'Inserted successfully' });
+                            noty({ type: 'success', text: Messages.InsertionSuccessFull });
                             BindAllDesignation();
                             break;
                         case "0":
-                            noty({ type: 'error', text: 'Insertion was not successfull' });
+                            noty({ type: 'error', text: Messages.InsertionFailure });
                             
                             break;
                         case "2":
-                            noty({ type: 'error', text: 'Insertion was not successfull,Order can not Duplicate for organization' });
+                            noty({ type: 'error', text: Messages.AlreadyExistsMsgCaption });
                             break;
                         default:
                             noty({ type: 'error', text: result.status });
@@ -1033,11 +1034,11 @@ $("document").ready(function (e) {
                     var result = UpdateDesignation(OrgDesignationMaster);
                     switch (result.status) {
                         case "1":
-                            noty({ type: 'success', text: 'Updated successfully' });
+                            noty({ type: 'success', text: Messages.UpdationSuccessFull });
                             BindAllDesignation();
                             break;
                         case "0":
-                            noty({ type: 'error', text: 'Updation was not successfull' });
+                            noty({ type: 'error', text: Messages.UpdationFailure });
                            
                             break;
                         case "2":
@@ -1062,102 +1063,231 @@ $("document").ready(function (e) {
     });
 
 
+    //$('#btnSaintAdd').click(function (e) {
+    //    try
+    //    {
+    //        var saintflag = PatronValidation();
+    //        if (saintflag) {
+    //            var PatronMaster = new Object();
+    //            PatronMaster.patronMasterName = $("#txtSaintName").val();
+    //            PatronMaster.description = $("#txtSaintDescription").val();
+    //            var guid = createGuid();
+    //            if (guid != null) {
+    //                var imgresult = "";
+    //                var _URL = window.URL || window.webkitURL;
+    //                var formData = new FormData();
+    //                var imagefile;
+
+    //                if (((imagefile = $('#UpSaint')[0].files[0]) != undefined)) { //App image insertion to table as well as folder
+    //                    var formData = new FormData();
+    //                    var tempFile;
+    //                    if ((tempFile = $('#UpSaint')[0].files[0]) != undefined) {
+    //                        tempFile.name = guid;
+    //                        formData.append('NoticeAppImage', tempFile, tempFile.name);
+    //                        formData.append('GUID', guid);
+    //                        formData.append('createdby', document.getElementById("LoginName").innerHTML);
+    //                    }
+    //                    formData.append('ActionTyp', 'NoticeAppImageInsert');
+    //                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+    //                    PatronMaster.imageID = guid;
+    //                }
+    //                else {
+    //                    if ($('#hdfPatronImageID').val() != '') {
+    //                        PatronMaster.imageID = $('#hdfPatronImageID').val(); // If no image is selected ,while updating, old imagid itself passed which is stored in hiddenfield
+    //                    }
+    //                }
+    //            }
+
+    //            if ($('#hdfPatronID').val() != "") { //Case Update
+    //                PatronMaster.patronMasterId = $('#hdfPatronID').val();
+
+    //                result = UpdatePatron(PatronMaster);
+    //                switch (result.status) {
+    //                    case "1":
+    //                        noty({ type: 'success', text: 'Updated successfully' });
+    //                        BindPatrons();
+    //                        break;
+    //                    case "0":
+    //                        noty({ type: 'error', text: 'Updation was not successfull' });
+
+    //                        break;
+    //                    default:
+    //                        noty({ type: 'error', text: result.status });
+    //                        break;
+    //                }
+
+    //                if ($('#hdfPatronImageID').val() != '' && (((imagefile = $('#UpSaint')[0].files[0]) != undefined))) {
+
+    //                    //--if patron is updated with new image, the old image should delete from folder and table
+    //                    var AppImages = new Object();
+    //                    AppImages.appImageId = $('#hdfPatronImageID').val();
+    //                    DeleteAppImage(AppImages);
+
+    //                    if ($('#hdfPatronImageURL').val() != "") {
+    //                        DeleteFileFromFolder($('#hdfPatronImageURL').val());
+    //                    }
+    //                    $('#hdfPatronImageID').val("");
+    //                    $('#hdfPatronImageURL').val("");
+    //                }
+    //            }
+    //            else {  //Case Insert
+    //                result = InsertPatron(PatronMaster);
+    //                switch (result.status) {
+    //                    case "1":
+    //                        noty({ type: 'success', text: 'Inserted successfully' });
+    //                        BindPatrons();
+    //                        break;
+    //                    case "0":
+    //                        noty({ type: 'error', text: 'Insertion was not successfull' });
+
+    //                        break;
+    //                    default:
+    //                        noty({ type: 'error', text: result.status });
+    //                        break;
+    //                }
+    //            }
+
+
+    //            //ClearModalControls();
+    //        }
+
+    //        else {
+    //            return false;
+    //        }
+    //    }
+    //    catch (e) {
+    //        noty({ type: 'error', text: e.message });
+    //    }
+      
+
+    //});
+
+
     $('#btnSaintAdd').click(function (e) {
-        try
-        {
+
+        try {
+            debugger;
+           
             var saintflag = PatronValidation();
             if (saintflag) {
                 var PatronMaster = new Object();
                 PatronMaster.patronMasterName = $("#txtSaintName").val();
                 PatronMaster.description = $("#txtSaintDescription").val();
-                var guid = createGuid();
-                if (guid != null) {
-                    var imgresult = "";
-                    var _URL = window.URL || window.webkitURL;
-                    var formData = new FormData();
-                    var imagefile;
+               
 
-                    if (((imagefile = $('#UpSaint')[0].files[0]) != undefined)) { //App image insertion to table as well as folder
+                if ($("#hdfPatronID").val() == '') {
+                    //INSERT
+                    ///////Image insert using handler
+                    var imgresult;
+                    if ((imgresult = $('#UpSaint')[0].files.length > 0)) {
+                        debugger;
                         var formData = new FormData();
-                        var tempFile;
-                        if ((tempFile = $('#UpSaint')[0].files[0]) != undefined) {
-                            tempFile.name = guid;
-                            formData.append('NoticeAppImage', tempFile, tempFile.name);
-                            formData.append('GUID', guid);
-                            formData.append('createdby', document.getElementById("LoginName").innerHTML);
+                        var imagefile;
+                        imagefile = $('#UpSaint')[0].files[0];
+                        // imagefile.name = imgId;
+                        formData.append('upImageFile', imagefile, imagefile.name);
+                        formData.append('patronName', PatronMaster.patronMasterName);
+                        formData.append('description', PatronMaster.description);
+                        formData.append('createdby', document.getElementById("LoginName").innerHTML);
+                        formData.append('ActionTyp', 'PatronImageInsert');
+                        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                        switch (result.status) {
+                            case "1":
+                                BindPatrons();
+                                noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                                $("#hdfPatronID").val(result.patronMasterId);
+                                $("#hdfPatronImageID").val(result.imageID);
+                                break;                          
+                            case "0":
+                                noty({ type: 'error', text: Messages.FailureMsgCaption });
+                                break;
+                            default:
+                                noty({ type: 'error', text: result.status });
+                                break;
                         }
-                        formData.append('ActionTyp', 'NoticeAppImageInsert');
-                        AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                        PatronMaster.imageID = guid;
                     }
                     else {
-                        if ($('#hdfPatronImageID').val() != '') {
-                            PatronMaster.imageID = $('#hdfPatronImageID').val(); // If no image is selected ,while updating, old imagid itself passed which is stored in hiddenfield
+                        var result = InsertPatron(PatronMaster);
+                        switch (result.status) {
+                            case "1":
+                                noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                                $("#hdfPatronID").val(result.patronMasterId);
+                                $("#hdfPatronImageID").val(result.imageID);
+                                BindPatrons();
+                                break;
+                            case "0":
+                                noty({ type: 'error', text: Messages.FailureMsgCaption });
+
+                                break;
+                           
+                            default:
+                                noty({ type: 'error', text: result.status });
+                                break;
                         }
                     }
-                }
+                } //UPDATE
+                else {
+                    //check image for updat
+                    if ((imgresult = $('#UpSaint')[0].files.length > 0)) {
+                        debugger;
+                        var formData = new FormData();
+                        var imagefile;
+                        imagefile = $('#UpSaint')[0].files[0];
+                        formData.append('upImageFile', imagefile, imagefile.name);
+                        formData.append('patronName', PatronMaster.patronMasterName);
+                        formData.append('description', PatronMaster.description);
+                        formData.append('patronID', $("#hdfPatronID").val())
+                        formData.append('patronImageID', $("#hdfPatronImageID").val())
+                        formData.append('updatedby', document.getElementById("LoginName").innerHTML);
+                        formData.append('ActionTyp', 'PatronImageUpdate');
+                        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
 
-                if ($('#hdfPatronID').val() != "") { //Case Update
-                    PatronMaster.patronMasterId = $('#hdfPatronID').val();
-
-                    result = UpdatePatron(PatronMaster);
-                    switch (result.status) {
-                        case "1":
-                            noty({ type: 'success', text: 'Updated successfully' });
-                            BindPatrons();
-                            break;
-                        case "0":
-                            noty({ type: 'error', text: 'Updation was not successfull' });
-
-                            break;
-                        default:
-                            noty({ type: 'error', text: result.status });
-                            break;
-                    }
-
-                    if ($('#hdfPatronImageID').val() != '' && (((imagefile = $('#UpSaint')[0].files[0]) != undefined))) {
-
-                        //--if patron is updated with new image, the old image should delete from folder and table
-                        var AppImages = new Object();
-                        AppImages.appImageId = $('#hdfPatronImageID').val();
-                        DeleteAppImage(AppImages);
-
-                        if ($('#hdfPatronImageURL').val() != "") {
-                            DeleteFileFromFolder($('#hdfPatronImageURL').val());
+                        switch (result.status) {
+                            case "1":
+                                $("#hdfPatronID").val(result.patronMasterId);
+                                $("#hdfPatronImageID").val(result.imageID);
+                                noty({ type: 'success', text: Messages.UpdationSuccessFull });
+                                BindPatrons();
+                                break;
+                           
+                            case "0":
+                                noty({ type: 'error', text: Messages.FailureMsgCaption });
+                                break;
+                            default:
+                                noty({ type: 'error', text: result });
+                                break;
                         }
-                        $('#hdfPatronImageID').val("");
-                        $('#hdfPatronImageURL').val("");
                     }
-                }
-                else {  //Case Insert
-                    result = InsertPatron(PatronMaster);
-                    switch (result.status) {
-                        case "1":
-                            noty({ type: 'success', text: 'Inserted successfully' });
-                            BindPatrons();
-                            break;
-                        case "0":
-                            noty({ type: 'error', text: 'Insertion was not successfull' });
+                    else {
+                        PatronMaster.patronMasterId = $("#hdfPatronID").val();
+                        var result = UpdatePatron(PatronMaster);
+                        switch (result.status) {
+                            case "1":
+                                $("#hdfPatronID").val(result.patronMasterId);
+                                $("#hdfPatronImageID").val(result.imageID);
+                                noty({ type: 'success', text: Messages.UpdationSuccessFull });
 
-                            break;
-                        default:
-                            noty({ type: 'error', text: result.status });
-                            break;
-                    }
-                }
+                                BindPatrons();
+                                break;
+                            case "0":
+                                noty({ type: 'error', text: Messages.FailureMsgCaption });
+
+                                break;
+                          
+                            default:
+                                noty({ type: 'error', text: result.status });
+                                break;
+                        }
+                    }//else
+                }//else
+            }//patronflag if
 
 
-                //ClearModalControls();
-            }
 
-            else {
-                return false;
-            }
         }
         catch (e) {
             noty({ type: 'error', text: e.message });
         }
-      
 
     });
 
@@ -1852,8 +1982,10 @@ function RemoveSaint(curobj)
     if (r == true) {
        
         var PatronMaster = new Object();
-       
+        var AppImages = new Object();
         PatronMaster.patronMasterId = data.ID;
+        PatronMaster.imageID = data.ImageID;
+        PatronMaster.appImagesObj = AppImages;
         var result = DeleteSaint(PatronMaster);
 
         switch (result.status) {
@@ -1865,6 +1997,10 @@ function RemoveSaint(curobj)
             case "0":
                 noty({ type: 'error', text: Messages.DeletionFailure });
               
+                break;
+            case "2":
+                noty({ type: 'error', text: Messages.DeletionFailureUsed });
+
                 break;
             default:
                 noty({ type: 'error', text: result.status });
@@ -2041,12 +2177,23 @@ function EditSaint(curobj) {
     RemoveStyle();
     var PatronMaster = new Object();
     PatronMaster.patronMasterId = data.ID;
+    PatronMaster.imageID = data.ImageID;
     $("#hdfPatronID").val(PatronMaster.patronMasterId);
+    $("#hdfPatronImageID").val(PatronMaster.imageID);
+
     var PatronDetail = GetPatronDetailByID(PatronMaster);
     $("#txtSaintName").val(PatronDetail[0].Name);
     $("#txtSaintDescription").val(PatronDetail[0].Description);
     $("#hdfPatronID").val(PatronDetail[0].ID);
-    document.getElementById("imgSaint").src = PatronDetail[0].URL;
+    if (PatronDetail[0].URL==null)
+    {
+       
+        $("#imgSaint").attr('src', '/img/defaultalbumadd.jpg');
+    }
+    else
+    {
+        $("#imgSaint").attr('src', PatronDetail[0].URL);
+    }
 }
 
 

@@ -283,7 +283,9 @@ var Messages = {
     SelectPatron: "Select Patron includes",
     LoginSuccess: "Successfully logged in",
     InsertionSuccessFull: "Successfully Inserted",
+    InsertionFailure: "Not Successfuly Saved Try Again",
     UpdationSuccessFull: "Successfully Edited",
+    UpdationFailure: "Edit Failed Try Again Later",
     DeletionSuccessFull: "Deleted Successfully",
     SuccessfulUpload: "Successfully Uploaded",
     SavedSuccessfull: "Successfully Saved!",
@@ -295,10 +297,11 @@ var Messages = {
     InvalidStartDate: "Invalid Start Date !",
     InvalidExpiry: "Invalid End/Expiry Date !",
     LoginFailed: "User Name / Password is wrong!",
-    InsertionFailure: "Not Successfuly Saved Try Again",
-    UpdationFailure: "Edit Failed Try Again Later",
+   
+   
     Warning: "Warning Msg ",
     DeletionFailure: "Deletion Not Successful ",
+    DeletionFailureUsed:"Deletion Not Successful! It is beeing used",
     SavingFailure: "Saving Not Successful ",
     AlreadyUsedForDeletion: "Already used . Can't be deleted",
     AlreadyUsedForUpdation: "Already used . Can't be changed",

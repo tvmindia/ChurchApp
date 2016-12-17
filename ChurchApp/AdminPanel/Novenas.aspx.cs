@@ -288,8 +288,15 @@ namespace ChurchApp.AdminPanel
                 UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
+                    //Check town has image and delete it
+                    if ((PatrnObj.imageID != null) && (PatrnObj.imageID != ""))
+                    {
+                        //overwrite appImagesObj.appImageId to townObj.imageId
+                        PatrnObj.appImagesObj.appImageId = PatrnObj.imageID;
+                        PatrnObj.appImagesObj.SelectAppImageByID();
+                    }
 
-                    PatrnObj.DeletePatronMaster(UA.ChurchID);
+                    PatrnObj.DeletePatronMaster();
                 }
                 //Session is out
                 else

@@ -30,6 +30,7 @@ namespace ChurchApp.ImageHandler
                 string appImgLoc = HttpContext.Current.Server.MapPath("~/img/AppImages/");
                 HttpPostedFile postFile = null;
                 TownMaster townMasterObj = null;
+                PatronMaster patronMasterObj = null;
                 //
 
                 string AppImagePath = "";
@@ -342,6 +343,84 @@ namespace ChurchApp.ImageHandler
                                 }
                           
                             break;
+                            case "PatronImageInsert":
+                            try
+                            {
+                                patronMasterObj = new PatronMaster();
+                                //Insert to table
+                                AppImgObj = new AppImages();
+                                postFile = context.Request.Files["upImageFile"];
+                                fileExtension = Path.GetExtension(postFile.FileName);
+                                AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                AppImgObj.type = "image";
+                                AppImgObj.InsertAppImage1().ToString();
+                                patronMasterObj.patronMasterName = context.Request.Form.GetValues("patronName")[0];
+                                patronMasterObj.description = context.Request.Form.GetValues("description")[0];
+                                patronMasterObj.createdBy = AppImgObj.createdBy;
+                                patronMasterObj.imageID = AppImgObj.appImageId;
+                                patronMasterObj.InsertPatronMaster();
+                                postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                jsSerializer = new JavaScriptSerializer();
+                                context.Response.Write(jsSerializer.Serialize(patronMasterObj));
+                            }
+                            catch (Exception ex)
+                            {
+                                patronMasterObj.status = ex.Message;
+                                context.Response.Write(jsSerializer.Serialize(patronMasterObj));
+                            }
+                            break;
+                            case "PatronImageUpdate":
+                            try
+                            {
+                                patronMasterObj = new PatronMaster();
+                                AppImgObj = new AppImages();
+                                postFile = context.Request.Files["upImageFile"];
+                                fileExtension = Path.GetExtension(postFile.FileName);
+                                if ((context.Request.Form.GetValues("patronImageID")[0] != "") && (context.Request.Form.GetValues("patronImageID")[0] != null))
+                                {
+                                    //update currrent patron image with new one
+                                    AppImgObj.appImageId = context.Request.Form.GetValues("patronImageID")[0];
+                                    AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                    AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                                    AppImgObj.type = "image";
+                                    AppImgObj.Extension = fileExtension;
+                                    AppImgObj.postedFile = postFile;
+                                    //Delete Previous image from folder and save new folder 
+                                    AppImgObj.UpdateCurrentAppImageInFolder();
+                                }
+                                else
+                                {
+                                    //insert new image for imageless town
+                                    AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                    AppImgObj.createdBy = context.Request.Form.GetValues("updatedby")[0];
+                                    AppImgObj.type = "image";
+                                    AppImgObj.Extension = fileExtension;
+                                    AppImgObj.postedFile = postFile;
+                                    AppImgObj.InsertAppImage1().ToString();
+                                    postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+
+                                }
+                                //Update PatronMaster
+                                patronMasterObj.patronMasterId = context.Request.Form.GetValues("patronID")[0];
+                                patronMasterObj.patronMasterName = context.Request.Form.GetValues("patronName")[0];
+                                patronMasterObj.description = context.Request.Form.GetValues("description")[0];
+
+                                patronMasterObj.updatedBy = AppImgObj.updatedBy;
+                                patronMasterObj.imageID = AppImgObj.appImageId;
+                                patronMasterObj.UpdatePatronMaster();
+
+                                jsSerializer = new JavaScriptSerializer();
+                                context.Response.Write(jsSerializer.Serialize(patronMasterObj));
+                            }
+                            catch (Exception ex)
+                            {
+                                patronMasterObj.status = ex.Message;
+                                context.Response.Write(jsSerializer.Serialize(patronMasterObj));
+                            }
+
+                            break;
+
 
                         }
                     }

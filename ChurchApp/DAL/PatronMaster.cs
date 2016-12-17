@@ -11,6 +11,7 @@ namespace ChurchApp.DAL
     public class PatronMaster
     {
         public Church churchObj;
+        public AppImages appImagesObj;
         Common cmnObj = new Common();
         #region Public Properties
         public string patronMasterId
@@ -159,7 +160,7 @@ namespace ChurchApp.DAL
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            SqlParameter outParam = null;
+            SqlParameter outParam = null,outPatronID=null;
             try
             {
                 dcon = new dbConnection();
@@ -181,6 +182,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =cmnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outPatronID = cmd.Parameters.Add("@OutPatronID", SqlDbType.UniqueIdentifier);
+                outPatronID.Direction = ParameterDirection.Output;
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
@@ -195,6 +198,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
+            patronMasterId = outPatronID.Value.ToString();
             status=outParam.Value.ToString();
             return status;
         }
@@ -254,7 +258,7 @@ namespace ChurchApp.DAL
         /// Delete PatronMaster
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string DeletePatronMaster(string churchId)
+        public string DeletePatronMaster()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -268,10 +272,18 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[DeletePatronMaster]";
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronMasterId);
-              //  cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+                if (outParam.Value.ToString()=="1")
+                {
+                    if ((imageID != null) && (imageID != ""))
+                    {
+
+                        appImagesObj.DeleteAppImage();
+                    }
+                }
+               
             }
             catch (Exception ex)
             {
