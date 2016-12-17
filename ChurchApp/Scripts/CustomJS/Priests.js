@@ -30,25 +30,23 @@
         $('#bthCancelDetails').click(function (e) {
             try
             {
-
+                var action = $(this).attr('name');
+                if (action == "View") {
+                    $('#PriestEd').hide();
+                    $('#PriestShowDetails').hide();
+                }
+                else {
+                    $('#PriestEd').show();
+                    $('#PriestShowDetails').hide();
+                }
+                $('#priestPreview').attr('src', '../img/gallery/priest.png');
+                ClearFields();
             }
             catch(e)
             {
                 noty({ type: 'error', text: e.message });
             }
-            var action = $(this).attr('name');
-            if (action == "View")
-            {
-                $('#PriestEd').hide();
-                $('#PriestShowDetails').hide();
-            }
-            else
-            {
-                $('#PriestEd').show();
-                $('#PriestShowDetails').hide();
-            }
-            $('#priestPreview').attr('src', '../img/gallery/priest.png');
-            ClearFields();
+            
         });
         /////---------------function Add priest from existing data using autocomplete
         $('#btnAddPriest').click(function (e) {
@@ -305,7 +303,7 @@ function savePriest()
     }
     catch(e)
     {
-        
+        noty({ type: 'error', text: e.message });
     }
 }
 //Autocomplete for textbox priest name for quick search priest and add to church
@@ -407,52 +405,57 @@ function AutoComplete()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////*********************** Function for binding priest list vicar and asst vicar
     function check() {
-        var priestDetails = {};
-        var elems = $();
-        var elemsAsst = $();
-        var elemsEmtyVicar = $();
-        var elemsEmtyAsstVicar = $();
-        //<%=listFilter %>;
-        priestDetails = GetPriestUsingChurchID();
-        if (priestDetails.length == 0)
+        try
         {
-            $('#VicarDefault').remove();
-            $('#AsstVicarDefault').remove();
-            elemsEmtyVicar = elemsEmtyVicar.add(HtmlBindVicar());
-            $('#VicarDivDisplay').empty();
-            $('#VicarDivDisplay').append(elemsEmtyVicar);
-            elemsEmtyAsstVicar = elemsEmtyAsstVicar.add(HtmlBindAsstVicar());
-            $('#assVicardiv').empty();
-            $('#assVicardiv').append(elemsEmtyAsstVicar);
+            var priestDetails = {};
+            var elems = $();
+            var elemsAsst = $();
+            var elemsEmtyVicar = $();
+            var elemsEmtyAsstVicar = $();
+            //<%=listFilter %>;
+            priestDetails = GetPriestUsingChurchID();
+            if (priestDetails.length == 0) {
+                $('#VicarDefault').remove();
+                $('#AsstVicarDefault').remove();
+                elemsEmtyVicar = elemsEmtyVicar.add(HtmlBindVicar());
+                $('#VicarDivDisplay').empty();
+                $('#VicarDivDisplay').append(elemsEmtyVicar);
+                elemsEmtyAsstVicar = elemsEmtyAsstVicar.add(HtmlBindAsstVicar());
+                $('#assVicardiv').empty();
+                $('#assVicardiv').append(elemsEmtyAsstVicar);
 
-        }
-        else
-        {
-            $('#VicarDefault').remove();
-            //$('#AsstVicarDefault').remove();
-            elemsEmtyVicar = elemsEmtyVicar.add(HtmlBindVicar());
-            $('#VicarDivDisplay').empty();
-            $('#VicarDivDisplay').append(elemsEmtyVicar);
-            
-            for (var i = 0; i < priestDetails.length; i++) {
-                if (priestDetails[i].IsActive != "False") {
-                    if (priestDetails[i].Status == "Vicar") {
-                        $('#VicarDefault').remove();
-                        elems = elems.add(HtmlBindProductWithOffer(priestDetails[i]));
-                        $('#VicarDivDisplay').empty();
-                        $('#VicarDivDisplay').append(elems);
-                    }
-                    if (priestDetails[i].Status == "Asst Vicar") {
-                        $('#AsstVicarDefault').remove();
-                        elemsAsst = elemsAsst.add(HtmlBindWithAsst(priestDetails[i]));
-                        $('#assVicardiv').append(elemsAsst);
-                    }
-                    
-                }
-                
             }
-           
+            else {
+                $('#VicarDefault').remove();
+                //$('#AsstVicarDefault').remove();
+                elemsEmtyVicar = elemsEmtyVicar.add(HtmlBindVicar());
+                $('#VicarDivDisplay').empty();
+                $('#VicarDivDisplay').append(elemsEmtyVicar);
+
+                for (var i = 0; i < priestDetails.length; i++) {
+                    if (priestDetails[i].IsActive != "False") {
+                        if (priestDetails[i].Status == "Vicar") {
+                            $('#VicarDefault').remove();
+                            elems = elems.add(HtmlBindProductWithOffer(priestDetails[i]));
+                            $('#VicarDivDisplay').empty();
+                            $('#VicarDivDisplay').append(elems);
+                        }
+                        if (priestDetails[i].Status == "Asst Vicar") {
+                            $('#AsstVicarDefault').remove();
+                            elemsAsst = elemsAsst.add(HtmlBindWithAsst(priestDetails[i]));
+                            $('#assVicardiv').append(elemsAsst);
+                        }
+
+                    }
+
+                }
+
+            }
         }
+        catch(e)
+        {
+            noty({ type: 'error', text: e.message });
+        }      
         
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -507,27 +510,33 @@ function AutoComplete()
     }
     // Create new vicar and new Asst Vicar section
     function OpenNewAdd(Tag) {
-        RemoveStyle();
-        ClearFields();
-        $('#btnCancelPriest').attr('name', 'New');
-        $('#priestPreview').attr('src', "../img/gallery/priest.png");
-        $('#hdfPriestID').val('');
-        if (Tag == "Asst")
+        try
         {
-            document.getElementById('HeadDetails').innerText = "Add New Asst Vicar";
-            $('#btnSavePriest').attr('name', 'Asst');
-            $('#btnAddPriest').attr('name', 'Asst');
+            RemoveStyle();
+            ClearFields();
+            $('#btnCancelPriest').attr('name', 'New');
+            $('#priestPreview').attr('src', "../img/gallery/priest.png");
+            $('#hdfPriestID').val('');
+            if (Tag == "Asst") {
+                document.getElementById('HeadDetails').innerText = "Add New Asst Vicar";
+                $('#btnSavePriest').attr('name', 'Asst');
+                $('#btnAddPriest').attr('name', 'Asst');
+            }
+            if (Tag == "Vicar") {
+                document.getElementById('HeadDetails').innerText = "Add New Vicar";
+                $('#btnSavePriest').attr('name', 'Vicar');
+                $('#btnAddPriest').attr('name', 'Vicar');
+            }
+            $('#PriestShowDetails').hide();
+            $('#btnrefresh').hide();
+            $('#PriestEd').show();
+            $('#txtPriestName').focus();
         }
-        if (Tag == "Vicar")
+        catch(e)
         {
-            document.getElementById('HeadDetails').innerText = "Add New Vicar";
-            $('#btnSavePriest').attr('name', 'Vicar');
-            $('#btnAddPriest').attr('name', 'Vicar');
+            noty({ type: 'error', text: e.message });
         }
-        $('#PriestShowDetails').hide();
-        $('#btnrefresh').hide();
-        $('#PriestEd').show();
-        $('#txtPriestName').focus();
+       
         
     }
     //Onclick function for view priest details
@@ -582,30 +591,38 @@ function AutoComplete()
     // Bind Details for edit
     function editPriestDetails(this_obj)
     {
-        RemoveStyle();
-        $('#btnCancelPriest').attr('name', '');
-        var priestid = $(this_obj).attr('name');
-        var PriestRow = {};
-        PriestRow = GetPriestDetailsUsingPiestID(priestid);
-        $('#txtPriestName').val(PriestRow.priestName);
-        $('#txtPriestBaptismName').val(PriestRow.BaptisumName);
-        $('#txtParish').val(PriestRow.Parish);
-        $('#txtDiocese').val(PriestRow.Diocese);
-        $('#priestDOB').val(PriestRow.dob);
-        $('#txtAboutPriest').val(PriestRow.about);
-        $('#OrdinationDate').val(PriestRow.dateOrdination);
-        $('#ddlstatus').val(PriestRow.Status).change();
-        $('#txtDesignation').val(PriestRow.designation);
-        $('#txtAddress').val(PriestRow.address);
-        $('#txtEmail').val(PriestRow.emailId);
-        $('#txtMobile').val(PriestRow.mobile);
-        $('#priestPreview').attr('src', PriestRow.imagePath);
-        document.getElementById('HeadDetails').innerText = "Edit Details";
-        $('#hdfPriestID').val( priestid);
-        $('#PriestShowDetails').hide();
-        $('#btnrefresh').show();
-        $('#btnrefresh').attr('onclick','cancel();')
-        $('#PriestEd').show();
+        try
+        {
+            RemoveStyle();
+            $('#btnCancelPriest').attr('name', '');
+            var priestid = $(this_obj).attr('name');
+            var PriestRow = {};
+            PriestRow = GetPriestDetailsUsingPiestID(priestid);
+            $('#txtPriestName').val(PriestRow.priestName);
+            $('#txtPriestBaptismName').val(PriestRow.BaptisumName);
+            $('#txtParish').val(PriestRow.Parish);
+            $('#txtDiocese').val(PriestRow.Diocese);
+            $('#priestDOB').val(PriestRow.dob);
+            $('#txtAboutPriest').val(PriestRow.about);
+            $('#OrdinationDate').val(PriestRow.dateOrdination);
+            $('#ddlstatus').val(PriestRow.Status).change();
+            $('#txtDesignation').val(PriestRow.designation);
+            $('#txtAddress').val(PriestRow.address);
+            $('#txtEmail').val(PriestRow.emailId);
+            $('#txtMobile').val(PriestRow.mobile);
+            $('#priestPreview').attr('src', PriestRow.imagePath);
+            document.getElementById('HeadDetails').innerText = "Edit Details";
+            $('#hdfPriestID').val(priestid);
+            $('#PriestShowDetails').hide();
+            $('#btnrefresh').show();
+            $('#btnrefresh').attr('onclick', 'cancel();')
+            $('#PriestEd').show();
+        }
+        catch(e)
+        {
+            noty({ type: 'error', text: e.message });
+        }
+        
     }
     // Create Guid
     function createGuid() {
@@ -713,61 +730,49 @@ function AutoComplete()
     //Basic Validation For New Administrator
     //CreatedBy Thomson
     function PriestValidation() {
+        try
+        {
+            var Name = $('#txtPriestName');
+            var OrdinationDate = $('#OrdinationDate');
+            var Role = $('#ddlstatus');
+
+            var container = [
+                { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
+                { id: OrdinationDate[0].id, name: OrdinationDate[0].name, Value: OrdinationDate[0].value },
+                { id: Role[0].id, name: Role[0].name, Value: Role[0].value },
+            ];
+
+            var j = 0;
+            for (var i = 0; i < container.length; i++) {
+
+                if (container[i].Value == "") {
+                    j = 1;
+                    var txtB = document.getElementById(container[i].id);
+                    txtB.style.backgroundImage = "url('../img/invalid.png')";
+                    txtB.style.backgroundPosition = "95% center";
+                    txtB.style.backgroundRepeat = "no-repeat";
+
+                }
+                else if (container[i].Value == "-1") {
+                    j = 1;
+                    var txtB = document.getElementById(container[i].id);
+                    txtB.style.backgroundImage = "url('../img/invalid.png')";
+                    txtB.style.backgroundPosition = "93% center";
+                    txtB.style.backgroundRepeat = "no-repeat";
+                }
+            }
+            if (j == '1') {
+                noty({ type: 'error', text: Messages.Validation });
+                return false;
+            }
+            if (j == '0') {
+                savePriest();
+                return true;
+            }
+        }
+        catch(e)
+        {
+            noty({ type: 'error', text: e.message });
+        }
         
-        //$('#Displaydiv').remove();
-        var Name = $('#txtPriestName');
-        var OrdinationDate = $('#OrdinationDate');
-        var Role = $('#ddlstatus');
-
-        var container = [
-            { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
-            { id: OrdinationDate[0].id, name: OrdinationDate[0].name, Value: OrdinationDate[0].value },
-            { id: Role[0].id, name: Role[0].name, Value: Role[0].value },
-        ];
-
-        var j = 0;
-        //var Errorbox = document.getElementById('ErrorBox');
-        //var divs = document.createElement('div');
-        //divs.setAttribute("id", "Displaydiv");
-        //Errorbox.appendChild(divs);
-        for (var i = 0; i < container.length; i++) {
-
-            if (container[i].Value == "") {
-                j = 1;
-                //Errorbox.style.borderRadius = "5px";
-               // Errorbox.style.display = "block";
-                var txtB = document.getElementById(container[i].id);
-                txtB.style.backgroundImage = "url('../img/invalid.png')";
-                txtB.style.backgroundPosition = "95% center";
-                txtB.style.backgroundRepeat = "no-repeat";
-                //Errorbox.style.paddingLeft = "30px";
-
-            }
-            else if (container[i].Value == "-1") {
-                j = 1;
-               // Errorbox.style.borderRadius = "5px";
-                //Errorbox.style.display = "block";
-                var txtB = document.getElementById(container[i].id);
-                txtB.style.backgroundImage = "url('../img/invalid.png')";
-                txtB.style.backgroundPosition = "93% center";
-                txtB.style.backgroundRepeat = "no-repeat";
-                //Errorbox.style.paddingLeft = "30px";
-            }
-        }
-        if (j == '1') {
-            //var p = document.createElement('p');
-            //p.innerHTML = "* Some Fields Are Empty ! ";
-            //p.style.color = "Red";
-            //p.style.fontSize = "14px";
-            noty({ type: 'error', text: Messages.Validation });
-            //divs.appendChild(p);
-            //$('#btnAddAdmin').attr('name', 'failure');
-            return false;
-        }
-        if (j == '0') {
-            //$('#ErrorBox').hide(1000);
-            //scriptvalidate();
-            savePriest();
-            return true;
-        }
     }

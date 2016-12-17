@@ -457,11 +457,6 @@ namespace ChurchApp.DAL
                     cmd.Parameters.Add("@EventExpiryDate", SqlDbType.DateTime).Value = commonObj.Changeformat(eventExpiryDate); 
                         //Convert.ToDateTime(eventExpiryDate);
                 }
-
-                //if (isAutoHide == string.Empty)
-                //{
-                //    isAutoHide = "true";
-                //}
                 var c = Convert.ToBoolean(isAutoHide);
                 cmd.Parameters.Add("@IsAutoHide", SqlDbType.Bit).Value = Convert.ToBoolean(isAutoHide);
                 if (imageId != string.Empty && imageId != null)

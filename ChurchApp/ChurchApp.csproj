@@ -362,20 +362,15 @@
     <Content Include="img\uploadify-cancel.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\counter.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\CustomJS\AdminLayout.js" />
     <Content Include="Scripts\CustomJS\Common.js" />
     <Content Include="Scripts\CustomJS\DashBoard.js" />
     <Content Include="Scripts\CustomJS\Home.js" />
     <Content Include="Scripts\excanvas.js" />
-    <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\jquery-1.12.3.min.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-migrate-1.0.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.custom.min.js" />
-    <Content Include="Scripts\jquery.chosen.min.js" />
-    <Content Include="Scripts\jquery.cleditor.min.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.elfinder.min.js" />
@@ -387,15 +382,11 @@
     <Content Include="Scripts\jquery.imagesloaded.js" />
     <Content Include="Scripts\jquery.iphone.toggle.js" />
     <Content Include="Scripts\jquery.knob.modified.js" />
-    <Content Include="Scripts\jquery.masonry.min.js" />
     <Content Include="Scripts\jquery.noty.js" />
-    <Content Include="Scripts\jquery.raty.min.js" />
-    <Content Include="Scripts\jquery.sparkline.min.js" />
     <Content Include="Scripts\jquery.ui.touch-punch.js" />
     <Content Include="Scripts\jquery.uniform.min.js" />
     <Content Include="Scripts\jquery.uploadify-3.1.min.js" />
     <Content Include="Scripts\modernizr.js" />
-    <Content Include="Scripts\retina.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
