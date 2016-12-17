@@ -1,4 +1,5 @@
-﻿$("document").ready(function (e) {
+﻿var counter = 0;
+$("document").ready(function (e) {
     BindAsyncAdminsTable();
     parent.$("#MassSchedule").addClass("active");
     $("#TxtTime").timepicker({
@@ -81,23 +82,7 @@
                     var jsonResult = {};
                     MassTimings.day = day + ",";
                     jsonResult = selectMassTimeByDay(MassTimings);
-                    var length = jsonResult.length;
-                    var MassID = new Array();
-                    var massDay = new Array();
-                    var massChurchID = "";
-                    var Day = "";
-                    var Time = new Array();
-                    for (var i = 0; i < length; i++) {
-                        var ID = jsonResult[i]["ID"];
-                        massChurchID = jsonResult[i]["ChurchID"];
-                        Day = jsonResult[i]["Day"];
-                        var MassTime = jsonResult[i]["Time"];
-                        MassID.push(ID);
-                        Time.push(MassTime);
-                        massDay.push(Day);
-                    }
-                    Time = BindTime(Time)
-                    ReBindMassTimingUpdateTable(MassID, massChurchID, massDay, Time);
+                    ReBindMassTimingUpdateTable(jsonResult);
                     noty({ text: 'Saved Successfully', type: 'success' });
                     break;
                 case "0":
@@ -129,21 +114,7 @@
                     MassTimings.massChurchId = churchId;
                     MassTimings.day = day + ",";
                     jsonResult = selectMassTimeByDay(MassTimings);
-                    var length = jsonResult.length;
-                    var MassID = new Array();
-                    var massChurchID = "";
-                    var Day = "";
-                    var Time = new Array();
-                    for (var i = 0; i < length; i++) {
-                        var ID = jsonResult[i]["ID"];
-                        massChurchID = jsonResult[i]["ChurchID"];
-                        Day = jsonResult[i]["Day"];
-                        var MassTime = jsonResult[i]["Time"];
-                        MassID.push(ID);
-                        Time.push(MassTime);
-                    }
-                    Time = BindTime(Time)
-                    ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
+                    ReBindMassTimingUpdateTable(jsonResult);
                     noty({ text: 'Updated Successfully', type: 'success' });
                     break;
                 default:
@@ -204,23 +175,7 @@
                     MassTimings.massChurchId = churchId;
                     MassTimings.day = day+",";
                     jsonResult = selectMassTimeByDay(MassTimings);
-                    var length = jsonResult.length;
-                    var MassID = new Array();
-                    var massDay = new Array();
-                    var massChurchID = "";
-                    var Day = "";
-                    var Time = new Array();
-                    for (var i = 0; i < length; i++) {
-                        var ID = jsonResult[i]["ID"];
-                        massChurchID = jsonResult[i]["ChurchID"];
-                        Day = jsonResult[i]["Day"];
-                        var MassTime = jsonResult[i]["Time"];
-                        MassID.push(ID);
-                        Time.push(MassTime);
-                        massDay.push(Day);
-                    }
-                    Time = BindTime(Time)
-                    ReBindMassTimingUpdateTable(MassID, massChurchID, massDay, Time);
+                    ReBindMassTimingUpdateTable(jsonResult);
                     noty({ text: 'Deleted Successfully', type: 'success' });
                     break;
                 default:
@@ -241,6 +196,8 @@
     var $eventDaySelect = $("#ddlDay");
     $eventDaySelect.on("change", function (e) {
         debugger;
+        counter = 0;
+        $("#AddorEditSpan").text("Save");
         var dayarr = new Array();
         if ($("#ddlDay").val() != null)
         {
@@ -300,51 +257,26 @@ function BindGridOnDaySelect(dayarr)
     dayarr = dayarr + ",";
     MassTimings.day = dayarr.toString();
     jsonResult = selectMassTimeByDay(MassTimings);
+    ReBindMassTimingUpdateTable(jsonResult);
+}
+
+function ReBindMassTimingUpdateTable(jsonResult) {
+    debugger;
+    var MassID = jsonResult[0]["ID"];
     var length = jsonResult.length;
-    var MassID = new Array();
-    var dayArray = new Array();
-    var massChurchID = "";
-    var Day = "";
-    var Time = new Array();
+    $("#massTimingUpdateTable").html("");
     for (var i = 0; i < length; i++) {
         var ID = jsonResult[i]["ID"];
         massChurchID = jsonResult[i]["ChurchID"];
         Day = jsonResult[i]["Day"];
         var MassTime = jsonResult[i]["Time"];
-        MassID.push(ID);
-        Time.push(MassTime);
-        dayArray.push(Day);
+        MassTime = hrsToAmPm(MassTime)
+        var html = '<tr class="MassTimingUpdateRows" ID="' + ID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + MassTime + '"><td>' + Day + '</td><td class="center">' + MassTime + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+        $("#massTimingUpdateTable").append(html);
     }
-    Time = BindTime(Time)
-    ReBindMassTimingUpdateTable(MassID, massChurchID, dayArray, Time);
-}
-
-function ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
-    //document.getElementById("massTimingUpdateTable").innerHTML = "";
-    var ChurchMassID = "";
-    var MassDay = "";
-    var massTime = "";
-    var massLength = MassID.length;
-    $("#massTimingUpdateTable").append("");
+    
     if (MassID != "")
     {
-        if (massLength > 1) {
-            for (var i = 0; i < massLength; i++) {
-                ChurchMassID = MassID[i];
-                massTime = Time[i];
-                MassDay = Day[i];
-                var html = '<tr class="MassTimingUpdateRows" ID="' + ChurchMassID + '"ChurchID="' + massChurchID + '"Day="' + MassDay + '"Time="' + massTime + '"><td>' + MassDay + '</td><td class="center">' + massTime + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
-                $("#massTimingUpdateTable").append(html);
-            }
-
-        }
-        else {
-
-            var html = '<tr class="MassTimingUpdateRows" ID="' + MassID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + Time + '"><td>' + Day + '</td><td class="center">' + Time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
-            $("#massTimingUpdateTable").append(html);
-
-        }
-
         document.getElementById("massTimingsUpdate").style.display = "";
     }
     else
@@ -356,29 +288,30 @@ function ReBindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
 function AddTempTable()
 {
     debugger;
-    // $("#massTimingUpdateTable").html('');
-    document.getElementById("massTimingsUpdate").style.display ='';
-    
-    $("#massTimingTempTable").show();
-    document.getElementById("massTimingUpdateTable").style.display = "none ";
-    var time = $("#TxtTime").val();
-    var dayarr = new Array();
-    if ($("#ddlDay").val() != null) {
-        $('#ddlDay :selected').each(function (i, sel) {
-            dayarr.push($(sel).val());
-
-        });
-    }
-    var len = dayarr.length;
-    if ($("#TxtTime").val() != "" && $("#TxtTime").val() != null && len!=0)
+    if (counter != 1)
     {
-        if (len > 0) {
-            for (var i = 0; i < dayarr.length; i++) {
-                var html = '<tr  ><td>' + dayarr[i] + '</td><td class="center">' + (time != "NaN:NaN" ? time : "-") + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
-                $("#massTimingTempTable").append(html);
-            }
+        document.getElementById("massTimingsUpdate").style.display = '';
+
+        $("#massTimingTempTable").show();
+        document.getElementById("massTimingUpdateTable").style.display = "none ";
+        var time = $("#TxtTime").val();
+        var dayarr = new Array();
+        if ($("#ddlDay").val() != null) {
+            $('#ddlDay :selected').each(function (i, sel) {
+                dayarr.push($(sel).val());
+
+            });
         }
-        
+        var len = dayarr.length;
+        if ($("#TxtTime").val() != "" && $("#TxtTime").val() != null && len != 0) {
+            if (len > 0) {
+                for (var i = 0; i < dayarr.length; i++) {
+                    var html = '<tr  ><td>' + dayarr[i] + '</td><td class="center">' + (time != "NaN:NaN" ? time : "-") + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
+                    $("#massTimingTempTable").append(html);
+                }
+            }
+
+        }
     }
     
 }
@@ -442,26 +375,21 @@ function BindMassEditGrid(e) {
 }
 function BindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
     document.getElementById("massTimingUpdateTable").innerHTML = "";
-    var ChurchMassID = "";
-    var MassDay = "";
-    var massTime = "";
-    if (MassID.includes(",") == true) {
-        var massId = MassID.split(",").length;
-        for (var i = 0; i < massId; i++) {
-            ChurchMassID = MassID.split(",")[i];
-            massTime = Time.split(",")[i];
-
-            var html = '<tr class="MassTimingUpdateRows" ID="' + ChurchMassID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + massTime + '"><td>' + Day + '</td><td class="center">' + massTime + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
-            $("#massTimingUpdateTable").append(html);
-        }
-    }
-    else {
-
-        var html = '<tr class="MassTimingUpdateRows" ID="' + MassID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + Time + '"><td>' + Day + '</td><td class="center">' + Time + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+    var jsonResult = {};
+    var MassTimings = new Object();
+    MassTimings.day = Day + ",";
+    jsonResult = selectMassTimeByDay(MassTimings);
+    var length = jsonResult.length;
+    for (var i = 0; i < length; i++) {
+        var ID = jsonResult[i]["ID"];
+        massChurchID = jsonResult[i]["ChurchID"];
+        Day = jsonResult[i]["Day"];
+        var MassTime = jsonResult[i]["Time"];
+        MassTime = hrsToAmPm(MassTime);
+        var html = '<tr class="MassTimingUpdateRows" ID="' + ID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + MassTime + '"><td>' + Day + '</td><td class="center">' + MassTime + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
         $("#massTimingUpdateTable").append(html);
-
-    }
-
+    }   
+    
     document.getElementById("massTimingsUpdate").style.display = "";
 }
 function hrsTo24hrormat() {
@@ -485,6 +413,31 @@ function hrsTo24hrormat() {
     if (minutes < 10) sMinutes = sMinutes;
     return sHours + ":" + sMinutes;
 }
+function hrsToAmPm(time) {
+    var hours = parseInt(time.split(":")[0]);
+    var minutes = parseInt(time.split(":")[1]);
+    var dd = "AM";
+    var h = hours;
+    if (h >= 12) {
+        h = hours - 12;
+        dd = "PM";
+    }
+    if (h == 0) {
+        h = 12;
+    }
+
+    var sHours = h.toString();
+    if (sHours.length == 1)
+    {
+        sHours = "0" + sHours;
+    }
+    var sMinutes = minutes.toString();
+    if (sMinutes.length == 1)
+    {
+        sMinutes = "0" + sMinutes;
+    }
+    return sHours + ":" + sMinutes +" "+dd;
+}
 function DeleteMassTime(MassTimings) {
     var data = "{'MassTimingsObj':" + JSON.stringify(MassTimings) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/MassSchedules.aspx/DeleteMassTiming");
@@ -493,31 +446,18 @@ function DeleteMassTime(MassTimings) {
     return table;
 }
 function BindMassScheduleTextBoxes(jsonResult) {
+    debugger;
     var day = jsonResult[0]["Day"];
     var churchId = jsonResult[0]["ChurchID"];
     var massId = jsonResult[0]["ID"];
     var jsonResultTime = jsonResult[0]["Time"];
+    jsonResultTime = jsonResultTime.Hours + ":" + jsonResultTime.Minutes ;
+    jsonResultTime=hrsToAmPm(jsonResultTime)
     $("#hdfChurchID").val(churchId);
     $("#hdfMassID").val(massId);
     $('.dropcheck', this.$container).attr('placeholder', day);
-    var time = jsonResultTime.Hours + ":" + jsonResultTime.Minutes;
-    var hours = time.split(":")[0].length;
-    var minute = time.split(":")[1].length;
-    if ((hours == "1") && (minute == "1")) {
-        hours = "0" + jsonResultTime.Hours;
-        minute = "0" + jsonResultTime.Minutes;
-        var time = hours + ":" + minute;
-    }
-    else if (hours == "1") {
-        hours = "0" + jsonResultTime.Hours;
-        var time = hours + ":" + jsonResultTime.Minutes;
-    }
-    else if (minute == "1") {
-        minute = "0" + jsonResultTime.Minutes;
-        var time = jsonResultTime.Hours + ":" + minute;
-    }
-
-    $("#TxtTime").val(time);
+    $("#TxtTime").val(jsonResultTime);
+    counter = 1;
 }
 function InsertMassTiming(MassTimings) {
     var data = "{'MassTimingsObj':" + JSON.stringify(MassTimings) + "}";
