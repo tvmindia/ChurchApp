@@ -921,6 +921,16 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string[] mDay
+        {
+            get;
+            set;
+        }
+        public string[] mTime
+        {
+            get;
+            set;
+        }
         public string massTime
         {
             get;
@@ -980,7 +990,7 @@ namespace ChurchApp.DAL
         /// Add New MassTiming
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string InsertMassTiming()
+        public string InsertMassTiming(string massDay,string massTime)
         {
             dbConnection dcon = null;
             SqlParameter outParam = null;
@@ -994,8 +1004,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertMassTiming]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
-                cmd.Parameters.Add("@list", SqlDbType.NVarChar, -1).Value = day;
-                massTime = massTime.Replace(" ", "");
+                cmd.Parameters.Add("@Day", SqlDbType.VarChar, -1).Value = massDay;
                 cmd.Parameters.Add("@Time", SqlDbType.Time, 7).Value = TimeSpan.Parse(massTime);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);

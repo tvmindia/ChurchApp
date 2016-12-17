@@ -1,4 +1,9 @@
 ﻿var counter = 0;
+var massDay = new Array();
+var massTime = new Array();
+var curTime = "";
+var curDay = "";
+var NovenaDayAndTime = new Array();
 $("document").ready(function (e) {
     BindAsyncAdminsTable();
     parent.$("#MassSchedule").addClass("active");
@@ -18,11 +23,6 @@ $("document").ready(function (e) {
         "bInfo": false,
         "oLanguage":false
     });
-    //$("#ddlDay").select2({
-    //    placeholder: "Select Day",
-    //    allowClear: true,
-    //});
-    //$("#ddlDay").val("").trigger("change");
     //--------------- *Save MassTiming* ----------------//
     $(".cancel").click(function (e) {
         debugger;
@@ -51,11 +51,11 @@ $("document").ready(function (e) {
         $("input[type=checkbox]").prop('checked', false);
         $('#rowfluidDiv').hide();
        
-       
     });
 
     $(".AddMass").click(function (e) {
         debugger;
+        var MassTimings = new Object();
         $("#NoData").remove();
         $("#massTimingUpdateTable").html('');
         $('#massTimingTableBox').css("height", "auto");
@@ -65,16 +65,25 @@ $("document").ready(function (e) {
             var result = "";
             //var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
             var day = $('.dropcheck').attr('placeholder');
-            if (day == "Daily")
+            if (massDay.length > 0)
             {
-                day = $("#ddlDay").val();
+                MassTimings.mDay = massDay;
+                MassTimings.mTime = massTime;
             }
-            var time = hrsTo24hrormat();
-            time = time + ":00.0000000";
-            var MassTimings = new Object();
+            else
+            {
+                if (day == "Daily") {
+                    day = $("#ddlDay").val();
+                }
+               var time = hrsTo24hrormat();
+                time = time + ":00.0000000";
+                MassTimings.day = day;
+                MassTimings.massTime = time ;
+            }
+            
+           
             //MassTimings.massChurchId = churchId;
-            MassTimings.day = day + ",";
-            MassTimings.massTime = time;
+           
             result = InsertMassTiming(MassTimings);
             switch (result.status) {
                 case "1":
@@ -82,7 +91,17 @@ $("document").ready(function (e) {
                     var jsonResult = {};
                     MassTimings.day = day + ",";
                     jsonResult = selectMassTimeByDay(MassTimings);
-                    ReBindMassTimingUpdateTable(jsonResult);
+                    if (jsonResult.length>0)
+                    {
+                        ReBindMassTimingUpdateTable(jsonResult);
+                    }
+                    else
+                    {
+                        //$("#massTimingTempTable").html('');
+                        //$("#massTimingTempTable").hide();
+                        //$('.dropcheck', this.$container).attr('placeholder', "Select Days");
+                        //$("#TxtTime").val("");
+                    }
                     noty({ text: 'Saved Successfully', type: 'success' });
                     break;
                 case "0":
@@ -287,33 +306,74 @@ function ReBindMassTimingUpdateTable(jsonResult) {
 }
 function AddTempTable()
 {
-    debugger;
-    if (counter != 1)
+    try
     {
-        document.getElementById("massTimingsUpdate").style.display = '';
+        var IsValid = true;
+        debugger;
+        if (counter != 1) {
+            if ($("#ddlDay").val() != null) {
+                document.getElementById("massTimingsUpdate").style.display = '';
 
-        $("#massTimingTempTable").show();
-        document.getElementById("massTimingUpdateTable").style.display = "none ";
-        var time = $("#TxtTime").val();
-        var dayarr = new Array();
-        if ($("#ddlDay").val() != null) {
-            $('#ddlDay :selected').each(function (i, sel) {
-                dayarr.push($(sel).val());
+                $("#massTimingTempTable").show();
+                document.getElementById("massTimingUpdateTable").style.display = "none ";
+                var time = $("#TxtTime").val();
+                var dayarray = new Array();
+                $('#ddlDay :selected').each(function (i, sel) {
+                    var len = dayarray.length;
+                    var timeLen = massTime.length;
+                    debugger;
+                    curDay = $(sel).val();
+                    curTime = $("#TxtTime").val();
+                    dayarray.push($(sel).val());
 
-            });
-        }
-        var len = dayarr.length;
-        if ($("#TxtTime").val() != "" && $("#TxtTime").val() != null && len != 0) {
-            if (len > 0) {
-                for (var i = 0; i < dayarr.length; i++) {
-                    var html = '<tr  ><td>' + dayarr[i] + '</td><td class="center">' + (time != "NaN:NaN" ? time : "-") + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
-                    $("#massTimingTempTable").append(html);
+                });
+
+                var len = dayarray.length;
+                if ($("#TxtTime").val() != "" && $("#TxtTime").val() != null && len != 0) {
+                    if (len > 0) {
+                        debugger;
+                        for (var i = 0; i < dayarray.length; i++) {
+                            massDay.push(dayarray[i]);
+                            var mTime = TimeFormat(time);
+                            mTime = mTime + ":00.0000000";
+                            massTime.push(mTime);
+                            for (var k = 0; k < NovenaDayAndTime.length; k++) {
+                                if (NovenaDayAndTime[k].Day == curDay) {
+                                    curTime = time;
+                                    if (NovenaDayAndTime[k].Time == curTime) {
+                                        noty({ text: 'Time Already Exists', type: 'information' });
+                                        IsValid = false;
+                                    }
+                                }
+                            }
+                                if(IsValid) {
+                                    NovenaDayAndTime.push(
+                                     {
+                                         Day: dayarray[i],
+                                         Time: time
+                                     }
+                                    );
+                                    var html = '<tr  ><td>' + dayarray[i] + '</td><td class="center">' + (time != "NaN:NaN" ? time : "-") + '</td></td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteTime(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
+                                    $("#massTimingTempTable").append(html);
+                                }
+                            
+                               
+                               
+                           
+                         
+
+                        }
+                    }
+
                 }
             }
-
         }
     }
-    
+    catch(e)
+    {
+
+    }
+   
 }
 function DeleteTime(Obj)
 {
@@ -400,6 +460,27 @@ function hrsTo24hrormat() {
     var minutes = parseInt(time.split(":")[1]);
     var AMPM = time.split(" ")[1];
    // AMPM = AMPM.trim();
+    if (AMPM == "PM" && hours < 12) {
+        hours = parseInt(hours) + parseInt(addTime);
+    }
+    if (AMPM == "AM" && hours == 12) {
+        hours = parseInt(hours) - parseInt(addTime);
+    }
+    var h = hours;
+    var sHours = hours.toString();
+    var sMinutes = minutes.toString();
+    if (h < 10) sHours = sHours;
+    if (minutes < 10) sMinutes = sMinutes;
+    return sHours + ":" + sMinutes;
+}
+
+function TimeFormat(time) {
+    var h = 0;
+    var addTime = 12;
+    var hours = parseInt(time.split(":")[0]);
+    var minutes = parseInt(time.split(":")[1]);
+    var AMPM = time.split(" ")[1];
+    // AMPM = AMPM.trim();
     if (AMPM == "PM" && hours < 12) {
         hours = parseInt(hours) + parseInt(addTime);
     }
