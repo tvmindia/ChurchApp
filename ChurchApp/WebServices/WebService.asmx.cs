@@ -32,6 +32,7 @@ namespace ChurchApp.WebServices
      [System.Web.Script.Services.ScriptService]
     public class WebService : System.Web.Services.WebService
     {
+        Const constants = new Const();
         #region General Methods
 
         #region JSON converter
@@ -200,7 +201,7 @@ namespace ChurchApp.WebServices
             {
                 ChurchApp.DAL.Church chrchobj = new DAL.Church();
                 dt = chrchobj.SearchChurchesByChurchOrTownName(SearchTerm);
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
             {
@@ -232,7 +233,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.Church chrchobj = new DAL.Church();
                 chrchobj.churchId = ChurchID;
                 dt = chrchobj.GetChurchDetailsByChurchID();
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
             {
@@ -270,7 +271,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.MassTimings chrchDetailobj = new DAL.MassTimings();
                 chrchDetailobj.massChurchId = ChurchID;
                 dt = chrchDetailobj.GetMassTimingsForApp();
-                if(dt.Rows.Count==0) throw new Exception("No items");
+                if(dt.Rows.Count==0) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
             {
@@ -303,7 +304,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.ChurchDetails chrchDetailobj = new DAL.ChurchDetails();
                 chrchDetailobj.churchId = ChurchID;
                 dt = chrchDetailobj.GetExtraChurchDetailsForApp();
-                if (dt.Rows.Count == 0) throw new Exception("No items");                
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);                
             }
             catch (Exception ex)
             {
@@ -368,7 +369,7 @@ namespace ChurchApp.WebServices
             {
                 ChurchApp.DAL.PatronMaster patronObj = new DAL.PatronMaster();
                 dt = patronObj.SelectPatronMaster().Tables[0];
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
             {
@@ -402,7 +403,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.Novenas novenaObj = new DAL.Novenas();
                 novenaObj.patronId = PatronID;
                 dt = novenaObj.GetAllChurchNovenaByPatronID();
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
             {
@@ -437,7 +438,7 @@ namespace ChurchApp.WebServices
                 novenaObj.churchObj = new DAL.Church();
                 novenaObj.churchObj.churchId = ChurchID;
                 dt = novenaObj.GetAllNovenasByChurchID();
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
             {
@@ -609,7 +610,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.GalleryAlbum galleryObj = new DAL.GalleryAlbum();
                 galleryObj.churchId = ChurchID;
                 dt = galleryObj.SelectGalleryAlbums().Tables[0];
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
             {
@@ -643,7 +644,7 @@ namespace ChurchApp.WebServices
                 galleryItemObj.GalleryAlbObj=new DAL.GalleryAlbum();
                 galleryItemObj.GalleryAlbObj.albumId = albumID;
                 dt=galleryItemObj.SelectGalleryItems().Tables[0];
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
             {
@@ -710,7 +711,7 @@ namespace ChurchApp.WebServices
                 ChurchObj.latitude = Latitude;
                 ChurchObj.longitude = Longitude;
                 dt = ChurchObj.GetNearByChurchDetails(maxdistance);
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
                 DataColumn km = dt.Columns.Add("Distance", typeof(String));
                 DataColumn kmvval = dt.Columns.Add("Value", typeof(int));
 
@@ -739,7 +740,7 @@ namespace ChurchApp.WebServices
                 {
                     dt1.ImportRow(dt.Rows[i]);
                 }
-                if (dt1.Rows.Count == 0) throw new Exception("No items");
+                if (dt1.Rows.Count == 0) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
             {
@@ -775,7 +776,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.PiousOrg piousobj = new DAL.PiousOrg();
                 piousobj.churchID = ChurchID;
                 dt = piousobj.SelectPiousOrg().Tables[0];
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
 
             }
             catch (Exception ex)
@@ -814,7 +815,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.Institutions Insobj = new DAL.Institutions();
                 Insobj.churchId = ChurchID;
                 dt = Insobj.SelectInstitutions().Tables[0];
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
             {
@@ -850,7 +851,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.Events Evtobj = new DAL.Events();
                 Evtobj.churchId = ChurchID;
                 dt = Evtobj.GetAllLatestEvents().Tables[0];
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
 
             }
             catch (Exception ex)
@@ -889,7 +890,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.Priest Pobj = new DAL.Priest();
                 Pobj.churchID= ChurchID;
                 dt = Pobj.SelectPriests().Tables[0];
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
 
             }
             catch (Exception ex)
@@ -927,7 +928,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.Notices Nobj = new DAL.Notices();
                 Nobj.churchId = ChurchID;
                 dt = Nobj.SelectNotices().Tables[0];
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
 
             }
             catch (Exception ex)
@@ -966,7 +967,7 @@ namespace ChurchApp.WebServices
                 ChurchApp.DAL.FamilyUnits FUobj = new DAL.FamilyUnits();
                 FUobj.churchId = ChurchID;
                 dt = FUobj.SelectFamilyUnits().Tables[0];
-                if (dt.Rows.Count == 0) throw new Exception("No items");
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
 
             }
             catch (Exception ex)
