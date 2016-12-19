@@ -3,8 +3,10 @@ var massDay = new Array();
 var massTime = new Array();
 var curTime = "";
 var curDay = "";
+var countLen = 0;
 var NovenaDayAndTime = new Array();
 $("document").ready(function (e) {
+
     BindAsyncAdminsTable();
     parent.$("#MassSchedule").addClass("active");
     $("#TxtTime").timepicker({
@@ -16,12 +18,9 @@ $("document").ready(function (e) {
         }
     });
     $('#massTimingTable').dataTable({
-
-        "bPaginate": false,
-        "bSort": false,
-        "bFilter": false,
-        "bInfo": false,
-        "oLanguage":false
+        order: [],
+        searching: false,
+        paging: false
     });
     //--------------- *Save MassTiming* ----------------//
     $(".cancel").click(function (e) {
@@ -50,7 +49,7 @@ $("document").ready(function (e) {
         $("#TxtTime").val("");
         $("input[type=checkbox]").prop('checked', false);
         $('#rowfluidDiv').hide();
-       
+        NovenaDayAndTime.length = 0;
     });
 
     $(".AddMass").click(function (e) {
@@ -341,7 +340,7 @@ function AddTempTable()
                                 if (NovenaDayAndTime[k].Day == curDay) {
                                     curTime = time;
                                     if (NovenaDayAndTime[k].Time == curTime) {
-                                        noty({ text: 'Time Already Exists', type: 'information' });
+                                        countLen = countLen + 1;
                                         IsValid = false;
                                     }
                                 }
@@ -367,6 +366,10 @@ function AddTempTable()
 
                 }
             }
+        }
+        if(countLen>0)
+        {
+            noty({ text: 'Time Already Exists', type: 'information' });
         }
     }
     catch(e)
