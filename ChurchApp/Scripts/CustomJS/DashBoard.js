@@ -325,7 +325,7 @@ $("document").ready(function (e) {
         var churchbit = ChurchValidation();
 
      
-            debugger;
+          
 
             if (churchbit)
             {
@@ -400,7 +400,7 @@ $("document").ready(function (e) {
                     ///////Image insert using handler
                     var imgresult;
                     if ((imgresult = $('#churchimageuploader')[0].files.length > 0)) {
-                        debugger;
+                      
                         var formData = new FormData();
                         var imagefile;
                         imagefile = $('#churchimageuploader')[0].files[0];
@@ -480,7 +480,7 @@ $("document").ready(function (e) {
                 else {
                     //check image for updat
                     if ((imgresult = $('#churchimageuploader')[0].files.length > 0)) {
-                        debugger;
+                        
                         var formData = new FormData();
                         var imagefile;
                         imagefile = $('#churchimageuploader')[0].files[0];
@@ -697,7 +697,7 @@ $("document").ready(function (e) {
     $('#btnUserAdd').click(function (e) {
       try
       {
-          debugger;
+     
             var pasflag = false;
             var userflag = UserValidation();
             var pas = document.getElementById('txtPassword');
@@ -871,7 +871,7 @@ $("document").ready(function (e) {
     $('#btnRolesAdd').click(function (e) {
         try
         {
-            debugger;
+           
             var rolesflag = RolesValidation();
             if (rolesflag)
             {
@@ -940,7 +940,7 @@ $("document").ready(function (e) {
       
         try
         {
-            debugger;
+           
             var desiggflag = DesignationValidation();
             if (desiggflag)
             {
@@ -1018,7 +1018,7 @@ $("document").ready(function (e) {
     $('#btnSaintAdd').click(function (e) {
 
         try {
-            debugger;
+      
            
             var saintflag = PatronValidation();
             if (saintflag) {
@@ -1032,7 +1032,7 @@ $("document").ready(function (e) {
                     ///////Image insert using handler
                     var imgresult;
                     if ((imgresult = $('#UpSaint')[0].files.length > 0)) {
-                        debugger;
+                 
                         var formData = new FormData();
                         var imagefile;
                         imagefile = $('#UpSaint')[0].files[0];
@@ -1081,7 +1081,7 @@ $("document").ready(function (e) {
                 else {
                     //check image for updat
                     if ((imgresult = $('#UpSaint')[0].files.length > 0)) {
-                        debugger;
+                  
                         var formData = new FormData();
                         var imagefile;
                         imagefile = $('#UpSaint')[0].files[0];
@@ -1148,7 +1148,6 @@ $("document").ready(function (e) {
 
     try {
           
-        debugger;
         var TownMaster = new Object();
         DashDataTables.townTable= $('#Townstable').DataTable(
         {
@@ -1201,7 +1200,7 @@ $("document").ready(function (e) {
     $('#btnTownAdd').click(function (e) {
 
         try {
-            debugger;
+         
             var i;
             var townflag = TownValidation();
             if (townflag)
@@ -1217,7 +1216,7 @@ $("document").ready(function (e) {
                 ///////Image insert using handler
                 var imgresult;
                 if ((imgresult = $('#townimageuploader')[0].files.length > 0)) {
-                    debugger;
+                 
                     var formData = new FormData();
                     var imagefile;
                     imagefile = $('#townimageuploader')[0].files[0];
@@ -1275,7 +1274,7 @@ $("document").ready(function (e) {
                 else {
                     //check image for updat
                     if ((imgresult = $('#townimageuploader')[0].files.length > 0)) {
-                        debugger;
+               
                         var formData = new FormData();
                         var imagefile;
                         imagefile = $('#townimageuploader')[0].files[0];
@@ -1343,7 +1342,7 @@ $("document").ready(function (e) {
 });//end of document.ready
 
 function TownValidation() {
-    debugger;
+   
    
     var name = $('#txtName');
 
@@ -1493,7 +1492,8 @@ function RemoveTown(curobj) {
                 break;
             case "0":
                 noty({ type: 'error', text: Messages.DeletionFailure });
-
+            case "2":
+                noty({ type: 'error', text: Messages.DeletionFailureUsed });
                 break;
             default:
                 noty({ type: 'error', text: jsonResultTown.status });
@@ -1526,7 +1526,7 @@ function BindAllTown() {
 }
 
 function GetAllTowns(TownMaster) {
-    debugger;
+   
     var ds = {};
     var table = {};
     try {
@@ -1789,7 +1789,7 @@ function PatronValidation() {
 
 function RemoveUser(curobj)
 {
-    debugger;
+  
     var data = DashDataTables.userTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
@@ -1827,7 +1827,7 @@ function RemoveUser(curobj)
 
 function RemoveSaint(curobj)
 {
-    debugger;
+  
     var data = DashDataTables.patronTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
@@ -1864,7 +1864,7 @@ function RemoveSaint(curobj)
 }
 function EditChurch(curobj)
 {
-    debugger;
+  
     //Get Current table row data
     var data = DashDataTables.churchTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
@@ -1893,7 +1893,7 @@ function EditChurch(curobj)
 
 function EditUsers(curobj)
 {
-    debugger;
+     
     RemoveStyle();
     var data = DashDataTables.userTable.row($(curobj).parents('tr')).data();
     var Users = new Object();
@@ -1998,7 +1998,7 @@ function UpdateDesignation(OrgDesignationMaster) {
 
 function EditRole(curobj)
 {
-    debugger;
+     
     var data = DashDataTables.roleTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
    
@@ -2125,7 +2125,7 @@ function GetPatronDetailByID(PatronMaster) {
 
 function RemoveChurch(curobj)
 {
-   debugger;
+      
     var data = DashDataTables.churchTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
 
@@ -2176,7 +2176,7 @@ function RemoveChurch(curobj)
 
 function RemoveRole(curobj)
 {
-    debugger;
+   
     RemoveStyle();
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
@@ -2489,7 +2489,7 @@ function GetAllChurchIDandText(Church) {
 
 
 function ChurchImagePreview(input) {
-    debugger;
+   
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
