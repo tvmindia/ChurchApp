@@ -618,10 +618,10 @@ function DeleteAdministrator(this_Obj)
             AdminRow = GetAdminDetails(AdminID);
             result = DeleteAdmin(AdminRow);
             if (result.results == "1") {
-                noty({ text: 'Administrator Deleted Successfully', type: 'success' });
+                noty({ text: Messages.DeletionSuccessFull, type: 'success' });
             }
             if (result.results != "1") {
-                noty({ text: 'Deletion Not Successful', type: 'error' });
+                noty({ text: result.results, type: 'error' });
             }
             BindEditCard(AdminRow.orgId);
         }
@@ -737,13 +737,13 @@ function DeleteInstituteclick(this_Obj)
             if (Adminresult == "sucess") {
                 result = DeleteInstitute(InstituteRow);
                 if (result.results == "1") {
-                    noty({ text: 'Institution Deleted Successfully', type: 'success' });
+                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
                     BindInstituteslist();
                     $('#InstituteEdit').hide();
                     $('#InstituteShow').hide();
                 }
                 if (result.results != "1") {
-                    noty({ text: 'Deletion Not Successful', type: 'error' });
+                    noty({ text: result.results, type: 'error' });
                 }
             }
         }
