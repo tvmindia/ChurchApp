@@ -11,7 +11,10 @@
 /* Import Section
 =================================================================== */
 @import url("jquery-ui-1.8.21.custom.css");								/* jQuery User Interface Framework Styles */
+@import url("fullcalendar.css");										/* Calendars Styles */
+@import url("chosen.css");												/* Select Boxes Styles */  
 @import url("uniform.default.css");										/* Uniform Styles */
+@import url("jquery.cleditor.css");										/* Text Editor Styles. */  
 @import url("jquery.noty.css");											/* Noty Notifications Style */
 @import url("noty_theme_default.css");									/* Noty Notifications Style */
 @import url("elfinder.min.css");										/* File Manager Style */
@@ -24,6 +27,9 @@
 @import url("glyphicons.css");											/* Glyphicons Font */
 @import url("halflings.css");											/* Glyphicons Halflings Font */
 @import url("style-forms.css");											/* Forms */
+
+
+				
 
 /* Main Colors
 =================================================================== */
