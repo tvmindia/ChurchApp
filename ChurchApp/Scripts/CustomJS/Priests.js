@@ -1,6 +1,10 @@
-﻿$(document).ready(function () {
+﻿var churchObject = {};
+
+$(document).ready(function () {
     try
     {
+        //Setting current churchid
+        churchObject.chid = $("#hdfchid").val();
         
         //////////----------Function for check priest details and bind 
         check();
@@ -119,7 +123,7 @@
         $('#btnSavePriest').click(function (e) {
             try
             {
-                debugger;
+              
                 var Role = $(this).attr('name');
                 if (($('#ddlstatus').val() == 'Vicar') && (Role == 'Asst')) {
                     noty({ text: Messages.VicarExist, type: 'information' });
@@ -144,7 +148,7 @@
                     }
                 }
 
-                PriestValidation();
+                savePriest();
             }
             catch (e) {
                 noty({ type: 'error', text: e.message });
@@ -174,7 +178,7 @@
         noty({ type: 'error', text: e.message });
     }
     
-
+  
 });
 //Date validation is the date is valid
 function Datecheck(DateNow)
@@ -185,43 +189,16 @@ function Datecheck(DateNow)
     var myDate = new Date(year, month - 1, date);
     return myDate;
 }
+
 //Save priest (functon with insert and update)
 function savePriest()
 {
-    try
-    {
-        debugger;
-        var AppImgURL = '';
-        var priestID = $("#hdfPriestID").val();
+    debugger;
+    try {
 
-        //-----------------------INSERT-------------------//
-
-        if (priestID == null || priestID == "") {
-            var guid = createGuid();
-
-            if (guid != null) {
-                var i = "0";
-                var imgresult = "";
-                var _URL = window.URL || window.webkitURL;
-                var formData = new FormData();
-                var imagefile, logoFile, img;
-
-                if (((imagefile = $('#priestimg')[0].files[0]) != undefined)) {
-                    var formData = new FormData();
-                    var tempFile;
-                    if ((tempFile = $('#priestimg')[0].files[0]) != undefined) {
-                        tempFile.name = guid;
-                        formData.append('NoticeAppImage', tempFile, tempFile.name);
-                        formData.append('GUID', guid);
-                        formData.append('createdby', 'sadmin');
-                    }
-                    formData.append('ActionTyp', 'NoticeAppImageInsert');
-                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    i = "1";
-                }
-
-            }
-
+        var i;
+        var priestflag = PriestValidation();
+        if (priestflag) {
             var Priest = new Object();
             Priest.priestName = $('#txtPriestName').val();
             Priest.BaptisumName = $('#txtPriestBaptismName').val();
@@ -235,79 +212,163 @@ function savePriest()
             Priest.address = $('#txtAddress').val();
             Priest.emailId = $('#txtEmail').val();
             Priest.mobile = $('#txtMobile').val();
-            if (i == "1")
-            {
-                Priest.imageId = guid;
-            }
-            Priest.priestID = guid;
-            result = InsertPriest(Priest);
+            //From global object churchObject
+            Priest.churchID = churchObject.chid;
 
-            if (result.result == "1") {
-                noty({ text: Messages.SavedSuccessfull, type: 'success' });
+            if ($("#hdfPriestID").val() == '') {
+                //INSERT
+                ///////Image insert using handler
+                var imgresult;
+                if ((imgresult = $('#priestimg')[0].files.length > 0)) {
 
-            }
-            else
-            {
-                noty({ text: result.result, type: 'error' });
-            }
+                    var formData = new FormData();
+                    var imagefile;
+                    imagefile = $('#priestimg')[0].files[0];
+                    // imagefile.name = imgId;
+                    formData.append('upImageFile', imagefile, imagefile.name);
+                    formData.append('churchID', Priest.churchID);
+                    formData.append('priestName', Priest.priestName);
+                    formData.append('BaptisumName', Priest.BaptisumName);
+                    formData.append('Parish', Priest.Parish);
+                    formData.append('Diocese', Priest.Diocese);
+                    formData.append('Status', Priest.Status);
+                    formData.append('dob', Priest.dob);
+                    formData.append('about', Priest.about);
+                    formData.append('dateOrdination', Priest.dateOrdination);
+                    formData.append('designation', Priest.designation);
+                    formData.append('address', Priest.address);
+                    formData.append('emailId', Priest.emailId);
+                    formData.append('mobile', Priest.mobile);
+                    formData.append('createdby', document.getElementById("LoginName").innerHTML);
+                    formData.append('ActionTyp', 'PriestImageInsert');
+                    var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
 
-            $('#assVicardiv').remove();
-            $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
-            check();
-
-
-        }
-            //-----------------------UPDATE-------------------//
-        else {
-            var Priest = new Object();
-            Priest.priestName = $('#txtPriestName').val();
-            Priest.BaptisumName = $('#txtPriestBaptismName').val();
-            Priest.Parish = $('#txtParish').val();
-            Priest.Diocese = $('#txtDiocese').val();
-            Priest.Status = $('#ddlstatus').val();
-            Priest.dob = $('#priestDOB').val();
-            Priest.about = $('#txtAboutPriest').val();
-            Priest.dateOrdination = $('#OrdinationDate').val();
-            Priest.designation = $('#txtDesignation').val();
-            Priest.address = $('#txtAddress').val();
-            Priest.emailId = $('#txtEmail').val();
-            Priest.mobile = $('#txtMobile').val();
-            Priest.priestID = $("#hdfPriestID").val();
-            var guid = createGuid();
-            if (((imagefile = $('#priestimg')[0].files[0]) != undefined)) {
-                var formData = new FormData();
-                var tempFile;
-                if ((tempFile = $('#priestimg')[0].files[0]) != undefined) {
-                    tempFile.name = guid;
-                    formData.append('NoticeAppImage', tempFile, tempFile.name);
-                    formData.append('GUID', guid);
-                    formData.append('createdby', 'sadmin');
+                    switch (result.result) {
+                        case "1":
+                            noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                            $("#hdfPriestID").val(result.priestID);
+                            $("#hdfpriestImageID").val(result.imageId);
+                        break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: Messages.FailureMsgCaption });
+                            break;
+                        default:
+                            noty({ type: 'error', text: result.result });
+                            break;
+                    }
+                    $('#assVicardiv').remove();
+                    $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+                    check();
                 }
-                formData.append('ActionTyp', 'NoticeAppImageInsert');
-                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                Priest.imageId = guid;
-            }
+                else {
+                   var  result = InsertPriest(Priest);
+                   switch (result.result)
+                    {
+                        case "1":
+                            noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                            $("#hdfPriestID").val(result.priestID);
+                            $("#hdfpriestImageID").val(result.imageId);
+                          
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: Messages.FailureMsgCaption });
 
-            result = UpdatePriest(Priest);
+                            break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            break;
+                        default:
+                            noty({ type: 'error', text: result.result });
+                            break;
+                    }
+                      $('#assVicardiv').remove();
+                      $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+                      check();
+                }
+            } //UPDATE
+            else {
+                //check image for updat
+                if ((imgresult = $('#priestimg')[0].files.length > 0)) {
 
-            if (result.result == "1") {
-                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
-            }
-            else
-            {
-                noty({ text: result.result, type: 'error' });
-            }
-            $('#assVicardiv').remove(); 
-        
-            $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
-            check();
-        }
+                    var formData = new FormData();
+                    var imagefile;
+                    imagefile = $('#priestimg')[0].files[0];
+                    formData.append('upImageFile', imagefile, imagefile.name);
+                    formData.append('churchID', Priest.churchID);
+                    formData.append('priestID', $("#hdfPriestID").val());
+                    formData.append('priestImageID', $('#hdfpriestImageID').val());
+                    formData.append('priestName', Priest.priestName);
+                    formData.append('BaptisumName', Priest.BaptisumName);
+                    formData.append('Parish', Priest.Parish);
+                    formData.append('Diocese', Priest.Diocese);
+                    formData.append('Status', Priest.Status);
+                    formData.append('dob', Priest.dob);
+                    formData.append('about', Priest.about);
+                    formData.append('dateOrdination', Priest.dateOrdination);
+                    formData.append('designation', Priest.designation);
+                    formData.append('address', Priest.address);
+                    formData.append('emailId', Priest.emailId);
+                    formData.append('mobile', Priest.mobile);
+                    formData.append('updatedby', document.getElementById("LoginName").innerHTML);
+                    formData.append('ActionTyp', 'PriestImageUpdate');
+                    var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+
+                    switch (result.result) {
+                        case "1":
+
+                            noty({ type: 'success', text: Messages.UpdationSuccessFull });
+                          
+                            break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: Messages.FailureMsgCaption });
+                            break;
+                        default:
+                            noty({ type: 'error', text: result.result });
+                            break;
+                    }
+                    $('#assVicardiv').remove();
+
+                    $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+                    check();
+                }
+                else {
+                    Priest.priestID = $("#hdfPriestID").val();
+                    var result = UpdatePriest(Priest);
+                    switch (result.result) {
+                        case "1":
+                            noty({ type: 'success', text: Messages.UpdationSuccessFull });
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: Messages.FailureMsgCaption });
+                            break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            break;
+                        default:
+                            noty({ type: 'error', text: result.result });
+                            break;
+                    }
+                    $('#assVicardiv').remove();
+                    $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+                    check();
+                }//else
+            }//else
+        }//townflag if
+
+
+
     }
-    catch(e)
-    {
+    catch (e) {
         noty({ type: 'error', text: e.message });
     }
 }
+
 //Autocomplete for textbox priest name for quick search priest and add to church
 function AutoComplete()
 {
@@ -368,23 +429,7 @@ function AutoComplete()
     
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////---------Json data transfer
-    function getJsonData(data, page) {
-        var jsonResult = {};
-        var req = $.ajax({
-            type: "post",
-            url: page,
-            data: data,
-            delay: 3,
-            async: false,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json"
 
-        }).done(function (data) {
-            jsonResult = data;
-        });
-        return jsonResult;
-    }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////****************** Function For changing jason date format to local
     function ConvertJsonToDate(jsonDate) {
@@ -615,6 +660,7 @@ function AutoComplete()
             $('#priestPreview').attr('src', PriestRow.imagePath);
             document.getElementById('HeadDetails').innerText = "Edit Details";
             $('#hdfPriestID').val(priestid);
+            $('#hdfpriestImageID').val(PriestRow.imageId);
             $('#PriestShowDetails').hide();
             $('#btnrefresh').show();
             $('#btnrefresh').attr('onclick', 'cancel();')
@@ -734,11 +780,10 @@ function AutoComplete()
     function PriestValidation() {
         try
         {
-            debugger;
+          
             var Name = $('#txtPriestName');
             var OrdinationDate = $('#OrdinationDate');
             var Role = $('#ddlstatus');
-
             var container = [
                 { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
                 { id: OrdinationDate[0].id, name: OrdinationDate[0].name, Value: OrdinationDate[0].value },
@@ -769,7 +814,7 @@ function AutoComplete()
                 return false;
             }
             if (j == '0') {
-                savePriest();
+                //savePriest();
                 return true;
             }
         }

@@ -349,4 +349,6 @@
 			</div>
 
       </div>
+    <%--  <input type="hidden" id="hdfpriestID"/>--%>
+      <input type="hidden" id="hdfpriestImageID"/>
 </asp:Content>

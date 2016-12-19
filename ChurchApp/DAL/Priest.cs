@@ -285,6 +285,7 @@ namespace ChurchApp.DAL
                     address=dr["Address"].ToString();
                     mobile = dr["Mobile"].ToString();
                     emailId = dr["Email"].ToString();
+                    imageId = dr["ImageID"].ToString();
                     imagePath = dr["URL"].ToString();
                     about = dr["About"].ToString();
                     if (dr["DateOrdination"].ToString()!="")
@@ -381,6 +382,69 @@ namespace ChurchApp.DAL
             result= outParam.Value.ToString();
         }
         #endregion InsertPriest
+
+        #region InsertPriest1
+        public void InsertPriest1()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null, outparamID = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertPriest1]";
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = priestName;
+                cmd.Parameters.Add("@BaptismName", SqlDbType.NVarChar, 150).Value = BaptisumName;
+                cmd.Parameters.Add("@Parish", SqlDbType.NVarChar, 150).Value = Parish;
+                cmd.Parameters.Add("@Diocese", SqlDbType.NVarChar, 150).Value = Diocese;
+                cmd.Parameters.Add("@Status", SqlDbType.NVarChar, 150).Value = Status;
+                if (dob != "")
+                {
+                    cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = commonObj.Changeformat(dob);
+                }
+
+                cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
+                if (dateOrdination != "")
+                {
+                    cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = commonObj.Changeformat(dateOrdination);
+                }
+                cmd.Parameters.Add("@Designation", SqlDbType.NVarChar, 150).Value = designation;
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = emailId;
+                cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = mobile;
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
+                if (imageId != null)
+                {
+                    cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
+                }
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
+                outparamID = cmd.Parameters.Add("@OutID", SqlDbType.UniqueIdentifier);
+                outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                outparamID.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            result = outParam.Value.ToString();
+            priestID = outparamID.Value.ToString();
+        }
+        #endregion InsertPriest1
 
         #region UpdatePriest
         /// <summary>
