@@ -807,17 +807,7 @@ function EditFamily(e)
 function AdminMemberChange()
 {
     debugger;
-    //var phone = $("#ddlMember option:selected").attr("name");
-    //if ($("#hdfPhone").val() != "" && $("#hdfPhone").val() != null)
-    //{
-    //    $("#txtMobile").val($("#hdfPhone").val());
-    //}
-    //else
-    //{
-    //    $("#txtMobile").val(phone);
-    //}
-    //$("#hdfPhone").val("")
-  
+ 
     if ($("#ddlMember").val() != "" && $("#ddlMember").val() != null && $("#ddlMember").val()!="-1")
     {
         var FamilyUnits = new Object();
@@ -1094,6 +1084,7 @@ function EditMembers(e)
     Family.familyId = familyID;
     Members.memberId = memberID;
     Members.familyObj = Family;
+    debugger;
     jsonResult = GetFamilyMember(Members);
     if(jsonResult!=undefined)
     {
@@ -1118,6 +1109,7 @@ function EditMembers(e)
         }
         else {
             $('#MemberImg').attr('src', '../img/gallery/Noimage.png');
+            document.getElementById("mfluImage").value = '';
         }
         $("#memberAddOrEdit").text("Edit");
         $(".btnEdit").css("display", "none");
@@ -1302,6 +1294,7 @@ function AddFamilyMember()
     $("#FamilyAdd").css("margin-top", "1%");
     $("#MemberImg").attr("src", "../img/gallery/priest.png");
     $("#txtFirstName").focus();
+    document.getElementById("mfluImage").value = '';
     } 
 function FamilyMembersAutoBind() {
     debugger;
