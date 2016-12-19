@@ -414,11 +414,7 @@ function AutoCompleteAdmin() {
             select: function (event, ui) {
                 debugger;
                 var patronID = ui.item.desc;
-                if (ui.item.imageId == "")
-                {
-                    patronImageId = null;
-                }
-                else
+                if (ui.item.imageId != "")
                 {
                     patronImageId = ui.item.imageId;
                 }
