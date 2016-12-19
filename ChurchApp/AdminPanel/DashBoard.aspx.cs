@@ -359,7 +359,13 @@ namespace ChurchApp.AdminPanel
                 UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
-
+                    //Check church has image and delete it
+                    //if ((churchObj.mainImageId != null) && (churchObj.mainImageId != ""))
+                    //{
+                    //    //overwrite appImagesObj.appImageId to townObj.imageId
+                    //    churchObj.appImagesObj.appImageId = churchObj.mainImageId;
+                    //    churchObj.appImagesObj.SelectAppImageByID();
+                    //}
                     churchObj.updatedBy = UA.userName;
                     churchObj.DeleteChurch();
 

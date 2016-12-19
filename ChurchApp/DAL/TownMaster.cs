@@ -296,12 +296,15 @@ namespace ChurchApp.DAL
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
-
-                if ((imageId != null) && (imageId != ""))
+                if (outParam.Value.ToString()=="1")
                 {
-                    
-                    appImagesObj.DeleteAppImage();
+                    if ((imageId != null) && (imageId != ""))
+                    {
+
+                        appImagesObj.DeleteAppImage();
+                    }
                 }
+              
 
 
             }
