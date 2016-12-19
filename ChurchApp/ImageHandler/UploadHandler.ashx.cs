@@ -168,7 +168,8 @@ namespace ChurchApp.ImageHandler
                                         AppImgObj.url = AppImagePath;
                                         AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                         AppImgObj.InsertAppImage().ToString();
-                                        context.Response.Write(AppImagePath);
+                                        jsSerializer = new JavaScriptSerializer();
+                                        context.Response.Write(jsSerializer.Serialize(AppImgObj));
                                     }
                                     catch (Exception ex)
                                     {
