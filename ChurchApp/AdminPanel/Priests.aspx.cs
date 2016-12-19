@@ -19,23 +19,13 @@ namespace ChurchApp.AdminPanel
 {
     public partial class Priests : System.Web.UI.Page
     {
-        public string ChurchIDScript = null;
+       
 
         #region Pageload
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
-            {
-                DAL.Security.UserAuthendication UA;
-                DAL.Const Const = new DAL.Const();
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-                ChurchIDScript = null;
-                ChurchIDScript = UA.ChurchID; 
-            }
-           catch(Exception ex)
-            {
-              
-            }
+            
+
         }
         #endregion Pageload
 
@@ -45,43 +35,55 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetPriestsDetails(Priest priestObj)
         {
-            try
-            {
+            
                 JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                DAL.Security.UserAuthendication UA;
-                DAL.Const Const = new DAL.Const();
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-                priestObj.churchID = UA.ChurchID;
-
-
-                if (priestObj.churchID != "")
+                Security.UserAuthendication UA = null;
+               
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                try
                 {
-                    // productObj.ChurchID = UA.ChurchID;
-                    DataSet ds = null;
-                    ds = priestObj.SelectPriests();
-                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                    Dictionary<string, object> childRow;
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if(UA!=null)
+                {
+                    priestObj.churchID = UA.ChurchID;
 
-                    if (ds.Tables[0].Rows.Count > 0)
+
+                    if (priestObj.churchID != "")
                     {
-                        foreach (DataRow row in ds.Tables[0].Rows)
+                        // productObj.ChurchID = UA.ChurchID;
+                        DataSet ds = null;
+                        ds = priestObj.SelectPriests();
+
+                        if (ds.Tables[0].Rows.Count > 0)
                         {
-                            childRow = new Dictionary<string, object>();
-                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            foreach (DataRow row in ds.Tables[0].Rows)
                             {
-                                childRow.Add(col.ColumnName, row[col]);
+                                childRow = new Dictionary<string, object>();
+                                foreach (DataColumn col in ds.Tables[0].Columns)
+                                {
+                                    childRow.Add(col.ColumnName, row[col]);
+                                }
+                                parentRow.Add(childRow);
                             }
-                            parentRow.Add(childRow);
                         }
+                        
                     }
-                    return jsSerializer.Serialize(parentRow);
+                    
                 }
-                return jsSerializer.Serialize("");
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+                
             }
             catch(Exception ex)
             {
                 return "";
             }
+            return jsSerializer.Serialize(parentRow);
         }
         #endregion GetAllpriest Details
 
@@ -94,20 +96,33 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetPriest(Priest priestObj)
         {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            StringBuilder output = new StringBuilder();
+            Security.UserAuthendication UA = null;
             try
             {
-                DataTable dt = priestObj.SelectPriestsAutocomplete(); //Function call to get  Search BoxData
-                StringBuilder output = new StringBuilder();
-                output.Append("[");
-                for (int i = 0; i < dt.Rows.Count; ++i)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    output.Append("\"" + dt.Rows[i]["Name"].ToString() + "🏠" + dt.Rows[i]["ID"].ToString() + "\"");
-                    if (i != (dt.Rows.Count - 1))
+                    DataTable dt = priestObj.SelectPriestsAutocomplete(); //Function call to get  Search BoxData
+
+                    output.Append("[");
+                    for (int i = 0; i < dt.Rows.Count; ++i)
                     {
-                        output.Append(",");
+                        output.Append("\"" + dt.Rows[i]["Name"].ToString() + "🏠" + dt.Rows[i]["ID"].ToString() + "\"");
+                        if (i != (dt.Rows.Count - 1))
+                        {
+                            output.Append(",");
+                        }
                     }
+                    output.Append("]");
                 }
-                output.Append("]");
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
                 return output.ToString();
             }
             catch(Exception ex)
@@ -127,15 +142,27 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetPriestsDetailsUsingPriestID(Priest priestObj)
         {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
             try
             {
-                ChurchApp.DAL.Church churchObj = new DAL.Church();
-                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-                if (priestObj.priestID != "")
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    priestObj.SelectPriestsUsingPriestID();
+                    ChurchApp.DAL.Church churchObj = new DAL.Church();
 
+
+                    if (priestObj.priestID != "")
+                    {
+                        priestObj.SelectPriestsUsingPriestID();
+
+                    }
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
                 return jsSerializer.Serialize(priestObj);
             }
@@ -157,15 +184,24 @@ namespace ChurchApp.AdminPanel
         public static string InsertPriest(ChurchApp.DAL.Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            PriestObj.churchID = UA.ChurchID;
+            Security.UserAuthendication UA = null;
+                      
             try
             {
-                PriestObj.createdBy =UA.userName;
-                PriestObj.InsertPriest();
-               
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    PriestObj.churchID = UA.ChurchID;
+                    PriestObj.createdBy = UA.userName;
+                    PriestObj.InsertPriest();
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+                return jsSerializer.Serialize(PriestObj);
             }
             catch (Exception ex)
             {
@@ -175,7 +211,7 @@ namespace ChurchApp.AdminPanel
             finally
             {
             }
-            return jsSerializer.Serialize(PriestObj);
+            
 
         }
 
@@ -191,15 +227,23 @@ namespace ChurchApp.AdminPanel
         public static string UpdatePriest(ChurchApp.DAL.Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            PriestObj.churchID = UA.ChurchID;
+            Security.UserAuthendication UA = null;
             //string status = null;
             try
             {
-                PriestObj.createdBy = UA.userName;
-                PriestObj.UpdatePriest();
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    PriestObj.churchID = UA.ChurchID;
+                    PriestObj.createdBy = UA.userName;
+                    PriestObj.UpdatePriest();
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
 
             }
             catch (Exception ex)
@@ -221,13 +265,22 @@ namespace ChurchApp.AdminPanel
         public static string DeletePriest(ChurchApp.DAL.Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-             DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            Security.UserAuthendication UA = null;
+            //string status = null;
             try
             {
-                PriestObj.createdBy = UA.userName;
-                PriestObj.DeletePriest();
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    PriestObj.createdBy = UA.userName;
+                    PriestObj.DeletePriest();
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
 
             }
             catch (Exception ex)
@@ -248,24 +301,32 @@ namespace ChurchApp.AdminPanel
         public static string UpdateChurchIDPriest(ChurchApp.DAL.Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            string status = null;
+            Security.UserAuthendication UA = null;
+            //string status = null;
             try
             {
-                //PriestObj.Status
-                if (PriestObj.Status=="Asst")
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    PriestObj.Status = "Asst Vicar";
+                    //PriestObj.Status
+                    if (PriestObj.Status == "Asst")
+                    {
+                        PriestObj.Status = "Asst Vicar";
+                    }
+                    if (PriestObj.Status == "Vicar")
+                    {
+                        PriestObj.Status = "Vicar";
+                    }
+                    PriestObj.churchID = UA.ChurchID;
+                    PriestObj.createdBy = UA.userName;
+                    PriestObj.UpdateChurchIDPriest();
                 }
-                if (PriestObj.Status == "Vicar")
+                else
                 {
-                    PriestObj.Status = "Vicar";
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
-                PriestObj.churchID = UA.ChurchID;
-                PriestObj.createdBy = UA.userName;
-                PriestObj.UpdateChurchIDPriest();
 
             }
             catch (Exception ex)
