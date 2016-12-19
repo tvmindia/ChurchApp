@@ -56,6 +56,7 @@
 							   <thead>
 							  <tr>
                                   <th>ID</th>
+                                  <th>MainImageID</th>
 								  <th>Name</th>
 								  <th>Address</th>
 								  <th>Phone1</th>
@@ -801,6 +802,7 @@
 	   </div>
      <input type="hidden" id="hdfDesignationID"/>
      <input type="hidden" id="hdfChurchID"/>
+     <input type="hidden" id="hdfChurchImageID"/>
      <input type="hidden" id="hdfRolesID"/>
      <input type="hidden" id="hdfUserID"/>
      <input type="hidden" id="hdfTownCode" />

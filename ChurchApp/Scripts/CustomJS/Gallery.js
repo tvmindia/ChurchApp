@@ -57,11 +57,11 @@
                 switch(result)
                 {
                     case "1":
-                        noty({ type: 'success', text: 'Album Uploaded successfully' });
+                        noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         BindGalleryImageAlbum();
                         break;
                     case "0":
-                        noty({ type: 'error', text: 'Upload was not successfull' });
+                        noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
                         break;
@@ -118,11 +118,11 @@
                     switch (result) {
                         case "1":
                         
-                            noty({ type: 'success', text: 'Uploaded successfully' });
+                            noty({ type: 'success', text: Messages.AlbumUpload });
                             BindImages(albid);
                             break;
                         case "0":
-                            noty({ type: 'error', text: 'Upload was not successfull' });
+                            noty({ type: 'error', text: Messages.AlbumUploadFailure });
                             break;
                         default:
                             break;
@@ -167,13 +167,13 @@
                 switch (result) {
                     case "1":
                        
-                        noty({ type: 'success', text: 'Album Uploaded successfully' });
+                        noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         barinAlbum.animate(1.0);  // Number from 0.0 to 1.0
                         BindGalleryVideoAlbum();
                         break;
                     case "0":
                         $('#progressbarUploadinVidAlbum').hide();
-                        noty({ type: 'error', text: 'Upload was not successfull' });
+                        noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
                         break;
@@ -215,7 +215,7 @@
                     case "1":
                       
 
-                        noty({ type: 'success', text: 'Album Uploaded successfully' });
+                        noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         bar.animate(1.0);  // Number from 0.0 to 1.0
                         BindVideos(albid);
                         break;
@@ -224,7 +224,7 @@
                         $('#progressbarUploadinVidAlbum').hide();
                       
                       
-                        noty({ type: 'error', text: 'Upload was not successfull' });
+                        noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
                         break;
@@ -544,12 +544,12 @@ function deleteImage(obj)
             {
                 case "1":
                    
-                    noty({ type: 'success', text: 'Deleted successfully' });
+                    noty({ type: 'success', text: Messages.DeletionSuccessFull });
                     EditImageBind(albid);
                     break;
                 case "0":
                   
-                    noty({ type: 'error', text: 'Deletion was not successfull' });
+                    noty({ type: 'error', text: Messages.DeletionFailure });
                     break;
                 default:
                     break;
@@ -580,12 +580,12 @@ function deleteVideo(obj) {
             switch (result.status) {
                 case "1":
                    
-                    noty({ type: 'success', text: 'Deleted successfully' });
+                    noty({ type: 'success', text: Messages.DeletionSuccessFull });
                     EditBindVideos(albid);
                     break;
                 case "0":
                    
-                    noty({ type: 'error', text: 'Deletion was not successfull' });
+                    noty({ type: 'error', text: Messages.DeletionFailure });
                     break;
                 default:
                     break;
@@ -635,14 +635,14 @@ function deleteAlbum(albobj)
            
            switch (result.status) {
                case "1":
-                   noty({ type: 'success', text: 'Deleted successfully' });
+                   noty({ type: 'success', text: Messages.DeletionSuccessFull });
                    EditBindGalleryImageAlbum();
                    break;
                case "0":
                   // $('#rowfluidDivImages').show();
                  //  $('.alert-error').show();
                   // $('.alert-error strong').text("Deletion was not successfull");
-                   noty({ type: 'error', text: 'Deletion was not successfull' });
+                   noty({ type: 'error', text: Messages.DeletionFailure });
                    break;
                default:
                    break;
@@ -686,14 +686,14 @@ function deleteVideoAlbum(albobj)
                     //$('#rowfluidDivVideos').show();
                     //$('.alert-success').show();
                     //$('.alert-success strong').text("Deleted successfully");
-                    noty({ type: 'success', text: 'Deleted successfully' });
+                    noty({ type: 'success', text: Messages.DeletionSuccessFull });
                     EditBindGalleryVideoAlbum();
                     break;
                 case "0":
                     //$('#rowfluidDivVideos').show();
                     //$('.alert-error').show();
                     //$('.alert-error strong').text("Deletion was not successfull");
-                    noty({ type: 'error', text: 'Deletion was not successfull' });
+                    noty({ type: 'error', text: Messages.DeletionFailure });
                     break;
                 default:
                     break;

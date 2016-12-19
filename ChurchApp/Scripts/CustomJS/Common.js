@@ -318,5 +318,9 @@ var Messages = {
     HtmlFileFormatError: "Please select html file",
     OperationDuplicateFailure: "Operation Failure... Duplicate Entry!",
     MemeberAlreadyExists: "Member with the same name already exists",
-    NotificationDateChecking: "Expiry date should be greater than start date"
+    NotificationDateChecking: "Expiry date should be greater than start date",
+
+    AlbumUploadInsert: "Album Uploaded successfully",
+    AlbumUploadFailure: "Upload was not successfull",
+    AlbumUpload: "Uploaded successfully"
 }
