@@ -134,6 +134,9 @@ $(document).ready(function () {
                     $('#modelAddAdmin').modal('hide');
                     cancelAdminEdit();
                     break;
+                case "2":
+                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'success' });
+                    break;
                 default:
                     noty({ text: Messages.InsertionFailure, type: 'error' });
                     break;
