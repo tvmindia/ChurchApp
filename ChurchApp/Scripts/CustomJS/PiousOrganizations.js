@@ -1,54 +1,63 @@
 ﻿//
 ///////////////////////////////////////////********Document ready section
+var patronImageId = null;
 $(document).ready(function () {
-    ///
-    ////Function for binding Pious Organization
-    //
-    BindInstituteslist();
-    //
-    /// Function Binding Dropdown Select roles
-    BindSelect();
-    AutoComplete();
-    AutoCompleteAdmin();
-    ///
-    /// Save button Click for admin Add & Update in modal
-    $('#btnAddAdmin').click(function (e) {
-        try {
-            AdminValidation();
-        }
-        catch (e) {
+    try
+    {
+        ///
+        ////Function for binding Pious Organization
+        //
+        BindInstituteslist();
+        //
+        /// Function Binding Dropdown Select roles
+        BindSelect();
+        AutoComplete();
+        AutoCompleteAdmin();
+        ///
+        /// Save button Click for admin Add & Update in modal
+        $('#btnAddAdmin').click(function (e) {
+            try {
+                AdminValidation();
+            }
+            catch (e) {
+                noty({ type: 'error', text: e.message });
+            }
+        });
+        ///
+        /// Save button Click for Institution Add & Update
+        $('#btnSaveInstitute').click(function (e) {
+            try {
+                InstitutionValidation();
+            }
+            catch (e) {
+                noty({ type: 'error', text: e.message });
+            }
+        });
 
-        }
-    });
-    ///
-    /// Save button Click for Institution Add & Update
-    $('#btnSaveInstitute').click(function (e) {
-        try {
-            InstitutionValidation();
-        }
-        catch (e) {
+        //
+        //Style setting for client side Validation
+        //CreatedBy Thomson
 
+        $('input[type=text],input[type=password]').on('focus', function () {
+            $(this).css({ background: 'white' });
+            $('#ErrorBox,#ErrorBox1').hide(1000);
+        });
+        $('textarea,select').on('focus', function () {
+            $(this).css({ background: 'white' });
+            $('#ErrorBox,#ErrorBox1').hide(1000);
+        });
+        //////////////////////////////////////////////////////
+        var value = $('#ContentPlaceHolder2_btnAddNew').val();
+        if (value != "") {
+            debugger;
+            $('#iconEditInstitute').remove();
         }
-    });
-
-    //
-    //Style setting for client side Validation
-    //CreatedBy Thomson
-
-    $('input[type=text],input[type=password]').on('focus', function () {
-        $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').hide(1000);
-    });
-    $('textarea,select').on('focus', function () {
-        $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').hide(1000);
-    });
-    //////////////////////////////////////////////////////
-    var value = $('#ContentPlaceHolder2_btnAddNew').val();
-    if (value != "") {
-        debugger;
-        $('#iconEditInstitute').remove();
     }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+    
 });
 ///End document ready section
 
@@ -163,23 +172,26 @@ function SaveAdministrator()
             Administrators.memberId = $("#hdnmemID").val();
             if (i == "1")
             {
-                Administrators.imageID = guid;
+              Administrators.imageID = guid;
             }
+            else
+            {
+                Administrators.imageID = patronImageId;
+            }
+            
             Administrators.adminId = guid;
             $("#hdnAdminID").val(guid);
             result = InsertAdministrator(Administrators);
 
             if (result.results == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Administrator Added Successfully");
-                noty({ text: 'Administrator Added Successfully', type: 'success' });
+                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
             }
-            if (result.results != "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Saving Not Successful");
-                noty({ text: 'Saving Not Successful', type: 'error' });
+            if (result.results == "2") {
+                noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+            }
+            else
+            {
+                noty({ text: result.results, type: 'error' });
             }
 
 
@@ -213,16 +225,13 @@ function SaveAdministrator()
             result = UpdateAdministrator(Administrators);
 
             if (result.results == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Administrator Edited Successfully");
-                noty({ text: 'Administrator Edited Successfully', type: 'success' });
+                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
             }
-            if (result.results != "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Editing Not Successful");
-                noty({ text: 'Editing Not Successful', type: 'success' });
+            if (result.results == "2") {
+                noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+            }
+            else{
+                noty({ text: result.results, type: 'error' });
             }
 
         }
@@ -235,7 +244,7 @@ function SaveAdministrator()
         $("#hdnAdminID").val('');
     }
     catch (e) {
-        //return;
+        noty({ text: e.message, type: 'error' });
     }
 
 }
@@ -263,10 +272,7 @@ function SaveInstitution() {
             result = InsertInstitute(PiousOrg);
 
             if (result.results == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Organization Added Successfully");
-                noty({ text: 'Organization Added Successfully', type: 'success' });
+                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                 $('#divAccoAdmininfo').show();
                 $('#divAdminInfo').show();
                 $('#EditdivAppend').empty();
@@ -281,10 +287,7 @@ function SaveInstitution() {
 
             }
             if (result.results != "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Saving Not Successful");
-                noty({ text: 'Saving Not Successful', type: 'error' });
+                noty({ text: result.results, type: 'error' });
             }
 
 
@@ -305,117 +308,129 @@ function SaveInstitution() {
             result = UpdateInstitute(PiousOrg);
 
             if (result.results == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Organization Edited Successfully");
-                noty({ text: 'Organization Edited Successfully', type: 'success' });
+                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
             }
             if (result.results != "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Saving Not Successful");
-                noty({ text: 'Saving Not Successful', type: 'error' });
+                noty({ text: result.results, type: 'error' });
             }
 
         }
         BindInstituteslist();
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
 //
 //Function For auto complete text box for patron
 function AutoComplete() {
-    var ac = null;
-    ac = GetAllPatrons();
+    try
+    {
+        var ac = null;
+        ac = GetAllPatrons();
 
-    var length = ac.length;
-    var projects = new Array();
-    for (i = 0; i < length; i++) {
-        var name = ac[i].split('🏠');
-        projects.push({ value: name[0], label: name[0], desc: name[1] })
-    }
-
-    $("#txtPatron").autocomplete({
-        maxResults: 10,
-        source: function (request, response) {
-            //--- Search by name or description(file no , mobile no, address) , by accessing matched results with search term and setting this result to the source for autocomplete
-            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-            var matching = $.grep(projects, function (value) {
-
-                var name = value.value;
-                var label = value.label;
-                var desc = value.desc;
-
-                return matcher.test(name) || matcher.test(desc);
-            });
-            var results = matching; // Matched set of result is set to variable 'result'
-
-            response(results.slice(0, this.options.maxResults));
-        },
-        focus: function (event, ui) {
-            $("#txtPatron").val(ui.item.label);
-
-            return false;
-        },
-        select: function (event, ui) {
-            var patronID = ui.item.desc;
-            $('#hdnPatron').val(patronID);
-            BindPatron(patronID);
-            return false;
+        var length = ac.length;
+        var projects = new Array();
+        for (i = 0; i < length; i++) {
+            var name = ac[i].split('🏠');
+            projects.push({ value: name[0], label: name[0], desc: name[1] })
         }
-    })
+
+        $("#txtPatron").autocomplete({
+            maxResults: 10,
+            source: function (request, response) {
+                //--- Search by name or description(file no , mobile no, address) , by accessing matched results with search term and setting this result to the source for autocomplete
+                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                var matching = $.grep(projects, function (value) {
+
+                    var name = value.value;
+                    var label = value.label;
+                    var desc = value.desc;
+
+                    return matcher.test(name) || matcher.test(desc);
+                });
+                var results = matching; // Matched set of result is set to variable 'result'
+
+                response(results.slice(0, this.options.maxResults));
+            },
+            focus: function (event, ui) {
+                $("#txtPatron").val(ui.item.label);
+
+                return false;
+            },
+            select: function (event, ui) {
+                var patronID = ui.item.desc;
+                $('#hdnPatron').val(patronID);
+                BindPatron(patronID);
+                return false;
+            }
+        });
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+    
 }
 //
 //Function For auto complete text box for patron
 function AutoCompleteAdmin() {
-    var ac = null;
-    ac = GetMembers();
-    debugger;
-    var length = ac.length;
-    var projects = new Array();
-    for (i = 0; i < length; i++) {
-        var name = ac[i].split('🏠');
-        projects.push({ value: name[0], label: name[0], desc: name[1] ,contact:name[2],imagepath:name[3]})
+    try
+    {
+        debugger;
+        var ac = null;
+        ac = GetMembers();
+        debugger;
+        var length = ac.length;
+        var projects = new Array();
+        for (i = 0; i < length; i++) {
+            var name = ac[i].split('🏠');
+            projects.push({ value: name[0], label: name[0], desc: name[1], contact: name[2], imagepath: name[3],imageId:name[4] })
+        }
+
+        $("#txtName").autocomplete({
+            maxResults: 10,
+            source: function (request, response) {
+                //--- Search by name or description(file no , mobile no, address) , by accessing matched results with search term and setting this result to the source for autocomplete
+                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                var matching = $.grep(projects, function (value) {
+
+                    var name = value.value;
+                    var label = value.label;
+                    var desc = value.desc;
+
+                    return matcher.test(name) || matcher.test(desc);
+                });
+                var results = matching; // Matched set of result is set to variable 'result'
+
+                response(results.slice(0, this.options.maxResults));
+            },
+            focus: function (event, ui) {
+                $("#txtName").val(ui.item.value);
+
+                return false;
+            },
+            select: function (event, ui) {
+                debugger;
+                var patronID = ui.item.desc;
+                patronImageId = ui.item.imageId;
+                $('#hdnmemID').val(patronID);
+                $('#txtMobile').val(ui.item.contact);
+                if (ui.item.imagepath != "") {
+                    $('#AdminPicPreview').attr('src', ui.item.imagepath);
+                }
+
+                // BindPatron(patronID);
+                return false;
+            }, appendTo: "#modelAddAdmin"
+        })
     }
-
-    $("#txtName").autocomplete({
-        maxResults: 10,
-        source: function (request, response) {
-            //--- Search by name or description(file no , mobile no, address) , by accessing matched results with search term and setting this result to the source for autocomplete
-            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-            var matching = $.grep(projects, function (value) {
-
-                var name = value.value;
-                var label = value.label;
-                var desc = value.desc;
-
-                return matcher.test(name) || matcher.test(desc);
-            });
-            var results = matching; // Matched set of result is set to variable 'result'
-
-            response(results.slice(0, this.options.maxResults));
-        },
-        focus: function (event, ui) {
-            $("#txtName").val(ui.item.value);
-
-            return false;
-        },
-        select: function (event, ui) {
-            var patronID = ui.item.desc;
-            $('#hdnmemID').val(patronID);
-            $('#txtMobile').val(ui.item.contact);
-            if (ui.item.imagepath != "")
-            {
-                $('#AdminPicPreview').attr('src', ui.item.imagepath);
-            }
-            
-           // BindPatron(patronID);
-            return false;
-        }, appendTo: "#modelAddAdmin"
-    })
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+   
 }
 //
 //function Bind Patron and photo
@@ -452,7 +467,7 @@ function BindSelect() {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -478,7 +493,7 @@ function BindInstituteslist() {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -505,7 +520,7 @@ function BindDetails(intituteID) {
         BindCard(intituteID);
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -532,7 +547,7 @@ function BindCard(ID) {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -556,7 +571,7 @@ function BindEditCard(ID) {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -639,7 +654,7 @@ function EditAdministrator(this_Obj) {
         $('#modelAddAdmin ').modal('show');
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 }
 //
@@ -653,21 +668,17 @@ function DeleteAdministrator(this_Obj) {
             AdminRow = GetAdminDetails(AdminID);
             result = DeleteAdmin(AdminRow);
             if (result.results == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text("Administrator Deleted Successfully");
+                noty({ text: Messages.DeletionSuccessFull, type: 'success' });
 
             }
             if (result.results != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text("Deletion Not Successful");
+                noty({ text: result.results, type: 'error' });
             }
             BindEditCard(AdminRow.orgId);
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -684,7 +695,7 @@ function OpenInstituteDetails(intituteID) {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -727,7 +738,7 @@ function EditInstitute(this_obj) {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -760,25 +771,19 @@ function DeleteInstituteclick(this_Obj) {
             if (Adminresult == "sucess") {
                 result = DeleteInstitute(InstituteRow);
                 if (result.results == "1") {
-                    //$('#rowfluidDiv').show();
-                    //$('.alert-success').show();
-                    //$('.alert-success strong').text("Institution Deleted Successfully");
-                    noty({ text: 'Institution Deleted Successfully', type: 'success' });
+                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
                     BindInstituteslist();
                     $('#InstituteEdit').hide();
                     $('#InstituteShow').hide();
                 }
                 if (result.results != "1") {
-                    //$('#rowfluidDiv').show();
-                    //$('.alert-error').show();
-                    //$('.alert-error strong').text("Deletion Not Successful");
-                    noty({ text: 'Deletion Not Successful', type: 'error' });
+                    noty({ text: result.results, type: 'error' });
                 }
             }
         }
         }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 
@@ -809,7 +814,7 @@ function NewInstitute() {
         $('#txtInstituteName').focus();
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -849,7 +854,7 @@ function Cancel(this_Obj) {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -1086,112 +1091,94 @@ function GetPatronbyID(patronID)
 //Basic Validation For New Institution
 //CreatedBy Thomson
 function InstitutionValidation() {
-    debugger;
-    $('#Displaydiv').remove();
-    var Name = $('#txtInstituteName');
-    var Patron = $('#txtPatron');
+    try
+    {
+        debugger;
+        var Name = $('#txtInstituteName');
+        var Patron = $('#txtPatron');
 
-    var container = [
-        { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
-        { id: Patron[0].id, name: Patron[0].name, Value: Patron[0].value },
-    ];
+        var container = [
+            { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
+            { id: Patron[0].id, name: Patron[0].name, Value: Patron[0].value },
+        ];
 
-    var j = 0;
-    var Errorbox = document.getElementById('ErrorBox');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv");
-    Errorbox.appendChild(divs);
-    for (var i = 0; i < container.length; i++) {
+        var j = 0;
 
-        if (container[i].Value == "") {
-            j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
-            var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundImage = "url('../img/invalid.png')";
-            txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+        for (var i = 0; i < container.length; i++) {
 
+            if (container[i].Value == "") {
+                j = 1;
+                var txtB = document.getElementById(container[i].id);
+                txtB.style.backgroundImage = "url('../img/invalid.png')";
+                txtB.style.backgroundPosition = "95% center";
+                txtB.style.backgroundRepeat = "no-repeat";
+
+            }
+        }
+        if (j == '1') {
+            noty({ type: 'error', text: Messages.Validation });
+            return false;
+        }
+        if (j == '0') {
+            SaveInstitution();
+            return true;
         }
     }
-    if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-
-        divs.appendChild(p);
-
-        return false;
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
     }
-    if (j == '0') {
-        $('#ErrorBox').hide();
-        //scriptvalidate();
-        SaveInstitution();
-        return true;
-    }
+    
 }
 //Basic Validation For New Administrator
 //CreatedBy Thomson
 function AdminValidation() {
-    debugger;
-    $('#Displaydiv1').remove();
-    var Name = $('#txtName');
-    var Phone = $('#txtMobile');
-    var Role = $('#ddlRole');
+    try
+    {
+        debugger;
+        var Name = $('#txtName');
+        var Phone = $('#txtMobile');
+        var Role = $('#ddlRole');
 
-    var container = [
-        { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
-        { id: Phone[0].id, name: Phone[0].name, Value: Phone[0].value },
-        { id: Role[0].id, name: Role[0].name, Value: Role[0].value },
-    ];
+        var container = [
+            { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
+            { id: Phone[0].id, name: Phone[0].name, Value: Phone[0].value },
+            { id: Role[0].id, name: Role[0].name, Value: Role[0].value },
+        ];
 
-    var j = 0;
-    var Errorbox = document.getElementById('ErrorBox1');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv1");
-    Errorbox.appendChild(divs);
-    for (var i = 0; i < container.length; i++) {
+        var j = 0;
 
-        if (container[i].Value == "") {
-            j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
-            var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundImage = "url('../img/invalid.png')";
-            txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+        for (var i = 0; i < container.length; i++) {
 
+            if (container[i].Value == "") {
+                j = 1;
+                var txtB = document.getElementById(container[i].id);
+                txtB.style.backgroundImage = "url('../img/invalid.png')";
+                txtB.style.backgroundPosition = "95% center";
+                txtB.style.backgroundRepeat = "no-repeat";
+
+            }
+            else if (container[i].Value == "-1") {
+                j = 1;
+                var txtB = document.getElementById(container[i].id);
+                txtB.style.backgroundImage = "url('../img/invalid.png')";
+                txtB.style.backgroundPosition = "95% center";
+                txtB.style.backgroundRepeat = "no-repeat";
+            }
         }
-        else if (container[i].Value == "-1") {
-            j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
-            var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundImage = "url('../img/invalid.png')";
-            txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+        if (j == '1') {
+            noty({ type: 'error', text: Messages.Validation });
+            return false;
+        }
+        if (j == '0') {
+            SaveAdministrator();
+            return true;
         }
     }
-    if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-
-        divs.appendChild(p);
-        //$('#btnAddAdmin').attr('name', 'failure');
-        return false;
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
     }
-    if (j == '0') {
-        $('#ErrorBox1').hide(1000);
-        //scriptvalidate();
-        SaveAdministrator();
-        //$('#btnAddAdmin').attr('name', 'success');
-        return true;
-    }
+   
 }
 ///End Client side Validation
