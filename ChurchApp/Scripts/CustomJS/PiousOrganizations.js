@@ -822,6 +822,7 @@ function NewInstitute() {
 //Add admin button onclick functionn for open modal
 function OpenAdminModal() {
     try {
+        
         RemoveStyle();
         $('#rowfluidDiv').hide();
         $('#modelAddAdmin ').modal('show');
