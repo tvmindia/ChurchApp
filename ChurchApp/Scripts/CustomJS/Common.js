@@ -316,5 +316,6 @@ var Messages = {
     ReviveNotSuccess: "Restoring Product was not Successfull.",
 
     HtmlFileFormatError: "Please select html file",
-    OperationDuplicateFailure:"Operation Failure... Duplicate Entry!"
+    OperationDuplicateFailure: "Operation Failure... Duplicate Entry!",
+    MemeberAlreadyExists:"Member with the same name already exists"
 }
