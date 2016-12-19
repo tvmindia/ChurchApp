@@ -293,7 +293,7 @@ namespace ChurchApp.AdminPanel
                 throw ex;
             }
 
-            jsSerializer.Serialize(NotificationObj); ;
+           return jsonResult;
         }
 
 
