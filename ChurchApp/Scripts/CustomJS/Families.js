@@ -1,4 +1,4 @@
-﻿
+﻿var adminImage = null;
 $(document).ready(function () {
     BindFamilyUnitsAccordion();
     BindSelect();
@@ -79,6 +79,7 @@ $(document).ready(function () {
     });
     $(".SaveAdmin").click(function (e) {
         debugger;
+        var i = "0";
         var jsonResult = {};
         var position = $("#ddlRole option:selected").text();
         var IdAndOrder = $('#ddlRole').val();
@@ -125,6 +126,13 @@ $(document).ready(function () {
             if (i == "1") {
                 Administrators.imageID = adminID;
             }
+            else
+            {
+                if(adminImage!=null && adminImage!="")
+                {
+                    Administrators.imageID = adminImage;
+                }
+            }
             jsonResult = InsertAdministrator(Administrators);
             switch (jsonResult.status) {
                 case "1":
@@ -135,7 +143,7 @@ $(document).ready(function () {
                     cancelAdminEdit();
                     break;
                 case "2":
-                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'success' });
+                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
                     break;
                 default:
                     noty({ text: Messages.InsertionFailure, type: 'error' });
@@ -457,6 +465,7 @@ function MemberValidation() {
 
 function saveMember()
 {
+    var i = "0";
     var jsonResult = {};
     var FamilyUnits = new Object();
     var Family = new Object();
@@ -798,16 +807,7 @@ function EditFamily(e)
 function AdminMemberChange()
 {
     debugger;
-    //var phone = $("#ddlMember option:selected").attr("name");
-    //if ($("#hdfPhone").val() != "" && $("#hdfPhone").val() != null)
-    //{
-    //    $("#txtMobile").val($("#hdfPhone").val());
-    //}
-    //else
-    //{
-    //    $("#txtMobile").val(phone);
-    //}
-    //$("#hdfPhone").val("")
+ 
     if ($("#ddlMember").val() != "" && $("#ddlMember").val() != null && $("#ddlMember").val()!="-1")
     {
         var FamilyUnits = new Object();
@@ -820,6 +820,7 @@ function AdminMemberChange()
         Members.memberId = $("#ddlMember").val();
         var jsonResult = GetAdminMemberDetails(Members);
         if (jsonResult != undefined && jsonResult != null) {
+            debugger;
             if (jsonResult[0].Phone != "" && jsonResult[0].Phone != undefined && jsonResult[0].Phone != null)
             {
                 $("#txtMobile").val(jsonResult[0].Phone);
@@ -828,7 +829,15 @@ function AdminMemberChange()
             {
                 $("#txtMobile").val(jsonResult[0].Contact);
             }
-           
+            if(jsonResult[0].URL!=null &&jsonResult[0].URL!="")
+            {
+                $('#AdminImg').attr('src', jsonResult[0].URL);
+               
+               
+            }
+            if (jsonResult[0].ImageID != "" && jsonResult[0].ImageID != null) {
+                adminImage = jsonResult[0].ImageID;
+            }
         }
     }
     
@@ -847,6 +856,7 @@ function OpenAdminModal()
 {
     $("#AddOrEditAdmin").text("Add");
     $('#AdminImg').attr('src', '../img/gallery/Noimage.png');
+    document.getElementById("fluImage").value = '';
 
 }
 function AddFamilyUnit()
@@ -1074,6 +1084,7 @@ function EditMembers(e)
     Family.familyId = familyID;
     Members.memberId = memberID;
     Members.familyObj = Family;
+    debugger;
     jsonResult = GetFamilyMember(Members);
     if(jsonResult!=undefined)
     {
@@ -1098,6 +1109,7 @@ function EditMembers(e)
         }
         else {
             $('#MemberImg').attr('src', '../img/gallery/Noimage.png');
+            document.getElementById("mfluImage").value = '';
         }
         $("#memberAddOrEdit").text("Edit");
         $(".btnEdit").css("display", "none");
@@ -1282,6 +1294,7 @@ function AddFamilyMember()
     $("#FamilyAdd").css("margin-top", "1%");
     $("#MemberImg").attr("src", "../img/gallery/priest.png");
     $("#txtFirstName").focus();
+    document.getElementById("mfluImage").value = '';
     } 
 function FamilyMembersAutoBind() {
     debugger;

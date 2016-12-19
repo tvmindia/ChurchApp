@@ -173,7 +173,7 @@
      <%-- Modal Insert Administration Faculties --%>
                <div class="modal hide fade" id="modelAddAdmin">
 		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
+			<button type="button" class="close" data-dismiss="modal" onclick="clearAdminControls();">×</button>
 			<h3><span id="AddOrEditAdmin">Add</span> Administrator</h3>
 		  </div>
 		  <div class="modal-body">
@@ -220,7 +220,7 @@
 
 		</div>
 		  <div class="modal-footer">
-			<a class="btn" data-dismiss="modal">Close</a>
+			<a class="btn" data-dismiss="modal" onclick="clearAdminControls();">Close</a>
 			<a id="btnAddAdmin" class="btn btn-primary SaveAdmin">Save changes</a>
 		</div>
 	      </div>
