@@ -1,4 +1,4 @@
-﻿
+﻿var adminImage = null;
 $(document).ready(function () {
     BindFamilyUnitsAccordion();
     BindSelect();
@@ -79,6 +79,7 @@ $(document).ready(function () {
     });
     $(".SaveAdmin").click(function (e) {
         debugger;
+        var i = "0";
         var jsonResult = {};
         var position = $("#ddlRole option:selected").text();
         var IdAndOrder = $('#ddlRole').val();
@@ -125,6 +126,13 @@ $(document).ready(function () {
             if (i == "1") {
                 Administrators.imageID = adminID;
             }
+            else
+            {
+                if(adminImage!=null && adminImage!="")
+                {
+                    Administrators.imageID = adminImage;
+                }
+            }
             jsonResult = InsertAdministrator(Administrators);
             switch (jsonResult.status) {
                 case "1":
@@ -135,7 +143,7 @@ $(document).ready(function () {
                     cancelAdminEdit();
                     break;
                 case "2":
-                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'success' });
+                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
                     break;
                 default:
                     noty({ text: Messages.InsertionFailure, type: 'error' });
@@ -457,6 +465,7 @@ function MemberValidation() {
 
 function saveMember()
 {
+    var i = "0";
     var jsonResult = {};
     var FamilyUnits = new Object();
     var Family = new Object();
@@ -828,7 +837,12 @@ function AdminMemberChange()
             {
                 $("#txtMobile").val(jsonResult[0].Contact);
             }
-           
+            if(jsonResult[0].URL!=null &&jsonResult[0].URL!="")
+            {
+                $('#AdminImg').attr('src', jsonResult[0].URL);
+                adminImage = jsonResult[0].ImageID;
+
+            }
         }
     }
     
