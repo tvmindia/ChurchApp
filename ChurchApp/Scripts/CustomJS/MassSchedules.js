@@ -107,7 +107,7 @@ $("document").ready(function (e) {
                     noty({ text: Messages.InsertionFailure, type: 'error' });
                     break;
                 default:
-                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'information' });
+                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
                     break;
             }
         }
