@@ -138,6 +138,7 @@ $("document").ready(function (e) {
        columns: [
 
          { "data": "ID" },
+         { "data": "MainImageID"},
          { "data": "Name","defaultContent": "<i>-</i>" },
           { "data": "Address", "defaultContent": "<i>-</i>" },
          { "data": "Phone1", "orderable": false, "defaultContent": "<i>-</i>" },
@@ -148,7 +149,7 @@ $("document").ready(function (e) {
        ],
        columnDefs: [
         {//hiding hidden column field churchid
-            "targets": [0],
+            "targets": [0,1],
             "visible": false,
             "searchable": false
         }
@@ -318,66 +319,63 @@ $("document").ready(function (e) {
     }
    
    
+    ///klkl
     $('#btnChurchAdd').click(function (e) {
-        
+        try {
         var churchbit = ChurchValidation();
-        if (churchbit)
-        {
-            try {
+
+     
+            debugger;
+
+            if (churchbit)
+            {
                 var Church = new Object();
                 if ($('#txtChurchName').val() != "") {
                     Church.churchName = $('#txtChurchName').val();
                 }
-                else
-                {
+                else {
                     Church.churchName = '';
                 }
 
                 if ($(".ddlTownCode").val() != "") {
                     Church.townCode = $(".ddlTownCode").val();
                 }
-                else
-                {
+                else {
                     Church.townCode = '';
                 }
 
                 if ($('#txtAddress').val() != "") {
                     Church.address = $('#txtAddress').val();
                 }
-                else
-                {
+                else {
                     Church.address = '';
                 }
 
                 if ($('#txtDescription').val() != "") {
                     Church.description = $('#txtDescription').val();
                 }
-                else
-                {
+                else {
                     Church.description = '';
                 }
 
                 if ($('#txtAbout').val() != "") {
                     Church.about = $('#txtAbout').val();
                 }
-                else
-                {
+                else {
                     Church.about = '';
                 }
 
                 if ($('#txtPhone1').val() != "") {
                     Church.phone1 = $('#txtPhone1').val();
                 }
-                else
-                {
+                else {
                     Church.phone1 = '';
                 }
 
                 if ($('#txtPhone2').val() != "") {
                     Church.phone2 = $('#txtPhone2').val();
                 }
-                else
-                {
+                else {
                     Church.phone2 = '';
                 }
 
@@ -385,28 +383,110 @@ $("document").ready(function (e) {
                 if ($('#txtLongitude').val() != "") {
                     Church.longitude = $('#txtLongitude').val();
                 }
-                else
-                {
+                else {
                     Church.longitude = '';
                 }
 
                 if ($('#txtLatitude').val() != "") {
                     Church.latitude = $('#txtLatitude').val();
                 }
-                else
-                {
+                else {
                     Church.latitude = '';
                 }
-                debugger;
-                if ($("#hdfChurchID").val() != "") {
-                    //UPDATE CHURCH
-                    var churchimag;
-                    if ((churchimag = $('#churchimageuploader')[0].files.length > 0)) {
-                        var formData = new FormData();
 
-                        formData.append('ChurchImage', $('#churchimageuploader')[0].files[0], $('#churchimageuploader')[0].files[0].name);
+
+                if ($("#hdfChurchID").val() == '') {
+                    //INSERT
+                    ///////Image insert using handler
+                    var imgresult;
+                    if ((imgresult = $('#churchimageuploader')[0].files.length > 0)) {
+                        debugger;
+                        var formData = new FormData();
+                        var imagefile;
+                        imagefile = $('#churchimageuploader')[0].files[0];
+                        formData.append('upImageFile', imagefile, imagefile.name);
+                        formData.append('ActionTyp', 'ChurchInsert');
+                        formData.append('churchName', Church.churchName);
+                        formData.append('townCode', Church.townCode);
+                        formData.append('description', Church.description);
+                        formData.append('about', Church.about);
+                        formData.append('address', Church.address);
+                        formData.append('latitude', Church.latitude);
+                        formData.append('longitude', Church.longitude);
+                        formData.append('phone1', Church.phone1);
+                        formData.append('phone2', Church.phone2);
+                        formData.append('createdBy', document.getElementById("LoginName").innerHTML);
+
+                        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                        switch (result.status) {
+                            case "1":
+                                try {
+                                  
+                                    dropdownContainer.ddlChurch.select2().empty();
+                                    dropdownContainer.ddlChurch.select2({
+                                        placeholder: "Choose Church",
+                                        allowClear: true,
+                                        data: BindChurchDropdown()
+                                    });
+                                  }
+                                catch (e) {
+                                    noty({ type: 'error', text: e.message });
+                                }
+                                noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                                BindAllChurches();
+                                $("#hdfChurchID").val(result.churchId);
+                                $("#hdfChurchImageID").val(result.mainImageId);
+                                break;
+                            case "0":
+                                noty({ type: 'error', text: Messages.FailureMsgCaption });
+                                break;
+                            default:
+                                noty({ type: 'error', text: result.status });
+                                break;
+                        }
+                    }
+                    else {
+                        var result = InsertChurch(Church);
+                        switch (result.status) {
+                            case "1":
+                                noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                                $("#hdfChurchID").val(result.churchId);
+                                $("#hdfChurchImageID").val(result.mainImageId);
+                                BindAllChurches();
+                                try {
+                                   
+                                    dropdownContainer.ddlChurch.select2().empty();
+                                    dropdownContainer.ddlChurch.select2({
+                                        placeholder: "Choose Church",
+                                        allowClear: true,
+                                        data: BindChurchDropdown()
+                                    });
+                                    }
+                                catch (e) {
+                                    noty({ type: 'error', text: e.message });
+                                }
+                                break;
+                            case "0":
+                                noty({ type: 'error', text: Messages.FailureMsgCaption });
+
+                                break;
+
+                            default:
+                                noty({ type: 'error', text: result.status });
+                                break;
+                        }
+                    }
+                } //UPDATE
+                else {
+                    //check image for updat
+                    if ((imgresult = $('#churchimageuploader')[0].files.length > 0)) {
+                        debugger;
+                        var formData = new FormData();
+                        var imagefile;
+                        imagefile = $('#churchimageuploader')[0].files[0];
+                        formData.append('upImageFile', imagefile, imagefile.name);
                         formData.append('churchid', $("#hdfChurchID").val());
-                        formData.append('ChurchImageID', createGuid());
+                        formData.append('ChurchImageID', $('#hdfChurchImageID').val());
                         formData.append('ActionTyp', 'ChurchUpdate');
                         formData.append('churchName', Church.churchName);
                         formData.append('townCode', Church.townCode);
@@ -420,11 +500,12 @@ $("document").ready(function (e) {
 
                         formData.append('updatedBy', document.getElementById("LoginName").innerHTML);
                         var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                        switch (result) {
-                            case 1:
-                               
+
+                        switch (result.status) {
+                            case "1":
+                                $("#hdfChurchID").val(result.churchId);
+                                $("#hdfChurchImageID").val(result.mainImageId);
                                 noty({ type: 'success', text: Messages.UpdationSuccessFull });
-                               
                                 try {
                                     dropdownContainer.ddlChurch.select2().empty();
                                     dropdownContainer.ddlChurch.select2({
@@ -432,24 +513,15 @@ $("document").ready(function (e) {
                                         allowClear: true,
                                         data: BindChurchDropdown()
                                     });
-                                    //var $churchone = $(".ddlChurch").select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
-                                    //var $churchSelect = $(".ddlChurchuser").select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
+                                  
                                     BindAllChurches();
                                 }
                                 catch (e) {
                                     noty({ type: 'error', text: e.message });
                                 }
                                 break;
-                            case 0:
-                               
+
+                            case "0":
                                 noty({ type: 'error', text: Messages.FailureMsgCaption });
                                 break;
                             default:
@@ -458,14 +530,14 @@ $("document").ready(function (e) {
                         }
                     }
                     else {
-                        Church.mainImageId = '00000000-0000-0000-0000-000000000000';//no image default id
                         Church.churchId = $("#hdfChurchID").val();
+                      
                         var result = UpdateChurch(Church);
                         switch (result.status) {
                             case "1":
-                               
+                                $("#hdfChurchID").val(result.churchId);
+                                $("#hdfChurchImageID").val(result.mainImageId);
                                 noty({ type: 'success', text: Messages.UpdationSuccessFull });
-                              
                                 try {
                                     dropdownContainer.ddlChurch.select2().empty();
                                     dropdownContainer.ddlChurch.select2({
@@ -473,154 +545,35 @@ $("document").ready(function (e) {
                                         allowClear: true,
                                         data: BindChurchDropdown()
                                     });
-                                    //var $churchone = $(".ddlChurch").select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
-                                    //var $churchSelect = $(".ddlChurchuser").select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
+
                                     BindAllChurches();
                                 }
                                 catch (e) {
                                     noty({ type: 'error', text: e.message });
                                 }
-                               break;
+                                break;
                             case "0":
                                 noty({ type: 'error', text: Messages.FailureMsgCaption });
-                                
+
                                 break;
+
                             default:
                                 noty({ type: 'error', text: result.status });
                                 break;
                         }
-                    }
-
-
-                }
-                else {
-
-                    //INSERT CHURCH
-                    var churchimag;
-                    if ((churchimag = $('#churchimageuploader')[0].files.length > 0)) {
-                        var formData = new FormData();
-
-                        formData.append('ChurchImage', $('#churchimageuploader')[0].files[0], $('#churchimageuploader')[0].files[0].name);
-                        formData.append('ChurchImageID', createGuid());
-                        formData.append('ActionTyp', 'ChurchInsert');
-                        formData.append('churchName', Church.churchName);
-                        formData.append('townCode', Church.townCode);
-                        formData.append('description', Church.description);
-                        formData.append('about', Church.about);
-                        formData.append('address', Church.address);
-                        formData.append('latitude', Church.latitude);
-                        formData.append('longitude', Church.longitude);
-                        formData.append('phone1', Church.phone1);
-                        formData.append('phone2', Church.phone2);
-
-                        formData.append('createdBy', document.getElementById("LoginName").innerHTML);
-                        
-                        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                        switch (result.status) {
-                            case "1":
-                               
-                                noty({ type: 'success', text: Messages.InsertionSuccessFull });
-                               
-                                try {
-                                    //var $churchone = $(".ddlChurch").select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
-                                    //var $churchSelect = $(".ddlChurchuser").select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
-                                    dropdownContainer.ddlChurch.select2().empty();
-                                    dropdownContainer.ddlChurch.select2({
-                                        placeholder: "Choose Church",
-                                        allowClear: true,
-                                        data: BindChurchDropdown()
-                                    });
-                                    $("#hdfChurchID").val(result.churchId);
-                                    BindAllChurches();
-                                }
-                                catch (e) {
-                                    noty({ type: 'error', text: e.message });
-                                }
-                            
-                                break;
-                            case "0":
-                               
-                                noty({ type: 'error', text: Messages.FailureMsgCaption });
-                                break;
-                            default:
-                                noty({ type: 'error', text: result });
-                                break;
-                        }
-                    }
-                    else {
-                        Church.mainImageId = '00000000-0000-0000-0000-000000000000';//no image default id
-                        var result = InsertChurch(Church);
-                        switch (result.status) {
-                            case "1":
-                                noty({ type: 'success', text: Messages.InsertionSuccessFull });
-                               
-                                try {
-                                    //var $churchone = $(".ddlChurch").select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
-                                    //var $churchSelect = $(".ddlChurchuser").select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
-                                    dropdownContainer.ddlChurch.select2().empty();
-                                    dropdownContainer.ddlChurch.select2({
-                                        placeholder: "Choose Church",
-                                        allowClear: true,
-                                        data: BindChurchDropdown()
-                                    });
-                                    $("#hdfChurchID").val(result.churchId);
-                                    BindAllChurches();
-
-                                }
-                                catch (e) {
-                                    noty({ type: 'error', text: e.message });
-                                }
-                               
-                            
-                                break;
-                            case "0":
-                                noty({ type: 'error', text: Messages.FailureMsgCaption });
-                               
-                                break;
-                            default:
-                                noty({ type: 'error', text: result.status });
-                                break;
-                        }
-                    }
-                }
+                    }//else
+                }//else
+            }//churchflag if
 
 
 
-            }
-            catch (e) {
-                noty({ type: 'error', text: e.message });
-            }
         }
-        
-        
-       
-
+        catch (e) {
+            noty({ type: 'error', text: e.message });
+        }
 
     });
+
 
 
     
@@ -1041,8 +994,7 @@ $("document").ready(function (e) {
                             noty({ type: 'error', text: Messages.UpdationFailure });
                            
                             break;
-                        case "2":
-                            noty({ type: 'error', text: 'Updation was not successfull,Order can not Duplicate for organization' });
+                            noty({ type: 'error', text: Messages.UpdationFailureOrderDuplicate });
                             break;
                         default:
                             noty({ type: 'error', text: result.status });
@@ -1051,10 +1003,7 @@ $("document").ready(function (e) {
 
                 }
             }
-           
-
-
-        }
+         }
         catch(e)
         {
             noty({ type: 'error', text: e.message });
@@ -1063,104 +1012,7 @@ $("document").ready(function (e) {
     });
 
 
-    //$('#btnSaintAdd').click(function (e) {
-    //    try
-    //    {
-    //        var saintflag = PatronValidation();
-    //        if (saintflag) {
-    //            var PatronMaster = new Object();
-    //            PatronMaster.patronMasterName = $("#txtSaintName").val();
-    //            PatronMaster.description = $("#txtSaintDescription").val();
-    //            var guid = createGuid();
-    //            if (guid != null) {
-    //                var imgresult = "";
-    //                var _URL = window.URL || window.webkitURL;
-    //                var formData = new FormData();
-    //                var imagefile;
-
-    //                if (((imagefile = $('#UpSaint')[0].files[0]) != undefined)) { //App image insertion to table as well as folder
-    //                    var formData = new FormData();
-    //                    var tempFile;
-    //                    if ((tempFile = $('#UpSaint')[0].files[0]) != undefined) {
-    //                        tempFile.name = guid;
-    //                        formData.append('NoticeAppImage', tempFile, tempFile.name);
-    //                        formData.append('GUID', guid);
-    //                        formData.append('createdby', document.getElementById("LoginName").innerHTML);
-    //                    }
-    //                    formData.append('ActionTyp', 'NoticeAppImageInsert');
-    //                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-    //                    PatronMaster.imageID = guid;
-    //                }
-    //                else {
-    //                    if ($('#hdfPatronImageID').val() != '') {
-    //                        PatronMaster.imageID = $('#hdfPatronImageID').val(); // If no image is selected ,while updating, old imagid itself passed which is stored in hiddenfield
-    //                    }
-    //                }
-    //            }
-
-    //            if ($('#hdfPatronID').val() != "") { //Case Update
-    //                PatronMaster.patronMasterId = $('#hdfPatronID').val();
-
-    //                result = UpdatePatron(PatronMaster);
-    //                switch (result.status) {
-    //                    case "1":
-    //                        noty({ type: 'success', text: 'Updated successfully' });
-    //                        BindPatrons();
-    //                        break;
-    //                    case "0":
-    //                        noty({ type: 'error', text: 'Updation was not successfull' });
-
-    //                        break;
-    //                    default:
-    //                        noty({ type: 'error', text: result.status });
-    //                        break;
-    //                }
-
-    //                if ($('#hdfPatronImageID').val() != '' && (((imagefile = $('#UpSaint')[0].files[0]) != undefined))) {
-
-    //                    //--if patron is updated with new image, the old image should delete from folder and table
-    //                    var AppImages = new Object();
-    //                    AppImages.appImageId = $('#hdfPatronImageID').val();
-    //                    DeleteAppImage(AppImages);
-
-    //                    if ($('#hdfPatronImageURL').val() != "") {
-    //                        DeleteFileFromFolder($('#hdfPatronImageURL').val());
-    //                    }
-    //                    $('#hdfPatronImageID').val("");
-    //                    $('#hdfPatronImageURL').val("");
-    //                }
-    //            }
-    //            else {  //Case Insert
-    //                result = InsertPatron(PatronMaster);
-    //                switch (result.status) {
-    //                    case "1":
-    //                        noty({ type: 'success', text: 'Inserted successfully' });
-    //                        BindPatrons();
-    //                        break;
-    //                    case "0":
-    //                        noty({ type: 'error', text: 'Insertion was not successfull' });
-
-    //                        break;
-    //                    default:
-    //                        noty({ type: 'error', text: result.status });
-    //                        break;
-    //                }
-    //            }
-
-
-    //            //ClearModalControls();
-    //        }
-
-    //        else {
-    //            return false;
-    //        }
-    //    }
-    //    catch (e) {
-    //        noty({ type: 'error', text: e.message });
-    //    }
-      
-
-    //});
+   
 
 
     $('#btnSaintAdd').click(function (e) {
@@ -2019,6 +1871,7 @@ function EditChurch(curobj)
     var Church = new Object();
     Church.churchId = data.ID;
     $("#hdfChurchID").val(Church.churchId);
+    $("#hdfChurchImageID").val(data.MainImageID);
     var churchDetail = GetChurchDetailsByChurchID(Church);
     $("#txtChurchName").val(churchDetail[0].ChurchName);
     $(".ddlTownCode").val(churchDetail[0].TownCode).trigger("change");
@@ -2272,15 +2125,17 @@ function GetPatronDetailByID(PatronMaster) {
 
 function RemoveChurch(curobj)
 {
-    debugger;
+   debugger;
     var data = DashDataTables.churchTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
 
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
         var Church = new Object();
-       
+        var AppImages = new Object();
         Church.churchId = data.ID;
+        Church.appImagesObj = AppImages;
+        Church.mainImageId = data.MainImageID;
         var result = DeleteChurch(Church);
         switch (result.status) {
             case "1":
@@ -2292,19 +2147,7 @@ function RemoveChurch(curobj)
                             allowClear: true,
                             data: BindChurchDropdown()
                          });
-                    //$(".ddlChurch").select2().empty();
-                    // $(".ddlChurch").select2({
-                    //    placeholder: "Choose Church",
-                    //    allowClear: true,
-                    //    data: BindChurchDropdown()
-                    // });
-                    // $(".ddlChurchuser").select2().empty();
-                    //$(".ddlChurchuser").select2({
-                    //    placeholder: "Choose Church",
-                    //    allowClear: true,
-                    //    data: BindChurchDropdown()
-
-                    //});
+                  
                     BindAllChurches();
                 }
                 catch (e) {
@@ -2315,6 +2158,11 @@ function RemoveChurch(curobj)
            case "0":
                noty({ type: 'error', text: Messages.DeletionFailure });
                
+               break;
+
+            case "2":
+                noty({ type: 'error', text: Messages.DeletionFailureUsed });
+
                 break;
             default:
                 noty({ type: 'error', text: result.status });

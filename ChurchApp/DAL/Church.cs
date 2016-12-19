@@ -32,6 +32,7 @@ namespace ChurchApp.DAL
         //public PiousOrg piousOrg = new PiousOrg();
         //public Priest priest = new Priest();
         public Common comnObj = new Common();
+        public AppImages appImagesObj;
         #region Public Properties
 
         public string churchId
@@ -204,7 +205,11 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@TownCode", SqlDbType.NVarChar, 10).Value = townCode!=null&&townCode!=""?townCode:null;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about!=null&&about!=""?about:null;
-                cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
+                if (mainImageId!=null)
+                {
+                    cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
+                }
+             
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address!=null&&address!=""?address:null;
                 if(latitude!=null&&latitude!="")
                 {
@@ -273,7 +278,10 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@TownCode", SqlDbType.NVarChar, 10).Value = townCode;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
-                cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
+                if (mainImageId!=null)
+                {
+                    cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
+                }
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
                 cmd.Parameters.Add("@Latitude", SqlDbType.NVarChar, 100).Value = latitude;
                 cmd.Parameters.Add("@Longitude", SqlDbType.NVarChar, 100).Value = longitude;
@@ -333,6 +341,16 @@ namespace ChurchApp.DAL
                 outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+                //Church image is not deleteing from folder as well as from database
+                //if (outParameter.Value.ToString()=="1")
+                //{
+
+                //    if ((mainImageId != null) && (mainImageId != ""))
+                //    {
+                //        appImagesObj.DeleteAppImage();
+                //    }
+                //}
+               
             }
 
             catch (Exception ex)

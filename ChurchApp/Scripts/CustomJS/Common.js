@@ -316,5 +316,6 @@ var Messages = {
     ReviveNotSuccess: "Restoring Product was not Successfull.",
 
     HtmlFileFormatError: "Please select html file",
-    OperationDuplicateFailure:"Operation Failure... Duplicate Entry!"
+    OperationDuplicateFailure: "Operation Failure... Duplicate Entry!",
+    UpdationFailureOrderDuplicate: "Updation was not successfull,Order can not Duplicate for organization"
 }
