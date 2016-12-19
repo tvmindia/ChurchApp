@@ -1,57 +1,61 @@
 ﻿//
 ///////////////////////////////////////////********Document ready section
 $(document).ready(function () {
-    ///
-    ////Function for binding Institutions
-    //
-    BindInstituteslist();
-    //
-    /// Function Binding Dropdown Select roles
-    BindSelect();
-    ///
-    /// Save button Click for admin Add & Update in modal
-    $('#btnAddAdmin').click(function (e) {
-        try
-        {
-            AdminValidation();
+    try
+    {
+        ///
+        ////Function for binding Institutions
+        //
+        BindInstituteslist();
+        //
+        /// Function Binding Dropdown Select roles
+        BindSelect();
+        ///
+        /// Save button Click for admin Add & Update in modal
+        $('#btnAddAdmin').click(function (e) {
+            try {
+                AdminValidation();
+            }
+            catch (e) {
+                noty({ type: 'error', text: e.message });
+            }
+        });
+        ///
+        /// Save button Click for Institution Add & Update
+        $('#btnSaveInstitute').click(function (e) {
+            try {
+                InstitutionValidation();
+            }
+            catch (e) {
+                noty({ type: 'error', text: e.message });
+            }
+        });
+
+        //
+        //Style setting for client side Validation
+        //CreatedBy Thomson
+
+        $('input[type=text],input[type=password]').on('focus', function () {
+            $(this).css({ background: 'white' });
+            $('#ErrorBox,#ErrorBox1').hide(1000);
+        });
+        $('textarea,select').on('focus', function () {
+            $(this).css({ background: 'white' });
+            $('#ErrorBox,#ErrorBox1').hide(1000);
+        });
+        //////////////////////////////////////////////////////
+
+        var value = $('#ContentPlaceHolder2_btnAddNew').val();
+        if (value != "") {
+
+            $('#iconEditInstitute').remove();
         }
-        catch (e)
-        {
-
-        }
-    });
-    ///
-    /// Save button Click for Institution Add & Update
-    $('#btnSaveInstitute').click(function (e) {
-        try
-        {
-            InstitutionValidation();
-        }
-        catch(e)
-        {
-
-        }
-    });
-
-    //
-    //Style setting for client side Validation
-    //CreatedBy Thomson
-
-    $('input[type=text],input[type=password]').on('focus', function () {
-        $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').hide(1000);
-    });
-    $('textarea,select').on('focus', function () {
-        $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').hide(1000);
-    });
-    //////////////////////////////////////////////////////
-
-    var value = $('#ContentPlaceHolder2_btnAddNew').val();
-    if (value != "") {
-        
-        $('#iconEditInstitute').remove();
     }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+    
 });
 ///End document ready section
 
@@ -174,16 +178,10 @@ function SaveAdministrator()
             result = InsertAdministrator(Administrators);
 
             if (result.results == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Administrator Added Successfully");
-                noty({ text: 'Administrator Added Successfully', type: 'success' });
+                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
             }
-            if (result.results != "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Saving Not Successful");
-                noty({ text: 'Saving Not Successful', type: 'error' });
+            else{
+                noty({ text: result.results, type: 'error' });
             }
 
 
@@ -217,16 +215,10 @@ function SaveAdministrator()
             result = UpdateAdministrator(Administrators);
 
             if (result.results == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Administrator Edited Successfully");
-                noty({ text: 'Administrator Edited Successfully', type: 'success' });
+                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
             }
-            if (result.results != "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Editing Not Successful");
-                noty({ text: 'Editing Not Successful', type: 'error' });
+            else{
+                noty({ text: result.results, type: 'error' });
             }
 
         }
@@ -241,6 +233,7 @@ function SaveAdministrator()
     catch(e)
     {
         //return;
+        noty({ type: 'error', text: e.message });
     }
     
 }
@@ -304,10 +297,7 @@ function SaveInstitution()
             result = InsertInstitute(Institutions);
 
             if (result.results == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Institution Added Successfully");
-                noty({ text: 'Institution Added Successfully', type: 'success' });
+                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                 $('#divAccoAdmininfo').show();
                 $('#divAdminInfo').show();
                 $('#EditdivAppend').empty();
@@ -321,10 +311,7 @@ function SaveInstitution()
                 }
 
             }
-            if (result.results != "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Saving Not Successful");
+            else{
                 noty({ text:result.results, type: 'error' });
             }
 
@@ -369,16 +356,11 @@ function SaveInstitution()
             result = UpdateInstitute(Institutions);
 
             if (result.results == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Institution Edited Successfully");
-                noty({ text: 'Institution Edited Successfully', type: 'success' });
+                
+                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
             }
             if (result.results != "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Saving Not Successful");
-                noty({ text: 'Saving Not Successful', type: 'error' });
+                noty({ text: result.results, type: 'error' });
             }
 
         }
@@ -386,7 +368,7 @@ function SaveInstitution()
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
     
 }
@@ -408,7 +390,7 @@ function BindSelect()
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
     
 }
@@ -435,7 +417,7 @@ function BindInstituteslist() {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
     
 }
@@ -443,33 +425,42 @@ function BindInstituteslist() {
 //Bind institution Details to view
 function BindDetails(intituteID) {
     try {
+        debugger;
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);
-        ClearFields();
-        document.getElementById('lblInstituteName').innerText = InstituteRow.name;
-        document.getElementById('lblAddress').innerText = InstituteRow.address;
-        document.getElementById('lblHistory').innerText = InstituteRow.description;
-        document.getElementById('lblFounder').innerText = InstituteRow.Founder;
-        document.getElementById('lblFounded').innerText = InstituteRow.Founded;
-        document.getElementById('lblEmail').innerText = InstituteRow.Email;
-        document.getElementById('lblPhone1').innerText = InstituteRow.phone1;
-        document.getElementById('lblPhone2').innerText = InstituteRow.phone2;
-        document.getElementById('lblMobile').innerText = InstituteRow.Mobile;
-        if (InstituteRow.imagepath != "")
+        if (InstituteRow.results == null)
         {
-            $('#instituteDetailPreview').attr('src', InstituteRow.imagepath);
+            ClearFields();
+            document.getElementById('lblInstituteName').innerText = InstituteRow.name;
+            document.getElementById('lblAddress').innerText = InstituteRow.address;
+            document.getElementById('lblHistory').innerText = InstituteRow.description;
+            document.getElementById('lblFounder').innerText = InstituteRow.Founder;
+            document.getElementById('lblFounded').innerText = InstituteRow.Founded;
+            document.getElementById('lblEmail').innerText = InstituteRow.Email;
+            document.getElementById('lblPhone1').innerText = InstituteRow.phone1;
+            document.getElementById('lblPhone2').innerText = InstituteRow.phone2;
+            document.getElementById('lblMobile').innerText = InstituteRow.Mobile;
+            if (InstituteRow.imagepath != "") {
+                $('#instituteDetailPreview').attr('src', InstituteRow.imagepath);
+            }
+            else {
+                $('#instituteDetailPreview').attr('src', '../img/gallery/Institution.jpg');
+            }
+
+            $('#aWebsite').attr('href', InstituteRow.Website);
+            $('#iconEditInstitute').attr('name', InstituteRow.institutionID);
+            BindCard(intituteID);
+            return true;
         }
         else
         {
-            $('#instituteDetailPreview').attr('src', '../img/gallery/Institution.jpg');
+            noty({ type: 'error', text: InstituteRow.results });
+            return false;
         }
         
-        $('#aWebsite').attr('href', InstituteRow.Website);
-        $('#iconEditInstitute').attr('name', InstituteRow.institutionID);
-        BindCard(intituteID);
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -496,7 +487,7 @@ function BindCard(ID) {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -520,7 +511,7 @@ function BindEditCard(ID) {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -611,7 +602,7 @@ function EditAdministrator(this_Obj)
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }    
 }
 //
@@ -627,15 +618,9 @@ function DeleteAdministrator(this_Obj)
             AdminRow = GetAdminDetails(AdminID);
             result = DeleteAdmin(AdminRow);
             if (result.results == "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
-                //$('.alert-success strong').text("Administrator Deleted Successfully");
                 noty({ text: 'Administrator Deleted Successfully', type: 'success' });
             }
             if (result.results != "1") {
-                //$('#rowfluidDiv').show();
-                //$('.alert-error').show();
-                //$('.alert-error strong').text("Deletion Not Successful");
                 noty({ text: 'Deletion Not Successful', type: 'error' });
             }
             BindEditCard(AdminRow.orgId);
@@ -643,7 +628,7 @@ function DeleteAdministrator(this_Obj)
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }
@@ -651,15 +636,16 @@ function DeleteAdministrator(this_Obj)
 function OpenInstituteDetails(intituteID) {
     try
     {
-        $('#rowfluidDiv').hide();
-        BindDetails(intituteID);
-        $('#InstituteEdit').hide();
-        $('#InstituteShow').show();
-        if (!$("#divGendetailsacc").hasClass("active"))
+        if (BindDetails(intituteID) == true)
         {
-            $('#divGendetailsacc').toggleClass("active");
-            $('#divGenDetals').toggleClass("show");
+            $('#InstituteEdit').hide();
+            $('#InstituteShow').show();
+            if (!$("#divGendetailsacc").hasClass("active")) {
+                $('#divGendetailsacc').toggleClass("active");
+                $('#divGenDetals').toggleClass("show");
+            }
         }
+        
     }
     catch(e)
     {
@@ -715,7 +701,7 @@ function EditInstitute(this_obj) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
     
 }
@@ -751,18 +737,12 @@ function DeleteInstituteclick(this_Obj)
             if (Adminresult == "sucess") {
                 result = DeleteInstitute(InstituteRow);
                 if (result.results == "1") {
-                    //$('#rowfluidDiv').show();
-                    //$('.alert-success').show();
-                    //$('.alert-success strong').text("Institution Deleted Successfully");
                     noty({ text: 'Institution Deleted Successfully', type: 'success' });
                     BindInstituteslist();
                     $('#InstituteEdit').hide();
                     $('#InstituteShow').hide();
                 }
                 if (result.results != "1") {
-                    //$('#rowfluidDiv').show();
-                    //$('.alert-error').show();
-                    //$('.alert-error strong').text("Deletion Not Successful");
                     noty({ text: 'Deletion Not Successful', type: 'error' });
                 }
             }
@@ -771,7 +751,7 @@ function DeleteInstituteclick(this_Obj)
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 
@@ -803,7 +783,7 @@ function NewInstitute() {
         $('#txtInstituteName').focus();
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -821,7 +801,7 @@ function OpenAdminModal() {
         $('#AdminPicPreview').attr('src', "../img/gallery/Noimage.png");
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -842,7 +822,7 @@ function Cancel(this_Obj) {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -1041,129 +1021,101 @@ function DeleteInstitute(InstituteRow) {
 //Basic Validation For New Institution
 //CreatedBy Thomson
 function InstitutionValidation() {
-    
-    $('#Displaydiv').remove();
-    var Name = $('#txtInstituteName');
-    var Address = $('#txtAddress');
-    var Founder = $('#txtFounder');
-    var Founded = $('#txtFounded');
-    var History = $('#txtHistory');
-    var Email = $('#txtEmail');
-    var Website = $('#txtWebsite');
-    var Phone1 = $('#txtPhone1');
-    var Phone2 = $('#txtPhone2');
-    var mobile = $('#txtMob');
+    try {
+        var Name = $('#txtInstituteName');
+        var Address = $('#txtAddress');
+        var Phone1 = $('#txtPhone1');
 
-    var container = [
-        { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
-        { id: Address[0].id, name: Address[0].name, Value: Address[0].value },
-        //{ id: Founder[0].id, name: Founder[0].name, Value: Founder[0].value },
-        //{ id: Founded[0].id, name: Founded[0].name, Value: Founded[0].value },
-        //{ id: History[0].id, name: History[0].name, Value: History[0].value },
-        //{ id: Email[0].id, name: Email[0].name, Value: Email[0].value },
-        //{ id: Website[0].id, name: Website[0].name, Value: Website[0].value },
-        { id: Phone1[0].id, name: Phone1[0].name, Value: Phone1[0].value },
-        //{ id: Phone2[0].id, name: Phone2[0].name, Value: Phone2[0].value },
-        //{ id: mobile[0].id, name: mobile[0].name, Value: mobile[0].value },
-    ];
+        var container = [
+            { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
+            { id: Address[0].id, name: Address[0].name, Value: Address[0].value },
+            { id: Phone1[0].id, name: Phone1[0].name, Value: Phone1[0].value },
+        ];
 
-    var j = 0;
-    var Errorbox = document.getElementById('ErrorBox');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv");
-    Errorbox.appendChild(divs);
-    for (var i = 0; i < container.length; i++) {
+        var j = 0;
 
-        if (container[i].Value == "") {
-            j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
-            var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundImage = "url('../img/invalid.png')";
-            txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+        for (var i = 0; i < container.length; i++) {
 
+            if (container[i].Value == "") {
+                j = 1;
+
+                var txtB = document.getElementById(container[i].id);
+                txtB.style.backgroundImage = "url('../img/invalid.png')";
+                txtB.style.backgroundPosition = "95% center";
+                txtB.style.backgroundRepeat = "no-repeat";
+
+
+            }
         }
+        if (j == '1') {
+            noty({ type: 'error', text: Messages.Validation });
+            return false;
+        }
+            if (j == '0') {
+                SaveInstitution();
+                return true;
+            }
+        }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
     }
-    if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-
-        divs.appendChild(p);
-
-        return false;
-    }
-    if (j == '0') {
-        $('#ErrorBox').hide();
-        //scriptvalidate();
-        SaveInstitution();
-        return true;
-    }
+    
 }
 //Basic Validation For New Administrator
 //CreatedBy Thomson
 function AdminValidation() {
     
-    $('#Displaydiv1').remove();
-    var Name = $('#txtName');
-    var Phone = $('#txtMobile');
-    var Role = $('#ddlRole');
+    try
+    {
+        var Name = $('#txtName');
+        var Phone = $('#txtMobile');
+        var Role = $('#ddlRole');
 
-    var container = [
-        { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
-        { id: Phone[0].id, name: Phone[0].name, Value: Phone[0].value },
-        { id: Role[0].id, name: Role[0].name, Value: Role[0].value },
-    ];
+        var container = [
+            { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
+            { id: Phone[0].id, name: Phone[0].name, Value: Phone[0].value },
+            { id: Role[0].id, name: Role[0].name, Value: Role[0].value },
+        ];
 
-    var j = 0;
-    var Errorbox = document.getElementById('ErrorBox1');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv1");
-    Errorbox.appendChild(divs);
-    for (var i = 0; i < container.length; i++) {
+        var j = 0;
 
-        if (container[i].Value == "") {
-            j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
-            var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundImage = "url('../img/invalid.png')";
-            txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+        for (var i = 0; i < container.length; i++) {
 
+            if (container[i].Value == "") {
+                j = 1;
+
+                var txtB = document.getElementById(container[i].id);
+                txtB.style.backgroundImage = "url('../img/invalid.png')";
+                txtB.style.backgroundPosition = "95% center";
+                txtB.style.backgroundRepeat = "no-repeat";
+                Errorbox.style.paddingLeft = "30px";
+
+            }
+            else if (container[i].Value == "-1") {
+                j = 1;
+
+                var txtB = document.getElementById(container[i].id);
+                txtB.style.backgroundImage = "url('../img/invalid.png')";
+                txtB.style.backgroundPosition = "95% center";
+                txtB.style.backgroundRepeat = "no-repeat";
+
+            }
         }
-        else if(container[i].Value == "-1")
-        {
-            j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
-            var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundImage = "url('../img/invalid.png')";
-            txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+        if (j == '1') {
+            noty({ type: 'error', text: Messages.Validation });
+            return false;
+        }
+        if (j == '0') {
+            //scriptvalidate();
+            SaveAdministrator();
+            return true;
+        }
     }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
     }
-    if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-
-        divs.appendChild(p);
-        //$('#btnAddAdmin').attr('name', 'failure');
-        return false;
-    }
-    if (j == '0') {
-        $('#ErrorBox1').hide(1000);
-       //scriptvalidate();
-        SaveAdministrator();
-        //$('#btnAddAdmin').attr('name', 'success');
-        return true;
-    }
+    
 }
 ///End Client side Validation
