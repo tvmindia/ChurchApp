@@ -180,6 +180,9 @@ function SaveAdministrator()
             if (result.results == "1") {
                 noty({ text: Messages.InsertionSuccessFull, type: 'success' });
             }
+            if (result.results == "2") {
+                noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+            }
             else{
                 noty({ text: result.results, type: 'error' });
             }

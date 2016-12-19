@@ -26,18 +26,39 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllPatrons(PatronMaster PatrnObj)
         {
-            DataSet dt = PatrnObj.SelectPatronMaster(); //Function call to get  Search BoxData
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             StringBuilder output = new StringBuilder();
-            output.Append("[");
-            for (int i = 0; i < dt.Tables[0].Rows.Count; ++i)
+            Security.UserAuthendication UA = null;
+            try
             {
-                output.Append("\"" + dt.Tables[0].Rows[i]["Name"].ToString() + "🏠" + dt.Tables[0].Rows[i]["ID"].ToString() + "\"");
-                if (i != (dt.Tables[0].Rows.Count - 1))
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    output.Append(",");
+                    DataSet dt = PatrnObj.SelectPatronMaster(); //Function call to get  Search BoxData
+                    
+                    output.Append("[");
+                    for (int i = 0; i < dt.Tables[0].Rows.Count; ++i)
+                    {
+                        output.Append("\"" + dt.Tables[0].Rows[i]["Name"].ToString() + "🏠" + dt.Tables[0].Rows[i]["ID"].ToString() + "\"");
+                        if (i != (dt.Tables[0].Rows.Count - 1))
+                        {
+                            output.Append(",");
+                        }
+                    }
+                    output.Append("]");
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
             }
-            output.Append("]");
+            catch (Exception ex)
+            {
+
+            }
+            
             return output.ToString();
         }
         #endregion GetPatron DetailsAutocomplete
@@ -51,22 +72,42 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllmembers(Members memObj)
         {
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            memObj.churchId = UA.ChurchID;
-            DataSet dt = memObj.SelectAllMembers(); //Function call to get  Search BoxData
+            
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             StringBuilder output = new StringBuilder();
-            output.Append("[");
-            for (int i = 0; i < dt.Tables[0].Rows.Count; ++i)
+            Security.UserAuthendication UA = null;
+            try
             {
-                output.Append("\"" + dt.Tables[0].Rows[i]["FirstName"].ToString() + "🏠" + dt.Tables[0].Rows[i]["ID"].ToString() + "🏠" + dt.Tables[0].Rows[i]["Contact"].ToString() + "🏠" + dt.Tables[0].Rows[i]["URL"].ToString() + "\"");
-                if (i != (dt.Tables[0].Rows.Count - 1))
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    output.Append(",");
+                    memObj.churchId = UA.ChurchID;
+                    DataSet dt = memObj.SelectAllMembers(); //Function call to get  Search BoxData
+
+                    output.Append("[");
+                    for (int i = 0; i < dt.Tables[0].Rows.Count; ++i)
+                    {
+                        output.Append("\"" + dt.Tables[0].Rows[i]["FirstName"].ToString() + "🏠" + dt.Tables[0].Rows[i]["ID"].ToString() + "🏠" + dt.Tables[0].Rows[i]["Contact"].ToString() + "🏠" + dt.Tables[0].Rows[i]["URL"].ToString() + "\"");
+                        if (i != (dt.Tables[0].Rows.Count - 1))
+                        {
+                            output.Append(",");
+                        }
+                    }
+                    output.Append("]");
                 }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+
             }
-            output.Append("]");
+            catch(Exception ex)
+            {
+
+            }
+                  
             return output.ToString();
         }
         #endregion GetPatron DetailsAutocomplete
@@ -80,17 +121,31 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetPatronByID(PatronMaster PatrnObj)
         {
+            
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            //PatrnObj.churchId = UA.ChurchID;
-
-            if (PatrnObj.patronMasterId != "")
+            Security.UserAuthendication UA = null;
+            try
             {
-                PatrnObj.SelectPatronByID();
-
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    if (PatrnObj.patronMasterId != "")
+                    {
+                        PatrnObj.SelectPatronByID();
+                    }
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
             }
+            catch(Exception ex)
+            {
+               
+            }
+                    
             return jsSerializer.Serialize(PatrnObj);
         }
         #endregion GetPatronDetailsUsing ID
@@ -104,22 +159,30 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string InsertPiousOrg(PiousOrg PiousObj)
         {
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            PiousObj.churchID = UA.ChurchID;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();           
             string status = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                PiousObj.createdBy = UA.userName;
-                status = PiousObj.InsertPiousOrg().ToString();
-                PiousObj.results = status;
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    PiousObj.churchID = UA.ChurchID;
+                    PiousObj.createdBy = UA.userName;
+                    status = PiousObj.InsertPiousOrg().ToString();
+                    PiousObj.results = status;
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                status = "500";//Exception of foreign key
+                PiousObj.results = ex.Message;
             }
             finally
             {
@@ -139,27 +202,34 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string UpdatePiousOrg(PiousOrg PiousObj)
         {
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            PiousObj.churchID = UA.ChurchID;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();           
             string status = null;
+            Security.UserAuthendication UA = null;
             try
             {
-                if(PiousObj.PatronID=="")
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    PiousObj.PatronID = null;
+                    if (PiousObj.PatronID == "")
+                    {
+                        PiousObj.PatronID = null;
+                    }
+
+                    PiousObj.updatedBy = UA.userName;
+                    status = PiousObj.UpdatePiousOrg().ToString();
+                    PiousObj.results = status;
                 }
-                
-                PiousObj.updatedBy = UA.userName;
-                status = PiousObj.UpdatePiousOrg().ToString();
-                PiousObj.results = status;
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                status = "500";//Exception of foreign key
+                PiousObj.results = ex.Message;
             }
             finally
             {
@@ -174,14 +244,30 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteInstitution(PiousOrg PiousObj)
         {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();           
             string status = null;
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            PiousObj.churchID = UA.ChurchID;
-            status = PiousObj.DeletePiousOrg();
-            PiousObj.results = status;
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    PiousObj.churchID = UA.ChurchID;
+                    status = PiousObj.DeletePiousOrg();
+                    PiousObj.results = status;
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch(Exception ex)
+            {
+                PiousObj.results = ex.Message;
+            }
+            
             return jsSerializer.Serialize(PiousObj);
         }
 
@@ -191,29 +277,44 @@ namespace ChurchApp.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetPuOrgList(PiousOrg PiousObj)
         {
-
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-
-            PiousObj.churchID = UA.ChurchID;
-            DataSet ds = null;
-            ds = PiousObj.SelectPiousOrg();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
-
-            if (ds.Tables[0].Rows.Count > 0)
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    PiousObj.churchID = UA.ChurchID;
+                    DataSet ds = null;
+                    ds = PiousObj.SelectPiousOrg();
+                    
+
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
                     }
-                    parentRow.Add(childRow);
+                    
                 }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
             return jsSerializer.Serialize(parentRow);
         }
@@ -229,16 +330,32 @@ namespace ChurchApp.AdminPanel
         public static string GetPiousOrgDetailsUsingID(PiousOrg PiousObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            DAL.Security.UserAuthendication UA;
-            DAL.Const Const = new DAL.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+             Security.UserAuthendication UA = null;
+             try
+             {
+                 DashBoard dashBoardObj = new DashBoard();
+                 UA = dashBoardObj.GetCurrentUserSession();
+                 if (UA != null)
+                 {
+                     if (PiousObj.piousOrgID != "")
+                     {
+                         PiousObj.SelectOrganizationUsingID();
+
+                     }
+                 }
+                 else
+                 {
+                     Common comonObj = new Common();
+                     return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                 }
+             }
+            catch(Exception ex)
+             {
+                 PiousObj.results = ex.Message;
+             }
             //PatrnObj.churchId = UA.ChurchID;
 
-            if (PiousObj.piousOrgID != "")
-            {
-                PiousObj.SelectOrganizationUsingID();
-
-            }
+            
             return jsSerializer.Serialize(PiousObj);
         }
         #endregion GetPatronDetailsUsing ID
