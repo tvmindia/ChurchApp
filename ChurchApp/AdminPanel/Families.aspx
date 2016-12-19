@@ -43,7 +43,7 @@
                          	<%--<div id="executivesHeader">--%>
 						<h2 id="executivesHeader" style="margin-top:1% !important;">Unit Executives</h2> 
 						<%--<div class="box-icon">--%>
-						<a class="circlebtn circlebtn-success FamiliesEdit" id="AdminEdit" title="EDIT UNIT EXECUTIVES" style="display:none;" onclick="EditFamily(this)"><i class="halflings-icon white pencil FamiliesEdit" id="iconEdit" aria-hidden="true"></i></a>
+						<a class="btnEdit" id="AdminEdit" title="EDIT UNIT EXECUTIVES" style="display:none;right:40px;top:13px;position: absolute;" onclick="EditFamily(this)"><i class="halflings-icon white pencil FamiliesEdit" id="iconEdit" aria-hidden="true"></i></a>
 							
 						<%--</div>--%>
 				<%--	</div>	--%>

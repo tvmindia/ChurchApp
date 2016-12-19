@@ -71,6 +71,7 @@ $(document).ready(function () {
         $('textarea,select').css({ background: 'white' });
         $("#familyAddDiv").css("display", "none");
         $("#btnFamilyDiv").css("display", "none");
+        ClearTextboxes();
     });
     $(".CancelUnit").click(function (e) {
         $('#ErrorBox,#ErrorBox1').hide(1000);
@@ -202,6 +203,8 @@ $(document).ready(function () {
                     noty({ text: 'Deleted Successfully', type: 'success' });
                     BindFamilyUnitsAccordion();
                     $("#txtUnitName").val("");
+                    $("#familyUnitAddOrEdit").text("Add");
+                    $(".DeleteUnit").css("display", "none");
                     break;
                 case "0":
                     noty({ text: 'Error..!!!', type: 'error' });
@@ -533,12 +536,12 @@ function saveMember()
             case "1":
                 noty({ text: 'Saved Successfully', type: 'success' });
                 FamilyMembersAutoBind();
-                $(".FamiliesEdit").css("display", "none");
+                $(".btnEdit").css("display", "none");
                 ClearTextboxes();
                 BindMemberSelect();
                 break;
             case "2":
-                noty({ text: 'Member with the same name already exists', type: 'info' });
+                noty({ text: 'Member with the same name already exists', type: 'error' });
                 break;
             case "0":
                 noty({ text: 'Error..!!!', type: 'error' });
@@ -615,13 +618,20 @@ function saveFamily()
     Members.familyObj = Family;
     if ($("#familyAddOrEdit").text() == "Add") {
         jsonResult = InsertFamily(Members);
-
+        debugger;
         switch (jsonResult.status) {
             case "1":
                 noty({ text: 'Saved Successfully', type: 'success' });
                 FamilyAutoBind();
-                ClearTextboxes();
+                //ClearTextboxes();
                 BindMemberSelect();
+                $("#familyAddOrEdit").text("Edit");
+                $(".DeleteFamily").show();
+                $("#hdfFamilyID").val(jsonResult.familyID);
+                $("#txtFirstName").attr('disabled', 'disabled');
+                $("#txtLastName").attr('disabled', 'disabled');
+                $("#txtPhone").attr('disabled', 'disabled');
+                $("#txtAddress").attr('disabled', 'disabled');
                 break;
 
             case "0":
@@ -668,10 +678,12 @@ function saveFamilyUnit()
             case "1":
                 noty({ text: 'Saved Successfully', type: 'success' });
                 BindFamilyUnitsAccordion();
-                ClearTextboxes();
+                //ClearTextboxes();
+                ChangeUnitSaveToEdit();
+                $("#hdfUnitID").val(jsonResult.unitId);
                 break;
             case "2":
-                noty({ text: 'Unit Name Already Exists', type: 'info' });
+                noty({ text: 'Unit Name Already Exists', type: 'error' });
                 BindFamilyUnitsAccordion();
                 break;
             case "0":
@@ -700,6 +712,12 @@ function saveFamilyUnit()
       
     }
 }
+function ChangeUnitSaveToEdit()
+{
+    $("#familyUnitAddOrEdit").text("Edit");
+    $(".DeleteUnit").css("display", "");
+}
+
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
 
@@ -976,7 +994,7 @@ function Member()
     $("#btnFamilyDiv").css("display", "none");  //family btn div
     $("#btnFamilyUnitDiv").css("display", "none");  //unit btn div
     $("#btnDelete").css("display", "none");
-    $(".FamiliesEdit").css("display", "none");
+    $(".btnEdit").css("display", "none");
     $("#divAdminInfo").hide();
     $("#familyAddDiv").css("margin-top", "-10px");
     $('#ErrorBox,#ErrorBox1').hide(1000);
@@ -995,7 +1013,7 @@ function Families()
     $(".faUnits").remove();
     $(".unitName").remove();
     $("#FamilyAdd").css("display", "");
-    $(".FamiliesEdit").css("display", "");
+    $(".btnEdit").css("display", "");
     $("#familyAddDiv").css("display", "none");
     $("#executivesHeader").css("display", "");
     //$("#btnMemberNew").css("display", "none");
@@ -1110,7 +1128,7 @@ function EditMembers(e)
             $('#MemberImg').attr('src', '../img/gallery/Noimage.png');
         }
         $("#memberAddOrEdit").text("Edit");
-        $(".FamiliesEdit").css("display", "none");
+        $(".btnEdit").css("display", "none");
         $("#txtFirstName").removeAttr('disabled');
         $("#txtLastName").removeAttr('disabled');
         $("#txtPhone").removeAttr('disabled');
@@ -1137,7 +1155,7 @@ function BindFamilyUnitMemebrs()
     FamilyUnits.unitId = $("#hdfUnitID").val();
     jsonResult = GetAllFamilyUnitMembers(FamilyUnits);
     if (jsonResult != undefined) {
-        $(".FamiliesEdit").css("display", "");
+        $(".btnEdit").css("display", "");
         BindGetAllFamilyUnitMemeberData(jsonResult);
     }
 }
@@ -1310,7 +1328,7 @@ function FamilyMembersAutoBind() {
     jsonResult = GetAllFamilyMembers(Family);
     if (jsonResult != undefined) {
         $("#InstituteShow").css("display", "");
-        $(".FamiliesEdit").css("display", "none");
+        $(".btnEdit").css("display", "none");
        // $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
         $("#btnfamilyAdd").css("display", "none");
@@ -1352,7 +1370,7 @@ function BindFamilyTable(Records)
         $("#FamilyUnitsTableBox").append(img);
 
     }
-    $(".FamiliesEdit").css("display", "");
+    $(".btnEdit").css("display", "");
 }
 function UpdateFamily(e) {
     Families();
@@ -1421,7 +1439,7 @@ function BindIconFamilyMembers(e)
     jsonResult = GetAllFamilyMembers(Family);
     if (jsonResult != undefined) {
         $("#InstituteShow").css("display", "");
-        $(".FamiliesEdit").css("display", "");
+        $(".btnEdit").css("display", "");
         $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
         $("#btnfamilyAdd").css("display", "none");
@@ -1451,7 +1469,7 @@ function BindFamilyMembers(e) {
     jsonResult = GetAllFamilyMembers(Family);
     if (jsonResult != undefined) {
         $("#InstituteShow").css("display", "");
-        $(".FamiliesEdit").css("display", "");
+        $(".btnEdit").css("display", "");
         $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
         //$("#btnfamilyAdd").css("display", "none");
