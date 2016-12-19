@@ -1,5 +1,6 @@
 ﻿//
 ///////////////////////////////////////////********Document ready section
+var patronImageId = null;
 $(document).ready(function () {
     try
     {
@@ -171,8 +172,13 @@ function SaveAdministrator()
             Administrators.memberId = $("#hdnmemID").val();
             if (i == "1")
             {
-                Administrators.imageID = guid;
+              Administrators.imageID = guid;
             }
+            else
+            {
+                Administrators.imageID = patronImageId;
+            }
+            
             Administrators.adminId = guid;
             $("#hdnAdminID").val(guid);
             result = InsertAdministrator(Administrators);
@@ -183,7 +189,8 @@ function SaveAdministrator()
             if (result.results == "2") {
                 noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
             }
-            if (result.results != "1") {
+            else
+            {
                 noty({ text: result.results, type: 'error' });
             }
 
@@ -223,7 +230,7 @@ function SaveAdministrator()
             if (result.results == "2") {
                 noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
             }
-            if (result.results != "1") {
+            else{
                 noty({ text: result.results, type: 'error' });
             }
 
@@ -371,6 +378,7 @@ function AutoComplete() {
 function AutoCompleteAdmin() {
     try
     {
+        debugger;
         var ac = null;
         ac = GetMembers();
         debugger;
@@ -378,7 +386,7 @@ function AutoCompleteAdmin() {
         var projects = new Array();
         for (i = 0; i < length; i++) {
             var name = ac[i].split('🏠');
-            projects.push({ value: name[0], label: name[0], desc: name[1], contact: name[2], imagepath: name[3] })
+            projects.push({ value: name[0], label: name[0], desc: name[1], contact: name[2], imagepath: name[3],imageId:name[4] })
         }
 
         $("#txtName").autocomplete({
@@ -404,7 +412,9 @@ function AutoCompleteAdmin() {
                 return false;
             },
             select: function (event, ui) {
+                debugger;
                 var patronID = ui.item.desc;
+                patronImageId = ui.item.imageId;
                 $('#hdnmemID').val(patronID);
                 $('#txtMobile').val(ui.item.contact);
                 if (ui.item.imagepath != "") {
