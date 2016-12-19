@@ -101,13 +101,13 @@ $("document").ready(function (e) {
                         //$('.dropcheck', this.$container).attr('placeholder', "Select Days");
                         //$("#TxtTime").val("");
                     }
-                    noty({ text: 'Saved Successfully', type: 'success' });
+                    noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                     break;
                 case "0":
-                    noty({ text: 'Error..!!!', type: 'error' });
+                    noty({ text: Messages.InsertionFailure, type: 'error' });
                     break;
                 default:
-                    noty({ text: 'Time Already Exists', type: 'information' });
+                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
                     break;
             }
         }
@@ -133,10 +133,10 @@ $("document").ready(function (e) {
                     MassTimings.day = day + ",";
                     jsonResult = selectMassTimeByDay(MassTimings);
                     ReBindMassTimingUpdateTable(jsonResult);
-                    noty({ text: 'Updated Successfully', type: 'success' });
+                    noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                     break;
                 default:
-                    noty({ text: 'Error..!!!', type: 'error' });
+                    noty({ text: Messages.UpdationFailure, type: 'error' });
                     break;
             }
         }
@@ -194,10 +194,10 @@ $("document").ready(function (e) {
                     MassTimings.day = day+",";
                     jsonResult = selectMassTimeByDay(MassTimings);
                     ReBindMassTimingUpdateTable(jsonResult);
-                    noty({ text: 'Deleted Successfully', type: 'success' });
+                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
                     break;
                 default:
-                    noty({ text: 'Error..!!!', type: 'error' });
+                    noty({ text: Messages.DeletionFailure, type: 'error' });
                     break;
             }
         }
@@ -369,7 +369,7 @@ function AddTempTable()
         }
         if(countLen>0)
         {
-            noty({ text: 'Time Already Exists', type: 'information' });
+            noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
         }
     }
     catch(e)

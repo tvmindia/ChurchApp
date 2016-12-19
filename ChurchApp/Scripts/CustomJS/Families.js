@@ -43,18 +43,15 @@ $(document).ready(function () {
             jsonResult = DeleteMember(Members);
             switch (jsonResult.status) {
                 case "1":
-                    noty({ text: 'Deleted Successfully', type: 'success' });
+                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
                     FamilyMembersAutoBind();
                     clearControls();
                     $("#FamilyAdd").css("display", "none");
                     $("#familyAddDiv").css("display", "none");
                     $("#btnDiv").css("display", "none");
                     break;
-                case "0":
-                    noty({ text: 'Error..!!!', type: 'error' });
-                    break;
                 default:
-                    noty({ text: jsonResult.status, type: 'error' });
+                    noty({ text: Messages.DeletionFailure, type: 'error' });
                     break;
             }
           
@@ -71,6 +68,7 @@ $(document).ready(function () {
         $('textarea,select').css({ background: 'white' });
         $("#familyAddDiv").css("display", "none");
         $("#btnFamilyDiv").css("display", "none");
+        ClearTextboxes();
     });
     $(".CancelUnit").click(function (e) {
         $('#ErrorBox,#ErrorBox1').hide(1000);
@@ -130,17 +128,14 @@ $(document).ready(function () {
             jsonResult = InsertAdministrator(Administrators);
             switch (jsonResult.status) {
                 case "1":
-                    noty({ text: 'Saved Successfully', type: 'success' });
+                    noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                     $("#divAdminDetals").css("display", "");
                     BindFamilyUnitMemebrs();
                     $('#modelAddAdmin').modal('hide');
                     cancelAdminEdit();
                     break;
-                case "0":
-                    noty({ text: 'Error..!!!', type: 'error' });
-                    break;
                 default:
-                    noty({ text: jsonResult.status, type: 'error' });
+                    noty({ text: Messages.InsertionFailure, type: 'error' });
                     break;
             }
            
@@ -165,18 +160,15 @@ $(document).ready(function () {
             jsonResult = UpdateAdministrator(Administrators);
             switch (jsonResult.status) {
                 case "1":
-                    noty({ text: 'Updated Successfully', type: 'success' });
+                    noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                     $("#divAdminDetals").css("display", "");
                     BindFamilyUnitMemebrs();
                     $('#modelAddAdmin').modal('hide');
                     $("#FamilyAdd").css("margin-top", "3%");
                     cancelAdminEdit();
                     break;
-                case "0":
-                    noty({ text: 'Error..!!!', type: 'error' });
-                    break;
                 default:
-                    noty({ text: jsonResult.status, type: 'error' });
+                    noty({ text: Messages.UpdationFailure, type: 'error' });
                     break;
             }
         
@@ -199,15 +191,14 @@ $(document).ready(function () {
             jsonResult = DeleteFamilyUnits(FamilyUnits);
             switch (jsonResult.status) {
                 case "1":
-                    noty({ text: 'Deleted Successfully', type: 'success' });
+                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
                     BindFamilyUnitsAccordion();
                     $("#txtUnitName").val("");
-                    break;
-                case "0":
-                    noty({ text: 'Error..!!!', type: 'error' });
+                    $("#familyUnitAddOrEdit").text("Add");
+                    $(".DeleteUnit").css("display", "none");
                     break;
                 default:
-                    noty({ text: jsonResult.status, type: 'error' });
+                    noty({ text: Messages.DeletionFailure, type: 'error' });
                     break;
             }
          
@@ -233,17 +224,14 @@ $(document).ready(function () {
             jsonResult = DeleteFamily(Family);
             switch (jsonResult.status) {
                 case "1":
-                    noty({ text: 'Deleted Successfully', type: 'success' });
+                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
                     FamilyAutoBind();
                     clearControls();
                     $("#familyAddDiv").css("display", "none");
                     $("#btnFamilyDiv").css("display", "none");
                     break;
-                case "0":
-                    noty({ text: 'Error..!!!', type: 'error' });
-                    break;
                 default:
-                    noty({ text: jsonResult.status, type: 'error' });
+                    noty({ text: Messages.DeletionFailure, type: 'error' });
                     break;
             }
            
@@ -531,20 +519,17 @@ function saveMember()
         jsonResult = InsertFamily(Members);
         switch (jsonResult.status) {
             case "1":
-                noty({ text: 'Saved Successfully', type: 'success' });
+                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                 FamilyMembersAutoBind();
-                $(".FamiliesEdit").css("display", "none");
+                $(".btnEdit").css("display", "none");
                 ClearTextboxes();
                 BindMemberSelect();
                 break;
             case "2":
-                noty({ text: 'Member with the same name already exists', type: 'info' });
-                break;
-            case "0":
-                noty({ text: 'Error..!!!', type: 'error' });
+                noty({ text: Messages.MemeberAlreadyExists, type: 'error' });
                 break;
             default:
-                noty({ text: jsonResult.status, type: 'error' });
+                noty({ text: Messages.InsertionFailure, type: 'error' });
                 break;
         }
       
@@ -569,16 +554,12 @@ function saveMember()
         jsonResult = UpdateFamilyMember(Members);
         switch (jsonResult.status) {
             case "1":
-                noty({ text: 'Updated Successfully', type: 'success' });
+                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                 FamilyMembersAutoBind();
                 BindMemberSelect();
                 break;
-            
-            case "0":
-                noty({ text: 'Error..!!!', type: 'error' });
-                break;
             default:
-                noty({ text: jsonResult.status, type: 'error' });
+                noty({ text: Messages.UpdationFailure, type: 'error' });
                 break;
         }
      
@@ -615,20 +596,27 @@ function saveFamily()
     Members.familyObj = Family;
     if ($("#familyAddOrEdit").text() == "Add") {
         jsonResult = InsertFamily(Members);
-
+        debugger;
         switch (jsonResult.status) {
             case "1":
-                noty({ text: 'Saved Successfully', type: 'success' });
+                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                 FamilyAutoBind();
-                ClearTextboxes();
+                //ClearTextboxes();
                 BindMemberSelect();
+                $("#familyAddOrEdit").text("Edit");
+                $(".DeleteFamily").show();
+                $("#hdfFamilyID").val(jsonResult.familyID);
+                $("#txtFirstName").attr('disabled', 'disabled');
+                $("#txtLastName").attr('disabled', 'disabled');
+                $("#txtPhone").attr('disabled', 'disabled');
+                $("#txtAddress").attr('disabled', 'disabled');
                 break;
 
-            case "0":
-                noty({ text: 'Error..!!!', type: 'error' });
+            case "2":
+                noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
                 break;
             default:
-                noty({ text: jsonResult.status, type: 'error' });
+                noty({ text: Messages.InsertionFailure, type: 'error' });
                 break;
         }
        
@@ -637,16 +625,13 @@ function saveFamily()
         jsonResult = SaveUpdatedFamily(Members);
         switch (jsonResult.status) {
             case "1":
-                noty({ text: 'Updated Successfully', type: 'success' });
+                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                 FamilyAutoBind();
                 BindMemberSelect();
                 break;
 
-            case "0":
-                noty({ text: 'Error..!!!', type: 'error' });
-                break;
             default:
-                noty({ text: jsonResult.status, type: 'error' });
+                noty({ text: Messages.UpdationFailure, type: 'error' });
                 break;
         }
        
@@ -666,19 +651,18 @@ function saveFamilyUnit()
         jsonResult = InsertFamilyUnits(FamilyUnits);
         switch (jsonResult.status) {
             case "1":
-                noty({ text: 'Saved Successfully', type: 'success' });
+                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                 BindFamilyUnitsAccordion();
-                ClearTextboxes();
+                //ClearTextboxes();
+                ChangeUnitSaveToEdit();
+                $("#hdfUnitID").val(jsonResult.unitId);
                 break;
             case "2":
-                noty({ text: 'Unit Name Already Exists', type: 'info' });
+                noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
                 BindFamilyUnitsAccordion();
                 break;
-            case "0":
-                noty({ text: 'Error..!!!', type: 'error' });
-                break;
             default:
-                noty({ text: jsonResult.status, type: 'error' });
+                noty({ text: Messages.InsertionFailure, type: 'error' });
                 break;
         }
        
@@ -687,19 +671,22 @@ function saveFamilyUnit()
         jsonResult = UpdateFamilyUnit(FamilyUnits);
         switch (jsonResult.status) {
             case "1":
-                noty({ text: 'Updated Successfully', type: 'success' });
+                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                 BindFamilyUnitsAccordion();
                 break;
-            case "0":
-                noty({ text: 'Error..!!!', type: 'error' });
-                break;
             default:
-                noty({ text: jsonResult.status, type: 'error' });
+                noty({ text: Messages.UpdationFailure, type: 'error' });
                 break;
         }
       
     }
 }
+function ChangeUnitSaveToEdit()
+{
+    $("#familyUnitAddOrEdit").text("Edit");
+    $(".DeleteUnit").css("display", "");
+}
+
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
 
@@ -976,7 +963,7 @@ function Member()
     $("#btnFamilyDiv").css("display", "none");  //family btn div
     $("#btnFamilyUnitDiv").css("display", "none");  //unit btn div
     $("#btnDelete").css("display", "none");
-    $(".FamiliesEdit").css("display", "none");
+    $(".btnEdit").css("display", "none");
     $("#divAdminInfo").hide();
     $("#familyAddDiv").css("margin-top", "-10px");
     $('#ErrorBox,#ErrorBox1').hide(1000);
@@ -995,7 +982,7 @@ function Families()
     $(".faUnits").remove();
     $(".unitName").remove();
     $("#FamilyAdd").css("display", "");
-    $(".FamiliesEdit").css("display", "");
+    $(".btnEdit").css("display", "");
     $("#familyAddDiv").css("display", "none");
     $("#executivesHeader").css("display", "");
     //$("#btnMemberNew").css("display", "none");
@@ -1110,7 +1097,7 @@ function EditMembers(e)
             $('#MemberImg').attr('src', '../img/gallery/Noimage.png');
         }
         $("#memberAddOrEdit").text("Edit");
-        $(".FamiliesEdit").css("display", "none");
+        $(".btnEdit").css("display", "none");
         $("#txtFirstName").removeAttr('disabled');
         $("#txtLastName").removeAttr('disabled');
         $("#txtPhone").removeAttr('disabled');
@@ -1137,7 +1124,7 @@ function BindFamilyUnitMemebrs()
     FamilyUnits.unitId = $("#hdfUnitID").val();
     jsonResult = GetAllFamilyUnitMembers(FamilyUnits);
     if (jsonResult != undefined) {
-        $(".FamiliesEdit").css("display", "");
+        $(".btnEdit").css("display", "");
         BindGetAllFamilyUnitMemeberData(jsonResult);
     }
 }
@@ -1153,16 +1140,13 @@ function DeleteAdministrator(e)
         jsonResult = DeleteAdmin(Administrators);
         switch (jsonResult.status) {
             case "1":
-                noty({ text: 'Deleted Successfully', type: 'success' });
+                noty({ text: Messages.DeletionSuccessFull, type: 'success' });
                 BindFamilyUnitMemebrs();
                 cancelAdminEdit();
                 $("#divAdminInfo").css("display", "none");
                 break;
-            case "0":
-                noty({ type: 'error', text: 'Deletion was not successfull' });
-                break;
             default:
-                noty({ type: 'error', text: jsonResult.status });
+                noty({ type: 'error', text: Messages.DeletionFailure });
                 break;
         }
        
@@ -1310,7 +1294,7 @@ function FamilyMembersAutoBind() {
     jsonResult = GetAllFamilyMembers(Family);
     if (jsonResult != undefined) {
         $("#InstituteShow").css("display", "");
-        $(".FamiliesEdit").css("display", "none");
+        $(".btnEdit").css("display", "none");
        // $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
         $("#btnfamilyAdd").css("display", "none");
@@ -1352,7 +1336,7 @@ function BindFamilyTable(Records)
         $("#FamilyUnitsTableBox").append(img);
 
     }
-    $(".FamiliesEdit").css("display", "");
+    $(".btnEdit").css("display", "");
 }
 function UpdateFamily(e) {
     Families();
@@ -1421,7 +1405,7 @@ function BindIconFamilyMembers(e)
     jsonResult = GetAllFamilyMembers(Family);
     if (jsonResult != undefined) {
         $("#InstituteShow").css("display", "");
-        $(".FamiliesEdit").css("display", "");
+        $(".btnEdit").css("display", "");
         $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
         $("#btnfamilyAdd").css("display", "none");
@@ -1451,7 +1435,7 @@ function BindFamilyMembers(e) {
     jsonResult = GetAllFamilyMembers(Family);
     if (jsonResult != undefined) {
         $("#InstituteShow").css("display", "");
-        $(".FamiliesEdit").css("display", "");
+        $(".btnEdit").css("display", "");
         $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
         //$("#btnfamilyAdd").css("display", "none");

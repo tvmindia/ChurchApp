@@ -136,7 +136,7 @@ $("document").ready(function (e) {
                         //$('#rowfluidDiv').show();
                         //$('.alert-success').show();
                         //$('.alert-success strong').text("Notice Added Successfully");
-                        noty({ text: 'Notice Added Successfully', type: 'success' });
+                        noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                         if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
                         {
                             var Notification = new Object();
@@ -157,7 +157,7 @@ $("document").ready(function (e) {
                         //$('#rowfluidDiv').show();
                         //$('.alert-error').show();
                         //$('.alert-error strong').text("Saving Not Successful");
-                        noty({ text: 'Saving Not Successful', type: 'error' });
+                        noty({ text: Messages.InsertionFailure, type: 'error' });
                     }
 
                     BindNotices();
@@ -209,7 +209,7 @@ $("document").ready(function (e) {
                         //$('#rowfluidDiv').show();
                         //$('.alert-success').show();
                         //$('.alert-success strong').text("Notice Edited Successfully");
-                        noty({ text: 'Notice Edited Successfully', type: 'success' });
+                        noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                         if (DeletedImgID != '' && (((imagefile = $('#UpNotice')[0].files[0]) != undefined))) {
                             var AppImages = new Object();
                             AppImages.appImageId = DeletedImgID;
@@ -242,7 +242,7 @@ $("document").ready(function (e) {
                         //$('#rowfluidDiv').show();
                         //$('.alert-error').show();
                         //$('.alert-error strong').text("Saving Not Successful");
-                        noty({ text: 'Saving Not Successful', type: 'error' });
+                        noty({ text: Messages.InsertionFailure, type: 'error' });
                     }
 
                     BindNotices();
@@ -317,7 +317,7 @@ $("document").ready(function (e) {
                 //$('#rowfluidDiv').show();
                 //$('.alert-success').show();
                 //$('.alert-success strong').text("Notice Deleted Successfully");
-                noty({ text: 'Notice Deleted Successfully', type: 'success' });
+                noty({ text: Messages.DeletionSuccessFull, type: 'success' });
                 var AppImages = new Object();
                 AppImages.appImageId = imageId;
                 DeleteAppImage(AppImages);
@@ -328,7 +328,7 @@ $("document").ready(function (e) {
                 //$('#rowfluidDiv').show();
                 //$('.alert-error').show();
                 //$('.alert-error strong').text("Deletion Not Successful");
-                noty({ text: 'Deletion Not Successful', type: 'error' });
+                noty({ text: Messages.DeletionFailure, type: 'error' });
             }
 
             BindNotices();

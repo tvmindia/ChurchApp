@@ -119,6 +119,7 @@
         $('#btnSavePriest').click(function (e) {
             try
             {
+                debugger;
                 var Role = $(this).attr('name');
                 if (($('#ddlstatus').val() == 'Vicar') && (Role == 'Asst')) {
                     noty({ text: Messages.VicarExist, type: 'information' });
@@ -189,6 +190,7 @@ function savePriest()
 {
     try
     {
+        debugger;
         var AppImgURL = '';
         var priestID = $("#hdfPriestID").val();
 
@@ -732,6 +734,7 @@ function AutoComplete()
     function PriestValidation() {
         try
         {
+            debugger;
             var Name = $('#txtPriestName');
             var OrdinationDate = $('#OrdinationDate');
             var Role = $('#ddlstatus');
