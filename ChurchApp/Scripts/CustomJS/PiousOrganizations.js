@@ -414,11 +414,14 @@ function AutoCompleteAdmin() {
             select: function (event, ui) {
                 debugger;
                 var patronID = ui.item.desc;
-                if (ui.item.imageId != "")
+                if (ui.item.imageId == "")
+                {
+                    patronImageId = null;
+                }
+                else
                 {
                     patronImageId = ui.item.imageId;
                 }
-                
                 $('#hdnmemID').val(patronID);
                 $('#txtMobile').val(ui.item.contact);
                 if (ui.item.imagepath != "") {

@@ -817,6 +817,7 @@ function AdminMemberChange()
     //    $("#txtMobile").val(phone);
     //}
     //$("#hdfPhone").val("")
+  
     if ($("#ddlMember").val() != "" && $("#ddlMember").val() != null && $("#ddlMember").val()!="-1")
     {
         var FamilyUnits = new Object();
@@ -829,6 +830,7 @@ function AdminMemberChange()
         Members.memberId = $("#ddlMember").val();
         var jsonResult = GetAdminMemberDetails(Members);
         if (jsonResult != undefined && jsonResult != null) {
+            debugger;
             if (jsonResult[0].Phone != "" && jsonResult[0].Phone != undefined && jsonResult[0].Phone != null)
             {
                 $("#txtMobile").val(jsonResult[0].Phone);
@@ -840,8 +842,11 @@ function AdminMemberChange()
             if(jsonResult[0].URL!=null &&jsonResult[0].URL!="")
             {
                 $('#AdminImg').attr('src', jsonResult[0].URL);
+               
+               
+            }
+            if (jsonResult[0].ImageID != "" && jsonResult[0].ImageID != null) {
                 adminImage = jsonResult[0].ImageID;
-
             }
         }
     }
@@ -861,6 +866,7 @@ function OpenAdminModal()
 {
     $("#AddOrEditAdmin").text("Add");
     $('#AdminImg').attr('src', '../img/gallery/Noimage.png');
+    document.getElementById("fluImage").value = '';
 
 }
 function AddFamilyUnit()
