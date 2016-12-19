@@ -88,14 +88,14 @@
             switch(result.status)
             {
                 case "1":
-                    noty({ text: 'Deleted Successfully', type: 'success' });
+                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
                     BindAsyncNotificationTable();
                     BindAsynOldNotificationTable();
                     $('#NotificationEditDivBox').hide();
                     $("#NotificationDetails").hide();
                     break;
                 default:
-                    noty({ text: 'Error..!!!', type: 'error' });
+                    noty({ text: Messages.DeletionFailure, type: 'error' });
                     break;
             }
         }
@@ -314,7 +314,7 @@ function SaveNotification()
     }
     if (expiryDate < startDate)
     {
-        noty({ text: 'Expiry date should be greater than start date', type: 'info' });
+        noty({ text: Messages.NotificationDateChecking, type: 'info' });
     }
     else
     {
@@ -337,10 +337,10 @@ function SaveNotification()
                     BindAsyncNotificationTable();
                     BindAsynOldNotificationTable();
                     $("#NotificationEditDivBox").hide();
-                    noty({ text: 'Saved Successfully', type: 'success' });
+                    noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                     break;
                 default:
-                    noty({ text: 'Error..!!!', type: 'error' });
+                    noty({ text: Messages.InsertionFailure, type: 'error' });
                     break;
             }
         }
@@ -352,10 +352,10 @@ function SaveNotification()
                     BindAsyncNotificationTable();
                     BindAsynOldNotificationTable();
                     $(".dark").css("margin-top", "30px");
-                    noty({ text: 'Updated Successfully', type: 'success' });
+                    noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                     break;
                 default:
-                    noty({ text: 'Error..!!!', type: 'error' });
+                    noty({ text: Messages.UpdationFailure, type: 'error' });
                     break;
             }
         }

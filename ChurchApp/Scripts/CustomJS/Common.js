@@ -317,5 +317,6 @@ var Messages = {
 
     HtmlFileFormatError: "Please select html file",
     OperationDuplicateFailure: "Operation Failure... Duplicate Entry!",
-    MemeberAlreadyExists:"Member with the same name already exists"
+    MemeberAlreadyExists: "Member with the same name already exists",
+    NotificationDateChecking: "Expiry date should be greater than start date"
 }
