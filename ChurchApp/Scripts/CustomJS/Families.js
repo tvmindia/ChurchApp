@@ -533,12 +533,12 @@ function saveMember()
             case "1":
                 noty({ text: 'Saved Successfully', type: 'success' });
                 FamilyMembersAutoBind();
-                $(".FamiliesEdit").css("display", "none");
+                $(".btnEdit").css("display", "none");
                 ClearTextboxes();
                 BindMemberSelect();
                 break;
             case "2":
-                noty({ text: 'Member with the same name already exists', type: 'info' });
+                noty({ text: 'Member with the same name already exists', type: 'error' });
                 break;
             case "0":
                 noty({ text: 'Error..!!!', type: 'error' });
@@ -671,7 +671,7 @@ function saveFamilyUnit()
                 ClearTextboxes();
                 break;
             case "2":
-                noty({ text: 'Unit Name Already Exists', type: 'info' });
+                noty({ text: 'Unit Name Already Exists', type: 'error' });
                 BindFamilyUnitsAccordion();
                 break;
             case "0":
@@ -976,7 +976,7 @@ function Member()
     $("#btnFamilyDiv").css("display", "none");  //family btn div
     $("#btnFamilyUnitDiv").css("display", "none");  //unit btn div
     $("#btnDelete").css("display", "none");
-    $(".FamiliesEdit").css("display", "none");
+    $(".btnEdit").css("display", "none");
     $("#divAdminInfo").hide();
     $("#familyAddDiv").css("margin-top", "-10px");
     $('#ErrorBox,#ErrorBox1').hide(1000);
@@ -995,7 +995,7 @@ function Families()
     $(".faUnits").remove();
     $(".unitName").remove();
     $("#FamilyAdd").css("display", "");
-    $(".FamiliesEdit").css("display", "");
+    $(".btnEdit").css("display", "");
     $("#familyAddDiv").css("display", "none");
     $("#executivesHeader").css("display", "");
     //$("#btnMemberNew").css("display", "none");
@@ -1110,7 +1110,7 @@ function EditMembers(e)
             $('#MemberImg').attr('src', '../img/gallery/Noimage.png');
         }
         $("#memberAddOrEdit").text("Edit");
-        $(".FamiliesEdit").css("display", "none");
+        $(".btnEdit").css("display", "none");
         $("#txtFirstName").removeAttr('disabled');
         $("#txtLastName").removeAttr('disabled');
         $("#txtPhone").removeAttr('disabled');
@@ -1137,7 +1137,7 @@ function BindFamilyUnitMemebrs()
     FamilyUnits.unitId = $("#hdfUnitID").val();
     jsonResult = GetAllFamilyUnitMembers(FamilyUnits);
     if (jsonResult != undefined) {
-        $(".FamiliesEdit").css("display", "");
+        $(".btnEdit").css("display", "");
         BindGetAllFamilyUnitMemeberData(jsonResult);
     }
 }
@@ -1310,7 +1310,7 @@ function FamilyMembersAutoBind() {
     jsonResult = GetAllFamilyMembers(Family);
     if (jsonResult != undefined) {
         $("#InstituteShow").css("display", "");
-        $(".FamiliesEdit").css("display", "none");
+        $(".btnEdit").css("display", "none");
        // $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
         $("#btnfamilyAdd").css("display", "none");
@@ -1352,7 +1352,7 @@ function BindFamilyTable(Records)
         $("#FamilyUnitsTableBox").append(img);
 
     }
-    $(".FamiliesEdit").css("display", "");
+    $(".btnEdit").css("display", "");
 }
 function UpdateFamily(e) {
     Families();
@@ -1421,7 +1421,7 @@ function BindIconFamilyMembers(e)
     jsonResult = GetAllFamilyMembers(Family);
     if (jsonResult != undefined) {
         $("#InstituteShow").css("display", "");
-        $(".FamiliesEdit").css("display", "");
+        $(".btnEdit").css("display", "");
         $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
         $("#btnfamilyAdd").css("display", "none");
@@ -1451,7 +1451,7 @@ function BindFamilyMembers(e) {
     jsonResult = GetAllFamilyMembers(Family);
     if (jsonResult != undefined) {
         $("#InstituteShow").css("display", "");
-        $(".FamiliesEdit").css("display", "");
+        $(".btnEdit").css("display", "");
         $("#FamilyAdd").css("display", "none");
         $(".btnNew").css("display", "");
         //$("#btnfamilyAdd").css("display", "none");
