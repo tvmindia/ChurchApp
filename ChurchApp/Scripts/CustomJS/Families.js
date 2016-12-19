@@ -71,6 +71,7 @@ $(document).ready(function () {
         $('textarea,select').css({ background: 'white' });
         $("#familyAddDiv").css("display", "none");
         $("#btnFamilyDiv").css("display", "none");
+        ClearTextboxes();
     });
     $(".CancelUnit").click(function (e) {
         $('#ErrorBox,#ErrorBox1').hide(1000);
@@ -202,6 +203,8 @@ $(document).ready(function () {
                     noty({ text: 'Deleted Successfully', type: 'success' });
                     BindFamilyUnitsAccordion();
                     $("#txtUnitName").val("");
+                    $("#familyUnitAddOrEdit").text("Add");
+                    $(".DeleteUnit").css("display", "none");
                     break;
                 case "0":
                     noty({ text: 'Error..!!!', type: 'error' });
@@ -615,13 +618,20 @@ function saveFamily()
     Members.familyObj = Family;
     if ($("#familyAddOrEdit").text() == "Add") {
         jsonResult = InsertFamily(Members);
-
+        debugger;
         switch (jsonResult.status) {
             case "1":
                 noty({ text: 'Saved Successfully', type: 'success' });
                 FamilyAutoBind();
-                ClearTextboxes();
+                //ClearTextboxes();
                 BindMemberSelect();
+                $("#familyAddOrEdit").text("Edit");
+                $(".DeleteFamily").show();
+                $("#hdfFamilyID").val(jsonResult.familyID);
+                $("#txtFirstName").attr('disabled', 'disabled');
+                $("#txtLastName").attr('disabled', 'disabled');
+                $("#txtPhone").attr('disabled', 'disabled');
+                $("#txtAddress").attr('disabled', 'disabled');
                 break;
 
             case "0":
@@ -668,7 +678,9 @@ function saveFamilyUnit()
             case "1":
                 noty({ text: 'Saved Successfully', type: 'success' });
                 BindFamilyUnitsAccordion();
-                ClearTextboxes();
+                //ClearTextboxes();
+                ChangeUnitSaveToEdit();
+                $("#hdfUnitID").val(jsonResult.unitId);
                 break;
             case "2":
                 noty({ text: 'Unit Name Already Exists', type: 'error' });
@@ -700,6 +712,12 @@ function saveFamilyUnit()
       
     }
 }
+function ChangeUnitSaveToEdit()
+{
+    $("#familyUnitAddOrEdit").text("Edit");
+    $(".DeleteUnit").css("display", "");
+}
+
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
 
