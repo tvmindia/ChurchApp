@@ -414,7 +414,15 @@ function AutoCompleteAdmin() {
             select: function (event, ui) {
                 debugger;
                 var patronID = ui.item.desc;
-                patronImageId = ui.item.imageId;
+                if (ui.item.imageId == "")
+                {
+                    patronImageId = null;
+                }
+                else
+                {
+                    patronImageId = ui.item.imageId;
+                }
+                
                 $('#hdnmemID').val(patronID);
                 $('#txtMobile').val(ui.item.contact);
                 if (ui.item.imagepath != "") {
@@ -822,6 +830,7 @@ function NewInstitute() {
 //Add admin button onclick functionn for open modal
 function OpenAdminModal() {
     try {
+        document.getElementById('fluImage').value = "";
         RemoveStyle();
         $('#rowfluidDiv').hide();
         $('#modelAddAdmin ').modal('show');
