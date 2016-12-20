@@ -609,9 +609,9 @@ function AutoComplete()
                 document.getElementById('lblParish').innerText = PriestRow.Parish;
                 document.getElementById('lblAddress').innerText = PriestRow.address;
                 document.getElementById('lblDiocese').innerText = PriestRow.Diocese;
-                document.getElementById('lblDob').innerText = PriestRow.dob;
+                document.getElementById('lblDob').innerText = ConvertJsonToDate(PriestRow.dob);
                 document.getElementById('lblAbout').innerText = PriestRow.about;
-                document.getElementById('lblOrdination').innerText = PriestRow.dateOrdination;
+                document.getElementById('lblOrdination').innerText = ConvertJsonToDate(PriestRow.dateOrdination);
                 document.getElementById('lblDesignation').innerText = PriestRow.designation;
                 document.getElementById('lblStatus').innerText = PriestRow.Status;
                 $('#priestDetailPreview').attr('src', PriestRow.imagePath);
@@ -649,9 +649,9 @@ function AutoComplete()
             $('#txtPriestBaptismName').val(PriestRow.BaptisumName);
             $('#txtParish').val(PriestRow.Parish);
             $('#txtDiocese').val(PriestRow.Diocese);
-            $('#priestDOB').val(PriestRow.dob);
+            $('#priestDOB').val(ConvertJsonToDate(PriestRow.dob));
             $('#txtAboutPriest').val(PriestRow.about);
-            $('#OrdinationDate').val(PriestRow.dateOrdination);
+            $('#OrdinationDate').val(ConvertJsonToDate(PriestRow.dateOrdination));
             $('#ddlstatus').val(PriestRow.Status).change();
             $('#txtDesignation').val(PriestRow.designation);
             $('#txtAddress').val(PriestRow.address);
