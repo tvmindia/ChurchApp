@@ -714,18 +714,25 @@ namespace ChurchApp.WebServices
                 if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
                 DataColumn km = dt.Columns.Add("Distance", typeof(String));
                 DataColumn kmvval = dt.Columns.Add("Value", typeof(int));
-
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     ChurchLat = dt.Rows[i]["Latitude"].ToString();
                     ChurchLong = dt.Rows[i]["Longitude"].ToString();
                     Destination = ChurchLat + ',' + ChurchLong;
                     Source = Latitude + ',' + Longitude;
-
-                    result = ChurchObj.DistanceMatrixRequest(Source, Destination); //Finding distance using Google API
-                    string[] km_value = result.Split('|');
-                    dt.Rows[i]["Distance"] = km_value[0];
-                    dt.Rows[i]["Value"] = km_value[1];
+                    if (i < 10)
+                    {
+                        result = ChurchObj.DistanceMatrixRequest(Source, Destination); //Finding distance using Google API
+                        string[] km_value = result.Split('|');
+                        dt.Rows[i]["Distance"] = km_value[0];
+                        dt.Rows[i]["Value"] = km_value[1];
+                    }
+                    else {  //inserting displacement for distance
+                        dt.Rows[i]["Distance"] = Convert.ToInt32(dt.Rows[i]["displacement"])+"+ km";
+                        dt.Rows[i]["Value"] = dt.Rows[i]["displacement"];
+                        dt.Rows[i]["Value"] = Convert.ToInt32(dt.Rows[i]["Value"]) * 1000+100000;   //for distinctly sorting distance and displacement
+                    }
+                        
                 }
 
                 //sorting the datatable with respect to distance 

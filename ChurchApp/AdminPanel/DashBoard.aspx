@@ -223,8 +223,8 @@
 								  <tr>
                                       <th>RoleID</th>
                                       <th>ChurchID</th>
+                                      <th>Church</th>
 									  <th>Role</th>
-									  <th>Church</th>
 									  <th>Created Date</th>
 									  <th>Actions</th>                                          
 								  </tr>
@@ -249,10 +249,10 @@
                             </div>
 						      <div class="control-group">
 
-                              <label class="control-label" for="focusedInput">Role Name</label>
+                              <label class="control-label" for="focusedInput">Church</label>
                                <div class="controls">
-                              
-                                    <select id="idddlRoleName" name="RoleName" class="ddlRoleName"><option>Admin</option><option>User</option></select>
+                               <select id="idddlChurch" name="ddlChurch" class="ddlChurch"><option></option></select>
+                                    
                               </div>
                               </div>
 
@@ -261,9 +261,9 @@
                              <div class="span6">
                                   
 						      <div class="control-group">
-                             <label class="control-label" for="focusedInput">Church</label>
+                             <label class="control-label" for="focusedInput">Role Name</label>
                                <div class="controls">
-                                  <select id="idddlChurch" name="ddlChurch" class="ddlChurch"><option></option></select>
+                                 <select id="idddlRoleName" name="RoleName" class="ddlRoleName"><option>Admin</option><option>User</option></select>
                                   
                                  </div>
                              </div>

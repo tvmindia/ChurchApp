@@ -588,6 +588,9 @@ function AutoComplete()
     }
     //Onclick function for view priest details
     function OpenPriestDetails(priestID) {
+        debugger;
+        document.getElementById('priestimg').value = "";
+        $('#hdfpriestImageID').val('');
         BindDetails(priestID);
         $('#PriestShowDetails').show();
         $('#iconEditPriest').show();
@@ -609,11 +612,13 @@ function AutoComplete()
                 document.getElementById('lblParish').innerText = PriestRow.Parish;
                 document.getElementById('lblAddress').innerText = PriestRow.address;
                 document.getElementById('lblDiocese').innerText = PriestRow.Diocese;
-                document.getElementById('lblDob').innerText = ConvertJsonToDate(PriestRow.dob);
+                document.getElementById('lblDob').innerText = (PriestRow.dob!="" && PriestRow.dob!=null ? ConvertJsonToDate(PriestRow.dob):'');
                 document.getElementById('lblAbout').innerText = PriestRow.about;
                 document.getElementById('lblOrdination').innerText = ConvertJsonToDate(PriestRow.dateOrdination);
                 document.getElementById('lblDesignation').innerText = PriestRow.designation;
                 document.getElementById('lblStatus').innerText = PriestRow.Status;
+                $('#hdfPriestID').val(PriestRow.ID);
+                $('#hdfpriestImageID').val(PriestRow.ImageID);
                 $('#priestDetailPreview').attr('src', PriestRow.imagePath);
                 $('#iconEditPriest').attr('name', PriestRow.priestID);
                 $('#bthCancelDetails').attr('name', 'View');
@@ -649,7 +654,7 @@ function AutoComplete()
             $('#txtPriestBaptismName').val(PriestRow.BaptisumName);
             $('#txtParish').val(PriestRow.Parish);
             $('#txtDiocese').val(PriestRow.Diocese);
-            $('#priestDOB').val(ConvertJsonToDate(PriestRow.dob));
+            $('#priestDOB').val((PriestRow.dob!="" && PriestRow.dob!=null ? ConvertJsonToDate(PriestRow.dob):''));
             $('#txtAboutPriest').val(PriestRow.about);
             $('#OrdinationDate').val(ConvertJsonToDate(PriestRow.dateOrdination));
             $('#ddlstatus').val(PriestRow.Status).change();
@@ -730,10 +735,10 @@ function AutoComplete()
         var ID = "'" + priestDetails.ID + "'";
         var html = ('<div id="VicarDefault"><div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Vicar</h2></div>'
           + '<div class="task high">'
-          + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + priestDetails.URL + '"/></li>'
+          + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + (priestDetails.URL != null ? priestDetails.URL + '?' + new Date().getTime() : "../img/gallery/priest.png") + '"/></li>'
           + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
           + '<strong>Baptismal Name:</strong> ' + priestDetails.BaptismalName + ' <br/><strong>House Name:</strong> ' + priestDetails.Address + ' <br/><strong>Status:</strong> ' + priestDetails.Status+ '<br/>'
-          + '<strong>Date of Birth:</strong>  ' + ConvertJsonToDate(priestDetails.DOB) + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
+          + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
           + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenPriestDetails(' + ID + ');">View more details</a>'
           + '</li></ul></div></div>');
         return html;
@@ -743,10 +748,10 @@ function AutoComplete()
     function HtmlBindWithAsst(priestDetails, i) {
         
         var ID ="'"+priestDetails.ID+"'";
-        var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + priestDetails.URL + '"/></li>'
+        var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + (priestDetails.URL != null ? priestDetails.URL + '?' + new Date().getTime() : "../img/gallery/priest.png") + '"/></li>'
           + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
           + '<strong>Baptismal Name:</strong> ' + priestDetails.BaptismalName + ' <br/><strong>House Name:</strong> ' + priestDetails.Address + ' <br/><strong>Status:</strong> ' + priestDetails.Status + '<br/>'
-          + '<strong>Date of Birth:</strong>  ' + ConvertJsonToDate(priestDetails.DOB) + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
+          + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
           + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenPriestDetails(' + ID + ');">View more details</a>'
           + '</li></ul></div>');
         return html;
