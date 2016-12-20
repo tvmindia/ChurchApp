@@ -283,11 +283,9 @@ namespace ChurchApp.ImageHandler
                             try
                             {
                                 townMasterObj = new TownMaster();
-                                //Insert to table
                                 AppImgObj = new AppImages();
                                 postFile = context.Request.Files["upImageFile"];
                                 fileExtension = Path.GetExtension(postFile.FileName);
-                                // AppImgObj.appImageId = ChurchImageID;
                                 AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
                                 AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                 AppImgObj.type = "image";

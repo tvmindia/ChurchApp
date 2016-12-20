@@ -280,26 +280,31 @@ function BindGridOnDaySelect(dayarr)
 
 function ReBindMassTimingUpdateTable(jsonResult) {
     debugger;
-    var MassID = jsonResult[0]["ID"];
-    var length = jsonResult.length;
-    $("#massTimingUpdateTable").html("");
-    for (var i = 0; i < length; i++) {
-        var ID = jsonResult[i]["ID"];
-        massChurchID = jsonResult[i]["ChurchID"];
-        Day = jsonResult[i]["Day"];
-        var MassTime = jsonResult[i]["Time"];
-        MassTime = hrsToAmPm(MassTime)
-        var html = '<tr class="MassTimingUpdateRows" ID="' + ID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + MassTime + '"><td>' + Day + '</td><td class="center">' + MassTime + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
-        $("#massTimingUpdateTable").append(html);
-    }
-    
-    if (MassID != "")
+    if (jsonResult.length == 0)
     {
-        document.getElementById("massTimingsUpdate").style.display = "";
+        document.getElementById("massTimingsUpdate").style.display = "none";
     }
     else
     {
-        document.getElementById("massTimingsUpdate").style.display = "none";
+        var MassID = jsonResult[0]["ID"];
+        var length = jsonResult.length;
+        $("#massTimingUpdateTable").html("");
+        for (var i = 0; i < length; i++) {
+            var ID = jsonResult[i]["ID"];
+            massChurchID = jsonResult[i]["ChurchID"];
+            Day = jsonResult[i]["Day"];
+            var MassTime = jsonResult[i]["Time"];
+            MassTime = hrsToAmPm(MassTime)
+            var html = '<tr class="MassTimingUpdateRows" ID="' + ID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + MassTime + '"><td>' + Day + '</td><td class="center">' + MassTime + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+            $("#massTimingUpdateTable").append(html);
+        }
+
+        if (MassID != "") {
+            document.getElementById("massTimingsUpdate").style.display = "";
+        }
+        else {
+            document.getElementById("massTimingsUpdate").style.display = "none";
+        }
     }
     $("#TxtTime").val("");
 }

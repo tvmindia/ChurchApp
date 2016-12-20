@@ -37,25 +37,7 @@ $("document").ready(function (e) {
     {
         noty({ type: 'error', text: e.message });
     }
-   
-    
-    //try
-    //{
-    //    initGoogleMap();
-    //    $('#mapModal').on('shown.bs.modal', function () {
-
-    //        google.maps.event.trigger(map, "resize");
-    //    });
-
-    //}
-    //catch(e)
-    //{
-
-    //}
-    
-    
-
-    try
+     try
     {
         dropdownContainer.ddlTown=$(".ddlTownCode").select2({
             placeholder: "Choose Town",
@@ -179,8 +161,8 @@ $("document").ready(function (e) {
 
               { "data": "RoleID" },
               { "data": "ChurchID"},
-              { "data": "RoleName", "defaultContent": "<i>-</i>" },
               { "data": "ChurchName", "defaultContent": "<i>-</i>" },
+              { "data": "RoleName", "defaultContent": "<i>-</i>" },
               { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
               { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditRole(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveRole(this)"></i></a>' }
                                                                     
@@ -421,7 +403,7 @@ $("document").ready(function (e) {
                         switch (result.status) {
                             case "1":
                                 try {
-                                  
+                                   
                                     dropdownContainer.ddlChurch.select2().empty();
                                     dropdownContainer.ddlChurch.select2({
                                         placeholder: "Choose Church",
@@ -613,6 +595,7 @@ $("document").ready(function (e) {
             RemoveStyle();
             $(".ddlRoleName").select2("val", "");
             $(".ddlChurch").select2("val", "");
+            $("#hdfRolesID").val('');
             //it clears all child page form elemets 
             //clears upload control
             $('#form1').get(0).reset();
@@ -716,7 +699,7 @@ $("document").ready(function (e) {
                 Church = new Object();
                 Roles = new Object();
                 if ($('.ddlChurchuser').val() != "") {
-                    Church.churchId = $('.ddlChurchuser').val();
+                    Church.churchId = dropdownContainer.ddlChurch.val();
                 }
                 else
                 {
@@ -871,6 +854,7 @@ $("document").ready(function (e) {
     $('#btnRolesAdd').click(function (e) {
         try
         {
+            debugger;
            
             var rolesflag = RolesValidation();
             if (rolesflag)
@@ -916,6 +900,9 @@ $("document").ready(function (e) {
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.UpdationFailure });
+                            break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.AlreadyExistsMsgCaption });
                             break;
                         default:
                             noty({ type: 'error', text: result.status });
@@ -993,6 +980,9 @@ $("document").ready(function (e) {
                         case "0":
                             noty({ type: 'error', text: Messages.UpdationFailure });
                            
+                            break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.AlreadyExistsMsgCaption });
                             break;
                             noty({ type: 'error', text: Messages.UpdationFailureOrderDuplicate });
                             break;
@@ -1397,12 +1387,12 @@ function EditTown(curobj) {
     $("#hdfTownCode").val(TownMaster.code);
     var townDetail = GetTownDetailByCode(TownMaster);
     if (townDetail != undefined && townDetail != null) {
-        $("#txtName").val(townDetail[0].Name);
+        $("#txtName").val(townDetail[0].Name != null && townDetail[0].Name != "" ? townDetail[0].Name : '');
         if (townDetail[0].URL == null) {
             $("#TownPreview").attr('src', '/img/defaultalbumadd.jpg');
         }
         else {
-            $("#TownPreview").attr('src', townDetail[0].URL);
+            $("#TownPreview").attr('src', townDetail[0].URL + '?' + new Date().getTime());
         }
         $("#hdfTownImageID").val(townDetail[0].ImageID);
     }
@@ -1873,57 +1863,52 @@ function EditChurch(curobj)
     $("#hdfChurchID").val(Church.churchId);
     $("#hdfChurchImageID").val(data.MainImageID);
     var churchDetail = GetChurchDetailsByChurchID(Church);
-    $("#txtChurchName").val(churchDetail[0].ChurchName);
+    $("#txtChurchName").val(churchDetail[0].ChurchName != null && churchDetail[0].ChurchName!="" ? churchDetail[0].ChurchName : '');
     $(".ddlTownCode").val(churchDetail[0].TownCode).trigger("change");
-    $("#txtAddress").val(churchDetail[0].Address);
-    $("#txtDescription").val(churchDetail[0].Description);
-    $("#txtAbout").val(churchDetail[0].About);
-    $("#txtPhone1").val(churchDetail[0].Phone1);
-    $("#txtPhone2").val(churchDetail[0].Phone2);
-    $(".ddlPriest").val(churchDetail[0].MainPriestID).trigger("change");
-    $("#txtLongitude").val(churchDetail[0].Longitude);
-    $("#txtLatitude").val(churchDetail[0].Latitude);
+    $("#txtAddress").val(churchDetail[0].Address != null && churchDetail[0].Address != "" ? churchDetail[0].Address : '');
+    $("#txtDescription").val(churchDetail[0].Description != null && churchDetail[0].Description != "" ? churchDetail[0].Description : '');
+    $("#txtAbout").val(churchDetail[0].About != null && churchDetail[0].About != "" ? churchDetail[0].About : '');
+    $("#txtPhone1").val(churchDetail[0].Phone1 != null && churchDetail[0].Phone1 != "" ? churchDetail[0].Phone1 : '');
+    $("#txtPhone2").val(churchDetail[0].Phone2 != null && churchDetail[0].Phone2 != "" ? churchDetail[0].Phone2 : '');
+   
+    $("#txtLongitude").val(churchDetail[0].Longitude != null && churchDetail[0].Longitude != "" ? churchDetail[0].Longitude : '');
+    $("#txtLatitude").val(churchDetail[0].Latitude != null && churchDetail[0].Latitude != "" ? churchDetail[0].Latitude : '');
     if (churchDetail[0].ImageURL == null) {
         $("#ChurchPreview").attr('src', '/img/defaultalbumadd.jpg');
     }
     else {
-        $("#ChurchPreview").attr('src', churchDetail[0].ImageURL);
+        $("#ChurchPreview").attr('src', churchDetail[0].ImageURL + '?' + new Date().getTime());
     }
 }
 
 function EditUsers(curobj)
 {
-     
+    debugger;
     RemoveStyle();
+    //Getting ID from datatable selected row
     var data = DashDataTables.userTable.row($(curobj).parents('tr')).data();
     var Users = new Object();
     Users.ID = data.UserID;
     $("#hdfUserID").val(Users.ID);
     var userDetail = GetUserDetailsByUserID(Users);
-
-    $(".ddlChurchuser").val(userDetail[0].ChurchID).trigger("change");
-    $("#txtUserName").val(userDetail[0].UserName);
-    $("#txtUserAddress").val(userDetail[0].Address);
-    $("#txtMobile").val(userDetail[0].Mobile);
-    $("#txtEmail").val(userDetail[0].Email);
+    dropdownContainer.ddlChurch.val(userDetail[0].ChurchID).trigger("change");
+    //$(".ddlChurchuser").val(userDetail[0].ChurchID).trigger("change");
+    $("#txtUserName").val(userDetail[0].UserName != null && userDetail[0].UserName != "" ? userDetail[0].UserName : '');
+    $("#txtUserAddress").val(userDetail[0].Address != null && userDetail[0].Address != "" ? userDetail[0].Address : '');
+    $("#txtMobile").val(userDetail[0].Mobile != null && userDetail[0].Mobile != "" ? userDetail[0].Mobile : '');
+    $("#txtEmail").val(userDetail[0].Email != null && userDetail[0].Email != "" ? userDetail[0].Email : '');
     switch(userDetail[0].Gender)
     {
         case 'Male':
               $("#optionFemale").parent().removeClass('checked');
              $("#optionMale").parent().addClass('checked');
-          //  $('#optionMale').click();
-          
-            break;
+             break;
         case 'Female':
             $("#optionMale").parent().removeClass('checked');
             $("#optionFemale").parent().addClass('checked');
-          //  $('#optionFemale').click();
-         
-           
             break;
     }
-    $(".ddlRoles").val(userDetail[0].RoleID).trigger("change");
-
+    dropdownContainer.ddlRoles.val(userDetail[0].RoleID).trigger("change");
     if (userDetail[0].Active == true)
     {
        $("#chkActive").parent().addClass('checked');
@@ -1942,9 +1927,9 @@ function EditUsers(curobj)
         $("#chkAdministrator").parent().removeClass('checked');
     }
 
-    $("#txtLoginName").val(userDetail[0].LoginName);
+    $("#txtLoginName").val(userDetail[0].LoginName != null && userDetail[0].LoginName != "" ? userDetail[0].LoginName : '');
 
-    $("#datepickerdob").val(ConvertJsonToDate(userDetail[0].DOB));
+    $("#datepickerdob").val(userDetail[0].DOB != null && userDetail[0].DOB != "" ? ConvertJsonToDate(userDetail[0].DOB) : '');
 
     $('txtPassword').val('');
     $('txtconfirmpswd').val('');
@@ -2019,8 +2004,8 @@ function EditDesignation(curobj)
     OrgDesignationMaster.orgDesignationMasterID = data.DesigID;
     $("#hdfDesignationID").val(OrgDesignationMaster.orgDesignationMasterID);
     var designationDetail = GetDesignationDetailByID(OrgDesignationMaster);
-    $("#txtPosition").val(designationDetail[0].Position);
-    $("#txtOrder").val(designationDetail[0].Order);
+    $("#txtPosition").val(designationDetail[0].Position != null && designationDetail[0].Position != "" ? designationDetail[0].Position: '');
+    $("#txtOrder").val(designationDetail[0].Order != null && designationDetail[0].Order != "" ? designationDetail[0].Order: '');
     $(".ddlOrganization").val(designationDetail[0].OrgType).trigger("change");
  }
 
@@ -2035,8 +2020,8 @@ function EditSaint(curobj) {
     $("#hdfPatronImageID").val(PatronMaster.imageID);
 
     var PatronDetail = GetPatronDetailByID(PatronMaster);
-    $("#txtSaintName").val(PatronDetail[0].Name);
-    $("#txtSaintDescription").val(PatronDetail[0].Description);
+    $("#txtSaintName").val(PatronDetail[0].Name != null && PatronDetail[0].Name != "" ? PatronDetail[0].Name: '');
+    $("#txtSaintDescription").val(PatronDetail[0].Description != null && PatronDetail[0].Description != "" ? PatronDetail[0].Description: '');
     $("#hdfPatronID").val(PatronDetail[0].ID);
     if (PatronDetail[0].URL==null)
     {
@@ -2045,7 +2030,7 @@ function EditSaint(curobj) {
     }
     else
     {
-        $("#imgSaint").attr('src', PatronDetail[0].URL);
+        $("#imgSaint").attr('src', PatronDetail[0].URL + '?' + new Date().getTime());
     }
 }
 
@@ -2499,12 +2484,7 @@ function ChurchImagePreview(input) {
     }
 }
 
-function createGuid() {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-}
+
 
 
 
@@ -2565,18 +2545,6 @@ function GetAllUsers(Users) {
     return table;
 }
 
-//function LoadUsers(Records) {
-//    try {
-//        $("#Userstable").find(".userrow").remove();
-//        $.each(Records, function (index, Record) {
-//            var html = '<tr class="userrow"><td>' + Record.UserName + '</td><td class="center">' + Record.Mobile + '</td><td class="center">' + Record.ChurchName + '</td><td class="center">' + Record.RoleName + '</td><td class="center"><a class="circlebtn circlebtn-info"><i userid=' + Record.UserID + ' class="halflings-icon white edit" onclick="EditUsers(this)"></i></a><a class="circlebtn circlebtn-danger"><i userid=' + Record.UserID + ' class="halflings-icon white trash" onclick="RemoveUser(this)"></i></a></td></tr>';
-//            $("#Userstable").append(html);
-//        })
-//    }
-//    catch (e) {
-
-//    }
-//}
 
 
 function BindOrganizationTypeDropdown() {
@@ -2603,18 +2571,7 @@ function BindAllDesignation() {
     }
 }
 
-//function LoadDesignation(Records) {
-//    try {
-//        $("#Designationtable").find(".designationrow").remove();
-//        $.each(Records, function (index, Record) {
-//            var html = '<tr class="designationrow"><td>' + Record.Position + '</td><td class="center">' + Record.Order + '</td><td class="center">' + Record.OrgType + '</td><td class="center"><a class="circlebtn circlebtn-info"><i designationid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditDesignation(this)"></i></a><a class="circlebtn circlebtn-danger"><i designationid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveDesignation(this)"></i></a></td></tr>';
-//            $("#Designationtable").append(html);
-//        })
-//    }
-//    catch (e) {
 
-//    }
-//}
 
 function GetAllDesignation(Designation) {
     var ds = {};
@@ -2646,25 +2603,7 @@ function DeleteAppImage(AppImages) {
 
 }
 
-function DeleteFileFromFolder(imgPath) {
 
-    $.ajax({
-        type: "POST",
-        url: "../AdminPanel/Novenas.aspx/DeleteFileFromFolder",
-        data: '{imgPath: "' + imgPath + '"}',
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: imgPath,
-        failure: function (response) {
-
-            // alert(response.d);
-        },
-        error: function (response) {
-
-            // alert(response.d);
-        }
-    });
-}
 
 //Insert Patron
 function InsertPatron(PatronMaster) {
@@ -2698,19 +2637,6 @@ function GetAllPatrons(PatronMaster) {
     return table;
 }
 
-//function LoadPatrons(Records)
-//{
-//    try {
-//        $("#Sainttable").find(".saintrow").remove();
-//        $.each(Records, function (index, Record) {
-//            var html = '<tr class="saintrow"><td>' + Record.Name + '</td><td class="center">' +ConvertJsonToDate(Record.CreatedDate) + '</td><td class="center"><a class="circlebtn circlebtn-info"><i patronid=' + Record.ID + ' class="halflings-icon white edit" onclick="EditSaint(this)"></i></a><a class="circlebtn circlebtn-danger"><i patronid=' + Record.ID + ' class="halflings-icon white trash" onclick="RemoveSaint(this)"></i></a></td></tr>';
-//            $("#Sainttable").append(html);
-//        })
-//    }
-//    catch (e) {
-
-//    }
-//}
 
 function showpreview(input) {
     if (input.files && input.files[0]) {

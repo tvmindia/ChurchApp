@@ -117,7 +117,7 @@
                                <div class="control-group" id="phoneDiv">
 								<label class="control-label" for="focusedInput">Phone</label>
 								<div class="controls">
-								  <input class="input-large focused" name="phone1" id="txtPhone" type="text" value=""/>
+								  <input class="input-large focused" name="phone1" id="txtPhone" onkeypress="return isNumber(event);" type="text" value=""/>
 								</div>
 								</div>
                                <div class="control-group" id="addressDiv">
@@ -207,7 +207,7 @@
                             <label class="control-label" for="inputIcon">Phone</label>
 					  <div class="input-prepend span6">
                        <span class="add-on"><i class="fa fa-phone"></i></span>
-                       <input class="span12" id="txtMobile" type="text"/>
+                       <input class="span12" onkeypress="return isNumber(event);" id="txtMobile" type="text"/>
                        </div>
 					  </div> 
                       <input id="hdnInstituteID" type="hidden" />

@@ -15,34 +15,20 @@
     }
    else
     {
-        alert('Browser does not HTML5,Please Upgrade!');
+        noty({ type: 'error', text: Messages.BrowserSupport });
     }
-
-   
     $('#newalbum').click(function (e) {
-
-     
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
         $('#NewAlbumModel').modal('show');
-
         $('.dynalb').remove();
     });
-     
     BindGalleryImageAlbum();
     BindGalleryVideoAlbum();
     $('#btnSaveImageAlbum').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
-      debugger
+
+    debugger
         try
         {
             var imagefile;
-            
             if ((imagefile = $('#AlbumUploader')[0].files.length > 0)) {
                 var formData = new FormData();
                 for (i = 0; i < $('#AlbumUploader')[0].files.length ; i++) {
@@ -53,25 +39,21 @@
                 formData.append('churchId', $('#hdfchid').val());
                 formData.append('createdby', document.getElementById("LoginName").innerHTML);
                 var result=postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-               
                 switch(result)
                 {
-                    case "1":
+                    case 1:
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         BindGalleryImageAlbum();
                         break;
-                    case "0":
+                    case 0:
                         noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
+                        noty({ type: 'error', text: result });
                         break;
                 }
-                    
-             
-               
                 //modal close
                 $('.close').click();
-
             }
             else
             {
@@ -96,11 +78,7 @@
     });
 
     $('#btnMoreImagesAdd').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
-        debugger
+       debugger
         try {
             var imagefile=null;
             var albid = $('#hdfAlbumID').val();
@@ -116,15 +94,16 @@
                     formData.append('createdby', document.getElementById("LoginName").innerHTML);
                     var result=postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                     switch (result) {
-                        case "1":
+                        case 1:
                         
                             noty({ type: 'success', text: Messages.AlbumUpload });
                             BindImages(albid);
                             break;
-                        case "0":
+                        case 0:
                             noty({ type: 'error', text: Messages.AlbumUploadFailure });
                             break;
                         default:
+                            noty({ type: 'error', text: result });
                             break;
                     }
                     
@@ -142,11 +121,8 @@
     });
    
     $('#BtnVideoAlbumSave').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
-         
+      
+        debugger;
       
         barinAlbum.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
         barinAlbum.text.style.fontSize = '2rem';
@@ -165,17 +141,18 @@
                 barinAlbum.animate(0.6);  // Number from 0.0 to 1.0
                 var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                 switch (result) {
-                    case "1":
+                    case 1:
                        
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         barinAlbum.animate(1.0);  // Number from 0.0 to 1.0
                         BindGalleryVideoAlbum();
                         break;
-                    case "0":
+                    case 0:
                         $('#progressbarUploadinVidAlbum').hide();
                         noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
+                        noty({ type: 'error', text: result });
                         break;
                 }
             }
@@ -186,12 +163,8 @@
       
     });
     $('#btnMoreVideoSave').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
-
-         
+    
+        debugger
       
         bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
         bar.text.style.fontSize = '2rem';
@@ -212,21 +185,20 @@
                 bar.animate(0.6);  // Number from 0.0 to 1.0
                 var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                 switch (result) {
-                    case "1":
+                    case 1:
                       
 
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         bar.animate(1.0);  // Number from 0.0 to 1.0
                         BindVideos(albid);
                         break;
-                    case "0":
+                    case 0:
                      
                         $('#progressbarUploadinVidAlbum').hide();
-                      
-                      
                         noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
+                        noty({ type: 'error', text: result });
                         break;
                 }
              
@@ -246,10 +218,7 @@
 
 
     $('#EditAlbum').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
+       
         debugger
         try {
             $('#divCreateAlbum').hide();
@@ -265,10 +234,7 @@
     
 
     $('#EditVideoAlbum').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
+      
         debugger
         try {
             $('#divCreateVideoAlbum').hide();
@@ -286,10 +252,7 @@
     });
     
     $('#EditImageAlbum').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
+   
         debugger
         try {
             $('#divAddMore').hide();
@@ -309,10 +272,7 @@
 
     
     $('#EditVideo').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
+        debugger;
          
         try {
             $('#divAddMoreVideos').hide();
@@ -329,10 +289,7 @@
     });
 
     $('#RefreshImageAlbum').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
+      
         debugger
         try {
             $('#divAddMore').show();
@@ -348,10 +305,7 @@
     });
 
     $('#RefreshAlbum').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
+     
         debugger
         try {
             $('#divCreateAlbum').show();
@@ -370,10 +324,7 @@
     });
 
     $('#RefreshVideo').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
+   
         debugger
         try {
             $('#divAddMoreVideos').show();
@@ -390,10 +341,7 @@
 
     
     $('#RefreshVideoAlbum').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
+  
         debugger
         try {
             $('#divCreateVideoAlbum').show();
@@ -408,10 +356,7 @@
         }
     });
     $('#newimage').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
+
          
         //Show modal
         $('#NewImageModel').modal('show');
@@ -421,28 +366,17 @@
     });
 
     $('#newVideoalbum').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
-      
-
         $('#NewVideoAlbumModel').modal('show');
         $('#progressbarUploadinVidAlbum').hide();
     });
 
     $('#newvideo').click(function (e) {
-        //$('#rowfluidDivImages').hide();
-        //$('.alert-success').hide();
-        //$('.alert-error').hide();
-        //$('#rowfluidDivVideos').hide();
-
         $('#NewVideoModel').modal('show');
         $('#progressbarUpload').hide();
 
     });
 
-//Circular Progress bar initialization
+    //Circular Progress bar initialization
     var bar = new ProgressBar.Circle(progressbarUpload, {
         color: '#aaa',
         // This has to be the same size as the maximum width to
@@ -524,11 +458,7 @@
 
 function deleteImage(obj)
 {
-    //$('#rowfluidDivImages').hide();
-    //$('.alert-success').hide();
-    //$('.alert-error').hide();
-    //$('#rowfluidDivVideos').hide();
-   
+    debugger;
     var imgid = $(obj).attr('imageid');
     var albid = $(obj).attr('AlbumID');
     var GalleryItems = new Object();
@@ -560,12 +490,7 @@ function deleteImage(obj)
     
 }
 function deleteVideo(obj) {
-     
-    //$('#rowfluidDivImages').hide();
-    //$('.alert-success').hide();
-    //$('.alert-error').hide();
-    //$('#rowfluidDivVideos').hide();
-
+    debugger;
     var imgid = $(obj).attr('imageid');
     var albid = $(obj).attr('AlbumID');
     var GalleryItems = new Object();
@@ -616,12 +541,7 @@ function DeleteVideoItem(GalleryItems) {
 
 function deleteAlbum(albobj)
 {
-    //$('#rowfluidDivImages').hide();
-    //$('.alert-success').hide();
-    //$('.alert-error').hide();
-    //$('#rowfluidDivVideos').hide();
-     
-    //var imgid = $(obj).attr('imageid');
+    debugger;
     var albid = $(albobj).attr('AlbumID');
     var GalleryItems = new Object();
     var GalleryAlbum = new Object();
@@ -639,9 +559,7 @@ function deleteAlbum(albobj)
                    EditBindGalleryImageAlbum();
                    break;
                case "0":
-                  // $('#rowfluidDivImages').show();
-                 //  $('.alert-error').show();
-                  // $('.alert-error strong').text("Deletion was not successfull");
+              
                    noty({ type: 'error', text: Messages.DeletionFailure });
                    break;
                default:
@@ -663,12 +581,7 @@ function DeleteAlbumItem(GalleryItems) {
 
 function deleteVideoAlbum(albobj)
 {
-    //$('#rowfluidDivImages').hide();
-    //$('.alert-success').hide();
-    //$('.alert-error').hide();
-    //$('#rowfluidDivVideos').hide();
-     
-    //var imgid = $(obj).attr('imageid');
+    debugger;
     var albid = $(albobj).attr('AlbumID');
     var GalleryItems = new Object();
     var GalleryAlbum = new Object();
@@ -683,16 +596,12 @@ function deleteVideoAlbum(albobj)
             switch (result.status) {
                 case "1":
 
-                    //$('#rowfluidDivVideos').show();
-                    //$('.alert-success').show();
-                    //$('.alert-success strong').text("Deleted successfully");
+                 
                     noty({ type: 'success', text: Messages.DeletionSuccessFull });
                     EditBindGalleryVideoAlbum();
                     break;
                 case "0":
-                    //$('#rowfluidDivVideos').show();
-                    //$('.alert-error').show();
-                    //$('.alert-error strong').text("Deletion was not successfull");
+                  
                     noty({ type: 'error', text: Messages.DeletionFailure });
                     break;
                 default:
@@ -857,7 +766,7 @@ function AppendImageAlbum(Records)
             {
                 var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb Card"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + Records.AlbumName + '</span><br><span class="badge"><i class="halflings-icon camera white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Photos</span></div></div></a></div>';
             }
-            // var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span4 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+         
             
         $('.ImageAlbum-Gallery').append(html);
         })
@@ -868,14 +777,13 @@ function EditAppendImageAlbum(Records) {
     $.each(Records, function (index, Records) {
         var imgurl = Records.URL;
         if (imgurl == null) {
-            //var html = '<div class="span3 Alb"><a AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteImage(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i> alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+          
             var html = '<div class="span3 Alb"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;opacity: 0.3;" class="dynamicImgAlbum span12"></div><a AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="circlebtn circlebtn-danger" style="z-index: 1;position: relative;font-size: 16px;font-weight: bold;left: 46%;top: -56%;cursor: pointer;" onclick="deleteAlbum(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div class="span12" style="padding: 15px;text-align: center;background-color: #fff;color: black;font-size: 18px;margin-top: -30%;position: relative;font-weight: 300;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-left: 0!important;">' + Records.AlbumName + '</div></div>';
         }
         else {
             var html = '<div class="span3 Alb"><div style="background-image: url(' + imgurl + ')!important;height:247px;opacity: 0.3;" class="dynamicImgAlbum span12"></div><a AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="circlebtn circlebtn-danger" style="z-index: 1;position: relative;font-size: 16px;font-weight: bold;left: 46%;top: -56%;cursor: pointer;" onclick="deleteAlbum(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div class="span12" style="padding: 15px;text-align: center;background-color: #fff;color: black;font-size: 18px;margin-top: -30%;position: relative;font-weight: 300;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-left: 0;!important">' + Records.AlbumName + '</div></div>';
         }
-        //<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="' + Records.URL + '" alt="Sample Image 1"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteImage(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
-        // var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span4 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+       
       
         $('.ImageAlbum-Gallery').append(html);
     })
@@ -889,7 +797,7 @@ function ViewImages(obj)
         $('#divVideoAlbum').hide();
         $('#divVideos').hide();
         $('#divImages').show();
-        // editedrow = $(this).closest('div');
+
        
         var imgalbid = $(obj).attr('albumid');
         var albname = $(obj).attr('AlbumName');
@@ -1005,8 +913,7 @@ function AppendEditImages(Records) {
     $('.EditDiv').remove();
     $.each(Records, function (index, Records) {
        
-        //var html = '<div><span class="fa fa-trash change" aria-hidden="true"></span><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></div>';
-        //var html = '<div><span class="change">Delete</span><div style="position: relative !important;"><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></div></div>';
+     
         var html = '<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="' + Records.URL + '" alt="Sample Image 1"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteImage(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
         $('.Image-Gallery').append(html);
     })
@@ -1040,7 +947,7 @@ function AppendVideoAlbum(Records) {
         else {
             var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewVideos(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 VidAlb Card"><a alt="Church"><div style="background-image: url(/vid/Poster/' + Records.GroupItemID + '.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + Records.AlbumName + '</span><br><span class="badge"><i class="halflings-icon facetime-video white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Videos</span></div></div></a></div>';
         }
-        // var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span4 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
+       
 
         $('.VideoAlbum-gallery').append(html);
     })
@@ -1119,7 +1026,7 @@ function AppendVideos(Records) {
      
     $('.VidContainer').remove();
     $.each(Records, function (index, Records) {
-        //var html = '<a class="example-image-link" href="' + Records.URL + '" data-lightbox="example-set" data-title="Click anywhere to close."><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></a>'
+       
         var html = '<div class="VidContainer" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '"><video  style="object-fit: cover!important;"src="' + Records.URL + '" controls="controls" poster="/vid/Poster/'+Records.ID+'.jpg" loop="loop" preload="auto" height="250" width="385">HTML5 Video is required to play video</video></div>';
         $('.Video-gallery').append(html);
     })
@@ -1145,20 +1052,14 @@ function EditBindVideos(imgalbid) {
 }
 
 function EditAppendVideos(Records) {
-    //$('.attnimages').remove();
-    //$.each(Records, function (index, Records) {
-    //    //var html = '<a class="example-image-link" href="' + Records.URL + '" data-lightbox="example-set" data-title="Click anywhere to close."><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></a>'
-    //    var html = '<div class="VidContainer" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '"><video  src="' + Records.URL + '" controls="controls" loop="loop" preload="auto" height="250" width="385">HTML5 Video is required to play video</video></div>';
-    //    $('.Video-gallery').append(html);
-    //})
+  
 
     $('.VidContainer').remove();
     $('.attnimages').remove();
     $('.EditDiv').remove();
     $.each(Records, function (index, Records) {
        
-        //var html = '<div><span class="fa fa-trash change" aria-hidden="true"></span><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></div>';
-        //var html = '<div><span class="change">Delete</span><div style="position: relative !important;"><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></div></div>';
+   
         var html = '<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="/vid/Poster/' + Records.ID + '.jpg" alt="Sample Image 1"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteVideo(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
         $('.Video-gallery').append(html);
 
@@ -1188,25 +1089,16 @@ function EditAppendVideoAlbum(Records) {
     $.each(Records, function (index, Records) {
         var thumbid = Records.GroupItemID;
         if (thumbid == null) {
-          //  var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewVideos(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 VidAlb Card"><a alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
-            // var html = '<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="/img/defaultalbumadd.jpg" alt="Sample Image 1"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteImage(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
+    
             var html = '<div class="span3 VidAlb"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;opacity: 0.3;" class="dynamicImgAlbum span12"></div><a AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="circlebtn circlebtn-danger" style="z-index: 1;position: relative;font-size: 16px;font-weight: bold;left: 46%;top: -56%;cursor: pointer;" onclick="deleteVideoAlbum(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div class="span12" style="padding: 15px;text-align: center;background-color: #fff;color: black;font-size: 18px;margin-top: -30%;position: relative;font-weight: 300;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-left: 0!important;">' + Records.AlbumName + '</div></div>';
         }
         else {
-            //  var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewVideos(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 VidAlb Card"><a alt="Church"><div style="background-image: url(/vid/Poster/' + Records.GroupItemID + '.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
-            // var html = '<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="/vid/Poster/' + thumbid + '.jpg" alt="Sample Image 1"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteImage(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
+         
             var html = '<div class="span3 VidAlb"><div style="background-image: url(/vid/Poster/' + thumbid + '.jpg)!important;height:247px;opacity: 0.3;" class="dynamicImgAlbum span12"></div><a AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="circlebtn circlebtn-danger" style="z-index: 1;position: relative;font-size: 16px;font-weight: bold;left: 46%;top: -56%;cursor: pointer;" onclick="deleteVideoAlbum(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div class="span12" style="padding: 15px;text-align: center;background-color: #fff;color: black;font-size: 18px;margin-top: -30%;position: relative;font-weight: 300;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-left: 0;!important">' + Records.AlbumName + '</div></div>';
         }
-        // var html = '<div AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="'+Records.AlbumID +'" class="span4 Alb"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;" class="dynamicImgAlbum span12"><div class="span12 desc">' + Records.AlbumName + '</div></div></a></div>';
-
         $('.VideoAlbum-gallery').append(html);
-
-     
-      
-
-
     })
 }
-//Videos
+
 
 
