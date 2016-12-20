@@ -347,7 +347,11 @@ function template_functions(){
 	$('.datepicker').datepicker({
 	    changeMonth: true,
 	    changeYear: true,
-	    dateFormat: 'dd-mm-yy',
+	    // dateFormat: 'dd-mm-yy',
+	   // numberOfMonths: [3, 1],
+	    firstDay: 1,
+	    dateFormat: "dd-MM-yy",
+	    monthNames: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
 	    onSelect: function () {
 	        // The "this" keyword refers to the input (in this case: #someinput)
 	        this.focus();

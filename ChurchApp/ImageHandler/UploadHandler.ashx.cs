@@ -464,7 +464,7 @@ namespace ChurchApp.ImageHandler
                                     priestObj.mobile = context.Request.Form.GetValues("mobile")[0];
                                     priestObj.createdBy = AppImgObj.createdBy;
                                     priestObj.imageId = AppImgObj.appImageId;
-                                    priestObj.InsertPriest1();
+                                    priestObj.InsertPriest();
                                     postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
                                     jsSerializer = new JavaScriptSerializer();
                                     context.Response.Write(jsSerializer.Serialize(priestObj));
