@@ -227,7 +227,7 @@ namespace ChurchApp.DAL
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            SqlParameter outParam = null;
+            SqlParameter outParam,outparam1 = null;
             try
             {
                 dcon = new dbConnection();
@@ -252,6 +252,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
+                outparam1 = cmd.Parameters.Add("@memberId", SqlDbType.UniqueIdentifier);
+                outparam1.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -265,6 +267,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
+            memberId = outparam1.Value.ToString();
             status=outParam.Value.ToString();
             return status;
         }

@@ -534,7 +534,13 @@ function saveMember()
                 noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                 FamilyMembersAutoBind();
                 $(".btnEdit").css("display", "none");
-                ClearTextboxes();
+                //ClearTextboxes();
+                $("#memberAddOrEdit").text("Edit");
+                if (jsonResult.isHead == "False")
+                {
+                    $("#btnDelete").css("display", "");
+                }              
+                $("#hdfMemberID").val(jsonResult.memberId);
                 BindMemberSelect();
                 break;
             case "2":
