@@ -536,7 +536,10 @@ function saveMember()
                 $(".btnEdit").css("display", "none");
                 //ClearTextboxes();
                 $("#memberAddOrEdit").text("Edit");
-                $("#btnDelete").css("display", "");
+                if (jsonResult.isHead == "False")
+                {
+                    $("#btnDelete").css("display", "");
+                }              
                 $("#hdfMemberID").val(jsonResult.memberId);
                 BindMemberSelect();
                 break;
