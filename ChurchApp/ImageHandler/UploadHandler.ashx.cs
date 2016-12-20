@@ -32,6 +32,7 @@ namespace ChurchApp.ImageHandler
                 TownMaster townMasterObj = null;
                 PatronMaster patronMasterObj = null;
                 Priest priestObj = null;
+                Events EventObj=null;
                 //
 
                 string AppImagePath = "";
@@ -533,6 +534,91 @@ namespace ChurchApp.ImageHandler
                                     priestObj.result = ex.Message;
                                     context.Response.Write(jsSerializer.Serialize(priestObj));
                                 }
+                            break;
+                            case "EventImageInsert":
+                            try
+                            {
+                                EventObj = new Events();
+                                //Insert to table
+                                AppImgObj = new AppImages();
+                                postFile = context.Request.Files["upImageFile"];
+                                fileExtension = Path.GetExtension(postFile.FileName);
+                                AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                AppImgObj.type = "image";
+                                AppImgObj.InsertAppImage1().ToString();
+                                EventObj.churchId = context.Request.Form.GetValues("churchID")[0];
+                                EventObj.description = context.Request.Form.GetValues("description")[0];
+                                EventObj.eventName = context.Request.Form.GetValues("eventName")[0];
+                                EventObj.startDate = context.Request.Form.GetValues("startDate")[0];
+                                EventObj.endDate = context.Request.Form.GetValues("endDate")[0];
+                                EventObj.eventExpiryDate = context.Request.Form.GetValues("eventExpiryDate")[0];
+                                EventObj.isAutoHide = context.Request.Form.GetValues("isAutoHide")[0];
+                                EventObj.createdBy = AppImgObj.createdBy;
+                                EventObj.imageId = AppImgObj.appImageId;
+                                EventObj.InsertEvent();
+                                postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                jsSerializer = new JavaScriptSerializer();
+                                context.Response.Write(jsSerializer.Serialize(EventObj));
+                            }
+                            catch (Exception ex)
+                            {
+                                EventObj.Status = ex.Message;
+                                context.Response.Write(jsSerializer.Serialize(EventObj));
+                            }
+                            break;
+                            case "EventImageUpdate":
+                            try
+                            {
+                                EventObj = new Events();
+                                AppImgObj = new AppImages();
+                                postFile = context.Request.Files["upImageFile"];
+                                fileExtension = Path.GetExtension(postFile.FileName);
+                                if ((context.Request.Form.GetValues("EventimageId")[0] != "") && (context.Request.Form.GetValues("EventimageId")[0] != null))
+                                {
+                                    //update currrent patron image with new one
+                                    AppImgObj.appImageId = context.Request.Form.GetValues("EventimageId")[0];
+                                    AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                    AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                                    AppImgObj.type = "image";
+                                    AppImgObj.Extension = fileExtension;
+                                    AppImgObj.postedFile = postFile;
+                                    //Delete Previous image from folder and save new folder 
+                                    AppImgObj.UpdateCurrentAppImageInFolder();
+                                }
+                                else
+                                {
+                                    //insert new image for imageless town
+                                    AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                    AppImgObj.createdBy = context.Request.Form.GetValues("updatedby")[0];
+                                    AppImgObj.type = "image";
+                                    AppImgObj.Extension = fileExtension;
+                                    AppImgObj.postedFile = postFile;
+                                    AppImgObj.InsertAppImage1().ToString();
+                                    postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+
+                                }
+                                //Update Priest
+                                EventObj.churchId = context.Request.Form.GetValues("churchID")[0];
+                                EventObj.eventId = context.Request.Form.GetValues("eventId")[0];
+                                EventObj.description = context.Request.Form.GetValues("description")[0];
+                                EventObj.eventName = context.Request.Form.GetValues("eventName")[0];
+                                EventObj.startDate = context.Request.Form.GetValues("startDate")[0];
+                                EventObj.endDate = context.Request.Form.GetValues("endDate")[0];
+                                EventObj.eventExpiryDate = context.Request.Form.GetValues("eventExpiryDate")[0];
+                                EventObj.isAutoHide = context.Request.Form.GetValues("isAutoHide")[0];
+                                EventObj.updatedBy = AppImgObj.updatedBy;
+                                EventObj.imageId = AppImgObj.appImageId;
+                                EventObj.UpdateEvent();
+
+                                jsSerializer = new JavaScriptSerializer();
+                                context.Response.Write(jsSerializer.Serialize(EventObj));
+                            }
+                            catch (Exception ex)
+                            {
+                                EventObj.Status = ex.Message;
+                                context.Response.Write(jsSerializer.Serialize(EventObj));
+                            }
                             break;
 
 

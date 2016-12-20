@@ -85,9 +85,29 @@ function OnUpload(f) {
 }
 //Date validation is the date is valid
 function Datecheck(DateNow) {
+    debugger;
+    var Months = [{ month: "Jan", value: "01" },
+        { month: "Feb", value: "02" },
+        { month: "Mar", value: "03" },
+        { month: "Apr", value: "04" },
+        { month: "May", value: "05" },
+        { month: "Jun", value: "06" },
+        { month: "Jul", value: "07" },
+        { month: "Aug", value: "08" },
+        { month: "Sep", value: "09" },
+        { month: "Oct", value: "10" },
+        { month: "Nov", value: "11" },
+        { month: "Dec", value: "12" }];
     var date = DateNow.substring(0, 2);
-    var month = DateNow.substring(3, 5);
-    var year = DateNow.substring(6, 10);
+    var month = DateNow.substring(3, 6);
+    for(var i=0;i<Months.length;i++)
+    {
+        if(Months[i].month==month)
+        {
+            month = Months[i].value;
+        }
+    }
+    var year = DateNow.substring(7, 11);
     var myDate = new Date(year, month - 1, date);
     return myDate;
 }
@@ -185,6 +205,7 @@ function getJsonData(data, page) {
 }
 
 function ConvertJsonToDate(jsonDate) {
+    debugger;
     if (jsonDate != null) {
         var dateString = jsonDate.substr(6);
         var currentTime = new Date(parseInt(dateString));

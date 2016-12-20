@@ -122,7 +122,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="date01">Start Date</label>
                                     <div class="controls">
-                                        <input type="text" class="input-xlarge datepicker" id="dateStartDate" />
+                                        <input type="text" class="input-xlarge datepicker" id="dateStartDate" readonly="true" />
                                         <label class="control-label" for="date01" id="lblStartDate"></label>
 
                                     </div>
@@ -133,7 +133,7 @@
                                     <div class="controls">
                                         <%--onblur="SetExpiryDate()"--%>
 
-                                        <input type="text" class="input-xlarge datepicker" id="dateEndDate" onchange="SetExpiryDate()" />
+                                        <input type="text" class="input-xlarge datepicker" id="dateEndDate" onselect="SetExpiryDateNow();" readonly="true" />
                                         <label class="control-label" for="date01" id="lblEndDate"></label>
 
                                     </div>
@@ -142,7 +142,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="date01">Expiry Date</label>
                                     <div class="controls">
-                                        <input type="text" class="input-xlarge datepicker" id="dateExpiryDate" />
+                                        <input type="text" class="input-xlarge datepicker" id="dateExpiryDate" readonly="true" />
                                         <label class="control-label" for="date01" id="lblExpiryDate"></label>
 
                                     </div>
@@ -255,6 +255,6 @@
         </div>
         <input id="hdfImageID" type="hidden" value="" />
         <input id="hdfEventID" type="hidden" value="" />
-
+        
         <input id="hdfIsAutoHide" type="hidden" value="" />
 </asp:Content>

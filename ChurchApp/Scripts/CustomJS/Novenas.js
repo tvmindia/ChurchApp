@@ -650,8 +650,8 @@ function FixedEditClick()
                         $("#divStartDate").show();
                         $("#divEndDate").show();
 
-                        $('#dateStartDate').val(ConvertJsonToDateTextbox(jsonResult.StartDate));
-                        $('#dateEndDate').val(ConvertJsonToDateTextbox(jsonResult.EndDate));
+                        $('#dateStartDate').val(ConvertJsonToDate(jsonResult.StartDate));
+                        $('#dateEndDate').val(ConvertJsonToDate(jsonResult.EndDate));
 
                     }
                     else {

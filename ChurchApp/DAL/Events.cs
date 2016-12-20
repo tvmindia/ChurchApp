@@ -415,7 +415,7 @@ namespace ChurchApp.DAL
                 eventId = outParam1.Value.ToString();
             }
 
-
+            Status = outParam.Value.ToString();
             return outParam.Value.ToString();
         }
         #endregion InsertEvent
@@ -482,6 +482,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
+            Status = outParam.Value.ToString();
             return outParam.Value.ToString();
         }
         #endregion UpdateEvent
