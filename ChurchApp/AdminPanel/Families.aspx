@@ -117,7 +117,7 @@
                                <div class="control-group" id="phoneDiv">
 								<label class="control-label" for="focusedInput">Phone</label>
 								<div class="controls">
-								  <input class="input-large focused" name="phone1" id="txtPhone" type="text" value=""/>
+								  <input class="input-large focused" name="phone1" id="txtPhone" onkeypress="return isNumber(event);" type="text" value=""/>
 								</div>
 								</div>
                                <div class="control-group" id="addressDiv">
