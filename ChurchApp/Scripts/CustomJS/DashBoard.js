@@ -134,7 +134,7 @@ $("document").ready(function (e) {
             "visible": false,
             "searchable": false
         }
-      
+       
        
        ]
        });
@@ -700,7 +700,7 @@ $("document").ready(function (e) {
                 Church = new Object();
                 Roles = new Object();
                 if ($('.ddlChurchuser').val() != "") {
-                    Church.churchId = dropdownContainer.ddlChurch.val();
+                    Church.churchId = $("#idddlchurchuser").val();//dropdownContainer.ddlChurch.select2().val();
                 }
                 else
                 {
@@ -802,6 +802,13 @@ $("document").ready(function (e) {
                             var cofirmpswd = document.getElementById('txtconfirmpswd');
                             cofirmpswd.removeAttribute('style');
                             break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.LoginNameExists });
+                            $('#txtPassword').val('');
+                            $('#txtconfirmpswd').val('');
+                            var cofirmpswd = document.getElementById('txtconfirmpswd');
+                            cofirmpswd.removeAttribute('style');
+                            break;
                         default:
                             noty({ type: 'error', text: result.status });
                             $('#txtPassword').val('');
@@ -827,6 +834,14 @@ $("document").ready(function (e) {
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.UpdationFailure });
+                            $('#txtPassword').val('');
+                            $('#txtconfirmpswd').val('');
+                            var cofirmpswd = document.getElementById('txtconfirmpswd');
+                            cofirmpswd.removeAttribute('style');
+                            break;
+                        case "2":
+                            //login name already exists but edited successfully
+                            noty({ type: 'success', text: Messages.LoginNameExistsUpdated });
                             $('#txtPassword').val('');
                             $('#txtconfirmpswd').val('');
                             var cofirmpswd = document.getElementById('txtconfirmpswd');

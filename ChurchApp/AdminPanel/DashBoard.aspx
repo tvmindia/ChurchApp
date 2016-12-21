@@ -442,19 +442,19 @@
                                    <div class="control-group">
                                     <label class="control-label" for="focusedInput">Login Name</label>
                                    <div class="controls">
-                                   <input class="input-large focused" name="txtLoginName" id="txtLoginName" type="text"/>
+                                   <input class="input-large focused" name="txtLoginName" autocomplete="off" id="txtLoginName" type="text"/>
                                   </div>
                                  </div>
                                    <div class="control-group">
                                     <label class="control-label" for="focusedInput">Password</label>
                                    <div class="controls">
-                                   <input class="input-large focused" name="txtPassword" id="txtPassword" placeholder="Password" type="password"/>
+                                   <input class="input-large focused" name="txtPassword" autocomplete="off" id="txtPassword" placeholder="Password" type="password"/>
                                   </div>
                                  </div>
                                   <div class="control-group">
                                     <label class="control-label" for="focusedInput">Confirm Password</label>
                                    <div class="controls">
-                                   <input class="input-large focused" name="txtconfirmpswd" onkeyup="checkPass(); return false;" id="txtconfirmpswd" placeholder="Confirm password" type="password"/>
+                                   <input class="input-large focused" autocomplete="off" name="txtconfirmpswd" onkeyup="checkPass(); return false;" id="txtconfirmpswd" placeholder="Confirm password" type="password"/>
                                   </div>
                                  </div>
                                  
