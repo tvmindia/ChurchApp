@@ -347,8 +347,7 @@ function template_functions(){
 	$('.datepicker').datepicker({
 	    changeMonth: true,
 	    changeYear: true,
-	    // dateFormat: 'dd-mm-yy',
-	   // numberOfMonths: [3, 1],
+        yearRange: "1900:2099",
 	    firstDay: 1,
 	    dateFormat: "dd-MM-yy",
 	    monthNames: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],

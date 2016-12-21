@@ -423,15 +423,10 @@
                                        <div class="control-group">
                                     <label class="control-label" for="focusedInput">Active</label>
                                    <div class="controls">
-                                    <input id="chkActive" type="checkbox"/>
+                                    <input id="chkActive" checked="checked" type="checkbox"/>
                                   </div>
                                  </div>
-                                       <div class="control-group">
-                                    <label class="control-label" for="focusedInput">Administrator</label>
-                                   <div class="controls">
-                                    <input id="chkAdministrator" type="checkbox"/>
-                                  </div>
-                                 </div>
+                                
 
                                      
 
@@ -796,7 +791,7 @@
         
         <div class="modal-footer">
          <span>Latitude:</span><span id="spanLatitude"></span><span>   Longitude:</span><span id="spanLongitude"></span>
-         <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+         <a href="#" class="btn btn-primary" data-dismiss="modal">OK</a>
 		</div>
 		
 	   </div>

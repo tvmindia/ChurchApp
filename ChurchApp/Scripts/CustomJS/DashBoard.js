@@ -14,7 +14,6 @@ $("document").ready(function (e) {
             $(this).css({ background: 'white' });
             $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3,#ErrorBox4,#ErrorBox5').hide(1000);
         });
-      
     }
     catch(e)
     {
@@ -301,7 +300,7 @@ $("document").ready(function (e) {
     }
    
    
-    ///klkl
+    
     $('#btnChurchAdd').click(function (e) {
         try {
         var churchbit = ChurchValidation();
@@ -608,8 +607,10 @@ $("document").ready(function (e) {
     });
 
     $('.UserClear').click(function (e) {
+        $(".ddlRoles").select2("val", "");
         try
         {
+            debugger;
             RemoveStyle();
        
             $(".ddlChurchuser").select2("val", "");
@@ -617,18 +618,18 @@ $("document").ready(function (e) {
             $("#txtUserAddress").val('');
             $("#txtMobile").val('');
             $("#txtEmail").val('');
-            $("#chkActive").parent().removeClass('checked');
-            $("#chkAdministrator").parent().removeClass('checked');
+            $("#chkActive").parent().addClass('checked');
             $("#datepickerdob").val('');
             $("#txtLoginName").val('');
             $("#txtPassword").val('');
             $("#txtconfirmpswd").val('');
-            $(".ddlRoles").select2("val", "");
+           
+           
             $("#hdfUserID").val('');
-            //it clears all child page form elemets 
-            //clears upload control
-            $('#form1').get(0).reset();
+           
+        
         }
+       
         catch (e) {
             noty({ type: 'error', text: e.message });
         }
@@ -680,7 +681,7 @@ $("document").ready(function (e) {
     $('#btnUserAdd').click(function (e) {
       try
       {
-     
+          debugger;
             var pasflag = false;
             var userflag = UserValidation();
             var pas = document.getElementById('txtPassword');
@@ -743,6 +744,11 @@ $("document").ready(function (e) {
                 }
                 if ($('.ddlRoles').val() != "") {
                     Roles.ID = $('.ddlRoles').val();
+                    if($('.ddlRoles').find('option:selected').text()=='Admin')
+                    {
+                        //Make the user as admin
+                        Users.Administrator = 'True';
+                    }
                 }
                 else
                 {
@@ -752,9 +758,9 @@ $("document").ready(function (e) {
                     Users.Active = 'True';
                 }
 
-                if ($("#chkAdministrator").parent().attr('class') != "") {
-                    Users.Administrator = 'True';
-                }
+                //if ($("#chkAdministrator").parent().attr('class') != "") {
+                //    Users.Administrator = 'True';
+                //}
 
                 if ($("#datepickerdob").val() != "") {
                     Users.DOB = $("#datepickerdob").val();
@@ -1468,26 +1474,29 @@ function TownImagePreview(input) {
 function RemoveTown(curobj) {
     debugger;
     try {
-        var data = DashDataTables.townTable.row($(curobj).parents('tr')).data();
-        var TownMaster = new Object();
-        var AppImages = new Object();
-        TownMaster.imageId = data.ImageID;
-        TownMaster.code = data.Code;
-        TownMaster.appImagesObj = AppImages;
-        var jsonResultTown = DeleteTown(TownMaster);
-        switch (jsonResultTown.status) {
-            case "1":
-                noty({ type: 'success', text: Messages.DeletionSuccessFull });
-                BindAllTown();
-                break;
-            case "0":
-                noty({ type: 'error', text: Messages.DeletionFailure });
-            case "2":
-                noty({ type: 'error', text: Messages.DeletionFailureUsed });
-                break;
-            default:
-                noty({ type: 'error', text: jsonResultTown.status });
-                break;
+        var r = confirm("Are You Sure to Delete?");
+        if (r == true) {
+            var data = DashDataTables.townTable.row($(curobj).parents('tr')).data();
+            var TownMaster = new Object();
+            var AppImages = new Object();
+            TownMaster.imageId = data.ImageID;
+            TownMaster.code = data.Code;
+            TownMaster.appImagesObj = AppImages;
+            var jsonResultTown = DeleteTown(TownMaster);
+            switch (jsonResultTown.status) {
+                case "1":
+                    noty({ type: 'success', text: Messages.DeletionSuccessFull });
+                    BindAllTown();
+                    break;
+                case "0":
+                    noty({ type: 'error', text: Messages.DeletionFailure });
+                case "2":
+                    noty({ type: 'error', text: Messages.DeletionFailureUsed });
+                    break;
+                default:
+                    noty({ type: 'error', text: jsonResultTown.status });
+                    break;
+            }
         }
     }
     catch (e) {
@@ -1918,14 +1927,7 @@ function EditUsers(curobj)
         $("#chkActive").parent().removeClass('checked');
     }
 
-    if (userDetail[0].Administrator == true)
-    {
-        $("#chkAdministrator").parent().addClass('checked');
-    }
-    else
-    {
-        $("#chkAdministrator").parent().removeClass('checked');
-    }
+   
 
     $("#txtLoginName").val(userDetail[0].LoginName != null && userDetail[0].LoginName != "" ? userDetail[0].LoginName : '');
 
