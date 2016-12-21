@@ -82,7 +82,7 @@
 							
 								  <label class="control-label" for="focusedInput">Time</label>
 								<div class="controls">
-                                     <input type="text" class="timepicker" placeholder="Select Time" id="TxtTime" name="time" />
+                                     <input type="text" class="timepicker" placeholder="Select Time" id="TxtTime" onkeypress="return BlockSpecialCharacters(event);" name="time" />
 								 <%-- <input class="input-large focused" id="txtTime" type="text"/>--%>
 								</div>
 								</div>
