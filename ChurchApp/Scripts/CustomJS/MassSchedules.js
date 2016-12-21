@@ -23,7 +23,8 @@ $("document").ready(function (e) {
         paging: false,
         "oLanguage": {
             "sEmptyTable": " "
-        }
+        },
+        "Info": false
     });
     //--------------- *Save MassTiming* ----------------//
     $(".cancel").click(function (e) {
