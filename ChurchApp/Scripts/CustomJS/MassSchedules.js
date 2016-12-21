@@ -388,6 +388,7 @@ function AddTempTable()
         if(countLen>0)
         {
             noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+            countLen = 0;
         }
     }
     catch(e)
