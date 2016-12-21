@@ -1059,7 +1059,7 @@ function FixedEditClick() {
     try
     {
          
-
+        debugger;
         $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white repeat");
         $('#NoticeEdit').attr('onclick', 'cancelEdit();');
 
@@ -1119,9 +1119,12 @@ function FixedEditClick() {
                 }
                 if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
                     IsAlreadyNotified = true;
+                    $('#rdoNotificationYes').parent().addClass('checked');
+                    $("#rdoNotificationNo").parent().removeClass('checked');
                 }
                 else {
-
+                    $("#rdoNotificationNo").parent().addClass('checked');
+                    $("#rdoNotificationYes").parent().removeClass('checked');
                     IsAlreadyNotified = false;
                 }
             });

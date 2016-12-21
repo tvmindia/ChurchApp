@@ -111,6 +111,14 @@ function Datecheck(DateNow) {
     var myDate = new Date(year, month - 1, date);
     return myDate;
 }
+function BlockSpecialCharacters(event) {
+    var regex = new RegExp("^[a-zA-Z0-9]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+    }
+}
 function scriptvalidate() {
 
     var ictrl;
@@ -344,5 +352,8 @@ var Messages = {
     AlbumUploadInsert: "Album Uploaded successfully",
     AlbumUploadFailure: "Upload was not successfull",
     AlbumUpload: "Uploaded successfully",
-    BrowserSupport: "Browser does not HTML5,Please Upgrade!"
+    BrowserSupport: "Browser does not HTML5,Please Upgrade!",
+
+    TimeSelect: " Please Select Time",
+    DaySelect:"Please Select a Day"
 }

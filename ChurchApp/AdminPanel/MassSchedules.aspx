@@ -32,7 +32,7 @@
 						</div>
 					</div>
 					<div class="box-content" id="massTimingTableBox">
-						<table id="massTimingTable" class="table table-striped table-bordered bootstrap-datatable">
+						<table id="massTimingTable" class="table table-bordered" style="width:100% !important;">
 						  <thead>
 							  <tr>
 								  <th>Day</th>
@@ -82,7 +82,7 @@
 							
 								  <label class="control-label" for="focusedInput">Time</label>
 								<div class="controls">
-                                     <input type="text" class="timepicker" placeholder="Select Time" id="TxtTime" name="time" />
+                                     <input type="text" class="timepicker" placeholder="Select Time" id="TxtTime" onkeypress="return BlockSpecialCharacters(event);" name="time" />
 								 <%-- <input class="input-large focused" id="txtTime" type="text"/>--%>
 								</div>
 								</div>
