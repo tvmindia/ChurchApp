@@ -337,6 +337,7 @@ var Messages = {
     InvalidExpiry: "Invalid End/Expiry Date !",
     LoginFailed: "User Name / Password is wrong!",
     LoginNameExists: "Login name already exists!",
+    LoginNameExistsUpdated:"Successfully Edited! Login name already exists",
    
     Warning: "Warning Msg ",
     DeletionFailure: "Deletion Not Successful ",
