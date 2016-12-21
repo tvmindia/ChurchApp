@@ -34,7 +34,7 @@ $("document").ready(function (e) {
         var day = $("#hdfEditMassDay").val();
         if (day != null && day != "")
         {
-           // $('.dropcheck', this.$container).attr('placeholder', day);
+            $('.dropcheck', this.$container).attr('placeholder', "Select Days");
             if (document.getElementById("massTimingUpdateTable").getElementsByTagName("tr").length != 0) {
                 document.getElementById("massTimingUpdateTable").style.display = '';
             }
@@ -58,93 +58,98 @@ $("document").ready(function (e) {
 
     $(".AddMass").click(function (e) {
         debugger;
-        var MassTimings = new Object();
-        $("#NoData").remove();
-        $("#massTimingUpdateTable").html('');
-        $('#massTimingTableBox').css("height", "auto");
-        var saveOrEdit = $("#AddorEditSpan").text();
-        if (saveOrEdit == "Save") {
+        if ($('.dropcheck').attr('placeholder') != "Select Days") {
+            if ($("#TxtTime").val() != "" && $("#TxtTime").val() != null) {
+                var MassTimings = new Object();
+                $("#NoData").remove();
+                $("#massTimingUpdateTable").html('');
+                $('#massTimingTableBox').css("height", "auto");
+                var saveOrEdit = $("#AddorEditSpan").text();
+                if (saveOrEdit == "Save") {
 
-            var result = "";
-            //var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
-            var day = $('.dropcheck').attr('placeholder');
-            if (massDay.length > 0)
-            {
-                MassTimings.mDay = massDay;
-                MassTimings.mTime = massTime;
-            }
-            else
-            {
-                if (day == "Daily") {
-                    day = $("#ddlDay").val();
+                    var result = "";
+                    //var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
+                    var day = $('.dropcheck').attr('placeholder');
+                    if (massDay.length > 0) {
+                        MassTimings.mDay = massDay;
+                        MassTimings.mTime = massTime;
+                    }
+                    else {
+                        if (day == "Daily") {
+                            day = $("#ddlDay").val();
+                        }
+                        var time = hrsTo24hrormat();
+                        time = time + ":00.0000000";
+                        MassTimings.day = day;
+                        MassTimings.massTime = time;
+                    }
+
+
+                    //MassTimings.massChurchId = churchId;
+
+                    result = InsertMassTiming(MassTimings);
+                    switch (result.status) {
+                        case "1":
+                            BindAsyncAdminsTable();
+                            var jsonResult = {};
+                            MassTimings.day = day + ",";
+                            jsonResult = selectMassTimeByDay(MassTimings);
+                            if (jsonResult.length > 0) {
+                                ReBindMassTimingUpdateTable(jsonResult);
+                            }
+                            else {
+                                //$("#massTimingTempTable").html('');
+                                //$("#massTimingTempTable").hide();
+                                //$('.dropcheck', this.$container).attr('placeholder', "Select Days");
+                                //$("#TxtTime").val("");
+                            }
+                            noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                            break;
+                        case "0":
+                            noty({ text: Messages.InsertionFailure, type: 'error' });
+                            break;
+                        default:
+                            noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+                            break;
+                    }
                 }
-               var time = hrsTo24hrormat();
-                time = time + ":00.0000000";
-                MassTimings.day = day;
-                MassTimings.massTime = time ;
-            }
-            
-           
-            //MassTimings.massChurchId = churchId;
-           
-            result = InsertMassTiming(MassTimings);
-            switch (result.status) {
-                case "1":
-                    BindAsyncAdminsTable();
-                    var jsonResult = {};
-                    MassTimings.day = day + ",";
-                    jsonResult = selectMassTimeByDay(MassTimings);
-                    if (jsonResult.length>0)
-                    {
-                        ReBindMassTimingUpdateTable(jsonResult);
-                    }
-                    else
-                    {
-                        //$("#massTimingTempTable").html('');
-                        //$("#massTimingTempTable").hide();
-                        //$('.dropcheck', this.$container).attr('placeholder', "Select Days");
-                        //$("#TxtTime").val("");
-                    }
-                    noty({ text: Messages.InsertionSuccessFull, type: 'success' });
-                    break;
-                case "0":
-                    noty({ text: Messages.InsertionFailure, type: 'error' });
-                    break;
-                default:
-                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
-                    break;
-            }
-        }
-        else {
-            var result = "";
-            var churchId = $("#hdfChurchID").val();
-            var massId = $("#hdfMassID").val();
-            var day = $('.dropcheck').attr('placeholder');
-            var time = hrsTo24hrormat();
-            time = time + ":00.0000000";
-            var MassTimings = new Object();
-            MassTimings.massChurchId = churchId;
-            MassTimings.day = day + ",";
-            MassTimings.massTime = time;
-            MassTimings.massTimingID = massId;
-            result = UpdateMassTiming(MassTimings);
-            switch(result.status)
-            {
-                case "1":
-                    BindAsyncAdminsTable();
-                    var jsonResult = {};
+                else {
+                    var result = "";
+                    var churchId = $("#hdfChurchID").val();
+                    var massId = $("#hdfMassID").val();
+                    var day = $('.dropcheck').attr('placeholder');
+                    var time = hrsTo24hrormat();
+                    time = time + ":00.0000000";
+                    var MassTimings = new Object();
                     MassTimings.massChurchId = churchId;
                     MassTimings.day = day + ",";
-                    jsonResult = selectMassTimeByDay(MassTimings);
-                    ReBindMassTimingUpdateTable(jsonResult);
-                    noty({ text: Messages.UpdationSuccessFull, type: 'success' });
-                    break;
-                default:
-                    noty({ text: Messages.UpdationFailure, type: 'error' });
-                    break;
+                    MassTimings.massTime = time;
+                    MassTimings.massTimingID = massId;
+                    result = UpdateMassTiming(MassTimings);
+                    switch (result.status) {
+                        case "1":
+                            BindAsyncAdminsTable();
+                            var jsonResult = {};
+                            MassTimings.massChurchId = churchId;
+                            MassTimings.day = day + ",";
+                            jsonResult = selectMassTimeByDay(MassTimings);
+                            ReBindMassTimingUpdateTable(jsonResult);
+                            noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                            break;
+                        default:
+                            noty({ text: Messages.UpdationFailure, type: 'error' });
+                            break;
+                    }
+                }
+            }
+            else {
+                noty({ text: Messages.TimeSelect, type: 'error' });
             }
         }
-
+        else
+        {
+            noty({ text: Messages.DaySelect, type: 'error' });
+}
     });
 
     $(".massTimeEditbtn").live({

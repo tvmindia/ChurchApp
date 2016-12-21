@@ -344,5 +344,8 @@ var Messages = {
     AlbumUploadInsert: "Album Uploaded successfully",
     AlbumUploadFailure: "Upload was not successfull",
     AlbumUpload: "Uploaded successfully",
-    BrowserSupport: "Browser does not HTML5,Please Upgrade!"
+    BrowserSupport: "Browser does not HTML5,Please Upgrade!",
+
+    TimeSelect: " Please Select Time",
+    DaySelect:"Please Select a Day"
 }
