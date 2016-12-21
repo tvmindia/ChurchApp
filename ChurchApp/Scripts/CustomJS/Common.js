@@ -34,6 +34,16 @@
 //    }
 //    //return false;
 //}
+
+// function Allowing only alphabets in Textbox 
+function isnotNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || (charCode == 32) || (charCode == 08) || (charCode == 46)) {
+        return true;
+    }
+    return false;
+}
 // function Allowing only numbers in Textbox
 function CustomAlert() {
     this.render = function (dialog) {
