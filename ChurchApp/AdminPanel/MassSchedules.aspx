@@ -32,7 +32,7 @@
 						</div>
 					</div>
 					<div class="box-content" id="massTimingTableBox">
-						<table id="massTimingTable" class="table table-striped table-bordered bootstrap-datatable">
+						<table id="massTimingTable" class="table table-bordered" style="width:100% !important;">
 						  <thead>
 							  <tr>
 								  <th>Day</th>

@@ -364,6 +364,7 @@ function AddTempTable()
                                 if (NovenaDayAndTime[k].Day == curDay) {
                                     curTime = time;
                                     if (NovenaDayAndTime[k].Time == curTime) {
+                                        delete dayarray[len - 1];
                                         countLen = countLen + 1;
                                         IsValid = false;
                                     }
@@ -393,7 +394,7 @@ function AddTempTable()
         }
         if(countLen>0)
         {
-            noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+            noty({ text: Messages.AlreadyExistsMsgCaption+" - "+curDay+" : "+curTime, type: 'error' });
             countLen = 0;
         }
     }
