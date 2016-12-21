@@ -54,6 +54,7 @@ $("document").ready(function (e) {
         $("input[type=checkbox]").prop('checked', false);
         $('#rowfluidDiv').hide();
         NovenaDayAndTime.length = 0;
+        $('.dropdown-menu li.active').removeClass('active');
     });
 
     $(".AddMass").click(function (e) {
@@ -610,6 +611,7 @@ function DeleteMassTime(MassTimings) {
 function BindMassScheduleTextBoxes(jsonResult) {
     try
     {
+        $('.dropdown-menu li input[type=checkbox]').prop('checked',false);
         var day = jsonResult[0]["Day"];
         var churchId = jsonResult[0]["ChurchID"];
         var massId = jsonResult[0]["ID"];
@@ -619,6 +621,8 @@ function BindMassScheduleTextBoxes(jsonResult) {
         $("#hdfChurchID").val(churchId);
         $("#hdfMassID").val(massId);
         $('.dropcheck', this.$container).attr('placeholder', day);
+        $('.dropdown-menu li [value="' + day + '"]').prop("checked", true);
+        $('.dropdown-menu li [value="' + day + '"]').addClass('active');
         $("#TxtTime").val(jsonResultTime);
         counter = 1;
     }
