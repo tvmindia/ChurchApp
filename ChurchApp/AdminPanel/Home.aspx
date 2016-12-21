@@ -144,7 +144,7 @@ a._p {
                     <div class="box-content" id="IdDivChurchEdit">
 
                           <div class="masonry-thumb">
-					     <img class="grayscale" src=" " alt="St.Thomas Church"/>
+					     <img class="grayscale" src="../img/DefaultChurch.jpg" id="imgPreviewChurch" alt="St.Thomas Church"/>
                               <div class="_6a uiPopover _30vx _5v-0" id="ProfileCoverPhotoSelector" data-ft="{&quot;tn&quot;:&quot;*|&quot;}">
                             <a class="_30vy _5pwk _p" href="#" aria-haspopup="true" aria-expanded="false" rel="toggle" role="button" id="btnUpload" aria-controls="u_1c_3" onclick="popUpload();">
                             <i class="fa fa-camera iconsize _30vz"></i>

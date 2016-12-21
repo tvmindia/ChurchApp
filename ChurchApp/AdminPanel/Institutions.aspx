@@ -175,7 +175,7 @@
                         <div class="control-group">
 								<label class="control-label" for="focusedInput">Founded:</label>
 								<div class="controls">
-								  <input type="text" class="input-xlarge datepicker" name="Founded" id="txtFounded"/>
+								  <input type="text" class="input-xlarge datepicker" name="Founded"  readonly="true" id="txtFounded"/>
                                 </div>
 								</div>
                         

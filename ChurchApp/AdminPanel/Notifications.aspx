@@ -157,7 +157,7 @@
 							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
 								 <label class="control-label" for="date01" id="lblStartDate"></label>
-								  <input  class="input-large datepicker" name="StartDate" id="txtStartDate" type="text" placeholder="dd/mm/yyyy"/>
+								  <input  class="input-large datepicker" name="StartDate" id="txtStartDate" type="text" readonly="true" placeholder="dd/mm/yyyy"/>
 							  </div>
 							</div>
 
@@ -165,7 +165,7 @@
 							  <label class="control-label" for="date01" >Expiry Date</label>
 							  <div class="controls">
 								 <label class="control-label" for="date01" id="lblExpiryDate">Caption</label>
-								  <input  class="input-large datepicker" name="ExpiryDate" id="txtExpiryDate" type="text" placeholder="dd/mm/yyyy"/>
+								  <input  class="input-large datepicker" readonly="true" name="ExpiryDate" id="txtExpiryDate" type="text" placeholder="dd/mm/yyyy"/>
 							  </div>
 							</div>
 

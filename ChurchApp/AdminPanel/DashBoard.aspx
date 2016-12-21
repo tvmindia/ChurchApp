@@ -98,7 +98,7 @@
 
                               <label class="control-label" for="focusedInput">Church Name</label>
                                <div class="controls">
-                               <input class="input-large focused" name="txtChurchName" id="txtChurchName" placeholder="Enter Church name" type="text"/>
+                               <input class="input-large focused" name="txtChurchName" id="txtChurchName" placeholder="Enter Church name" onkeypress="return isnotNumber(event);" type="text"/>
                               </div>
                               </div>
 
@@ -350,7 +350,7 @@
                               <label class="control-label" for="focusedInput">Name</label>
                                <div class="controls">
                               
-                                    <input class="input-large focused" name="txtUserName" id="txtUserName" placeholder=""  type="text"/>
+                                    <input class="input-large focused" name="txtUserName" id="txtUserName" onkeypress="return isnotNumber(event);" placeholder=""  type="text"/>
                               </div>
                               </div>
 
@@ -433,7 +433,7 @@
                                 <div class="control-group">
                                 <label class="control-label" for="focusedInput">DOB</label>
                                <div class="controls">
-                                <input type="text" class="input-large datepicker" name="DOB" id="datepickerdob" value=""/>
+                                <input type="text" class="input-large datepicker" readonly="true" name="DOB" id="datepickerdob" value=""/>
                                   
                                  </div>
                              </div>
@@ -530,7 +530,7 @@
                               <label class="control-label" for="focusedInput">Position</label>
                                <div class="controls">
                               
-                                    <input class="input-large focused" name="txtPosition" id="txtPosition" placeholder=""  type="text"/>
+                                    <input class="input-large focused" name="txtPosition" id="txtPosition" onkeypress="return isnotNumber(event);" placeholder=""  type="text"/>
                               </div>
                               </div>
 
@@ -624,7 +624,7 @@
                               <label class="control-label" for="focusedInput">Name</label>
                                <div class="controls">
                               
-                                    <input name="Saintname" id="txtSaintName"  type="text" />
+                                    <input name="Saintname" id="txtSaintName" onkeypress="return isnotNumber(event);"  type="text" />
                               </div>
                               </div>
 
@@ -720,7 +720,7 @@
                               <label class="control-label" for="focusedInput">Name</label>
                                <div class="controls">
                               
-                                    <input class="input-large focused" name="txtName" id="txtName" placeholder=""  type="text"/>
+                                    <input class="input-large focused" name="txtName" id="txtName" onkeypress="return isnotNumber(event);" placeholder=""  type="text"/>
                               </div>
                               </div>
 

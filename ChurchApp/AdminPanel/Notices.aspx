@@ -161,7 +161,7 @@
                                         <label class="control-label" for="date01">Start Date</label>
                                         <div class="controls">
                                             <label class="control-label" for="focusedInput" id="lblStartDate" style="display: none"></label>
-                                            <input type="text" class="input-large datepicker" id="dateStartDate" />
+                                            <input type="text" class="input-large datepicker" readonly="true" id="dateStartDate" />
                                         </div>
                                     </div>
 
@@ -169,7 +169,7 @@
                                         <label class="control-label" for="date01">Expiry Date</label>
                                         <div class="controls">
                                             <label class="control-label" for="focusedInput" id="lblExpiryDate" style="display: none"></label>
-                                            <input type="text" class="input-large datepicker" id="dateExpiryDate" />
+                                            <input type="text" class="input-large datepicker" readonly="true" id="dateExpiryDate" />
                                         </div>
                                     </div>
 

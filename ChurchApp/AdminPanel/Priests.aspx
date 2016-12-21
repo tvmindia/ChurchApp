@@ -252,31 +252,31 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtPriestName" placeholder="Search / Add.." autocomplete="off" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtPriestName" placeholder="Search / Add.." autocomplete="off" onkeypress="return isnotNumber(event);" type="text"/>
                                 </div>
 								</div>
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Baptismal Name</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtPriestBaptismName" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtPriestBaptismName" onkeypress="return isnotNumber(event);" type="text"/>
                                 </div>
 								</div>
                         <div class="control-group">
 								<label class="control-label" for="focusedInput">Parish</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Parish" id="txtParish" type="text"/>
+								  <input class="input-large focused" name="Parish" id="txtParish" onkeypress="return isnotNumber(event);" type="text"/>
                                 </div>
 								</div>
                         <div class="control-group">
 								<label class="control-label" for="focusedInput">Diocese</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Diocese" id="txtDiocese" type="text"/>
+								  <input class="input-large focused" name="Diocese" id="txtDiocese" onkeypress="return isnotNumber(event);" type="text"/>
                                 </div>
 								</div>
                          <div class="control-group">
 							  <label class="control-label" for="date01">DOB</label>
 							  <div class="controls">
-								<input type="text" class="input-xlarge datepicker" id="priestDOB"/>
+								<input type="text" class="input-xlarge datepicker" readonly="true" id="priestDOB"/>
 							  </div>
 							</div>
 
@@ -290,7 +290,7 @@
                           <div class="control-group">
 							  <label class="control-label" for="date01">Ordination Date</label>
 							  <div class="controls">
-								<input type="text" class="input-xlarge datepicker" name="Ordination" id="OrdinationDate"/>
+								<input type="text" class="input-xlarge datepicker" readonly="true" name="Ordination" id="OrdinationDate"/>
 							  </div>
 							</div>
                          <div class="control-group">
@@ -307,7 +307,7 @@
 						  <div class="control-group">
 								<label class="control-label" for="focusedInput">Designation</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Designation" id="txtDesignation" type="text" value=""/>
+								  <input class="input-large focused" name="Designation" id="txtDesignation" onkeypress="return isnotNumber(event);" type="text" value=""/>
 								</div>
 								</div>
 

@@ -402,11 +402,15 @@ function BindSelect()
 function BindInstituteslist() {
     try
     {
+        debugger;
         var InstituteDetails = {};
         var elems = $();
         InstituteDetails = GetInstitutionListChurchID();
         if (InstituteDetails.length == 0) {
             //return;
+            $('#InstituteDefault').remove();
+            $('#Institutediv').empty();
+            $('#Institutediv').append(HtmlEmptyBind());
         }
         else {
             for (var i = 0; i < InstituteDetails.length; i++) {
@@ -523,6 +527,11 @@ function BindEditCard(ID) {
 
 
 /////////////////////////////////////////////////////////////**************Html bind dynamic
+function HtmlEmptyBind() {
+    var html = ('<ul class="dashboard-list vicarlist"><li ><img class="priestimage" src="../img/gallery/Institution.jpg"/></li>'
+                 +'<li ><br /><br /><br /><span style="color:#647587!important" class="choosepic"> No record Found</span> <br/></li></ul>');
+    return html;
+}
 // Html code for binding Institution details
 function HtmlBindInstitutions(InstituteDetails, i) {
     
@@ -622,6 +631,7 @@ function DeleteAdministrator(this_Obj)
             result = DeleteAdmin(AdminRow);
             if (result.results == "1") {
                 noty({ text: Messages.DeletionSuccessFull, type: 'success' });
+                
             }
             if (result.results != "1") {
                 noty({ text: result.results, type: 'error' });

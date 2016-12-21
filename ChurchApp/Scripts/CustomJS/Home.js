@@ -42,11 +42,11 @@ function BindDetails()
     var churchDetail = GetChurchDetailsByChurchID();
     if (churchDetail[0].ImageURL == "" && churchDetail[0].ImageURL == null)
     {
-        $('.grayscale').attr('src', './img/DefaultChurch.jpg');
+        $('#imgPreviewChurch').attr('src', '../img/DefaultChurch.jpg');
     }
     else
     {
-        $('.grayscale').attr('src', churchDetail[0].ImageURL);
+        $('#imgPreviewChurch').attr('src', churchDetail[0].ImageURL);
     }
     
     $('#h2ChurchName').text(churchDetail[0].ChurchName);
