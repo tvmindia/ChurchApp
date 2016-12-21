@@ -38,8 +38,17 @@
 
 function BindDetails()
 {
+    debugger;
     var churchDetail = GetChurchDetailsByChurchID();
-    $('.grayscale').attr('src', churchDetail[0].ImageURL);
+    if (churchDetail[0].ImageURL == "" && churchDetail[0].ImageURL == null)
+    {
+        $('.grayscale').attr('src', './img/DefaultChurch.jpg');
+    }
+    else
+    {
+        $('.grayscale').attr('src', churchDetail[0].ImageURL);
+    }
+    
     $('#h2ChurchName').text(churchDetail[0].ChurchName);
     $('#h2ChurchName').prepend(' ⛪ <span class="break"></span>');
     $('#h3ChurchName').text(churchDetail[0].ChurchName);
