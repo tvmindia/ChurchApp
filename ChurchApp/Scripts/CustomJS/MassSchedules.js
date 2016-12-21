@@ -20,7 +20,10 @@ $("document").ready(function (e) {
     $('#massTimingTable').dataTable({
         order: [],
         searching: false,
-        paging: false
+        paging: false,
+        "oLanguage": {
+            "sEmptyTable": " "
+        }
     });
     //--------------- *Save MassTiming* ----------------//
     $(".cancel").click(function (e) {
