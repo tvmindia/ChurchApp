@@ -20,22 +20,7 @@ $("document").ready(function (e) {
         noty({ type: 'error', text: e.message });
     }
    
-    try
-    {
-        //box content collapse
-        var $targetchurchbox = $('.churchBox');
-        $targetchurchbox.slideToggle();
-        var $targetRolesBox = $('.RolesBox');
-        $targetRolesBox.slideToggle();
-        var $targetUserBox = $('.UserBox');
-        $targetUserBox.slideToggle();
-        var $targetUserBox = $('.DesignationBox');
-        $targetUserBox.slideToggle();
-    }
-    catch(e)
-    {
-        noty({ type: 'error', text: e.message });
-    }
+    
      try
     {
         dropdownContainer.ddlTown=$(".ddlTownCode").select2({
