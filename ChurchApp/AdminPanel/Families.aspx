@@ -92,26 +92,26 @@
                                <div class="control-group" id="firstNameDiv" style="margin-top:2%">
 								<label class="control-label" for="focusedInput"><span id="familyHeadFirst" style="display:none;">Family Head </span>First Name:</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtFirstName" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtFirstName" onkeypress="return isnotNumber(event);" type="text"/>
                                 </div>
 								</div>
                                <div class="control-group" id="lastNameDiv">
 								<label class="control-label" for="focusedInput"><span id="familyHeadLast" style="display:none;">Family Head </span>Last Name:</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtLastName" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtLastName" onkeypress="return isnotNumber(event);" type="text"/>
                                 </div>
 								</div>
                                <div class="control-group" id="familyNameDiv">
 								<label class="control-label" for="focusedInput">Family Name:</label>
 								<div class="controls">
-								  <input type="text" class="input-large focused" id="txtFamilyName" disabled="disabled"/>
+								  <input type="text" class="input-large focused" id="txtFamilyName" onkeypress="return isnotNumber(event);" disabled="disabled"/>
                                 </div>
 								</div>
                         
                                <div class="control-group" id="unitNameDiv">
 								<label class="control-label" for="focusedInput">Unit Name:</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtUnitName" disabled="disabled" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtUnitName" onkeypress="return isnotNumber(event);" disabled="disabled" type="text"/>
                                 </div>
 								</div>
                                <div class="control-group" id="phoneDiv">
