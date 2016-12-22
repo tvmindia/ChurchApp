@@ -140,6 +140,7 @@
                 formData.append('createdby', document.getElementById("LoginName").innerHTML);
                 barinAlbum.animate(0.6);  // Number from 0.0 to 1.0
                 var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                barinAlbum.animate(0.6);
                 switch (result) {
                     case 1:
                        
@@ -903,7 +904,7 @@ function GetAllImageByAlbumID(GalleryItems)
 function AppendImages(Records) {
     $('.attnimages').remove();
     $.each(Records, function (index, Records) {
-         var html = '<a class="example-image-link" href="' + Records.URL + '" data-lightbox="example-set" data-title="Click anywhere to close."><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="Sample Image 1"/></a>'
+        var html = '<a class="AlbumImages-link" href="' + Records.URL + '" data-lightbox="AlbumImages" data-title="Click anywhere to close."><img AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="attnimages" src="' + Records.URL + '" alt="' + Records.URL + '"/></a>'
          $('.Image-Gallery').append(html);
     })
 }
@@ -914,7 +915,7 @@ function AppendEditImages(Records) {
     $.each(Records, function (index, Records) {
        
      
-        var html = '<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="' + Records.URL + '" alt="Sample Image 1"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteImage(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
+        var html = '<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="' + Records.URL + '" alt="' + Records.URL + '"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteImage(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
         $('.Image-Gallery').append(html);
     })
 }
@@ -1060,7 +1061,7 @@ function EditAppendVideos(Records) {
     $.each(Records, function (index, Records) {
        
    
-        var html = '<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="/vid/Poster/' + Records.ID + '.jpg" alt="Sample Image 1"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteVideo(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
+        var html = '<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="/vid/Poster/' + Records.ID + '.jpg" alt="' + Records.URL + '"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteVideo(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
         $('.Video-gallery').append(html);
 
     })
