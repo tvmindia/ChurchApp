@@ -40,13 +40,13 @@ function BindDetails()
 {
     debugger;
     var churchDetail = GetChurchDetailsByChurchID();
-    if (churchDetail[0].ImageURL == "" && churchDetail[0].ImageURL == null)
+    if (churchDetail[0].ImageURL == null)
     {
-        $('#imgPreviewChurch').attr('src', '../img/DefaultChurch.jpg');
+        $('.grayscale').attr('src', '/img/DefaultChurch.jpg');
     }
     else
     {
-        $('#imgPreviewChurch').attr('src', churchDetail[0].ImageURL);
+        $('.grayscale').attr('src', churchDetail[0].ImageURL);
     }
     
     $('#h2ChurchName').text(churchDetail[0].ChurchName);
