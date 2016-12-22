@@ -23,8 +23,7 @@
 					<a href="../AdminPanel/Home.aspx">Home</a> 
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</li>
-				<li class="Gallery">
-                    <i class="icon-home"></i> Gallery</li>
+				<li class="Gallery">Gallery</li>
 			</ul><a class="btnNew" id="btnAddNew" style="display:none;" runat="server" title=""><i title="Add New Notice">+</i></a>
               <%--Alert boxes --%>
                <div id="rowfluidDivImages" style="display:none;">	
