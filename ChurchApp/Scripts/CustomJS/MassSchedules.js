@@ -456,6 +456,8 @@ function BindTime(Time) {
 function BindMassEditGrid(e) {
     try
     {
+        $('.dropdown-menu li input[type=checkbox]').prop('checked', false);
+        $('.dropcheck', this.$container).attr('placeholder', "Select Days");
         $('#rowfluidDiv').hide();
         $("#TxtTime").val("");
         $("#massTimingTempTable").hide();
@@ -465,7 +467,6 @@ function BindMassEditGrid(e) {
         var massChurchID = editedrow.attributes["ChurchID"].textContent;
         var Day = editedrow.attributes["Day"].textContent;
         var Time = editedrow.attributes["Time"].textContent;
-       // $('.dropcheck', this.$container).attr('placeholder', Day);
         $("#hdfMassIDs").val(MassID);
         $("#hdfChurchIDs").val(massChurchID);
         $("#hdfDay").val(Day);

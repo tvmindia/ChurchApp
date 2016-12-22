@@ -214,48 +214,49 @@ $("document").ready(function (e)
             try
             {
                 debugger;
-                var deleteConirm = confirm("Want to delete?");
-                if (deleteConirm) {
-                    var Novenas = new Object();
-                    Novenas.novenaId = $('#hdfNovenaID').val();
+                $('#btnDelete').popover('show');
+                //var deleteConirm = confirm("Want to delete?");
+                //if (deleteConirm) {
+                //    var Novenas = new Object();
+                //    Novenas.novenaId = $('#hdfNovenaID').val();
 
-                    result = DeleteNovena(Novenas);
-                    switch (result.status)
-                    {
-                        case "1":
-                            SetControlsInNovenaFormat(true);
-                            noty({ type: 'success', text: Messages.DeletionSuccessFull });
-                            ClearControls();
-                            PatronID = $('#hdfPatronID').val();
-                            if ($('li.newnovenabread').length == 1) {
-                                BindAllNovenas();
-                            }
-                            else {
-                                BindNovenasPatronID(PatronID);
-                            }
-                            ScrollPage();
-                            if (DeletedImgID != PatronImgID) {
-                                // image deletion from folder and table
-                                var AppImages = new Object();
-                                AppImages.appImageId = DeletedImgID;
-                                DeleteAppImage(AppImages);
+                //    result = DeleteNovena(Novenas);
+                //    switch (result.status)
+                //    {
+                //        case "1":
+                //            SetControlsInNovenaFormat(true);
+                //            noty({ type: 'success', text: Messages.DeletionSuccessFull });
+                //            ClearControls();
+                //            PatronID = $('#hdfPatronID').val();
+                //            if ($('li.newnovenabread').length == 1) {
+                //                BindAllNovenas();
+                //            }
+                //            else {
+                //                BindNovenasPatronID(PatronID);
+                //            }
+                //            ScrollPage();
+                //            if (DeletedImgID != PatronImgID) {
+                //                // image deletion from folder and table
+                //                var AppImages = new Object();
+                //                AppImages.appImageId = DeletedImgID;
+                //                DeleteAppImage(AppImages);
                    
-                                DeleteFileFromFolder(DeletedImgPath);
-                            }
-                            break;
-                        case "0":
-                            noty({ type: 'error', text: Messages.DeletionFailure });
+                //                DeleteFileFromFolder(DeletedImgPath);
+                //            }
+                //            break;
+                //        case "0":
+                //            noty({ type: 'error', text: Messages.DeletionFailure });
 
-                            break;
-                        default:
-                            noty({ type: 'error', text: result.status });
-                            break;
-                    }
+                //            break;
+                //        default:
+                //            noty({ type: 'error', text: result.status });
+                //            break;
+                //    }
             
-                }
-                else {
-                    return false;
-                }
+                //}
+                //else {
+                //    return false;
+                //}
             }
             catch(e)
             {

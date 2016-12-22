@@ -16,6 +16,12 @@
     text-overflow: ellipsis;
     width: 50%;
 }
+.box-content{
+    display:none;
+}
+table{
+    width:100%!important;
+}
 #searchInput:focus {
     border-color: #4d90fe;
 }

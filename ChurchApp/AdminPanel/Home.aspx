@@ -89,6 +89,13 @@ a._p {
 ._30vy:hover ._30v-, ._30vy:focus ._30v-, .coverImage:hover ._5pwk ._30v-{
     transition: opacity .3s cubic-bezier(.175, .885, .32, 1.275), width .3s step-start;
 }
+.grayscale
+{
+    max-height: 371px!important;
+    min-height:371px!important;
+    min-width: 1086px!important;
+    object-fit: cover!important;
+}
     </style>
     <script>
         function popUpload()
@@ -125,7 +132,7 @@ a._p {
 					<div class="box-content" id="IdDivChurchDisplay">
 
                         <div class="masonry-thumb">
-					     <img class="grayscale" src=" " alt="St.Thomas Church"/>
+					     <img class="grayscale" src="" alt="My Church"/>
                             
 					    </div>
 
