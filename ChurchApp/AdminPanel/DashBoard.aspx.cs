@@ -788,6 +788,7 @@ namespace ChurchApp.AdminPanel
                 UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
+                    usersObj.LoginName = "";
                     usersObj.updatedBy = UA.userName;
                     usersObj.UpdateUser();
                 }

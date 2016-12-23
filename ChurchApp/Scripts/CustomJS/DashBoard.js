@@ -806,6 +806,7 @@ $("document").ready(function (e) {
                 }
                 else {
                     //UPDATE
+                    Users.LoginName = '';
                     Users.ID = $("#hdfUserID").val();
                     var result = UpdateUser(Users);
                     switch (result.status) {

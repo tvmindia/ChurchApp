@@ -299,7 +299,6 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 10).Value = Gender;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = Address;
                 cmd.Parameters.Add("@RoleID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(rolesObj.ID);
-                cmd.Parameters.Add("@LoginName", SqlDbType.NVarChar, 255).Value = LoginName;
                 cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 255).Value = Password;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = updatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
