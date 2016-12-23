@@ -324,9 +324,10 @@ namespace ChurchApp.ImageHandler
                                     churchObj.churchName = context.Request.Form.GetValues("churchName")[0];
                                     churchObj.description = context.Request.Form.GetValues("description")[0];
                                     churchObj.mainImageId = AppImgObj.appImageId;
-                                    churchObj.updatedBy = AppImgObj.updatedBy;
+                                    churchObj.updatedBy = AppImgObj.createdBy;
                                     churchObj.UpdateChurch();
                                     jsSerializer = new JavaScriptSerializer();
+                                    context.Response.Write(jsSerializer.Serialize(churchObj));
 
                                 }
                                 else
