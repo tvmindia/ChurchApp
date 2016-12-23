@@ -193,3 +193,7 @@ white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
 }
+.navbar-inner
+{
+    text-shadow:none !important;
+}
