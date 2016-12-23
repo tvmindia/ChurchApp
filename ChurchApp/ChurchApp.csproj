@@ -69,6 +69,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminPanel\BugTracker.aspx" />
     <Content Include="AdminPanel\Events.aspx" />
     <Content Include="AdminPanel\Families.aspx" />
     <Content Include="AdminPanel\Gallery.aspx" />
@@ -85,6 +86,7 @@
     <Content Include="CSS\bootstrap.min.css" />
     <Content Include="CSS\chosen.css" />
     <Content Include="CSS\CustomCSS\AdminLayout.css" />
+    <Content Include="CSS\CustomCSS\BugTracker.css" />
     <Content Include="CSS\CustomCSS\DashBoard.css" />
     <Content Include="CSS\CustomCSS\Events.css" />
     <Content Include="CSS\CustomCSS\Families.css" />
@@ -246,6 +248,7 @@
     <Content Include="Scripts\bootstrap-checkbox.js" />
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\counter.js" />
+    <Content Include="Scripts\CustomJS\BugTracker.js" />
     <Content Include="Scripts\CustomJS\Events.js" />
     <Content Include="Scripts\CustomJS\Families.js" />
     <Content Include="Scripts\CustomJS\Gallery.js" />
@@ -401,6 +404,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminPanel\BugTracker.aspx.cs">
+      <DependentUpon>BugTracker.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\BugTracker.aspx.designer.cs">
+      <DependentUpon>BugTracker.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPanel\DashBoard.aspx.cs">
       <DependentUpon>DashBoard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
