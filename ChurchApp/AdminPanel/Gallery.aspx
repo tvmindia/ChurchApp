@@ -25,38 +25,14 @@
 				</li>
 				<li class="Gallery">Gallery</li>
 			</ul><a class="btnNew" id="btnAddNew" style="display:none;" runat="server" title=""><i title="Add New Notice">+</i></a>
-              <%--Alert boxes --%>
-               <div id="rowfluidDivImages" style="display:none;">	
-				       <div class="alert alert-error" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Operation Not Successfull.</strong> 
-						</div>
-						<div class="alert alert-success" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Successfull.</strong> 
-						</div>
-						<div class="alert alert-info" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-						</div>
-						<div class="alert alert-block" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<h4 class="alert-heading">Warning!</h4>
-							<p>Best check yourself, you're not looking too good.</p>
-						</div>
-					
-
-              
-            </div>
-			  <%--Alert boxes --%>
+           
               <div class="row-fluid" id="divImageAlbum">
                   
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon picture"></i><span class="break"></span> Albums</h2>
 						<div class="box-icon">
-						
-					        <a class="pencilEdit" style="position: relative; top: -1px;  right: 0px;display:none;" title="Edit" id="EditAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
+				            <a class="pencilEdit" style="position: relative; top: -1px;  right: 0px;display:none;" title="Edit" id="EditAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
                             <a class="" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon repeat" aria-hidden="true"></i></a>
                             <a class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 							
@@ -166,7 +142,7 @@
                <!--Models used in this page-->
 	           <div class="modal hide fade" id="NewAlbumModel">
 		       <div class="modal-header">
-			   <button type="button" class="close" data-dismiss="modal">×</button>
+			   <button type="button" class="close modelClear" data-dismiss="modal">×</button>
 			   <h3>Create New Album</h3>
 		        </div>
 		       <div class="modal-body">
@@ -195,12 +171,12 @@
                <div class="modal-footer">
 			
 			<a href="#" class="btn btn-primary" id="btnSaveImageAlbum">Save</a>
-                <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+                <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>
 		    </div>
 		       </div>
                <div class="modal hide fade" id="NewImageModel">
 		        <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
+			<button type="button" class="close modelClear" data-dismiss="modal">×</button>
 			<h3>New Image</h3>
 		</div>
 	        	<div class="modal-body">
@@ -236,12 +212,12 @@
 	            <div class="modal-footer">
 			
 			<a href="#" id="btnMoreImagesAdd" class="btn btn-primary">Save</a>
-            <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>
 		</div>
      	       </div>
                <div class="modal hide fade" id="NewVideoAlbumModel">
 		          <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
+			<button type="button" class="close modelClear" data-dismiss="modal">×</button>
 			<h3>New Video Album</h3>
 		</div>
 		          <div class="modal-body">
@@ -273,19 +249,18 @@
 		     <div class="modal-footer">
 			
 			<a href="#" id="BtnVideoAlbumSave" class="btn btn-primary">Save</a>
-            <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>
 		</div>
 	          </div>
                <div class="modal hide fade" id="NewVideoModel">
 		        <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
+			<button type="button" class="close modelClear" data-dismiss="modal">×</button>
 			<h3>New Video
 
 			</h3>
 		</div>
 		        <div class="modal-body">
-
-                <div class="span10">
+                       <div class="span10">
                          <div class="form-horizontal">
 				             
                                 <div class="control-group" style="margin-top:20px">
@@ -298,10 +273,8 @@
                               
                                 </div>
                         </div>
-                        <div class="span10" id="previewupVideodiv">
-                            
-                               
-                            <output id="imageListVideo" class=""> 
+                       <div class="span10" id="previewupVideodiv">
+                       <output id="imageListVideo" class=""> 
                        <span style="height: 176px!important;border: 2px dotted black;background-color: #fff;width: 180px;display: block;float: left;margin:4px;">
                        <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 133px;left: 109px;" src="../img/Plussymbol.png"/>
                         <a onclick="BtnMoreVideoUploads();" class="" style="top:62%;left:28%;position:relative;cursor:pointer;"  id="btnuploadVideo">Choose Videos</a>
@@ -313,15 +286,11 @@
 
                             <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:29px;" id="progressbarUpload"></div>                                  
                         </div>
-           
-
-
-			
-		</div>
+  		        </div>
 		        <div class="modal-footer">
 			
 			<a href="#" id="btnMoreVideoSave" class="btn btn-primary">Save</a>
-            <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>
 		</div>
 	          </div>
               <!--End Models used in this page-->

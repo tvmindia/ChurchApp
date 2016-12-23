@@ -1,28 +1,55 @@
 ﻿$("document").ready(function (e) {
-   
-    //churchid =$('#hdfchid').val();
    //Container for images and videos will be hidden first 
    $('#divImages').hide();
    $('#divVideos').hide();
-
-    if (window.File && window.FileReader && window.FileList && window.Blob)
+    try
     {
-        // Great success! All the File APIs are supported.     
-        document.getElementById('AlbumUploader').addEventListener('change', handleFileSelect, false);
-        document.getElementById('imageUploader').addEventListener('change', handleFileSelectInImages, false);
-        document.getElementById('AlbumVidUploader').addEventListener('change', handleFileVideoAlbum, false);
-        document.getElementById('VideoUploader').addEventListener('change', handleVideoFile, false);
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            // Check All the File APIs are supported by browser.     
+            document.getElementById('AlbumUploader').addEventListener('change', handleFileSelect, false);
+            document.getElementById('imageUploader').addEventListener('change', handleFileSelectInImages, false);
+            document.getElementById('AlbumVidUploader').addEventListener('change', handleFileVideoAlbum, false);
+            document.getElementById('VideoUploader').addEventListener('change', handleVideoFile, false);
+        }
+        else {
+            noty({ type: 'error', text: Messages.BrowserSupport });
+        }
     }
-   else
+    catch(e)
     {
-        noty({ type: 'error', text: Messages.BrowserSupport });
+        noty({ type: 'error', text: e.message });
     }
+ 
     $('#newalbum').click(function (e) {
-        $('#NewAlbumModel').modal('show');
-        $('.dynalb').remove();
+        try
+        {
+            $('#NewAlbumModel').modal('show');
+            $('.dynalb').remove();
+        }
+        catch(e)
+        {
+            noty({ type: 'error', text: e.message });
+        }
+      
     });
-    BindGalleryImageAlbum();
-    BindGalleryVideoAlbum();
+    try
+    {
+        BindGalleryImageAlbum();
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+    try
+    {
+        BindGalleryVideoAlbum();
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+   
+   
     $('#btnSaveImageAlbum').click(function (e) {
 
     debugger
@@ -61,9 +88,21 @@
                 {
                     var GalleryAlbum = new Object();
                     GalleryAlbum.albumName = $("#txtAlbumName").val();
-                    InsertImageAlbum(GalleryAlbum);
+                    var result = InsertImageAlbum(GalleryAlbum);
+                    switch (result.status) {
+                        case "1":
+                            noty({ type: 'success', text: Messages.AlbumUploadInsert });
+                            BindGalleryImageAlbum();
+                            break;
+                        case "0":
+                            noty({ type: 'error', text: Messages.AlbumUploadFailure });
+                            break;
+                        default:
+                            noty({ type: 'error', text: result.status });
+                            break;
+                    }
                 }
-                BindGalleryImageAlbum();
+               
                 //modal close
                 $('.close').click();
 
@@ -72,7 +111,7 @@
         }
         catch(e)
         {
-
+            noty({ type: 'error', text: e.message });
         }
       
     });
@@ -115,7 +154,7 @@
             
          }
         catch (e) {
-
+            noty({ type: 'error', text: e.message });
         }
 
     });
@@ -159,7 +198,7 @@
             }
         }
         catch (e) {
-
+            noty({ type: 'error', text: e.message });
         }
       
     });
@@ -174,7 +213,6 @@
         var albid = $('#hdfAlbumID').val();
         try {
             var videofile;
-
             if ((videofile = $('#VideoUploader')[0].files.length > 0)) {
                 bar.animate(0.3);  // Number from 0.0 to 1.0
                 var formData = new FormData();
@@ -187,8 +225,6 @@
                 var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                 switch (result) {
                     case 1:
-                      
-
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         bar.animate(1.0);  // Number from 0.0 to 1.0
                         BindVideos(albid);
@@ -203,15 +239,13 @@
                         break;
                 }
              
-                // $('.close').click();
-                
-            }
+           }
          
 
         
         }
         catch (e) {
-
+            noty({ type: 'error', text: e.message });
         }
 
     });
@@ -228,7 +262,7 @@
             EditBindGalleryImageAlbum();
         }
         catch (e) {
-
+            noty({ type: 'error', text: e.message });
         }
 
     });
@@ -247,7 +281,7 @@
 
         }
         catch (e) {
-
+            noty({ type: 'error', text: e.message });
         }
 
     });
@@ -266,7 +300,7 @@
            
         }
         catch (e) {
-
+            noty({ type: 'error', text: e.message });
         }
 
     });
@@ -284,7 +318,7 @@
             EditBindVideos(albid); 
         }
         catch (e) {
-
+            noty({ type: 'error', text: e.message });
         }
 
     });
@@ -302,6 +336,7 @@
             BindImages(albid);
         }
         catch (e) {
+            noty({ type: 'error', text: e.message });
         }
     });
 
@@ -319,6 +354,7 @@
 
         }
         catch (e) {
+            noty({ type: 'error', text: e.message });
 
         }
 
@@ -337,6 +373,7 @@
             BindVideos(albid);
         }
         catch (e) {
+            noty({ type: 'error', text: e.message });
         }
     });
 
@@ -354,6 +391,7 @@
             BindGalleryVideoAlbum();
         }
         catch (e) {
+            noty({ type: 'error', text: e.message });
         }
     });
     $('#newimage').click(function (e) {
@@ -377,64 +415,110 @@
 
     });
 
-    //Circular Progress bar initialization
-    var bar = new ProgressBar.Circle(progressbarUpload, {
-        color: '#aaa',
-        // This has to be the same size as the maximum width to
-        // prevent clipping
-        strokeWidth: 4,
-        trailWidth: 1,
-        easing: 'easeInOut',
-        duration: 1400,
-        text: {
-            autoStyleContainer: false
-        },
-        from: { color: '#333', width: 1 },
-        to: { color: '#FCB03C', width: 4 },
-        // Set default step function for all animate calls
-        step: function (state, circle) {
-            circle.path.setAttribute('stroke', state.color);
-            circle.path.setAttribute('stroke-width', state.width);
-
-            var value = Math.round(circle.value() * 100);
-            if (value === 0) {
-                circle.setText('');
-            } else {
-                circle.setText(value);
+    $('.modelClear').click(function (e) {
+        try
+        {
+            debugger;
+            $('#txtVidAlbumName').val('');
+            $('#txtAlbumName').val('');
+            var fileinputcontrolID = ["AlbumUploader", "imageUploader", "AlbumVidUploader", "VideoUploader"];
+            var handlemethods = [handleFileSelect, handleFileSelectInImages, handleFileVideoAlbum, handleVideoFile];
+            for (i = 0; i < fileinputcontrolID.length; i++)
+            {
+                var cloned = $("#" + fileinputcontrolID[i] + "").clone(true);
+                cloned.val("");
+                $("#" + fileinputcontrolID[i] + "").replaceWith(cloned);
+                document.getElementById(''+ fileinputcontrolID[i] +'').addEventListener("change", handlemethods[i], false);
+               
             }
-
+            //document.getElementById('AlbumUploader').addEventListener('change', handleFileSelect, false);
+            //document.getElementById('imageUploader').addEventListener('change', handleFileSelectInImages, false);
+            //document.getElementById('AlbumVidUploader').addEventListener('change', handleFileVideoAlbum, false);
+            //document.getElementById('VideoUploader').addEventListener('change', handleVideoFile, false);
+            //Upload Controls clear
+            //document.getElementById("AlbumUploader").val('');
+            //document.getElementById("imageUploader").val('');
+            //document.getElementById("AlbumVidUploader").val('');
+            //document.getElementById("VideoUploader").val('');
+            //var cloned = $("#AlbumUploader").clone(true);
+            //cloned.val("");
+            //$("#AlbumUploader").replaceWith(cloned);
         }
+        catch(e)
+        {
+            noty({ type: 'error', text: e.message });
+        }
+       
+
+
     });
-    bar.animate(0.0);
 
-    var barinAlbum = new ProgressBar.Circle(progressbarUploadinVidAlbum, {
-        color: '#aaa',
-        // This has to be the same size as the maximum width to
-        // prevent clipping
-        strokeWidth: 4,
-        trailWidth: 1,
-        easing: 'easeInOut',
-        duration: 1400,
-        text: {
-            autoStyleContainer: false
-        },
-        from: { color: '#333', width: 1 },
-        to: { color: '#FCB03C', width: 4 },
-        // Set default step function for all animate calls
-        step: function (state, circle) {
-            circle.path.setAttribute('stroke', state.color);
-            circle.path.setAttribute('stroke-width', state.width);
+    try
+    {
+        //Circular Progress bar initialization
+        var bar = new ProgressBar.Circle(progressbarUpload, {
+            color: '#aaa',
+            // This has to be the same size as the maximum width to
+            // prevent clipping
+            strokeWidth: 4,
+            trailWidth: 1,
+            easing: 'easeInOut',
+            duration: 1400,
+            text: {
+                autoStyleContainer: false
+            },
+            from: { color: '#333', width: 1 },
+            to: { color: '#FCB03C', width: 4 },
+            // Set default step function for all animate calls
+            step: function (state, circle) {
+                circle.path.setAttribute('stroke', state.color);
+                circle.path.setAttribute('stroke-width', state.width);
 
-            var value = Math.round(circle.value() * 100);
-            if (value === 0) {
-                circle.setText('');
-            } else {
-                circle.setText(value);
+                var value = Math.round(circle.value() * 100);
+                if (value === 0) {
+                    circle.setText('');
+                } else {
+                    circle.setText(value);
+                }
+
             }
+        });
+        bar.animate(0.0);
 
-        }
-    });
-    barinAlbum.animate(0.0);
+        var barinAlbum = new ProgressBar.Circle(progressbarUploadinVidAlbum, {
+            color: '#aaa',
+            // This has to be the same size as the maximum width to
+            // prevent clipping
+            strokeWidth: 4,
+            trailWidth: 1,
+            easing: 'easeInOut',
+            duration: 1400,
+            text: {
+                autoStyleContainer: false
+            },
+            from: { color: '#333', width: 1 },
+            to: { color: '#FCB03C', width: 4 },
+            // Set default step function for all animate calls
+            step: function (state, circle) {
+                circle.path.setAttribute('stroke', state.color);
+                circle.path.setAttribute('stroke-width', state.width);
+
+                var value = Math.round(circle.value() * 100);
+                if (value === 0) {
+                    circle.setText('');
+                } else {
+                    circle.setText(value);
+                }
+
+            }
+        });
+        barinAlbum.animate(0.0);
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+
 
 
     var value = $('#ContentPlaceHolder2_btnAddNew').val();
@@ -459,127 +543,174 @@
 
 function deleteImage(obj)
 {
-    debugger;
-    var imgid = $(obj).attr('imageid');
-    var albid = $(obj).attr('AlbumID');
-    var GalleryItems = new Object();
-    if(imgid!="")
+    try
     {
-        var r = confirm("Are You Sure to Delete?");
-        if (r == true)
-        {
-            GalleryItems.galleryItemID = imgid;
-            GalleryItems.url = $(obj).attr('URL');
-            var result = DeleteImageItem(GalleryItems);
-             switch (result.status)
-            {
-                case "1":
-                   
-                    noty({ type: 'success', text: Messages.DeletionSuccessFull });
-                    EditImageBind(albid);
-                    break;
-                case "0":
-                  
-                    noty({ type: 'error', text: Messages.DeletionFailure });
-                    break;
-                 default:
-                     noty({ type: 'error', text: result.status });
-                    break;
+        var imgid = $(obj).attr('imageid');
+        var albid = $(obj).attr('AlbumID');
+        var GalleryItems = new Object();
+        if (imgid != "") {
+            var r = confirm("Are You Sure to Delete?");
+            if (r == true) {
+                GalleryItems.galleryItemID = imgid;
+                GalleryItems.url = $(obj).attr('URL');
+                var result = DeleteImageItem(GalleryItems);
+                switch (result.status) {
+                    case "1":
+
+                        noty({ type: 'success', text: Messages.DeletionSuccessFull });
+                        EditImageBind(albid);
+                        break;
+                    case "0":
+
+                        noty({ type: 'error', text: Messages.DeletionFailure });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.status });
+                        break;
+                }
             }
+
         }
-       
     }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+   
     
 }
 function deleteVideo(obj) {
     debugger;
-    var imgid = $(obj).attr('imageid');
-    var albid = $(obj).attr('AlbumID');
-    var GalleryItems = new Object();
-    if (imgid != "") {
-        var r = confirm("Are You Sure to Delete?");
-        if (r == true) {
-            GalleryItems.galleryItemID = imgid;
-            GalleryItems.url = $(obj).attr('URL');
-            GalleryItems.itemType = 'video';
-            var result = DeleteVideoItem(GalleryItems);
-        
-            switch (result.status) {
-                case "1":
-                   
-                    noty({ type: 'success', text: Messages.DeletionSuccessFull });
-                    EditBindVideos(albid);
-                    break;
-                case "0":
-                   
-                    noty({ type: 'error', text: Messages.DeletionFailure });
-                    break;
-                default:
-                    break;
-            }
-           
-        }
+    try
+    {
+        var imgid = $(obj).attr('imageid');
+        var albid = $(obj).attr('AlbumID');
+        var GalleryItems = new Object();
+        if (imgid != "") {
+            var r = confirm("Are You Sure to Delete?");
+            if (r == true) {
+                GalleryItems.galleryItemID = imgid;
+                GalleryItems.url = $(obj).attr('URL');
+                GalleryItems.itemType = 'video';
+                var result = DeleteVideoItem(GalleryItems);
 
+                switch (result.status) {
+                    case "1":
+
+                        noty({ type: 'success', text: Messages.DeletionSuccessFull });
+                        EditBindVideos(albid);
+                        break;
+                    case "0":
+
+                        noty({ type: 'error', text: Messages.DeletionFailure });
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+        }
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+  
+
+}
+
+
+function DeleteImageItem(GalleryItems)
+{
+    try
+    {
+        var data = "{'GalleryItemsObj':" + JSON.stringify(GalleryItems) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Gallery.aspx/DeleteImageItem");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
     }
 
 }
 
-
-function DeleteImageItem(GalleryItems) {
-var data = "{'GalleryItemsObj':" + JSON.stringify(GalleryItems) + "}";
-jsonResult = getJsonData(data, "../AdminPanel/Gallery.aspx/DeleteImageItem");
-var table = {};
-table = JSON.parse(jsonResult.d);
-return table;
-}
-
-function DeleteVideoItem(GalleryItems) {
-    var data = "{'GalleryItemsObj':" + JSON.stringify(GalleryItems) + "}";
-    jsonResult = getJsonData(data, "../AdminPanel/Gallery.aspx/DeleteVideoItem");
-    var table = {};
-    table = JSON.parse(jsonResult.d);
-    return table;
+function DeleteVideoItem(GalleryItems)
+{
+    try
+    {
+        var data = "{'GalleryItemsObj':" + JSON.stringify(GalleryItems) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Gallery.aspx/DeleteVideoItem");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+    
 }
 
 function deleteAlbum(albobj)
 {
     debugger;
-    var albid = $(albobj).attr('AlbumID');
-    var GalleryItems = new Object();
-    var GalleryAlbum = new Object();
-    GalleryAlbum.albumId = albid;
-    if (albid != "") {
-        var r = confirm("Are You Sure to Delete Album?");
-        if (r == true) {
-          
-           GalleryItems.GalleryAlbObj = GalleryAlbum;
-           var result = DeleteAlbumItem(GalleryItems);
-           
-           switch (result.status) {
-               case "1":
-                   noty({ type: 'success', text: Messages.DeletionSuccessFull });
-                   EditBindGalleryImageAlbum();
-                   break;
-               case "0":
-              
-                   noty({ type: 'error', text: Messages.DeletionFailure });
-                   break;
-               default:
-                   noty({ type: 'error', text: result.status });
-                   break;
-           }
-          
-        }
 
+    try
+    {
+        var albid = $(albobj).attr('AlbumID');
+        var GalleryItems = new Object();
+        var GalleryAlbum = new Object();
+        GalleryAlbum.albumId = albid;
+        if (albid != "") {
+            var r = confirm("Are You Sure to Delete Album?");
+            if (r == true) {
+
+                GalleryItems.GalleryAlbObj = GalleryAlbum;
+                var result = DeleteAlbumItem(GalleryItems);
+
+                switch (result.status) {
+                    case "1":
+                        noty({ type: 'success', text: Messages.DeletionSuccessFull });
+                        EditBindGalleryImageAlbum();
+                        break;
+                    case "0":
+
+                        noty({ type: 'error', text: Messages.DeletionFailure });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.status });
+                        break;
+                }
+
+            }
+
+        }
     }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+   
 }
 
 function DeleteAlbumItem(GalleryItems) {
-    var data = "{'GalleryItemsObj':" + JSON.stringify(GalleryItems) + "}";
-    jsonResult = getJsonData(data, "../AdminPanel/Gallery.aspx/DeleteAlbumItem");
-    var table = {};
-    table = JSON.parse(jsonResult.d);
-    return table;
+    try
+    {
+        var data = "{'GalleryItemsObj':" + JSON.stringify(GalleryItems) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Gallery.aspx/DeleteAlbumItem");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+   
 }
 
 function deleteVideoAlbum(albobj)
@@ -619,7 +750,7 @@ function deleteVideoAlbum(albobj)
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
 
     }
    
@@ -635,7 +766,7 @@ function DeleteVideoAlbumItem(GalleryItems) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }
@@ -689,7 +820,7 @@ function handleFileSelect(evt) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }
@@ -722,7 +853,7 @@ function handleFileSelectInImages(evt) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }
@@ -753,7 +884,7 @@ function InsertImageAlbum(GalleryAlbum) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
   
 }
@@ -773,7 +904,7 @@ function BindGalleryImageAlbum()
     }
     catch(e)
     {
-       
+        noty({ type: 'error', text: e.message });
     }
 }
 function EditBindGalleryImageAlbum() {
@@ -786,7 +917,7 @@ function EditBindGalleryImageAlbum() {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 }
 
@@ -808,7 +939,7 @@ function AppendImageAlbum(Records)
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }
@@ -830,7 +961,7 @@ function EditAppendImageAlbum(Records) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }
@@ -855,7 +986,7 @@ function ViewImages(obj)
         BindImages(imgalbid);
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
     
 }
@@ -872,7 +1003,7 @@ function GetAllGalleryImageAlbumByChurchID(GalleryAlbum)
         return table;
     }
     catch (e) {
-      
+        noty({ type: 'error', text: e.message });
     }
   
 }
@@ -891,7 +1022,7 @@ function BindImages(imgalbid)
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
     
 }
@@ -909,6 +1040,7 @@ function EditImageBind(imgalbid)
         }
     }
     catch (e) {
+        noty({ type: 'error', text: e.message });
 
     }
 }
@@ -927,7 +1059,7 @@ function EditVideoBind(vidalbid)
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 }
 function GetAllImageByAlbumID(GalleryItems)
@@ -943,7 +1075,7 @@ function GetAllImageByAlbumID(GalleryItems)
         return table;
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
    
 
@@ -960,7 +1092,7 @@ function AppendImages(Records) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }
@@ -979,7 +1111,7 @@ function AppendEditImages(Records) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
     
 }
@@ -996,7 +1128,7 @@ function BindGalleryVideoAlbum() {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 }
 
@@ -1018,7 +1150,7 @@ function AppendVideoAlbum(Records) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }
@@ -1034,7 +1166,7 @@ function GetAllGalleryVideoAlbumByChurchID(GalleryAlbum) {
         return table;
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }
@@ -1057,7 +1189,7 @@ function ViewVideos(obj) {
        BindVideos(vidalbid);
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -1076,7 +1208,7 @@ function BindVideos(imgalbid) {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -1092,6 +1224,7 @@ function GetAllVideosByAlbumID(GalleryItems) {
         return table;
     }
     catch (e) {
+        noty({ type: 'error', text: e.message });
     }
   
 }
@@ -1109,7 +1242,7 @@ function AppendVideos(Records) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
  
 }
@@ -1128,7 +1261,7 @@ function EditBindVideos(imgalbid) {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 
 }
@@ -1147,7 +1280,7 @@ function EditAppendVideos(Records) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }
@@ -1165,7 +1298,7 @@ function EditBindGalleryVideoAlbum() {
         }
     }
     catch (e) {
-
+        noty({ type: 'error', text: e.message });
     }
 }
 
@@ -1189,7 +1322,7 @@ function EditAppendVideoAlbum(Records) {
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
    
 }

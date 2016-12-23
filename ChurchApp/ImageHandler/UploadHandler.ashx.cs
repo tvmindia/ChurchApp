@@ -55,26 +55,36 @@ namespace ChurchApp.ImageHandler
                         switch (context.Request.Form.GetValues("Album")[0])
                         {
                             case "GalleryImageAlbum":
-                                GalleryAlbum GalAlbumObj = new GalleryAlbum();
-                                GalAlbumObj.churchId = context.Request.Form.GetValues("churchId")[0];
-                                GalAlbumObj.albumName = context.Request.Form.GetValues("AlbumName")[0];
-                                GalAlbumObj.albumType = "image";
-                                GalAlbumObj.createdBy = context.Request.Form.GetValues("createdby")[0];
-                                status=GalAlbumObj.InsertGalleryAlbum();
-                                foreach (string content in context.Request.Files)
+                                try
                                 {
-                                    HttpPostedFile file = context.Request.Files[content];
-                                    fileExtension = Path.GetExtension(file.FileName);
-                                    GalleryItems GalItemsObj = new GalleryItems();
-                                    GalItemsObj.albumId = GalAlbumObj.albumId;
-                                    GalItemsObj.url = "/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension;
-                                    GalItemsObj.itemType = "image";
-                                    GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
-                                    status= GalItemsObj.InsertGalleryItem();
-                                    string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/AppImages/"));
-                                    file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
-                                }//end of foreach
-                                context.Response.Write(status);
+                                    GalleryAlbum GalAlbumObj = new GalleryAlbum();
+                                    GalAlbumObj.churchId = context.Request.Form.GetValues("churchId")[0];
+                                    GalAlbumObj.albumName = context.Request.Form.GetValues("AlbumName")[0];
+                                    GalAlbumObj.albumType = "image";
+                                    GalAlbumObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                     GalAlbumObj.InsertGalleryAlbum();
+                                    foreach (string content in context.Request.Files)
+                                    {
+                                        HttpPostedFile file = context.Request.Files[content];
+                                        fileExtension = Path.GetExtension(file.FileName);
+                                        GalleryItems GalItemsObj = new GalleryItems();
+                                        GalItemsObj.albumId = GalAlbumObj.albumId;
+                                        GalItemsObj.url = "/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension;
+                                        GalItemsObj.itemType = "image";
+                                        GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                        GalItemsObj.status = GalItemsObj.InsertGalleryItem();
+                                        string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/AppImages/"));
+                                        file.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
+                                    }//end of foreach
+                                    context.Response.Write(status);
+                                    jsSerializer = new JavaScriptSerializer();
+                                    context.Response.Write(jsSerializer.Serialize(AppImgObj));
+                                }
+                                catch(Exception ex)
+                                {
+
+                                }
+                               
                                 break;
 
                             case "AddMoreImages":
@@ -255,6 +265,16 @@ namespace ChurchApp.ImageHandler
 
                                     }
                                     //Update Church
+
+                                    //Ishome flag true determines update from home page
+                                    if (context.Request.Form.GetValues("IsHome") != null)
+                                    {
+                                        if (context.Request.Form.GetValues("IsHome")[0] != "")
+                                        {
+                                            churchObj.IsHome = Boolean.Parse(context.Request.Form.GetValues("IsHome")[0].ToString());
+                                        }
+                                    }
+                                   
                                     churchObj.churchId = context.Request.Form.GetValues("churchid")[0];
                                     churchObj.churchName = context.Request.Form.GetValues("churchName")[0];
                                     churchObj.townCode = context.Request.Form.GetValues("townCode")[0];

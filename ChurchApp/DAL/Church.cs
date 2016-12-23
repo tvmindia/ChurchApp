@@ -136,6 +136,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public Boolean IsHome
+        {
+            get;
+            set;
+        } 
         #endregion Public Properties
 
         #region Church Methods
@@ -337,6 +342,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@TownCode", SqlDbType.NVarChar, 10).Value = townCode;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
+                cmd.Parameters.Add("@IsHome", SqlDbType.Bit).Value = IsHome;
                 if (mainImageId!=null)
                 {
                     cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
@@ -771,6 +777,14 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+
+      
+  
+
+ 
+
+   
+
 
         #endregion Public Properties
 
