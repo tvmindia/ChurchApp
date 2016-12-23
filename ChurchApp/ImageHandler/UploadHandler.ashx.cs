@@ -68,7 +68,7 @@ namespace ChurchApp.ImageHandler
                                         fileExtension = Path.GetExtension(postFile.FileName);
                                         GalItemsObj = new GalleryItems();
                                         GalItemsObj.albumId = GalAlbumObj.albumId;
-                                        GalItemsObj.url = "/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension;
+                                        GalItemsObj.url = "/img/AppImages/" + GalItemsObj.galleryItemID + fileExtension; 
                                         GalItemsObj.itemType = "image";
                                         GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                         GalItemsObj.status = GalItemsObj.InsertGalleryItem();
