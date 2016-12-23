@@ -126,6 +126,16 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string townName
+        {
+            get;
+            set;
+        }
+        public string SearchTerm
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Church Methods
@@ -177,6 +187,55 @@ namespace ChurchApp.DAL
 
         }
         #endregion SelectChurches
+
+        #region SelectAllChurches
+        /// <summary>
+        /// Selects all Churches
+        /// </summary>
+        /// <returns>All Churches</returns>
+        public DataSet SelectChurches1()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+
+                dcon = new dbConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectAllChurches]";
+                cmd.Parameters.Add("@TownName", SqlDbType.NVarChar, 150).Value = SearchTerm;
+                cmd.Parameters.Add("@Church", SqlDbType.NVarChar, 150).Value = SearchTerm;
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = SearchTerm;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+
+
+        }
+        #endregion SelectAllChurches
+
 
         #region InsertChurch
         /// <summary>

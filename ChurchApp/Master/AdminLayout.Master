@@ -129,9 +129,12 @@ img{
     opacity: 0.5;
     z-index: 1040;
 }
-#ChurchList{
+#churchSelect{
     max-height:400px;
     overflow-y:scroll;
+}
+li#LIChurches {
+    margin-top: 8px !important;
 }
     </style>
 </head>
@@ -242,12 +245,15 @@ img{
 						<!-- end: Message Dropdown -->
 						
                          <li class="dropdown" runat="server" id="LIChurches" visible="false">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="halflings-icon white"></i>&nbsp;<asp:Label runat="server" ID="lblChurchName" Text=""></asp:Label>
+							<%--<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="halflings-icon white"></i>&nbsp;<asp:Label runat="server" ID="lblChurchName" Text=""></asp:Label>
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" runat="server" id="ChurchList">
 								
-							</ul>
+							</ul>--%>
+                             <select class="js-data-example-ajax" id="churchSelect" ClientIDMode="static" runat="server">
+                                <%--  <option value="3620194" selected="selected">Select church / town..</option>--%>
+                             </select>
 						</li>
 						<!-- start: User Dropdown -->
 						<li class="dropdown">

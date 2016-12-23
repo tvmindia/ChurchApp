@@ -49,22 +49,13 @@ namespace ChurchApp.Master {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LIChurches;
         
         /// <summary>
-        /// lblChurchName control.
+        /// churchSelect control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblChurchName;
-        
-        /// <summary>
-        /// ChurchList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ChurchList;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect churchSelect;
         
         /// <summary>
         /// LoginName control.

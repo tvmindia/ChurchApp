@@ -186,3 +186,7 @@ box-header {
     background:none;
     border-bottom: 2px solid black;
 }
+.navbar-inner
+{
+    text-shadow:none !important;
+}

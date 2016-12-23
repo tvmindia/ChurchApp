@@ -1,9 +1,11 @@
-﻿using ChurchApp.DAL;
+﻿using ChurchApp.AdminPanel;
+using ChurchApp.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -25,32 +27,35 @@ namespace ChurchApp.Master
                 Response.Redirect(Const.LoginPageURL);
 
             }
-            lblChurchName.Text = UA.Church;
+            //lblChurchName.Text = UA.Church;
             lblChurch.Text = UA.Church;
             hdfchid.Value = UA.ChurchID;
             AccessCheck();
 
             if (UA.Role == Const.SuperAdministrator)
             {
-                Li_DashBoard.Visible = true;
-                ChurchApp.DAL.Church churchObj = new ChurchApp.DAL.Church();
+                //Li_DashBoard.Visible = true;
+                //ChurchApp.DAL.Church churchObj = new ChurchApp.DAL.Church();
                 LIChurches.Visible = true;
-                DataSet ds = new DataSet();
-                ds = churchObj.SelectChurches();
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    HtmlGenericControl liElement = new HtmlGenericControl("li");
-                    ChurchList.Controls.Add(liElement);
-                    HtmlGenericControl anchor = new HtmlGenericControl("a");
-                    anchor.Attributes.Add("href", "../AdminPanel/DashBoard.aspx?Session=" + dr["ID"].ToString());
-                    anchor.InnerHtml = "" + dr["Name"].ToString();
-                    liElement.Controls.Add(anchor);
-                    
-                }
+                //DataSet ds = new DataSet();
+                //ds = churchObj.SelectChurches();
+                //foreach (DataRow dr in ds.Tables[0].Rows)
+                //{
+                //    HtmlGenericControl liElement = new HtmlGenericControl("li");
+                //    ChurchList.Controls.Add(liElement);
+                //    HtmlGenericControl anchor = new HtmlGenericControl("a");
+                //    anchor.Attributes.Add("href", "../AdminPanel/DashBoard.aspx?Session=" + dr["ID"].ToString());
+                //    anchor.InnerHtml = "" + dr["Name"].ToString();
+                //    liElement.Controls.Add(anchor);
 
+                //}
 
+                
             }
-
+            else
+            {
+                LIChurches.Visible = false;
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -103,8 +108,8 @@ namespace ChurchApp.Master
             }
     }
 
+      
 
 
-       
     }
 }
