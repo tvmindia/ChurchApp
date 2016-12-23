@@ -66,17 +66,17 @@
                 formData.append('churchId', $('#hdfchid').val());
                 formData.append('createdby', document.getElementById("LoginName").innerHTML);
                 var result=postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                switch(result)
+                switch (result.status)
                 {
-                    case 1:
+                    case "1":
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         BindGalleryImageAlbum();
                         break;
-                    case 0:
+                    case "0":
                         noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
-                        noty({ type: 'error', text: result });
+                        noty({ type: 'error', text: result.status });
                         break;
                 }
                 //modal close
@@ -132,17 +132,17 @@
                     formData.append('AlbumID', albid);
                     formData.append('createdby', document.getElementById("LoginName").innerHTML);
                     var result=postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    switch (result) {
-                        case 1:
+                    switch (result.status) {
+                        case "1":
                         
                             noty({ type: 'success', text: Messages.AlbumUpload });
                             BindImages(albid);
                             break;
-                        case 0:
+                        case "0":
                             noty({ type: 'error', text: Messages.AlbumUploadFailure });
                             break;
                         default:
-                            noty({ type: 'error', text: result });
+                            noty({ type: 'error', text: result.status });
                             break;
                     }
                     
@@ -180,19 +180,19 @@
                 barinAlbum.animate(0.6);  // Number from 0.0 to 1.0
                 var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                 barinAlbum.animate(0.6);
-                switch (result) {
-                    case 1:
+                switch (result.status) {
+                    case "1":
                        
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         barinAlbum.animate(1.0);  // Number from 0.0 to 1.0
                         BindGalleryVideoAlbum();
                         break;
-                    case 0:
+                    case "0":
                         $('#progressbarUploadinVidAlbum').hide();
                         noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
-                        noty({ type: 'error', text: result });
+                        noty({ type: 'error', text: result.status });
                         break;
                 }
             }
@@ -223,19 +223,19 @@
                 formData.append('createdby', document.getElementById("LoginName").innerHTML);
                 bar.animate(0.6);  // Number from 0.0 to 1.0
                 var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                switch (result) {
-                    case 1:
+                switch (result.status) {
+                    case "1":
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         bar.animate(1.0);  // Number from 0.0 to 1.0
                         BindVideos(albid);
                         break;
-                    case 0:
+                    case "0":
                      
                         $('#progressbarUploadinVidAlbum').hide();
                         noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
-                        noty({ type: 'error', text: result });
+                        noty({ type: 'error', text: result.status });
                         break;
                 }
              
