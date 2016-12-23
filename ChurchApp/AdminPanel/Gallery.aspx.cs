@@ -143,6 +143,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
+                GalleryAlbumObj.message = ex.Message;
 
             }
          
@@ -178,7 +179,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                GalleryItemsObj.message = ex.Message;
             }
           
         
@@ -222,7 +223,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                GalleryItemsObj.message = ex.Message;
             }
            
             finally
@@ -361,7 +362,7 @@ public static string DeleteVideoItem(GalleryItems GalleryItemsObj)
     }
     catch (Exception ex)
     {
-
+        GalleryItemsObj.message = ex.Message;
     }
   
     finally
@@ -410,7 +411,7 @@ public static string DeleteVideoAlbumItem(GalleryItems GalleryItemsObj)
     }
     catch (Exception ex)
     {
-
+        GalleryItemsObj.message = ex.Message;
     }
    
     finally

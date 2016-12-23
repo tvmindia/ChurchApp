@@ -23,8 +23,7 @@
 					<a href="../AdminPanel/Home.aspx">Home</a> 
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</li>
-				<li class="Gallery">
-                    <i class="icon-home"></i> Gallery</li>
+				<li class="Gallery">Gallery</li>
 			</ul><a class="btnNew" id="btnAddNew" style="display:none;" runat="server" title=""><i title="Add New Notice">+</i></a>
               <%--Alert boxes --%>
                <div id="rowfluidDivImages" style="display:none;">	
@@ -58,7 +57,7 @@
 						<div class="box-icon">
 						
 					        <a class="pencilEdit" style="position: relative; top: -1px;  right: 0px;display:none;" title="Edit" id="EditAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
-                            <a class="" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon refresh" aria-hidden="true"></i></a>
+                            <a class="" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon repeat" aria-hidden="true"></i></a>
                             <a class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 							
 						</div>
@@ -81,10 +80,10 @@
               <div class="row-fluid" id="divImages" style="display:none;">
                 	<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon picture"></i><span class="break"></span><span id="ImageDivTitle">Album Images</span></h2>
+						<h2><i class="halflings-icon picture"></i><span class="break"></span><span class="textneveroverflow" id="ImageDivTitle">Album Images</span></h2>
 						<div class="box-icon">
 							<a class="pencilEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditImageAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
-                            <a class="" style="display:none;position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshImageAlbum"><i class="halflings-icon refresh" aria-hidden="true"></i></a>
+                            <a class="" style="display:none;position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshImageAlbum"><i class="halflings-icon repeat" aria-hidden="true"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
@@ -105,30 +104,7 @@
 			     	</div><!--/span-->
 
          
-         <%--Alert boxes --%>
-               <div id="rowfluidDivVideos" style="display:none;">	
-				       <div class="alert alert-error" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Operation Not Successfull.</strong> 
-						</div>
-						<div class="alert alert-success" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Successfull.</strong> 
-						</div>
-						<div class="alert alert-info" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-						</div>
-						<div class="alert alert-block" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<h4 class="alert-heading">Warning!</h4>
-							<p>Best check yourself, you're not looking too good.</p>
-						</div>
-					
-
-              
-            </div>
-			  <%--Alert boxes --%>
+       
 
               <div class="row-fluid" id="divVideoAlbum">
              <div class="box span12">
@@ -137,7 +113,7 @@
 						<div class="box-icon">
 						
 					        <a class="pencilEdit" style="position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="EditVideoAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
-                            <a class="" style="display:none;position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="RefreshVideoAlbum"><i class="halflings-icon refresh" aria-hidden="true"></i></a>
+                            <a class="" style="display:none;position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="RefreshVideoAlbum"><i class="halflings-icon repeat" aria-hidden="true"></i></a>
                             <a class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 						</div>
 					</div>
@@ -163,10 +139,10 @@
               <div class="row-fluid" id="divVideos" style="display:none;">
              <div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span><span id="VideoDivTitle">AlbumName Videos</span></h2>
+						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span><span class="textneveroverflow" id="VideoDivTitle">AlbumName Videos</span></h2>
                        <div class="box-icon">
-							<a class=" pencilEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditVideo"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
-                            <a class="" style="position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshVideo"><i class="halflings-icon refresh" aria-hidden="true"></i></a>
+							<a class="pencilEdit" style="position:relative;top: -1px;right: -4px;" title="Edit" id="EditVideo"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
+                            <a style="position:relative;top: -1px;right: -4px;" title="Refresh" id="RefreshVideo"><i class="halflings-icon repeat" aria-hidden="true"></i></a>
 						
 						</div>
 					</div>
@@ -197,7 +173,7 @@
                         <div class="span12">
                							
 								<div class="span12">
-								  <input class="input-large focused span12" name="Name" id="txtAlbumName" placeholder="Enter album name" type="text"/>
+								  <input class="input-large focused span12" name="Name" id="txtAlbumName" placeholder="Enter album name(Maximum 100 characters)" type="text"/>
                                     <input class="input-file" multiple="multiple" id="AlbumUploader" style="display:none" name="AlbumUploader[]" accept="image/*" type="file"/>
                          		</div>
 	                    </div>
@@ -205,7 +181,7 @@
                             
                                
                             <output id="imageListAlbum" class=""> 
-                       <span style="height: 176px!important;border: 2px dotted black;background-color: #fff;width: 180px;display: block;float: left;margin:4px;">
+                       <span style="height:176px!important;border:2px dotted black;background-color: #fff;width: 180px;display: block;float: left;margin:4px;">
                        <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 126px;left: 109px;" src="../img/Plussymbol.png"/>
                         <a onclick="BtnImageUpload();" class="" style="top:59%;left:28%;position:relative;cursor:pointer;"  id="btnupload">Choose Image</a>
                        </span>
@@ -219,7 +195,7 @@
                <div class="modal-footer">
 			
 			<a href="#" class="btn btn-primary" id="btnSaveImageAlbum">Save</a>
-                <a href="#" class="btn" data-dismiss="modal">Close</a>
+                <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
 		    </div>
 		       </div>
                <div class="modal hide fade" id="NewImageModel">
@@ -260,7 +236,7 @@
 	            <div class="modal-footer">
 			
 			<a href="#" id="btnMoreImagesAdd" class="btn btn-primary">Save</a>
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
 		</div>
      	       </div>
                <div class="modal hide fade" id="NewVideoAlbumModel">
@@ -272,7 +248,7 @@
              
                          <div class="span12">
                                 <div class="span12">
-								  <input class="input-large focused span12" name="Name" id="txtVidAlbumName" placeholder="Enter album name" type="text"/>
+								  <input class="input-large focused span12" name="Name" id="txtVidAlbumName" placeholder="Enter album name(Maximum 100 characters)" type="text"/>
                                     <input class="input-file" id="AlbumVidUploader" style="display:none" name="AlbumVidUploader[]" accept="video/*" type="file"/>
                          		</div>
 		            	  </div>
@@ -297,7 +273,7 @@
 		     <div class="modal-footer">
 			
 			<a href="#" id="BtnVideoAlbumSave" class="btn btn-primary">Save</a>
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
 		</div>
 	          </div>
                <div class="modal hide fade" id="NewVideoModel">
@@ -345,7 +321,7 @@
 		        <div class="modal-footer">
 			
 			<a href="#" id="btnMoreVideoSave" class="btn btn-primary">Save</a>
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
 		</div>
 	          </div>
               <!--End Models used in this page-->

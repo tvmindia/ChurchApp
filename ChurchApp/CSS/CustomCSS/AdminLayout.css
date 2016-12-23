@@ -186,7 +186,10 @@ box-header {
     background:none;
     border-bottom: 2px solid black;
 }
-.navbar-inner
+/*text wont overflow*/
+.textneveroverflow
 {
-    text-shadow:none !important;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
 }
