@@ -199,7 +199,21 @@ function GetAllBugs(ExceptionTrack) {
 
 function CopyAppLog()
 {
-    alert();
+    debugger;
+    try
+    {
+        var range = document.createRange();
+        $("#txtAppLogCat").select();
+        window.getSelection();
+       document.execCommand('copy');
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+   
+   
+    return false;
 }
 
 function UpdateErrorLog(ExceptionTrack)

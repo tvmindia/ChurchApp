@@ -135,7 +135,7 @@
                               <label class="control-label" for="focusedInput">AppLog Category</label>
                                <div class="controls">
                                <textarea class="input-large focused" name="txtAppLogCat" id="txtAppLogCat" tabindex="2" readonly></textarea>
-                                  <input type="image" src="../img/copy.png" alt="Submit" style="height:20px;width:20px;"/>
+                                  <input type="image" src="../img/copy.png" onclick="return CopyAppLog();" title="copy text to clipboard" style="height:20px;width:20px;"/>
                               </div>
                               </div>
                                  <div class="control-group">
