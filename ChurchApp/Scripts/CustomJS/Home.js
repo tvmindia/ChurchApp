@@ -1,7 +1,4 @@
 ﻿$(document).ready(function () {
-
-
-
     $('.btn-minimize').click(function (e) {
         e.preventDefault();
         var $target = $(this).parent().parent().next('#churchContainer');
@@ -10,8 +7,8 @@
         else
             $('i', $(this)).removeClass('chevron-down').addClass('chevron-up');
         $target.slideToggle(500);
-
     });
+
     $('.btn-setting').click(function(e){
      
         if ($('#IdDivChurchDisplay').is(':visible'))
@@ -25,8 +22,7 @@
             $('i', $(this)).removeClass('eye-open').addClass('pencil');
             $('#IdDivChurchEdit').hide();
             $('#IdDivChurchDisplay').show();
-        }
-    	
+        }  	
     
 
 
@@ -41,17 +37,12 @@
         }
     });
 
-
     $('.saveAll').click(function (e) {
-        debugger;
-       
 
         try {
             if ($('#hdfChurchImageID').val() != '') {
-                var Church = new Object();
-                debugger;
-                if ((imgresult = $('#flupCoverpic')[0].files.length > 0)) {
-                    debugger;
+                var Church = new Object();             
+                if ((imgresult = $('#flupCoverpic')[0].files.length > 0)) {                 
                     var formData = new FormData();
                     var imagefile;
                     imagefile = $('#flupCoverpic')[0].files[0];
@@ -69,8 +60,7 @@
                             $("#hdfChurchID").val(result.churchId);
                             $("#hdfChurchImageID").val(result.mainImageId);
                             noty({ type: 'success', text: Messages.UpdationSuccessFull });
-                            try {
-                                //bind
+                            try {                              
                                 BindDetails();
                             }
                             catch (e) {
@@ -98,8 +88,7 @@
                             $("#hdfChurchID").val(result.churchId);
                             $("#hdfChurchImageID").val(result.mainImageId);
                             noty({ type: 'success', text: Messages.UpdationSuccessFull });
-                            try {
-                                //Bind
+                            try {                            
                                 BindDetails();
                             }
                             catch (e) {
@@ -124,10 +113,6 @@
     });
 
     BindDetails();
-
-
- 
-
     
 });
 
@@ -150,8 +135,7 @@ function UpdateChurch(Church) {
 //// Show Picture preview for file upload Home Church image
 
 function UploadNow(input) {
-
-    debugger;
+   // debugger;
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -164,7 +148,7 @@ function UploadNow(input) {
 
 function BindDetails()
 {
-    debugger;
+    //debugger;
     var churchDetail = GetChurchDetailsByChurchID();
     if (churchDetail[0].ImageURL == null)
     {
@@ -172,7 +156,8 @@ function BindDetails()
     }
     else
     {
-        $('.grayscale').attr('src', churchDetail[0].ImageURL);
+        $('.grayscale').attr('src', churchDetail[0].ImageURL + '?' + new Date().getTime());
+      
     }
     
     $('#h2ChurchName').text(churchDetail[0].ChurchName);
