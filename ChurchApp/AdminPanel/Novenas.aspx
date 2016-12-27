@@ -143,7 +143,7 @@ a._p {
                     <h2><i class="halflings-icon picture"></i><span class="break" id="spnSaint">Novenas</span></h2>
                     <div class="box-icon">
                             <%--<a class="AddNew" onclick="AddNewNovena();"><i title="Add New Novena">+</i></a>--%>
-					        <a class="" style="position: relative; top: -1px;  right: 0px;" title="Edit" onclick="AddNewNovena();" ><i class="halflings-icon pencil" id="iconPatronRefresh" aria-hidden="true"></i></a>
+					        <a class="" style="position: relative; top: -1px;  right: 0px;" id="btnAddNew" runat="server" title="Edit" onclick="AddNewNovena();" ><i class="halflings-icon pencil" id="iconPatronRefresh" aria-hidden="true"></i></a>
                             <a class="" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon refresh" aria-hidden="true"></i></a>
                             <a class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 							

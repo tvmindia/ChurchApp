@@ -325,6 +325,12 @@ $("document").ready(function (e)
     {
         noty({type:'error',text:e.message});
     }
+    var value = $('#ContentPlaceHolder2_btnAddNew').val();
+    if (value != "") {
+
+        $('#btnEdit,.btnNew,.btnEdit').remove();
+
+    }
   
 }); //End of Document ready
 

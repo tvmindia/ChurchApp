@@ -171,6 +171,7 @@ $(document).ready(function () {
         if (value != "") {
             $('#iconEditPriest').remove();
             $('#btnAddNew').remove();
+            $('#btnNewVicar,.btnNew').remove();
         }
     }
     catch(e)
