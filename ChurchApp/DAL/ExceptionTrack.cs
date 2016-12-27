@@ -333,6 +333,7 @@ namespace ChurchApp.DAL
             return Int16.Parse(outParameter.Value.ToString());
         }
         #endregion  InsertErrorDetails
+
         #region UpdateErrorDetails
         public string UpdateErrorDetails()
         {
@@ -351,22 +352,13 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[UpdateErrorDetails]";
+                cmd.CommandText = "[UpdateErrorLog]";
                 cmd.Parameters.Add("@ErrorID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ErrorID);
-                // cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = ChurchID;
-                // cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = UserID;
-                // cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
-                // cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = Date;
-                // cmd.Parameters.Add("@Module", SqlDbType.NVarChar, 50).Value = Module;
-                // cmd.Parameters.Add("@Method", SqlDbType.NVarChar, 50).Value = Method;
                 cmd.Parameters.Add("@IsFixed", SqlDbType.Bit, -1).Value = IsFixed;
                 BugFixDate = cmnObj.ConvertDatenow(DateTime.Now).ToString();
                 cmd.Parameters.Add("@BugFixDate", SqlDbType.DateTime).Value = BugFixDate;
-                //cmd.Parameters.Add("@ErrorSource", SqlDbType.NVarChar, 25).Value = ErrorSource;
-                //  cmd.Parameters.Add("@IsMobile", SqlDbType.Bit).Value = IsMobile;
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = UpdatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
-                // cmd.Parameters.Add("@Version", SqlDbType.NVarChar, 50).Value = Version;
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -407,16 +399,16 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetAllErrorDetails]";
-                cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = StartIndex;
-                cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = EndIndex;
-                cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, -1).Value = SearchText;
-                SqlParameter outparmeter = cmd.Parameters.Add("@OutTotalCount", SqlDbType.BigInt);
-                outparmeter.Direction = ParameterDirection.Output;
+                //cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = StartIndex;
+                //cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = EndIndex;
+                //cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, -1).Value = SearchText;
+                //SqlParameter outparmeter = cmd.Parameters.Add("@OutTotalCount", SqlDbType.BigInt);
+                //outparmeter.Direction = ParameterDirection.Output;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
-                TotalCount = int.Parse(outparmeter.Value.ToString());
+                //TotalCount = int.Parse(outparmeter.Value.ToString());
 
             }
 

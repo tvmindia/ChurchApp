@@ -67,7 +67,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
-
+        public string status
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Methods
@@ -214,24 +218,14 @@ namespace ChurchApp.DAL
         }
         #endregion InsertAppImage1
 
-        #region UpdateAppImage
+        #region UpdateCurrentAppImageInFolder
         /// <summary>
         /// update AppImage
         /// </summary>
         /// <returns>Success/Failure</returns>
         public void UpdateCurrentAppImageInFolder()
         {
-            try
-            {
-                //delete current appimage from folder
-                System.IO.File.Delete(HttpContext.Current.Server.MapPath(url));
-               // System.IO.File.Delete(HttpContext.Current.Server.MapPath("/vid/Poster/" + galleryItemID + ".jpg"));
-                    
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+           
             try
             {
                 string appImgLoc = HttpContext.Current.Server.MapPath("~/img/AppImages/");
@@ -240,9 +234,49 @@ namespace ChurchApp.DAL
             }
             catch(Exception ex)
             {
-
+                throw ex;
             }
           }
+        #endregion UpdateCurrentAppImageInFolder
+
+        #region UpdateAppImage
+        public string UpdateAppImage()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            Common comnObj = new Common();
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateAppImages]";
+                cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(appImageId);
+                cmd.Parameters.Add("@URL", SqlDbType.NVarChar, -1).Value = url;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
+                outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            status=outParam.Value.ToString();
+            return status;
+        }
         #endregion UpdateAppImage
 
         #region DeleteAppImage
@@ -292,6 +326,25 @@ namespace ChurchApp.DAL
             return outParam.Value.ToString();
         }
         #endregion DeleteAppImage
+
+        #region DeleteFromFolder
+        public void DeleteFromFolder()
+        {
+            SelectAppImageByID();
+            try
+            {
+                //delete current appimage from folder
+                System.IO.File.Delete(HttpContext.Current.Server.MapPath(url));
+                // System.IO.File.Delete(HttpContext.Current.Server.MapPath("/vid/Poster/" + galleryItemID + ".jpg"));
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion DeleteFromFolder
 
         #endregion Methods
     }

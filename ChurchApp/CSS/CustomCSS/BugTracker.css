@@ -1,2 +1,9 @@
 ﻿body {
 }
+input[readonly] {
+     cursor: not-allowed;
+}
+textarea[readonly] {
+    cursor: not-allowed;
+    background-color: #ffffff;
+}

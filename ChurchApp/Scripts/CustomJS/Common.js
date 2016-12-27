@@ -367,5 +367,8 @@ var Messages = {
     BrowserSupport: "Browser does not HTML5,Please Upgrade!",
 
     TimeSelect: " Please Select Time",
-    DaySelect:"Please Select a Day"
+    DaySelect: "Please Select a Day",
+
+    BugNotFixed: "Please fix the Bug..!!!",
+    SelectBug: "Failure..!!! Please Select a Bug to Edit"
 }
