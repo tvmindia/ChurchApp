@@ -109,7 +109,7 @@ table{
                               </div>
 
                               <div class="control-group">
-                             <label class="control-label" for="focusedInput">Town Code</label>
+                             <label class="control-label" for="focusedInput">Towns</label>
                                <div class="controls">
                                   <select id="idddlTownCode" name="ddlTownCode" class="ddlTownCode"><option></option></select>
                                   
@@ -450,6 +450,7 @@ table{
                                    <div class="controls">
                                    <input class="input-large focused" name="txtLoginName" autocomplete="off" id="txtLoginName" type="text"/>
                                   </div>
+
                                  </div>
                                    <div class="control-group">
                                     <label class="control-label" for="focusedInput">Password</label>

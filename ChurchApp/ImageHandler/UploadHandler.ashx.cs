@@ -270,13 +270,19 @@ namespace ChurchApp.ImageHandler
                                 {
                                     //update currrent church image with new one
                                     AppImgObj.appImageId = context.Request.Form.GetValues("ChurchImageID")[0];
+                                    AppImgObj.DeleteFromFolder();
                                     AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
                                     AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
                                     AppImgObj.type = "image";
                                     AppImgObj.Extension = fileExtension;
                                     AppImgObj.postedFile = postFile;
-                                    //Delete Previous image from folder and save new folder 
-                                    AppImgObj.UpdateCurrentAppImageInFolder();
+                                    AppImgObj.UpdateAppImage();
+                                    if(AppImgObj.status=="1")
+                                    {
+                                        //Delete Previous image from folder and save new folder 
+                                        AppImgObj.UpdateCurrentAppImageInFolder();
+                                    }
+                                    
                                 }
                                 else
                                 {
@@ -398,14 +404,28 @@ namespace ChurchApp.ImageHandler
                                     if ((context.Request.Form.GetValues("townImageID")[0] != "") && (context.Request.Form.GetValues("townImageID")[0] != null))
                                     {
                                         //update currrent town image with new one
+                                        //AppImgObj.appImageId = context.Request.Form.GetValues("townImageID")[0];
+                                        //AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                        //AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                                        //AppImgObj.type = "image";
+                                        //AppImgObj.Extension = fileExtension;
+                                        //AppImgObj.postedFile = postFile;
+                                        ////Delete Previous image from folder and save new folder 
+                                        //AppImgObj.UpdateCurrentAppImageInFolder();
+
                                         AppImgObj.appImageId = context.Request.Form.GetValues("townImageID")[0];
+                                        AppImgObj.DeleteFromFolder();
                                         AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
                                         AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
                                         AppImgObj.type = "image";
                                         AppImgObj.Extension = fileExtension;
                                         AppImgObj.postedFile = postFile;
-                                        //Delete Previous image from folder and save new folder 
-                                        AppImgObj.UpdateCurrentAppImageInFolder();
+                                        AppImgObj.UpdateAppImage();
+                                        if (AppImgObj.status == "1")
+                                        {
+                                            //Delete Previous image from folder and save new folder 
+                                            AppImgObj.UpdateCurrentAppImageInFolder();
+                                        }
                                     }
                                     else
                                     {
@@ -473,14 +493,29 @@ namespace ChurchApp.ImageHandler
                                 if ((context.Request.Form.GetValues("patronImageID")[0] != "") && (context.Request.Form.GetValues("patronImageID")[0] != null))
                                 {
                                     //update currrent patron image with new one
+                                    //AppImgObj.appImageId = context.Request.Form.GetValues("patronImageID")[0];
+                                    //AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                    //AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                                    //AppImgObj.type = "image";
+                                    //AppImgObj.Extension = fileExtension;
+                                    //AppImgObj.postedFile = postFile;
+                                    ////Delete Previous image from folder and save new folder 
+                                    //AppImgObj.UpdateCurrentAppImageInFolder();
+
+
                                     AppImgObj.appImageId = context.Request.Form.GetValues("patronImageID")[0];
+                                    AppImgObj.DeleteFromFolder();
                                     AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
                                     AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
                                     AppImgObj.type = "image";
                                     AppImgObj.Extension = fileExtension;
                                     AppImgObj.postedFile = postFile;
-                                    //Delete Previous image from folder and save new folder 
-                                    AppImgObj.UpdateCurrentAppImageInFolder();
+                                    AppImgObj.UpdateAppImage();
+                                    if (AppImgObj.status == "1")
+                                    {
+                                        //Delete Previous image from folder and save new folder 
+                                        AppImgObj.UpdateCurrentAppImageInFolder();
+                                    }
                                 }
                                 else
                                 {
@@ -561,15 +596,19 @@ namespace ChurchApp.ImageHandler
                                     fileExtension = Path.GetExtension(postFile.FileName);
                                     if ((context.Request.Form.GetValues("priestImageID")[0] != "") && (context.Request.Form.GetValues("priestImageID")[0] != null))
                                     {
-                                        //update currrent patron image with new one
                                         AppImgObj.appImageId = context.Request.Form.GetValues("priestImageID")[0];
+                                        AppImgObj.DeleteFromFolder();
                                         AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
                                         AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
                                         AppImgObj.type = "image";
                                         AppImgObj.Extension = fileExtension;
                                         AppImgObj.postedFile = postFile;
-                                        //Delete Previous image from folder and save new folder 
-                                        AppImgObj.UpdateCurrentAppImageInFolder();
+                                        AppImgObj.UpdateAppImage();
+                                        if (AppImgObj.status == "1")
+                                        {
+                                            //Delete Previous image from folder and save new folder 
+                                            AppImgObj.UpdateCurrentAppImageInFolder();
+                                        }
                                     }
                                     else
                                     {
@@ -654,13 +693,18 @@ namespace ChurchApp.ImageHandler
                                 {
                                     //update currrent patron image with new one
                                     AppImgObj.appImageId = context.Request.Form.GetValues("EventimageId")[0];
+                                    AppImgObj.DeleteFromFolder();
                                     AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
                                     AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
                                     AppImgObj.type = "image";
                                     AppImgObj.Extension = fileExtension;
                                     AppImgObj.postedFile = postFile;
-                                    //Delete Previous image from folder and save new folder 
-                                    AppImgObj.UpdateCurrentAppImageInFolder();
+                                    AppImgObj.UpdateAppImage();
+                                    if (AppImgObj.status == "1")
+                                    {
+                                        //Delete Previous image from folder and save new folder 
+                                        AppImgObj.UpdateCurrentAppImageInFolder();
+                                    }
                                 }
                                 else
                                 {

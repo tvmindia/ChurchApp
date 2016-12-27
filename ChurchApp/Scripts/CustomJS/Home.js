@@ -182,7 +182,7 @@ function BindDetails()
     $('#txtCaption').val(churchDetail[0].ChurchName);
     $('#txtDescription').val(churchDetail[0].Description);
     $('#hdfChurchID').val(churchDetail[0].ID);
-    $('hdfChurchImageID').val(churchDetail[0].MainImageID);
+    $('#hdfChurchImageID').val(churchDetail[0].MainImageID);
 
 }
 function GetChurchDetailsByChurchID() {
