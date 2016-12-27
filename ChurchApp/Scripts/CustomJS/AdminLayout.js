@@ -44,7 +44,7 @@ $(document).ready(function () {
     $eventchurchSelect.on("change", function (e) {
         debugger;
         var churchId=$(".js-data-example-ajax").val();
-        window.location.replace(window.location.protocol + "//" + window.location.host + "/AdminPanel/DashBoard.aspx?Session="+churchId);
+        window.location.replace(window.location.protocol + "//" + window.location.host + "/AdminPanel/DashBoard.aspx?eid="+churchId);
     });
 });   // end of document.ready
 
