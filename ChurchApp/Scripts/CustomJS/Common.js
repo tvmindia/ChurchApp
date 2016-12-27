@@ -108,8 +108,9 @@ function Datecheck(DateNow) {
         { month: "Oct", value: "10" },
         { month: "Nov", value: "11" },
         { month: "Dec", value: "12" }];
-    var date = DateNow.substring(0, 2);
-    var month = DateNow.substring(3, 6);
+    var date = DateNow.split("-");
+    var day = date[0];
+    var month = date[1];
     for(var i=0;i<Months.length;i++)
     {
         if(Months[i].month==month)
@@ -117,8 +118,8 @@ function Datecheck(DateNow) {
             month = Months[i].value;
         }
     }
-    var year = DateNow.substring(7, 11);
-    var myDate = new Date(year, month - 1, date);
+    var year =date[2];
+    var myDate = new Date(year, month - 1, day);
     return myDate;
 }
 function BlockSpecialCharacters(event) {
