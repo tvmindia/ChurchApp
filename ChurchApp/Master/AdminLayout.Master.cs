@@ -37,6 +37,7 @@ namespace ChurchApp.Master
                 //Li_DashBoard.Visible = true;
                 //ChurchApp.DAL.Church churchObj = new ChurchApp.DAL.Church();
                 LIChurches.Visible = true;
+                
                 //DataSet ds = new DataSet();
                 //ds = churchObj.SelectChurches();
                 //foreach (DataRow dr in ds.Tables[0].Rows)
@@ -74,6 +75,7 @@ namespace ChurchApp.Master
             if (currRole != Const.SuperAdministrator)
             {
                 Li_DashBoard.Visible = false;
+                Li_BugTracker.Visible = false;
                 if (currPage.ToUpper() == Const.DashBoardPage.ToUpper())
                 {
 

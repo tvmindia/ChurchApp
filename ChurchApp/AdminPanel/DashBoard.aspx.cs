@@ -18,14 +18,14 @@ namespace ChurchApp.AdminPanel
         DAL.Const Const = new DAL.Const();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((Request.QueryString["Session"] != null) && (Request.QueryString["Session"] != ""))
+            if ((Request.QueryString["eid"] != null) && (Request.QueryString["eid"] != ""))
             {
                 DAL.Church churchObj = new DAL.Church();
                 DataTable ds;
                 DAL.Security.UserAuthendication UA;
                 DAL.Const Const = new DAL.Const();
                 UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-                string churchID = Request.QueryString["Session"].ToString();
+                string churchID = Request.QueryString["eid"].ToString();
                 churchObj.churchId = churchID;
                 ds = churchObj.GetChurchDetailsByChurchID();
               

@@ -138,26 +138,21 @@ $("document").ready(function (e) {
 
         $('#btnSave').click(function (e) {
             try {
-                debugger;
-                if ($("#hdfEventID").val() == "") {
                     var today = new Date();
                     var startcheck = $('#dateStartDate').val();
                     var endcheck = $('#dateEndDate').val();
                     var Expirecheck = $('#dateExpiryDate').val();
-                    if (startcheck != "") {
-                        if (Datecheck(startcheck) < today) {
-                            noty({ text: Messages.InvalidStartDate, type: 'information' });
-                            return false;
-                        }
-                    }
 
                     if (endcheck != "" || Expirecheck != "") {
                         if ((Datecheck(endcheck) < Datecheck(startcheck))) {
                             noty({ text: Messages.InvalidExpiry, type: 'information' });
                             return false;
                         }
+                        if ((Datecheck(Expirecheck) < Datecheck(startcheck))) {
+                            noty({ text: Messages.InvalidExpiry, type: 'information' });
+                            return false;
+                        }
                     }
-                }
                 var IsValid = EventValidation();
 
                 if (IsValid) {
@@ -1121,6 +1116,8 @@ function FixedEditClick() {
                     IsAlreadyNotified = true;
                     $('#rdoNotificationYes').parent().addClass('checked');
                     $("#rdoNotificationNo").parent().removeClass('checked');
+                    $("#DivNotificationContent").show();
+                    $("#txtnotificationCOntent").val(jsonResult.Descrtiption);
                 }
                 else {
                     $("#rdoNotificationNo").parent().addClass('checked');

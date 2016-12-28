@@ -144,7 +144,7 @@ function EditErrorList(curobj)
                 $("#txtChurchName").val(errorLogDetails[0].Name != null && errorLogDetails[0].Name != "" ? errorLogDetails[0].Name : '-');
                 $("#txtUser").val(errorLogDetails[0].userName != null && errorLogDetails[0].userName != "" ? errorLogDetails[0].userName : '-');
                 $("#txtDescription").val(errorLogDetails[0].Description != null && errorLogDetails[0].Description != "" ? errorLogDetails[0].Description : '-');
-                $("#txtErrorDate").val(errorLogDetails[0].CreatedDate != null && errorLogDetails[0].CreatedDate != "" ? errorLogDetails[0].CreatedDate : '-');
+                $("#txtErrorDate").val(errorLogDetails[0].CreatedDate != null && errorLogDetails[0].CreatedDate != "" ? ConvertJsonToDate(errorLogDetails[0].CreatedDate) : '-');
                 $("#txtModule").val(errorLogDetails[0].Module != null && errorLogDetails[0].Module != "" ? errorLogDetails[0].Module : '-');
                 $("#txtMethod").val(errorLogDetails[0].Method != null && errorLogDetails[0].Method != "" ? errorLogDetails[0].Method : '-');
                 $("#txtVersion").val(errorLogDetails[0].Version != null && errorLogDetails[0].Version != "" ? errorLogDetails[0].Version : '-');
@@ -195,6 +195,25 @@ function GetAllBugs(ExceptionTrack) {
         noty({ type: 'error', text: e.message });
     }
     return table;
+}
+
+function CopyAppLog()
+{
+    debugger;
+    try
+    {
+        var range = document.createRange();
+        $("#txtAppLogCat").select();
+        window.getSelection();
+       document.execCommand('copy');
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+   
+   
+    return false;
 }
 
 function UpdateErrorLog(ExceptionTrack)

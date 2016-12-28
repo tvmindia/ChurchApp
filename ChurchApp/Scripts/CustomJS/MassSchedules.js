@@ -55,6 +55,7 @@ $("document").ready(function (e) {
         $('#rowfluidDiv').hide();
         NovenaDayAndTime.length = 0;
         $('.dropdown-menu li.active').removeClass('active');
+        $('#ddlDay').val("");
     });
 
     $(".AddMass").click(function (e) {
