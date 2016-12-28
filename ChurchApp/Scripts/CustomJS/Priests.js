@@ -8,6 +8,7 @@ $(document).ready(function () {
         
         //////////----------Function for check priest details and bind 
         check();
+        $('#btnDelete').hide();
         ////////----------function Autocomplete for filter priest name
         AutoComplete();
         ///////--------------function Cancel Add priest wizad
@@ -551,6 +552,7 @@ function AutoComplete()
             $('#PriestShowDetails').hide();
             $('#btnrefresh').hide();
             $('#PriestEd').show();
+            $('#btnDelete').hide();
             $('#txtPriestName').focus();
         }
         catch(e)
@@ -621,6 +623,7 @@ function AutoComplete()
         {
             debugger;
             RemoveStyle();
+            $('#btnDelete').show();
             $('#btnCancelPriest').attr('name', '');
             var priestid = $(this_obj).attr('name');
             var PriestRow = {};
