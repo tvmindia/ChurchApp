@@ -95,17 +95,18 @@ $("document").ready(function (e) {
     try
     {
         $("#ddlChurchinRoles").on("select2:unselecting", function (e) {
-            
+            debugger;
+            BindAllRoles();
+        });
+
+        $("#ddlChurchinRoles").on("change", function (e) {
+            debugger;
             var Roles = new Object();
             var Church = new Object();
             Church.churchId = $("#ddlChurchinRoles").val();
             Roles.churchObj = Church;
-            BindRolesByChurch(Roles)
-        });
-
-        $("#ddlChurchinRoles").on("change", function (e) {
-            
-            BindAllRoles();
+            BindRolesByChurch(Roles);
+         
         });
      
     }

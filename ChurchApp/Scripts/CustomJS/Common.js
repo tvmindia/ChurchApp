@@ -1,5 +1,5 @@
 ﻿//function EmailValidation(this_Obj) {
-//    debugger;
+//    
 //    var value;
 //    try {
 //        if (this_Obj.value != "") {
@@ -77,7 +77,7 @@ function isNumber(evt) {
 var validFiles = ["bmp", "gif", "png", "jpg", "jpeg"];
 function OnUpload(f) {
     //document.getElementById('<%=Errorbox.ClientID %>').style.display = "none";
-    debugger;
+ 
     var obj = f;
     var source = obj.value;
     var ext = source.substring(source.lastIndexOf(".") + 1, source.length).toLowerCase();
@@ -95,7 +95,7 @@ function OnUpload(f) {
 }
 //Date validation is the date is valid
 function Datecheck(DateNow) {
-    debugger;
+ 
     var Months = [{ month: "Jan", value: "01" },
         { month: "Feb", value: "02" },
         { month: "Mar", value: "03" },
@@ -224,7 +224,7 @@ function getJsonData(data, page) {
 }
 
 function ConvertJsonToDate(jsonDate) {
-    debugger;
+   
     if (jsonDate != null) {
         var dateString = jsonDate.substr(6);
         var currentTime = new Date(parseInt(dateString));
@@ -254,7 +254,7 @@ function ConvertJsonToDateTextbox(jsonDate) {
                       "08", "09", "10",
                       "11", "12"
         ];
-        debugger;
+     
         if (day < 10)
         {
             day = "0" + day;

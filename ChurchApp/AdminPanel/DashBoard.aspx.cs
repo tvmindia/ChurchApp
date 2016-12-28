@@ -441,6 +441,7 @@ namespace ChurchApp.AdminPanel
        #endregion GetChurchDetailsByChurchID
 
         #region GetAllRolesByChurch
+         [System.Web.Services.WebMethod]
         public static string GetAllRolesByChurch(Roles rolesObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
