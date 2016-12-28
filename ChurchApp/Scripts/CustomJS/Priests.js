@@ -123,7 +123,7 @@ $(document).ready(function () {
         $('#btnSavePriest').click(function (e) {
             try
             {
-              
+                debugger;
                 var Role = $(this).attr('name');
                 if (($('#ddlstatus').val() == 'Vicar') && (Role == 'Asst')) {
                     noty({ text: Messages.VicarExist, type: 'information' });
@@ -142,7 +142,7 @@ $(document).ready(function () {
                 }
 
                 if (ordcheck != "") {
-                    if (Datecheck(ordcheck) > today) {
+                    if (Datecheck(ordcheck) > Datecheck(dobcheck)) {
                         noty({ text: Messages.OrdinationInvalid, type: 'information' });
                         return false;
                     }
@@ -181,15 +181,6 @@ $(document).ready(function () {
     
   
 });
-//Date validation is the date is valid
-function Datecheck(DateNow)
-{
-    var date = DateNow.substring(0, 2);
-    var month = DateNow.substring(3, 5);
-    var year = DateNow.substring(6, 10);
-    var myDate = new Date(year, month - 1, date);
-    return myDate;
-}
 
 //Save priest (functon with insert and update)
 function savePriest()
