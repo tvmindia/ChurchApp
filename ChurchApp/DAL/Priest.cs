@@ -276,7 +276,7 @@ namespace ChurchApp.DAL
                     churchID = dr["ChurchID"].ToString();
                     if (dr["DOB"].ToString()!="")
                     {
-                        dob = (DateTime.Parse(dr["DOB"].ToString().ToString()).ToString("dd-MM-yyyy"));
+                        dob = (DateTime.Parse(dr["DOB"].ToString().ToString()).ToString("dd-MMM-yyyy"));
                     }
                     else
                     {
@@ -290,7 +290,7 @@ namespace ChurchApp.DAL
                     about = dr["About"].ToString();
                     if (dr["DateOrdination"].ToString()!="")
                     {
-                        dateOrdination = (DateTime.Parse(dr["DateOrdination"].ToString()).ToString("dd-MM-yyyy"));
+                        dateOrdination = (DateTime.Parse(dr["DateOrdination"].ToString()).ToString("dd-MMM-yyyy"));
                     }
                     else
                     {

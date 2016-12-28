@@ -432,25 +432,7 @@ function AutoComplete()
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////****************** Function For changing jason date format to local
-    function ConvertJsonToDate(jsonDate) {
-        if (jsonDate != null) {
-            var dateString = jsonDate.substr(6);
-            var currentTime = new Date(parseInt(dateString));
-            var month = currentTime.getMonth();
-            var day = currentTime.getDate();
-            var year = currentTime.getFullYear();
-            var monthNames = [
-                          "Jan", "Feb", "Mar",
-                          "Apr", "May", "Jun", "Jul",
-                          "Aug", "Sep", "Oct",
-                          "Nov", "Dec"
-            ];
-            var result = day + '-' + monthNames[month] + '-' + year;
-            return result;
-        }
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ////////////////////////////////////*********************** Function for binding priest list vicar and asst vicar
     function check() {
         try
@@ -613,9 +595,9 @@ function AutoComplete()
                 document.getElementById('lblParish').innerText = PriestRow.Parish;
                 document.getElementById('lblAddress').innerText = PriestRow.address;
                 document.getElementById('lblDiocese').innerText = PriestRow.Diocese;
-                document.getElementById('lblDob').innerText = (PriestRow.dob!="" && PriestRow.dob!=null ? ConvertJsonToDate(PriestRow.dob):'');
+                document.getElementById('lblDob').innerText = (PriestRow.dob!="" && PriestRow.dob!=null ? PriestRow.dob:'');
                 document.getElementById('lblAbout').innerText = PriestRow.about;
-                document.getElementById('lblOrdination').innerText = ConvertJsonToDate(PriestRow.dateOrdination);
+                document.getElementById('lblOrdination').innerText = PriestRow.dateOrdination;
                 document.getElementById('lblDesignation').innerText = PriestRow.designation;
                 document.getElementById('lblStatus').innerText = PriestRow.Status;
                 $('#hdfPriestID').val(PriestRow.ID);
@@ -646,6 +628,7 @@ function AutoComplete()
     {
         try
         {
+            debugger;
             RemoveStyle();
             $('#btnCancelPriest').attr('name', '');
             var priestid = $(this_obj).attr('name');
@@ -655,9 +638,9 @@ function AutoComplete()
             $('#txtPriestBaptismName').val(PriestRow.BaptisumName);
             $('#txtParish').val(PriestRow.Parish);
             $('#txtDiocese').val(PriestRow.Diocese);
-            $('#priestDOB').val((PriestRow.dob!="" && PriestRow.dob!=null ? ConvertJsonToDate(PriestRow.dob):''));
+            $('#priestDOB').val((PriestRow.dob!="" && PriestRow.dob!=null ? PriestRow.dob:''));
             $('#txtAboutPriest').val(PriestRow.about);
-            $('#OrdinationDate').val(ConvertJsonToDate(PriestRow.dateOrdination));
+            $('#OrdinationDate').val(PriestRow.dateOrdination);
             $('#ddlstatus').val(PriestRow.Status).change();
             $('#txtDesignation').val(PriestRow.designation);
             $('#txtAddress').val(PriestRow.address);
