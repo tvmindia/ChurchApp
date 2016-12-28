@@ -657,6 +657,42 @@ namespace ChurchApp.DAL
             return status;
         }
         #endregion UpdateRoles
+
+#region GetAllRolesByChurch
+        public DataSet GetAllRolesByChurch()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@churchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchObj.churchId);
+                cmd.CommandText = "[GetAllRolesByChurch]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+#endregion GetAllRolesByChurch
         #endregion Methods
 
     }

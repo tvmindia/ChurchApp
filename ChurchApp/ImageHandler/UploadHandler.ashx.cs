@@ -27,7 +27,7 @@ namespace ChurchApp.ImageHandler
             try
             {
                 //new variables
-                string appImgLoc = HttpContext.Current.Server.MapPath("~/img/AppImages/");
+                string ImgLoc = HttpContext.Current.Server.MapPath("~/img/AppImages/");
 
                 AppImages AppImgObj = null;
                 HttpPostedFile postFile = null;
@@ -244,7 +244,7 @@ namespace ChurchApp.ImageHandler
                                     churchObj.InsertChurch();
 
                                     fileName = AppImgObj.appImageId + fileExtension;
-                                    postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                    postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
                                     jsSerializer = new JavaScriptSerializer();
                                     context.Response.Write(jsSerializer.Serialize(churchObj));
                                 }
@@ -293,7 +293,7 @@ namespace ChurchApp.ImageHandler
                                     AppImgObj.Extension = fileExtension;
                                     AppImgObj.postedFile = postFile;
                                     AppImgObj.InsertAppImage1().ToString();
-                                    postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+                                    postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
 
                                 }
                                 //Update Church
@@ -382,7 +382,7 @@ namespace ChurchApp.ImageHandler
                                 townMasterObj.InsertTownMaster();
 
                                 fileName = AppImgObj.appImageId + fileExtension;
-                                postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
                                 jsSerializer = new JavaScriptSerializer();
                                 context.Response.Write(jsSerializer.Serialize(townMasterObj));
                             }
@@ -436,7 +436,7 @@ namespace ChurchApp.ImageHandler
                                         AppImgObj.Extension = fileExtension;
                                         AppImgObj.postedFile = postFile;
                                         AppImgObj.InsertAppImage1().ToString();
-                                        postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+                                        postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
 
                                     }
                                     //Update TownMaster
@@ -473,7 +473,7 @@ namespace ChurchApp.ImageHandler
                                 patronMasterObj.createdBy = AppImgObj.createdBy;
                                 patronMasterObj.imageID = AppImgObj.appImageId;
                                 patronMasterObj.InsertPatronMaster();
-                                postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
                                 jsSerializer = new JavaScriptSerializer();
                                 context.Response.Write(jsSerializer.Serialize(patronMasterObj));
                             }
@@ -526,7 +526,7 @@ namespace ChurchApp.ImageHandler
                                     AppImgObj.Extension = fileExtension;
                                     AppImgObj.postedFile = postFile;
                                     AppImgObj.InsertAppImage1().ToString();
-                                    postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+                                    postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
 
                                 }
                                 //Update PatronMaster
@@ -577,7 +577,7 @@ namespace ChurchApp.ImageHandler
                                     priestObj.createdBy = AppImgObj.createdBy;
                                     priestObj.imageId = AppImgObj.appImageId;
                                     priestObj.InsertPriest();
-                                    postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                    postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
                                     jsSerializer = new JavaScriptSerializer();
                                     context.Response.Write(jsSerializer.Serialize(priestObj));
                                 }
@@ -619,7 +619,7 @@ namespace ChurchApp.ImageHandler
                                         AppImgObj.Extension = fileExtension;
                                         AppImgObj.postedFile = postFile;
                                         AppImgObj.InsertAppImage1().ToString();
-                                        postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+                                        postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
 
                                     }
                                     //Update Priest
@@ -672,7 +672,7 @@ namespace ChurchApp.ImageHandler
                                 EventObj.createdBy = AppImgObj.createdBy;
                                 EventObj.imageId = AppImgObj.appImageId;
                                 EventObj.InsertEvent();
-                                postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
                                 jsSerializer = new JavaScriptSerializer();
                                 context.Response.Write(jsSerializer.Serialize(EventObj));
                             }
@@ -715,7 +715,7 @@ namespace ChurchApp.ImageHandler
                                     AppImgObj.Extension = fileExtension;
                                     AppImgObj.postedFile = postFile;
                                     AppImgObj.InsertAppImage1().ToString();
-                                    postFile.SaveAs(appImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+                                    postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
 
                                 }
                                 //Update Priest

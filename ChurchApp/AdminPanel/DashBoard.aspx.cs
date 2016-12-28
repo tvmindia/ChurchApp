@@ -440,7 +440,55 @@ namespace ChurchApp.AdminPanel
         }
        #endregion GetChurchDetailsByChurchID
 
+        #region GetAllRolesByChurch
+        public static string GetAllRolesByChurch(Roles rolesObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
 
+                   DataSet ds = null;
+
+                   ds = rolesObj.GetAllRolesByChurch();
+                  
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion GetAllRolesByChurch
 
         #region SelectAllRoles
 

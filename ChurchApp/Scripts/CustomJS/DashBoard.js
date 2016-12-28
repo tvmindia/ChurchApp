@@ -22,44 +22,9 @@ $("document").ready(function (e) {
 
     try
     {
-        $(".js-data-example-ajax").select2({
-            placeholder: 'Select church / town..',
-            ajax: {
-                url: "../AdminPanel/DashBoard.aspx/GetAllChurch",
-                dataType: 'json',
-                type: "post",
-                contentType: "application/json",
-                async: false,
-                delay: 250,
-                data: function (params) {
-                    {
-                        var Church = new Object();
-                        Church.SearchTerm = params.term;
-                        return "{'churchObj':" + JSON.stringify(Church) + "}";
-
-                    };
-                },
-                processResults: function (data, params) {
-                    // parse the results into the format expected by Select2
-                    // since we are using custom formatting functions we do not need to
-                    // alter the remote JSON data, except to indicate that infinite
-                    // scrolling can be used
-                    params.page = params.page || 1;
-
-                    return {
-                        results: JSON.parse(data.d),
-                        pagination: {
-                            more: (params.page * 30) < data.total_count
-                        }
-                    };
-                },
-                cache: true
-            },
-            //escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-            //minimumInputLength: 1,
-            //templateResult: formatRepo, // omitted for brevity, see the source of this page
-            //templateSelection: FormatResults // omitted for brevity, see the source of this page
-        });
+      
+       
+      
 
 
     }
@@ -72,11 +37,54 @@ $("document").ready(function (e) {
     
      try
     {
-        dropdownContainer.ddlTown=$(".ddlTownCode").select2({
-            placeholder: "Choose Town",
-            allowClear: true,
-            data: BindTownMasterDropdown()
-        });
+        //dropdownContainer.ddlTown=$(".ddlTownCode").select2({
+        //    placeholder: "Choose Town",
+        //    allowClear: true,
+          //  data: BindTownMasterDropdown()
+         //});
+       //  BindTownMasterDropdown();
+
+         $(".ddlTownCode").select2({
+             placeholder: 'Select town..',
+            
+             ajax: {
+                 url: "../AdminPanel/DashBoard.aspx/SelectTownMastersIDandText",
+                 dataType: 'json',
+                 type: "post",
+                 contentType: "application/json",
+                 async: false,
+                 delay: 250,
+                
+                 data: function (params) {
+                     {
+                         var TownMaster = new Object();
+                         TownMaster.name = params.term;
+                         return "{'townMasterObj':" + JSON.stringify(TownMaster) + "}";
+
+                     };
+                 },
+                 processResults: function (data, params) {
+                     // parse the results into the format expected by Select2
+                     // since we are using custom formatting functions we do not need to
+                     // alter the remote JSON data, except to indicate that infinite
+                     // scrolling can be used
+                     params.page = params.page || 1;
+
+                     return {
+                         results: JSON.parse(data.d),
+                         pagination: {
+                             more: (params.page * 30) < data.total_count
+                         }
+                     };
+                 },
+                 cache: true
+             },
+             //escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+             //minimumInputLength: 1,
+             //templateResult: formatRepo, // omitted for brevity, see the source of this page
+             //templateSelection: FormatResults // omitted for brevity, see the source of this page
+         });
+
     }
     catch(e)
     {
@@ -86,11 +94,19 @@ $("document").ready(function (e) {
 
     try
     {
-        dropdownContainer.ddlChurch = $(".ddlChurch").select2({
-            placeholder: "Choose Church",
-            allowClear: true,
-            data: BindChurchDropdown()
-      });
+        $("#ddlChurchinRoles").on("select2:unselecting", function (e) {
+            
+            var Roles = new Object();
+            var Church = new Object();
+            Church.churchId = $("#ddlChurchinRoles").val();
+            Roles.churchObj = Church;
+            BindRolesByChurch(Roles)
+        });
+
+        $("#ddlChurchinRoles").on("change", function (e) {
+            
+            BindAllRoles();
+        });
      
     }
     catch(e)
@@ -216,6 +232,7 @@ $("document").ready(function (e) {
 
 
             ]
+          
         });
     }
     catch(e)
@@ -390,9 +407,7 @@ $("document").ready(function (e) {
                 if ($('#txtPhone2').val() != "") {
                     Church.phone2 = $('#txtPhone2').val();
                 }
-                else {
-                    Church.phone2 = '';
-                }
+               
 
 
                 if ($('#txtLongitude').val() != "") {
@@ -931,6 +946,7 @@ $("document").ready(function (e) {
                     switch (result.status) {
                         case "1":
                             noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                            
                             BindAllRoles();
                             break;
                         case "0":
@@ -1914,7 +1930,7 @@ function RemoveSaint(curobj)
 }
 function EditChurch(curobj)
 {
-  
+    debugger;
     //Get Current table row data
     var data = DashDataTables.churchTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
@@ -1923,8 +1939,9 @@ function EditChurch(curobj)
     $("#hdfChurchID").val(Church.churchId);
     $("#hdfChurchImageID").val(data.MainImageID);
     var churchDetail = GetChurchDetailsByChurchID(Church);
-    $("#txtChurchName").val(churchDetail[0].ChurchName != null && churchDetail[0].ChurchName!="" ? churchDetail[0].ChurchName : '');
-    $(".ddlTownCode").val(churchDetail[0].TownCode).trigger("change");
+    $("#txtChurchName").val(churchDetail[0].ChurchName != null && churchDetail[0].ChurchName != "" ? churchDetail[0].ChurchName : '');
+    var $option = $("<option selected></option>").val(churchDetail[0].TownCode).text(churchDetail[0].TownName);
+    $(".ddlTownCode").append($option).trigger('change');
     $("#txtAddress").val(churchDetail[0].Address != null && churchDetail[0].Address != "" ? churchDetail[0].Address : '');
     $("#txtDescription").val(churchDetail[0].Description != null && churchDetail[0].Description != "" ? churchDetail[0].Description : '');
     $("#txtAbout").val(churchDetail[0].About != null && churchDetail[0].About != "" ? churchDetail[0].About : '');
@@ -2538,7 +2555,25 @@ function ChurchImagePreview(input) {
 }
 
 
+function GetAllRolesByChurch(Roles) {
+    try {
 
+        var ds = {};
+        var table = {};
+        try {
+            var data = "{'rolesObj':" + JSON.stringify(Roles) + "}";
+            ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllRolesByChurch");
+            table = JSON.parse(ds.d);
+        }
+        catch (e) {
+
+        }
+        return table;
+    }
+    catch (e) {
+
+    }
+}
 
 
 function GetAllRoles(Roles) {
@@ -2560,12 +2595,23 @@ function GetAllRoles(Roles) {
 
     }
 }
+function BindRolesByChurch(Roles)
+{
+    try {
 
+        DashDataTables.roleTable.clear().rows.add(GetAllRolesByChurch(Roles)).draw(false);
+    }
+    catch (e) {
+
+    }
+}
 
 
 function BindAllRoles() {
+   
+    var Roles = new Object();
     try {
-        var Roles = new Object();
+      
         DashDataTables.roleTable.clear().rows.add(GetAllRoles(Roles)).draw(false);
     }
     catch (e) {

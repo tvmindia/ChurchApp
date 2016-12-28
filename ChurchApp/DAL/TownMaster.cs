@@ -156,6 +156,7 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 250).Value = name;
                 cmd.CommandText = "[GetAllTownMasterIDAndText]";
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;

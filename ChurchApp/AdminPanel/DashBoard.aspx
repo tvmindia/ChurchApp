@@ -224,6 +224,13 @@ table{
 						</div>
 					</div>
 					<div class="box-content RolesBox">
+                        	      <div class="control-group">
+
+                                 <div class="controls">
+                               <select id="ddlChurchinRoles" name="ddlChurch" class="ddlChurch"><option></option></select>
+                                    
+                              </div>
+                              </div>
 						<table class="table table-bordered" id="Rolestable">
 							  <thead>
 								  <tr>
@@ -253,29 +260,17 @@ table{
                              <div id="Displaydiv1">
                              </div>
                             </div>
-						      <div class="control-group">
-
-                              <label class="control-label" for="focusedInput">Church</label>
-                               <div class="controls">
-                               <select id="idddlChurch" name="ddlChurch" class="ddlChurch"><option></option></select>
-                                    
-                              </div>
-                              </div>
-
-                                         
-                   </div>
-                             <div class="span6">
-                                  
-						      <div class="control-group">
+                             <div class="control-group">
                              <label class="control-label" for="focusedInput">Role Name</label>
                                <div class="controls">
                                  <select id="idddlRoleName" name="RoleName" class="ddlRoleName"><option>Admin</option><option>User</option></select>
                                   
                                  </div>
                              </div>
-                                   
-                                 
-                                    </div>
+
+                                         
+                   </div>
+                            
                              </div>
                      
                              
