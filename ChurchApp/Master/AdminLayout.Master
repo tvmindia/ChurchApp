@@ -251,7 +251,7 @@ li#LIChurches {
 							<ul class="dropdown-menu" runat="server" id="ChurchList">
 								
 							</ul>--%>
-                             <select class="js-data-example-ajax" id="churchSelect" ClientIDMode="static" runat="server">
+                            <select class="ddlChurch" id="churchSelect" ClientIDMode="static" runat="server">
                                 <%--  <option value="3620194" selected="selected">Select church / town..</option>--%>
                              </select>
 						</li>

@@ -1,9 +1,10 @@
 ﻿var formatRepo = "";
 var formatRepoSelection = "";
 $(document).ready(function () {
-      
-    $(".js-data-example-ajax").select2({
-        placeholder:'Select church / town..',
+
+    $(".ddlChurch").select2({
+        placeholder: 'Select church / town..',
+        allowClear: true,
         ajax: {
             url: "../AdminPanel/DashBoard.aspx/GetAllChurch",
             dataType: 'json',
@@ -16,7 +17,7 @@ $(document).ready(function () {
                     var Church = new Object();
                     Church.SearchTerm = params.term;
                     return "{'churchObj':" + JSON.stringify(Church) + "}";
-                   
+
                 };
             },
             processResults: function (data, params) {
@@ -40,12 +41,11 @@ $(document).ready(function () {
         //templateResult: formatRepo, // omitted for brevity, see the source of this page
         //templateSelection: FormatResults // omitted for brevity, see the source of this page
     });
-    var $eventchurchSelect = $(".js-data-example-ajax");
+    var $eventchurchSelect = $("#churchSelect");
     $eventchurchSelect.on("change", function (e) {
         debugger;
-        var churchId=$(".js-data-example-ajax").val();
-        window.location.replace(window.location.protocol + "//" + window.location.host + "/AdminPanel/DashBoard.aspx?eid="+churchId);
+        var churchId = $("#churchSelect").val();
+        window.location.replace(window.location.protocol + "//" + window.location.host + "/AdminPanel/DashBoard.aspx?eid=" + churchId);
     });
 });   // end of document.ready
 
-  
