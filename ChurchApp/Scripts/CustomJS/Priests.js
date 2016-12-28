@@ -74,6 +74,7 @@ $(document).ready(function () {
                         $('#PriestEd').hide();
                         $('#PriestShowDetails').hide();
                         ClearFields();
+                        AutoComplete();
                     }
                     else
                     {
@@ -108,6 +109,7 @@ $(document).ready(function () {
                     check();
                     $('#PriestEd').hide();
                     $('#PriestShowDetails').hide();
+                    AutoComplete();
                 }
                 else
                 {
@@ -350,6 +352,7 @@ function savePriest()
                     $('#assVicardiv').remove();
                     $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
                     check();
+                    AutoComplete();
                 }//else
             }//else
         }//townflag if
