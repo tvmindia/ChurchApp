@@ -142,7 +142,7 @@ $(document).ready(function () {
                 }
 
                 if (ordcheck != "") {
-                    if (Datecheck(ordcheck) > Datecheck(dobcheck)) {
+                    if (Datecheck(ordcheck) < Datecheck(dobcheck)) {
                         noty({ text: Messages.OrdinationInvalid, type: 'information' });
                         return false;
                     }
