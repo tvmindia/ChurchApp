@@ -403,7 +403,15 @@ $("document").ready(function (e) {
                     }
                     else
                     {
-                        noty({ text: DeletionStatus.Status, type: 'error' });
+                        if (DeletionStatus.Status == 0)
+                        {
+                            noty({ type: 'error', text: Messages.FailureMsgCaption });
+                        }
+                        else
+                        {
+                            noty({ text: DeletionStatus.Status, type: 'error' });
+                        }
+                        
                     }
 
                     BindEvents();
