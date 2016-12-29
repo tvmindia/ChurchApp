@@ -10,6 +10,7 @@ namespace ChurchApp.DAL
 {
     public class ExceptionTrack
     {
+        Common cmnObj = new Common();
         #region properties
 
         public string ChurchName
@@ -145,6 +146,11 @@ namespace ChurchApp.DAL
         }
 
         public int PageNumber
+        {
+            get;
+            set;
+        }
+        public string startDate
         {
             get;
             set;
@@ -384,7 +390,7 @@ namespace ChurchApp.DAL
         #endregion UpdateErrorDetails
 
         #region GetAllErrorDetails
-        public DataSet GetAllErrorDetails()
+        public DataSet GetAllNotFixedErrorDetails()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -398,12 +404,7 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllErrorDetails]";
-                //cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = StartIndex;
-                //cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = EndIndex;
-                //cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, -1).Value = SearchText;
-                //SqlParameter outparmeter = cmd.Parameters.Add("@OutTotalCount", SqlDbType.BigInt);
-                //outparmeter.Direction = ParameterDirection.Output;
+                cmd.CommandText = "[SelectNotFixedBugs]";
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -472,6 +473,46 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion GetErrorDetailByErrorID
+
+        #region GetAllFixedErrorDetails
+        public DataSet GetAllFixedErrorDetails()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllErrorDetails]";
+                cmd.Parameters.Add("@thirtydaysago", SqlDbType.DateTime).Value = cmnObj.Changeformat(startDate);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllFixedErrorDetails
 
 
         #endregion Methods

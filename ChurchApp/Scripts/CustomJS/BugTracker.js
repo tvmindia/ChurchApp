@@ -14,6 +14,7 @@ $("document").ready(function (e) {
                  searching: true,
                  paging: true,
                  data: GetAllBugs(ExceptionTrack),
+                 dom: '<"top"f>rt<"bottom"ip><"clear">',
                  columns: [
 
                    { "data": "ErrorID" },
@@ -22,7 +23,7 @@ $("document").ready(function (e) {
                    { "data": "Method", "orderable": false, "defaultContent": "<i>-</i>" },
                    { "data": "ErrorSource", "defaultContent": "<i>-</i>" },
                     { "data": "Version", "defaultContent": "<i>-</i>" },
-                     { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
+                     { "data": "Date", "defaultContent": "<i>-</i>" },
                    { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" title="Edit Error Log" onclick="EditErrorList(this)"><i class="halflings-icon white edit""></i></a>' }
 
                  ],
@@ -98,6 +99,12 @@ $("document").ready(function (e) {
             noty({ type: 'error', text: Messages.BugNotFixed });
         }
     })
+
+    $(".datepicker").datepicker({
+       
+          
+       
+    });
 });// end of document.ready
 
 function ClearControls()
@@ -115,6 +122,8 @@ function BindBugTable() {
     //DataTable rebind using its api
     try
     {
+        $("#txtStartDate").css("display", "none");
+        $("#lblStartDate").css("display","none")
         var ExceptionTrack = new Object();
         BugDataTables.errorTable.clear().rows.add(GetAllBugs(ExceptionTrack)).draw(false);
     }
@@ -125,6 +134,68 @@ function BindBugTable() {
     
 }
 
+function getFormattedDate(input) {
+    debugger;
+    var pattern = /(.*?)\/(.*?)\/(.*?)$/;
+    var result = input.replace(pattern, function (match, p1, p2, p3) {
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return p2 + " " + months[(p1 - 1)] + " " + p3;
+
+    });
+    return result;
+}
+
+function formattedDate(date) {
+    debugger;
+    var d = new Date(date || Date.now()),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [month, day, year].join('/');
+}
+
+function DateChange()
+{
+    try
+    {
+        var date = $("#txtStartDate").val();
+        var ExceptionTrack = new Object();
+        ExceptionTrack.startDate = date;
+        BugDataTables.errorTable.clear().rows.add(GetAllFixedBugs(ExceptionTrack)).draw(false);
+    }
+    catch(e)
+    {
+
+    }
+    
+}
+
+function FixedBugs()
+{
+    try
+    {
+        debugger;
+        $("#txtStartDate").css("display", "");
+        $("#lblStartDate").css("display","inline")
+        var date = new Date(new Date().setDate(new Date().getDate() - 30));
+        date = formattedDate(date);
+        date = getFormattedDate(date);
+        date = date.replace(/ /g, "-");
+        $("#txtStartDate").val(date);
+        var ExceptionTrack = new Object();
+        ExceptionTrack.startDate = date;
+        BugDataTables.errorTable.clear().rows.add(GetAllFixedBugs(ExceptionTrack)).draw(false);
+    }
+    catch(e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+   
+}
 
 function EditErrorList(curobj)
 {
@@ -246,6 +317,21 @@ function GetErrorDetailsByErrorID(ExceptionTrack)
     }
     catch(e)
     {
+        noty({ type: 'error', text: e.message });
+    }
+    return table;
+}
+
+function GetAllFixedBugs(ExceptionTrack) {
+    debugger;
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'exceptionObj':" + JSON.stringify(ExceptionTrack) + "}";
+        ds = getJsonData(data, "../AdminPanel/BugTracker.aspx/GetAllFixedErrorLog");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
         noty({ type: 'error', text: e.message });
     }
     return table;

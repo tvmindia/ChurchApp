@@ -17,7 +17,7 @@
         <div class="row-fluid">		
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2>Churches</h2>
+						<h2>BugTracker</h2>
 						<div class="box-icon">
 						
 							<a  style="cursor:pointer;" class="btn-minimize churchdoublebox"><i id="churchchevronup" class="halflings-icon chevron-down"></i></a>
@@ -25,7 +25,29 @@
 						</div>
 					</div>
 					<div class="box-content ErrorBox">
-				
+				    <div class="control-group">
+							
+								<div class="controls">
+                                     <div id="BugFixDiv" class="span12">
+                                         <div class="span3">
+                                               <label class="radio">
+									<input type="radio" name="optionsBugFixed" id="OptBugFixed" onclick="return BindBugTable();" value="true" checked="" />
+									Not Fixed
+								  </label>
+								
+								  <label class="radio">
+									<input type="radio" name="optionsBugFixed" id="OptBugNotFixed"  onclick="return FixedBugs();" value="false" />
+									Fixed
+								  </label>
+                                         </div>
+								
+                                        
+                                         <div class="span9"><label id="lblStartDate" style="display:none;">Start Date:</label>
+                                          <input  class="input-large datepicker" name="StartDate" id="txtStartDate" onselect="return DateChange();" style="display:none;" type="text" placeholder="From"/></div>
+                                        </div>
+								</div>
+                                     
+							  </div>
 						<table class="table table-bordered table-striped table-condensed" id="ErrorTable">
 							   <thead>
 							  <tr>

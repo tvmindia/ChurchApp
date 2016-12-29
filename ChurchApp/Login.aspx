@@ -43,6 +43,11 @@
 			body { background: url(img/Bgrepeat.jpg) 50% 0% !important; 
                    background-position:left!important;
 			}
+            .errormsg
+            {
+                color:red;
+                margin:20px;
+            }
     </style>
 
 

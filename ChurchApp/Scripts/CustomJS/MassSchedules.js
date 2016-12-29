@@ -111,6 +111,7 @@ $("document").ready(function (e) {
                             noty({ text: Messages.InsertionFailure, type: 'error' });
                             break;
                         default:
+                            BindAsyncAdminsTable();
                             noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
                             break;
                     }
@@ -333,6 +334,7 @@ function AddTempTable()
 {
     try
     {
+        
         var IsValid = true;
         debugger;
         if (counter != 1) {
@@ -358,20 +360,30 @@ function AddTempTable()
                     if (len > 0) {
                         debugger;
                         for (var i = 0; i < dayarray.length; i++) {
-                            massDay.push(dayarray[i]);
+                            var day = dayarray[i];
+                            massDay.push(day);
                             var mTime = TimeFormat(time);
                             mTime = mTime + ":00.0000000";
                             massTime.push(mTime);
                             for (var k = 0; k < NovenaDayAndTime.length; k++) {
-                                if (NovenaDayAndTime[k].Day == curDay) {
-                                    curTime = time;
-                                    if (NovenaDayAndTime[k].Time == curTime) {
-                                        delete dayarray[len - 1];
-                                        countLen = countLen + 1;
-                                        IsValid = false;
+                                //for (var j = 0; j < massDay.length; j++) {
+                                if (NovenaDayAndTime[k].Day == dayarray[i]) {
+                                        curTime = time;
+                                        if (NovenaDayAndTime[k].Time == curTime) {
+                                            var index = dayarray.indexOf(dayarray[i]);
+                                            delete dayarray[index];
+                                            massDay.splice(index, 1);
+                                            countLen = countLen + 1;
+                                            IsValid = false;
+                                            //if (countLen > 0) {
+                                            //    noty({ text: Messages.AlreadyExistsMsgCaption + " - " + day + " : " + curTime, type: 'error' });
+                                            //    countLen = 0;
+                                            //}
+                                        }
                                     }
-                                }
+                                //}
                             }
+                            
                                 if(IsValid) {
                                     NovenaDayAndTime.push(
                                      {
@@ -386,7 +398,7 @@ function AddTempTable()
                                
                                
                            
-                         
+                                IsValid = true;
 
                         }
                     }
@@ -394,11 +406,7 @@ function AddTempTable()
                 }
             }
         }
-        if(countLen>0)
-        {
-            noty({ text: Messages.AlreadyExistsMsgCaption+" - "+curDay+" : "+curTime, type: 'error' });
-            countLen = 0;
-        }
+     
     }
     catch(e)
     {
@@ -409,14 +417,90 @@ function AddTempTable()
 
 function DeleteTime(Obj)
 {
+    debugger;
+    var days = new Array();
+    var tds = new Array();
+    var tdsTime = new Array();
     try
     {
-            $(Obj).closest("tr").remove();
+        var deletedDay = $(Obj).closest("tr").find('td:eq(0)').text();
+        var deletedTime = $(Obj).closest("tr").find('td:eq(1)').text();
+        $(Obj).closest("tr").remove();
+        $('#ddlDay :selected').each(function (i, sel) {
+            days.push($(sel).val());
+
+        });
+
+        var len = $('#massTimingTempTable tr td').length;
+        for (var i = 0; i < len; i++)
+        {
+            var columnDays = $('#massTimingTempTable tr > td:eq(' + i + ')').text();
+            tds.push(columnDays);
+            i = i + 2;
+        }
+        for (var i = 1; i < len; i++) {
+            var columnDays = $('#massTimingTempTable tr > td:eq(' + i + ')').text();
+            var mTime = TimeFormat(columnDays);
+            mTime = mTime + ":00.0000000";
+            tdsTime.push(mTime);
+            i = i + 2;
+        }
+
+        var sameDayCountInArray = getCount(tds, deletedDay);
+        if (sameDayCountInArray == undefined)
+        {
+            $('input[value="' + deletedDay + '"]').prop("checked", false);
+            $('input[value="multiselect-all"]').prop("checked", false);
+            $('.dropdown-menu li [value="' + deletedDay + '"]').closest('li').removeClass('active');
+            $('.dropdown-menu li [value="multiselect-all"]').closest('li').removeClass('active');
+            $('#ddlDay option[value="' + deletedDay + '"]').removeAttr('selected');
+            $('.dropcheck', this.$container).attr('placeholder', tds);
+        }
+        
+
+       
+
+        //var index = days.indexOf(deletedDay);
+        //var mTime = TimeFormat(deletedTime);
+        //mTime = mTime + ":00.0000000";
+        //var indexTime = massTime.indexOf(mTime);
+        //if (index >= 0) {
+        //    days.splice(index, 1);
+        //    massDay.splice(index, 1);
+        //    massTime.splice(indexTime, 1);
+        //}
+        massTime.length = 0;
+        massDay.length = 0;
+        massDay = tds;
+        massTime = tdsTime;
+       
+        for (var k = 0; k < NovenaDayAndTime.length; k++) {
+            if (NovenaDayAndTime[k].Day == deletedDay) {
+                if (NovenaDayAndTime[k].Time == deletedTime) {
+                    NovenaDayAndTime.splice(k, 1);
+                }
+
+            }
+        }
     }
     catch(e)
     {
         noty({ type: 'error', text: e.message });
     }
+    days.length = 0;
+}
+
+function getCount(arr, val) {
+    var ob = {};
+    var len = arr.length;
+    for (var k = 0; k < len; k++) {
+        if (ob.hasOwnProperty(arr[k])) {
+            ob[arr[k]]++;
+            continue;
+        }
+        ob[arr[k]] = 1;
+    }
+    return ob[val];
 }
 
 function BindTime(Time) {
@@ -690,6 +774,7 @@ function BindMassTimingTable(Records) {
                         var time = recordsTime.split(':')[0] + ":" + minute;
                     }
                     time = timeTo12HrFormat(time);
+                    time = hrsToAmPm(time);
                     timeArray.push(time);
                 }
 
@@ -713,6 +798,7 @@ function BindMassTimingTable(Records) {
                     var time = Records.Time.split(':')[0] + ":" + minute;
                 }
                 time = timeTo12HrFormat(time);
+                time = hrsToAmPm(time);
                 var html = '<tr class="MassTimingRows" ID="' + Records.ID + '"ChurchID="' + Records.ChurchID + '"Day="' + Records.Day + '"Time="' + time + '"><td>' + Records.Day + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-success massUpdate" title="Delete" href="#" onClick=BindMassEditGrid(this);><i class="halflings-icon white pencil"></i> </a></td></tr>';
             }
 

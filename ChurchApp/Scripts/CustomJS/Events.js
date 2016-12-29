@@ -128,6 +128,11 @@ $("document").ready(function (e) {
                 $('#rdoNotificationNo').parent().addClass('checked');
 
                 RemoveStyle();
+                if ($("#hdfEventID").val() == "")
+                {
+                    $('#EventEditDivBox').hide();
+                }
+                
             }
             catch(e)
             {
