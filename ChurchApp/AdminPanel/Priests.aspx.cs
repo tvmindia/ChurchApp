@@ -174,6 +174,41 @@ namespace ChurchApp.AdminPanel
         }
         #endregion GetPriestUsingPriestID
 
+        #region VicarExistornot
+        /// <summary>
+        /// Get Priest Details Using priestID
+        /// </summary>
+        /// <param name="priestObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string VicarExistornot(Priest PriestObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    PriestObj.churchID = UA.ChurchID;
+                    PriestObj.VicarExistornot();
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+                return jsSerializer.Serialize(PriestObj);
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+
+        }
+        #endregion VicarExistornot
+
         #region  Insert Priest
         /// <summary>
         /// Insert Priest Details

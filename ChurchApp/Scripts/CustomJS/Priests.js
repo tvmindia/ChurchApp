@@ -126,10 +126,10 @@ $(document).ready(function () {
         $('#btnSavePriest').click(function (e) {
             try
             {
-                debugger;
-                var Role = $(this).attr('name');
-                if (($('#ddlstatus').val() == 'Vicar') && (Role == 'Asst')) {
-                    noty({ text: Messages.VicarExist, type: 'information' });
+                var FlagExist=VicarExist();
+                var Role = FlagExist.result;
+                if (($('#ddlstatus').val() == 'Vicar') && (Role == 2)) {
+                    noty({ text: Messages.VicarExist, type: 'error' });
                     return false;
                 }
 
@@ -139,14 +139,14 @@ $(document).ready(function () {
                 var ordcheck = $('#OrdinationDate').val();
                 if (dobcheck != "") {
                     if (Datecheck(dobcheck) > today) {
-                        noty({ text: Messages.DboInvalid, type: 'information' });
+                        noty({ text: Messages.DboInvalid, type: 'error' });
                         return false;
                     }
                 }
 
                 if (ordcheck != "") {
                     if (Datecheck(ordcheck) < Datecheck(dobcheck)) {
-                        noty({ text: Messages.OrdinationInvalid, type: 'information' });
+                        noty({ text: Messages.OrdinationInvalid, type: 'error' });
                         return false;
                     }
                 }
@@ -533,6 +533,7 @@ function AutoComplete()
         table = JSON.parse(ds.d);
         return table;
     }
+
     // Create new vicar and new Asst Vicar section
     function OpenNewAdd(Tag) {
         try
@@ -569,12 +570,13 @@ function AutoComplete()
     function OpenPriestDetails(priestID) {
         debugger;
         document.getElementById('priestimg').value = "";
+
         $('#hdfpriestImageID').val('');
         BindDetails(priestID);
         $('#PriestShowDetails').show();
         $('#iconEditPriest').show();
         $('#PriestEd').hide();
-        $('btnAddPriest').hide();
+        $('#btnAddPriest').hide();
     }
     //Bind Details to view
     function BindDetails(priestID) {
@@ -678,6 +680,17 @@ function AutoComplete()
     function UpdatePriest(Priest) {
         var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
         jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/UpdatePriest");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+    //CHeck Vicar Exist
+    function VicarExist()
+    {
+        debugger;
+        var Priest = new Object();
+        var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/VicarExistornot");
         var table = {};
         table = JSON.parse(jsonResult.d);
         return table;
