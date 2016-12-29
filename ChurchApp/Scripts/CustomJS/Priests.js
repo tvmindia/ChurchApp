@@ -266,7 +266,8 @@ function savePriest()
                             noty({ type: 'success', text: Messages.InsertionSuccessFull });
                             $("#hdfPriestID").val(result.priestID);
                             $("#hdfpriestImageID").val(result.imageId);
-                          
+                            $('#btnCancelPriest').hide();
+                            $('#btnDelete').show();
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.FailureMsgCaption });
@@ -315,7 +316,7 @@ function savePriest()
                         case "1":
 
                             noty({ type: 'success', text: Messages.UpdationSuccessFull });
-                          
+                            $('#btnCancelPriest').hide();
                             break;
                         case "2":
                             noty({ type: 'error', text: Messages.OperationDuplicateFailure });
@@ -338,6 +339,7 @@ function savePriest()
                     switch (result.result) {
                         case "1":
                             noty({ type: 'success', text: Messages.UpdationSuccessFull });
+                            $('#btnCancelPriest').hide();
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.FailureMsgCaption });
@@ -352,12 +354,13 @@ function savePriest()
                     $('#assVicardiv').remove();
                     $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
                     check();
+                    
                     AutoComplete();
                 }//else
             }//else
         }//townflag if
 
-
+        
 
     }
     catch (e) {
@@ -538,6 +541,7 @@ function AutoComplete()
     function OpenNewAdd(Tag) {
         try
         {
+            $('#btnCancelPriest').show();
             RemoveStyle();
             ClearFields();
             $('#btnCancelPriest').attr('name', 'New');
@@ -629,6 +633,7 @@ function AutoComplete()
             debugger;
             RemoveStyle();
             $('#btnDelete').show();
+            $('#btnCancelPriest').show();
             $('#btnCancelPriest').attr('name', '');
             var priestid = $(this_obj).attr('name');
             var PriestRow = {};

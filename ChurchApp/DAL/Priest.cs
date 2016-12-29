@@ -383,6 +383,7 @@ namespace ChurchApp.DAL
         //}
         //#endregion InsertPriest
 
+        #region VicarExist
         public void VicarExistornot()
         {
             dbConnection dcon = null;
@@ -415,6 +416,8 @@ namespace ChurchApp.DAL
             }
             result = outParam.Value.ToString();
         }
+        #endregion VicarExist
+
         #region InsertPriest
         public void InsertPriest()
         {
