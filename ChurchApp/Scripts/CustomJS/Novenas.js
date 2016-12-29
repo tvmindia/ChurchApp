@@ -45,8 +45,6 @@ $("document").ready(function (e)
                 $('.alert-error').hide();
                 $("#divStartDate").show();
                 $("#divEndDate").show();
-                $("#ddlDay").val("");
-
                 IsNormal = false;
             }
             catch(e)
@@ -641,7 +639,7 @@ function FixedEditClick()
                 $.each(jsonResult, function (index, jsonResult) {
                     $("#ddlPatron").val(jsonResult.PatronID).trigger("change");
                     $('#txtNovenaCaption').val(jsonResult.NovenaCaption);
-                    $('#txtDescription').text(jsonResult.Description);
+                    $('#txtDescription').val(jsonResult.Description);
                     imageId = jsonResult.ImageID;
                     imgPath = jsonResult.URL;
 
@@ -656,7 +654,8 @@ function FixedEditClick()
                         // $("#divDay").hide();
                         $("#divStartDate").show();
                         $("#divEndDate").show();
-
+                        $('#rdoNovenaSpecial').parent().addClass('checked');
+                        $("#rdoNovenaNormal").parent().removeClass('checked');
                         $('#dateStartDate').val(ConvertJsonToDate(jsonResult.StartDate));
                         $('#dateEndDate').val(ConvertJsonToDate(jsonResult.EndDate));
 
@@ -1073,10 +1072,10 @@ function SetControlsInNovenaFormat(IsNewButtonClicked)
             $("#ddlPatron").val($('#hdfPatronID').val()).trigger("change");
         }
 
-       // if ($('#hdfNovenaID').val() != "" && IsNewButtonClicked == null) {
-        //    BindNovenaMoreDetails($('#hdfNovenaID').val());
-       // }
-      //  else {
+        if ($('#hdfNovenaID').val() != "" && IsNewButtonClicked == null) {
+            BindNovenaMoreDetails($('#hdfNovenaID').val());
+        }
+        else {
             $('#DivNewNovena').show();
             $('#NoticeEdit').hide();
             $('#h1Event').text("New Novena");
@@ -1088,7 +1087,7 @@ function SetControlsInNovenaFormat(IsNewButtonClicked)
             $('#hdfNovenaID').val('');
             $("#ddlDay").val("");
             $('#ddlDay').multiselect('refresh');
-     //   }
+        }
     }
     catch(e)
     {
