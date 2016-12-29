@@ -110,4 +110,11 @@
       background-color: #ffffff !important;
     color:#000000 !important;
 }*/
- 
+ .box-content
+ {
+     background-color:#E8EAEF !important;
+ }
+ input[type=text]
+ {
+     border:none;
+ }
