@@ -284,6 +284,7 @@ $("document").ready(function (e) {
         if (NoticeID == null || NoticeID == "" ) //Add
         {
             AddNewNoticeFormat();
+            $('#NoticeEditDivBox').hide();
         }
         else//Edit
         {
@@ -760,7 +761,7 @@ function FixedEditClick() {
 
     //$('#NoticeEdit').hide();
     $('#UpNotice')[0].files[0] = null;
-    $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white refresh");
+    $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white repeat");
     $('#NoticeEdit').attr('onclick', 'cancelEdit();');
     $("#lblStartDate").hide();
     $("#dateStartDate").show();
