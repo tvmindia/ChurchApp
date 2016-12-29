@@ -17,7 +17,7 @@
         <div class="row-fluid">		
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2>Churches</h2>
+						<h2>BugTracker</h2>
 						<div class="box-icon">
 						
 							<a  style="cursor:pointer;" class="btn-minimize churchdoublebox"><i id="churchchevronup" class="halflings-icon chevron-down"></i></a>
