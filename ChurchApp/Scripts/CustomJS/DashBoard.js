@@ -20,18 +20,7 @@ $("document").ready(function (e) {
         noty({ type: 'error', text: e.message });
     }
 
-    try
-    {
-      
-       
-      
-
-
-    }
-    catch(e)
-    {
-        noty({ type: 'error', text: e.message });
-    }
+   
 
    
     
@@ -96,16 +85,30 @@ $("document").ready(function (e) {
     {
         $("#ddlChurchinRoles").on("select2:unselecting", function (e) {
             debugger;
+            DashDataTables.roleTable.search('').draw(false);
             BindAllRoles();
+            $("#idddlRoleName").select2("val", "");
         });
 
         $("#ddlChurchinRoles").on("change", function (e) {
             debugger;
-            var Roles = new Object();
-            var Church = new Object();
-            Church.churchId = $("#ddlChurchinRoles").val();
-            Roles.churchObj = Church;
-            BindRolesByChurch(Roles);
+            if (($("#ddlChurchinRoles").val() != "") && ($("#ddlChurchinRoles").val()!=null))
+            {
+                var Roles = new Object();
+                var Church = new Object();
+                Church.churchId = $("#ddlChurchinRoles").val();
+                Roles.churchObj = Church;
+                BindRolesByChurch(Roles);
+                //.select2('data')[0]['id'];
+                var stringToSplit = $("#ddlChurchinRoles").select2('data')[0]['text'];
+                var stringarray=stringToSplit.split(',');
+                DashDataTables.roleTable.search(stringarray[0]).draw(false);
+            }
+            else
+            {
+                BindAllRoles();
+            }
+            
          
         });
      
@@ -116,18 +119,45 @@ $("document").ready(function (e) {
     }
 
     try{ 
-       
+        $("#ddlChurchinUsers").on("select2:unselecting", function (e) {
+           
+            DashDataTables.userTable.search('').draw(false);
+            BindAllUsers();
+            $("#idddlRoles").select2("val", "");
+          
+        });
 
-        $("#idddlchurchuser").on("change", function (e)
+        $("#ddlChurchinUsers").on("change", function (e)
         {
-            var $selectRoles = $(".ddlRoles").select2();
-            $selectRoles.select2().empty();
-            var chid = $(this).val();
-              $(".ddlRoles").select2({
-                placeholder: "Choose Role",
-                allowClear: true,
-                data: BindRolesDropdown(chid)
-            });
+            //var $selectRoles = $(".ddlRoles").select2();
+            //$selectRoles.select2().empty();
+            //var chid = $(this).val();
+            //  $(".ddlRoles").select2({
+            //    placeholder: "Choose Role",
+            //    allowClear: true,
+            //    data: BindRolesDropdown(chid)
+            //});
+            if (($("#ddlChurchinUsers").val() != "") && ($("#ddlChurchinUsers").val() != null)) {
+                var Users = new Object();
+                var Church = new Object();
+                Church.churchId = $("#ddlChurchinUsers").val();
+                Users.churchObj = Church;
+                BindUsersByChurch(Users);
+                var searchtext = $("#ddlChurchinUsers").select2('data')[0]['text'];
+                
+                DashDataTables.userTable.search(searchtext).draw(false);
+                $("#idddlRoles").select2().empty();
+                $("#idddlRoles").select2({
+                        placeholder: "Choose Role",
+                        allowClear: true,
+                        data: BindRolesDropdown(Church.churchId)
+                    });
+
+            }
+            else {
+                BindAllUsers();
+            }
+
                  
         });
     } catch (e)
@@ -146,11 +176,40 @@ $("document").ready(function (e) {
         noty({ type: 'error', text: e.message });
     }
     try {
-        dropdownContainer.ddlOrganization = $(".ddlOrganization").select2({
+        dropdownContainer.ddlOrganization = $("#idddlOrganization").select2({
             placeholder: "Choose Organization",
             allowClear: true,
             data: BindOrganizationTypeDropdown()
         });
+
+        $("#idddlOrganization").on("select2:unselecting", function (e) {
+
+            DashDataTables.designationTable.search('').draw(false);
+            BindAllDesignation();
+          
+
+        });
+
+        $("#idddlOrganization").on("change", function (e) {klkkl
+           
+            if (($("#idddlOrganization").val() != "") && ($("#idddlOrganization").val() != null)) {
+                var Designation = new Object();
+                Designation.orgType = $("#idddlOrganization").val();
+                BindDesignationByOrganization(Designation);
+                var searchtext = $("#idddlOrganization").select2('data')[0]['text'];
+
+                DashDataTables.designationTable.search(searchtext).draw(false);
+               
+
+            }
+            else {
+                BindAllDesignation();
+            }
+
+
+        });
+
+
     }
     catch (e) {
         noty({ type: 'error', text: e.message });
@@ -172,10 +231,9 @@ $("document").ready(function (e) {
          { "data": "ID" },
          { "data": "MainImageID"},
          { "data": "Name","defaultContent": "<i>-</i>" },
-          { "data": "Address", "defaultContent": "<i>-</i>" },
+         { "data": "Address", "defaultContent": "<i>-</i>" },
          { "data": "Phone1", "orderable": false, "defaultContent": "<i>-</i>" },
          { "data": "TownName",  "defaultContent": "<i>-</i>" },
-                 
          { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditChurch(this)"><i class="halflings-icon white edit""></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveChurch(this)"></i></a>' }
        
        ],
@@ -185,8 +243,6 @@ $("document").ready(function (e) {
             "visible": false,
             "searchable": false
         }
-       
-       
        ]
        });
      
@@ -203,6 +259,8 @@ $("document").ready(function (e) {
         var Roles = new Object();
         DashDataTables.roleTable= $('#Rolestable').DataTable(
         {
+            processing: true,
+            dom: '<"top"f>rt<"bottom"ip><"clear">',
             order: [],
             searching: true,
             paging: true,
@@ -214,13 +272,14 @@ $("document").ready(function (e) {
               { "data": "ChurchName", "defaultContent": "<i>-</i>" },
               { "data": "RoleName", "defaultContent": "<i>-</i>" },
               { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
+              { "data": "TownName","defaultContent": "<i>-</i>" },
               { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditRole(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveRole(this)"></i></a>' }
                                                                     
             ],
             columnDefs: [//this object is to alter the display cell value not the actual value
              {
                  //hiding hidden column fields 
-                 "targets": [0,1],
+                 "targets": [0,1,5],
                  "visible": false,
                  "searchable": false
              },
@@ -229,12 +288,20 @@ $("document").ready(function (e) {
                       return ConvertJsonToDate(data);
                  },
                  "targets": 4
-             }
+             },
+             {
+                 "render": function (data, type, row) {
+                     return row.ChurchName + ',' + row.TownName;
+                 },
+                  "targets": 2
+            }
 
 
             ]
           
         });
+
+       
     }
     catch(e)
     {
@@ -246,6 +313,7 @@ $("document").ready(function (e) {
         var Users = new Object();
         DashDataTables.userTable=$('#Userstable').DataTable(
         {
+            dom: '<"top"f>rt<"bottom"ip><"clear">',
             order: [],
             searching: true,
             paging: true,
@@ -258,7 +326,8 @@ $("document").ready(function (e) {
                { "data": "Mobile", "defaultContent": "<i>-</i>" },
               { "data": "ChurchName", "defaultContent": "<i>-</i>" },
              
-              { "data": "RoleName","defaultContent": "<i>-</i>"},
+              { "data": "RoleName", "defaultContent": "<i>-</i>" },
+              { "data": "TownName", "defaultContent": "<i>-</i>" },
               { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditUsers(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveUser(this)"></i></a>' }
 
             ],
@@ -268,11 +337,14 @@ $("document").ready(function (e) {
                  "targets": [0, 1],
                  "visible": false,
                  "searchable": false
-             }
-            
-
-
-            ]
+             },
+              {
+                  "render": function (data, type, row) {
+                      return row.ChurchName + ',' + row.TownName;
+                  },
+                  "targets": 4
+              }
+         ]
         });
     }
     catch (e) {
@@ -283,13 +355,13 @@ $("document").ready(function (e) {
 
     try {
       
-        var Designation = new Object();
+        var OrgDesignationMaster = new Object();
         DashDataTables.designationTable= $('#Designationtable').DataTable(
         {
             order: [],
             searching: true,
             paging: true,
-            data: GetAllDesignation(Designation),
+            data: GetAllDesignation(OrgDesignationMaster),
             columns: [
               { "data": "DesigID" },
               { "data": "Position", "defaultContent": "<i>-</i>" },
@@ -366,16 +438,12 @@ $("document").ready(function (e) {
                 if ($('#txtChurchName').val() != "") {
                     Church.churchName = $('#txtChurchName').val();
                 }
-                else {
-                    Church.churchName = '';
-                }
+             
 
                 if ($(".ddlTownCode").val() != "") {
                     Church.townCode = $(".ddlTownCode").val();
                 }
-                else {
-                    Church.townCode = '';
-                }
+              
 
                 if ($('#txtAddress').val() != "") {
                     Church.address = $('#txtAddress').val();
@@ -401,9 +469,7 @@ $("document").ready(function (e) {
                 if ($('#txtPhone1').val() != "") {
                     Church.phone1 = $('#txtPhone1').val();
                 }
-                else {
-                    Church.phone1 = '';
-                }
+              
 
                 if ($('#txtPhone2').val() != "") {
                     Church.phone2 = $('#txtPhone2').val();
@@ -414,17 +480,12 @@ $("document").ready(function (e) {
                 if ($('#txtLongitude').val() != "") {
                     Church.longitude = $('#txtLongitude').val();
                 }
-                else {
-                    Church.longitude = '';
-                }
+            
 
                 if ($('#txtLatitude').val() != "") {
                     Church.latitude = $('#txtLatitude').val();
                 }
-                else {
-                    Church.latitude = '';
-                }
-
+              
 
                 if ($("#hdfChurchID").val() == '') {
                     //INSERT
@@ -453,12 +514,12 @@ $("document").ready(function (e) {
                             case "1":
                                 try {
                                    
-                                    dropdownContainer.ddlChurch.select2().empty();
-                                    dropdownContainer.ddlChurch.select2({
-                                        placeholder: "Choose Church",
-                                        allowClear: true,
-                                        data: BindChurchDropdown()
-                                    });
+                                    //dropdownContainer.ddlChurch.select2().empty();
+                                    //dropdownContainer.ddlChurch.select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
                                   }
                                 catch (e) {
                                     noty({ type: 'error', text: e.message });
@@ -486,12 +547,12 @@ $("document").ready(function (e) {
                                 BindAllChurches();
                                 try {
                                    
-                                    dropdownContainer.ddlChurch.select2().empty();
-                                    dropdownContainer.ddlChurch.select2({
-                                        placeholder: "Choose Church",
-                                        allowClear: true,
-                                        data: BindChurchDropdown()
-                                    });
+                                    //dropdownContainer.ddlChurch.select2().empty();
+                                    //dropdownContainer.ddlChurch.select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
                                     }
                                 catch (e) {
                                     noty({ type: 'error', text: e.message });
@@ -538,12 +599,12 @@ $("document").ready(function (e) {
                                 $("#hdfChurchImageID").val(result.mainImageId);
                                 noty({ type: 'success', text: Messages.UpdationSuccessFull });
                                 try {
-                                    dropdownContainer.ddlChurch.select2().empty();
-                                    dropdownContainer.ddlChurch.select2({
-                                        placeholder: "Choose Church",
-                                        allowClear: true,
-                                        data: BindChurchDropdown()
-                                    });
+                                    //dropdownContainer.ddlChurch.select2().empty();
+                                    //dropdownContainer.ddlChurch.select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
                                   
                                     BindAllChurches();
                                 }
@@ -570,12 +631,12 @@ $("document").ready(function (e) {
                                 $("#hdfChurchImageID").val(result.mainImageId);
                                 noty({ type: 'success', text: Messages.UpdationSuccessFull });
                                 try {
-                                    dropdownContainer.ddlChurch.select2().empty();
-                                    dropdownContainer.ddlChurch.select2({
-                                        placeholder: "Choose Church",
-                                        allowClear: true,
-                                        data: BindChurchDropdown()
-                                    });
+                                    //dropdownContainer.ddlChurch.select2().empty();
+                                    //dropdownContainer.ddlChurch.select2({
+                                    //    placeholder: "Choose Church",
+                                    //    allowClear: true,
+                                    //    data: BindChurchDropdown()
+                                    //});
 
                                     BindAllChurches();
                                 }
@@ -635,35 +696,33 @@ $("document").ready(function (e) {
 
     });
 
-
-    
-
     $('.RolesClear').click(function (e) {
         try
         {
             RemoveStyle();
-            $(".ddlRoleName").select2("val", "");
-            $(".ddlChurch").select2("val", "");
+            //$(".ddlRoleName").select2("val", "");
+            $("#ddlChurchinRoles").select2("val", "");
+            DashDataTables.roleTable.search('').draw(false);
+            $("#idddlRoleName").select2("val", "");
             $("#hdfRolesID").val('');
             //it clears all child page form elemets 
             //clears upload control
-            $('#form1').get(0).reset();
+          //  $('#form1').get(0).reset();
         }
         catch(e)
         {
             noty({ type: 'error', text: e.message });
         }
-       
-    });
+     });
 
     $('.UserClear').click(function (e) {
-        $(".ddlRoles").select2("val", "");
+        $("#idddlRoles").select2("val", "");
         try
         {
             debugger;
             RemoveStyle();
-       
-            $(".ddlChurchuser").select2("val", "");
+            DashDataTables.userTable.search('').draw(false);
+            $("#ddlChurchinUsers").select2("val", "");
             $("#txtUserName").val('');
             $("#txtUserAddress").val('');
             $("#txtMobile").val('');
@@ -674,8 +733,6 @@ $("document").ready(function (e) {
             $("#txtLoginName").val('');
             $("#txtPassword").val('');
             $("#txtconfirmpswd").val('');
-           
-           
             $("#hdfUserID").val('');
            
         
@@ -694,7 +751,7 @@ $("document").ready(function (e) {
         {
             RemoveStyle();
 
-            $(".ddlOrganization").select2("val", "");
+            $("#idddlOrganization").select2("val", "");
             $("#txtPosition").val('');
             $("#txtOrder").val('');
 
@@ -743,83 +800,61 @@ $("document").ready(function (e) {
             }
             else
             {
-                alert('Passwords does not match');
+               
+                noty({ type: 'error', text: Messages.PasswordNotMatch });
             }
             if (userflag&&pasflag)
             {
                 Users = new Object();
                 Church = new Object();
                 Roles = new Object();
-                if ($('.ddlChurchuser').val() != "") {
-                    Church.churchId = $("#idddlchurchuser").val();//dropdownContainer.ddlChurch.select2().val();
+                if ($('#ddlChurchinUsers').val() != "") {
+                    Church.churchId = $("#ddlChurchinUsers").val();//dropdownContainer.ddlChurch.select2().val();
                 }
-                else
-                {
-                    Church.churchId = '';
-                }
+              
 
                 if ($("#txtUserName").val() != "") {
                     Users.Name = $("#txtUserName").val();
                 }
-                else
-                {
-                    Users.Name = '';
-                }
+              
                 if ($("#txtUserAddress").val() != "") {
                     Users.Address = $("#txtUserAddress").val();
                 }
-                else
-                {
-                    Users.Address = '';
-                }
+             
 
                 if ($("#txtMobile").val() != "") {
                     Users.Mobile = $("#txtMobile").val();
                 }
-                else
-                {
-                    Users.Mobile = '';
-                }
+                
                 if ($("#txtEmail").val() != "") {
                     Users.Email = $("#txtEmail").val();
                 }
-                else
-                {
-                    Users.Email = '';
-                }
+               
                 if ($('#optionMale').is(':checked')) {
                     Users.Gender = "Male";
                 }
                 else {
                     Users.Gender = "Female";
                 }
-                if ($('.ddlRoles').val() != "") {
-                    Roles.ID = $('.ddlRoles').val();
-                    if($('.ddlRoles').find('option:selected').text()=='Admin')
+                if ($('#idddlRoles').val() != "") {
+                    Roles.ID = $('#idddlRoles').val();
+                    if ($('#idddlRoles').find('option:selected').text() == 'Admin')
                     {
                         //Make the user as admin
                         Users.Administrator = 'True';
                     }
                 }
-                else
-                {
-                    Roles.ID = '';
-                }
+               
                 if ($("#chkActive").parent().attr('class') != "") {
                     Users.Active = 'True';
                 }
 
-                //if ($("#chkAdministrator").parent().attr('class') != "") {
-                //    Users.Administrator = 'True';
-                //}
+            
 
                 if ($("#datepickerdob").val() != "") {
                     Users.DOB = $("#datepickerdob").val();
                 }
-                else
-                {
-                    Users.DOB = '';
-                }
+             
 
                 if ($("#txtLoginName").val() != "") {
                     Users.LoginName = $("#txtLoginName").val();
@@ -937,8 +972,8 @@ $("document").ready(function (e) {
                 if ($(".ddlRoleName").val() != "") {
                     Roles.RoleName = $(".ddlRoleName").val();
                 }
-                if ($(".ddlChurch").val() != "") {
-                    Church.churchId = $(".ddlChurch").val();
+                if ($("#ddlChurchinRoles").val() != "") {
+                    Church.churchId = $("#ddlChurchinRoles").val();
                 }
                 if ($("#hdfRolesID").val() == '') {
                     //INSERT
@@ -1011,8 +1046,8 @@ $("document").ready(function (e) {
                     OrgDesignationMaster.position = $("#txtPosition").val();
                 }
 
-                if ($(".ddlOrganization").val() != "") {
-                    OrgDesignationMaster.orgType = $(".ddlOrganization").val();
+                if ($("#idddlOrganization").val() != "") {
+                    OrgDesignationMaster.orgType = $("#idddlOrganization").val();
                 }
 
                 if ($("#txtOrder").val() != "") {
@@ -1717,7 +1752,7 @@ function RolesValidation()
   
     
     var RoleName = $('#idddlRoleName');
-    var churchrole = $('#idddlChurch');
+    var churchrole = $('#ddlChurchinRoles');
 
     var container = [
         { id: RoleName[0].id, name: RoleName[0].name, Value: RoleName[0].value },
@@ -1757,7 +1792,7 @@ function RolesValidation()
 function UserValidation() {
    
   
-    var userchurch = $('#idddlchurchuser');
+    var userchurch = $('#ddlChurchinUsers');
     var username = $('#txtUserName');
     var useraddress = $('#txtUserAddress');
     var usermobile = $('#txtMobile');
@@ -1767,6 +1802,7 @@ function UserValidation() {
     var userDOB = $('#datepickerdob');
     var loginname = $('#txtLoginName');
     var paswd = $('#txtPassword');
+    var confpswd = $('#txtconfirmpswd');
 
 
 
@@ -1779,7 +1815,8 @@ function UserValidation() {
         { id: userroles[0].id, name: userroles[0].name, Value: userroles[0].value },
         { id: userDOB[0].id, name: userDOB[0].name, Value: userDOB[0].value },
         { id: loginname[0].id, name: loginname[0].name, Value: loginname[0].value },
-        { id: paswd[0].id, name: paswd[0].name, Value: paswd[0].value }
+        { id: paswd[0].id, name: paswd[0].name, Value: paswd[0].value },
+        { id: confpswd[0].id, name: confpswd[0].name, Value: confpswd[0].value }
     ];
 
     var j = 0;
@@ -1969,8 +2006,9 @@ function EditUsers(curobj)
     Users.ID = data.UserID;
     $("#hdfUserID").val(Users.ID);
     var userDetail = GetUserDetailsByUserID(Users);
-    dropdownContainer.ddlChurch.val(userDetail[0].ChurchID).trigger("change");
-    //$(".ddlChurchuser").val(userDetail[0].ChurchID).trigger("change");
+
+    var $option = $("<option selected></option>").val(userDetail[0].ChurchID).text(userDetail[0].ChurchName);
+    $("#ddlChurchinUsers").append($option).trigger('change');
     $("#txtUserName").val(userDetail[0].UserName != null && userDetail[0].UserName != "" ? userDetail[0].UserName : '');
     $("#txtUserAddress").val(userDetail[0].Address != null && userDetail[0].Address != "" ? userDetail[0].Address : '');
     $("#txtMobile").val(userDetail[0].Mobile != null && userDetail[0].Mobile != "" ? userDetail[0].Mobile : '');
@@ -1986,7 +2024,8 @@ function EditUsers(curobj)
             $("#optionFemale").parent().addClass('checked');
             break;
     }
-    dropdownContainer.ddlRoles.val(userDetail[0].RoleID).trigger("change");
+  
+    $("#idddlRoles").val(userDetail[0].RoleID).trigger("change");
     if (userDetail[0].Active == true)
     {
        $("#chkActive").parent().addClass('checked');
@@ -2002,8 +2041,8 @@ function EditUsers(curobj)
 
     $("#datepickerdob").val(userDetail[0].DOB != null && userDetail[0].DOB != "" ? ConvertJsonToDate(userDetail[0].DOB) : '');
 
-    $('txtPassword').val('');
-    $('txtconfirmpswd').val('');
+    $('#txtPassword').val('*****');//5 stars
+    $('#txtconfirmpswd').val('*****');
    
    
 }
@@ -2054,6 +2093,7 @@ function UpdateDesignation(OrgDesignationMaster) {
 
 function EditRole(curobj)
 {
+    debugger;
      
     var data = DashDataTables.roleTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
@@ -2062,8 +2102,10 @@ function EditRole(curobj)
     Roles.ID = data.RoleID;
     $("#hdfRolesID").val(Roles.ID);
     var roleDetail = GetRoleDetailByRoleID(Roles);
-    $(".ddlRoleName").val(roleDetail[0].RoleName).trigger("change");
-    $(".ddlChurch").val(roleDetail[0].ChurchID).trigger("change");
+    var $option = $("<option selected></option>").val(roleDetail[0].ChurchID).text(roleDetail[0].ChurchName);
+    $("#ddlChurchinRoles").append($option).trigger('change');
+    $("#idddlRoleName").val(roleDetail[0].RoleName).trigger("change");
+  
 }
 
 
@@ -2077,7 +2119,7 @@ function EditDesignation(curobj)
     var designationDetail = GetDesignationDetailByID(OrgDesignationMaster);
     $("#txtPosition").val(designationDetail[0].Position != null && designationDetail[0].Position != "" ? designationDetail[0].Position: '');
     $("#txtOrder").val(designationDetail[0].Order != null && designationDetail[0].Order != "" ? designationDetail[0].Order: '');
-    $(".ddlOrganization").val(designationDetail[0].OrgType).trigger("change");
+    $("#idddlOrganization").val(designationDetail[0].OrgType).trigger("change");
  }
 
 function EditSaint(curobj) {
@@ -2197,12 +2239,12 @@ function RemoveChurch(curobj)
             case "1":
                 noty({ type: 'success', text: Messages.DeletionSuccessFull });
                 try {
-                    dropdownContainer.ddlChurch.select2().empty();
-                    dropdownContainer.ddlChurch.select2({
-                            placeholder: "Choose Church",
-                            allowClear: true,
-                            data: BindChurchDropdown()
-                         });
+                    //dropdownContainer.ddlChurch.select2().empty();
+                    //dropdownContainer.ddlChurch.select2({
+                    //        placeholder: "Choose Church",
+                    //        allowClear: true,
+                    //        data: BindChurchDropdown()
+                    //     });
                   
                     BindAllChurches();
                 }
@@ -2450,22 +2492,7 @@ function GetAllChurches(Church) {
 
 
 
-//function BindTownMasterDropdown() {
-//    try
-//    {
-//        var jsonResult = {};
-//        var TownMaster = new Object();
-//        jsonResult = GetAllTowns(TownMaster);
-//        if (jsonResult != undefined) {
-//            return jsonResult;
-//        }
-//    }
-//    catch(e)
-//    {
 
-//    }
-    
-//}
 function BindTownMasterDropdown() {
     try {
         var jsonResult = {};
@@ -2601,6 +2628,7 @@ function BindRolesByChurch(Roles)
     try {
 
         DashDataTables.roleTable.clear().rows.add(GetAllRolesByChurch(Roles)).draw(false);
+        
     }
     catch (e) {
 
@@ -2620,6 +2648,33 @@ function BindAllRoles() {
     }
 }
 
+function BindUsersByChurch(Users)
+{
+    try
+    {
+        DashDataTables.userTable.clear().rows.add(GetAllUsersByChurch(Users)).draw(false);
+    }
+    catch(e)
+    {
+
+    }
+
+}
+
+function GetAllUsersByChurch(Users)
+{
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'usersObj':" + JSON.stringify(Users) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllUsersByChurch");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
 
 function BindAllUsers() {
     try {
@@ -2670,14 +2725,35 @@ function BindAllDesignation() {
 
     }
 }
+function BindDesignationByOrganization(OrgDesignationMaster)
+{
+    try {
+        DashDataTables.designationTable.clear().rows.add(GetAllDesignationByOrganization(OrgDesignationMaster)).draw(false);
+    }
+    catch (e) {
 
+    }
+}
 
-
-function GetAllDesignation(Designation) {
+function GetAllDesignationByOrganization(OrgDesignationMaster) {
     var ds = {};
     var table = {};
     try {
-        var data = "{'designationObj':" + JSON.stringify(Designation) + "}";
+        var data = "{'designationObj':" + JSON.stringify(OrgDesignationMaster) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllDesignationByOrganization");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function GetAllDesignation(OrgDesignationMaster) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'designationObj':" + JSON.stringify(OrgDesignationMaster) + "}";
         ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllDesignation");
         table = JSON.parse(ds.d);
     }

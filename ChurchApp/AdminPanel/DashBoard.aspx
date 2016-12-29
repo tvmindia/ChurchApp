@@ -239,6 +239,7 @@ table{
                                       <th>Church</th>
 									  <th>Role</th>
 									  <th>Created Date</th>
+                                      <th>Town</th>
 									  <th>Actions</th>                                          
 								  </tr>
 							  </thead>   
@@ -248,9 +249,8 @@ table{
 							  </tbody>
 						 </table>  
 
-                        <br />
-                        <br />
-                        <br />
+                       
+                       
                          	<div class="form-horizontal">
 						
 							<fieldset>
@@ -309,15 +309,24 @@ table{
 						</div>
 					</div>
 					<div class="box-content UserBox">
+
+                        <div class="control-group">
+
+                                 <div class="controls">
+                               <select id="ddlChurchinUsers" name="ddlChurch" class="ddlChurch"><option></option></select>
+                                    
+                              </div>
+                              </div>
 						<table class="table table-bordered" id="Userstable">
 							  <thead>
 								  <tr>
                                       <th>UserID</th>
                                       <th>ChurchID</th>
-									  <th>Name</th>
+                                      <th>Name</th>
 									  <th>Mobile</th>
 									  <th>Church</th>
                                       <th>Role</th>
+                                      <th>Town</th>
                                      <th>Actions</th>                                          
 								  </tr>
 							  </thead>   
@@ -337,13 +346,13 @@ table{
                              <div id="Displaydiv2">
                              </div>
                             </div>
-                                     <div class="control-group">
+                                    <%-- <div class="control-group">
                              <label class="control-label" for="focusedInput">Church</label>
                                <div class="controls">
                                   <select id="idddlchurchuser" name="churchuser" class="ddlChurch"><option></option></select>
                                   
                                  </div>
-                             </div>
+                             </div>--%>
                                    
 						     
 						      <div class="control-group">
@@ -417,8 +426,8 @@ table{
                                        <div class="control-group">
                              <label class="control-label" for="focusedInput">Roles</label>
                                <div class="controls">
-                                  <select id="idddlRoles" name="ddlRoles" class="ddlRoles"><option></option></select>
-                                  
+                                  <select id="idddlRoles" name="ddlRoles" class="ddlRoleName"><option></option></select>
+                                    
                                  </div>
                              </div>
                                        <div class="control-group">
@@ -500,6 +509,10 @@ table{
 						</div>
 					</div>
 					<div class="box-content DesignationBox">
+                         <div class="controls">
+                               <select id="idddlOrganization" name="Organization" class="ddlOrganization"><option></option></select>
+                         </div>
+                        <br />
 						<table class="table table-bordered" id="Designationtable">
 							  <thead>
 								  <tr>
@@ -537,13 +550,7 @@ table{
                               </div>
 
                                  
-                                      <div class="control-group">
-
-                              <label class="control-label" for="focusedInput">Organization Type</label>
-                               <div class="controls">
-                               <select id="idddlOrganization" name="Organization" class="ddlOrganization"><option></option></select>
-                              </div>
-                              </div>
+                         
 
                           
                    </div>
