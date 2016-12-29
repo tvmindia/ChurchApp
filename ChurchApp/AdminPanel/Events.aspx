@@ -187,7 +187,7 @@
                                 <div class="control-group" id="DivNotificationContent">
                                     <label class="control-label" for="focusedInput">Notification Content</label>
                                     <div class="controls">
-                                        <textarea class="input-xlarge" id="txtnotificationCOntent" name="Description" rows="5" placeholder="" style="width: 70%"></textarea>
+                                        <textarea class="input-xlarge" id="txtnotificationCOntent" name="Description" rows="4" placeholder=""></textarea>
 
                                     </div>
                                 </div>

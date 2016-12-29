@@ -238,7 +238,7 @@
 					<div class="box-content">
 					<div class="form-horizontal">
 				    <fieldset>
-                    <a class="btnEdit" style="right:40px;top:-41px;position: absolute;display:none;" title="Back" id="btnrefresh"><i class="halflings-icon white refresh" aria-hidden="true" ></i></a>
+                    <a class="btnEdit" style="right:40px;top:-41px;position: absolute;display:none;" title="Back" id="btnrefresh"><i class="halflings-icon white repeat" aria-hidden="true" ></i></a>
 
 							<div class="control-group">
 							  <img class="priestimage" id="priestPreview" src="../img/gallery/priest.png"/>
