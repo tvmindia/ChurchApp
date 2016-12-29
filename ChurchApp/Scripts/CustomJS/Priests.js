@@ -126,10 +126,10 @@ $(document).ready(function () {
         $('#btnSavePriest').click(function (e) {
             try
             {
-                debugger;
-                var Role = $(this).attr('name');
-                if (($('#ddlstatus').val() == 'Vicar') && (Role == 'Asst')) {
-                    noty({ text: Messages.VicarExist, type: 'information' });
+                var FlagExist=VicarExist();
+                var Role = FlagExist.result;
+                if (($('#ddlstatus').val() == 'Vicar') && (Role == 2)) {
+                    noty({ text: Messages.VicarExist, type: 'error' });
                     return false;
                 }
 
@@ -139,14 +139,14 @@ $(document).ready(function () {
                 var ordcheck = $('#OrdinationDate').val();
                 if (dobcheck != "") {
                     if (Datecheck(dobcheck) > today) {
-                        noty({ text: Messages.DboInvalid, type: 'information' });
+                        noty({ text: Messages.DboInvalid, type: 'error' });
                         return false;
                     }
                 }
 
                 if (ordcheck != "") {
                     if (Datecheck(ordcheck) < Datecheck(dobcheck)) {
-                        noty({ text: Messages.OrdinationInvalid, type: 'information' });
+                        noty({ text: Messages.OrdinationInvalid, type: 'error' });
                         return false;
                     }
                 }
@@ -266,7 +266,8 @@ function savePriest()
                             noty({ type: 'success', text: Messages.InsertionSuccessFull });
                             $("#hdfPriestID").val(result.priestID);
                             $("#hdfpriestImageID").val(result.imageId);
-                          
+                            $('#btnCancelPriest').hide();
+                            $('#btnDelete').show();
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.FailureMsgCaption });
@@ -315,7 +316,7 @@ function savePriest()
                         case "1":
 
                             noty({ type: 'success', text: Messages.UpdationSuccessFull });
-                          
+                            $('#btnCancelPriest').hide();
                             break;
                         case "2":
                             noty({ type: 'error', text: Messages.OperationDuplicateFailure });
@@ -338,6 +339,7 @@ function savePriest()
                     switch (result.result) {
                         case "1":
                             noty({ type: 'success', text: Messages.UpdationSuccessFull });
+                            $('#btnCancelPriest').hide();
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.FailureMsgCaption });
@@ -352,12 +354,13 @@ function savePriest()
                     $('#assVicardiv').remove();
                     $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
                     check();
+                    
                     AutoComplete();
                 }//else
             }//else
         }//townflag if
 
-
+        
 
     }
     catch (e) {
@@ -533,10 +536,12 @@ function AutoComplete()
         table = JSON.parse(ds.d);
         return table;
     }
+
     // Create new vicar and new Asst Vicar section
     function OpenNewAdd(Tag) {
         try
         {
+            $('#btnCancelPriest').show();
             RemoveStyle();
             ClearFields();
             $('#btnCancelPriest').attr('name', 'New');
@@ -569,12 +574,13 @@ function AutoComplete()
     function OpenPriestDetails(priestID) {
         debugger;
         document.getElementById('priestimg').value = "";
+
         $('#hdfpriestImageID').val('');
         BindDetails(priestID);
         $('#PriestShowDetails').show();
         $('#iconEditPriest').show();
         $('#PriestEd').hide();
-        $('btnAddPriest').hide();
+        $('#btnAddPriest').hide();
     }
     //Bind Details to view
     function BindDetails(priestID) {
@@ -627,6 +633,7 @@ function AutoComplete()
             debugger;
             RemoveStyle();
             $('#btnDelete').show();
+            $('#btnCancelPriest').show();
             $('#btnCancelPriest').attr('name', '');
             var priestid = $(this_obj).attr('name');
             var PriestRow = {};
@@ -678,6 +685,17 @@ function AutoComplete()
     function UpdatePriest(Priest) {
         var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
         jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/UpdatePriest");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+    //CHeck Vicar Exist
+    function VicarExist()
+    {
+        debugger;
+        var Priest = new Object();
+        var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/VicarExistornot");
         var table = {};
         table = JSON.parse(jsonResult.d);
         return table;

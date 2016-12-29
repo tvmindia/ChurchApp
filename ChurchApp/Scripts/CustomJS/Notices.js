@@ -284,6 +284,7 @@ $("document").ready(function (e) {
         if (NoticeID == null || NoticeID == "" ) //Add
         {
             AddNewNoticeFormat();
+            $('#NoticeEditDivBox').hide();
         }
         else//Edit
         {
@@ -452,33 +453,25 @@ function NoticeValidation() {
     }
 
     var j = 0;
-    var Errorbox = document.getElementById('ErrorBox');
-    var divs = document.createElement('div');
-    divs.setAttribute("id", "Displaydiv");
-    Errorbox.appendChild(divs);
+    
     for (var i = 0; i < container.length; i++) {
         if (container[i].Value == "") {
             j = 1;
-            Errorbox.style.borderRadius = "5px";
-            Errorbox.style.display = "block";
+            
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            Errorbox.style.paddingLeft = "30px";
+            
         }
     }
 
     if (j == '1') {
-        var p = document.createElement('p');
-        p.innerHTML = "* Some Fields Are Empty ! ";
-        p.style.color = "Red";
-        p.style.fontSize = "14px";
-        divs.appendChild(p);
+        noty({ type: 'error', text: Messages.Validation });
         return false;
     }
     if (j == '0') {
-        $('#ErrorBox').hide();
+       
         return true;
     }
 
@@ -760,7 +753,7 @@ function FixedEditClick() {
 
     //$('#NoticeEdit').hide();
     $('#UpNotice')[0].files[0] = null;
-    $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white refresh");
+    $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white repeat");
     $('#NoticeEdit').attr('onclick', 'cancelEdit();');
     $("#lblStartDate").hide();
     $("#dateStartDate").show();
