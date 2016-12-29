@@ -55,7 +55,7 @@
 						
 						</div>
 					</div>
-                <div class="box-content">
+                <div class="box-content massAddDiv">
                     <div class="form-horizontal" id="formBou">
 
                        <%-- Day--%>

@@ -7,3 +7,7 @@ textarea[readonly] {
     cursor: not-allowed;
     background-color: #ffffff;
 }
+#txtStartDate
+{
+    width:195px !important;
+}
