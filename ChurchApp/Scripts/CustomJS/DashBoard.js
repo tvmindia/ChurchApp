@@ -20,13 +20,7 @@ $("document").ready(function (e) {
         noty({ type: 'error', text: e.message });
     }
 
-    try
-    {
-    }
-    catch(e)
-    {
-        noty({ type: 'error', text: e.message });
-    }
+   
 
    
     
@@ -182,11 +176,40 @@ $("document").ready(function (e) {
         noty({ type: 'error', text: e.message });
     }
     try {
-        dropdownContainer.ddlOrganization = $(".ddlOrganization").select2({
+        dropdownContainer.ddlOrganization = $("#idddlOrganization").select2({
             placeholder: "Choose Organization",
             allowClear: true,
             data: BindOrganizationTypeDropdown()
         });
+
+        $("#idddlOrganization").on("select2:unselecting", function (e) {
+
+            DashDataTables.designationTable.search('').draw(false);
+            BindAllDesignation();
+          
+
+        });
+
+        $("#idddlOrganization").on("change", function (e) {klkkl
+           
+            if (($("#idddlOrganization").val() != "") && ($("#idddlOrganization").val() != null)) {
+                var Designation = new Object();
+                Designation.orgType = $("#idddlOrganization").val();
+                BindDesignationByOrganization(Designation);
+                var searchtext = $("#idddlOrganization").select2('data')[0]['text'];
+
+                DashDataTables.designationTable.search(searchtext).draw(false);
+               
+
+            }
+            else {
+                BindAllDesignation();
+            }
+
+
+        });
+
+
     }
     catch (e) {
         noty({ type: 'error', text: e.message });
@@ -332,13 +355,13 @@ $("document").ready(function (e) {
 
     try {
       
-        var Designation = new Object();
+        var OrgDesignationMaster = new Object();
         DashDataTables.designationTable= $('#Designationtable').DataTable(
         {
             order: [],
             searching: true,
             paging: true,
-            data: GetAllDesignation(Designation),
+            data: GetAllDesignation(OrgDesignationMaster),
             columns: [
               { "data": "DesigID" },
               { "data": "Position", "defaultContent": "<i>-</i>" },
@@ -728,7 +751,7 @@ $("document").ready(function (e) {
         {
             RemoveStyle();
 
-            $(".ddlOrganization").select2("val", "");
+            $("#idddlOrganization").select2("val", "");
             $("#txtPosition").val('');
             $("#txtOrder").val('');
 
@@ -1023,8 +1046,8 @@ $("document").ready(function (e) {
                     OrgDesignationMaster.position = $("#txtPosition").val();
                 }
 
-                if ($(".ddlOrganization").val() != "") {
-                    OrgDesignationMaster.orgType = $(".ddlOrganization").val();
+                if ($("#idddlOrganization").val() != "") {
+                    OrgDesignationMaster.orgType = $("#idddlOrganization").val();
                 }
 
                 if ($("#txtOrder").val() != "") {
@@ -2096,7 +2119,7 @@ function EditDesignation(curobj)
     var designationDetail = GetDesignationDetailByID(OrgDesignationMaster);
     $("#txtPosition").val(designationDetail[0].Position != null && designationDetail[0].Position != "" ? designationDetail[0].Position: '');
     $("#txtOrder").val(designationDetail[0].Order != null && designationDetail[0].Order != "" ? designationDetail[0].Order: '');
-    $(".ddlOrganization").val(designationDetail[0].OrgType).trigger("change");
+    $("#idddlOrganization").val(designationDetail[0].OrgType).trigger("change");
  }
 
 function EditSaint(curobj) {
@@ -2469,22 +2492,7 @@ function GetAllChurches(Church) {
 
 
 
-//function BindTownMasterDropdown() {
-//    try
-//    {
-//        var jsonResult = {};
-//        var TownMaster = new Object();
-//        jsonResult = GetAllTowns(TownMaster);
-//        if (jsonResult != undefined) {
-//            return jsonResult;
-//        }
-//    }
-//    catch(e)
-//    {
 
-//    }
-    
-//}
 function BindTownMasterDropdown() {
     try {
         var jsonResult = {};
@@ -2717,14 +2725,35 @@ function BindAllDesignation() {
 
     }
 }
+function BindDesignationByOrganization(OrgDesignationMaster)
+{
+    try {
+        DashDataTables.designationTable.clear().rows.add(GetAllDesignationByOrganization(OrgDesignationMaster)).draw(false);
+    }
+    catch (e) {
 
+    }
+}
 
-
-function GetAllDesignation(Designation) {
+function GetAllDesignationByOrganization(OrgDesignationMaster) {
     var ds = {};
     var table = {};
     try {
-        var data = "{'designationObj':" + JSON.stringify(Designation) + "}";
+        var data = "{'designationObj':" + JSON.stringify(OrgDesignationMaster) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllDesignationByOrganization");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+function GetAllDesignation(OrgDesignationMaster) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'designationObj':" + JSON.stringify(OrgDesignationMaster) + "}";
         ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllDesignation");
         table = JSON.parse(ds.d);
     }

@@ -509,6 +509,10 @@ table{
 						</div>
 					</div>
 					<div class="box-content DesignationBox">
+                         <div class="controls">
+                               <select id="idddlOrganization" name="Organization" class="ddlOrganization"><option></option></select>
+                         </div>
+                        <br />
 						<table class="table table-bordered" id="Designationtable">
 							  <thead>
 								  <tr>
@@ -546,13 +550,7 @@ table{
                               </div>
 
                                  
-                                      <div class="control-group">
-
-                              <label class="control-label" for="focusedInput">Organization Type</label>
-                               <div class="controls">
-                               <select id="idddlOrganization" name="Organization" class="ddlOrganization"><option></option></select>
-                              </div>
-                              </div>
+                         
 
                           
                    </div>
