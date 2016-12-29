@@ -182,46 +182,83 @@ function postBlobAjax(formData, page) {
            jsonResult = JSON.parse(data);
         },
         processData: false,
+        error: function (xmlhttprequest,textstatus,message) {
+        //message.code will be:-timeout", "error", "abort", and "parsererror"
+        $('#displaywait').hide();
+        noty({ text:  message.code + ', ' + xmlhttprequest.statusText, type: 'error' })
 
-        error: function () {
-            $('#displaywait').hide();
-            noty({text:'Somthing went wrong',type:'error'})
-        }
+    }
     });
     
     return jsonResult;
 }
-
-
-
 function getJsonData(data, page) {
-   
+
     var jsonResult = {};
     $('#displaywait').show();
     var req = $.ajax({
         type: "post",
         url: page,
         data: data,
-        delay: 3,
+        delay: 1,
         async: false,
         contentType: "application/json; charset=utf-8",
-        dataType: "json"
+        dataType: "json",
+        success: function (data) {
+            $('#displaywait').hide();
+        },
+        error: function (xmlhttprequest,textstatus,message) {
+            debugger;
+            //message.code will be:-timeout", "error", "abort", and "parsererror"
+            $('#displaywait').hide();
+            noty({ text:  message.code + ', ' + xmlhttprequest.statusText, type: 'error' })
+
+         }
 
     }).done(function (data) {
-       
-        if (data != null)
-        {
+
+        if (data != null) {
             var vald = JSON.parse(data.d);
-            if(vald.statusCode=='555')
-            {
-                window.location.replace(window.location.protocol + "//" + window.location.host + vald.url );
+            if (vald.statusCode == '555') {
+                window.location.replace(window.location.protocol + "//" + window.location.host + vald.url);
             }
         }
-        $('#displaywait').hide();
+       
         jsonResult = data;
     });
     return jsonResult;
 }
+
+
+
+//function getJsonData(data, page) {
+   
+//    var jsonResult = {};
+//    $('#displaywait').show();
+//    var req = $.ajax({
+//        type: "post",
+//        url: page,
+//        data: data,
+//        delay: 3,
+//        async: false,
+//        contentType: "application/json; charset=utf-8",
+//        dataType: "json"
+
+//    }).done(function (data) {
+       
+//        if (data != null)
+//        {
+//            var vald = JSON.parse(data.d);
+//            if(vald.statusCode=='555')
+//            {
+//                window.location.replace(window.location.protocol + "//" + window.location.host + vald.url );
+//            }
+//        }
+//        $('#displaywait').hide();
+//        jsonResult = data;
+//    });
+//    return jsonResult;
+//}
 
 function ConvertJsonToDate(jsonDate) {
    
@@ -338,7 +375,8 @@ var Messages = {
     InvalidExpiry: "Invalid End/Expiry Date !",
     LoginFailed: "User Name / Password is wrong!",
     LoginNameExists: "Login name already exists!",
-    LoginNameExistsUpdated:"Successfully Edited! Login name already exists",
+    LoginNameExistsUpdated: "Successfully Edited! Login name already exists",
+    PasswordNotMatch:"Password does not match",
    
     Warning: "Warning Msg ",
     DeletionFailure: "Deletion Not Successful ",

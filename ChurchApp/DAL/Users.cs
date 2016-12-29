@@ -198,6 +198,44 @@ namespace ChurchApp.DAL
         }
         #endregion GetUserDetailsByUserID
 
+
+        #region GetAllUsersByChurch
+        public DataSet GetAllUsersByChurch()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchObj.churchId);
+
+                cmd.CommandText = "[GetAllUsersByChurch]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllUsersByChurch
+
         #region InsertUsers
         public string InsertUsers()
         {
