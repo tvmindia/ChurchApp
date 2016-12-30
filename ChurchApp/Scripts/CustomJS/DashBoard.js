@@ -35,7 +35,7 @@ $("document").ready(function (e) {
 
          $(".ddlTownCode").select2({
              placeholder: 'Select town..',
-            
+             allowClear: true,
              ajax: {
                  url: "../AdminPanel/DashBoard.aspx/SelectTownMastersIDandText",
                  dataType: 'json',
@@ -419,6 +419,7 @@ $("document").ready(function (e) {
    
     
     $('#btnChurchAdd').click(function (e) {
+        debugger;
         try {
         var churchbit = ChurchValidation();
 
@@ -428,57 +429,60 @@ $("document").ready(function (e) {
             if (churchbit)
             {
                 var Church = new Object();
-                if ($('#txtChurchName').val() != "") {
-                    Church.churchName = $('#txtChurchName').val();
-                }
+                //if ($('#txtChurchName').val() != "") {
+                //    Church.churchName = $('#txtChurchName').val();
+                //}
              
 
-                if ($(".ddlTownCode").val() != "") {
-                    Church.townCode = $(".ddlTownCode").val();
-                }
+                //if ($(".ddlTownCode").val() != "") {
+                //    Church.townCode = $(".ddlTownCode").val();
+                //}
               
 
-                if ($('#txtAddress').val() != "") {
-                    Church.address = $('#txtAddress').val();
-                }
-                else {
-                    Church.address = '';
-                }
+                //if ($('#txtAddress').val() != "") {
+                //    Church.address = $('#txtAddress').val();
+                //}
+                //else {
+                //    Church.address = '';
+                //}
 
-                if ($('#txtDescription').val() != "") {
-                    Church.description = $('#txtDescription').val();
-                }
-                else {
-                    Church.description = '';
-                }
+                //if ($('#txtDescription').val() != "") {
+                //    Church.description = $('#txtDescription').val();
+                //}
+                //else {
+                //    Church.description = '';
+                //}
 
-                if ($('#txtAbout').val() != "") {
-                    Church.about = $('#txtAbout').val();
-                }
-                else {
-                    Church.about = '';
-                }
+                //if ($('#txtAbout').val() != "") {
+                //    Church.about = $('#txtAbout').val();
+                //}
+                //else {
+                //    Church.about = '';
+                //}
 
-                if ($('#txtPhone1').val() != "") {
-                    Church.phone1 = $('#txtPhone1').val();
-                }
-              
-
-                if ($('#txtPhone2').val() != "") {
-                    Church.phone2 = $('#txtPhone2').val();
-                }
-               
-
-
-                if ($('#txtLongitude').val() != "") {
-                    Church.longitude = $('#txtLongitude').val();
-                }
+                //if ($('#txtPhone1').val() != "") {
+                //    Church.phone1 = $('#txtPhone1').val();
+                //}
+               //if ($('#txtPhone2').val() != "") {
+                //    Church.phone2 = $('#txtPhone2').val();
+                //}
+                //if ($('#txtLongitude').val() != "") {
+                //    Church.longitude = $('#txtLongitude').val();
+                //}
             
 
-                if ($('#txtLatitude').val() != "") {
-                    Church.latitude = $('#txtLatitude').val();
-                }
-              
+                //if ($('#txtLatitude').val() != "") {
+                //    Church.latitude = $('#txtLatitude').val();
+                //}
+                Church.churchName = ($('#txtChurchName').val() != "" ? $('#txtChurchName').val() : "");
+                Church.townCode = ($(".ddlTownCode").val() != "" ? $(".ddlTownCode").val() : "");
+                Church.address = ($('#txtAddress').val() != "" ? $('#txtAddress').val() : "");
+                Church.description = ($('#txtDescription').val() != "" ? $('#txtDescription').val() : "");
+                Church.about = ($('#txtAbout').val() != "" ? $('#txtAbout').val() : "");
+                Church.phone1 = ($('#txtPhone1').val() != "" ? $('#txtPhone1').val() : "");
+                Church.phone2 = ($('#txtPhone2').val() != "" ? $('#txtPhone2').val() : "");
+                Church.longitude = ($('#txtLongitude').val() != "" ? $('#txtLongitude').val() : "");
+                Church.latitude = ($('#txtLatitude').val() != "" ? $('#txtLatitude').val() : "");
 
                 if ($("#hdfChurchID").val() == '') {
                     //INSERT
@@ -505,18 +509,7 @@ $("document").ready(function (e) {
                         var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                         switch (result.status) {
                             case "1":
-                                try {
-                                   
-                                    //dropdownContainer.ddlChurch.select2().empty();
-                                    //dropdownContainer.ddlChurch.select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
-                                  }
-                                catch (e) {
-                                    noty({ type: 'error', text: e.message });
-                                }
+                               
                                 noty({ type: 'success', text: Messages.InsertionSuccessFull });
                                 BindAllChurches();
                                 $("#hdfChurchID").val(result.churchId);
@@ -538,18 +531,7 @@ $("document").ready(function (e) {
                                 $("#hdfChurchID").val(result.churchId);
                                 $("#hdfChurchImageID").val(result.mainImageId);
                                 BindAllChurches();
-                                try {
-                                   
-                                    //dropdownContainer.ddlChurch.select2().empty();
-                                    //dropdownContainer.ddlChurch.select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
-                                    }
-                                catch (e) {
-                                    noty({ type: 'error', text: e.message });
-                                }
+                                
                                 break;
                             case "0":
                                 noty({ type: 'error', text: Messages.FailureMsgCaption });
@@ -591,19 +573,9 @@ $("document").ready(function (e) {
                                 $("#hdfChurchID").val(result.churchId);
                                 $("#hdfChurchImageID").val(result.mainImageId);
                                 noty({ type: 'success', text: Messages.UpdationSuccessFull });
-                                try {
-                                    //dropdownContainer.ddlChurch.select2().empty();
-                                    //dropdownContainer.ddlChurch.select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
-                                  
+                            
                                     BindAllChurches();
-                                }
-                                catch (e) {
-                                    noty({ type: 'error', text: e.message });
-                                }
+                               
                                 break;
 
                             case "0":
@@ -623,19 +595,8 @@ $("document").ready(function (e) {
                                 $("#hdfChurchID").val(result.churchId);
                                 $("#hdfChurchImageID").val(result.mainImageId);
                                 noty({ type: 'success', text: Messages.UpdationSuccessFull });
-                                try {
-                                    //dropdownContainer.ddlChurch.select2().empty();
-                                    //dropdownContainer.ddlChurch.select2({
-                                    //    placeholder: "Choose Church",
-                                    //    allowClear: true,
-                                    //    data: BindChurchDropdown()
-                                    //});
-
-                                    BindAllChurches();
-                                }
-                                catch (e) {
-                                    noty({ type: 'error', text: e.message });
-                                }
+                                BindAllChurches();
+                              
                                 break;
                             case "0":
                                 noty({ type: 'error', text: Messages.FailureMsgCaption });
