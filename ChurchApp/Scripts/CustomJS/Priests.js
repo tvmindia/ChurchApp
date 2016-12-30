@@ -57,7 +57,16 @@ $(document).ready(function () {
         $('#btnAddPriest').click(function (e) {
             try 
             {
-                var status=$(this).attr('name');
+                debugger;
+                var status = $(this).attr('name');
+                if (status == "")
+                {
+                    $('#PriestEd').hide();
+                    $('#PriestShowDetails').hide();
+                    ClearFields();
+                    noty({ type: 'error', text: Messages.VicarExist });
+                    return false;
+                }
                 var priestID = $('#hdnAddPriestID').val();
                 if(priestID!=null||priestID!="")
                 {
@@ -129,8 +138,10 @@ $(document).ready(function () {
                 var FlagExist=VicarExist();
                 var Role = FlagExist.result;
                 if (($('#ddlstatus').val() == 'Vicar') && (Role == 2)) {
-                    noty({ text: Messages.VicarExist, type: 'error' });
-                    return false;
+                    if ($("#hdfPriestID").val() == '') {
+                        noty({ text: Messages.VicarExist, type: 'error' });
+                        return false;
+                    }
                 }
 
 
