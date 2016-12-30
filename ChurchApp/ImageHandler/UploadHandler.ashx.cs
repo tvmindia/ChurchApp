@@ -35,6 +35,7 @@ namespace ChurchApp.ImageHandler
                 PatronMaster patronMasterObj = null;
                 Priest priestObj = null;
                 Events EventObj=null;
+                Notices NoticeObj = null;
                 GalleryAlbum GalAlbumObj = null;
                 GalleryItems GalItemsObj = null;
                 //
@@ -691,7 +692,7 @@ namespace ChurchApp.ImageHandler
                                 fileExtension = Path.GetExtension(postFile.FileName);
                                 if ((context.Request.Form.GetValues("EventimageId")[0] != "") && (context.Request.Form.GetValues("EventimageId")[0] != null))
                                 {
-                                    //update currrent patron image with new one
+                                    //update currrent image with new one
                                     AppImgObj.appImageId = context.Request.Form.GetValues("EventimageId")[0];
                                     AppImgObj.DeleteFromFolder();
                                     AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
@@ -708,7 +709,7 @@ namespace ChurchApp.ImageHandler
                                 }
                                 else
                                 {
-                                    //insert new image for imageless town
+                                    //insert new image for imageless Event
                                     AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
                                     AppImgObj.createdBy = context.Request.Form.GetValues("updatedby")[0];
                                     AppImgObj.type = "image";
@@ -718,7 +719,7 @@ namespace ChurchApp.ImageHandler
                                     postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
 
                                 }
-                                //Update Priest
+                                //Update Events
                                 EventObj.churchId = context.Request.Form.GetValues("churchID")[0];
                                 EventObj.eventId = context.Request.Form.GetValues("eventId")[0];
                                 EventObj.description = context.Request.Form.GetValues("description")[0];
@@ -738,6 +739,90 @@ namespace ChurchApp.ImageHandler
                             {
                                 EventObj.Status = ex.Message;
                                 context.Response.Write(jsSerializer.Serialize(EventObj));
+                            }
+                            break;
+                            case "NoticeImageInsert":
+                            try
+                            {
+                                NoticeObj = new Notices();
+                                //Insert to table
+                                AppImgObj = new AppImages();
+                                postFile = context.Request.Files["upImageFile"];
+                                fileExtension = Path.GetExtension(postFile.FileName);
+                                AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                AppImgObj.type = "image";
+                                AppImgObj.InsertAppImage1().ToString();
+                                NoticeObj.churchId = context.Request.Form.GetValues("churchID")[0];
+                                NoticeObj.description = context.Request.Form.GetValues("description")[0];
+                                NoticeObj.noticeName = context.Request.Form.GetValues("noticeName")[0];
+                                NoticeObj.noticeType = context.Request.Form.GetValues("noticeType")[0];
+                                NoticeObj.createdBy = AppImgObj.createdBy;
+                                NoticeObj.imageId = AppImgObj.appImageId;
+                                NoticeObj.InsertNotice();
+                                postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                jsSerializer = new JavaScriptSerializer();
+                                context.Response.Write(jsSerializer.Serialize(NoticeObj));
+                            }
+                            catch (Exception ex)
+                            {
+                                NoticeObj.status = ex.Message;
+                                context.Response.Write(jsSerializer.Serialize(NoticeObj));
+                            }
+                            break;
+                            case "NoticeImageUpdate":
+                            try
+                            {
+                                NoticeObj = new Notices();
+                                AppImgObj = new AppImages();
+                                postFile = context.Request.Files["upImageFile"];
+                                fileExtension = Path.GetExtension(postFile.FileName);
+                                if ((context.Request.Form.GetValues("NoticeimageId")[0] != "") && (context.Request.Form.GetValues("NoticeimageId")[0] != null))
+                                {
+                                    //update currrent image with new one
+                                    AppImgObj.appImageId = context.Request.Form.GetValues("NoticeimageId")[0];
+                                    AppImgObj.DeleteFromFolder();
+                                    AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                    AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                                    AppImgObj.type = "image";
+                                    AppImgObj.Extension = fileExtension;
+                                    AppImgObj.postedFile = postFile;
+                                    AppImgObj.UpdateAppImage();
+                                    if (AppImgObj.status == "1")
+                                    {
+                                        //Delete Previous image from folder and save new folder 
+                                        AppImgObj.UpdateCurrentAppImageInFolder();
+                                    }
+                                }
+                                else
+                                {
+                                    //insert new image for imageless
+                                    AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                    AppImgObj.createdBy = context.Request.Form.GetValues("updatedby")[0];
+                                    AppImgObj.type = "image";
+                                    AppImgObj.Extension = fileExtension;
+                                    AppImgObj.postedFile = postFile;
+                                    AppImgObj.InsertAppImage1().ToString();
+                                    postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+
+                                }
+                                //Update Notice
+                                NoticeObj.churchId = context.Request.Form.GetValues("churchID")[0];
+                                NoticeObj.noticeId = context.Request.Form.GetValues("noticeId")[0];
+                                NoticeObj.description = context.Request.Form.GetValues("description")[0];
+                                NoticeObj.noticeName = context.Request.Form.GetValues("noticeName")[0];
+                                NoticeObj.noticeType = context.Request.Form.GetValues("noticeType")[0];
+                                NoticeObj.updatedBy = AppImgObj.updatedBy;
+                                NoticeObj.imageId = AppImgObj.appImageId;
+                                NoticeObj.UpdateNotice();
+
+                                jsSerializer = new JavaScriptSerializer();
+                                context.Response.Write(jsSerializer.Serialize(NoticeObj));
+                            }
+                            catch (Exception ex)
+                            {
+                                NoticeObj.status = ex.Message;
+                                context.Response.Write(jsSerializer.Serialize(NoticeObj));
                             }
                             break;
 

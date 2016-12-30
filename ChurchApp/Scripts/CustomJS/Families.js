@@ -209,101 +209,114 @@ $(document).ready(function () {
                 var i = "0";
                 var jsonResult = {};
                 var position = $("#ddlRole option:selected").text();
-                var IdAndOrder = $('#ddlRole').val();
-                var desigID = IdAndOrder.split(":")[0];
-                var order = IdAndOrder.split(":")[1];
-                var orgType = "FU";
-                var unitId = $("#hdfUnitID").val();
-                var mobile = $("#txtMobile").val();
-                var name = $("#ddlMember option:selected").text();
-                var memberID = $("#ddlMember").val();
-                var adminID = createGuid();
-                var Administrators = new Object();
-                Administrators.adminId = adminID;
-                Administrators.orgType = orgType;
-                Administrators.orgId = unitId;
-                Administrators.desigId = desigID;
-                Administrators.memberId = memberID;
-                Administrators.Name = name;
-                Administrators.Phone = mobile;
+                if (position != "Select Position") {
+                    var IdAndOrder = $('#ddlRole').val();
+                    var desigID = IdAndOrder.split(":")[0];
+                    var order = IdAndOrder.split(":")[1];
+                    var orgType = "FU";
+                    var unitId = $("#hdfUnitID").val();
+                    var mobile = $("#txtMobile").val();
+                    var name = $("#ddlMember option:selected").text();
+                    if (name != "Select Member")
+                    {
+                    var memberID = $("#ddlMember").val();
+                    var adminID = createGuid();
+                    var Administrators = new Object();
+                    Administrators.adminId = adminID;
+                    Administrators.orgType = orgType;
+                    Administrators.orgId = unitId;
+                    Administrators.desigId = desigID;
+                    Administrators.memberId = memberID;
+                    Administrators.Name = name;
+                    Administrators.Phone = mobile;
 
-                if ($("#AddOrEditAdmin").text() == "Add") {
-                    if (adminID != null) {
-                        ///////Image insert using handler
-                        var imgresult = "";
-                        var _URL = window.URL || window.webkitURL;
-                        var formData = new FormData();
-                        var imagefile, logoFile, img;
+                    if ($("#AddOrEditAdmin").text() == "Add") {
+                        if (adminID != null) {
+                            ///////Image insert using handler
+                            var imgresult = "";
+                            var _URL = window.URL || window.webkitURL;
+                            var formData = new FormData();
+                            var imagefile, logoFile, img;
 
+                            if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
+                                var formData = new FormData();
+                                var tempFile;
+                                if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
+                                    tempFile.name = adminID;
+                                    formData.append('NoticeAppImage', tempFile, tempFile.name);
+                                    formData.append('GUID', adminID);
+                                    formData.append('createdby', 'sadmin');
+                                }
+                                formData.append('ActionTyp', 'NoticeAppImageInsert');
+                                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                                i = "1";
+                            }
+                        }
+                        if (i == "1") {
+                            Administrators.imageID = adminID;
+                        }
+                        else {
+                            if (adminImage != null && adminImage != "") {
+                                Administrators.imageID = adminImage;
+                            }
+                        }
+                        jsonResult = InsertAdministrator(Administrators);
+                        switch (jsonResult.status) {
+                            case "1":
+                                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                                $("#divAdminDetals").css("display", "");
+                                BindFamilyUnitMemebrs();
+                                $('#modelAddAdmin').modal('hide');
+                                cancelAdminEdit();
+                                break;
+                            case "2":
+                                noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+                                break;
+                            default:
+                                noty({ text: Messages.InsertionFailure, type: 'error' });
+                                break;
+                        }
+                    }
+                    else {
+                        Administrators.adminId = $("#hdfAdminID").val();
+                        var guid = createGuid();
                         if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
                             var formData = new FormData();
                             var tempFile;
                             if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
-                                tempFile.name = adminID;
+                                tempFile.name = guid;
                                 formData.append('NoticeAppImage', tempFile, tempFile.name);
-                                formData.append('GUID', adminID);
+                                formData.append('GUID', guid);
                                 formData.append('createdby', 'sadmin');
                             }
                             formData.append('ActionTyp', 'NoticeAppImageInsert');
                             AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                            i = "1";
+                            Administrators.imageID = guid;
                         }
-                    }
-                    if (i == "1") {
-                        Administrators.imageID = adminID;
-                    }
-                    else {
-                        if (adminImage != null && adminImage != "") {
-                            Administrators.imageID = adminImage;
+                        jsonResult = UpdateAdministrator(Administrators);
+                        switch (jsonResult.status) {
+                            case "1":
+                                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                                $("#divAdminDetals").css("display", "");
+                                BindFamilyUnitMemebrs();
+                                $('#modelAddAdmin').modal('hide');
+                                $("#FamilyAdd").css("margin-top", "3%");
+                                cancelAdminEdit();
+                                break;
+                            default:
+                                noty({ text: Messages.UpdationFailure, type: 'error' });
+                                break;
                         }
-                    }
-                    jsonResult = InsertAdministrator(Administrators);
-                    switch (jsonResult.status) {
-                        case "1":
-                            noty({ text: Messages.InsertionSuccessFull, type: 'success' });
-                            $("#divAdminDetals").css("display", "");
-                            BindFamilyUnitMemebrs();
-                            $('#modelAddAdmin').modal('hide');
-                            cancelAdminEdit();
-                            break;
-                        case "2":
-                            noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
-                            break;
-                        default:
-                            noty({ text: Messages.InsertionFailure, type: 'error' });
-                            break;
                     }
                 }
-                else {
-                    Administrators.adminId = $("#hdfAdminID").val();
-                    var guid = createGuid();
-                    if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
-                        var formData = new FormData();
-                        var tempFile;
-                        if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
-                            tempFile.name = guid;
-                            formData.append('NoticeAppImage', tempFile, tempFile.name);
-                            formData.append('GUID', guid);
-                            formData.append('createdby', 'sadmin');
-                        }
-                        formData.append('ActionTyp', 'NoticeAppImageInsert');
-                        AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                        Administrators.imageID = guid;
-                    }
-                    jsonResult = UpdateAdministrator(Administrators);
-                    switch (jsonResult.status) {
-                        case "1":
-                            noty({ text: Messages.UpdationSuccessFull, type: 'success' });
-                            $("#divAdminDetals").css("display", "");
-                            BindFamilyUnitMemebrs();
-                            $('#modelAddAdmin').modal('hide');
-                            $("#FamilyAdd").css("margin-top", "3%");
-                            cancelAdminEdit();
-                            break;
-                        default:
-                            noty({ text: Messages.UpdationFailure, type: 'error' });
-                            break;
-                    }
+                else
+                {
+                        noty({ text: Messages.SelectMember ,type:'error'})
+                }
+                }
+                else
+                {
+                    noty({ type: 'error', text: Messages.SelectPosition });
                 }
             }
             catch (e) {
@@ -1174,7 +1187,7 @@ function UpdateFamily(e) {
             $("#txtLastName").attr('disabled', 'disabled');
             $("#txtPhone").attr('disabled', 'disabled');
             $("#txtAddress").attr('disabled', 'disabled');
-
+            $("#txtFamilyName").focus();
         }
     }
     catch(e)

@@ -139,6 +139,15 @@ $("document").ready(function (e) {
                             ReBindMassTimingUpdateTable(jsonResult);
                             noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                             break;
+                        case "2":
+                            BindAsyncAdminsTable();
+                            var jsonResult = {};
+                            MassTimings.massChurchId = churchId;
+                            MassTimings.day = day + ",";
+                            jsonResult = selectMassTimeByDay(MassTimings);
+                            ReBindMassTimingUpdateTable(jsonResult);
+                            noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+                            break;
                         default:
                             noty({ text: Messages.UpdationFailure, type: 'error' });
                             break;

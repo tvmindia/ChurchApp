@@ -148,7 +148,7 @@
 								<label class="control-label" for="focusedInput" >Description</label>
 								<div class="controls">
 								 <label class="control-label" for="focusedInput" id="lblDescription"></label>
-                                     <textarea class="input-large" id="txtDescription" name="Description" rows="5" placeholder="Enter your description here..."></textarea>
+                                     <textarea class="input-large" id="txtDescription" name="Description" rows="5"></textarea>
 								  <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
 								</div>
 								</div>
@@ -157,7 +157,7 @@
 							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
 								 <label class="control-label" for="date01" id="lblStartDate"></label>
-								  <input  class="input-large datepicker" name="StartDate" id="txtStartDate" type="text" readonly="true" placeholder="dd/mm/yyyy"/>
+								  <input  class="input-large datepicker" name="StartDate" id="txtStartDate" type="text" readonly="true" placeholder="Select Start Date"/>
 							  </div>
 							</div>
 
@@ -165,7 +165,7 @@
 							  <label class="control-label" for="date01" >Expiry Date</label>
 							  <div class="controls">
 								 <label class="control-label" for="date01" id="lblExpiryDate">Caption</label>
-								  <input  class="input-large datepicker" readonly="true" name="ExpiryDate" id="txtExpiryDate" type="text" placeholder="dd/mm/yyyy"/>
+								  <input  class="input-large datepicker" readonly="true" name="ExpiryDate" id="txtExpiryDate" type="text" placeholder="Select Expiry Date"/>
 							  </div>
 							</div>
 

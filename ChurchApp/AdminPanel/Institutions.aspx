@@ -317,7 +317,7 @@
 
 		</div>
 		  <div class="modal-footer">
-			<a class="btn" data-dismiss="modal">Close</a>
+			<a class="btn btn-primary" data-dismiss="modal">Close</a>
 			<a id="btnAddAdmin" name="" class="btn btn-primary">Save changes</a>
 		</div>
 	      </div>
