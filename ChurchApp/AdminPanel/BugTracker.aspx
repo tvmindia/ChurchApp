@@ -37,12 +37,12 @@
 								
 								  <label class="radio">
 									<input type="radio" name="optionsBugFixed" id="OptBugNotFixed"  onclick="return FixedBugs();" value="false" />
-									Fixed
+									All
 								  </label>
                                          </div>
 								
                                         
-                                         <div class="span9"><label id="lblStartDate" style="display:none;">Start Date : </label>
+                                         <div class="span9"><label id="lblStartDate" style="display:none;vertical-align:super;">Start Date : </label>
                                           <input  class="input-large datepicker" name="StartDate" id="txtStartDate" onselect="return DateChange();" style="display:none;" type="text" placeholder="From"/></div>
                                         </div>
 								</div>
@@ -58,6 +58,7 @@
 								  <th>Source</th>
                                   <th>Version</th>
                                   <th>Date</th>
+                                  <th>Status</th>
 								  <th>Action</th>
 							  </tr>
 						  </thead>   
