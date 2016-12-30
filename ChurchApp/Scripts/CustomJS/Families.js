@@ -523,6 +523,18 @@ function saveMember() {
     }
 }
 
+function HeadCheked()
+{
+    if ($('#chkIsHead').closest('span').hasClass('checked') == false) {
+        $("#btnDelete").css("display", "none");
+    }
+    else
+    {
+        $("#btnDelete").css("display", "");
+    }
+   
+}
+
 //Image file handler of member
 function handleMemberFileSelect(evt) {
     try
@@ -615,6 +627,7 @@ function Member() {
         $('#ErrorBox,#ErrorBox1').hide(1000);
         $('input[type=text],input[type=password]').css({ background: 'white' });
         $('textarea,select').css({ background: 'white' });
+        document.getElementById("chkIsHead").disabled = false;
     }
     catch (e) {
         noty({ type: 'error', text: e.message });
@@ -686,10 +699,12 @@ function EditMembers(e) {
             $("#txtAddress").val(jsonResult[0].Address);
             if (jsonResult[0].IsHead == true) {
                 $('#chkIsHead').closest('span').addClass('checked');
+                document.getElementById("chkIsHead").disabled = true;
                 $("#btnDelete").css("display", "none");
             }
             else {
                 $('#chkIsHead').closest('span').removeClass('checked');
+                document.getElementById("chkIsHead").disabled = false;
                 $("#btnDelete").css("display", "");
             }
             if (jsonResult[0].URL != "" && jsonResult[0].URL != undefined) {
