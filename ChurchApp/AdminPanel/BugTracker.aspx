@@ -42,7 +42,7 @@
                                          </div>
 								
                                         
-                                         <div class="span9"><label id="lblStartDate" style="display:none;">Start Date : </label>
+                                         <div class="span9"><label id="lblStartDate" style="display:none;vertical-align:super;">Start Date : </label>
                                           <input  class="input-large datepicker" name="StartDate" id="txtStartDate" onselect="return DateChange();" style="display:none;" type="text" placeholder="From"/></div>
                                         </div>
 								</div>
