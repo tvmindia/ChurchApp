@@ -338,20 +338,27 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UpdateChurch]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = churchName;
-                cmd.Parameters.Add("@TownCode", SqlDbType.NVarChar, 10).Value = townCode;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = churchName != null && churchName != "" ? churchName : null;
+                cmd.Parameters.Add("@TownCode", SqlDbType.NVarChar, 10).Value = townCode != null && townCode != "" ? townCode : null;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description != null && description != "" ? description : null;
+                cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about != null && about != "" ? about : null;
+                //IsHome indicates call from home page
                 cmd.Parameters.Add("@IsHome", SqlDbType.Bit).Value = IsHome;
                 if (mainImageId!=null)
                 {
                     cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
                 }
-                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
-                cmd.Parameters.Add("@Latitude", SqlDbType.NVarChar, 100).Value = latitude;
-                cmd.Parameters.Add("@Longitude", SqlDbType.NVarChar, 100).Value = longitude;
-                cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1;
-                cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2;
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address != null && address != "" ? address : null;
+                if (latitude != null && latitude != "")
+                {
+                    cmd.Parameters.Add("@Latitude", SqlDbType.Decimal).Value = Math.Truncate(Decimal.Parse(latitude) * 1000000m) / 1000000m;
+                }
+                if (longitude != null && longitude != "")
+                {
+                    cmd.Parameters.Add("@Longitude", SqlDbType.Decimal).Value = Math.Truncate(Decimal.Parse(longitude) * 1000000m) / 1000000m;
+                }
+                cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1 != null && phone1 != "" ? phone1 : null;
+                cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2 != null && phone2 != "" ? phone2 : null;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);

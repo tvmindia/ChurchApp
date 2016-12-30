@@ -104,7 +104,7 @@ table{
 
                               <label class="control-label" for="focusedInput">Church Name</label>
                                <div class="controls">
-                               <input class="input-large focused" name="txtChurchName" id="txtChurchName" placeholder="Enter Church name" onkeypress="return isnotNumber(event);" type="text"/>
+                               <input class="input-large focused" name="txtChurchName" id="txtChurchName" onkeypress="return isnotNumber(event);" type="text"/>
                               </div>
                               </div>
 
@@ -459,13 +459,13 @@ table{
                                    <div class="control-group">
                                     <label class="control-label" for="focusedInput">Password</label>
                                    <div class="controls">
-                                   <input class="input-large focused" name="txtPassword" autocomplete="off" id="txtPassword" placeholder="Password" type="password"/>
+                                   <input class="input-large focused" name="txtPassword" autocomplete="off" id="txtPassword" type="password"/>
                                   </div>
                                  </div>
                                   <div class="control-group">
                                     <label class="control-label" for="focusedInput">Confirm Password</label>
                                    <div class="controls">
-                                   <input class="input-large focused" autocomplete="off" name="txtconfirmpswd" onkeyup="checkPass(); return false;" id="txtconfirmpswd" placeholder="Confirm password" type="password"/>
+                                   <input class="input-large focused" autocomplete="off" name="txtconfirmpswd" onkeyup="checkPass(); return false;" id="txtconfirmpswd" type="password"/>
                                   </div>
                                  </div>
                                  
@@ -559,7 +559,7 @@ table{
                            <div class="control-group">
                              <label class="control-label" for="focusedInput">Hierarchical Order</label>
                                <div class="controls">
-                                  <input class="input-small focused" onkeypress="return isNumber(event);" name="txtOrder" id="txtOrder" placeholder="Order No"  type="text"/>
+                                  <input class="input-small focused" onkeypress="return isNumber(event);" name="txtOrder" id="txtOrder" type="text"/>
                             </div>
                              </div>
                                 
