@@ -195,7 +195,7 @@ table{
                          </fieldset>
                             <div id="footer" runat="server" class="form-actions">
                                         <a class="btn btn-primary" id="btnChurchAdd" href="#">Save</></a>
-                                        <a class="btn btn-primary ChurchClear">Cancel</a>
+                                        <a class="btn btn-primary ChurchClear">Clear</a>
                                     </div>	
                         </div>
                         
@@ -278,7 +278,7 @@ table{
                          </fieldset>
                                   <div  class="form-actions">
                                         <a class="btn btn-primary" id="btnRolesAdd" href="#">Save</></a>
-                                        <a class="btn btn-primary RolesClear">Cancel</a>
+                                        <a class="btn btn-primary RolesClear">Clear</a>
                                     </div>	
                                  </div>
 						
@@ -478,7 +478,7 @@ table{
 
                              <div class="form-actions">
                                         <a class="btn btn-primary" id="btnUserAdd" href="#">Save</></a>
-                                        <a class="btn btn-primary UserClear">Cancel</a>
+                                        <a class="btn btn-primary UserClear">Clear</a>
                                     </div>	
                                  </div>
 						
@@ -517,9 +517,10 @@ table{
 							  <thead>
 								  <tr>
                                       <th>DesigID</th>
+                                      <th>Organization Type</th>
                                       <th>Position</th>
 									  <th>Order</th>
-									  <th>Organization Type</th>
+									  <th>Organization</th>
                                      <th>Actions</th>                                          
 								  </tr>
 							  </thead>   
@@ -571,7 +572,7 @@ table{
 
                              <div class="form-actions">
                                         <a class="btn btn-primary" id="btnDesignationAdd" href="#">Save</></a>
-                                        <a class="btn btn-primary clearDesignation">Cancel</a>
+                                        <a class="btn btn-primary clearDesignation">Clear</a>
                                     </div>	
                                  </div>
 						
@@ -669,7 +670,7 @@ table{
 
                              <div class="form-actions">
                                        <a href="#" class="btn btn-primary" id="btnSaintAdd">Save</a>
-                                        <a href="#" class="btn btn-primary ClearSaint">Close</a>
+                                        <a href="#" class="btn btn-primary ClearSaint">Clear</a>
                                     </div>	
                                  </div>
 						
@@ -756,7 +757,7 @@ table{
 
                              <div class="form-actions">
                                         <a class="btn btn-primary" id="btnTownAdd" href="#">Save</></a>
-                                        <a class="btn btn-primary clearTown">Cancel</a>
+                                        <a class="btn btn-primary clearTown">Clear</a>
                                     </div>	
                                  </div>
 						

@@ -129,14 +129,7 @@ $("document").ready(function (e) {
 
         $("#ddlChurchinUsers").on("change", function (e)
         {
-            //var $selectRoles = $(".ddlRoles").select2();
-            //$selectRoles.select2().empty();
-            //var chid = $(this).val();
-            //  $(".ddlRoles").select2({
-            //    placeholder: "Choose Role",
-            //    allowClear: true,
-            //    data: BindRolesDropdown(chid)
-            //});
+           
             if (($("#ddlChurchinUsers").val() != "") && ($("#ddlChurchinUsers").val() != null)) {
                 var Users = new Object();
                 var Church = new Object();
@@ -190,7 +183,7 @@ $("document").ready(function (e) {
 
         });
 
-        $("#idddlOrganization").on("change", function (e) {klkkl
+        $("#idddlOrganization").on("change", function (e) {
            
             if (($("#idddlOrganization").val() != "") && ($("#idddlOrganization").val() != null)) {
                 var Designation = new Object();
@@ -221,7 +214,7 @@ $("document").ready(function (e) {
       var Church = new Object();
       DashDataTables.churchTable = $('#churchtable').DataTable(
        {
-
+       dom: '<"top"f>rt<"bottom"ip><"clear">',
        order: [],
        searching: true,
        paging: true,
@@ -283,7 +276,7 @@ $("document").ready(function (e) {
                  "visible": false,
                  "searchable": false
              },
-             {
+             {//custom js functions can be callled in render property for that target column
                  "render": function (data, type, row) {
                       return ConvertJsonToDate(data);
                  },
@@ -295,8 +288,6 @@ $("document").ready(function (e) {
                  },
                   "targets": 2
             }
-
-
             ]
           
         });
@@ -358,21 +349,23 @@ $("document").ready(function (e) {
         var OrgDesignationMaster = new Object();
         DashDataTables.designationTable= $('#Designationtable').DataTable(
         {
+            dom: '<"top"f>rt<"bottom"ip><"clear">',
             order: [],
             searching: true,
             paging: true,
             data: GetAllDesignation(OrgDesignationMaster),
             columns: [
               { "data": "DesigID" },
+               { "data": "OrgType", "defaultContent": "<i>-</i>" },
               { "data": "Position", "defaultContent": "<i>-</i>" },
               { "data": "Order", "defaultContent": "<i>-</i>" },
-              { "data": "OrgType", "defaultContent": "<i>-</i>" },
+              { "data": "Organization", "defaultContent": "<i>-</i>" },
               { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditDesignation(this)"><i class="halflings-icon white edit" ></i></a><a class="circlebtn circlebtn-danger"><i class="halflings-icon white trash" onclick="RemoveDesignation(this)"></i></a>' }
             ],
             columnDefs: [//this object is to alter the display cell value not the actual value
              {
                  //hiding hidden column fields 
-                 "targets": [0],
+                 "targets": [0,1],
                  "visible": false,
                  "searchable": false
              }
@@ -683,6 +676,7 @@ $("document").ready(function (e) {
             $("#txtLongitude").val('');
             $("#txtLatitude").val('');
             $("#hdfChurchID").val('');
+            $("#hdfChurchImageID").val('');
             $("#ChurchPreview").attr('src', '/img/defaultalbumadd.jpg');
             //it clears all child page form elemets 
             //clears upload control
@@ -752,13 +746,15 @@ $("document").ready(function (e) {
             RemoveStyle();
 
             $("#idddlOrganization").select2("val", "");
+            DashDataTables.designationTable.search('').draw(false);
+            $("#txtPosition").prop("readonly", false);
             $("#txtPosition").val('');
             $("#txtOrder").val('');
 
             $("#hdfDesignationID").val('');
             //it clears all child page form elemets 
             //clears upload control
-            $('#form1').get(0).reset();
+           // $('#form1').get(0).reset();
         }
       
         catch(e)
@@ -1033,7 +1029,7 @@ $("document").ready(function (e) {
 
 
     $('#btnDesignationAdd').click(function (e) {
-      
+        debugger;
         try
         {
            
@@ -2117,6 +2113,7 @@ function EditDesignation(curobj)
     OrgDesignationMaster.orgDesignationMasterID = data.DesigID;
     $("#hdfDesignationID").val(OrgDesignationMaster.orgDesignationMasterID);
     var designationDetail = GetDesignationDetailByID(OrgDesignationMaster);
+    $("#txtPosition").prop("readonly", true);
     $("#txtPosition").val(designationDetail[0].Position != null && designationDetail[0].Position != "" ? designationDetail[0].Position: '');
     $("#txtOrder").val(designationDetail[0].Order != null && designationDetail[0].Order != "" ? designationDetail[0].Order: '');
     $("#idddlOrganization").val(designationDetail[0].OrgType).trigger("change");
@@ -2223,10 +2220,8 @@ function GetPatronDetailByID(PatronMaster) {
 
 function RemoveChurch(curobj)
 {
-      
     var data = DashDataTables.churchTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
-
     var r = confirm("Are You Sure to Delete?");
     if (r == true) {
         var Church = new Object();
@@ -2239,16 +2234,13 @@ function RemoveChurch(curobj)
             case "1":
                 noty({ type: 'success', text: Messages.DeletionSuccessFull });
                 try {
-                    //dropdownContainer.ddlChurch.select2().empty();
-                    //dropdownContainer.ddlChurch.select2({
-                    //        placeholder: "Choose Church",
-                    //        allowClear: true,
-                    //        data: BindChurchDropdown()
-                    //     });
-                  
                     BindAllChurches();
+                    //Clear forms
+                    $('.ChurchClear').click();
+
                 }
-                catch (e) {
+                catch (e)
+                {
                     noty({ type: 'error', text: e.message });
                 }
               
