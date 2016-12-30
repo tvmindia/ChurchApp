@@ -245,7 +245,7 @@ function savePriest()
                             $("#hdfpriestImageID").val(result.imageId);
                         break;
                         case "2":
-                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            noty({ type: 'error', text: Messages.VicarExist });
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.FailureMsgCaption });
@@ -274,7 +274,7 @@ function savePriest()
 
                             break;
                         case "2":
-                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            noty({ type: 'error', text: Messages.VicarExist });
                             break;
                         default:
                             noty({ type: 'error', text: result.result });
@@ -319,7 +319,7 @@ function savePriest()
                             $('#btnCancelPriest').hide();
                             break;
                         case "2":
-                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            noty({ type: 'error', text: Messages.VicarExist });
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.FailureMsgCaption });
@@ -345,7 +345,7 @@ function savePriest()
                             noty({ type: 'error', text: Messages.FailureMsgCaption });
                             break;
                         case "2":
-                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            noty({ type: 'error', text: Messages.VicarExist });
                             break;
                         default:
                             noty({ type: 'error', text: result.result });
