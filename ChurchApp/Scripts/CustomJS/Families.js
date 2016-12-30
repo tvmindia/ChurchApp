@@ -523,6 +523,18 @@ function saveMember() {
     }
 }
 
+function HeadCheked()
+{
+    if ($('#chkIsHead').closest('span').hasClass('checked') == false) {
+        $("#btnDelete").css("display", "none");
+    }
+    else
+    {
+        $("#btnDelete").css("display", "");
+    }
+   
+}
+
 //Image file handler of member
 function handleMemberFileSelect(evt) {
     try

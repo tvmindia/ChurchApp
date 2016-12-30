@@ -130,7 +130,7 @@
 								<label class="control-label" for="focusedInput">IsHead:</label>
 								<div class="controls">
                                    
-                                       <input type="checkbox" id="chkIsHead" value=""/>
+                                       <input type="checkbox" id="chkIsHead" value="" onclick="return HeadCheked();"/>
                                 </div>
 								</div> 
                                 <div class="control-group" id="memberImgDiv">
@@ -220,8 +220,9 @@
 
 		</div>
 		  <div class="modal-footer">
-			<a class="btn" data-dismiss="modal" onclick="clearAdminControls();">Close</a>
-			<a id="btnAddAdmin" class="btn btn-primary SaveAdmin">Save changes</a>
+              <a id="btnAddAdmin" class="btn btn-primary SaveAdmin">Save</a>
+			<a class="btn btn-primary" data-dismiss="modal" onclick="clearAdminControls();">Close</a>
+			
 		</div>
 	      </div>
     <input type="hidden" value="" id="hdfUnitName" />
