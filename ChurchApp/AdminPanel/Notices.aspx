@@ -155,13 +155,14 @@
 
                                 <div id="divNotificationDates">
                                     <div class="control-group">
-                                        <label class="control-label" id="lblAlreadyNotificationSend">Already Notification added</label>
+                                        <label class="control-label" id="lblAlreadyNotificationSend">Notification Was added</label>
+                                        <i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" data-content="If you added the Mobile notification once you can only edit it from the notification portal !"></i>
                                     </div>
                                     <div class="control-group">
                                         <label class="control-label" for="date01">Start Date</label>
                                         <div class="controls">
                                             <label class="control-label" for="focusedInput" id="lblStartDate" style="display: none"></label>
-                                            <input type="text" class="input-large datepicker" readonly="true" id="dateStartDate" />
+                                            <input type="text" class="input-large datepicker" readonly="true" id="dateStartDate" placeholder="select date" />
                                         </div>
                                     </div>
 
@@ -169,14 +170,14 @@
                                         <label class="control-label" for="date01">Expiry Date</label>
                                         <div class="controls">
                                             <label class="control-label" for="focusedInput" id="lblExpiryDate" style="display: none"></label>
-                                            <input type="text" class="input-large datepicker" readonly="true" id="dateExpiryDate" />
+                                            <input type="text" class="input-large datepicker" readonly="true" id="dateExpiryDate" placeholder="select date"/>
                                         </div>
                                     </div>
 
                                     <div class="control-group" id="DivNotificationContent">
                                     <label class="control-label" for="focusedInput">Notification Content</label>
                                     <div class="controls">
-                                        <textarea class="input-large" id="txtnotificationCOntent" name="Description" rows="4" placeholder=""></textarea>
+                                        <textarea class="input-large" id="txtnotificationCOntent" name="Description" rows="4"></textarea>
 
                                     </div>
                                 </div>
