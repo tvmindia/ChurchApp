@@ -57,7 +57,16 @@ $(document).ready(function () {
         $('#btnAddPriest').click(function (e) {
             try 
             {
-                var status=$(this).attr('name');
+                debugger;
+                var status = $(this).attr('name');
+                if (status == "")
+                {
+                    $('#PriestEd').hide();
+                    $('#PriestShowDetails').hide();
+                    ClearFields();
+                    noty({ type: 'error', text: Messages.VicarExist });
+                    return false;
+                }
                 var priestID = $('#hdnAddPriestID').val();
                 if(priestID!=null||priestID!="")
                 {
@@ -129,8 +138,10 @@ $(document).ready(function () {
                 var FlagExist=VicarExist();
                 var Role = FlagExist.result;
                 if (($('#ddlstatus').val() == 'Vicar') && (Role == 2)) {
-                    noty({ text: Messages.VicarExist, type: 'error' });
-                    return false;
+                    if ($("#hdfPriestID").val() == '') {
+                        noty({ text: Messages.VicarExist, type: 'error' });
+                        return false;
+                    }
                 }
 
 
@@ -245,7 +256,7 @@ function savePriest()
                             $("#hdfpriestImageID").val(result.imageId);
                         break;
                         case "2":
-                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            noty({ type: 'error', text: Messages.VicarExist });
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.FailureMsgCaption });
@@ -274,7 +285,7 @@ function savePriest()
 
                             break;
                         case "2":
-                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            noty({ type: 'error', text: Messages.VicarExist });
                             break;
                         default:
                             noty({ type: 'error', text: result.result });
@@ -319,7 +330,7 @@ function savePriest()
                             $('#btnCancelPriest').hide();
                             break;
                         case "2":
-                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            noty({ type: 'error', text: Messages.VicarExist });
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.FailureMsgCaption });
@@ -345,7 +356,7 @@ function savePriest()
                             noty({ type: 'error', text: Messages.FailureMsgCaption });
                             break;
                         case "2":
-                            noty({ type: 'error', text: Messages.OperationDuplicateFailure });
+                            noty({ type: 'error', text: Messages.VicarExist });
                             break;
                         default:
                             noty({ type: 'error', text: result.result });

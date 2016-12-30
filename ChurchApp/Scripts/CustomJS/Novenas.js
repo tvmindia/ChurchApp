@@ -75,6 +75,18 @@ $("document").ready(function (e)
         $('#btnSave').click(function (e) {
             try
             {
+                if (IsNormal == false) {
+                    var today = new Date();
+                    var dobcheck = $('#dateStartDate').val();
+                    var Endcheck = $('#dateEndDate').val();
+                    
+                    if (Endcheck != "") {
+                        if (Datecheck(Endcheck) < Datecheck(dobcheck)) {
+                            noty({ text: Messages.EndInvalid, type: 'error' });
+                            return false;
+                        }
+                    }
+                }
                 debugger;
                 var IsValid = NewNovenaValidation();
                 if (IsValid) {
@@ -647,8 +659,7 @@ function FixedEditClick()
                     DeletedImgPath = imgPath;
 
 
-
-
+                    
                     if (jsonResult.StartDate != null) {
                         IsNormal = false;
                         // $("#divDay").hide();
@@ -664,6 +675,10 @@ function FixedEditClick()
                         IsNormal = true;
                         $("#divStartDate").hide();
                         $("#divEndDate").hide();
+                        $("#dateEndDate").val('');
+                        $("#dateStartDate").val('');
+                        $('#rdoNovenaSpecial').parent().removeClass('checked');
+                        $("#rdoNovenaNormal").parent().addClass('checked');
                         //  $("#divDay").show();
                     }
 

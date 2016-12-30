@@ -487,6 +487,7 @@ function saveMember() {
 
         }
         else {
+            debugger;
             Members.memberId = $("#hdfMemberID").val();
             var guid = createGuid();
             if (((imagefile = $('#mfluImage')[0].files[0]) != undefined)) {
