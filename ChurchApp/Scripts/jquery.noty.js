@@ -233,7 +233,7 @@
 		text: '',
 		type: 'alert',
 		speed: 500,
-		timeout: 800,
+		timeout: 900,
 		closeButton: false,
 		closeOnSelfClick: true,
 		closeOnSelfOver: false,

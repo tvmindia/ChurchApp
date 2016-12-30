@@ -37,7 +37,7 @@
 								
 								  <label class="radio">
 									<input type="radio" name="optionsBugFixed" id="OptBugNotFixed"  onclick="return FixedBugs();" value="false" />
-									Fixed
+									All
 								  </label>
                                          </div>
 								
@@ -58,6 +58,7 @@
 								  <th>Source</th>
                                   <th>Version</th>
                                   <th>Date</th>
+                                  <th>Status</th>
 								  <th>Action</th>
 							  </tr>
 						  </thead>   

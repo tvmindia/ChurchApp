@@ -377,7 +377,9 @@ var Messages = {
     LoginFailed: "User Name / Password is wrong!",
     LoginNameExists: "Login name already exists!",
     LoginNameExistsUpdated: "Successfully Edited! Login name already exists",
-    PasswordNotMatch:"Password does not match",
+    PasswordNotMatch: "Password does not match",
+    SelectPosition: "Please Select Position",
+    SelectMember:"Please Select Member",
    
     Warning: "Warning Msg ",
     DeletionFailure: "Deletion Not Successful ",

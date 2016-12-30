@@ -24,6 +24,7 @@ $("document").ready(function (e) {
                    { "data": "ErrorSource", "defaultContent": "<i>-</i>" },
                     { "data": "Version", "defaultContent": "<i>-</i>" },
                      { "data": "Date", "defaultContent": "<i>-</i>" },
+                      { "data": "IsFixed", "defaultContent": "<i>-</i>" },
                    { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" title="Edit Error Log" onclick="EditErrorList(this)"><i class="halflings-icon white edit""></i></a>' }
 
                  ],
@@ -38,7 +39,22 @@ $("document").ready(function (e) {
                            return ConvertJsonToDate(data);
                        },
                        "targets": 6
-                   }
+                   },
+                    {
+                        "render": function (data, type, row) {
+                            var i=null
+                            if (row.IsFixed == true)
+                            {
+                                i = '<a class="Status" title="fixed"><i class="fa fa-check" aria-hidden="true"></i></a>';
+                            }
+                            else
+                            {
+                                i = '<a class="Status" title="not fixed"><i aria-hidden="true">-</i></a>';
+                            }
+                            return i;
+                        },
+                        "targets": 7
+                    }
 
 
                  ]
