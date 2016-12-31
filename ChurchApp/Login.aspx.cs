@@ -262,5 +262,26 @@ namespace ChurchApp
 
         }
         #endregion Verify Code
+
+        #region UpdatePassword
+        [WebMethod]
+        public static string UpdatePassword(Security LogObj)
+        {
+            Security.CryptographyFunctions CryptObj = new Security.CryptographyFunctions();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            try
+            {
+                LogObj.Password = CryptObj.Encrypt(LogObj.Password);
+                LogObj.ResetPassword(Guid.Parse(LogObj.UserID));
+                LogObj.status = "True";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+            return jsSerializer.Serialize(LogObj);
+        }
+        #endregion UpdatePassword
     }
 }

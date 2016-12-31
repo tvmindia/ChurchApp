@@ -128,6 +128,7 @@ function EnterPassword(UsrID) {
 
 function UpdatePassword()
 {
+    debugger;
     var UsrID = $('#HdnUserID').val();
     var Passwd = $('#txtPassword').val();
     var CPasswd = $('#txtConfirmPassword').val();
@@ -141,9 +142,10 @@ function UpdatePassword()
         Security.Password = CPasswd;
         Security.UserID = UsrID;
         var data = "{'LogObj':" + JSON.stringify(Security) + "}";
-        table = getJsonData(data, "../AdminPanel/Login.aspx/UpdatePassword");
-    
-        if (table.d == "True") {
+        ds = getJsonData(data, "../Login.aspx/UpdatePassword");
+        table = JSON.parse(ds.d);
+
+        if (table.status == "True") {
             $('#NewPassword').remove();
             Succes();
         }
@@ -174,7 +176,7 @@ function Succes() {
     var html = ('<div class="login-box" id="ChangedPassword">'
         + '<h2>You Successfully Changed Your Password..</h2>'
         + '<div class="clearfix"></div>'
-        + '<h3></h3><p><a href="../AdminPanel/Login.aspx" style="color:blue;">Click Here</a> to Login</p></div');
+        + '<h3></h3><p><a href="../Login.aspx" style="color:blue;">Click Here</a> to Login</p></div');
     LoginDIv.append(html);
 }
 function EmailValidation() {
