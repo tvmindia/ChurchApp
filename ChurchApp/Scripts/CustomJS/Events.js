@@ -7,7 +7,7 @@ var imgPath = '';                   //Stores path of uploaded image
 var DeletedImgID = '';              //While changing the uploaded image with new , previous one should get deleted, So imageid to be deleted is stored in this variable
 var DeletedImgPath = '';            //While changing the uploaded image with new , previous one should get deleted from folde, So imag path to be deleted is stored in this variable
 var NotificationTypeCode = 'evt';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
-
+var IsMobNotified = '';
 var IsAlreadyNotified = false;
 var MaxCharacterLimit = 200;
 var churchObject = {};
@@ -19,7 +19,7 @@ $("document").ready(function (e) {
     try
     {
          
-
+        $('[data-toggle="popover"]').popover();
         BindEvents();
         BindOldEvents();
         //Setting current churchid
@@ -102,7 +102,6 @@ $("document").ready(function (e) {
         });
 
         $("#rdoNotificationNo").click(function () {
-
             $("#DivNotificationContent").hide();
             $("#lblAlreadyNotificationSend").hide();
 
@@ -209,20 +208,24 @@ $("document").ready(function (e) {
 
                                 if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
                                 {
-                                    var Notification = new Object();
-                                    Notification.notificationType = NotificationTypeCode;
-                                    Notification.linkID = Events.eventId;
-                                    Notification.caption = Events.eventName;
-                                    Notification.description = $('#txtnotificationCOntent').val();
-                                    //Events.description;
-                                    if ($('#dateStartDate').val() != "") {
-                                        Notification.startDate = $('#dateStartDate').val();
-                                    }
-                                    if ($('#dateExpiryDate').val() != "") {
-                                        Notification.expiryDate = $('#dateExpiryDate').val();
-                                    }
+                                    if (IsMobNotified)
+                                    {
+                                        var Notification = new Object();
+                                        Notification.notificationType = NotificationTypeCode;
+                                        Notification.linkID = Events.eventId;
+                                        Notification.caption = Events.eventName;
+                                        Notification.description = $('#txtnotificationCOntent').val();
+                                        //Events.description;
+                                        if ($('#dateStartDate').val() != "") {
+                                            Notification.startDate = $('#dateStartDate').val();
+                                        }
+                                        if ($('#dateExpiryDate').val() != "") {
+                                            Notification.expiryDate = $('#dateExpiryDate').val();
+                                        }
 
-                                    InsertNotification(Notification);
+                                        InsertNotification(Notification);
+                                    }
+                                    
                                 }
 
 
@@ -242,20 +245,24 @@ $("document").ready(function (e) {
                                 noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                                 if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
                                 {
-                                    var Notification = new Object();
-                                    Notification.notificationType = NotificationTypeCode;
-                                    Notification.linkID = Events.eventId;
-                                    Notification.caption = Events.eventName;
-                                    Notification.description = $('#txtnotificationCOntent').val();
-                                    //Events.description;
-                                    if ($('#dateStartDate').val() != "") {
-                                        Notification.startDate = $('#dateStartDate').val();
-                                    }
-                                    if ($('#dateExpiryDate').val() != "") {
-                                        Notification.expiryDate = $('#dateExpiryDate').val();
-                                    }
+                                    if (IsMobNotified)
+                                    {
+                                        var Notification = new Object();
+                                        Notification.notificationType = NotificationTypeCode;
+                                        Notification.linkID = Events.eventId;
+                                        Notification.caption = Events.eventName;
+                                        Notification.description = $('#txtnotificationCOntent').val();
+                                        //Events.description;
+                                        if ($('#dateStartDate').val() != "") {
+                                            Notification.startDate = $('#dateStartDate').val();
+                                        }
+                                        if ($('#dateExpiryDate').val() != "") {
+                                            Notification.expiryDate = $('#dateExpiryDate').val();
+                                        }
 
-                                    InsertNotification(Notification);
+                                        InsertNotification(Notification);
+                                    }
+                                    
                                 }
 
 
@@ -317,6 +324,7 @@ $("document").ready(function (e) {
                                 $("#hdfImageID").val(result.imageId);
                                 if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
                                 {
+                                    debugger;
                                     var Notification = new Object();
                                     Notification.notificationType = NotificationTypeCode;
                                     Notification.linkID = result.eventId;
@@ -329,7 +337,13 @@ $("document").ready(function (e) {
                                         Notification.expiryDate = $('#dateExpiryDate').val();
                                     }
 
-                                    InsertNotification(Notification);
+                                    var notires= InsertNotification(Notification);
+                                    if (notires == "1") {
+                                        IsMobNotified = false;
+                                        $('#lblAlreadyNotificationSend').show();
+                                        $('#txtnotificationCOntent').attr('disabled', true);
+
+                                    }
                                 }
 
 
@@ -351,6 +365,7 @@ $("document").ready(function (e) {
 
                                 if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
                                 {
+                                    debugger;
                                     var Notification = new Object();
                                     Notification.notificationType = NotificationTypeCode;
                                     Notification.linkID = InsertionStatus.eventId;
@@ -363,7 +378,13 @@ $("document").ready(function (e) {
                                         Notification.expiryDate = $('#dateExpiryDate').val();
                                     }
 
-                                    InsertNotification(Notification);
+                                    var notires=InsertNotification(Notification);
+                                    if (notires == "1") {
+                                        IsMobNotified = false;
+                                        $('#lblAlreadyNotificationSend').show();
+                                        $('#txtnotificationCOntent').attr('disabled', true);
+
+                                    }
                                 }
 
 
@@ -397,27 +418,19 @@ $("document").ready(function (e) {
                     Events.eventId = EventID;
 
                     var DeletionStatus = DeleteEvent(Events);
+                    switch (DeletionStatus.Status) {
+                        case "1":
+                            noty({ text: Messages.DeletionSuccessFull, type: 'success' });
+                            break;
+                        case "0":
+                            noty({ text: Messages.DeletionFailure, type: 'error' });
+                            break;
+                        default:
+                            noty({ type: 'error', text: result.Status });
+                            break;
 
-                    if (DeletionStatus.Status == "1") {
-                        noty({ text: Messages.DeletionSuccessFull, type: 'success' });
-                        var AppImages = new Object();
-                        AppImages.appImageId = imageId;
-                        DeleteAppImage(AppImages);
-
-                        DeleteFileFromFolder(imgPath);
                     }
-                    else
-                    {
-                        if (DeletionStatus.Status == 0)
-                        {
-                            noty({ type: 'error', text: Messages.FailureMsgCaption });
-                        }
-                        else
-                        {
-                            noty({ text: DeletionStatus.Status, type: 'error' });
-                        }
-                        
-                    }
+                    
 
                     BindEvents();
                     SetControlsInNewEventFormat();

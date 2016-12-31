@@ -1047,7 +1047,6 @@ function AddNewNoticeFormat() {
 
     $("#rdoNotificationYes").parent().removeClass('checked');
     $('#rdoNotificationNo').parent().addClass('checked');
-    $('#rdoNotificationNo').click();
     $('#txtNoticeName').focus();
     $("#divnoticeName").show();
     $("#divNoticeType").show();

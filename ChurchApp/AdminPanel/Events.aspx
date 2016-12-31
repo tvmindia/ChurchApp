@@ -180,6 +180,7 @@
 
                                     <div class="control-group">
                                         <label class="control-label" id="lblAlreadyNotificationSend">Already Notification added</label>
+                                        <i class="fa fa-info-circle" data-toggle="popover" data-trigger="hover" data-content="If you added the Mobile notification once you can only edit it from the notification portal !"></i>
                                     </div>
                                 </div>
 
