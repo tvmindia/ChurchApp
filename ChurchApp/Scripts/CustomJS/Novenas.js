@@ -668,7 +668,7 @@ function FixedEditClick()
                         $("#divEndDate").show();
                         $('#rdoNovenaSpecial').parent().addClass('checked');
                         $("#rdoNovenaNormal").parent().removeClass('checked');
-                        $("#rdoNovenaSpecial").click();
+                        //$("#rdoNovenaSpecial").click();
                         $('#dateStartDate').val(ConvertJsonToDate(jsonResult.StartDate));
                         $('#dateEndDate').val(ConvertJsonToDate(jsonResult.EndDate));
 
@@ -681,7 +681,7 @@ function FixedEditClick()
                         $("#dateStartDate").val('');
                         $('#rdoNovenaSpecial').parent().removeClass('checked');
                         $("#rdoNovenaNormal").parent().addClass('checked');
-                        $("#rdoNovenaNormal").click();
+                        //$("#rdoNovenaNormal").click();
                         //  $("#divDay").show();
                     }
 

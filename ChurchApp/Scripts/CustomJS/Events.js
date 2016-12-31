@@ -894,7 +894,11 @@ function SetControlsInNewEventFormat() {
 
         $("#optHideNo").parent().removeClass('checked');
         $('#optHideYes').parent().addClass('checked');
-
+        document.getElementById("rdoNotificationNo").disabled = false;
+        document.getElementById("rdoNotificationYes").disabled = false;
+        $("#rdoNotificationYes").parent().removeClass('checked');
+        $('#rdoNotificationNo').parent().addClass('checked');
+        $('#txtnotificationCOntent').attr('disabled', false);
         $("#h1Event").text("New Event");
 
         $("#EventEditDivBox").show();
@@ -1140,14 +1144,21 @@ function FixedEditClick() {
                 }
                 if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
                     IsAlreadyNotified = true;
+                    IsMobNotified = false;
+                    $("#lblAlreadyNotificationSend").show();
+                    $("#lblAlreadyNotificationSend").text("Notification Already added");
                     $('#rdoNotificationYes').parent().addClass('checked');
                     $("#rdoNotificationNo").parent().removeClass('checked');
                     $("#DivNotificationContent").show();
+                    $('#txtnotificationCOntent').attr('disabled', true);
                     $("#txtnotificationCOntent").val(jsonResult.Descrtiption);
                 }
                 else {
                     $("#rdoNotificationNo").parent().addClass('checked');
                     $("#rdoNotificationYes").parent().removeClass('checked');
+                    $("#lblAlreadyNotificationSend").hide();
+                    $('#txtnotificationCOntent').attr('disabled', false);
+                    IsMobNotified = true;
                     IsAlreadyNotified = false;
                 }
             });
