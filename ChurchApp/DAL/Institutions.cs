@@ -195,7 +195,7 @@ namespace ChurchApp.DAL
                     Website = dr["Website"].ToString();
                     if (dr["Founded"].ToString()!="")
                     {
-                        Founded = DateTime.Parse(dr["Founded"].ToString().ToString()).ToString("dd-MM-yyyy");
+                        Founded = DateTime.Parse(dr["Founded"].ToString().ToString()).ToString("dd-MMM-yyyy");
                     }
                     Mobile = dr["Mobile"].ToString();
                     churchId = dr["ChurchID"].ToString();
@@ -229,6 +229,7 @@ namespace ChurchApp.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
+            SqlParameter outParam1 = null;
             try
             {
                 dcon = new dbConnection();
@@ -237,7 +238,6 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertInstitution]";
-                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(institutionID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar,-1).Value = name;
                 cmd.Parameters.Add("@desc", SqlDbType.NVarChar, -1).Value = description;
@@ -247,16 +247,16 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
                 cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website;
-                if(Founded!=null)
+                if(Founded!=null&&Founded!="")
                 {
                     cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = commonObj.Changeformat(Founded);
                 }
                 cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
-                if(albumId!=null)
+                if (albumId != null && albumId != "")
                 {
                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value= Guid.Parse(albumId);
                 }
-                if(imageId!=null)
+                if (imageId != null && imageId != "")
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }               
@@ -264,6 +264,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
+                outParam1 = cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier);
+                outParam1.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -277,6 +279,11 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
+            if (outParam1.Value != null)
+            {
+                institutionID = outParam1.Value.ToString();
+            }
+            results = outParam.Value.ToString();
             return outParam.Value.ToString();
         }
         #endregion InsertInstitution
@@ -310,16 +317,16 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
                 cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website;
                 cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
-                if(Founded!=null)
+                if (Founded != null && Founded != "")
                 {
                     cmd.Parameters.Add("@Founded", SqlDbType.DateTime).Value = commonObj.Changeformat(Founded);
                 }
-                if (albumId != null)
+                if (albumId != null && albumId != "")
                 {
                     cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
                 }
 
-                if (imageId != null)
+                if (imageId != null && imageId != "")
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
@@ -340,6 +347,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
+            results = outParam.Value.ToString();
             return outParam.Value.ToString();
         }
         #endregion UpdateInstitution

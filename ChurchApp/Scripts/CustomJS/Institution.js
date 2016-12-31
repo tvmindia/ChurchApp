@@ -1,8 +1,10 @@
 ﻿//
 ///////////////////////////////////////////********Document ready section
+var churchObject = {};
 $(document).ready(function () {
     try
     {
+        churchObject.chid = $("#hdfchid").val();
         ///
         ////Function for binding Institutions
         //
@@ -244,131 +246,174 @@ function SaveAdministrator()
 ///function save and update institution
 function SaveInstitution()
 {
-    try
-    {
-        var AppImgURL = '';
-        var InstituteID = $("#hdnInstutID").val();
+    try {
+        debugger;
+        var Institutions = new Object();
+        Institutions.name = $('#txtInstituteName').val();
+        Institutions.address = $('#txtAddress').val();
+        Institutions.Founder = $('#txtFounder').val();
+        Institutions.Founded = $('#txtFounded').val();
+        Institutions.description = $('#txtHistory').val();
+        Institutions.Email = $('#txtEmail').val();
+        Institutions.Website = $('#txtWebsite').val();
+        Institutions.phone1 = $('#txtPhone1').val();
+        Institutions.phone2 = $('#txtPhone2').val();
+        Institutions.Mobile = $('#txtMob').val();
+        Institutions.churchId = churchObject.chid;
 
-        //-----------------------INSERT-------------------//
+        if ($("#hdnInstutID").val() != "" && $("#hdnInstutID").val() != null) {
 
-        if (InstituteID == null || InstituteID == "") {
-            var guid = createGuid();
-
-            if (guid != null) {
-                var i = 0;
-                var imgresult = "";
-                var _URL = window.URL || window.webkitURL;
-                var formData = new FormData();
-                var imagefile, logoFile, img;
-
-                if (((imagefile = $('#instituteimg')[0].files[0]) != undefined)) {
-                    var formData = new FormData();
-                    var tempFile;
-                    if ((tempFile = $('#instituteimg')[0].files[0]) != undefined) {
-                        tempFile.name = guid;
-                        formData.append('NoticeAppImage', tempFile, tempFile.name);
-                        formData.append('GUID', guid);
-                        formData.append('createdby', 'sadmin');
-                    }
-                    formData.append('ActionTyp', 'NoticeAppImageInsert');
-                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    i = "1";
-                }
-
-            }
-
-            var Institutions = new Object();
-            Institutions.name = $('#txtInstituteName').val();
-            Institutions.address = $('#txtAddress').val();
-            Institutions.Founder = $('#txtFounder').val();
-            Institutions.Founded = $('#txtFounded').val();
-            Institutions.description = $('#txtHistory').val();
-            Institutions.Email = $('#txtEmail').val();
-            Institutions.Website = $('#txtWebsite').val();
-            Institutions.phone1 = $('#txtPhone1').val();
-            Institutions.phone2 = $('#txtPhone2').val();
-            Institutions.Mobile = $('#txtMob').val();
-            //Institutions.emailId = $('#txtEmail').val();
-            //Institutions.mobile = $('#txtMobile').val();
-            if (i == "1")
-            {
-                Institutions.imageId = guid;
-            }
-            Institutions.institutionID = guid;
-            $("#hdnInstutID").val(guid);
-            $('#hdnInstituteID').val(guid);
-            result = InsertInstitute(Institutions);
-
-            if (result.results == "1") {
-                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
-                $('#divAccoAdmininfo').show();
-                $('#divAdminInfo').show();
-                $('#EditdivAppend').empty();
-                if ($("#EditGenDetails").hasClass("active")) {
-                    $('#EditGenDetails').toggleClass("active");
-                    $('#EditGen').toggleClass("show");
-                }
-                if (!$("#divAccoAdmininfo").hasClass("active")) {
-                    $('#divAccoAdmininfo').toggleClass("active");
-                    $('#divAdminInfo').toggleClass("show");
-                }
-
-            }
-            else{
-                noty({ text:result.results, type: 'error' });
-            }
-
-            
-        }
-            //-----------------------UPDATE-------------------//
-        else {
-            
-            var Institutions = new Object();
-            Institutions.name = $('#txtInstituteName').val();
-            Institutions.address = $('#txtAddress').val();
-            Institutions.Founder = $('#txtFounder').val();
-            Institutions.Founded = $('#txtFounded').val();
-            Institutions.description = $('#txtHistory').val();
-            Institutions.Email = $('#txtEmail').val();
-            Institutions.Website = $('#txtWebsite').val();
-            Institutions.phone1 = $('#txtPhone1').val();
-            Institutions.phone2 = $('#txtPhone2').val();
-            Institutions.Mobile = $('#txtMob').val();
-            //Institutions.imageId = $("#hdnInstutID").val();
             Institutions.institutionID = $("#hdnInstutID").val();
 
-
-            // DeletedImgID = imageId;
-            // DeletedImgPath = imgPath
-            
-            var guid = createGuid();
-            if (((imagefile = $('#instituteimg')[0].files[0]) != undefined)) {
+            var imgresult;
+            if ((imgresult = $('#instituteimg')[0].files.length > 0)) {
+                Institutions.imageId = $("#hdfImageID").val();
                 var formData = new FormData();
-                var tempFile;
-                if ((tempFile = $('#instituteimg')[0].files[0]) != undefined) {
-                    tempFile.name = guid;
-                    formData.append('NoticeAppImage', tempFile, tempFile.name);
-                    formData.append('GUID', guid);
-                    formData.append('createdby', 'sadmin');
+                var imagefile;
+                imagefile = $('#instituteimg')[0].files[0];
+                formData.append('upImageFile', imagefile, imagefile.name);
+                formData.append('churchID', Institutions.churchId);
+                formData.append('institutionID', Institutions.institutionID);
+                formData.append('InstitutionimageId', Institutions.imageId);
+                formData.append('name', Institutions.name);
+                formData.append('address', Institutions.address);
+                formData.append('Founder', Institutions.Founder);
+                formData.append('Founded', Institutions.Founded);
+                formData.append('description', Institutions.description);
+                formData.append('Email', Institutions.Email);
+                formData.append('Website', Institutions.Website);
+                formData.append('phone1', Institutions.phone1);
+                formData.append('phone2', Institutions.phone2);
+                formData.append('Mobile', Institutions.Mobile);
+                formData.append('updatedby', document.getElementById("LoginName").innerHTML);
+                formData.append('ActionTyp', 'InstitutionImageUpdate');
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                        $('#btncancelInstitute').hide();
+                        break;
+                    case "0":
+                        noty({ text: Messages.UpdationFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.results });
+                        break;
+
                 }
-                formData.append('ActionTyp', 'NoticeAppImageInsert');
-                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                Institutions.imageId = guid;
-            }
+                BindInstituteslist();
+                $("#hdnInstutID").val(Institutions.institutionID);
 
-            result = UpdateInstitute(Institutions);
-
-            if (result.results == "1") {
-                
-                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
             }
-            if (result.results != "1") {
-                noty({ text: result.results, type: 'error' });
-            }
+            else {
+                result = UpdateInstitute(Institutions);
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                        $('#btncancelInstitute').hide();
+                        break;
+                    case "0":
+                        noty({ text: Messages.UpdationFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.results });
+                        break;
 
+                }
+
+                BindInstituteslist();
+                $("#hdnInstutID").val(Institutions.institutionID);
+            }
         }
-        BindInstituteslist();
+        else {
+
+            //INSERT
+            ///////Image insert using handler
+            var imgresult;
+            if ((imgresult = $('#instituteimg')[0].files.length > 0)) {
+
+                var formData = new FormData();
+                var imagefile;
+                imagefile = $('#instituteimg')[0].files[0];
+                formData.append('upImageFile', imagefile, imagefile.name);
+                formData.append('churchID', Institutions.churchId);
+                formData.append('name', Institutions.name);
+                formData.append('address', Institutions.address);
+                formData.append('Founder', Institutions.Founder);
+                formData.append('Founded', Institutions.Founded);
+                formData.append('description', Institutions.description);
+                formData.append('Email', Institutions.Email);
+                formData.append('Website', Institutions.Website);
+                formData.append('phone1', Institutions.phone1);
+                formData.append('phone2', Institutions.phone2);
+                formData.append('Mobile', Institutions.Mobile);
+                formData.append('createdby', document.getElementById("LoginName").innerHTML);
+                formData.append('ActionTyp', 'InstitutionImageInsert');
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                        $("#hdnInstutID").val(result.institutionID);
+                        $("#hdfImageID").val(result.imageId);
+                        $('#btncancelInstitute').hide();
+                        $('#divAccoAdmininfo').show();
+                        $('#divAdminInfo').show();
+                        $('#EditdivAppend').empty();
+                        if ($("#EditGenDetails").hasClass("active")) {
+                            $('#EditGenDetails').toggleClass("active");
+                            $('#EditGen').toggleClass("show");
+                        }
+                        if (!$("#divAccoAdmininfo").hasClass("active")) {
+                            $('#divAccoAdmininfo').toggleClass("active");
+                            $('#divAdminInfo').toggleClass("show");
+                        }
+                        break;
+                    case "0":
+                        noty({ text: Messages.InsertionFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.results });
+                        break;
+
+                }
+                BindInstituteslist();
+            }
+            else {
+                result = InsertInstitute(Institutions);
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                        $("#hdnInstutID").val(result.institutionID);
+                        $("#hdfImageID").val(result.imageId);
+                        $('#btncancelInstitute').hide();
+                        $('#divAccoAdmininfo').show();
+                        $('#divAdminInfo').show();
+                        $('#EditdivAppend').empty();
+                        if ($("#EditGenDetails").hasClass("active")) {
+                            $('#EditGenDetails').toggleClass("active");
+                            $('#EditGen').toggleClass("show");
+                        }
+                        if (!$("#divAccoAdmininfo").hasClass("active")) {
+                            $('#divAccoAdmininfo').toggleClass("active");
+                            $('#divAdminInfo').toggleClass("show");
+                        }
+                        break;
+                    case "0":
+                        noty({ text: Messages.InsertionFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.results });
+                        break;
+
+                }
+
+                BindInstituteslist();
+
+            }
+        }
     }
+           
     catch(e)
     {
         noty({ type: 'error', text: e.message });
@@ -697,7 +742,7 @@ function EditInstitute(this_obj) {
         document.getElementById('HeadDetails').innerText = "Edit Details";
         $('#hdnInstutID').val(InstituteRow.institutionID);
         $('#hdnInstituteID').val(InstituteRow.institutionID);
-        $('#btnDeleteInstitute').removeAttr("disabled");
+        $('#btnDeleteInstitute').show();
         $('#btnDeleteInstitute').attr('name', InstituteRow.institutionID);
         $('#btnDeleteInstitute').attr('onclick', 'DeleteInstituteclick(this)');
         BindEditCard(intituteID);
@@ -706,6 +751,7 @@ function EditInstitute(this_obj) {
         $('#InstituteEdit').show();
         $('#divAccoAdmininfo').show();
         $('#divAdminInfo').show();
+        $('#btncancelInstitute').show();
         $('#btncancelInstitute').attr('name', 'Edit');
         if (!$("#EditGenDetails").hasClass("active")) {
             $('#EditGenDetails').toggleClass("active");
@@ -784,10 +830,11 @@ function NewInstitute() {
         $('#iconShowInstitute').hide();
         $('#priestPreview').attr('src', '../img/gallery/Institution.jpg');
         document.getElementById('HeadDetails').innerText = "Add Institution";
+        $('#btncancelInstitute').show();
         $('#btncancelInstitute').attr('name', 'new');
         $('#InstituteEdit').show();
         $('#InstituteShow').hide();
-        $('#btnDeleteInstitute').attr('disabled', 'disabled');
+        $('#btnDeleteInstitute').hide();
         $('#btnDeleteInstitute').attr('name', '');
         if (!$("#EditGenDetails").hasClass("active")) {
             $('#EditGenDetails').toggleClass("active");

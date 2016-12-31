@@ -137,7 +137,7 @@
 					<div class="box-content">
 					<div class="form-horizontal">
 				    <fieldset>
-                        <a class="btnEdit" style="right:40px;top:-41px;position:absolute;" title="EDIT" id="iconShowInstitute" name="Edit" onclick="Cancel(this);"><i class="halflings-icon white refresh" aria-hidden="true" ></i></a>
+                        <a class="btnEdit" style="right:40px;top:-41px;position:absolute;" title="EDIT" id="iconShowInstitute" name="Edit" onclick="Cancel(this);"><i class="halflings-icon white repeat" aria-hidden="true" ></i></a>
                     <%--<a class="btnEdit" style="right:30px;position: absolute;" onclick="EditInstitute();"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>--%>
                         <div class="control-group span12">
 					    <img class="priestimage" id="priestPreview" src="../img/gallery/Institution.jpg"/>
@@ -248,6 +248,7 @@
                         </div>
                         <%-- End div Administrator information --%>
 						<input type="hidden" id="hdnInstutID" />
+                        <input id="hdfImageID" type="hidden" value="" />
 							<div class="form-actions span12">
 							  <a class="btn btn-primary saveAll" name="" id="btnSaveInstitute">Save changes</a>
                                 <a id="btncancelInstitute" name="" class="btn btn-primary cancelAll" onclick="Cancel(this);">Cancel</a>

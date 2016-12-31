@@ -36,6 +36,7 @@ namespace ChurchApp.ImageHandler
                 Priest priestObj = null;
                 Events EventObj=null;
                 Notices NoticeObj = null;
+                Institutions InstObj = null;
                 GalleryAlbum GalAlbumObj = null;
                 GalleryItems GalItemsObj = null;
                 //
@@ -823,6 +824,105 @@ namespace ChurchApp.ImageHandler
                             {
                                 NoticeObj.status = ex.Message;
                                 context.Response.Write(jsSerializer.Serialize(NoticeObj));
+                            }
+                            break;
+                            case "InstitutionImageInsert":
+                            try
+                            {
+                                InstObj = new Institutions();
+                                //EventObj = new Events();
+                                //Insert to table
+                                AppImgObj = new AppImages();
+                                postFile = context.Request.Files["upImageFile"];
+                                fileExtension = Path.GetExtension(postFile.FileName);
+                                AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                AppImgObj.type = "image";
+                                AppImgObj.InsertAppImage1().ToString();
+                                InstObj.churchId = context.Request.Form.GetValues("churchID")[0];
+                                InstObj.description = context.Request.Form.GetValues("description")[0];
+                                InstObj.name = context.Request.Form.GetValues("name")[0];
+                                InstObj.address = context.Request.Form.GetValues("address")[0];
+                                InstObj.Founder = context.Request.Form.GetValues("Founder")[0];
+                                InstObj.Founded = context.Request.Form.GetValues("Founded")[0];
+                                InstObj.Email = context.Request.Form.GetValues("Email")[0];
+                                InstObj.Website = context.Request.Form.GetValues("Website")[0];
+                                InstObj.phone1 = context.Request.Form.GetValues("phone1")[0];
+                                InstObj.phone2 = context.Request.Form.GetValues("phone2")[0];
+                                InstObj.Mobile = context.Request.Form.GetValues("Mobile")[0];
+                                InstObj.createdBy = AppImgObj.createdBy;
+                                InstObj.imageId = AppImgObj.appImageId;
+                                InstObj.InsertInstitution();
+                                postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                jsSerializer = new JavaScriptSerializer();
+                                context.Response.Write(jsSerializer.Serialize(InstObj));
+                            }
+                            catch (Exception ex)
+                            {
+                                InstObj.results = ex.Message;
+                                context.Response.Write(jsSerializer.Serialize(InstObj));
+                            }
+                            break;
+                            case "InstitutionImageUpdate":
+                            try
+                            {
+                                InstObj = new Institutions();
+                                AppImgObj = new AppImages();
+                                postFile = context.Request.Files["upImageFile"];
+                                fileExtension = Path.GetExtension(postFile.FileName);
+                                if ((context.Request.Form.GetValues("InstitutionimageId")[0] != "") && (context.Request.Form.GetValues("InstitutionimageId")[0] != null))
+                                {
+                                    //update currrent image with new one
+                                    AppImgObj.appImageId = context.Request.Form.GetValues("InstitutionimageId")[0];
+                                    AppImgObj.DeleteFromFolder();
+                                    AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                    AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                                    AppImgObj.type = "image";
+                                    AppImgObj.Extension = fileExtension;
+                                    AppImgObj.postedFile = postFile;
+                                    AppImgObj.UpdateAppImage();
+                                    if (AppImgObj.status == "1")
+                                    {
+                                        //Delete Previous image from folder and save new folder 
+                                        AppImgObj.UpdateCurrentAppImageInFolder();
+                                    }
+                                }
+                                else
+                                {
+                                    //insert new image for imageless Event
+                                    AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                    AppImgObj.createdBy = context.Request.Form.GetValues("updatedby")[0];
+                                    AppImgObj.type = "image";
+                                    AppImgObj.Extension = fileExtension;
+                                    AppImgObj.postedFile = postFile;
+                                    AppImgObj.InsertAppImage1().ToString();
+                                    postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+
+                                }
+                                //Update Events
+                                InstObj.churchId = context.Request.Form.GetValues("churchID")[0];
+                                InstObj.institutionID = context.Request.Form.GetValues("institutionID")[0];
+                                InstObj.description = context.Request.Form.GetValues("description")[0];
+                                InstObj.name = context.Request.Form.GetValues("name")[0];
+                                InstObj.address = context.Request.Form.GetValues("address")[0];
+                                InstObj.Founder = context.Request.Form.GetValues("Founder")[0];
+                                InstObj.Founded = context.Request.Form.GetValues("Founded")[0];
+                                InstObj.Email = context.Request.Form.GetValues("Email")[0];
+                                InstObj.Website = context.Request.Form.GetValues("Website")[0];
+                                InstObj.phone1 = context.Request.Form.GetValues("phone1")[0];
+                                InstObj.phone2 = context.Request.Form.GetValues("phone2")[0];
+                                InstObj.Mobile = context.Request.Form.GetValues("Mobile")[0];
+                                InstObj.updatedBy = AppImgObj.updatedBy;
+                                InstObj.imageId = AppImgObj.appImageId;
+                                InstObj.UpdateInstitution();
+
+                                jsSerializer = new JavaScriptSerializer();
+                                context.Response.Write(jsSerializer.Serialize(InstObj));
+                            }
+                            catch (Exception ex)
+                            {
+                                InstObj.results = ex.Message;
+                                context.Response.Write(jsSerializer.Serialize(InstObj));
                             }
                             break;
 
