@@ -647,7 +647,7 @@ namespace ChurchApp.DAL
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "ResetPassword";
+                cmd.CommandText = "[ResetPassword]";
                 cmd.Parameters.Add("@UserId", SqlDbType.UniqueIdentifier).Value = UserID;
                 cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 40).Value = Password;
                 SqlParameter Output = new SqlParameter();
