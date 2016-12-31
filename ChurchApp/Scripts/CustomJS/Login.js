@@ -13,7 +13,7 @@ function ForgotPassword() {
         + '<span class="add-on"><i class="halflings-icon envelope"></i></span>'
         + '<input class="input-large span10" name="Email" id="txtEmail" type="Email" onkeyup="return EmailValidation()"  autocomplete="off" placeholder="Email"/>'
         + '</div>'
-        + '<div><img src="../img/Default/ring.gif" style="padding-left:147px;border:0;max-width:24%;height:auto;vertical-align:middle;display:none;" id="Sendinggif"></div>'
+        + '<div><img src="../img/ring.gif" style="padding-left:147px;border:0;max-width:24%;height:auto;vertical-align:middle;display:none;" id="Sendinggif"></div>'
         + '<div class="button-login">'     
         + '<a href="#" onclick="SendVerificationCode();" class="btn btn-primary loginbtn">Continue</a>'
         + '</div>'
@@ -24,7 +24,7 @@ function ForgotPassword() {
 }
 
 function SendVerificationCode() {
-   
+    debugger;
     $('#Sendinggif').show();
     var Email = $('#txtEmail');
     var EmailAddress = Email[0].value;
@@ -33,14 +33,14 @@ function SendVerificationCode() {
     var Security = new Object();
     Security.Email = EmailAddress;
     var data = "{'LoginObj':" + JSON.stringify(Security) + "}";
-    table = getJsonData(data, "../AdminPanel/Login.aspx/VerificationCodeEmit");
-    
-    if (table.d == "True")
+    ds = getJsonData(data, "../Login.aspx/VerificationCodeEmit");
+    table = JSON.parse(ds.d);
+    if (table.status == "true")
     {              
         $('#EmailBox').remove();
         MatchVetification(EmailAddress);
     }
-    if (table.d == "false")
+    if (table.status == "false")
     {       
         var ptag = document.getElementById('lblerror');
         ptag.style.color = 'red';
@@ -75,6 +75,7 @@ function MatchVetification(EmailAddr)
 
 function VerifyCodeNow()
 {
+    debugger;
     var Email=$('#HdnEmail').val();
     var VerifCode = $('#txtVerifyCode');
     var VerificationCod = VerifCode[0].value;
@@ -84,7 +85,7 @@ function VerifyCodeNow()
     Security.Email = Email;
     Security.VerifyCode = VerificationCod;
     var data = "{'LoginObj':" + JSON.stringify(Security) + "}";
-    ds = getJsonData(data, "../AdminPanel/Login.aspx/VerifyCode");
+    ds = getJsonData(data, "../Login.aspx/VerifyCode");
     table = JSON.parse(ds.d);
     if (table.msg === "True") {
         $('#VerifyBox').remove();
@@ -100,6 +101,7 @@ function VerifyCodeNow()
 }
 
 function EnterPassword(UsrID) {
+    debugger;
     var HdnUserID = document.createElement('input');
     HdnUserID.setAttribute("type", "hidden");
     HdnUserID.setAttribute("id", "HdnUserID");   
@@ -176,7 +178,7 @@ function Succes() {
     LoginDIv.append(html);
 }
 function EmailValidation() {
-   
+    debugger;
     var Email = $('#txtEmail').val();
     var ptag = document.getElementById('lblerror');
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -188,7 +190,7 @@ function EmailValidation() {
         Users.Email = Email;
 
         var data = "{'UserObj':" + JSON.stringify(Users) + "}";
-        ds = getJsonData(data, "../AdminPanel/Login.aspx/EmailValidation");
+        ds = getJsonData(data, "../Login.aspx/EmailValidation");
         table = JSON.parse(ds.d);
         if (table === 1) {
             
