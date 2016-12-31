@@ -293,7 +293,7 @@ function SaveInstitution()
                         noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                         $('#btncancelInstitute').hide();
                         $('#btnDeleteInstitute').show();
-                        $('#btnDeleteInstitute').attr('name', InstituteRow.institutionID);
+                        $('#btnDeleteInstitute').attr('name', results.institutionID);
                         break;
                     case "0":
                         noty({ text: Messages.UpdationFailure, type: 'error' });
@@ -314,7 +314,7 @@ function SaveInstitution()
                         noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                         $('#btncancelInstitute').hide();
                         $('#btnDeleteInstitute').show();
-                        $('#btnDeleteInstitute').attr('name', InstituteRow.institutionID);
+                        $('#btnDeleteInstitute').attr('name', results.institutionID);
                         break;
                     case "0":
                         noty({ text: Messages.UpdationFailure, type: 'error' });
