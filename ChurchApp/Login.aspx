@@ -36,7 +36,8 @@
 	<link href="../CSS/style.css" rel="stylesheet"/>
 	<link href="../CSS/style-responsive.css" rel="stylesheet"/>
 	<link href="../CSS/googleapiFont.css" rel="stylesheet" />
-   
+    <script src="Scripts/CustomJS/Common.js"></script>
+    <script src="Scripts/CustomJS/Login.js"></script>
 	<!-- end: CSS -->
 
     <style type="text/css">

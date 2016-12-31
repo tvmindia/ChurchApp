@@ -14,6 +14,11 @@ namespace ChurchApp.DAL
     public class Security
     {
 
+        public string status
+        {
+            get;
+            set;
+        }
         public class UserAuthendication
         {
 
@@ -98,6 +103,7 @@ namespace ChurchApp.DAL
                 set;
             }
 
+         
             
 
             #endregion Properties
@@ -564,19 +570,7 @@ namespace ChurchApp.DAL
             {
                 status = "500";//Exception of foreign key
 
-                //Code For Exception Track insert
-                //ExceptionTrack ETObj = new ExceptionTrack();
-                //ETObj.ChurchID = Convert.ToString(ChurchID);
-                //ETObj.UserID = UserID;
-                //ETObj.Description = ex.Message;//Actual exception message
-                //ETObj.Date = DateTime.Now.ToString();
-                //ETObj.Module = "Security";
-                //ETObj.Method = "GetUserVerificationCodeByEmailID";
-                //ETObj.ErrorSource = "DAL";
-                //ETObj.IsMobile = false;
-                ////   ETObj.Version = AppVersion;
-                //ETObj.CreatedBy = LoginName;
-                //ETObj.InsertErrorDetails();
+                
             }
             finally
             {
@@ -604,7 +598,7 @@ namespace ChurchApp.DAL
 
                 Msg.To.Add(Email);
 
-                string message = "<body><h3>Hello ,</h3>" + msg + "<p>Enter Your Code in given field and change your Password<p><p><p><p>&nbsp;&nbsp;&nbsp;&nbsp; Tiques&nbsp; Admin<p><p><p><p><p>Please do not reply to this email with your password. We will never ask for your password, and we strongly discourage you from sharing it with anyone.</body>";
+                string message = "<body><h3>Hello ,</h3>" + msg + "<p>Enter Your Code in given field and change your Password<p><p><p><p>&nbsp;&nbsp;&nbsp;&nbsp; ChurchApp&nbsp; Admin<p><p><p><p><p>Please do not reply to this email with your password. We will never ask for your password, and we strongly discourage you from sharing it with anyone.</body>";
                 Msg.Subject = VerificationCode;
                 Msg.Body = message;
                 Msg.IsBodyHtml = true;

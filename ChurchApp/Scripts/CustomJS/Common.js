@@ -193,7 +193,7 @@ function postBlobAjax(formData, page) {
     return jsonResult;
 }
 function getJsonData(data, page) {
-
+   
     var jsonResult = {};
     $('#displaywait').show();
     var req = $.ajax({
@@ -216,7 +216,7 @@ function getJsonData(data, page) {
          }
 
     }).done(function (data) {
-
+        debugger;
         if (data != null) {
             var vald = JSON.parse(data.d);
             if (vald.statusCode == '555') {
