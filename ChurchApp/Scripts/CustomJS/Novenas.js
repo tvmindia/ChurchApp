@@ -136,6 +136,7 @@ $("document").ready(function (e)
                             else { //Case Update
                                 Novenas.novenaId = $('#hdfNovenaID').val();
                                 result = UpdateNovena(Novenas);
+                                
                                 if (DeletedImgID != '' && (((imagefile = $('#flupCoverpic')[0].files[0]) != undefined)) && DeletedImgID!=PatronImgID) {
                                     //--if novena is updated with new image, the old image should delete from folder and table
                                     var AppImages = new Object();
@@ -667,6 +668,7 @@ function FixedEditClick()
                         $("#divEndDate").show();
                         $('#rdoNovenaSpecial').parent().addClass('checked');
                         $("#rdoNovenaNormal").parent().removeClass('checked');
+                        $("#rdoNovenaSpecial").click();
                         $('#dateStartDate').val(ConvertJsonToDate(jsonResult.StartDate));
                         $('#dateEndDate').val(ConvertJsonToDate(jsonResult.EndDate));
 
@@ -679,6 +681,7 @@ function FixedEditClick()
                         $("#dateStartDate").val('');
                         $('#rdoNovenaSpecial').parent().removeClass('checked');
                         $("#rdoNovenaNormal").parent().addClass('checked');
+                        $("#rdoNovenaNormal").click();
                         //  $("#divDay").show();
                     }
 
@@ -949,9 +952,6 @@ function BindNovenaMoreDetails(ID) {
     {
         debugger;
         ScrollPage();
-        $('#rowfluidDiv').hide();
-        $('.alert-success').hide();
-        $('.alert-error').hide();
         //  $('#DivNovenaTiming').hide();
         SetControlsInViewFormat();
         var jsonResult = {};
