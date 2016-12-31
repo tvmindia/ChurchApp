@@ -273,7 +273,7 @@ a._p {
                                         <div class="control-group" id="divStartDate">
                                             <label class="control-label" for="date01">Start Date</label>
                                             <div class="controls">
-                                                <input type="text" class="input-large datepicker" readonly="true" id="dateStartDate"/>
+                                                <input type="text" class="input-large datepicker" readonly="true" id="dateStartDate" placeholder="Select Date"/>
                                             </div>
                                         </div>
 
@@ -281,7 +281,7 @@ a._p {
                                         <div class="control-group" id="divEndDate">
                                             <label class="control-label" for="date01">End Date</label>
                                             <div class="controls">
-                                                <input type="text" class="input-large datepicker" readonly="true" id="dateEndDate" />
+                                                <input type="text" class="input-large datepicker" readonly="true" id="dateEndDate" placeholder="Select Date" />
                                             </div>
                                         </div>
                                         

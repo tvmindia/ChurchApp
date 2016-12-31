@@ -150,10 +150,6 @@ namespace ChurchApp.DAL
                 if (linkID!=null && linkID !=string.Empty)
                 {
                     cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
-                }    
-                else
-                {
-                    cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Empty;
                 }
                 cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;

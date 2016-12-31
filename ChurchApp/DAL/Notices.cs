@@ -212,8 +212,9 @@ namespace ChurchApp.DAL
             if (outParam1.Value != null)
             {
                 noticeId = outParam1.Value.ToString();
+                status = outParam.Value.ToString();
             }
-
+            status = outParam.Value.ToString();
             return outParam.Value.ToString();
         }
         #endregion InsertNotice
@@ -264,6 +265,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
+            status = outParam.Value.ToString();
             return outParam.Value.ToString();
         }
         #endregion UpdateNotice
