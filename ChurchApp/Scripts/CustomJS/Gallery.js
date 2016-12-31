@@ -165,33 +165,39 @@
       
         barinAlbum.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
         barinAlbum.text.style.fontSize = '2rem';
-        $('#progressbarUploadinVidAlbum').show();
+        
         try {
             var videofile;
 
             if ((videofile = $('#AlbumVidUploader')[0].files.length > 0)) {
-                barinAlbum.animate(0.3);  // Number from 0.0 to 1.0
+                $("#progressbarUploadinVidAlbum").show();
+                barinAlbum.animate(0.1);  // Number from 0.0 to 1.0
                 var formData = new FormData();
                 formData.append('AlbumVideo', $('#AlbumVidUploader')[0].files[0], $('#AlbumVidUploader')[0].files[0].name);
+                barinAlbum.animate(0.2);
                 formData.append('Album', 'GalleryVideoAlbum');
+                barinAlbum.animate(0.8);
                 formData.append('churchId', $('#hdfchid').val());
+                barinAlbum.animate(0.8);
                 formData.append('AlbumName', $("#txtVidAlbumName").val());
+                barinAlbum.animate(0.8);
                 formData.append('createdby', document.getElementById("LoginName").innerHTML);
-                barinAlbum.animate(0.6);  // Number from 0.0 to 1.0
+                barinAlbum.animate(0.8);  // Number from 0.0 to 1.0
                 var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                barinAlbum.animate(0.6);
+                barinAlbum.animate(0.8);
                 switch (result.status) {
                     case "1":
-                       
-                        noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         barinAlbum.animate(1.0);  // Number from 0.0 to 1.0
                         BindGalleryVideoAlbum();
+                        noty({ type: 'success', text: Messages.AlbumUploadInsert });
+                        $("#progressbarUploadinVidAlbum").hide();
                         break;
                     case "0":
                         $('#progressbarUploadinVidAlbum').hide();
                         noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
+                        $("#progressbarUploadinVidAlbum").hide();
                         noty({ type: 'error', text: result.status });
                         break;
                 }
@@ -217,32 +223,40 @@
                 bar.animate(0.3);  // Number from 0.0 to 1.0
                 var formData = new FormData();
                 formData.append('Video', $('#VideoUploader')[0].files[0], $('#VideoUploader')[0].files[0].name);
+                bar.animate(0.4);
                 formData.append('Album', 'AddMoreVideos');
+                bar.animate(0.5);
                 formData.append('AlbumName', $("#txtVidAlbumName").val());
+                bar.animate(0.6);
                 formData.append('AlbumID', albid);
+                bar.animate(0.7);
                 formData.append('createdby', document.getElementById("LoginName").innerHTML);
-                bar.animate(0.6);  // Number from 0.0 to 1.0
+                bar.animate(0.8);
+                bar.animate(0.8);  // Number from 0.0 to 1.0
                 var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                 switch (result.status) {
                     case "1":
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         bar.animate(1.0);  // Number from 0.0 to 1.0
+                       
                         BindVideos(albid);
+                       
+                        $('#progressbarUpload').hide();
                         break;
                     case "0":
                      
-                        $('#progressbarUploadinVidAlbum').hide();
+                        $('#progressbarUpload').hide();
                         noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
+
                         noty({ type: 'error', text: result.status });
+                        $('#progressbarUpload').hide();
                         break;
                 }
              
            }
-         
-
-        
+               
         }
         catch (e) {
             noty({ type: 'error', text: e.message });
@@ -794,6 +808,7 @@ function BtnMoreVideoUploads()
 function handleFileSelect(evt) {
     try
     {
+        $('.dynalb').remove();
         var files = evt.target.files; // FileList object
         // Loop through the FileList and render image files as thumbnails.
         for (var i = 0, f; f = files[i]; i++) {
@@ -828,6 +843,7 @@ function handleFileSelect(evt) {
 function handleFileSelectInImages(evt) {
     try
     {
+        $('.dynimages').remove();
         var files = evt.target.files; // FileList object
         // Loop through the FileList and render image files as thumbnails.
         for (var i = 0, f; f = files[i]; i++) {
@@ -863,16 +879,15 @@ function handleFileSelectInImages(evt) {
 
 function handleFileVideoAlbum(evt)
 {
-     
+ 
     var files = evt.target.files; // FileList object
-    alert('Loaded file is:'+files[0].name);
-}
+    $("#previewVideodiv").append('<span><i class="halflings-icon facetime-video"></i>' + files[0].name + '</span>');
+ }
 
 function handleVideoFile(evt) {
-     
-    var files = evt.target.files; // FileList object
-    alert('Loaded file is:' + files[0].name);
-}
+     var files = evt.target.files; // FileList object
+    $("#previewupVideodiv").append('<span><i class="halflings-icon facetime-video"></i>' + files[0].name + '</span>');
+  }
 function InsertImageAlbum(GalleryAlbum) {
     try
     {
