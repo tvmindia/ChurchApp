@@ -292,6 +292,8 @@ function SaveInstitution()
                     case "1":
                         noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                         $('#btncancelInstitute').hide();
+                        $('#btnDeleteInstitute').show();
+                        $('#btnDeleteInstitute').attr('name', InstituteRow.institutionID);
                         break;
                     case "0":
                         noty({ text: Messages.UpdationFailure, type: 'error' });
@@ -311,6 +313,8 @@ function SaveInstitution()
                     case "1":
                         noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                         $('#btncancelInstitute').hide();
+                        $('#btnDeleteInstitute').show();
+                        $('#btnDeleteInstitute').attr('name', InstituteRow.institutionID);
                         break;
                     case "0":
                         noty({ text: Messages.UpdationFailure, type: 'error' });
@@ -357,6 +361,8 @@ function SaveInstitution()
                         $("#hdnInstutID").val(result.institutionID);
                         $("#hdfImageID").val(result.imageId);
                         $('#btncancelInstitute').hide();
+                        $('#btnDeleteInstitute').show();
+                        $('#btnDeleteInstitute').attr('name', result.institutionID);
                         $('#divAccoAdmininfo').show();
                         $('#divAdminInfo').show();
                         $('#EditdivAppend').empty();
@@ -387,6 +393,8 @@ function SaveInstitution()
                         $("#hdnInstutID").val(result.institutionID);
                         $("#hdfImageID").val(result.imageId);
                         $('#btncancelInstitute').hide();
+                        $('#btnDeleteInstitute').show();
+                        $('#btnDeleteInstitute').attr('name', result.institutionID);
                         $('#divAccoAdmininfo').show();
                         $('#divAdminInfo').show();
                         $('#EditdivAppend').empty();
