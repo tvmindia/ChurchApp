@@ -1025,7 +1025,7 @@ function SetControlsInNewNoticeFormat() {
     $("#DivFile").show();
 
     $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
-
+    $('#UpNotice').val('');
     $("#btnDelete").hide();
 
     document.getElementById("rdoNotificationNo").disabled = false;
@@ -1047,6 +1047,7 @@ function AddNewNoticeFormat() {
 
     $("#rdoNotificationYes").parent().removeClass('checked');
     $('#rdoNotificationNo').parent().addClass('checked');
+    $('#rdoNotificationNo').click();
     $('#txtNoticeName').focus();
     $("#divnoticeName").show();
     $("#divNoticeType").show();
