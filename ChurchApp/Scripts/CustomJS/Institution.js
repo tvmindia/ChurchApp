@@ -1304,7 +1304,6 @@ function AdminValidation() {
                 txtB.style.backgroundImage = "url('../img/invalid.png')";
                 txtB.style.backgroundPosition = "95% center";
                 txtB.style.backgroundRepeat = "no-repeat";
-                Errorbox.style.paddingLeft = "30px";
 
             }
             else if (container[i].Value == "-1") {
