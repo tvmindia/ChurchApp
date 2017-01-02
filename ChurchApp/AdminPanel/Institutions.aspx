@@ -249,6 +249,7 @@
                         <%-- End div Administrator information --%>
 						<input type="hidden" id="hdnInstutID" />
                         <input id="hdfImageID" type="hidden" value="" />
+                        <input id="hdfAdminImageID" type="hidden" value="" />
 							<div class="form-actions span12">
 							  <a class="btn btn-primary saveAll" name="" id="btnSaveInstitute">Save changes</a>
                                 <a id="btncancelInstitute" name="" class="btn btn-primary cancelAll" onclick="Cancel(this);">Cancel</a>

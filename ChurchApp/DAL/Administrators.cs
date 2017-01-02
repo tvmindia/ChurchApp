@@ -173,6 +173,7 @@ namespace ChurchApp.DAL
                     desigId = dr["DesigID"].ToString();                    
                     churchId = dr["ChurchID"].ToString();
                     imagePath = dr["URL"].ToString();
+                    imageID = dr["ImageID"].ToString();
                 }
 
             }
@@ -250,7 +251,7 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertAdministrator]";
-                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(adminId);
+                //cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(adminId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar, 100).Value = orgType;
                 cmd.Parameters.Add("@OrgID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(orgId);
@@ -282,7 +283,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            status= outParam.Value.ToString();
+            results= outParam.Value.ToString();
             return status;
         }
 
@@ -339,7 +340,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            status=outParam.Value.ToString();
+            results=outParam.Value.ToString();
             return status;
         }
         #endregion UpdateAdministrator

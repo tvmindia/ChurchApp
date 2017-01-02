@@ -35,6 +35,7 @@ namespace ChurchApp.ImageHandler
                 PatronMaster patronMasterObj = null;
                 Priest priestObj = null;
                 Events EventObj=null;
+                Administrators AdminObj = null;
                 Notices NoticeObj = null;
                 Institutions InstObj = null;
                 GalleryAlbum GalAlbumObj = null;
@@ -1025,6 +1026,94 @@ namespace ChurchApp.ImageHandler
                                 {
                                     memberObj.status = ex.Message;
                                     context.Response.Write(jsSerializer.Serialize(memberObj));
+                                }
+                                break;
+                            case "AdministratorImageInsert":
+                                try
+                                {
+                                    AdminObj = new Administrators();
+                                    //Insert to table
+                                    AppImgObj = new AppImages();
+                                    postFile = context.Request.Files["upImageFile"];
+                                    fileExtension = Path.GetExtension(postFile.FileName);
+                                    AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                    AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                    AppImgObj.type = "image";
+                                    AppImgObj.InsertAppImage1().ToString();
+                                    AdminObj.churchId = context.Request.Form.GetValues("churchID")[0];
+                                    AdminObj.desigId = context.Request.Form.GetValues("desigId")[0];
+                                    AdminObj.Name = context.Request.Form.GetValues("Name")[0];
+                                    AdminObj.Phone = context.Request.Form.GetValues("Phone")[0];
+                                    AdminObj.orgType = context.Request.Form.GetValues("orgType")[0];
+                                    AdminObj.orgId = context.Request.Form.GetValues("orgId")[0];
+                                    AdminObj.createdBy = AppImgObj.createdBy;
+                                    AdminObj.imageID = AppImgObj.appImageId;
+                                    AdminObj.InsertAdministrator();
+                                    postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                    jsSerializer = new JavaScriptSerializer();
+                                    context.Response.Write(jsSerializer.Serialize(AdminObj));
+                                }
+                                catch (Exception ex)
+                                {
+                                    AdminObj.results = ex.Message;
+                                    context.Response.Write(jsSerializer.Serialize(AdminObj));
+                                }
+                                break;
+                            case "AdministratorImageUpdate":
+                                try
+                                {
+                                    AdminObj = new Administrators();
+                                    AppImgObj = new AppImages();
+                                    postFile = context.Request.Files["upImageFile"];
+                                    fileExtension = Path.GetExtension(postFile.FileName);
+                                    if ((context.Request.Form.GetValues("AdminimageId")[0] != "") && (context.Request.Form.GetValues("AdminimageId")[0] != null))
+                                    {
+                                        //update currrent image with new one
+                                        AppImgObj.appImageId = context.Request.Form.GetValues("AdminimageId")[0];
+                                        AppImgObj.DeleteFromFolder();
+                                        AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                        AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                                        AppImgObj.type = "image";
+                                        AppImgObj.Extension = fileExtension;
+                                        AppImgObj.postedFile = postFile;
+                                        AppImgObj.UpdateAppImage();
+                                        if (AppImgObj.status == "1")
+                                        {
+                                            //Delete Previous image from folder and save new folder 
+                                            AppImgObj.UpdateCurrentAppImageInFolder();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //insert new image for imageless Event
+                                        AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                        AppImgObj.createdBy = context.Request.Form.GetValues("updatedby")[0];
+                                        AppImgObj.type = "image";
+                                        AppImgObj.Extension = fileExtension;
+                                        AppImgObj.postedFile = postFile;
+                                        AppImgObj.InsertAppImage1().ToString();
+                                        postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+
+                                    }
+                                    //Update Events
+                                    AdminObj.churchId = context.Request.Form.GetValues("churchID")[0];
+                                    AdminObj.desigId = context.Request.Form.GetValues("desigId")[0];
+                                    AdminObj.adminId = context.Request.Form.GetValues("adminId")[0];
+                                    AdminObj.Name = context.Request.Form.GetValues("Name")[0];
+                                    AdminObj.Phone = context.Request.Form.GetValues("Phone")[0];
+                                    AdminObj.orgType = context.Request.Form.GetValues("orgType")[0];
+                                    AdminObj.orgId = context.Request.Form.GetValues("orgId")[0];
+                                    AdminObj.updatedBy = AppImgObj.updatedBy;
+                                    AdminObj.imageID = AppImgObj.appImageId;
+                                    AdminObj.UpdateAdministrator();
+
+                                    jsSerializer = new JavaScriptSerializer();
+                                    context.Response.Write(jsSerializer.Serialize(AdminObj));
+                                }
+                                catch (Exception ex)
+                                {
+                                    AdminObj.results = ex.Message;
+                                    context.Response.Write(jsSerializer.Serialize(AdminObj));
                                 }
                                 break;
                         }

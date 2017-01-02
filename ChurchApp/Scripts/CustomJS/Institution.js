@@ -131,109 +131,232 @@ function SaveAdministrator()
 {
     try
     {
-        
-        var AppImgURL = '';
-        var AdminID = $('#hdnAdminID').val();
+        debugger;
         var InstituteID = $('#hdnInstituteID').val();
-
-        //-----------------------INSERT-------------------//
-
-        if (AdminID == null || AdminID == "") {
-            var i = "0";
-            var guid = createGuid();
-            if (guid != null) {
-                ///////Image insert using handler
-                var imgresult = "";
-                var Administrators = new Object();
-                var _URL = window.URL || window.webkitURL;
+        var AdminID = $('#hdnAdminID').val();
+        var Administrators = new Object();
+        Administrators.desigId = $('#ddlRole').val();
+        Administrators.Name = $('#txtName').val();
+        Administrators.Phone = $('#txtMobile').val();
+        Administrators.orgType = "INST";
+        Administrators.orgId = InstituteID;
+        Administrators.churchId = churchObject.chid;
+        if (AdminID != null && AdminID != "") 
+        {
+            Administrators.adminId=AdminID;
+            var imgresult;
+            if ((imgresult = $('#fluImage')[0].files.length > 0)) {
+                Administrators.imageID = $("#hdfAdminImageID").val();
                 var formData = new FormData();
-                var imagefile, logoFile, img;
+                var imagefile;
+                imagefile = $('#fluImage')[0].files[0];
+                formData.append('upImageFile', imagefile, imagefile.name);
+                formData.append('adminId', Administrators.adminId);
+                formData.append('churchId', Administrators.churchId);
+                formData.append('desigId', Administrators.desigId);
+                formData.append('AdminimageId', Administrators.imageID);
+                formData.append('Name',Administrators.Name);
+                formData.append('Phone', Administrators.Phone);
+                formData.append('orgType', Administrators.orgType);
+                formData.append('orgId', Administrators.orgId);
+                formData.append('updatedby', document.getElementById("LoginName").innerHTML);
+                formData.append('ActionTyp', 'AdministratorImageUpdate');
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                        break;
+                    case "0":
+                        noty({ text: Messages.UpdationFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.results });
+                        break;
 
-                if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
-                    var formData = new FormData();
-                    var tempFile;
-                    if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
-                        tempFile.name = guid;
-                        formData.append('NoticeAppImage', tempFile, tempFile.name);
-                        formData.append('GUID', guid);
-                        formData.append('createdby', 'sadmin');
-                    }
-                    formData.append('ActionTyp', 'NoticeAppImageInsert');
-                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    i = "1";
                 }
-
             }
+            else
+            {
+                result = UpdateAdministrator(Administrators);
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                        break;
+                    case "0":
+                        noty({ text: Messages.UpdationFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.results });
+                        break;
+
+                }
+            }
+        }
+        else
+        {
+            var imgresult;
+            if ((imgresult = $('#fluImage')[0].files.length > 0)) {
+                var formData = new FormData();
+                var imagefile;
+                imagefile = $('#fluImage')[0].files[0];
+                formData.append('upImageFile', imagefile, imagefile.name);
+                formData.append('churchId', Administrators.churchId);
+                formData.append('desigId', Administrators.desigId);
+                formData.append('Name',Administrators.Name);
+                formData.append('Phone', Administrators.Phone);
+                formData.append('orgType', Administrators.orgType);
+                formData.append('orgId', Administrators.orgId);
+                formData.append('createdby', document.getElementById("LoginName").innerHTML);
+                formData.append('ActionTyp', 'AdministratorImageInsert');
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                        $('#hdfAdminImageID').val(result.imageID);
+                        $('#hdnAdminID').val(result.adminId);
+                        break;
+                    case "0":
+                        noty({ text: Messages.InsertionFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.results });
+                        break;
+
+                }
+            }
+            else
+            {
+                result = InsertAdministrator(Administrators);
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                        $('#hdfAdminImageID').val(result.imageID);
+                        $('#hdnAdminID').val(result.adminId);
+                        break;
+                    case "0":
+                        noty({ text: Messages.InsertionFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.results });
+                        break;
+
+                }
+            }
+
+        }
+        BindEditCard(InstituteID);
+        $('#modelAddAdmin ').modal('hide');
+        $('#fluImage').val('');
+         $('#txtName').val('');
+         $('#txtMobile').val('');
+         $('#ddlRole').val('-1').change();
+         $("#hdnAdminID").val('');
+         $('#hdfAdminImageID').val('');
+
+       // if
+       ////-------------------------------------------------------------------------------------- 
+       // var AppImgURL = '';
+       // var AdminID = $('#hdnAdminID').val();
+       // var InstituteID = $('#hdnInstituteID').val();
+
+       // //-----------------------INSERT-------------------//
+
+       // if (AdminID == null || AdminID == "") {
+       //     var i = "0";
+       //     var guid = createGuid();
+       //     if (guid != null) {
+       //         ///////Image insert using handler
+       //         var imgresult = "";
+       //         var Administrators = new Object();
+       //         var _URL = window.URL || window.webkitURL;
+       //         var formData = new FormData();
+       //         var imagefile, logoFile, img;
+
+       //         if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
+       //             var formData = new FormData();
+       //             var tempFile;
+       //             if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
+       //                 tempFile.name = guid;
+       //                 formData.append('NoticeAppImage', tempFile, tempFile.name);
+       //                 formData.append('GUID', guid);
+       //                 formData.append('createdby', 'sadmin');
+       //             }
+       //             formData.append('ActionTyp', 'NoticeAppImageInsert');
+       //             AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+       //             i = "1";
+       //         }
+
+       //     }
 
             
-            Administrators.desigId = $('#ddlRole').val();
-            Administrators.Name = $('#txtName').val();
-            Administrators.Phone = $('#txtMobile').val();
-            Administrators.orgType = "INST";
-            Administrators.orgId = InstituteID;
-            if (i == "1")
-            {
-                Administrators.imageID = guid;
-            }
-            Administrators.adminId = guid;
-            $("#hdnAdminID").val(guid);
-            result = InsertAdministrator(Administrators);
+       //     Administrators.desigId = $('#ddlRole').val();
+       //     Administrators.Name = $('#txtName').val();
+       //     Administrators.Phone = $('#txtMobile').val();
+       //     Administrators.orgType = "INST";
+       //     Administrators.orgId = InstituteID;
+       //     if (i == "1")
+       //     {
+       //         Administrators.imageID = guid;
+       //     }
+       //     Administrators.adminId = guid;
+       //     $("#hdnAdminID").val(guid);
+       //     result = InsertAdministrator(Administrators);
 
-            if (result.results == "1") {
-                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
-            }
-            if (result.results == "2") {
-                noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
-            }
-            else{
-                noty({ text: result.results, type: 'error' });
-            }
+       //     if (result.results == "1") {
+       //         noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+       //     }
+       //     if (result.results == "2") {
+       //         noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+       //     }
+       //     else{
+       //         noty({ text: result.results, type: 'error' });
+       //     }
 
 
-        }
-            //-----------------------UPDATE-------------------//
-        else {
-            var Administrators = new Object();
-            Administrators.desigId = $('#ddlRole').val();
-            Administrators.Name = $('#txtName').val();
-            Administrators.Phone = $('#txtMobile').val();
-            Administrators.orgType = "INST";
-            Administrators.orgId = InstituteID;
-            //Administrators.imageID = $("#hdnAdminID").val();
-            Administrators.adminId = $("#hdnAdminID").val();
-            ///////Image insert using handler
-            var guid = createGuid();
-            if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
-                var formData = new FormData();
-                var tempFile;
-                if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
-                    tempFile.name = guid;
-                    formData.append('NoticeAppImage', tempFile, tempFile.name);
-                    formData.append('GUID', guid);
-                    formData.append('createdby', 'sadmin');
-                }
-                formData.append('ActionTyp', 'NoticeAppImageInsert');
-                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                Administrators.imageID = guid;
-            }
+       // }
+       //     //-----------------------UPDATE-------------------//
+       // else {
+       //     var Administrators = new Object();
+       //     Administrators.desigId = $('#ddlRole').val();
+       //     Administrators.Name = $('#txtName').val();
+       //     Administrators.Phone = $('#txtMobile').val();
+       //     Administrators.orgType = "INST";
+       //     Administrators.orgId = InstituteID;
+       //     //Administrators.imageID = $("#hdnAdminID").val();
+       //     Administrators.adminId = $("#hdnAdminID").val();
+       //     ///////Image insert using handler
+       //     var guid = createGuid();
+       //     if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
+       //         var formData = new FormData();
+       //         var tempFile;
+       //         if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
+       //             tempFile.name = guid;
+       //             formData.append('NoticeAppImage', tempFile, tempFile.name);
+       //             formData.append('GUID', guid);
+       //             formData.append('createdby', 'sadmin');
+       //         }
+       //         formData.append('ActionTyp', 'NoticeAppImageInsert');
+       //         AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+       //         Administrators.imageID = guid;
+       //     }
 
-            result = UpdateAdministrator(Administrators);
+       //     result = UpdateAdministrator(Administrators);
 
-            if (result.results == "1") {
-                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
-            }
-            else{
-                noty({ text: result.results, type: 'error' });
-            }
+       //     if (result.results == "1") {
+       //         noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+       //     }
+       //     else{
+       //         noty({ text: result.results, type: 'error' });
+       //     }
 
-        }
+       // }
 
-        BindEditCard(InstituteID);
-        $('#modelAddAdmin ').modal('hide'); 
-        $('#txtName').val('');
-        $('#txtMobile').val('');
-        $('#ddlRole').val('-1').change();
-        $("#hdnAdminID").val('');
+       // BindEditCard(InstituteID);
+       // $('#modelAddAdmin ').modal('hide'); 
+       // $('#txtName').val('');
+       // $('#txtMobile').val('');
+       // $('#ddlRole').val('-1').change();
+       // $("#hdnAdminID").val('');
     }
     catch(e)
     {
@@ -651,6 +774,7 @@ function EditAdministrator(this_Obj)
         var AdminID = $(this_Obj).attr('name');
         $('#hdnAdminID').val(AdminID);
         AdminRow = GetAdminDetails(AdminID);
+        $('#hdfAdminImageID').val(AdminRow.imageID);
         $('#txtName').val(AdminRow.Name);
         $('#txtMobile').val(AdminRow.Phone);
         $('#ddlRole').val(AdminRow.desigId).change();
