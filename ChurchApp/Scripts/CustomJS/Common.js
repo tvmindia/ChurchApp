@@ -367,6 +367,7 @@ var Messages = {
     SuccessfulUpload: "Successfully Uploaded",
     SavedSuccessfull: "Successfully Saved!",
     PriestAdded: "Priest Added Successfully",
+    RoleAdded:"The Role already exist",
     VicarExist: "You are not permitted to add multiple Vicars !",
     ProductAddSuccessfull: "New Product Created Successfully.",
     DboInvalid: "Rejected - Invalid Data Entitys date of birth",
