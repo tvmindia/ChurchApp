@@ -341,7 +341,7 @@ namespace ChurchApp.DAL
                 }
             }
             results=outParam.Value.ToString();
-            return status;
+            return results;
         }
         #endregion UpdateAdministrator
 

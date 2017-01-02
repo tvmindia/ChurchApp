@@ -494,6 +494,7 @@ function SaveInstitution()
                     case "1":
                         noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                         $("#hdnInstutID").val(result.institutionID);
+                        $('#hdnInstituteID').val(result.institutionID);
                         $("#hdfImageID").val(result.imageId);
                         $('#btncancelInstitute').hide();
                         $('#btnDeleteInstitute').show();
@@ -526,6 +527,7 @@ function SaveInstitution()
                     case "1":
                         noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                         $("#hdnInstutID").val(result.institutionID);
+                        $('#hdnInstituteID').val(result.institutionID);
                         $("#hdfImageID").val(result.imageId);
                         $('#btncancelInstitute').hide();
                         $('#btnDeleteInstitute').show();
