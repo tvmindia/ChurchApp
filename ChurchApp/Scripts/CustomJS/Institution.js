@@ -169,6 +169,9 @@ function SaveAdministrator()
                     case "0":
                         noty({ text: Messages.UpdationFailure, type: 'error' });
                         break;
+                    case "2":
+                        noty({ text: Messages.RoleAdded, type: 'error' });
+                        break;
                     default:
                         noty({ type: 'error', text: result.results });
                         break;
@@ -184,6 +187,9 @@ function SaveAdministrator()
                         break;
                     case "0":
                         noty({ text: Messages.UpdationFailure, type: 'error' });
+                        break;
+                    case "2":
+                        noty({ text: Messages.RoleAdded, type: 'error' });
                         break;
                     default:
                         noty({ type: 'error', text: result.results });
@@ -218,6 +224,9 @@ function SaveAdministrator()
                     case "0":
                         noty({ text: Messages.InsertionFailure, type: 'error' });
                         break;
+                    case "2":
+                        noty({ text: Messages.RoleAdded, type: 'error' });
+                        break;
                     default:
                         noty({ type: 'error', text: result.results });
                         break;
@@ -235,6 +244,9 @@ function SaveAdministrator()
                         break;
                     case "0":
                         noty({ text: Messages.InsertionFailure, type: 'error' });
+                        break;
+                    case "2":
+                        noty({ text: Messages.RoleAdded, type: 'error' });
                         break;
                     default:
                         noty({ type: 'error', text: result.results });
@@ -806,12 +818,17 @@ function DeleteAdministrator(this_Obj)
             var AdminRow = {};
             AdminRow = GetAdminDetails(AdminID);
             result = DeleteAdmin(AdminRow);
-            if (result.results == "1") {
-                noty({ text: Messages.DeletionSuccessFull, type: 'success' });
-                
-            }
-            if (result.results != "1") {
-                noty({ text: result.results, type: 'error' });
+            switch (result.results) {
+                case "1":
+                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
+                    break;
+                case "0":
+                    noty({ text: Messages.DeletionFailure, type: 'error' });
+                    break;
+                default:
+                    noty({ type: 'error', text: result.results });
+                    break;
+
             }
             BindEditCard(AdminRow.orgId);
         }
@@ -927,14 +944,20 @@ function DeleteInstituteclick(this_Obj)
             }
             if (Adminresult == "sucess") {
                 result = DeleteInstitute(InstituteRow);
-                if (result.results == "1") {
-                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
-                    BindInstituteslist();
-                    $('#InstituteEdit').hide();
-                    $('#InstituteShow').hide();
-                }
-                if (result.results != "1") {
-                    noty({ text: result.results, type: 'error' });
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.DeletionSuccessFull, type: 'success' });
+                        BindInstituteslist();
+                        $('#InstituteEdit').hide();
+                        $('#InstituteShow').hide();
+                        break;
+                    case "0":
+                        noty({ text: Messages.DeletionFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.results });
+                        break;
+
                 }
             }
         }
