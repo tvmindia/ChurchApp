@@ -1,8 +1,9 @@
 ﻿var adminImage = null;
-
+var churchObject = {};
 $(document).ready(function () {
     try
     {
+        churchObject.chid = $("#hdfchid").val();
         BindFamilyUnitsAccordion();
         BindSelect();
         if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -72,6 +73,7 @@ $(document).ready(function () {
                     $("#FamilyAdd").css("display", "none");
                     $("#familyAddDiv").css("display", "none");
                     $("#btnDiv").css("display", "none");
+                    $("#hdfMemberImgID").val('')
                 }
                 catch (e) {
                     noty({ type: 'error', text: e.message });
@@ -420,114 +422,150 @@ function saveMember() {
         var FamilyUnits = new Object();
         var Family = new Object();
         var Members = new Object();
-        var firstName = $("#txtFirstName").val();
-        var lastName = $("#txtLastName").val();
-        var familyName = $("#txtFamilyName").val();
-        var unitName = $("#txtUnitName").val();
-        var phone = $("#txtPhone").val();
-        var address = $("#txtAddress").val();
-        var unitID = $("#hdfUnitID").val();
-        var memberID = $("#hdfMemberID").val();
-        var familyID = $("#hdfFamilyID").val();
+        Members.firstName = $("#txtFirstName").val();
+        Members.lastName = $("#txtLastName").val();
+        Family.familyName = $("#txtFamilyName").val();
+        Members.familyName = $("#txtFamilyName").val();
+        Members.contact = $("#txtPhone").val();
+        Members.address = $("#txtAddress").val();
+        FamilyUnits.unitId = $("#hdfUnitID").val();
+        Members.memberId = $("#hdfMemberID").val();
+        Family.familyId = $("#hdfFamilyID").val();
+        Members.churchId = churchObject.chid;
+         var unitName = $("#txtUnitName").val();
         var isHead = null;
         if ($('#chkIsHead').closest('span').hasClass('checked') == true) {
-            isHead = true;
+            Members.isHead = true;
         }
         else {
-            isHead = false;
+            Members.isHead = false;
         }
-        Family.unitId = "";
-        Family.familyName = familyName;
-        Family.familyId = familyID;
-        FamilyUnits.unitId = unitID;
-        Members.familyName = familyName;
-        Members.firstName = firstName;
-        Members.lastName = lastName;
-        Members.contact = phone;
-        Members.address = address;
-        Members.isHead = isHead;
-        Members.memberId = memberID;
+ 
+       
         Family.familyUnitsObj = FamilyUnits;
         Members.familyObj = Family;
         if ($("#memberAddOrEdit").text() == "Add") {
-            if (memberID != null) {
+            //if ($("#hdfMemberID").val() == null && $("#hdfMemberID").val() == "") {
+                ///////INSERT MEMBER THROUGH HANDLER
                 ///////Image insert using handler
                 var imgresult = "";
-                var _URL = window.URL || window.webkitURL;
-                var formData = new FormData();
-                var imagefile, logoFile, img;
-                if (memberID == "") {
-                    memberID = createGuid();
-                }
-                if (((imagefile = $('#mfluImage')[0].files[0]) != undefined)) {
+                if ((imgresult = $('#mfluImage')[0].files.length > 0)) {
+
                     var formData = new FormData();
-                    var tempFile;
-                    if ((tempFile = $('#mfluImage')[0].files[0]) != undefined) {
-                        tempFile.name = memberID;
-                        formData.append('NoticeAppImage', tempFile, tempFile.name);
-                        formData.append('GUID', memberID);
-                        formData.append('createdby', 'sadmin');
+                    var imagefile;
+                    imagefile = $('#mfluImage')[0].files[0];
+                    // imagefile.name = imgId;
+                    formData.append('upImageFile', imagefile, imagefile.name);
+                    formData.append('churchID', Members.churchId);
+                    formData.append('firstName', Members.firstName);
+                    formData.append('lastName', Members.lastName);
+                    formData.append('familyName', Family.familyName);
+                    formData.append('familyName', Members.familyName);
+                    formData.append('contact', Members.contact);
+                    formData.append('address', Members.address);
+                    formData.append('unitId', FamilyUnits.unitId);
+                    formData.append('memberId', Members.memberId);
+                    formData.append('familyId', Family.familyId);
+                    formData.append('createdby', document.getElementById("LoginName").innerHTML);
+                    formData.append('ActionTyp', 'MemberImageInsert');
+                    var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+
+                    switch (result.status) {
+                        case "1":
+                            noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                            FamilyMembersAutoBind();
+                            $(".btnEdit").css("display", "none");
+                            $("#memberAddOrEdit").text("Edit");
+                            if (jsonResult.isHead == "False") {
+                                $("#btnDelete").css("display", "");
+                            }
+                            $("#hdfMemberID").val(jsonResult.memberId);
+                            BindMemberSelect();
+                            break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.MemeberAlreadyExists });
+                            break;
+                        default:
+                            noty({ type: 'error', text: result.InsertionFailure });
+                            break;
                     }
-                    formData.append('ActionTyp', 'NoticeAppImageInsert');
-                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    i = "1";
+                }
+                else
+                {
+                    jsonResult = InsertFamily(Members);
+                    switch (jsonResult.status) {
+                        case "1":
+                            noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                            FamilyMembersAutoBind();
+                            $(".btnEdit").css("display", "none");
+                            $("#memberAddOrEdit").text("Edit");
+                            if (jsonResult.isHead == "False") {
+                                $("#btnDelete").css("display", "");
+                            }
+                            $("#hdfMemberID").val(jsonResult.memberId);
+                            BindMemberSelect();
+                            break;
+                        case "2":
+                            noty({ text: Messages.MemeberAlreadyExists, type: 'error' });
+                            break;
+                        default:
+                            noty({ text: Messages.InsertionFailure, type: 'error' });
+                            break;
+                    }
+
                 }
 
-            }
-            if (i == "1") {
-                Members.imageId = memberID;
-            }
-            jsonResult = InsertFamily(Members);
-            switch (jsonResult.status) {
-                case "1":
-                    noty({ text: Messages.InsertionSuccessFull, type: 'success' });
-                    FamilyMembersAutoBind();
-                    $(".btnEdit").css("display", "none");
-                    $("#memberAddOrEdit").text("Edit");
-                    if (jsonResult.isHead == "False") {
-                        $("#btnDelete").css("display", "");
-                    }
-                    $("#hdfMemberID").val(jsonResult.memberId);
-                    BindMemberSelect();
-                    break;
-                case "2":
-                    noty({ text: Messages.MemeberAlreadyExists, type: 'error' });
-                    break;
-                default:
-                    noty({ text: Messages.InsertionFailure, type: 'error' });
-                    break;
-            }
-
+            //}
         }
         else {
-            debugger;
-            Members.memberId = $("#hdfMemberID").val();
-            var guid = createGuid();
-            if (((imagefile = $('#mfluImage')[0].files[0]) != undefined)) {
-                var formData = new FormData();
-                var tempFile;
-                if ((tempFile = $('#mfluImage')[0].files[0]) != undefined) {
-                    tempFile.name = guid;
-                    formData.append('NoticeAppImage', tempFile, tempFile.name);
-                    formData.append('GUID', guid);
-                    formData.append('createdby', 'sadmin');
-                }
-                formData.append('ActionTyp', 'NoticeAppImageInsert');
-                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                Members.imageId = guid;
-            }
-            jsonResult = UpdateFamilyMember(Members);
-            switch (jsonResult.status) {
-                case "1":
-                    noty({ text: Messages.UpdationSuccessFull, type: 'success' });
-                    FamilyMembersAutoBind();
-                    BindMemberSelect();
-                    break;
-                default:
-                    noty({ text: Messages.UpdationFailure, type: 'error' });
-                    break;
-            }
+            if ((imgresult = $('#mfluImage')[0].files.length > 0)) {
 
+                var formData = new FormData();
+                var imagefile;
+                imagefile = $('#mfluImage')[0].files[0];
+                // imagefile.name = imgId;
+                formData.append('upImageFile', imagefile, imagefile.name);
+                formData.append('churchID', Members.churchId);
+                formData.append('firstName', Members.firstName);
+                formData.append('lastName', Members.lastName);
+                formData.append('familyName', Family.familyName);
+                formData.append('familyName', Members.familyName);
+                formData.append('contact', Members.contact);
+                formData.append('address', Members.address);
+                formData.append('unitId', FamilyUnits.unitId);
+                formData.append('memberId', Members.memberId);
+                formData.append('familyId', Family.familyId);
+                formData.append('memberImageID', $("#hdfMemberImgID").val());
+                formData.append('updatedby', document.getElementById("LoginName").innerHTML);
+                formData.append('ActionTyp', 'MemberImageUpdate');
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+
+                switch (result.status) {
+                    case "1":
+
+                        noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                        FamilyMembersAutoBind();
+                        BindMemberSelect();
+                        break;
+                    default:
+                        noty({ text: Messages.UpdationFailure, type: 'error' });
+                        break;
+                }
+
+            }
+            else {
+                jsonResult = UpdateFamilyMember(Members);
+                switch (jsonResult.status) {
+                    case "1":
+                        noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                        FamilyMembersAutoBind();
+                        BindMemberSelect();
+                        break;
+                    default:
+                        noty({ text: Messages.UpdationFailure, type: 'error' });
+                        break;
+                }
+            }
         }
     }
     catch(e)
@@ -641,6 +679,7 @@ function Member() {
         $('input[type=text],input[type=password]').css({ background: 'white' });
         $('textarea,select').css({ background: 'white' });
         document.getElementById("chkIsHead").disabled = false;
+        $("#hdfMemberImgID").val('')
     }
     catch (e) {
         noty({ type: 'error', text: e.message });
@@ -690,6 +729,7 @@ function BindGetAllFamilyMemeberData(Records) {
 function EditMembers(e) {
     try
     {
+        debugger;
         Member();
         var jsonResult = {};
         var memberID = e.id.split(",")[0];
@@ -710,6 +750,7 @@ function EditMembers(e) {
             $("#txtUnitName").val(jsonResult[0].UnitName);
             $("#txtPhone").val(jsonResult[0].Contact);
             $("#txtAddress").val(jsonResult[0].Address);
+            $("#hdfMemberImgID").val(jsonResult[0].imgID);
             if (jsonResult[0].IsHead == true) {
                 $('#chkIsHead').closest('span').addClass('checked');
                 document.getElementById("chkIsHead").disabled = true;

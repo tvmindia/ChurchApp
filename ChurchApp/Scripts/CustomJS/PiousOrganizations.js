@@ -715,6 +715,7 @@ function EditInstitute(this_obj) {
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);
         $('#iconDisInstitute').show();
+        $('#btnDeleteInstitute').show()
         $('#txtInstituteName').val(InstituteRow.Name);
         $('#txtPatron').val(InstituteRow.Patron);
         $('#txtHistory').val(InstituteRow.description);
@@ -812,7 +813,8 @@ function NewInstitute() {
         $('#btncancelInstitute').attr('name', 'new');
         $('#InstituteEdit').show();
         $('#InstituteShow').hide();
-        $('#btnDeleteInstitute').attr('disabled', 'disabled');
+        $('#btnDeleteInstitute').hide();
+        //$('#btnDeleteInstitute').attr('disabled', 'disabled');
         $('#btnDeleteInstitute').attr('name', '');
         if (!$("#EditGenDetails").hasClass("active")) {
             $('#EditGenDetails').toggleClass("active");

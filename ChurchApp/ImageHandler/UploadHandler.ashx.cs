@@ -39,6 +39,9 @@ namespace ChurchApp.ImageHandler
                 Institutions InstObj = null;
                 GalleryAlbum GalAlbumObj = null;
                 GalleryItems GalItemsObj = null;
+                Members memberObj=null;
+                Family familyObj=null;
+                FamilyUnits unitsObj=null;
                 //
 
                 string AppImagePath = "";
@@ -925,8 +928,105 @@ namespace ChurchApp.ImageHandler
                                 context.Response.Write(jsSerializer.Serialize(InstObj));
                             }
                             break;
+                            case "MemberImageInsert":
+                                try
+                                {
+                                memberObj=new Members();
+                                familyObj = new Family();
+                                unitsObj = new FamilyUnits();
+                                AppImgObj=new AppImages();
+                                postFile = context.Request.Files["upImageFile"];
+                                fileExtension = Path.GetExtension(postFile.FileName);
+                                AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                AppImgObj.type = "image";
+                                AppImgObj.InsertAppImage1().ToString();
+                                memberObj.churchId = context.Request.Form.GetValues("churchID")[0];
+                                memberObj.firstName = context.Request.Form.GetValues("firstName")[0];
+                                memberObj.lastName = context.Request.Form.GetValues("lastName")[0];
+                                memberObj.familyName = context.Request.Form.GetValues("familyName")[0];
+                                familyObj.familyName = context.Request.Form.GetValues("familyName")[0];
+                                memberObj.contact = context.Request.Form.GetValues("contact")[0];
+                                memberObj.address = context.Request.Form.GetValues("address")[0];
+                                unitsObj.unitId = context.Request.Form.GetValues("unitId")[0];
+                                memberObj.memberId = context.Request.Form.GetValues("memberId")[0];
+                                memberObj.familyID = context.Request.Form.GetValues("familyId")[0];
+                                memberObj.createdBy = AppImgObj.createdBy;
+                                memberObj.imageId = AppImgObj.appImageId;
+                                memberObj.InsertMember();
+                                postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                jsSerializer = new JavaScriptSerializer();
+                                context.Response.Write(jsSerializer.Serialize(memberObj));
+                                }
+                                catch(Exception ex)
+                                {                                   
+                                memberObj.status = ex.Message;
+                                context.Response.Write(jsSerializer.Serialize(memberObj));
+                                }
+                                break;
+                            case "MemberImageUpdate":
+                                try
+                                {
+                                    memberObj = new Members();
+                                    AppImgObj = new AppImages();
+                                    familyObj = new Family();
+                                    unitsObj = new FamilyUnits();
+                                    postFile = context.Request.Files["upImageFile"];
+                                    fileExtension = Path.GetExtension(postFile.FileName);
 
+                                    if ((context.Request.Form.GetValues("memberImageID")[0] != "") && (context.Request.Form.GetValues("memberImageID")[0] != null))
+                                    {
+                                        //update currrent image with new one
+                                        AppImgObj.appImageId = context.Request.Form.GetValues("memberImageID")[0];
+                                        AppImgObj.DeleteFromFolder();
+                                        AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                        AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                                        AppImgObj.type = "image";
+                                        AppImgObj.Extension = fileExtension;
+                                        AppImgObj.postedFile = postFile;
+                                        AppImgObj.UpdateAppImage();
+                                        if (AppImgObj.status == "1")
+                                        {
+                                            //Delete Previous image from folder and save new folder 
+                                            AppImgObj.UpdateCurrentAppImageInFolder();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //insert new image for imageless Event
+                                        AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                        AppImgObj.createdBy = context.Request.Form.GetValues("updatedby")[0];
+                                        AppImgObj.type = "image";
+                                        AppImgObj.Extension = fileExtension;
+                                        AppImgObj.postedFile = postFile;
+                                        AppImgObj.InsertAppImage1().ToString();
+                                        postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
 
+                                    }
+                                    //Update Events
+                                    memberObj.churchId = context.Request.Form.GetValues("churchID")[0];
+                                    memberObj.firstName = context.Request.Form.GetValues("firstName")[0];
+                                    memberObj.lastName = context.Request.Form.GetValues("lastName")[0];
+                                    memberObj.familyName = context.Request.Form.GetValues("familyName")[0];
+                                    familyObj.familyName = context.Request.Form.GetValues("familyName")[0];
+                                    memberObj.contact = context.Request.Form.GetValues("contact")[0];
+                                    memberObj.address = context.Request.Form.GetValues("address")[0];
+                                    unitsObj.unitId = context.Request.Form.GetValues("unitId")[0];
+                                    memberObj.memberId = context.Request.Form.GetValues("memberId")[0];
+                                    memberObj.familyID = context.Request.Form.GetValues("familyId")[0];
+                                    memberObj.updatedBy = AppImgObj.updatedBy;
+                                    memberObj.imageId = AppImgObj.appImageId;
+                                    memberObj.UpdateMember();
+
+                                    jsSerializer = new JavaScriptSerializer();
+                                    context.Response.Write(jsSerializer.Serialize(memberObj));
+                                }
+                                catch(Exception ex)
+                                {
+                                    memberObj.status = ex.Message;
+                                    context.Response.Write(jsSerializer.Serialize(memberObj));
+                                }
+                                break;
                         }
                     }
                     #endregion ActionTyp
