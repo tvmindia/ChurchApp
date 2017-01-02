@@ -284,7 +284,7 @@ namespace ChurchApp.DAL
                 }
             }
             results= outParam.Value.ToString();
-            return status;
+            return results;
         }
 
         #endregion InsertAdministrator
@@ -383,8 +383,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            status= outParam.Value.ToString();
-            return status;
+            results= outParam.Value.ToString();
+            return results;
         }
         #endregion DeleteAdministrator
 
