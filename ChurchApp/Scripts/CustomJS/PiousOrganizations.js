@@ -1,9 +1,11 @@
 ﻿//
 ///////////////////////////////////////////********Document ready section
 var patronImageId = null;
+var churchObject = {};
 $(document).ready(function () {
     try
     {
+        churchObject.chid = $("#hdfchid").val();
         ///
         ////Function for binding Pious Organization
         //
@@ -130,109 +132,114 @@ function SaveAdministrator()
     try {
         debugger;
         var AppImgURL = '';
+        var Administrators = new Object();
         var AdminID = $('#hdnAdminID').val();
         var InstituteID = $('#hdnInstituteID').val();
-
+        Administrators.churchId=churchObject.chid;
+        Administrators.desigId = $('#ddlRole').val();
+        Administrators.Name = $('#txtName').val();
+        Administrators.Phone = $('#txtMobile').val();
+        Administrators.orgType = "PUINST";
+        Administrators.orgId = InstituteID;
+        Administrators.memberId = $("#hdnmemID").val();
+        Administrators.imageID = $("#hdfAdminImageID").val();
+        Administrators.adminId = AdminID;
         //-----------------------INSERT-------------------//
 
         if (AdminID == null || AdminID == "") {
-            var i = "0";
-            var guid = createGuid();
-            if (guid != null) {
-                
-                ///////Image insert using handler
-                var imgresult = "";
-                var Administrators = new Object();
-                var _URL = window.URL || window.webkitURL;
+            if ((imgresult = $('#fluImage')[0].files.length > 0)) {
+
                 var formData = new FormData();
-                var imagefile, logoFile, img;
+                var imagefile;
+                imagefile = $('#fluImage')[0].files[0];
+                // imagefile.name = imgId;
+                formData.append('upImageFile', imagefile, imagefile.name);
+                formData.append('churchID', Administrators.churchId);
+                formData.append('desigId', Administrators.desigId);
+                formData.append('Name', Administrators.Name);
+                formData.append('Phone', Administrators.Phone);
+                formData.append('orgType', Administrators.orgType);
+                formData.append('orgId', Administrators.orgId);
+                formData.append('memberId', Administrators.memberId);
+                formData.append('AdminimageId', Administrators.imageID);
+                formData.append('createdby', document.getElementById("LoginName").innerHTML);
+                formData.append('ActionTyp', 'AdministratorImageInsert');
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
 
-                if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
-                    var formData = new FormData();
-                    var tempFile;
-                    if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
-                        tempFile.name = guid;
-                        formData.append('NoticeAppImage', tempFile, tempFile.name);
-                        formData.append('GUID', guid);
-                        formData.append('createdby', 'sadmin');
-                    }
-                    formData.append('ActionTyp', 'NoticeAppImageInsert');
-                    AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                    i = "1";
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                        break;
+                    default:
+                        noty({ text: result.results, type: 'error' });
+                        break;
                 }
-
-            }
-
-
-            Administrators.desigId = $('#ddlRole').val();
-            Administrators.Name = $('#txtName').val();
-            Administrators.Phone = $('#txtMobile').val();
-            Administrators.orgType = "PUINST";
-            Administrators.orgId = InstituteID;
-            Administrators.memberId = $("#hdnmemID").val();
-            if (i == "1")
-            {
-              Administrators.imageID = guid;
             }
             else
             {
-                Administrators.imageID = patronImageId;
-            }
-            
-            Administrators.adminId = guid;
-            $("#hdnAdminID").val(guid);
-            result = InsertAdministrator(Administrators);
+                result = InsertAdministrator(Administrators);
 
-            if (result.results == "1") {
-                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                if (result.results == "1") {
+                    noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                }
+                if (result.results == "2") {
+                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+                }
+                else {
+                    noty({ text: result.results, type: 'error' });
+                }
             }
-            if (result.results == "2") {
-                noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
-            }
-            else
-            {
-                noty({ text: result.results, type: 'error' });
-            }
+     
 
 
         }
             //-----------------------UPDATE-------------------//
         else {
-            var Administrators = new Object();
-            Administrators.desigId = $('#ddlRole').val();
-            Administrators.Name = $('#txtName').val();
-            Administrators.Phone = $('#txtMobile').val();
-            Administrators.orgType = "PUINST";
-            Administrators.orgId = InstituteID;
-            //Administrators.imageID = $("#hdnAdminID").val();
-            Administrators.adminId = $("#hdnAdminID").val();
-            ///////Image insert using handler
-            var guid = createGuid();
-            if (((imagefile = $('#fluImage')[0].files[0]) != undefined)) {
+            if (imgresult = $('#fluImage')[0].files.length > 0)
+            {
                 var formData = new FormData();
-                var tempFile;
-                if ((tempFile = $('#fluImage')[0].files[0]) != undefined) {
-                    tempFile.name = guid;
-                    formData.append('NoticeAppImage', tempFile, tempFile.name);
-                    formData.append('GUID', guid);
-                    formData.append('createdby', 'sadmin');
+                var imagefile;
+                imagefile = $('#fluImage')[0].files[0];
+                // imagefile.name = imgId;
+                formData.append('upImageFile', imagefile, imagefile.name);
+                formData.append('churchID', Administrators.churchId);
+                formData.append('desigId', Administrators.desigId);
+                formData.append('adminId', Administrators.adminId);
+                formData.append('Name', Administrators.Name);
+                formData.append('Phone', Administrators.Phone);
+                formData.append('orgType', Administrators.orgType);
+                formData.append('orgId', Administrators.orgId);
+                formData.append('memberId', Administrators.memberId);
+                formData.append('AdminimageId', Administrators.imageID);
+                formData.append('updatedby', document.getElementById("LoginName").innerHTML);
+                formData.append('ActionTyp', 'AdministratorImageUpdate');
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                        break;
+                    default:
+                        noty({ text: result.results, type: 'error' });
+                        break;
                 }
-                formData.append('ActionTyp', 'NoticeAppImageInsert');
-                AppImgURL = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                Administrators.imageID = guid;
             }
+            else
+            {
+                result = UpdateAdministrator(Administrators);
+                if (result.results == "1") {
+                    noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                }
+                if (result.results == "2") {
+                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+                }
+                else {
+                    noty({ text: result.results, type: 'error' });
+                }
 
-            result = UpdateAdministrator(Administrators);
+        }
 
-            if (result.results == "1") {
-                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
-            }
-            if (result.results == "2") {
-                noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
-            }
-            else{
-                noty({ text: result.results, type: 'error' });
-            }
+        
 
         }
 
@@ -644,10 +651,13 @@ function HtmlEditBindCards(AdminDetails, i) {
 ///Edit administrator button onclick function
 function EditAdministrator(this_Obj) {
     try {
+        debugger;
+        $("#hdfAdminImageID").val('');
         var AdminRow = {};
         var AdminID = $(this_Obj).attr('name');
         $('#hdnAdminID').val(AdminID);
         AdminRow = GetAdminDetails(AdminID);
+        $("#hdfAdminImageID").val(AdminRow.imageID);
         $('#txtName').val(AdminRow.Name);
         $('#txtMobile').val(AdminRow.Phone);
         $('#ddlRole').val(AdminRow.desigId).change();

@@ -267,6 +267,7 @@
                       <input id="hdnInstituteID" type="hidden" />
                            <input id="hdnAdminID" type="hidden" />
                            <input id="hdnmemID" type="hidden" />
+                           <input id="hdfAdminImageID" type="hidden" />
                           
 					  </div> 
                     </fieldset>

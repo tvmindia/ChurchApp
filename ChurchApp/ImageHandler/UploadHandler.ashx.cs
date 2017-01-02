@@ -1046,6 +1046,10 @@ namespace ChurchApp.ImageHandler
                                     AdminObj.Phone = context.Request.Form.GetValues("Phone")[0];
                                     AdminObj.orgType = context.Request.Form.GetValues("orgType")[0];
                                     AdminObj.orgId = context.Request.Form.GetValues("orgId")[0];
+                                    if (context.Request.Form.GetValues("memberId")[0] != null && context.Request.Form.GetValues("memberId")[0] != "")
+                                    {
+                                        AdminObj.memberId = context.Request.Form.GetValues("memberId")[0];
+                                    }
                                     AdminObj.createdBy = AppImgObj.createdBy;
                                     AdminObj.imageID = AppImgObj.appImageId;
                                     AdminObj.InsertAdministrator();
@@ -1103,6 +1107,10 @@ namespace ChurchApp.ImageHandler
                                     AdminObj.Phone = context.Request.Form.GetValues("Phone")[0];
                                     AdminObj.orgType = context.Request.Form.GetValues("orgType")[0];
                                     AdminObj.orgId = context.Request.Form.GetValues("orgId")[0];
+                                    if (context.Request.Form.GetValues("memberId")[0] != null && context.Request.Form.GetValues("memberId")[0] != "")
+                                    {
+                                        AdminObj.memberId = context.Request.Form.GetValues("memberId")[0];
+                                    }
                                     AdminObj.updatedBy = AppImgObj.updatedBy;
                                     AdminObj.imageID = AppImgObj.appImageId;
                                     AdminObj.UpdateAdministrator();
