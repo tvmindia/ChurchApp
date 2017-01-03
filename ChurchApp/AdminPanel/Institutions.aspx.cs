@@ -10,6 +10,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 #endregion namespaces
@@ -27,7 +28,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="InstituteObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InserInstitute(ChurchApp.DAL.Institutions InstituteObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -74,7 +75,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="InstituteObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateInstitution(ChurchApp.DAL.Institutions InstituteObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -116,7 +117,7 @@ namespace ChurchApp.AdminPanel
         #endregion Update Institution
 
         #region DeleteInstitution
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteInstitution(ChurchApp.DAL.Institutions InstituteObj)
         {
             string status = null;
@@ -150,7 +151,7 @@ namespace ChurchApp.AdminPanel
         #endregion DeleteInstitution
 
         #region GetAllInstitute Details
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetInstituteList(ChurchApp.DAL.Institutions InstituteObj)
         {
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -202,7 +203,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="InstituteObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetInstituteDetailsUsingID(ChurchApp.DAL.Institutions InstituteObj)
         {
              JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -236,7 +237,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetInstituteUsingPriestID
 
         #region GetRoles Details
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetRoles(ChurchApp.DAL.Administrators AdminObj)
         {
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -288,7 +289,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="AdminObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertAdministrator(ChurchApp.DAL.Administrators AdminObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -331,7 +332,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="AdminObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateAdministrator(ChurchApp.DAL.Administrators AdminObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -374,7 +375,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="InstituteObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAdministrators(ChurchApp.DAL.Administrators AdminObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -427,7 +428,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="AdminObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAdminDetails(ChurchApp.DAL.Administrators AdminObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -462,7 +463,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAdministratorDetailsUsing ID
 
         #region DeleteAdministrator
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteAdministrator(ChurchApp.DAL.Administrators AdminObj)
         {
             string status=null;

@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 #endregion Included Namespaces
@@ -42,7 +43,7 @@ namespace ChurchApp.AdminPanel
         //-------------* General  Methods *--------------//
 
         #region Delete From Server Folder
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteFileFromFolder(string imgPath)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -89,7 +90,7 @@ namespace ChurchApp.AdminPanel
         //Top 5
         #region Get Events
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetEvents(ChurchApp.DAL.Events EventsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -148,7 +149,7 @@ namespace ChurchApp.AdminPanel
         //All LATEST
         #region Get All Latest Events
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllLatestEvents(ChurchApp.DAL.Events EventsObj)
         {
             //Converting to Json
@@ -210,7 +211,7 @@ namespace ChurchApp.AdminPanel
         //Top 5
         #region Get Old Events
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetOldEvents(ChurchApp.DAL.Events EventsObj)
         {
             DAL.Security.UserAuthendication UA;
@@ -266,7 +267,7 @@ namespace ChurchApp.AdminPanel
         //All OLD
         #region Get All Old Events
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllOldEvents(ChurchApp.DAL.Events EventsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -317,7 +318,7 @@ namespace ChurchApp.AdminPanel
 
         #region Get Events By EventID
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetEventsByEventID(ChurchApp.DAL.Events EventsObj)
         {
             DAL.Security.UserAuthendication UA;
@@ -368,7 +369,7 @@ namespace ChurchApp.AdminPanel
 
         #region Insert Event
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertEvent(ChurchApp.DAL.Events EventsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -409,7 +410,7 @@ namespace ChurchApp.AdminPanel
 
         #region Update Event
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateEvent(ChurchApp.DAL.Events EventsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -449,7 +450,7 @@ namespace ChurchApp.AdminPanel
 
         #region Delete Event
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteEvent(ChurchApp.DAL.Events EventsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -492,7 +493,7 @@ namespace ChurchApp.AdminPanel
 
         #region Delete App Image
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteAppImage(ChurchApp.DAL.AppImages AppImgObj)
         {
             DAL.Security.UserAuthendication UA;
@@ -530,7 +531,7 @@ namespace ChurchApp.AdminPanel
         //-------------* Notification  Methods *--------------//
         #region Insert Notification
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertNotification(ChurchApp.DAL.Notification NotificationObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();

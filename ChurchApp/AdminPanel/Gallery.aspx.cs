@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -17,7 +18,7 @@ namespace ChurchApp.AdminPanel
 
         }
          #region GetAllGalleryImageAlbumByChurchID
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllGalleryImageAlbumByChurchID(GalleryAlbum GalleryAlbumObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -68,7 +69,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllGalleryImageAlbumByChurchID
 
          #region GetAllImageByAlbumID
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllImageByAlbumID(GalleryItems GalleryItemsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -117,7 +118,7 @@ namespace ChurchApp.AdminPanel
 #endregion GetAllImageByAlbumID
 
         #region InsertImageAlbum
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertImageAlbum(GalleryAlbum GalleryAlbumObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -154,7 +155,7 @@ namespace ChurchApp.AdminPanel
 
 
         #region DeleteImageItem
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteImageItem(GalleryItems GalleryItemsObj)
         {
 
@@ -189,7 +190,7 @@ namespace ChurchApp.AdminPanel
         #endregion DeleteImageItem
 
         #region DeleteAlbumItem
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteAlbumItem(GalleryItems GalleryItemsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -236,7 +237,7 @@ namespace ChurchApp.AdminPanel
         #endregion DeleteAlbumItem
 
  #region GetAllGalleryVideoAlbumByChurchID
- [System.Web.Services.WebMethod]
+ [WebMethod(EnableSession = true)]
  public static string GetAllGalleryVideoAlbumByChurchID(GalleryAlbum GalleryAlbumObj)
  {
 
@@ -286,7 +287,7 @@ namespace ChurchApp.AdminPanel
 
 
 #region GetAllVideosByAlbumID
-[System.Web.Services.WebMethod]
+[WebMethod(EnableSession = true)]
 public static string GetAllVideosByAlbumID(GalleryItems GalleryItemsObj)
 {
     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -336,7 +337,7 @@ public static string GetAllVideosByAlbumID(GalleryItems GalleryItemsObj)
 
 
 #region DeleteVideoItem
-[System.Web.Services.WebMethod]
+[WebMethod(EnableSession = true)]
 public static string DeleteVideoItem(GalleryItems GalleryItemsObj)
 {
     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -376,7 +377,7 @@ public static string DeleteVideoItem(GalleryItems GalleryItemsObj)
 #endregion DeleteVideoItem
 
 #region DeleteVideoAlbumItem
-[System.Web.Services.WebMethod]
+[WebMethod(EnableSession = true)]
 public static string DeleteVideoAlbumItem(GalleryItems GalleryItemsObj)
 {
     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();

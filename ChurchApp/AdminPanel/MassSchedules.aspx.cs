@@ -10,6 +10,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -23,7 +24,7 @@ namespace ChurchApp.AdminPanel
         }
 
         #region GetAllMassTimings
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllMassTimings(MassTimings MassTimingsObj)
         {
             string jsonResult = null;
@@ -77,7 +78,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllMassTimings
 
         #region InsertMassTiming
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertMassTiming(MassTimings MassTimingsObj)
         {       
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -113,7 +114,7 @@ namespace ChurchApp.AdminPanel
         #endregion InsertMassTiming
 
         #region UpdateMassTiming
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateMassTiming(MassTimings MassTimingsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -144,7 +145,7 @@ namespace ChurchApp.AdminPanel
         #endregion UpdateMassTiming
 
         #region DeleteMassTiming
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteMassTiming(MassTimings MassTimingsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -174,7 +175,7 @@ namespace ChurchApp.AdminPanel
         #endregion DeleteMassTiming
 
         #region selectMassTimeByMassID
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string selectMassTimeByMassID(MassTimings MassTimingsObj)
         {
             string jsonResult = null;
@@ -228,7 +229,7 @@ namespace ChurchApp.AdminPanel
         #endregion selectMassTimeByMassID
 
         #region selectMassTimeByDay
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string selectMassTimeByDay(MassTimings MassTimingsObj)
         {
             string jsonResult = null;

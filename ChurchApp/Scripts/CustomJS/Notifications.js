@@ -312,12 +312,15 @@ function SaveNotification()
     if ($("#LinkID").val() != undefined) {
         var linkID = $("#LinkID").val().replace('/', "");
     }
+    startDate = startDate.replace(/ /g, '-')
+    expiryDate = expiryDate.replace(/ /g, '-')
     if (expiryDate < startDate)
     {
-        noty({ text: Messages.NotificationDateChecking, type: 'info' });
+        noty({ text: Messages.NotificationDateChecking, type: 'information' });
     }
     else
     {
+       
         var Notifications = new Object();
         Notifications.caption = caption;
         Notifications.notificationType = type;
@@ -490,21 +493,21 @@ function BindControlsOnEdit(Records)
     jsonResult = GetNotificationByID(Records);
     if (jsonResult != undefined) {
         $.each(jsonResult, function (index, jsonResult) {
-            var startDate = new Date(parseInt(jsonResult.StartDate.substr(6)));
-            startDate = formattedDate(startDate);
-            startDate = startDate.split("/").join("-");
-            startDate = toDate(startDate);
+            //var startDate = new Date(parseInt(jsonResult.StartDate.substr(6)));
+            //startDate = formattedDate(startDate);
+            //startDate = startDate.split("/").join("-");
+            //startDate = toDate(startDate);
             debugger;
-            var ExpiryDate = new Date(parseInt(jsonResult.ExpiryDate.substr(6)));
-            ExpiryDate = formattedDate(ExpiryDate);
-            ExpiryDate = ExpiryDate.split("/").join("-");
-            ExpiryDate = toDate(ExpiryDate);
+            //var ExpiryDate = new Date(parseInt(jsonResult.ExpiryDate.substr(6)));
+            //ExpiryDate = formattedDate(ExpiryDate);
+            //ExpiryDate = ExpiryDate.split("/").join("-");
+            //ExpiryDate = toDate(ExpiryDate);
             $("#ddlType").val(jsonResult.Type).trigger("change");
             $("#txtCaption").val(jsonResult.Caption);
             description = jsonResult.Description;
             $("#txtDescription").val(description);
-            $("#txtStartDate").val(startDate);
-            $("#txtExpiryDate").val(ExpiryDate);
+            $("#txtStartDate").val($("#sDate").text());
+            $("#txtExpiryDate").val($("#eDate").text());
         });
     }
 }

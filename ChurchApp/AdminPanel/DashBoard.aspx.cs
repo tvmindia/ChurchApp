@@ -4,6 +4,7 @@ using System.Data;
 using System.Web;
 using System.Web.Script.Serialization;
 using ChurchApp.DAL;
+using System.Web.Services;
 
 
 namespace ChurchApp.AdminPanel
@@ -76,7 +77,7 @@ namespace ChurchApp.AdminPanel
         }
 
         #region GetAllChurches
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllChurches(DAL.Church churchObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -168,7 +169,7 @@ namespace ChurchApp.AdminPanel
 
 
         #region GetAllChurchIDandText
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllChurchIDandText(DAL.Church churchObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -218,7 +219,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllChurchIDandText
 
         #region GetAllTowns
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectTownMastersIDandText(TownMaster townMasterObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -272,7 +273,7 @@ namespace ChurchApp.AdminPanel
 
 
        #region InsertChurch
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertChurch(DAL.Church churchObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -309,7 +310,7 @@ namespace ChurchApp.AdminPanel
 
 
         #region UpdateChurch
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateChurch(DAL.Church churchObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -343,7 +344,7 @@ namespace ChurchApp.AdminPanel
         #endregion UpdateChurch
 
         #region DeleteChurch
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteChurch(DAL.Church churchObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -382,7 +383,7 @@ namespace ChurchApp.AdminPanel
         #endregion DeleteChurch
 
         #region GetChurchDetailsByChurchID
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetChurchDetailsByChurchID(DAL.Church churchObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -436,7 +437,7 @@ namespace ChurchApp.AdminPanel
        #endregion GetChurchDetailsByChurchID
 
         #region GetAllRolesByChurch
-         [System.Web.Services.WebMethod]
+         [WebMethod(EnableSession = true)]
         public static string GetAllRolesByChurch(Roles rolesObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -488,7 +489,7 @@ namespace ChurchApp.AdminPanel
 
         #region SelectAllRoles
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectAllRoles(Roles rolesObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -537,7 +538,7 @@ namespace ChurchApp.AdminPanel
 
 
         #region GetAllRolesIDandText
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllRolesIDandText(Roles rolesObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -587,7 +588,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllRolesIDandText
 
         #region InsertRoles
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertRoles(Roles rolesObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -621,7 +622,7 @@ namespace ChurchApp.AdminPanel
         #endregion InsertRoles
 
         #region DeleteRole
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteRole(Roles rolesObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -655,7 +656,7 @@ namespace ChurchApp.AdminPanel
         #endregion DeleteRole
 
         #region GetRoleDetailByRoleID
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetRoleDetailByRoleID(Roles rolesObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -709,7 +710,7 @@ namespace ChurchApp.AdminPanel
 
         #region UpdateRoles
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateRoles(Roles rolesObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -743,7 +744,7 @@ namespace ChurchApp.AdminPanel
 
         #region SelectAllUsers
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectAllUsers(Users usersObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -790,7 +791,7 @@ namespace ChurchApp.AdminPanel
         #endregion SelectAllUsers
 
         #region InsertUsers
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertUsers(Users usersObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -821,7 +822,7 @@ namespace ChurchApp.AdminPanel
         #endregion InsertUsers
 
         #region UpdateUser
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateUser(Users usersObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -853,7 +854,7 @@ namespace ChurchApp.AdminPanel
         #endregion UpdateUser
 
         #region DeleteUser
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteUser(Users usersObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -885,7 +886,7 @@ namespace ChurchApp.AdminPanel
 #endregion DeleteUser
 
         #region GetUserDetailsByUserID
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetUserDetailsByUserID(Users usersObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -932,7 +933,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetUserDetailsByUserID
 
         #region GetAllUsersByChurch
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllUsersByChurch(Users usersObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -983,7 +984,7 @@ namespace ChurchApp.AdminPanel
 
         #region SelectAllDesignation
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectAllDesignation(OrgDesignationMaster designationObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1030,7 +1031,7 @@ namespace ChurchApp.AdminPanel
         #endregion SelectAllDesignation
 
         #region GetAllDesignationByOrganization
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllDesignationByOrganization(OrgDesignationMaster designationObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1077,7 +1078,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllDesignationByOrganization
 
         #region InsertDesignation
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertDesignation(OrgDesignationMaster designationObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1110,7 +1111,7 @@ namespace ChurchApp.AdminPanel
         #endregion InsertDesignation
 
         #region GetAllOrgType
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllOrgType(OrgDesignationMaster designationObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1157,7 +1158,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllOrgType
 
         #region GetDesignationDetailByID
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetDesignationDetailByID(OrgDesignationMaster designationObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1206,7 +1207,7 @@ namespace ChurchApp.AdminPanel
 
 
         #region UpdateDesignation
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateDesignation(OrgDesignationMaster designationObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1238,7 +1239,7 @@ namespace ChurchApp.AdminPanel
         #endregion UpdateDesignation
 
         #region DeleteDesignation
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteDesignation(OrgDesignationMaster designationObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1270,7 +1271,7 @@ namespace ChurchApp.AdminPanel
 
         #region SelectAllTown
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectAllTown(TownMaster townMasterObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1318,7 +1319,7 @@ namespace ChurchApp.AdminPanel
 
         #region SelectTown
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectTown(TownMaster townObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1365,7 +1366,7 @@ namespace ChurchApp.AdminPanel
         #endregion SelectTown
 
         #region InsertTown
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertTown(TownMaster townObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1398,7 +1399,7 @@ namespace ChurchApp.AdminPanel
         #endregion InsertTown
 
         #region DeleteTown
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteTown(TownMaster townObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1439,7 +1440,7 @@ namespace ChurchApp.AdminPanel
         #endregion DeleteTown
 
         #region UpdateTown
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateTown(TownMaster townObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -1472,7 +1473,7 @@ namespace ChurchApp.AdminPanel
         #endregion UpdateTown
 
         #region GetAllChurch
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllChurch(DAL.Church churchObj)
         {
         

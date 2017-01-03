@@ -634,12 +634,12 @@ function BindDetails(intituteID) {
             document.getElementById('lblInstituteName').innerText = InstituteRow.name;
             document.getElementById('lblAddress').innerText = InstituteRow.address;
             document.getElementById('lblHistory').innerText = InstituteRow.description;
-            document.getElementById('lblFounder').innerText = InstituteRow.Founder;
+            document.getElementById('lblFounder').innerText = InstituteRow.Founder.substring(0, 30);
             document.getElementById('lblFounded').innerText = InstituteRow.Founded;
-            document.getElementById('lblEmail').innerText = InstituteRow.Email;
-            document.getElementById('lblPhone1').innerText = InstituteRow.phone1;
-            document.getElementById('lblPhone2').innerText = InstituteRow.phone2;
-            document.getElementById('lblMobile').innerText = InstituteRow.Mobile;
+            document.getElementById('lblEmail').innerText = InstituteRow.Email.substring(0, 30);
+            document.getElementById('lblPhone1').innerText = InstituteRow.phone1.substring(0, 30);
+            document.getElementById('lblPhone2').innerText = InstituteRow.phone2.substring(0, 30);
+            document.getElementById('lblMobile').innerText = InstituteRow.Mobile.substring(0, 30);
             if (InstituteRow.imagepath != "") {
                 $('#instituteDetailPreview').attr('src', InstituteRow.imagepath);
             }
@@ -740,9 +740,9 @@ function HtmlBindInstitutions(InstituteDetails, i) {
     }
     
     var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + imageurl + '"/></li>'
-      + '<li><span class="choosepic">' + InstituteDetails.Name + '</span> <br/>'
-      + '<strong>Address:</strong> ' + InstituteDetails.Address.substr(0,40) + '<br/><strong>Founder:</strong>' + InstituteDetails.Founder + '<br/>'
-      + '<strong>Founded:</strong>' + ConvertJsonToDate(InstituteDetails.Founded) + '<br /><strong>Website:</strong> ' + InstituteDetails.Website + ' <br/>'
+      + '<li><span class="choosepic">' + InstituteDetails.Name.substr(0, 40) + '</span> <br/>'
+      + '<strong>Address:</strong> ' + InstituteDetails.Address.substr(0, 40) + '<br/><strong>Founder:</strong>' + InstituteDetails.Founder.substr(0, 40) + '<br/>'
+      + '<strong>Founded:</strong>' + ConvertJsonToDate(InstituteDetails.Founded) + '<br /><strong>Website:</strong> ' + InstituteDetails.Website.substr(0, 40) + ' <br/>'
       + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenInstituteDetails(' + ID + ');">View more details</a>'
       + '</li></ul></div>');
     return html;

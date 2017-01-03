@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 #endregion Namespace
@@ -32,7 +33,7 @@ namespace ChurchApp.AdminPanel
         #region WebMethod
 
         #region GetAllpriest Details
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetPriestsDetails(Priest priestObj)
         {
             
@@ -93,7 +94,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="priestObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetPriest(Priest priestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -139,7 +140,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="priestObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetPriestsDetailsUsingPriestID(Priest priestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -180,7 +181,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="priestObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string VicarExistornot(Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -215,7 +216,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="PriestObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertPriest(ChurchApp.DAL.Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -258,7 +259,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="PriestObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdatePriest(ChurchApp.DAL.Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -296,7 +297,7 @@ namespace ChurchApp.AdminPanel
         #endregion Update Priest
 
         #region DeletePriest
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeletePriest(ChurchApp.DAL.Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -332,7 +333,7 @@ namespace ChurchApp.AdminPanel
         #endregion DeletePriest
 
         #region DeletePriest
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateChurchIDPriest(ChurchApp.DAL.Priest PriestObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();

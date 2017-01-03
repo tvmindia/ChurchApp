@@ -12,6 +12,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 #endregion NameSpace
@@ -26,7 +27,7 @@ namespace ChurchApp.AdminPanel
 
         //<--------------------- Family Unit Methods----------------------------->//
         #region GetAllFamilyUnits
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllFamilyUnits(FamilyUnits familyUnitsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -72,7 +73,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllFamilyUnits
 
         #region GetAllFamilyUnitMembers
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllFamilyUnitMembers(FamilyUnits familyUnitsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -118,7 +119,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllFamilyUnitMembers
 
         #region InsertFamilyUnit
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertFamilyUnit(FamilyUnits familyUnitsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -153,7 +154,7 @@ namespace ChurchApp.AdminPanel
         #endregion InsertFamilyUnit
 
         #region UpdateFamilyUnit
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateFamilyUnit(FamilyUnits familyUnitsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -186,7 +187,7 @@ namespace ChurchApp.AdminPanel
         #endregion UpdateFamilyUnit
 
         #region DeleteFamilyUnit
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteFamilyUnit(FamilyUnits familyUnitsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -220,7 +221,7 @@ namespace ChurchApp.AdminPanel
         //<-----------------------------Family Methods----------------------------->//
 
         #region GetAllFamilys
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllFamilys(Family familyObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -269,7 +270,7 @@ namespace ChurchApp.AdminPanel
 
 
         #region GetAllFamilyMembers
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllFamilyMembers(Family familyObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -314,7 +315,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllFamilyMembers
 
         #region InsertFamily
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertFamily(Members memberObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -358,7 +359,7 @@ namespace ChurchApp.AdminPanel
         #endregion InsertFamily
 
         #region SelectFamily
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectFamily(Family familyObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -404,7 +405,7 @@ namespace ChurchApp.AdminPanel
         #endregion SelectFamily
 
         #region UpdateFamily
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateFamily(Members memberObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -441,7 +442,7 @@ namespace ChurchApp.AdminPanel
         #endregion UpdateFamily
 
         #region DeleteFamily
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteFamily(Family familyObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -473,7 +474,7 @@ namespace ChurchApp.AdminPanel
 
         //<-----------------------------Family Member Methods----------------------------->//
         #region GetFamilyMember
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetFamilyMember(Members memberObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -521,7 +522,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetFamilyMember
 
         #region UpdateFamilyMember
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateFamilyMember(Members memberObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -554,7 +555,7 @@ namespace ChurchApp.AdminPanel
         #endregion UpdateFamilyMember
 
         #region DeleteFamilyMember
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteFamilyMember(Members memberObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -587,7 +588,7 @@ namespace ChurchApp.AdminPanel
         #endregion UpdateFamilyMember
 
         #region GetAllFamilyMember
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllFamilyMember(Members memberObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -644,7 +645,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="AdminObj"></param>
         /// <returns>Success/Failure</returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertAdministrator(ChurchApp.DAL.Administrators AdminObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -676,7 +677,7 @@ namespace ChurchApp.AdminPanel
         #endregion Insert Administrator
 
         #region DeleteAdministrator
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteAdministrator(ChurchApp.DAL.Administrators AdminObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -708,7 +709,7 @@ namespace ChurchApp.AdminPanel
         #endregion DeleteAdministrator
 
         #region SelectAdministrator
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectAdministrator(ChurchApp.DAL.Administrators AdminObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -762,7 +763,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="AdminObj"></param>
         /// <returns>Success/Failure</returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateAdministrator(ChurchApp.DAL.Administrators AdminObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -797,7 +798,7 @@ namespace ChurchApp.AdminPanel
         #endregion Update Administrator
 
         #region GetAdminMemberDetails
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAdminMemberDetails(Members memberObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
