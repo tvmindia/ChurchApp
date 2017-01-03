@@ -161,8 +161,7 @@
    
     $('#BtnVideoAlbumSave').click(function (e) {
       
-        debugger;
-      
+           
         barinAlbum.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
         barinAlbum.text.style.fontSize = '2rem';
         
