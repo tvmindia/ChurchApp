@@ -396,7 +396,7 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[Existornot]";
+                cmd.CommandText = "[PriestExistornot]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
                 outParam = cmd.Parameters.Add("@ExistStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
