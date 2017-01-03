@@ -312,14 +312,15 @@ function SaveNotification()
     if ($("#LinkID").val() != undefined) {
         var linkID = $("#LinkID").val().replace('/', "");
     }
+    startDate = startDate.replace(/ /g, '-')
+    expiryDate = expiryDate.replace(/ /g, '-')
     if (expiryDate < startDate)
     {
-        noty({ text: Messages.NotificationDateChecking, type: 'info' });
+        noty({ text: Messages.NotificationDateChecking, type: 'information' });
     }
     else
     {
-        startDate = startDate.replace(/ /g, '-')
-        expiryDate=expiryDate.replace(/ /g,'-')
+       
         var Notifications = new Object();
         Notifications.caption = caption;
         Notifications.notificationType = type;
