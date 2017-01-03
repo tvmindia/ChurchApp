@@ -140,6 +140,7 @@ function SaveAdministrator()
         Administrators.Phone = $('#txtMobile').val();
         Administrators.orgType = "INST";
         Administrators.orgId = InstituteID;
+        Administrators.memberId = "";
         Administrators.churchId = churchObject.chid;
         if (AdminID != null && AdminID != "") 
         {
@@ -155,6 +156,7 @@ function SaveAdministrator()
                 formData.append('churchId', Administrators.churchId);
                 formData.append('desigId', Administrators.desigId);
                 formData.append('AdminimageId', Administrators.imageID);
+                formData.append('memberId', Administrators.memberId);
                 formData.append('Name',Administrators.Name);
                 formData.append('Phone', Administrators.Phone);
                 formData.append('orgType', Administrators.orgType);
@@ -210,6 +212,7 @@ function SaveAdministrator()
                 formData.append('desigId', Administrators.desigId);
                 formData.append('Name',Administrators.Name);
                 formData.append('Phone', Administrators.Phone);
+                formData.append('memberId', Administrators.memberId);
                 formData.append('orgType', Administrators.orgType);
                 formData.append('orgId', Administrators.orgId);
                 formData.append('createdby', document.getElementById("LoginName").innerHTML);

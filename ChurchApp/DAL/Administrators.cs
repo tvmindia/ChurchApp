@@ -312,7 +312,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar, 100).Value = orgType;
                 cmd.Parameters.Add("@OrgID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(orgId);
                 cmd.Parameters.Add("@DesigID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(desigId);
-                if(memberId!=null)
+                if (memberId != null && memberId !="")
                 {
                     cmd.Parameters.Add("@MembID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(memberId);
                 }
