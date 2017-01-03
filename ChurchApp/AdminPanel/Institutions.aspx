@@ -302,7 +302,7 @@
                             <label class="control-label" for="inputIcon">Mobile</label>
 					  <div class="input-prepend span6">
                        <span class="add-on"><i class="icon-book"></i></span>
-                       <input class="span12" name="mobile" id="txtMobile" type="text"/>
+                       <input class="span12" onkeypress="return isNumber(event);" name="mobile" id="txtMobile" type="text"/>
                        </div>
 					  </div> 
                            <div class="alert alert-error" id="ErrorBox1" style="display: none;">
