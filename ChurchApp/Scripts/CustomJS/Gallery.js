@@ -72,6 +72,9 @@
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         BindGalleryImageAlbum();
                         break;
+                    case "2":
+                        noty({ type: 'error', text: Messages.AlbumNameExists });
+                        break;
                     case "0":
                         noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
@@ -93,6 +96,9 @@
                         case "1":
                             noty({ type: 'success', text: Messages.AlbumUploadInsert });
                             BindGalleryImageAlbum();
+                            break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.AlbumNameExists });
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.AlbumUploadFailure });
@@ -161,8 +167,7 @@
    
     $('#BtnVideoAlbumSave').click(function (e) {
       
-        debugger;
-      
+           
         barinAlbum.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
         barinAlbum.text.style.fontSize = '2rem';
         

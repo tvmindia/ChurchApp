@@ -270,7 +270,7 @@ $(document).ready(function () {
                         else
                         {
                             jsonResult = InsertAdministrator(Administrators);
-                            switch (jsonResult.status) {
+                            switch (jsonResult.results) {
                                 case "1":
                                     noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                                     $("#divAdminDetals").css("display", "");
@@ -1739,6 +1739,7 @@ function OpenAdminModal()
         $("#AddOrEditAdmin").text("Add");
         $('#AdminImg').attr('src', '../img/gallery/Noimage.png');
         document.getElementById("fluImage").value = '';
+        clearAdminControls();
     }
     catch(e)
     {
@@ -1837,6 +1838,7 @@ function DeleteAdministrator(e)
 {
     try
     {
+        debugger;
         var jsonResult = {};
         var adminID = e.id;
         var Administrators = new Object();
@@ -1844,7 +1846,7 @@ function DeleteAdministrator(e)
         var deleteConirm = confirm("Want to delete?");
         if (deleteConirm) {
             jsonResult = DeleteAdmin(Administrators);
-            switch (jsonResult.status) {
+            switch (jsonResult.results) {
                 case "1":
                     noty({ text: Messages.DeletionSuccessFull, type: 'success' });
                     BindFamilyUnitMemebrs();
