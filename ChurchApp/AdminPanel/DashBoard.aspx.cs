@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using ChurchApp.DAL;
-using GoogleMaps.LocationServices;
-using ChurchApp.Master;
 
 
 namespace ChurchApp.AdminPanel
