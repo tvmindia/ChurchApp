@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 #endregion Included Namespaces
@@ -43,7 +44,7 @@ namespace ChurchApp.AdminPanel
         //-------------* General  Methods *--------------//
 
         #region Delete From Server Folder
-          [System.Web.Services.WebMethod]
+          [WebMethod(EnableSession = true)]
         public static void DeleteFileFromFolder(string imgPath)
         {
             if (imgPath.Contains('/'))
@@ -67,7 +68,7 @@ namespace ChurchApp.AdminPanel
 
         #region Get Notice Types
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetNoticeTypes(ChurchApp.DAL.NoticeType NoticeTypeObj)
         {
             string jsonResult = null;
@@ -124,7 +125,7 @@ namespace ChurchApp.AdminPanel
 
         #region Get All Notices
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetNotices(ChurchApp.DAL.Notices  NoticeObj)
         {
             DAL.Security.UserAuthendication UA;
@@ -183,7 +184,7 @@ namespace ChurchApp.AdminPanel
 
         #region Get Latest Notices
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetLatestNotices(ChurchApp.DAL.Notices NoticeObj)
         {
             DAL.Security.UserAuthendication UA;
@@ -243,7 +244,7 @@ namespace ChurchApp.AdminPanel
 
         #region Get Notice By NoticeID
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetNoticeDetailsByNoticeID(ChurchApp.DAL.Notices NoticeObj)
         {
             string jsonResult = null;
@@ -301,7 +302,7 @@ namespace ChurchApp.AdminPanel
 
         #region  Insert Notice
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertNotice(ChurchApp.DAL.Notices NoticeObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -337,7 +338,7 @@ namespace ChurchApp.AdminPanel
 
         #region  Update Notice
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateNotice(ChurchApp.DAL.Notices NoticeObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -377,7 +378,7 @@ namespace ChurchApp.AdminPanel
 
         #region Delete Notice
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteNotice(ChurchApp.DAL.Notices NoticeObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -422,7 +423,7 @@ namespace ChurchApp.AdminPanel
 
         #region  Insert App Image
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertAppImage(ChurchApp.DAL.AppImages AppImgObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -460,7 +461,7 @@ namespace ChurchApp.AdminPanel
 
         #region Delete App Image
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteAppImage(ChurchApp.DAL.AppImages AppImgObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -496,7 +497,7 @@ namespace ChurchApp.AdminPanel
         //-------------* Notification  Methods *--------------//
         #region Insert Notification
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertNotification(ChurchApp.DAL.Notification NotificationObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -536,7 +537,7 @@ namespace ChurchApp.AdminPanel
 
         #region  Get Server Map Path
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetServerMapPath(string Path)
         {
             string ServerPath = HttpContext.Current.Server.MapPath("~/img/" + Path);

@@ -11,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 #endregion NameSpace
@@ -25,7 +26,7 @@ namespace ChurchApp.AdminPanel
         }
 
         #region GetAllNotifications
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllNotifications(Notification NotificationsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -80,7 +81,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllNotifications
 
         #region GetNotificationByID
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetNotificationByID(Notification NotificationsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -137,7 +138,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetNotificationByID
 
         #region InsertNotification
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertNotification(Notification NotificationsObj)
         {
 
@@ -169,7 +170,7 @@ namespace ChurchApp.AdminPanel
         #endregion InsertNotification
 
         #region GetAllNotificationType
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllNotificationType(NotificationType NotificationTypeObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -225,7 +226,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllNotificationType
 
         #region UpdateNotification
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateNotification(Notification NotificationsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -257,7 +258,7 @@ namespace ChurchApp.AdminPanel
         #endregion UpdateNotification
 
         #region DeleteNotification
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteNotification(Notification NotificationsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -288,7 +289,7 @@ namespace ChurchApp.AdminPanel
         #endregion DeleteNotification
 
         #region SelectOldNotifications
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectOldNotifications(Notification NotificationsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -343,7 +344,7 @@ namespace ChurchApp.AdminPanel
         #endregion SelectOldNotifications
 
         #region SelectAllOldNotifications
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectAllOldNotifications(Notification NotificationsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -396,7 +397,7 @@ namespace ChurchApp.AdminPanel
         #endregion SelectAllOldNotifications
 
         #region SelectAllNewNotifications
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectAllNewNotifications(Notification NotificationsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();

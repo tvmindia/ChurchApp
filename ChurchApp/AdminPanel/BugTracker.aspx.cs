@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -18,7 +19,7 @@ namespace ChurchApp.AdminPanel
         }
 
         #region GetAllErrorLog
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllErrorLog(ExceptionTrack exceptionObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -64,7 +65,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetAllErrorLog
 
         #region GetErrorLogByID
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetErrorLogByID(ExceptionTrack exceptionObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -110,7 +111,7 @@ namespace ChurchApp.AdminPanel
         #endregion GetErrorLogByID
 
         #region UpdateErrorLog
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateErrorLog(ExceptionTrack exceptionObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -143,7 +144,7 @@ namespace ChurchApp.AdminPanel
         #endregion UpdateErrorLog
 
         #region GetAllFixedErrorLog
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllFixedErrorLog(ExceptionTrack exceptionObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();

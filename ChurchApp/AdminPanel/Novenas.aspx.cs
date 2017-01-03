@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 #endregion Included Namespaces
@@ -39,7 +40,7 @@ namespace ChurchApp.AdminPanel
         //-------------* General  Methods *--------------//
 
         #region Delete From Server Folder
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static void DeleteFileFromFolder(string imgPath)
         {
             if (imgPath.Contains('/'))
@@ -63,7 +64,7 @@ namespace ChurchApp.AdminPanel
 
         #region Delete App Image
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteAppImage(ChurchApp.DAL.AppImages AppImgObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -90,7 +91,7 @@ namespace ChurchApp.AdminPanel
 
         #region Get patron ID And Name (To Bind Patron Dropdown)
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllPatronIdAndName(PatronMaster PatrnObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -140,7 +141,7 @@ namespace ChurchApp.AdminPanel
 
         #region Get All Patrons
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllPatrons(PatronMaster PatrnObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -190,7 +191,7 @@ namespace ChurchApp.AdminPanel
 
 
         #region SelectAllPatronMasterByChurchID
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string SelectAllPatronMasterByChurchID(PatronMaster PatrnObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -240,7 +241,7 @@ namespace ChurchApp.AdminPanel
 
         #region Add New Patron
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertPatron(ChurchApp.DAL.PatronMaster PatrnObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -277,7 +278,7 @@ namespace ChurchApp.AdminPanel
 
         #region Delete Patron
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeletePatron(ChurchApp.DAL.PatronMaster PatrnObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -319,7 +320,7 @@ namespace ChurchApp.AdminPanel
 
         #region Update Patron
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdatePatron(ChurchApp.DAL.PatronMaster PatrnObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -360,7 +361,7 @@ namespace ChurchApp.AdminPanel
 
         #region GetNovenaDetailsByPatronID
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetNovenasByPatronID(ChurchApp.DAL.Novenas NovenaObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -415,7 +416,7 @@ namespace ChurchApp.AdminPanel
 
         #region GetNovenaDetailsByNovenaID
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetNovenaDetailsByNovenaID(ChurchApp.DAL.Novenas NovenaObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -467,7 +468,7 @@ namespace ChurchApp.AdminPanel
 
         #region Add New Novena
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertNovena(ChurchApp.DAL.Novenas NovenaObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -506,7 +507,7 @@ namespace ChurchApp.AdminPanel
 
         #region Delete Novena 
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteNovena(ChurchApp.DAL.Novenas NovenaObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -547,7 +548,7 @@ namespace ChurchApp.AdminPanel
 
         #region Update Novena
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdateNovena(ChurchApp.DAL.Novenas NovenaObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -590,7 +591,7 @@ namespace ChurchApp.AdminPanel
 
         #region Add Novena Timing
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertNovenaTiming(ChurchApp.DAL.NovenaTiming NovenaTimingObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -625,7 +626,7 @@ namespace ChurchApp.AdminPanel
 
         #region Delete Novena Timing (by NovenaID,Day And Time)
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteNovenaTiming(ChurchApp.DAL.NovenaTiming NovenaTimingObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -663,7 +664,7 @@ namespace ChurchApp.AdminPanel
 
         #region Delete Novena Timing By NovenaID
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteNovenaTimingByNovenaID(ChurchApp.DAL.NovenaTiming NovenaTimingObj)
         {
 
@@ -701,7 +702,7 @@ namespace ChurchApp.AdminPanel
         #endregion Delete Novena Timing By NovenaID
 
         #region GetPatronDetailByID
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetPatronDetailByID(PatronMaster PatrnObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -751,7 +752,7 @@ namespace ChurchApp.AdminPanel
 
         #region GetAllNovenasByChurchID
 
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllNovenasByChurchID(DAL.Novenas novenaObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -23,7 +24,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="PatrnObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllPatrons(PatronMaster PatrnObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -69,7 +70,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="PatrnObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetAllmembers(Members memObj)
         {
             
@@ -118,7 +119,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="PatrnObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetPatronByID(PatronMaster PatrnObj)
         {
             
@@ -156,7 +157,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="PiousObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string InsertPiousOrg(PiousOrg PiousObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();           
@@ -199,7 +200,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="PiousObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string UpdatePiousOrg(PiousOrg PiousObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();           
@@ -241,7 +242,7 @@ namespace ChurchApp.AdminPanel
         #endregion Update Institution
 
         #region DeleteInstitution
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string DeleteInstitution(PiousOrg PiousObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();           
@@ -274,7 +275,7 @@ namespace ChurchApp.AdminPanel
         #endregion DeleteInstitution
 
         #region GetPuOrgList Details
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetPuOrgList(PiousOrg PiousObj)
         {
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -326,7 +327,7 @@ namespace ChurchApp.AdminPanel
         /// </summary>
         /// <param name="PatrnObj"></param>
         /// <returns></returns>
-        [System.Web.Services.WebMethod]
+        [WebMethod(EnableSession = true)]
         public static string GetPiousOrgDetailsUsingID(PiousOrg PiousObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
