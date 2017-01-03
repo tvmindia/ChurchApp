@@ -381,7 +381,7 @@ var Messages = {
     PasswordNotMatch: "Password does not match",
     SelectPosition: "Please Select Position",
     SelectMember:"Please Select Member",
-   
+    SelectExistingPatron:"Please select existing patron",
     Warning: "Warning Msg ",
     DeletionFailure: "Deletion Not Successful ",
     DeletionFailureUsed:"Deletion Not Successful! It is beeing used",
