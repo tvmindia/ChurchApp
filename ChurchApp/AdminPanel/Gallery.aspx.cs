@@ -211,7 +211,7 @@ namespace ChurchApp.AdminPanel
                             GalleryItemsObj.url = dr["URL"].ToString();
                             GalleryItemsObj.DeleteGalleryItem();
                         }
-                        GalleryItemsObj.GalleryAlbObj.DeleteGalleryAlbum();
+                       GalleryItemsObj.status= GalleryItemsObj.GalleryAlbObj.DeleteGalleryAlbum();
                     }
                 }
                 //Session is out

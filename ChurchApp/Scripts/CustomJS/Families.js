@@ -270,7 +270,7 @@ $(document).ready(function () {
                         else
                         {
                             jsonResult = InsertAdministrator(Administrators);
-                            switch (jsonResult.status) {
+                            switch (jsonResult.results) {
                                 case "1":
                                     noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                                     $("#divAdminDetals").css("display", "");
