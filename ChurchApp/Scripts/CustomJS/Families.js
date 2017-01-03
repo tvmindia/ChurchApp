@@ -1739,6 +1739,7 @@ function OpenAdminModal()
         $("#AddOrEditAdmin").text("Add");
         $('#AdminImg').attr('src', '../img/gallery/Noimage.png');
         document.getElementById("fluImage").value = '';
+        clearAdminControls();
     }
     catch(e)
     {
