@@ -41,8 +41,8 @@
 	<!-- end: CSS -->
 
     <style type="text/css">
-			body { background: url(img/Bgrepeat.jpg) 50% 0% !important; 
-                   background-position:left!important;
+			body { background: url(img/bg.jpg) no-repeat !important; 
+                   background-size:cover !important;
 			}
             .errormsg
             {
