@@ -381,7 +381,7 @@ var Messages = {
     PasswordNotMatch: "Password does not match",
     SelectPosition: "Please Select Position",
     SelectMember:"Please Select Member",
-   
+    SelectExistingPatron:"Please select existing patron",
     Warning: "Warning Msg ",
     DeletionFailure: "Deletion Not Successful ",
     DeletionFailureUsed:"Deletion Not Successful! It is beeing used",
@@ -407,6 +407,7 @@ var Messages = {
     AlbumUploadFailure: "Upload was not successfull",
     AlbumUpload: "Uploaded successfully",
     BrowserSupport: "Browser does not HTML5,Please Upgrade!",
+    AlbumNameExists:"Album with the same name already exists",
 
     TimeSelect: " Please Select Time",
     DaySelect: "Please Select a Day",

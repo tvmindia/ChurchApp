@@ -170,6 +170,8 @@ function SaveAdministrator()
                     case "1":
                         noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                         break;
+                    case "2":
+                        noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
                     default:
                         noty({ text: result.results, type: 'error' });
                         break;
@@ -179,14 +181,16 @@ function SaveAdministrator()
             {
                 result = InsertAdministrator(Administrators);
 
-                if (result.results == "1") {
-                    noty({ text: Messages.InsertionSuccessFull, type: 'success' });
-                }
-                if (result.results == "2") {
-                    noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
-                }
-                else {
-                    noty({ text: result.results, type: 'error' });
+
+                switch (result.results) {
+                    case "1":
+                        noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                        break;
+                    case "2":
+                        noty({ text: Messages.AlreadyExistsMsgCaption, type: 'error' });
+                    default:
+                        noty({ text: result.results, type: 'error' });
+                        break;
                 }
             }
      
@@ -273,29 +277,37 @@ function SaveInstitution() {
             PiousOrg.Name = $('#txtInstituteName').val();
             PiousOrg.description = $('#txtHistory').val();
             PiousOrg.PatronID = $('#hdnPatron').val();
-
             $("#hdnInstutID").val(guid);
             $('#hdnInstituteID').val(guid);
-            result = InsertInstitute(PiousOrg);
+            if (PiousOrg.PatronID != "" && PiousOrg.PatronID != null)
+            {
+                result = InsertInstitute(PiousOrg);
 
-            if (result.results == "1") {
-                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
-                $('#divAccoAdmininfo').show();
-                $('#divAdminInfo').show();
-                $('#EditdivAppend').empty();
-                if ($("#EditGenDetails").hasClass("active")) {
-                    $('#EditGenDetails').toggleClass("active");
-                    $('#EditGen').toggleClass("show");
-                }
-                if (!$("#divAccoAdmininfo").hasClass("active")) {
-                    $('#divAccoAdmininfo').toggleClass("active");
-                    $('#divAdminInfo').toggleClass("show");
-                }
+                if (result.results == "1") {
+                    noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                    $('#divAccoAdmininfo').show();
+                    $('#divAdminInfo').show();
+                    $('#EditdivAppend').empty();
+                    if ($("#EditGenDetails").hasClass("active")) {
+                        $('#EditGenDetails').toggleClass("active");
+                        $('#EditGen').toggleClass("show");
+                    }
+                    if (!$("#divAccoAdmininfo").hasClass("active")) {
+                        $('#divAccoAdmininfo').toggleClass("active");
+                        $('#divAdminInfo').toggleClass("show");
+                    }
 
+                }
+                if (result.results != "1") {
+                    noty({ text: result.results, type: 'error' });
+                }
             }
-            if (result.results != "1") {
-                noty({ text: result.results, type: 'error' });
+            else
+            {
+                noty({ text: Messages.SelectExistingPatron, type: 'error' });
             }
+           
+          
 
 
         }
@@ -311,15 +323,23 @@ function SaveInstitution() {
             PiousOrg.piousOrgID = $("#hdnInstutID").val();
 
 
-           
-            result = UpdateInstitute(PiousOrg);
+            if (PiousOrg.PatronID != "" && PiousOrg.PatronID != null)
+            {
+                result = UpdateInstitute(PiousOrg);
 
-            if (result.results == "1") {
-                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                if (result.results == "1") {
+                    noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                }
+                if (result.results != "1") {
+                    noty({ text: result.results, type: 'error' });
+                }
             }
-            if (result.results != "1") {
-                noty({ text: result.results, type: 'error' });
+            else
+            {
+
+                noty({ text: Messages.SelectExistingPatron, type: 'error' });
             }
+          
 
         }
         BindInstituteslist();

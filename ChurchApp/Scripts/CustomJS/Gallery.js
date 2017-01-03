@@ -72,6 +72,9 @@
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
                         BindGalleryImageAlbum();
                         break;
+                    case "2":
+                        noty({ type: 'error', text: Messages.AlbumNameExists });
+                        break;
                     case "0":
                         noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
@@ -93,6 +96,9 @@
                         case "1":
                             noty({ type: 'success', text: Messages.AlbumUploadInsert });
                             BindGalleryImageAlbum();
+                            break;
+                        case "2":
+                            noty({ type: 'error', text: Messages.AlbumNameExists });
                             break;
                         case "0":
                             noty({ type: 'error', text: Messages.AlbumUploadFailure });
