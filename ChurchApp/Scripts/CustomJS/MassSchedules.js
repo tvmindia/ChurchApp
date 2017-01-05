@@ -59,8 +59,10 @@ $("document").ready(function (e) {
         }
        
         $("#TxtTime").val("");
+        $('.dropdown-menu li.active').removeClass('active');
         $("input[type=checkbox]").prop('checked', false);
         $('input[value="' + day + '"]').prop("checked", true);
+        $('.dropdown-menu li input[value="' + day + '"]').closest('li').addClass('active');
         $('#rowfluidDiv').hide();
         NovenaDayAndTime.length = 0;
     });
