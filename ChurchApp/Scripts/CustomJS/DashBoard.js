@@ -2948,7 +2948,7 @@ function initMap() {
        
         var map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 9.9816, lng: 76.2998 },
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeId: google.maps.MapTypeId.HYBRID,
             zoom: 17
         });
         //              
@@ -3019,7 +3019,7 @@ function initMap() {
 
        // var jlm = new google.maps.Map(document.getElementById('map'), map);
         google.maps.event.addListener(map, 'click', function (e) {
-           
+            debugger;
             $("#txtLongitude").val(e.latLng.lng());
             $("#txtLatitude").val(e.latLng.lat());
             document.getElementById("spanLatitude").innerHTML = e.latLng.lat();
@@ -3031,4 +3031,5 @@ function initMap() {
     catch (e) {
         noty({ type: 'error', text: e.message });
     }
+   
 }

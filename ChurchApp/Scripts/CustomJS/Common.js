@@ -179,7 +179,10 @@ function postBlobAjax(formData, page) {
 
         success: function (data) {
             $('#displaywait').hide();
-           jsonResult = JSON.parse(data);
+            jsonResult = JSON.parse(data);
+            if (jsonResult.statusCode == '555') {
+                window.location.replace(window.location.protocol + "//" + window.location.host + jsonResult.url);
+            }
         },
         processData: false,
         error: function (xmlhttprequest,textstatus,message) {

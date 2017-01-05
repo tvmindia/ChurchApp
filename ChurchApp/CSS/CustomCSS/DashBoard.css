@@ -3,4 +3,17 @@
 {
     height:95%
 }
- 
+  
+.modal{
+    z-index: 50;   
+}
+.modal-backdrop {
+    z-index: -1;
+    background-color: #ffffff;
+}
+
+
+.modal-backdrop.fade.in {
+    opacity: 0.8;
+    /*filter: alpha(opacity=80);*/
+}

@@ -783,7 +783,8 @@ function BindMassTimingTable(Records) {
                         var time = recordsTime.split(':')[0] + ":" + minute;
                     }
                     time = timeTo12HrFormat(time);
-                    time = hrsToAmPm(time);
+                    debugger;
+                    //time = hrsToAmPm(time);
                     timeArray.push(time);
                 }
 
@@ -807,7 +808,7 @@ function BindMassTimingTable(Records) {
                     var time = Records.Time.split(':')[0] + ":" + minute;
                 }
                 time = timeTo12HrFormat(time);
-                time = hrsToAmPm(time);
+                //time = hrsToAmPm(time);
                 var html = '<tr class="MassTimingRows" ID="' + Records.ID + '"ChurchID="' + Records.ChurchID + '"Day="' + Records.Day + '"Time="' + time + '"><td>' + Records.Day + '</td><td class="center">' + time + '</td></td><td class="center"><a class="circlebtn circlebtn-success massUpdate" title="Delete" href="#" onClick=BindMassEditGrid(this);><i class="halflings-icon white pencil"></i> </a></td></tr>';
             }
 
