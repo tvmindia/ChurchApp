@@ -1,16 +1,11 @@
 ﻿using Church.DAL;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Globalization;
-using System.Linq;
-using System.Web;
 
 using System.Net;
 using System.Text;
 using System.IO;
-using System.Security.Cryptography;
 using System.Configuration;
 
 using System.Web.Script.Serialization;
@@ -61,6 +56,11 @@ namespace ChurchApp.DAL
             set;
         }
         public string mainImageId
+        {
+            get;
+            set;
+        }
+        public string ImagePath
         {
             get;
             set;
@@ -140,7 +140,32 @@ namespace ChurchApp.DAL
         {
             get;
             set;
-        } 
+        }
+        public string Email
+        {
+            get;
+            set;
+        }
+        public string Remarks
+        {
+            get;
+            set;
+        }
+        public string Place
+        {
+            get;
+            set;
+        }
+        public string UserName
+        {
+            get;
+            set;
+        }
+        public string UserContact
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Church Methods
@@ -241,7 +266,61 @@ namespace ChurchApp.DAL
         }
         #endregion SelectAllChurches
 
+        #region InsertRequestChurch for App
+        /// <summary>
+        /// Insert Request New Church
+        /// </summary>
+        /// <returns>success or failure</returns>
+        public string InsertRequestChurch()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null, outchurchid = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertRequestChurch]";
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = churchName != null && churchName != "" ? churchName : null;
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address != null && address != "" ? address : null;
+                cmd.Parameters.Add("@Place", SqlDbType.NVarChar, 50).Value = Place;
+                cmd.Parameters.Add("@User", SqlDbType.NVarChar, 50).Value = UserName;
+                cmd.Parameters.Add("@UserContact", SqlDbType.NVarChar, 50).Value = UserContact;
+                cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar, 50).Value = Remarks;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
+                cmd.Parameters.Add("@ImagePath", SqlDbType.NVarChar, 50).Value = ImagePath;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outchurchid = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
+                outchurchid.Direction = ParameterDirection.Output;
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
 
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            churchId = outchurchid.Value.ToString();
+            status = outParameter.Value.ToString();
+            return status;
+
+        }
+        #endregion InsertRequestChurch for App
+       
         #region InsertChurch
         /// <summary>
         /// Insert New Church
