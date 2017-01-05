@@ -14,7 +14,14 @@ $("document").ready(function (e) {
         interval: 15,
         dropdown: true,
         change: function (time) {
-            AddTempTable();
+            if ($('.dropcheck').attr('placeholder') != "Select Days") {
+                AddTempTable();
+            }
+            else
+            {
+                $("#TxtTime").val('');
+                noty({ text: Messages.SelectDay, type: 'information' });
+            }
         }
     });
     $('#massTimingTable').dataTable({
@@ -34,7 +41,8 @@ $("document").ready(function (e) {
         var day = $("#hdfEditMassDay").val();
         if (day != null && day != "")
         {
-            $('.dropcheck', this.$container).attr('placeholder', "Select Days");
+            $('.dropcheck', this.$container).attr('placeholder', day);
+            $('input[value="' + day + '"]').prop("checked", true);
             if (document.getElementById("massTimingUpdateTable").getElementsByTagName("tr").length != 0) {
                 document.getElementById("massTimingUpdateTable").style.display = '';
             }
@@ -51,11 +59,12 @@ $("document").ready(function (e) {
         }
        
         $("#TxtTime").val("");
+        $('.dropdown-menu li.active').removeClass('active');
         $("input[type=checkbox]").prop('checked', false);
+        $('input[value="' + day + '"]').prop("checked", true);
+        $('.dropdown-menu li input[value="' + day + '"]').closest('li').addClass('active');
         $('#rowfluidDiv').hide();
         NovenaDayAndTime.length = 0;
-        $('.dropdown-menu li.active').removeClass('active');
-        $('#ddlDay').val("");
     });
 
     $(".AddMass").click(function (e) {
@@ -550,6 +559,8 @@ function BindTime(Time) {
 function BindMassEditGrid(e) {
     try
     {
+        $('.dropdown-menu li.active').removeClass('active');
+        $("input[type=checkbox]").prop('checked', false);
         $('.dropdown-menu li input[type=checkbox]').prop('checked', false);
         $('.dropcheck', this.$container).attr('placeholder', "Select Days");
         $('#rowfluidDiv').hide();
@@ -564,8 +575,12 @@ function BindMassEditGrid(e) {
         $("#hdfMassIDs").val(MassID);
         $("#hdfChurchIDs").val(massChurchID);
         $("#hdfDay").val(Day);
+        $('.dropdown-menu li [value="' + Day + '"]').prop("checked", true);
+        $('.dropdown-menu li input[value="' + Day + '"]').closest('li').addClass('active');
+        $('#ddlDay').val(Day);
         $("#hdfTime").val(Time);
         $("#hdfEditMassDay").val(Day);
+        $('.dropcheck', this.$container).attr('placeholder', Day);
         BindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
     }
     catch(e)
@@ -833,6 +848,7 @@ function BindMassTimingTable(Records) {
 function timeTo12HrFormat(time) {   // Take a time in 24 hour format and format it in 12 hour format
     try
     {
+        debugger;
         var time_part_array = time.split(":");
         var ampm = 'AM';
 

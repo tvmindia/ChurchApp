@@ -7,7 +7,6 @@
 #region Included Namespaces
 using ChurchApp.DAL;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -15,8 +14,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+
 #endregion Included Namespaces
 
 namespace ChurchApp.AdminPanel
