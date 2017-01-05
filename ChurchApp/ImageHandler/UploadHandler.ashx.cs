@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.SessionState;
@@ -25,14 +26,13 @@ namespace ChurchApp.ImageHandler
 
         public void ProcessRequest(HttpContext context)
         {
-           
            context.Response.ContentType = "text/plain";
            Security.UserAuthendication UA = null;
             try
             {
                 DashBoard dashBoardObj = new DashBoard();
                 UA = dashBoardObj.GetCurrentUserSession();
-                UA = null;
+              
                 JavaScriptSerializer jsSerializer = null;
                 if (UA != null)
                 {
@@ -153,7 +153,13 @@ namespace ChurchApp.ImageHandler
                                             status = GalItemsObj.InsertGalleryItem();
                                             string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
                                             postFile.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
-                                            CreateThumbnailForVideo(GalItemsObj.galleryItemID, fileExtension);
+                                           // HttpContext ctx = HttpContext.Current;
+                                            //new Thread(delegate()
+                                            //{
+                                            //    HttpContext.Current = ctx;
+                                                CreateThumbnailForVideo(GalItemsObj.galleryItemID, fileExtension);
+                                            //}).Start();
+                                           
 
                                         }//end of foreach
                                         jsSerializer = new JavaScriptSerializer();
@@ -181,7 +187,11 @@ namespace ChurchApp.ImageHandler
                                             status = GalItemsObj.InsertGalleryItem();
                                             string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
                                             postFile.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
-                                            CreateThumbnailForVideo(GalItemsObj.galleryItemID, fileExtension);
+                                            //new Thread(delegate()
+                                            //{
+                                                CreateThumbnailForVideo(GalItemsObj.galleryItemID, fileExtension);
+                                            //}).Start();
+                                           
 
                                         }//end of foreach
                                         jsSerializer = new JavaScriptSerializer();
@@ -1164,12 +1174,19 @@ namespace ChurchApp.ImageHandler
         
         public bool CreateThumbnailForVideo(string vidid,string ext)
         {
-            string frametime;
-            var ffProbe = new NReco.VideoInfo.FFProbe();
-            var videoInfo = ffProbe.GetMediaInfo(HttpContext.Current.Server.MapPath("~/vid/")+vidid+ext);
-            frametime = (videoInfo.Duration.TotalSeconds / 2).ToString();
-            var ffMpeg = new FFMpegConverter();
-            ffMpeg.GetVideoThumbnail(HttpContext.Current.Server.MapPath("~/vid/") + vidid + ext, HttpContext.Current.Server.MapPath("~/vid/Poster/") + vidid + ".jpg", float.Parse(frametime));
+            //try
+            //{
+                string frametime;
+                var ffProbe = new NReco.VideoInfo.FFProbe();
+                var videoInfo = ffProbe.GetMediaInfo(HttpContext.Current.Server.MapPath("~/vid/") + vidid + ext);
+                frametime = (videoInfo.Duration.TotalSeconds / 2).ToString();
+                var ffMpeg = new FFMpegConverter();
+                ffMpeg.GetVideoThumbnail(HttpContext.Current.Server.MapPath("~/vid/") + vidid + ext, HttpContext.Current.Server.MapPath("~/vid/Poster/") + vidid + ".jpg", float.Parse(frametime));
+           // }
+           //catch(Exception ex)
+           // {
+           //     throw ex;
+           // }
             return true;
         }
 

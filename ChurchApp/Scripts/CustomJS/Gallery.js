@@ -167,11 +167,12 @@
    
     $('#BtnVideoAlbumSave').click(function (e) {
       
-           
+       
         barinAlbum.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
         barinAlbum.text.style.fontSize = '2rem';
         
         try {
+            debugger;
             var videofile;
 
             if ((videofile = $('#AlbumVidUploader')[0].files.length > 0)) {
@@ -202,7 +203,7 @@
                         noty({ type: 'error', text: Messages.AlbumUploadFailure });
                         break;
                     default:
-                        $("#progressbarUploadinVidAlbum").hide();
+                         $("#progressbarUploadinVidAlbum").hide();
                         noty({ type: 'error', text: result.status });
                         break;
                 }
