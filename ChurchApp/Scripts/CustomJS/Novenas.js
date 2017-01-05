@@ -488,7 +488,7 @@ function FillNovenas(Records) {
             //then First item is set to day , others are times
             //I day is null , day is passed as 'dai'(daily) from sp
             //so it is also managed
-
+            debugger;
             if (DayAndTime != null) {
 
                 if (DayAndTime.indexOf('|') > -1) {
@@ -501,10 +501,10 @@ function FillNovenas(Records) {
                             }
                         }
                         if (i == 0) {
-                            NovenaTiming = NovenaTiming + '<strong>' + DT[i] + '</strong><br/> ';
+                            NovenaTiming = NovenaTiming + '<strong>' + DT[i].split('-')[0] + ' : </strong>' + DT[i].split('-')[1] + '<br/> ';
                         }
                         else {
-                            NovenaTiming = NovenaTiming + '<strong>' + DT[i] + '</strong><br/> ';
+                            NovenaTiming = NovenaTiming + '<strong>' + DT[i].split('-')[0] + ' : </strong>' + DT[i].split('-')[1] + '<br/> ';
                         }
                     }
 
@@ -516,7 +516,7 @@ function FillNovenas(Records) {
                         }
                     }
 
-                    NovenaTiming = '<strong>' + DayAndTime + '</strong><br/> ';
+                    NovenaTiming = '<strong>' + DayAndTime.split('-')[0] + ' : </strong>' + DayAndTime.split('-')[1] + '<br/> ';
                 }
             }
             if (StartDate == null) {
@@ -641,7 +641,9 @@ function FixedEditClick()
         $('#btnSave').show();
         $('#btnCancel').show();
         $('#btnDelete').show();
-
+        $("#ddlDay").val("");
+        $('#ddlDay').multiselect('refresh');
+        $("#TxtTime").val('');
         var jsonResult = {};
         var Novenas = new Object();
         if ($('#hdfNovenaID').val() != "" && $('#hdfNovenaID').val() != undefined) {
@@ -1137,7 +1139,9 @@ function ClearControls() {
     $("#divStartDate").hide();
     $("#divEndDate").hide();
   //  $("#divDay").show();
-
+    $("#ddlDay").val("");
+    $('#ddlDay').multiselect('refresh');
+    $("#TxtTime").val('');
     $('#lblSelectedTimes').text("");
 
     $("#tblNovenaTiming").html("");
