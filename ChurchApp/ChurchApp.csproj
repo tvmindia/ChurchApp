@@ -293,6 +293,7 @@
     <Content Include="ImageHandler\UploadHandler.ashx" />
     <Content Include="Font\trench.100.otf" />
     <Content Include="packages.config" />
+    <Content Include="ExcelHandler\ExcelHandler.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -534,6 +535,9 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelHandler\ExcelHandler.ashx.cs">
+      <DependentUpon>ExcelHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="ImageHandler\UploadHandler.ashx.cs">
       <DependentUpon>UploadHandler.ashx</DependentUpon>
