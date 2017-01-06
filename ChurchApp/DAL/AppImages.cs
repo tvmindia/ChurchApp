@@ -134,6 +134,10 @@ namespace ChurchApp.DAL
             SqlParameter outParam1 = null;
             try
             {
+                if(appImageId==null && appImageId!="")
+                {
+                    throw new Exception("AppImageID is empty");
+                }
                 Common comnObj = new Common();
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
@@ -144,9 +148,9 @@ namespace ChurchApp.DAL
 
                 //url = url.Replace(@"\", "/");
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(appImageId);
-                cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
-                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = type;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url!=null&&url!=""?url:null;
+                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = type!=null&&type!=""?type:null;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -185,6 +189,10 @@ namespace ChurchApp.DAL
             SqlParameter outParam = null;
             try
             {
+                if(appImageId==null && appImageId=="")
+                {
+                    throw new Exception("AppImageID is empty");
+                }
                 Common comnObj = new Common();
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
@@ -193,9 +201,9 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertAppImages1]";
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(appImageId);
-                cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
-                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = type;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url!=""&& url!=null?url:null;
+                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = type!=null&&type!=""?type:null;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -246,6 +254,10 @@ namespace ChurchApp.DAL
             Common comnObj = new Common();
             try
             {
+               if(appImageId==null && appImageId=="")
+               {
+                   throw new Exception("AppImageID is empty");
+               }
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
