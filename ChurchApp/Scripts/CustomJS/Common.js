@@ -158,6 +158,18 @@ function scriptvalidate() {
         return true;
     }
 }
+function htmlerror()
+{
+    var html = ('<header class="site-header"><svg viewBox="0 0 1000 200" preserveAspectRatio="none" class="site-header-background">'
+        + '<defs><linearGradient id="header-gradient" x2="0%" y2="100%"><stop offset="0%" stop-color="#344964"></stop><stop offset="100%" stop-color="#172844"></stop></linearGradient>'
+       + '</defs><path class="jagged-top" id="jagged-top" fill="url(#header-gradient)" d="M-4,-4 L1004,-4 L1004,100 L873,133 L777,189 L598,149 L291,138 L109,150 L-4,100 L-4,-4 Z"></path>'
+  +'</svg></svg></header><header class="mega-header"><h1 class="p-name">SOMTHING WRONG TRY AGAIN LATER DUDE!</h1><svg viewBox="0 0 1000 200" preserveAspectRatio="none" class="article-header-background">'
+  +'<defs><linearGradient id="article-gradient" x2="0%" y2="100%"><stop offset="0%" stop-color="#FFF1BA"></stop><stop offset="100%" stop-color="white"></stop>'
+    +'</linearGradient></defs><path class="jagged-top-of-article" id="jagged-top-of-article" fill="url(#article-gradient)" d="M1004,100 L966,143 L619,180 L511,126 L234,131 L118,151 L-4,100 L-4,200 L1004,200 L1004,100 Z"></path>'
++'</svg>© Thrithvam Technologies</header>');
+    return html;
+}
+
 function postBlobAjax(formData, page) {
     //var request = new XMLHttpRequest();
     //request.open("POST", page);
@@ -186,8 +198,10 @@ function postBlobAjax(formData, page) {
         },
         processData: false,
         error: function (xmlhttprequest,textstatus,message) {
-        //message.code will be:-timeout", "error", "abort", and "parsererror"
-        $('#displaywait').hide();
+            $('#displaywait').hide();
+            $('body').empty();
+            $('body').append(htmlerror());
+            window.history.pushState("", "", "/Opps!");
         noty({ text:  message.code + ', ' + xmlhttprequest.statusText, type: 'error' })
 
     }
@@ -214,6 +228,10 @@ function getJsonData(data, page) {
             debugger;
             //message.code will be:-timeout", "error", "abort", and "parsererror"
             $('#displaywait').hide();
+            $('body').empty();
+            $('body').attr('style', 'background-color:#A2BDCE;')
+            $('body').append(htmlerror());
+            window.history.pushState("", "", "/Login.aspx");
             noty({ text:  message.code + ', ' + xmlhttprequest.statusText, type: 'error' })
 
          }

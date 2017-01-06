@@ -1,7 +1,7 @@
 ﻿var formatRepo = "";
 var formatRepoSelection = "";
 $(document).ready(function () {
-
+    GetParamValue();
     $(".ddlChurch").select2({
         placeholder: 'Select church / town..',
         allowClear: true,
@@ -48,6 +48,109 @@ $(document).ready(function () {
         {
             window.location.replace(window.location.protocol + "//" + window.location.host + "/AdminPanel/DashBoard.aspx?eid=" + churchId);
         }
-     });
+    });
+    BindNotification();
 });   // end of document.ready
 
+function GetReviews() {
+
+    var ds = {};
+    var table = {};
+    var Church = new Object();
+    var data = "{'churchObj':" + JSON.stringify(Church) + "}";
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetRequestChurchDetails");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function BindNotification() {
+    debugger;
+    $('#NotifyArea').find('li').remove();
+    var Reviews = {};
+    ReviewsCount = GetReviews();
+    Reviews = GetReviewCountforBubble();
+    
+    $.each(Reviews, function (index, Records) {
+        debugger;
+        if (Records.Status == 0)
+        {
+            MultiReviewBind(Records, index, ReviewsCount[index].RDate);
+        }
+        
+    })
+    return false;
+
+}
+function GetReviewCountforBubble() {
+
+    var ds = {};
+    var table = {};
+    var Church = new Object();
+    var data = "{'churchObj':" + JSON.stringify(Church) + "}";
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetRequestChurchDetails");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function Redirect()
+{
+    window.location.href = "../AdminPanel/DashBoard.aspx?id=Request";
+}
+function GetParamValue() {
+    var query = window.location.search.substring(1);
+    if(query!="")
+    {
+        $('#churchReqchevronup').click();
+        window.history.pushState("", "", "/AdminPanel/DashBoard.aspx");
+    }
+    else
+    {
+        return true;
+    }
+
+}
+j = 0;
+function MultiReviewBind(Records, i, Date) {
+    debugger;
+    j = j + 1;
+    var spancount = document.getElementById("countspan");
+    spancount.innerHTML = j;
+    var ul = document.getElementById("NotifyArea");
+    var li = document.createElement("li");
+    var ali = document.createElement("a");
+    ali.setAttribute("onclick", "Redirect()")
+    li.setAttribute("id", Records.UserName);
+    var Spanform = document.createElement('span');
+    Spanform.className = "icon-comment-alt";
+    var ic = document.createElement("i");
+
+    ic.className = "icon-user";
+    Spanform.appendChild(ic);
+    var SpanMsg = document.createElement('span');
+    SpanMsg.className = "message";
+    SpanMsg.innerHTML = ' '+Records.UserName + ' Requested for Adding ' + Records.ChurchName;
+    var Spantime = document.createElement('span');
+    Spantime.className = "time";
+    Spantime.innerHTML = "\t &nbsp;&nbsp;&nbsp;" + ConvertJsonToDat(Records.CreatedDate);
+    ali.appendChild(Spanform);
+    ali.appendChild(SpanMsg);
+    ali.appendChild(Spantime);
+    li.appendChild(ali);
+    ul.appendChild(li);
+
+}
+function ConvertJsonToDat(jsonDate) {
+    if (jsonDate != null) {
+        var dateString = jsonDate.substr(6);
+        var currentTime = new Date(parseInt(dateString));
+        var month = currentTime.getMonth();
+        var day = currentTime.getDate();
+        var year = currentTime.getFullYear();
+        var monthNames = [
+                      "Jan", "Feb", "Mar",
+                      "Apr", "May", "Jun", "Jul",
+                      "Aug", "Sep", "Oct",
+                      "Nov", "Dec"
+        ];
+        var result = day + '-' + monthNames[month];
+        return result;
+    }
+}

@@ -166,6 +166,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public int RequestStatus
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Church Methods
@@ -266,6 +271,86 @@ namespace ChurchApp.DAL
         }
         #endregion SelectAllChurches
 
+        #region SelectChurchRequests
+        public DataSet SelectAllChurchesRequest()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+
+                dcon = new dbConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectAllChurchesRequest]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+
+
+        }
+        #endregion SelectChurchRequests
+        #region Get RequestChurch Details By churchID
+
+        public DataTable GetRequestChurchDetailsByChurchID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetRequestChurchDetailsByChurchID]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return dt;
+        }
+
+        #endregion Get RequestChurch Details By churchID
         #region InsertRequestChurch for App
         /// <summary>
         /// Insert Request New Church
@@ -320,7 +405,56 @@ namespace ChurchApp.DAL
 
         }
         #endregion InsertRequestChurch for App
-       
+
+        #region UpdateRequestChurch
+        /// <summary>
+        /// Edit Church
+        /// </summary>
+        /// <returns>success or failure</returns>
+        public string UpdateRequestChurch()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+
+            try
+            {
+
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateRequestChurch]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                cmd.Parameters.Add("@Status", SqlDbType.Int).Value = RequestStatus;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
+                outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            status = outParameter.Value.ToString();
+            return outParameter.Value.ToString();
+
+        }
+        #endregion UpdateRequestChurch
+
         #region InsertChurch
         /// <summary>
         /// Insert New Church

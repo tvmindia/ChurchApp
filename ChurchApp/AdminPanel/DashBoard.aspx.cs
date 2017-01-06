@@ -1520,5 +1520,168 @@ namespace ChurchApp.AdminPanel
             return jsSerializer.Serialize(parentRow);
         }
         #endregion GetAllChurch
+        
+        #region GetChurchReqDetailsByChurchID
+        [WebMethod(EnableSession = true)]
+        public static string GetChurchReqDetailsByChurchID(DAL.Church churchObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+
+                    DataTable dt = null;
+                    if (churchObj.churchId == null && churchObj.churchId=="")
+                    {
+                        churchObj.churchId = UA.ChurchID;
+                    }
+
+                    dt = churchObj.GetRequestChurchDetailsByChurchID();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in dt.Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion GetChurchReqDetailsByChurchID
+        #region GetRequestChurchDetails
+
+        [System.Web.Services.WebMethod]
+        public static string GetRequestChurchDetails(DAL.Church churchObj)
+        {
+           JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            Security.UserAuthendication UA = null;
+            DataSet ds = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    ds = churchObj.SelectAllChurchesRequest();
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+            return jsSerializer.Serialize(parentRow);
+
+        }
+
+        #endregion GetRequestChurchDetails
+        #region UpdateRequest Church status
+        [WebMethod(EnableSession = true)]
+        public static string UpdateRequest(DAL.Church churchObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    churchObj.updatedBy = UA.userName;
+                    churchObj.UpdateRequestChurch();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                churchObj.status = ex.Message;
+            }
+
+            return jsSerializer.Serialize(churchObj);
+        }
+        #endregion UpdateRequest Church status
+        //#region GetReviewCountforBubble
+
+        //[System.Web.Services.WebMethod]
+        //public static string GetReviewCountforBubble()
+        //{
+           
+        //    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+        //    DataSet ds = null;
+        //    ds = ProductObj.GetAllProductsReviews();
+
+        //    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+        //    Dictionary<string, object> childRow;
+
+        //    if (ds.Tables[1].Rows.Count > 0)
+        //    {
+        //        foreach (DataRow row in ds.Tables[1].Rows)
+        //        {
+        //            childRow = new Dictionary<string, object>();
+        //            foreach (DataColumn col in ds.Tables[1].Columns)
+        //            {
+        //                childRow.Add(col.ColumnName, row[col]);
+        //            }
+        //            parentRow.Add(childRow);
+        //        }
+        //    }
+        //    return jsSerializer.Serialize(parentRow);
+
+        //}
+
+        //#endregion GetReviewCountforBubble
     }
 }

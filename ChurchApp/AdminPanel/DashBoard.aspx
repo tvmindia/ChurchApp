@@ -208,8 +208,187 @@ table{
 		
 	    
          <!--churchtable-->
+        <!------Request Church------->
+        <div class="row-fluid">		
+				<div class="box span12">
+					<div class="box-header" data-original-title>
+						<h2>Church Requests</h2>
+						<div class="box-icon">
+						
+							<a  style="cursor:pointer;" class="btn-minimize churchdoublebox"><i id="churchReqchevronup" class="halflings-icon chevron-down"></i></a>
+						
+						</div>
+					</div>
+					<div class="box-content churchBox">
+				
+						<table class="table table-bordered table-striped table-condensed" id="churchReqtable">
+							   <thead>
+							  <tr>
+                                  <th>ID</th>
+                                  <th>MainImageID</th>
+                                  <th>Status</th>
+								  <th>Name</th>
+								  <th>Address</th>
+                                  <th>Suggested By</th>
+								  <th>Contact</th>
+								  <th>TownName</th>
+                                  <th>Actions</th>
+								  
+							  </tr>
+						  </thead>   
+						  <tbody>
+						
+						</tbody>
+						 </table>  
+
+                        <br />
+                      <%--  <div>
+                             <input id="searchInput" class="controls" type="text" placeholder="Enter a location"/>
+                                  <div id="map" style="width: 100%;height: 400px;"></div>
+                                  <ul id="geoData">
+                                  <li>Full Address: <span id="location"></span></li>
+                                  <li>Postal Code: <span id="postal_code"></span></li>
+                                  <li>Country: <span id="country"></span></li>
+                                  <li>Latitude: <span id="lat"></span></li>
+                                  <li>Longitude: <span id="lon"></span></li>
+                                  </ul>
+                        </div>--%>
+                       
+                        <br />
+
+                        <div class="form-horizontal">
+						
+							<fieldset>
+                             <div class="span12">  
+                                 <div class="span12" id="SuggestedDiv" style="display:none;border-bottom:1px solid black;margin-bottom:10px;">
+                                     <div class="span1"><span class="fa fa-user" style="font-size:62px;"></span></div>
+                                     <div class="span8" style="">
+                                     <div class="control-group">
+
+                              <label class="control-label" for="focusedInput" style="font-style:16px;">Suggested By</label>
+                               <div class="controls">
+                               <label class="control-label" id="lblReqUser" for="focusedInput" style="font-style:16px;"></label>
+                              </div>
+                              </div>
+                                     <div class="control-group">
+
+                              <label class="control-label" for="focusedInput" style="font-style:16px;">Contact Number</label>
+                               <div class="controls">
+                               <label class="control-label" id="lblReqContact" for="focusedInput" style="font-style:16px;"></label>
+                              </div>
+                              </div>
+                                         </div>
+                                 </div> 
+				             <div class="span5">
+						     
+						      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Church Name</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtChurchName" id="txtReqChurchName" onkeypress="return isnotNumber(event);" type="text"/>
+                              </div>
+
+                              </div>
+
+                              <div class="control-group">
+                             <label class="control-label" for="focusedInput">Towns</label>
+                               <div class="controls">
+                                  <select id="idddlReqTownCode" name="ddlTownCode" class="ddlTownCode input-large focused"><option></option></select>
+                                  
+                                 </div>
+                             </div>
 
 
+                                   <div class="control-group">
+                             <label class="control-label" for="focusedInput">Address</label>
+                               <div class="controls">
+                                 <textarea tabindex="3" class="input-large" id="txtReqAddress" name="txtAddress" rows="3" placeholder=""></textarea>
+                               </div>
+                             </div>
+							
+							  <div class="control-group">
+                             <label class="control-label" for="focusedInput">Description</label>
+                               <div class="controls">
+                                 <textarea tabindex="3" class="input-large" id="txtReqDescription" name="Description" rows="3" placeholder=""></textarea>
+                               </div>
+                             </div>
+
+
+                              <div class="control-group">
+                             <label class="control-label" for="focusedInput">About</label>
+                               <div class="controls">
+                                 <textarea tabindex="3" class="input-large" id="txtReqAbout" name="txtAbout" rows="3" placeholder=""></textarea>
+                               </div>
+                             </div>
+                                  </div>
+                             <div class="span5">
+                                  
+						      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Phone 1</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtPhone1" id="txtReqPhone1" onkeypress="return isNumber(event);" placeholder="" type="text"/>
+                              </div>
+                              </div>
+
+                                <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Phone 2</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtPhone2" id="txtReqPhone2" onkeypress="return isNumber(event);" placeholder="" type="text"/>
+                              </div>
+                              </div>
+
+                                <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Latitude</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtLatitude" id="txtReqLatitude" placeholder="" onfocus="GetMap();" type="text"/>
+                              </div>
+                              </div>
+
+                                 <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Longitude</label>
+                               <div class="controls">
+                               <input class="input-large focused"  name="txtLongitude" id="txtReqLongitude" placeholder="" onfocus="GetMap();" type="text"/>
+                              </div>
+                              </div>
+                                
+
+                                   <div class="control-group">
+								<label class="control-label">Main Image</label>
+								<div class="controls">
+                                  <img id="ChurchRequestPreview" src="../img/defaultalbumadd.jpg" style="max-height:159px" class="img-rounded"/>
+								  <input type="file" accept="image/*" id="churchRequestimageuploader" onchange="OnUpload(this);ChurchImagePreview(this);"/>
+                              
+								</div>
+                                     
+							  </div>
+                                   
+                                   
+                                 
+                                    </div>
+                                 
+                             </div>
+                     
+                             
+                     
+                         </fieldset>
+                            <div id="Div1" runat="server" class="form-actions">
+                                        <a class="btn btn-primary" id="btnRequestChurchAdd" href="#">Approve</></a>
+                                        <a class="btn btn-primary" id="btnRequestReject">Reject</a>
+                                        <a class="btn btn-primary" onclick="BindAllRequestChurches();" >Cancel</a>
+                                    </div>	
+                        </div>
+                        
+					</div>
+
+                    
+					
+		         </div>
+				</div>
+        <!------Request Church------->
           <br />
         <!--Rolestable-->
      

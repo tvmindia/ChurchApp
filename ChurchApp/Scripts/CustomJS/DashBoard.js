@@ -207,7 +207,60 @@ $("document").ready(function (e) {
     catch (e) {
         noty({ type: 'error', text: e.message });
     }
-   
+    try {
+
+        var Church = new Object();
+        DashDataTables.churchReqtable = $('#churchReqtable').DataTable(
+         {
+             dom: '<"top"f>rt<"bottom"ip><"clear">',
+             order: [],
+             searching: true,
+             paging: true,
+             data: GetAllRequestChurch(),
+             columns: [
+
+               { "data": "ID" },
+               { "data": "ImageID" },
+               { "data": "Status" },
+               { "data": "ChurchName", "defaultContent": "<i>-</i>" },
+               { "data": "Address", "defaultContent": "<i>-</i>" },
+               { "data": "UserName", "defaultContent": "<i>-</i>" },
+               { "data": "ContactNumber", "orderable": false, "defaultContent": "<i>-</i>" },
+               { "data": "Place", "defaultContent": "<i>-</i>" },
+               { "data": null, "orderable": false}
+
+             ],
+             columnDefs: [
+              {//hiding hidden column field churchid
+                  "targets": [0, 1,2],
+                  "visible": false,
+                  "searchable": false
+              },
+              {//custom js functions can be callled in render property for that target column
+                  "render": function (data, type, row) {
+                      debugger;
+                      if (data.Status == 1)
+                      {
+                          return '<a class="circlebtn circlebtn-info" style="background-color:green;" title="Approved"><i class="halflings-icon white ok"></i></a>';
+                      }
+                      else if(data.Status == 0)
+                      {
+                          return '<a class="circlebtn circlebtn-info" onclick="EditRequestChurch(this)" title="Edit"><i class="halflings-icon white edit"></i></a>';
+                      }
+                      else if (data.Status == 2)
+                      {
+                          return '<a class="circlebtn circlebtn-info" style="background-color:Red;" title="Rejected"><i class="halflings-icon white ban-circle"></i></a>';
+                      }
+                  },
+                  "targets": 8
+              }
+             ]
+         });
+
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
     try
     {
       
@@ -415,8 +468,58 @@ $("document").ready(function (e) {
     catch (e) {
         noty({ type: 'error', text: e.message });
     }
-   
-   
+    $('#btnRequestReject').click(function (e) {
+        debugger;
+        Church.churchId = $("#hdfChurchID").val();
+        Church.RequestStatus = 2;
+        UpdateRequest(Church);
+        BindAllRequestChurches()
+        BindAllChurches();
+        BindNotification();
+    });
+    $('#btnRequestChurchAdd').click(function (e) {
+        try {
+            debugger;
+            var churchbit = ChurchReqValidation();
+            if (churchbit) {
+                Church.churchName = ($('#txtReqChurchName').val() != "" ? $('#txtReqChurchName').val() : "");
+                Church.townCode = ($("#idddlReqTownCode").val() != "" ? $("#idddlReqTownCode").val() : "");
+                Church.address = ($('#txReqtAddress').val() != "" ? $('#txtReqAddress').val() : "");
+                Church.description = ($('#txtReqDescription').val() != "" ? $('#txtReqDescription').val() : "");
+                Church.about = ($('#txtReqAbout').val() != "" ? $('#txtReqAbout').val() : "");
+                Church.phone1 = ($('#txtReqPhone1').val() != "" ? $('#txtReqPhone1').val() : "");
+                Church.phone2 = ($('#txtReqPhone2').val() != "" ? $('#txtReqPhone2').val() : "");
+                Church.longitude = ($('#txtReqLongitude').val() != "" ? $('#txtReqLongitude').val() : "");
+                Church.latitude = ($('#txtReqLatitude').val() != "" ? $('#txtReqLatitude').val() : "");
+                Church.mainImageId = $("#hdfChurchImageID").val();
+                Church.churchId=$("#hdfChurchID").val();
+                var result = InsertChurch(Church);
+                switch (result.status) {
+                    case "1":
+                        noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                        Church.RequestStatus = 1;
+                        UpdateRequest(Church);
+                        BindAllRequestChurches()
+                        BindAllChurches();
+                        BindNotification();
+
+                        break;
+                    case "0":
+                        noty({ type: 'error', text: Messages.FailureMsgCaption });
+
+                        break;
+
+                    default:
+                        noty({ type: 'error', text: result.status });
+                        break;
+                }
+            }
+        }
+        catch (e) {
+            noty({ type: 'error', text: e.message });
+        }
+
+    });
     
     $('#btnChurchAdd').click(function (e) {
         debugger;
@@ -429,51 +532,6 @@ $("document").ready(function (e) {
             if (churchbit)
             {
                 var Church = new Object();
-                //if ($('#txtChurchName').val() != "") {
-                //    Church.churchName = $('#txtChurchName').val();
-                //}
-             
-
-                //if ($(".ddlTownCode").val() != "") {
-                //    Church.townCode = $(".ddlTownCode").val();
-                //}
-              
-
-                //if ($('#txtAddress').val() != "") {
-                //    Church.address = $('#txtAddress').val();
-                //}
-                //else {
-                //    Church.address = '';
-                //}
-
-                //if ($('#txtDescription').val() != "") {
-                //    Church.description = $('#txtDescription').val();
-                //}
-                //else {
-                //    Church.description = '';
-                //}
-
-                //if ($('#txtAbout').val() != "") {
-                //    Church.about = $('#txtAbout').val();
-                //}
-                //else {
-                //    Church.about = '';
-                //}
-
-                //if ($('#txtPhone1').val() != "") {
-                //    Church.phone1 = $('#txtPhone1').val();
-                //}
-               //if ($('#txtPhone2').val() != "") {
-                //    Church.phone2 = $('#txtPhone2').val();
-                //}
-                //if ($('#txtLongitude').val() != "") {
-                //    Church.longitude = $('#txtLongitude').val();
-                //}
-            
-
-                //if ($('#txtLatitude').val() != "") {
-                //    Church.latitude = $('#txtLatitude').val();
-                //}
                 Church.churchName = ($('#txtChurchName').val() != "" ? $('#txtChurchName').val() : "");
                 Church.townCode = ($(".ddlTownCode").val() != "" ? $(".ddlTownCode").val() : "");
                 Church.address = ($('#txtAddress').val() != "" ? $('#txtAddress').val() : "");
@@ -1385,7 +1443,7 @@ $("document").ready(function (e) {
             }//townflag if
 
 
-
+            $('[data-toggle="popover"]').popover();
         }
         catch (e) {
             noty({ type: 'error', text: e.message });
@@ -1605,7 +1663,26 @@ function BindAllChurches()
         var Church = new Object();
         DashDataTables.churchTable.clear().rows.add(GetAllChurches(Church)).draw(false);
 }
+function BindAllRequestChurches() {
+    //DataTable rebind using its api
+    var Church = new Object();
+    DashDataTables.churchReqtable.clear().rows.add(GetAllRequestChurch()).draw(false);
+    $("#txtReqChurchName").val('');
+    $(".ddlTownCode").select2("val", "");
+    $("#txtReqAddress").val('');
+    $("#txtReqDescription").val('');
+    $("#txtReqAbout").val('');
+    $("#txtReqPhone1").val('');
+    $("#txtReqPhone2").val('');
+    $("#txtReqLongitude").val('');
+    $("#txtReqLatitude").val('');
+    $("#hdfChurchID").val('');
+    $("#hdfChurchImageID").val('');
+    $("#ChurchRequestPreview").attr('src', '/img/defaultalbumadd.jpg');
+    $('#churchRequestimageuploader').val('');
+    $('#SuggestedDiv').hide();
 
+}
 
 function DesignationValidation()
 {
@@ -1658,7 +1735,46 @@ function DesignationValidation()
         return true;
     }
 }
+function ChurchReqValidation() {
+    var ChurchName = $('#txtReqChurchName');
+    var TownCode = $('#idddlReqTownCode');
+    var ChurchAddress = $('#txtReqAddress');
+    var phone1 = $('#txtReqPhone1');
+    var longitude = $('#txtReqLongitude');
+    var lattitude = $('#txtReqLatitude');
+    var container = [
+        { id: ChurchName[0].id, name: ChurchName[0].name, Value: ChurchName[0].value },
+        { id: TownCode[0].id, name: TownCode[0].name, Value: TownCode[0].value },
+        { id: ChurchAddress[0].id, name: ChurchAddress[0].name, Value: ChurchAddress[0].value },
+        { id: phone1[0].id, name: phone1[0].name, Value: phone1[0].value },
+        { id: longitude[0].id, name: longitude[0].name, Value: longitude[0].value },
+        { id: lattitude[0].id, name: lattitude[0].name, Value: lattitude[0].value }
+    ];
+    var j = 0;
+    for (var i = 0; i < container.length; i++) {
 
+        if (container[i].Value == "") {
+            j = 1;
+
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+        }
+        else if (container[1].Value == "-1") {
+            j = 1;
+            $('.select2-selection--single').css('border', '1px solid #fb0808');
+        }
+    }
+    if (j == '1') {
+        noty({ type: 'error', text: Messages.Validation });
+
+        return false;
+    }
+    if (j == '0') {
+        return true;
+    }
+}
 function ChurchValidation() {
     var ChurchName = $('#txtChurchName');
     var TownCode = $('.ddlTownCode');
@@ -1923,6 +2039,33 @@ function RemoveSaint(curobj)
     }
 
 }
+function EditRequestChurch(curobj) {
+    debugger;
+    //Get Current table row data
+    var data = DashDataTables.churchReqtable.row($(curobj).parents('tr')).data();
+    RemoveStyle();
+    var Church = new Object();
+    Church.churchId = data.ID;
+    $("#hdfChurchID").val(Church.churchId);
+    $("#hdfChurchImageID").val(data.ImageID);
+    var churchReqDetail = GetChurchReqDetailsByChurchID(Church);
+    //$('#lblReqUser').innerHTML = churchReqDetail.UserName;
+    document.getElementById('lblReqUser').innerHTML = churchReqDetail[0].UserName;
+    //$('#lblReqContact').innerHTML = churchReqDetail.ContactNumber;
+    document.getElementById('lblReqContact').innerHTML = churchReqDetail[0].ContactNumber;
+    $('#SuggestedDiv').show();
+    $("#txtReqChurchName").val(churchReqDetail[0].ChurchName != null && churchReqDetail[0].ChurchName != "" ? churchReqDetail[0].ChurchName : '');
+    var $option = $("<option selected></option>").val(churchReqDetail[0].Place).text(churchReqDetail[0].Place);
+    $("#idddlReqTownCode").append($option).trigger('change');
+    $("#txtReqAddress").val(churchReqDetail[0].Address != null && churchReqDetail[0].Address != "" ? churchReqDetail[0].Address : '');
+    if (churchReqDetail[0].ImagePath == null) {
+        $("#ChurchRequestPreview").attr('src', '/img/defaultalbumadd.jpg');
+    }
+    else
+    {
+        $("#ChurchRequestPreview").attr('src', churchReqDetail[0].ImagePath + '?' + new Date().getTime());
+    }
+}
 function EditChurch(curobj)
 {
     debugger;
@@ -2104,7 +2247,19 @@ function EditSaint(curobj) {
         $("#imgSaint").attr('src', PatronDetail[0].URL + '?' + new Date().getTime());
     }
 }
+function GetChurchReqDetailsByChurchID(Church) {
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'churchObj':" + JSON.stringify(Church) + "}";
+        ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetChurchReqDetailsByChurchID");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
 
+    }
+    return table;
+}
 
 
 function GetChurchDetailsByChurchID(Church)
@@ -2427,7 +2582,16 @@ function UpdateUser(Users) {
     }
     return table;
 }
+function GetAllRequestChurch() {
 
+    var ds = {};
+    var table = {};
+    var Church = new Object();
+    var data = "{'churchObj':" + JSON.stringify(Church) + "}";
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetRequestChurchDetails");
+    table = JSON.parse(ds.d);
+    return table;
+}
 function GetAllChurches(Church) {
     
     var ds = {};
@@ -2755,7 +2919,16 @@ function BindPatrons() {
 
     }
 }
+function UpdateRequest(Church)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'churchObj':" + JSON.stringify(Church) + "}";
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/UpdateRequest");
+    table = JSON.parse(ds.d);
 
+    return table;
+}
 function GetAllPatrons(PatronMaster) {
     var ds = {};
     var table = {};
@@ -3015,6 +3188,8 @@ function initMap() {
             document.getElementById("spanLongitude").innerHTML = place.geometry.location.lng();
             $("#txtLongitude").val(place.geometry.location.lng());
             $("#txtLatitude").val(place.geometry.location.lat());
+            $("#txtReqLongitude").val(place.geometry.location.lng());
+            $("#txtReqLatitude").val(place.geometry.location.lat());
         });
 
        // var jlm = new google.maps.Map(document.getElementById('map'), map);
@@ -3022,6 +3197,9 @@ function initMap() {
             debugger;
             $("#txtLongitude").val(e.latLng.lng());
             $("#txtLatitude").val(e.latLng.lat());
+            $("#txtReqLongitude").val(e.latLng.lng());
+            $("#txtReqLatitude").val(e.latLng.lat());
+
             document.getElementById("spanLatitude").innerHTML = e.latLng.lat();
             document.getElementById("spanLongitude").innerHTML = e.latLng.lng();
         });
