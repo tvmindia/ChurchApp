@@ -242,6 +242,18 @@ namespace ChurchApp.DAL
             SqlCommand cmd = null;
             try
             {
+                if(churchId==null && churchId=="")
+                {
+                    throw new Exception("ChurchID is Empty");
+                }
+                if(orgId==null && orgId=="")
+                {
+                    throw new Exception("OrganizationID is Empty");
+                }
+                if(desigId==null && desigId=="")
+                {
+                    throw new Exception("DesignationID is Empty");
+                }
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -250,7 +262,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertAdministrator]";
                 //cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(adminId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar, 100).Value = orgType;
+                cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar, 100).Value = orgType!=null&&orgId!=""?orgType:null;
                 cmd.Parameters.Add("@OrgID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(orgId);
                 cmd.Parameters.Add("@DesigID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(desigId);
                 if(memberId!=null&&memberId!=string.Empty)
@@ -261,9 +273,9 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
                 }
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = Name;
-                cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 20).Value = Phone;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = Name!=null&&Name!=""?Name:null;
+                cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 20).Value = Phone!=null&&Phone!=""?Phone:null;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =cmn.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -298,6 +310,22 @@ namespace ChurchApp.DAL
             SqlParameter outParam = null;
             try
             {
+                if(adminId==null && adminId=="")
+                {
+                    throw new Exception("AdminID is Empty");
+                }
+                if(churchId==null && churchId=="")
+                {
+                    throw new Exception("ChurchID is Empty");
+                }
+                if(orgId==null && orgId=="")
+                {
+                    throw new Exception("OrganizationID is Empty");
+                }
+                if(desigId==null && desigId=="")
+                {
+                    throw new Exception("DesignationID is Empty");
+                }
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -306,7 +334,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateAdministrators]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(adminId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar, 100).Value = orgType;
+                cmd.Parameters.Add("@OrgType", SqlDbType.NVarChar, 100).Value = orgType!=null&&orgType!=""?orgType:null;
                 cmd.Parameters.Add("@OrgID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(orgId);
                 cmd.Parameters.Add("@DesigID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(desigId);
                 if (memberId != null && memberId !="")
@@ -318,9 +346,9 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
                 }
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = Name;
-                cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 100).Value = Phone;
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = Name!=null&&Name!=""?Name:null;
+                cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 100).Value = Phone!=null&&Phone!=""?Phone:null;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null && updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = cmn.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
