@@ -475,7 +475,6 @@ $("document").ready(function (e) {
         UpdateRequest(Church);
         BindAllRequestChurches()
         BindAllChurches();
-        BindNotification();
     });
     $('#btnRequestChurchAdd').click(function (e) {
         try {
@@ -501,7 +500,6 @@ $("document").ready(function (e) {
                         UpdateRequest(Church);
                         BindAllRequestChurches()
                         BindAllChurches();
-                        BindNotification();
 
                         break;
                     case "0":
