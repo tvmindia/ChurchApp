@@ -76,6 +76,7 @@ namespace ChurchApp.Master
             {
                 Li_DashBoard.Visible = false;
                 Li_BugTracker.Visible = false;
+                Li_ImportExcel.Visible = false;
                 if (currPage.ToUpper() == Const.DashBoardPage.ToUpper())
                 {
 

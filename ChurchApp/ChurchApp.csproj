@@ -69,6 +69,7 @@
     <Content Include="AdminPanel\Events.aspx" />
     <Content Include="AdminPanel\Families.aspx" />
     <Content Include="AdminPanel\Gallery.aspx" />
+    <Content Include="AdminPanel\ImportExcel.aspx" />
     <Content Include="AdminPanel\Institutions.aspx" />
     <Content Include="AdminPanel\MassSchedules.aspx" />
     <Content Include="AdminPanel\Notices.aspx" />
@@ -250,6 +251,7 @@
     <Content Include="Scripts\CustomJS\Events.js" />
     <Content Include="Scripts\CustomJS\Families.js" />
     <Content Include="Scripts\CustomJS\Gallery.js" />
+    <Content Include="Scripts\CustomJS\Import.js" />
     <Content Include="Scripts\CustomJS\Institution.js" />
     <Content Include="Scripts\CustomJS\Login.js" />
     <Content Include="Scripts\CustomJS\MassSchedules.js" />
@@ -444,6 +446,13 @@
     <Compile Include="AdminPanel\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminPanel\ImportExcel.aspx.cs">
+      <DependentUpon>ImportExcel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\ImportExcel.aspx.designer.cs">
+      <DependentUpon>ImportExcel.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPanel\Institutions.aspx.cs">
       <DependentUpon>Institutions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -504,6 +513,7 @@
     </Compile>
     <Compile Include="DAL\FamilyUnits.cs" />
     <Compile Include="DAL\GalleryAlbum.cs" />
+    <Compile Include="DAL\ImportExcel.cs" />
     <Compile Include="DAL\Institutions.cs" />
     <Compile Include="DAL\Members.cs" />
     <Compile Include="DAL\Notices.cs" />
