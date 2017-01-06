@@ -58,6 +58,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public List<string> excelNotExitingFields
+        {
+            get;
+            set;
+        }
 
         #endregion Public Properties
 
@@ -212,9 +217,46 @@ namespace ChurchApp.DAL
             return excelSheets;
         }
         #endregion OpenExcelFile
-       
 
-    
+
+        #region SelectTableNames
+        /// <summary>
+        /// Select table names
+        /// </summary>
+        /// <returns>distinct table names</returns>
+        public DataSet SelectTableNames()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetTableNames]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectTableNames
 
         #region GetTableDefinition
         /// <summary>
@@ -259,14 +301,87 @@ namespace ChurchApp.DAL
         #endregion Methods
 
 
-        public bool Validate()
+        public bool Validation(DataSet ExcelDS,DataSet TableDefinitionDS)
         {
             bool status = true;
+            try
+            {
+                ValidateType(ExcelDS, TableDefinitionDS,status);
+                if(status==true)
+                {
+                    ValidateData(ExcelDS, TableDefinitionDS);
+                }             
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+                return status;
+        }
 
+        #region ValidateData
+        public bool ValidateData(DataSet ExcelDS, DataSet TableDefinitionDS)
+        {
+            bool status = true;
+            try
+            {
+                ValidateDataType(ExcelDS,TableDefinitionDS,status);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return status;
+        }
+        #endregion ValidateData
+
+        #region ValidateDataType
+        public bool ValidateDataType(DataSet ExcelDS, DataSet TableDefinitionDS,bool typeStatus)
+        {
+            try
+            {
+              
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+            return typeStatus;
+        }
+        #endregion ValidateDataType
+
+        #region ValidateType
+        public bool ValidateType(DataSet ExcelDS, DataSet TableDefinitionDS, bool status)
+        {
+           
+            excelNotExitingFields = new List<string>();
+            try
+            {
+                foreach (DataColumn tableDefColumn in TableDefinitionDS.Tables[0].Columns)
+               {
+                   string tableDefColumnName = tableDefColumn.ColumnName;
+                   DataColumnCollection excelColumns = ExcelDS.Tables[0].Columns;
+                   if (excelColumns.Contains(tableDefColumnName))
+                   {
+                       status = true;
+                   }
+                    else
+                   {
+                       status = false;
+                       excelNotExitingFields.Add(tableDefColumnName);
+                   }
+               }
+               
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
             return status;
         }
 
+        #endregion #region ValidateType
 
-       
     }
 }
