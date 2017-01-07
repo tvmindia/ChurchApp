@@ -137,6 +137,7 @@
     <Content Include="Font\glyphiconshalflings-regular.svg" />
     <Content Include="Font\glyphiconshalflings-regular.ttf" />
     <Content Include="Font\glyphiconshalflings-regular.woff" />
+    <Content Include="General\UnderConstruction.aspx" />
     <Content Include="img\00000000-0000-0000-0000-000000000000.jpg" />
     <Content Include="img\ad.png" />
     <Content Include="img\AppImages\00000000-0000-0000-0000-000000000000.jpg" />
@@ -538,6 +539,12 @@
     </Compile>
     <Compile Include="ExcelHandler\ExcelHandler.ashx.cs">
       <DependentUpon>ExcelHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="General\UnderConstruction.aspx.cs">
+      <DependentUpon>UnderConstruction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="General\UnderConstruction.aspx.designer.cs">
+      <DependentUpon>UnderConstruction.aspx</DependentUpon>
     </Compile>
     <Compile Include="ImageHandler\UploadHandler.ashx.cs">
       <DependentUpon>UploadHandler.ashx</DependentUpon>
