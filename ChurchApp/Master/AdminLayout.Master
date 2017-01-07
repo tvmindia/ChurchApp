@@ -6,7 +6,8 @@
 <head runat="server">
     <!-- start: Meta -->
 	<meta charset="utf-8"/>
-	<title>Thrithvam Technology Pvt Ltd.</title>
+	<title>GoChurch</title>
+    <link rel="shortcut icon" type="image/png" href="../img/IconChurch.PNG" />
 	<meta name="description" content="Bootstrap Metro Dashboard"/>
 	<meta name="author" content="Albert Thomson"/>
 	<meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina"/>
