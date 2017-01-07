@@ -19,7 +19,7 @@ namespace ChurchApp.Master
 
         protected void Page_Init(object sender, EventArgs e)
         {
-
+            
             UA = (DAL.Security.UserAuthendication)Session[Const.LoginSession];
 
             if (UA == null)

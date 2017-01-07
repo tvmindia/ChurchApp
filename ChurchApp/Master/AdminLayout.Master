@@ -109,7 +109,8 @@
     </asp:ContentPlaceHolder>
      <style>
         @font-face {font-family: TiquesFont;src: url(/Font/trench.100.otf);}
-.BoutiqueNAm{font-family:TiquesFont;font-size:30px;}
+.BoutiqueNAm{font-family:TiquesFont;font-size:25px;}
+.AdminLogoClass{width:25px;height:25px;}
 img{
     object-fit:cover!important;
 }
@@ -161,7 +162,7 @@ li#LIChurches {
 					<span class="icon-bar"></span>
 				</a>
                 <a class="brand" href="#"><span>
-                    <asp:Image ID="imgLogo" runat="server" CssClass="AdminLogoClass"/>
+                    <asp:Image ID="imgLogo" runat="server" ImageUrl="~/img/IconChurch.PNG" CssClass="AdminLogoClass"/>
 				<asp:Label runat="server" CssClass="BoutiqueNAm" ID="lblChurch" Text="Bou"></asp:Label></span></a>
 								
 				<!-- start: Header Menu -->
