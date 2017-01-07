@@ -27,35 +27,19 @@ namespace ChurchApp.Master
                 Response.Redirect(Const.LoginPageURL);
 
             }
-            //lblChurchName.Text = UA.Church;
             lblChurch.Text = UA.Church;
             hdfchid.Value = UA.ChurchID;
             AccessCheck();
 
             if (UA.Role == Const.SuperAdministrator)
             {
-                //Li_DashBoard.Visible = true;
-                //ChurchApp.DAL.Church churchObj = new ChurchApp.DAL.Church();
                 LIChurches.Visible = true;
-                
-                //DataSet ds = new DataSet();
-                //ds = churchObj.SelectChurches();
-                //foreach (DataRow dr in ds.Tables[0].Rows)
-                //{
-                //    HtmlGenericControl liElement = new HtmlGenericControl("li");
-                //    ChurchList.Controls.Add(liElement);
-                //    HtmlGenericControl anchor = new HtmlGenericControl("a");
-                //    anchor.Attributes.Add("href", "../AdminPanel/DashBoard.aspx?Session=" + dr["ID"].ToString());
-                //    anchor.InnerHtml = "" + dr["Name"].ToString();
-                //    liElement.Controls.Add(anchor);
-
-                //}
-
-                
+                NotiDropdown.Visible = true;
             }
             else
             {
                 LIChurches.Visible = false;
+                NotiDropdown.Visible = false;
             }
         }
 
@@ -89,8 +73,6 @@ namespace ChurchApp.Master
                 {
                     System.Web.UI.HtmlControls.HtmlAnchor anchorNew = (System.Web.UI.HtmlControls.HtmlAnchor)ContentPlaceHolder2.FindControl("btnAddNew");
                     System.Web.UI.HtmlControls.HtmlAnchor anchorNewVicar = (System.Web.UI.HtmlControls.HtmlAnchor)ContentPlaceHolder2.FindControl("btnNewVicar");
-                    //System.Web.UI.HtmlControls.HtmlAnchor anchorEdit = (System.Web.UI.HtmlControls.HtmlAnchor)ContentPlaceHolder2.FindControl("NoticeEdit");
-                    
                     if(anchorNew!=null)
                     {
                         anchorNew.Visible = false;
@@ -99,10 +81,6 @@ namespace ChurchApp.Master
                     {
                         anchorNewVicar.Visible = false;
                     }
-                   // if (anchorEdit != null)
-                   // {
-                   //     anchorEdit.Visible = false;
-                   // }
                 }
             }
             catch(Exception ex)
