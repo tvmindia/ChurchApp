@@ -530,7 +530,7 @@ $("document").ready(function (e) {
             if (churchbit)
             {
                 var Church = new Object();
-                Church.churchName = ($('#txtChurchName').val() != "" ? $('#txtChurchName').val() : "");
+                Church.churchName = (($('#txtChurchName').val() != "" && $('#txtChurchName').val() != null) ? $('#txtChurchName').val() : "");
                 Church.townCode = ($(".ddlTownCode").val() != "" ? $(".ddlTownCode").val() : "");
                 Church.address = ($('#txtAddress').val() != "" ? $('#txtAddress').val() : "");
                 Church.description = ($('#txtDescription').val() != "" ? $('#txtDescription').val() : "");
@@ -821,27 +821,11 @@ $("document").ready(function (e) {
                 Users = new Object();
                 Church = new Object();
                 Roles = new Object();
-                if ($('#ddlChurchinUsers').val() != "") {
-                    Church.churchId = $("#ddlChurchinUsers").val();//dropdownContainer.ddlChurch.select2().val();
-                }
-              
-
-                if ($("#txtUserName").val() != "") {
-                    Users.Name = $("#txtUserName").val();
-                }
-              
-                if ($("#txtUserAddress").val() != "") {
-                    Users.Address = $("#txtUserAddress").val();
-                }
-             
-
-                if ($("#txtMobile").val() != "") {
-                    Users.Mobile = $("#txtMobile").val();
-                }
-                
-                if ($("#txtEmail").val() != "") {
-                    Users.Email = $("#txtEmail").val();
-                }
+                Church.churchId = (($("#ddlChurchinUsers").val() != "" && $("#ddlChurchinUsers").val() != null)? $("#ddlChurchinUsers").val() : "");//dropdownContainer.ddlChurch.select2().val();
+                Users.Name = (($("#txtUserName").val() != "" && $("#txtUserName").val() != null) ? $('#txtUserName').val() : "");
+                Users.Address = (($("#txtUserAddress").val()!= "" && $("#txtUserAddress").val() != null) ? $('#txtUserAddress').val() : "");
+                Users.Mobile = (($("#txtMobile").val() != "" && $("#txtMobile").val() != null) ? $('#txtMobile').val() : "");
+                Users.Email = (($("#txtEmail").val()!= "" && $("#txtEmail").val() != null) ? $('#txtEmail').val() : "");
                
                 if ($('#optionMale').is(':checked')) {
                     Users.Gender = "Male";
@@ -849,34 +833,21 @@ $("document").ready(function (e) {
                 else {
                     Users.Gender = "Female";
                 }
-                if ($('#idddlRoles').val() != "") {
-                    Roles.ID = $('#idddlRoles').val();
+                
+                Roles.ID = (($('#idddlRoles').val() != "" && $("#idddlRoles").val() != null) ? $('#idddlRoles').val() : "");
                     if ($('#idddlRoles').find('option:selected').text() == 'Admin')
                     {
                         //Make the user as admin
                         Users.Administrator = 'True';
                     }
-                }
+                
                
                 if ($("#chkActive").parent().attr('class') != "") {
                     Users.Active = 'True';
                 }
-
-            
-
-                if ($("#datepickerdob").val() != "") {
-                    Users.DOB = $("#datepickerdob").val();
-                }
-             
-
-                if ($("#txtLoginName").val() != "") {
-                    Users.LoginName = $("#txtLoginName").val();
-                }
-
-                if ($("#txtconfirmpswd").val() != "") {
-                    Users.Password = $("#txtconfirmpswd").val();
-                }
-
+                Users.DOB = (($("#datepickerdob").val()!= "" && $("#datepickerdob").val() != null) ? $('#datepickerdob').val() : "");
+                Users.LoginName = (($("#txtLoginName").val()!= "" && $("#txtLoginName").val() != null) ? $('#txtLoginName').val() : "");
+                Users.Password = (($("#txtconfirmpswd").val()!= "" && $("#txtconfirmpswd").val() != null) ? $('#txtconfirmpswd').val() : "");
                 Users.churchObj = Church;
                 Users.rolesObj = Roles;
 
@@ -1055,17 +1026,10 @@ $("document").ready(function (e) {
             {
                 var OrgDesignationMaster = new Object();
                 var Church = new Object();
-                if ($("#txtPosition").val() != "") {
-                    OrgDesignationMaster.position = $("#txtPosition").val();
-                }
-
-                if ($("#idddlOrganization").val() != "") {
-                    OrgDesignationMaster.orgType = $("#idddlOrganization").val();
-                }
-
-                if ($("#txtOrder").val() != "") {
-                    OrgDesignationMaster.order = $("#txtOrder").val();
-                }
+                    OrgDesignationMaster.position = (($("#txtPosition").val() != "" && $("#txtPosition").val() != null) ? $('#txtPosition').val() : "");
+                    OrgDesignationMaster.orgType = (($("#idddlOrganization").val()!= "" && $("#idddlOrganization").val() != null) ? $('#idddlOrganization').val() : "");
+                    OrgDesignationMaster.order = (($("#txtOrder").val()!= "" && $("#idddlOrganization").val() != null) ? $('#idddlOrganization').val() : "");
+                
 
                 if ($("#hdfDesignationID").val() == '') {
                     //INSERT
@@ -1135,8 +1099,8 @@ $("document").ready(function (e) {
             var saintflag = PatronValidation();
             if (saintflag) {
                 var PatronMaster = new Object();
-                PatronMaster.patronMasterName = $("#txtSaintName").val();
-                PatronMaster.description = $("#txtSaintDescription").val();
+                PatronMaster.patronMasterName = (($("#txtSaintName").val()!= "" && $("#txtSaintName").val() != null) ? $('#txtSaintName').val() : "");
+                PatronMaster.description = (($("#txtSaintDescription").val()!= "" && $("#txtSaintDescription").val() != null) ? $('#txtSaintDescription').val() : "");
                
 
                 if ($("#hdfPatronID").val() == '') {
@@ -1318,10 +1282,7 @@ $("document").ready(function (e) {
             if (townflag)
             {
                 var TownMaster = new Object();
-                if ($("#txtName").val() != "")
-                {
-                 TownMaster.name = $("#txtName").val();
-                }
+                    TownMaster.name = (($("#txtName").val() != "" && $("#txtName").val() != null) ? $('#txtName').val() : "");
 
                 if ($("#hdfTownCode").val() == '') {
                     //INSERT

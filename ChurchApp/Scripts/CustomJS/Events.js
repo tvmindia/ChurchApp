@@ -143,9 +143,9 @@ $("document").ready(function (e) {
         $('#btnSave').click(function (e) {
             try {
                     var today = new Date();
-                    var startcheck = $('#dateStartDate').val();
-                    var endcheck = $('#dateEndDate').val();
-                    var Expirecheck = $('#dateExpiryDate').val();
+                    var startcheck = (($('#dateStartDate').val() != "" && $("#dateStartDate").val() != null) ? $("#dateStartDate").val() : "");
+                    var endcheck = (($('#dateEndDate').val() != "" && $("#dateEndDate").val() != null) ? $("#dateEndDate").val() : "");
+                    var Expirecheck = (($('#dateExpiryDate').val() != "" && $("#dateExpiryDate").val() != null) ? $("#dateExpiryDate").val() : "");
 
                     if (endcheck != "" || Expirecheck != "") {
                         if ((Datecheck(endcheck) < Datecheck(startcheck))) {
@@ -162,11 +162,11 @@ $("document").ready(function (e) {
                 if (IsValid) {
 
                     var Events = new Object();
-                    Events.eventName = $("#txtEventName").val();
-                    Events.description = $("#txtDescription").val();
-                    Events.startDate = $("#dateStartDate").val();
-                    Events.endDate = $("#dateEndDate").val();
-                    Events.eventExpiryDate = $("#dateExpiryDate").val();
+                    Events.eventName = (($("#txtEventName").val() != "" && $("#txtEventName").val() != null) ? $("#txtEventName").val() : "");
+                    Events.description = (($("#txtDescription").val() != "" && $("#txtDescription").val() != null) ? $("#txtDescription").val() : "");
+                    Events.startDate = (($("#dateStartDate").val() != "" && $("#dateStartDate").val() != null) ? $("#dateStartDate").val() : "");
+                    Events.endDate = (($("#dateEndDate").val() != "" && $("#dateEndDate").val() != null) ? $("#dateEndDate").val() : "");
+                    Events.eventExpiryDate = (($("#dateExpiryDate").val() != "" && $("#dateExpiryDate").val() != null) ? $("#dateExpiryDate").val() : "");
                     Events.isAutoHide = $("#hdfIsAutoHide").val();
                     Events.churchId = churchObject.chid;
                     Events.isAutoHide = true;
@@ -214,13 +214,13 @@ $("document").ready(function (e) {
                                         Notification.notificationType = NotificationTypeCode;
                                         Notification.linkID = Events.eventId;
                                         Notification.caption = Events.eventName;
-                                        Notification.description = $('#txtnotificationCOntent').val();
+                                        Notification.description = (($('#txtnotificationCOntent').val() != "" && $("#txtnotificationCOntent").val() != null) ? $("#txtnotificationCOntent").val() : "");
                                         //Events.description;
                                         if ($('#dateStartDate').val() != "") {
-                                            Notification.startDate = $('#dateStartDate').val();
+                                            Notification.startDate = (($('#dateStartDate').val() != "" && $("#dateStartDate").val() != null) ? $("#dateStartDate").val() : "");
                                         }
                                         if ($('#dateExpiryDate').val() != "") {
-                                            Notification.expiryDate = $('#dateExpiryDate').val();
+                                            Notification.expiryDate = (($('#dateExpiryDate').val() != "" && $("#dateExpiryDate").val() != null) ? $("#dateExpiryDate").val() : "");
                                         }
 
                                         InsertNotification(Notification);
@@ -251,7 +251,7 @@ $("document").ready(function (e) {
                                         Notification.notificationType = NotificationTypeCode;
                                         Notification.linkID = Events.eventId;
                                         Notification.caption = Events.eventName;
-                                        Notification.description = $('#txtnotificationCOntent').val();
+                                        Notification.description = (($('#txtnotificationCOntent').val() != "" && $("#txtnotificationCOntent").val() != null) ? $("#txtnotificationCOntent").val() : "");
                                         //Events.description;
                                         if ($('#dateStartDate').val() != "") {
                                             Notification.startDate = $('#dateStartDate').val();
@@ -329,7 +329,7 @@ $("document").ready(function (e) {
                                     Notification.notificationType = NotificationTypeCode;
                                     Notification.linkID = result.eventId;
                                     Notification.caption = Events.eventName;
-                                    Notification.description = $('#txtnotificationCOntent').val();
+                                    Notification.description = (($('#txtnotificationCOntent').val()!= "" && $("#txtnotificationCOntent").val() != null) ? $("#txtnotificationCOntent").val() : "");
                                     if ($('#dateStartDate').val() != "") {
                                         Notification.startDate = $('#dateStartDate').val();
                                     }
@@ -370,7 +370,7 @@ $("document").ready(function (e) {
                                     Notification.notificationType = NotificationTypeCode;
                                     Notification.linkID = InsertionStatus.eventId;
                                     Notification.caption = Events.eventName;
-                                    Notification.description = $('#txtnotificationCOntent').val();
+                                    Notification.description = (($('#txtnotificationCOntent').val()!= "" && $("#txtnotificationCOntent").val() != null) ? $("#txtnotificationCOntent").val() : "");
                                     if ($('#dateStartDate').val() != "") {
                                         Notification.startDate = $('#dateStartDate').val();
                                     }
