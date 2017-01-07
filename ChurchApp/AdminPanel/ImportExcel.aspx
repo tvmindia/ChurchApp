@@ -13,7 +13,11 @@
 		</ul>
         <!--Import Excel field-->
         <div class="row-fluid">		
-				<div class="box span12">                 
+				<div class="box span12">  
+                      <div class="box span6"> 
+                                  <select class="ddlexcel" id="ddlexceldropdown">                            
+                             </select>
+                    </div>  
                         <div class="box span6">
                            <%-- <asp:FileUpload ID="DataImportFileUpload" runat="server" class="FlatbuttonUpload" width="250px"  />--%>
                             <input type="file"  onchange="validateExcel();" id="excelfileuploader" />
@@ -24,4 +28,6 @@
         </div>
         <!--Import Excel field-->
     </div>
+ <%--   <asp:HiddenField ID="hdfFileName" />
+    <asp:HiddenField ID="hdfFileLocation" />--%>
 </asp:Content>
