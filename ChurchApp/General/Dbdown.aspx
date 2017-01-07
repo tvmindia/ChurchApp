@@ -4,7 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>GoChurch</title>
+    <link rel="shortcut icon" type="image/png" href="../img/IconChurch.PNG" />
     <style>
         body{
             background-color:#e9e3e3;
