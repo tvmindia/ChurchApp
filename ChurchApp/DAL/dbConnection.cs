@@ -43,7 +43,7 @@ namespace Church.DAL
             {
                 try
                 {
-                    HttpContext.Current.Response.Redirect("~/General/UnderConstruction.aspx?cause=dbDown", true);
+                    HttpContext.Current.Response.Redirect("~/General/Dbdown.aspx", true);
                 }
                 catch (Exception)
                 {

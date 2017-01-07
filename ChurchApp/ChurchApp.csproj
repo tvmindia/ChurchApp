@@ -137,6 +137,7 @@
     <Content Include="Font\glyphiconshalflings-regular.svg" />
     <Content Include="Font\glyphiconshalflings-regular.ttf" />
     <Content Include="Font\glyphiconshalflings-regular.woff" />
+    <Content Include="General\Dbdown.aspx" />
     <Content Include="img\00000000-0000-0000-0000-000000000000.jpg" />
     <Content Include="img\ad.png" />
     <Content Include="img\AppImages\00000000-0000-0000-0000-000000000000.jpg" />
@@ -207,6 +208,7 @@
     <Content Include="img\church-black-silhouette-with-a-cross-on-topblack1616.png" />
     <Content Include="img\close.png" />
     <Content Include="img\copy.png" />
+    <Content Include="img\dbError.png" />
     <Content Include="img\defaultalbumadd.jpg" />
     <Content Include="img\DefaultChurch.jpg" />
     <Content Include="img\gallery\1.jpg" />
@@ -540,6 +542,13 @@
     </Compile>
     <Compile Include="ExcelHandler\ExcelHandler.ashx.cs">
       <DependentUpon>ExcelHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="General\Dbdown.aspx.cs">
+      <DependentUpon>Dbdown.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\Dbdown.aspx.designer.cs">
+      <DependentUpon>Dbdown.aspx</DependentUpon>
     </Compile>
     <Compile Include="ImageHandler\UploadHandler.ashx.cs">
       <DependentUpon>UploadHandler.ashx</DependentUpon>

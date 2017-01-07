@@ -170,7 +170,7 @@ li#LIChurches {
 							<%--<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="halflings-icon white warning-sign"></i>
 							</a>--%>
-							<a class="btn dropdown-toggle" data-toggle="dropdown">
+							<a class="btn dropdown-toggle" id="NotiDropdown" runat="server" clientmode="static" data-toggle="dropdown">
 								<i class="halflings-icon white envelope"></i><span class="Noticon" id="countspan">0</span>
 							</a>
 							<ul class="dropdown-menu notifications" id="NotifyArea" style="max-height:300px;overflow-y:auto;overflow-x:hidden;">
