@@ -402,7 +402,9 @@
     <Content Include="Scripts\jquery.uniform.min.js" />
     <Content Include="Scripts\jquery.uploadify-3.1.min.js" />
     <Content Include="Scripts\modernizr.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminPanel\BugTracker.aspx.cs">
@@ -563,6 +565,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="TempFiles\" />
     <Folder Include="vid\Poster\" />
   </ItemGroup>
   <PropertyGroup>
