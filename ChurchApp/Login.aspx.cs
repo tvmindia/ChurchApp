@@ -253,10 +253,10 @@ namespace ChurchApp
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //lblError.Text = ex.Message;
-                LoginObj.msg = "False";
+                LoginObj.msg =ex.Message.ToString();
                 return jsSerializer.Serialize(LoginObj);
             }
 

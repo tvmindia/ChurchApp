@@ -99,11 +99,15 @@ function VerifyCodeNow()
    }
     else
    {
-       var ptag = document.getElementById('lblerror');
-       ptag.style.color = 'red';
-       ptag.style.fontFamily = 'monaco';
-       ptag.style.paddingLeft = "5px";
-       ptag.innerHTML = table.msg+'!';
+       if (table.msg!=='False'&&table.msg!=='True')
+       {
+           var ptag = document.getElementById('lblerror');
+           ptag.style.color = 'red';
+           ptag.style.fontFamily = 'monaco';
+           ptag.style.paddingLeft = "5px";
+           ptag.innerHTML = table.msg + '!';
+       }
+       
    }
 }
 
@@ -122,7 +126,7 @@ function EnterPassword(UsrID) {
         + '<input class="form-control form-control-solid placeholder-no-fix" name="CPass" id="txtConfirmPassword" type="password" autocomplete="off" placeholder="Confirm Password"/>'
         + '</div>'
         + '<div class="button-login">'
-        + '<button type="submit" id="btnlogin" onclick="UpdatePassword()" class="btn btn-primary loginbtn">Verify</button>'
+        + '<button type="submit" id="btnlogin" onclick="UpdatePassword()" class="btn btn-primary loginbtn">Change Password</button>'
         + '</div>'
         + '<div class="clearfix"></div>'
         + '<h3></h3><p id="lblerror"></p></div');
