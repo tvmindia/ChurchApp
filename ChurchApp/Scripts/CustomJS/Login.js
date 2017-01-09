@@ -7,11 +7,12 @@ $("document").ready(function (e) {
 function ForgotPassword() {
     $('#LoginBoxDiv').remove();
     var LoginDIv = $('#loginRowFluid');
+    $('#loginRowFluid').removeClass("content");
     var html = ('<div class="login-box" id="EmailBox">'
         + '<h2>Enter your Email</h2>'
         + '<div class="input-prepend" title="Email">'
         + '<span class="add-on"><i class="halflings-icon envelope"></i></span>'
-        + '<input class="input-large span10" name="Email" id="txtEmail" type="Email" onkeyup="return EmailValidation()"  autocomplete="off" placeholder="Email"/>'
+        + '<input class="input-large" name="Email" id="txtEmail" type="Email" onkeyup="return EmailValidation()"  autocomplete="off" placeholder="Email"/>'
         + '</div>'
         + '<div><img src="../img/ring.gif" style="padding-left:147px;border:0;max-width:24%;height:auto;vertical-align:middle;display:none;" id="Sendinggif"></div>'
         + '<div class="button-login">'     
@@ -61,7 +62,7 @@ function MatchVetification(EmailAddr)
         + '<h2>Enter Verification Code</h2>'
         + '<div class="input-prepend" title="Verification">'
         + '<span class="add-on"><i class="halflings-icon lock"></i></span>'
-        + '<input class="input-large span10" name="VerificationCode" id="txtVerifyCode" type="password" autocomplete="off" placeholder="Verification Code"/>'
+        + '<input class="input-large" name="VerificationCode" id="txtVerifyCode" type="password" autocomplete="off" placeholder="Verification Code"/>'
         + '</div><div style="font-family:monaco;padding-left:10px;font-size:14px;color:rosybrown"> ✉ CHECK Email For Verification Code</div>'
         + '<div class="button-login">'
         + '<button type="" id="btnlogin" onclick="VerifyCodeNow()" class="btn btn-primary loginbtn">Verify</button>'
@@ -110,11 +111,11 @@ function EnterPassword(UsrID) {
         + '<h2>Enter New Password</h2>'
         + '<div class="input-prepend" title="NewPassword">'
         + '<span class="add-on"><i class="halflings-icon lock"></i></span>'
-        + '<input class="input-large span10" name="NPAss" id="txtPassword" type="password" autocomplete="off" placeholder="New Password"/>'
+        + '<input class="input-large" name="NPAss" id="txtPassword" type="password" autocomplete="off" placeholder="New Password"/>'
         + '</div>'
         + '<div class="input-prepend" title="NewPassword">'
         + '<span class="add-on"><i class="halflings-icon lock"></i></span>'
-        + '<input class="input-large span10" name="CPass" id="txtConfirmPassword" type="password" autocomplete="off" placeholder="Confirm Password"/>'
+        + '<input class="input-large" name="CPass" id="txtConfirmPassword" type="password" autocomplete="off" placeholder="Confirm Password"/>'
         + '</div>'
         + '<div class="button-login">'
         + '<button type="submit" id="btnlogin" onclick="UpdatePassword()" class="btn btn-primary loginbtn">Verify</button>'

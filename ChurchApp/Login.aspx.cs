@@ -54,14 +54,14 @@ namespace ChurchApp
                     else
                     {
                         //lblmsg.Text = Messages.LoginFailed;
-                        lblmsg.Text = "Login Failed";
+                        lblmsg.Text = "Enter a valid Username/Password";
                     }
 
                 }
                 else
                 {
                     //lblmsg.Text = Messages.LoginFailed;
-                    lblmsg.Text = "Login Failed";
+                    lblmsg.Text = "Enter a valid Username/Password";
                 }
 
 
