@@ -56,7 +56,7 @@ namespace ChurchApp.ExcelHandler
                                         dsFile = new DataSet();
                                         dsTable = ImportXL.GetTableDefinition();
                                         dsFile = ImportXL.ScanExcelFileToDS(excelSheets, dsTable);
-                                        //columnExistCheck = validationObj.ValidateExcelDataStructure(dsFile, dsTable);
+                                        bool result = ImportXL.Validation(dsFile, dsTable);
                                         //if (columnExistCheck == true)
                                         //{
 
