@@ -11,23 +11,49 @@
         <ul class="breadcrumb">
  		<li>Import Excel</li>
 		</ul>
-        <!--Import Excel field-->
-        <div class="row-fluid">		
-				<div class="box span12">  
-                      <div class="box span6"> 
-                                  <select class="ddlexcel" id="ddlexceldropdown">                            
-                             </select>
-                    </div>  
-                        <div class="box span6">
-                           <%-- <asp:FileUpload ID="DataImportFileUpload" runat="server" class="FlatbuttonUpload" width="250px"  />--%>
-                            <input type="file"  onchange="validateExcel();" id="excelfileuploader" />
-                            <a class="btn btn-primary uploadexcel" href="#">Upload</></a>
-                             <%--<input type="file" accept="image/*" id="excelfile  uploader" onchange="OnUpload(this);ChurchImagePreview(this);"/>--%>
-                        </div>     
+        <!--Import Excel field-->  
+        <div class="row-fluid ">		
+				<div class="box span12">
+                     <div class="box-header" data-original-title>
+                        <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Import Excel</h2>
+                        <div class="box-icon">                      
+                        <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                    </div>
+                </div>  
+
+                     <div class="box-content">
+                            
+                            <div class="control-group">
+                                <label class="control-label" >Import Table Name</label>
+                                <div class="controls">
+                                      <select class="ddlexcel" id="ddlexceldropdown">
+                                          <option></option>
+                                  </select>
+                                </div>
+                            </div>
+                                 
+                            <div class="control-group">
+                                <label class="control-label" for="focusedInput">Browse</label>
+                                <div class="controls">
+                                        <input type="file" onchange="validateExcel();" id="excelfileuploader" />
+                                </div>
+                            </div>                       
+                                                 
+                         
+                          
+                          <div class="form-actions">
+							    <a class="btn btn-primary uploadexcel" href="#">Upload</></a>
+                    </div> 
+                     </div>
+                   
+
+                    
 				</div>
         </div>
         <!--Import Excel field-->
     </div>
+
+   
  <%--   <asp:HiddenField ID="hdfFileName" />
     <asp:HiddenField ID="hdfFileLocation" />--%>
 </asp:Content>
