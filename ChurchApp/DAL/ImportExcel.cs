@@ -306,8 +306,16 @@ namespace ChurchApp.DAL
         }
         #endregion GetTableDefinition
 
+        #region ImportData
+        public string ExcelImport()
+        {
+            return "";
+        }
+        #endregion ImportData
         #endregion Methods
 
+        #region ValidationMethods
+        #region Validation
         /// <summary>
         /// Excel sheet validation 
         /// </summary>
@@ -351,7 +359,8 @@ namespace ChurchApp.DAL
             }
                 return status;
         }
-
+        #endregion Validation
+        #region ValidateData
         public int ValidateData(DataRow drExcel, DataSet dsTableDef, int rowno, DataTable dtError)
         {
                 
@@ -468,7 +477,8 @@ namespace ChurchApp.DAL
             }
            
         }
-
+        #endregion ValidateData
+        #region CreateErrorTable
         /// <summary>
         /// Create datatable for Error Descriptions
         /// </summary>
@@ -481,7 +491,7 @@ namespace ChurchApp.DAL
             dtTemp.Columns.Add(new DataColumn("ErrorDesc", typeof(string)));
             return dtTemp;
         }
-    
+        #endregion CreateErrorTable
         #region Date validation
         /// <summary>
         /// Date validation
@@ -609,6 +619,6 @@ namespace ChurchApp.DAL
         }
 
         #endregion #region ValidateType
-
+        #endregion ValidationMethods
     }
 }
