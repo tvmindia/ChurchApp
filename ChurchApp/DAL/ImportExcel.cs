@@ -321,7 +321,7 @@ namespace ChurchApp.DAL
             int res;
             try
             {
-                DataSet ErrorDs = new DataSet();
+             
                 excelNotExitingFields = new List<string>();
                 status = ValidateType(ExcelDS, TableDefinitionDS, excelNotExitingFields);
                 if(status==true)
@@ -335,7 +335,15 @@ namespace ChurchApp.DAL
                         }
                     }
                    
-                }             
+                }     
+                else
+                {
+                    DataRow dr = dtError.NewRow();
+                    dr["RowNo"] = "";
+                    dr["FieldName"] = excelNotExitingFields.ToString();
+                    dr["ErrorDesc"] = "column(s) doesnot exists in excel template";
+                    dtError.Rows.Add(dr);
+                }
             }
             catch(Exception ex)
             {
@@ -346,15 +354,12 @@ namespace ChurchApp.DAL
 
         public int ValidateData(DataRow drExcel, DataSet dsTableDef, int rowno, DataTable dtError)
         {
-           
-            DataSet dsError = new DataSet();
+                
             try
             {
-                StringBuilder keyFieldLists = new StringBuilder();
-                StringBuilder errorDescLists = new StringBuilder();
-                bool flag = true;
-                string comma = "";
-
+              
+                bool flag = false;
+             
                 //----------------------Manadatory Fields Checking-------------------//
                 DataRow[] mandatoryFields = dsTableDef.Tables[0].Select("IsMandatory='true'");
 
@@ -381,14 +386,11 @@ namespace ChurchApp.DAL
                 {
                     string tableDefFieldType = tableDefRow["Field_Type"].ToString();
                     string tableDefColumnName = tableDefRow["Field_Name"].ToString();
-
+                    var tableDefFieldSize = tableDefRow["Field_Size"].ToString();
                     if (tableDefFieldType == "D" && !ValidateDate(drExcel[tableDefColumnName].ToString()))
                     {
                         flag = true;
-                        //errorDescLists.Append(comma);
-                        //errorDescLists.Append(tableDefColumnName);
-                        //errorDescLists.Append("is Invalid");
-                        //comma = ",";
+                        
                         DataRow dr = dtError.NewRow();
                         dr["RowNo"] = rowno;
                         dr["FieldName"] = tableDefColumnName;
@@ -398,10 +400,7 @@ namespace ChurchApp.DAL
                     else if (tableDefFieldType == "A" && !isAlphaNumeric(drExcel[tableDefColumnName].ToString()))
                     {
                         flag = true;
-                        //errorDescLists.Append(comma);
-                        //errorDescLists.Append(tableDefColumnName);
-                        //errorDescLists.Append(" is invalid");
-                        //comma = ",";
+                        
                         DataRow dr = dtError.NewRow();
                         dr["RowNo"] = rowno;
                         dr["FieldName"] = tableDefColumnName;
@@ -411,23 +410,17 @@ namespace ChurchApp.DAL
                     else if (tableDefFieldType == "N" && !isNumber(drExcel[tableDefColumnName].ToString()))
                     {
                         flag = true;
-                        //errorDescLists.Append(comma);
-                        //errorDescLists.Append(tableDefColumnName);
-                        //errorDescLists.Append(" is invalid");
-                        //comma = ",";
+                        
                         DataRow dr = dtError.NewRow();
                         dr["RowNo"] = rowno;
                         dr["FieldName"] = tableDefColumnName;
                         dr["ErrorDesc"] = "Invalid Number";
                         dtError.Rows.Add(dr);
                     }
-                    else if (tableDefFieldType == "S" && !isAlphaNumeric(drExcel[tableDefColumnName].ToString()))
+                    else if (tableDefFieldType == "S" && !isString(drExcel[tableDefColumnName].ToString()))
                     {
                         flag = true;
-                        //errorDescLists.Append(comma);
-                        //errorDescLists.Append(tableDefColumnName);
-                        //errorDescLists.Append(" is invalid");
-                        //comma = ",";
+                      
                         DataRow dr = dtError.NewRow();
                         dr["RowNo"] = rowno;
                         dr["FieldName"] = tableDefColumnName;
@@ -438,38 +431,30 @@ namespace ChurchApp.DAL
 
                     //------------------------------Field size checking-----------------------//
 
-                    DataRow[] NotNullSizeFields = dsTableDef.Tables[0].Select("[Field_Size] is not null");
 
-                    //int i = 0;
-                    foreach (var item in NotNullSizeFields)
+                    if (tableDefFieldSize != null && tableDefFieldSize != "")
                     {
 
-                        int tableDefLength = Convert.ToInt32(item["Field_Size"]);
-                        string colName = item["Field_Name"].ToString();
-                        int excelColLength = drExcel[colName].ToString().Length;
+                        int tableDefLength = Convert.ToInt32(tableDefFieldSize);
+                        int excelColLength = drExcel[tableDefColumnName].ToString().Length;
                         if (tableDefLength < excelColLength)
                         {
                             flag = true;
-                            //errorDescLists.Append(comma);
-                            //errorDescLists.Append(tableDefColumnName);
-                            //errorDescLists.Append(" is invalid");
-                            //comma = ",";
+
                             DataRow dr = dtError.NewRow();
                             dr["RowNo"] = rowno;
                             dr["FieldName"] = tableDefColumnName;
                             dr["ErrorDesc"] = "Invalid Field Size";
                             dtError.Rows.Add(dr);
                         }
-                        //i = i + 1;
                     }
+                                                            
                 }
 
-                
-               
+                               
                 if (flag == true)
                 {
                     rowno = rowno + 2;
-                    //code to insert data to error ds
                     return -1;
                 }
                 else
@@ -496,95 +481,7 @@ namespace ChurchApp.DAL
             dtTemp.Columns.Add(new DataColumn("ErrorDesc", typeof(string)));
             return dtTemp;
         }
-        #region ValidateData
-        /// <summary>
-        /// Validate excel type,max size and mandatory fields
-        /// </summary>
-        /// <param name="ExcelDS"></param>
-        /// <param name="TableDefinitionDS"></param>
-        /// <param name="ErrorDs"></param>
-        /// <returns>True/False</returns>
-        public bool ValidateDataOld(DataSet ExcelDS, DataSet TableDefinitionDS,DataSet ErrorDs)
-        {
-            bool typeStatus = true;
-            try
-            {
-
-
-                foreach (DataRow excelRow in ExcelDS.Tables[0].Rows)
-                {
-                    
-                    foreach (DataRow tableDefRow in TableDefinitionDS.Tables[0].Rows)
-                    {
-                         string tableDefFieldType = tableDefRow["Field_Type"].ToString();
-                        string tableDefColumnName = tableDefRow["Field_Name"].ToString();
-
-                        //----------------------Manadatory Fields Checking-------------------//
-
-                        DataRow[] mandatoryFields = TableDefinitionDS.Tables[0].Select("IsMandatory='1'");
-
-                        foreach(var item in mandatoryFields)
-                        {
-                            string excelColName = item["Field_Name"].ToString();
-
-                            if (excelRow[excelColName].ToString().Trim() == "" || string.IsNullOrEmpty(excelRow[excelColName].ToString()))
-                            {
-                                ErrorDs.Tables[0].ImportRow(excelRow);
-                            }
-                        }
-
-               
-
-                        //-------------------- Field type checking-------------------------//
-
-                       
-                   
-                        if (tableDefFieldType == "D" && !ValidateDate(excelRow[tableDefColumnName].ToString()))
-                        {
-                            ErrorDs.Tables[0].ImportRow(excelRow);
-                        }
-                        else if (tableDefFieldType == "A" && !isAlphaNumeric(excelRow[tableDefColumnName].ToString()))
-                        {
-                            ErrorDs.Tables[0].ImportRow(excelRow);
-                        }
-                        else if (tableDefFieldType == "N" && !isNumber(excelRow[tableDefColumnName].ToString()))
-                        {
-                            ErrorDs.Tables[0].ImportRow(excelRow);
-                        }
-                        else if (tableDefFieldType == "S" && !isAlphaNumeric(excelRow[tableDefColumnName].ToString()))
-                        {
-                            ErrorDs.Tables[0].ImportRow(excelRow);
-                        }
-
-                        //------------------------------Field size checking-----------------------//
-
-                        DataRow[] NotNullSizeFields = TableDefinitionDS.Tables[0].Select("[Field_Size] is not null");
-                        
-
-                        foreach(var item in NotNullSizeFields)
-                        {
-                            int i = 0;
-                            int tableDefLength =Convert.ToInt32(tableDefRow["Field_Size"]);
-                            int excelColLength = item.Table.Columns[i].MaxLength;
-                            if(tableDefLength!=excelColLength)
-                            {
-                                ErrorDs.Tables[0].ImportRow(excelRow);
-                            }
-                            i = i + 1;
-                        }
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-
-            return typeStatus;
-        }
-        #endregion ValidateData
-
-
+    
         #region Date validation
         /// <summary>
         /// Date validation
@@ -624,6 +521,23 @@ namespace ChurchApp.DAL
         }
 
         #endregion Alphanumeric Validation
+
+        #region String Validation
+        /// <summary>
+        /// Alphanumeric Validation
+        /// </summary>
+        /// <param name="strToCheck"></param>
+        /// <returns></returns>
+        private static bool isString(string strToCheck)
+        {
+            Regex rg = new Regex(@"^[a-zA-Z\s\.]+$");
+            if (rg.IsMatch(strToCheck))
+                return true;
+            else
+                return false;
+        }
+
+        #endregion String Validation
 
         #region Numeric Validation
         /// <summary>
@@ -671,10 +585,10 @@ namespace ChurchApp.DAL
             bool status = true;
             try
             {
+                DataColumnCollection excelColumns = ExcelDS.Tables[0].Columns;
                 foreach (DataRow tableDefRow in TableDefinitionDS.Tables[0].Rows)
                {
                    string tableDefColumnName = tableDefRow["Field_Name"].ToString();
-                   DataColumnCollection excelColumns = ExcelDS.Tables[0].Columns;
                    if (excelColumns.Contains(tableDefColumnName))
                    {
                        //status = true;
