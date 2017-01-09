@@ -42,7 +42,7 @@
     height: 35px;
     color: #8290a3;
     border: 1px solid #dde3ec;
-    width:100%;
+    width:96%;
 }
 .login .content .form-control:active, .login .content .form-control:focus {
     border: 1px solid #c3ccda;
