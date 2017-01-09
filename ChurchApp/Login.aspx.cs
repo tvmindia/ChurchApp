@@ -241,12 +241,14 @@ namespace ChurchApp
                     }
                     else
                     {
+                        LoginObj.msg = "TimeExpired";
                         //lblError.Text = Messages.TimeExpired;
                     }
                 }
 
                 else
                 {
+                    LoginObj.msg = "False";
                     //lblError.Text = Messages.IncorrectVerificationCode;
                 }
 

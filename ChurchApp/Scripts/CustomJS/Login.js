@@ -96,7 +96,15 @@ function VerifyCodeNow()
         ptag.style.fontFamily = 'monaco';
         ptag.style.paddingLeft = "5px";
         ptag.innerHTML = 'The Verification Code Missmatch !';
-    }
+   }
+    else
+   {
+       var ptag = document.getElementById('lblerror');
+       ptag.style.color = 'red';
+       ptag.style.fontFamily = 'monaco';
+       ptag.style.paddingLeft = "5px";
+       ptag.innerHTML = table.msg+'!';
+   }
 }
 
 function EnterPassword(UsrID) {
@@ -170,8 +178,8 @@ function UpdatePassword()
 
 function Succes() {
     var LoginDIv = $('#loginRowFluid');
-    var html = ('<div class="login-box" id="ChangedPassword">'
-        + '<h2>You Successfully Changed Your Password..</h2>'
+    var html = ('<div class="content" id="ChangedPassword">'
+        + '<h2>Password Changed Successfully..</h2>'
         + '<div class="clearfix"></div>'
         + '<h3></h3><p><a href="../Login.aspx" style="color:blue;">Click Here</a> to Login</p></div');
     LoginDIv.append(html);
