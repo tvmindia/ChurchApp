@@ -65,6 +65,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string ImageID
+        {
+            get;
+            set;
+        }
         public string address
         {
             get;
@@ -377,7 +382,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar, 50).Value = Remarks;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
                 cmd.Parameters.Add("@ImagePath", SqlDbType.NVarChar, 50).Value = ImagePath;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = ImageID;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now); 
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outchurchid = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
                 outchurchid.Direction = ParameterDirection.Output;
