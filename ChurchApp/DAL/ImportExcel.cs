@@ -557,7 +557,7 @@ namespace ChurchApp.DAL
                         flag = true;
                         errorList.Add(FieldName + "-" + "Field Is Empty");
                     }
-                    if (isKeyField == "Y" && drExcel[FieldName].ToString()!=string.Empty)
+                    if (isKeyField == "Y" && drExcel[FieldName].ToString()!=string.Empty && drExcel[FieldName].ToString()!="NULL")
                     {
                         keyFields.Add(drExcel[FieldName].ToString());
                     }
