@@ -80,6 +80,20 @@ namespace ChurchApp.DAL
                 return "No items";
             }
         }
+        public string SuccessUpload
+        {
+            get
+            {
+                return "Successfully uploaded details";
+            }
+        }
+        public string FailToUpload
+        {
+            get
+            {
+                return "Failed to upload details";
+            }
+        }
         public string SuccessfullActivation
         {
             get
