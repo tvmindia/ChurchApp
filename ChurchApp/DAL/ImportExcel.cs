@@ -359,7 +359,8 @@ namespace ChurchApp.DAL
             {
              
                 excelNotExitingFields = new List<string>();
-                status = ValidateType(ExcelDS, TableDefinitionDS, excelNotExitingFields);
+                List<string> keyField = null;
+                status = ValidateType(ExcelDS, TableDefinitionDS, excelNotExitingFields, keyField);
                 if(status==true)
                 {
                     for (int i = ExcelDS.Tables[0].Rows.Count-1; i >= 0; i--)
@@ -376,8 +377,8 @@ namespace ChurchApp.DAL
                 {
                     DataRow dr = dtError.NewRow();
                     dr["RowNo"] = "";
-                    dr["FieldName"] = excelNotExitingFields.ToString();
-                    dr["ErrorDesc"] = "column(s) doesnot exists in excel template";
+                    dr["FieldName"] =keyField;
+                    dr["ErrorDesc"] = excelNotExitingFields+" column(s) doesnot exists in excel template";
                     dtError.Rows.Add(dr);
                 }
             }
@@ -603,15 +604,17 @@ namespace ChurchApp.DAL
         /// <param name="ExcelDS"></param>
         /// <param name="TableDefinitionDS"></param>
         /// <returns>True/False</returns>
-        public bool ValidateType(DataSet ExcelDS, DataSet TableDefinitionDS, List<string> excelNotExitingFields)
+        public bool ValidateType(DataSet ExcelDS, DataSet TableDefinitionDS, List<string> excelNotExitingFields,List<string> keyFields)
         {
             bool status = true;
+            keyFields = new List<string>();
             try
             {
                 DataColumnCollection excelColumns = ExcelDS.Tables[0].Columns;
                 foreach (DataRow tableDefRow in TableDefinitionDS.Tables[0].Rows)
                {
                    string tableDefColumnName = tableDefRow["Field_Name"].ToString();
+                  keyFields.Add(ExcelDS.Tables[0].Rows[0][tableDefColumnName].ToString());
                    if (excelColumns.Contains(tableDefColumnName))
                    {
                        //status = true;
