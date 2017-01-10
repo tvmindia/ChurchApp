@@ -490,7 +490,7 @@ namespace ChurchApp.DAL
         /// <param name="ExcelDS"></param>
         /// <param name="TableDefinitionDS"></param>
         /// <returns>True/False</returns>
-        public DataTable Validation(DataSet ExcelDS,DataSet TableDefinitionDS)
+        public bool Validation(DataSet ExcelDS,DataSet TableDefinitionDS)
         {
             DataTable dtError = CreateErrorTable();
             bool status = true;
@@ -526,7 +526,7 @@ namespace ChurchApp.DAL
             {
                 throw ex;
             }
-            return dtError;
+            return status;
         }
         #endregion Validation
         #region ValidateData
