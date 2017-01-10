@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
-using System.Configuration; 
+using System.Configuration;
+using System.Web.Script.Serialization; 
 
 namespace ChurchApp.ExcelHandler
 {
@@ -17,12 +18,12 @@ namespace ChurchApp.ExcelHandler
         {
             context.Response.ContentType = "text/plain";
             DAL.Security.UserAuthendication UA = new DAL.Security.UserAuthendication();
-            DAL.ImportExcel ImportXL = new DAL.ImportExcel();
+            DAL.ImportExcel ImportXL = null;
             string currentSheet = null;  
             DataSet dsFile = null;
             DataSet dsTable = null;
             HttpPostedFile postFile = null;
-
+            JavaScriptSerializer jsSerializer = null;
             try
             {
 
@@ -33,8 +34,11 @@ namespace ChurchApp.ExcelHandler
                         switch (context.Request.Form.GetValues("ActionTyp")[0])
                         {
                             case "Church":
-
+                                ImportXL = new DAL.ImportExcel();
                                 String[] excelSheets = null;
+                                jsSerializer = new JavaScriptSerializer();
+                                ImportXL.parentRow = new List<Dictionary<string, object>>();
+                                //Dictionary<string, object> childRow;
                                 string path = HttpContext.Current.Server.MapPath(ConfigurationManager.ConnectionStrings["TempFilePath"].ConnectionString).ToString();
 
                                 postFile = context.Request.Files["upImageFile"];
@@ -52,19 +56,37 @@ namespace ChurchApp.ExcelHandler
                                 postFile.SaveAs(fileLocation);
                                 excelSheets = ImportXL.OpenExcelFile();
                                 if (excelSheets != null)
-                                {                                   
+                                {
+                                    DataTable dtError = new DataTable();
                                         dsFile = new DataSet();
                                         dsTable = ImportXL.GetTableDefinition();
                                         dsFile = ImportXL.ScanExcelFileToDS(excelSheets, dsTable);
-                                        bool result = ImportXL.Validation(dsFile, dsTable);
-                                        //if (columnExistCheck == true)
-                                        //{
+                                        dtError = ImportXL.Validation(dsFile, dsTable);
+                                        ImportXL.totalExcelRows = dsFile.Tables[0].Rows.Count.ToString();
+                                       // ImportXL.dtImportError = dtError;
+                                        if (dtError.Rows.Count > 0)
+                                       {
+                                           if (dtError.Rows.Count > 0)
+                                           {
+                                               foreach (DataRow row in dtError.Rows)
+                                               {
+                                                  ImportXL.childRow = new Dictionary<string, object>();
+                                                   foreach (DataColumn col in dtError.Columns)
+                                                   {
+                                                       ImportXL.childRow.Add(col.ColumnName, row[col]);
+                                                   }
+                                                   ImportXL.parentRow.Add(ImportXL.childRow);
+                                               }
+                                               
+                                           }
+                                           jsSerializer.Serialize(ImportXL.parentRow);
+                                          // context.Response.Write(jsSerializer.Serialize(ImportXL.parentRow));
+                                           context.Response.Write(jsSerializer.Serialize(ImportXL));
+                                       }
+                                    else
+                                       {
 
-                                        //}
-                                        //if (columnExistCheck == false)
-                                        //{
-
-                                        //}
+                                       }
                                   
                                 }
                                 else
@@ -92,7 +114,7 @@ namespace ChurchApp.ExcelHandler
 
             }       
 
-            context.Response.Write("Hello World");
+            //context.Response.Write("Hello World");
         }
 
         public bool IsReusable

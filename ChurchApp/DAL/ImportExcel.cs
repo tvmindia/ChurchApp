@@ -17,6 +17,26 @@ namespace ChurchApp.DAL
 
         #region Public Properties
 
+        public string insertedRows
+        {
+            get;
+            set;
+        }
+        public string updatedRows
+        {
+            get;
+            set;
+        }
+        public string totalExcelRows
+        {
+            get;
+            set;
+        }
+        public DataTable dtImportError
+        {
+            get;
+            set;
+        }
         public string tableName
         {
             get;
@@ -70,8 +90,16 @@ namespace ChurchApp.DAL
             get;
             set;
         }
-
-       
+        public List<Dictionary<string, object>> parentRow
+        {
+            get;
+            set;
+        }
+        public Dictionary<string, object> childRow
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Methods
@@ -322,7 +350,7 @@ namespace ChurchApp.DAL
         /// <param name="ExcelDS"></param>
         /// <param name="TableDefinitionDS"></param>
         /// <returns>True/False</returns>
-        public bool Validation(DataSet ExcelDS,DataSet TableDefinitionDS)
+        public DataTable Validation(DataSet ExcelDS,DataSet TableDefinitionDS)
         {
             DataTable dtError = CreateErrorTable();
             bool status = true;
@@ -334,7 +362,7 @@ namespace ChurchApp.DAL
                 status = ValidateType(ExcelDS, TableDefinitionDS, excelNotExitingFields);
                 if(status==true)
                 {
-                    for (int i = ExcelDS.Tables[0].Rows.Count - 1; i >= 0; i--)
+                    for (int i = ExcelDS.Tables[0].Rows.Count-1; i >= 0; i--)
                     {
                         res = ValidateData(ExcelDS.Tables[0].Rows[i], TableDefinitionDS, i, dtError);
                         if(res==-1)
@@ -357,18 +385,19 @@ namespace ChurchApp.DAL
             {
                 throw ex;
             }
-                return status;
+            return dtError;
         }
         #endregion Validation
         #region ValidateData
         public int ValidateData(DataRow drExcel, DataSet dsTableDef, int rowno, DataTable dtError)
         {
-                
+            List<string> errorList = new List<string>();
+            List<string> keyFields = new List<string>();
             try
             {
               
                 bool flag = false;
-             
+
                 //----------------------Manadatory Fields Checking-------------------//
                 DataRow[] mandatoryFields = dsTableDef.Tables[0].Select("IsMandatory='true'");
 
@@ -376,16 +405,20 @@ namespace ChurchApp.DAL
                 {
                     string FieldName = item["Field_Name"].ToString();
                     string FieldDataType = item["Field_Type"].ToString();
-
+                    string isKeyField = item["Key_Field"].ToString();
                     if (drExcel[FieldName].ToString().Trim() == "" || string.IsNullOrEmpty(drExcel[FieldName].ToString()))
                     {
                         flag = true;
-                        DataRow dr = dtError.NewRow();
-                        dr["RowNo"] = rowno;
-                        dr["FieldName"] = FieldName;
-                        dr["ErrorDesc"] = "Field Is Empty";
-                        dtError.Rows.Add(dr);
-
+                        //DataRow dr = dtError.NewRow();
+                        //dr["RowNo"] = rowno;
+                        //dr["FieldName"] = FieldName;
+                        //dr["ErrorDesc"] = "Field Is Empty";
+                        //dtError.Rows.Add(dr);
+                        errorList.Add(FieldName + "-" + "Field Is Empty");
+                    }
+                    if (isKeyField == "Y" && drExcel[FieldName].ToString()!=string.Empty)
+                    {
+                        keyFields.Add(drExcel[FieldName].ToString());
                     }
                 }
 
@@ -396,48 +429,52 @@ namespace ChurchApp.DAL
                     string tableDefFieldType = tableDefRow["Field_Type"].ToString();
                     string tableDefColumnName = tableDefRow["Field_Name"].ToString();
                     var tableDefFieldSize = tableDefRow["Field_Size"].ToString();
+                    
+
+                    if (drExcel[tableDefColumnName].ToString().Trim() != "" && !string.IsNullOrEmpty(drExcel[tableDefColumnName].ToString()))
+                    {
                     if (tableDefFieldType == "D" && !ValidateDate(drExcel[tableDefColumnName].ToString()))
                     {
                         flag = true;
-                        
-                        DataRow dr = dtError.NewRow();
-                        dr["RowNo"] = rowno;
-                        dr["FieldName"] = tableDefColumnName;
-                        dr["ErrorDesc"] = "Invalid Date format";
-                        dtError.Rows.Add(dr);
+                        errorList.Add(tableDefColumnName + "-" + "Invalid Date format");
+                        //DataRow dr = dtError.NewRow();
+                        //dr["RowNo"] = rowno;
+                        //dr["FieldName"] = tableDefColumnName;
+                        //dr["ErrorDesc"] = "Invalid Date format";
+                        //dtError.Rows.Add(dr);
                     }
                     else if (tableDefFieldType == "A" && !isAlphaNumeric(drExcel[tableDefColumnName].ToString()))
                     {
                         flag = true;
-                        
-                        DataRow dr = dtError.NewRow();
-                        dr["RowNo"] = rowno;
-                        dr["FieldName"] = tableDefColumnName;
-                        dr["ErrorDesc"] = "Invalid AlphaNumeric character";
-                        dtError.Rows.Add(dr);
+                        errorList.Add(tableDefColumnName + "-" + "Invalid AlphaNumeric character");
+                        //DataRow dr = dtError.NewRow();
+                        //dr["RowNo"] = rowno;
+                        //dr["FieldName"] = tableDefColumnName;
+                        //dr["ErrorDesc"] = "Invalid AlphaNumeric character";
+                        //dtError.Rows.Add(dr);
                     }
                     else if (tableDefFieldType == "N" && !isNumber(drExcel[tableDefColumnName].ToString()))
                     {
                         flag = true;
-                        
-                        DataRow dr = dtError.NewRow();
-                        dr["RowNo"] = rowno;
-                        dr["FieldName"] = tableDefColumnName;
-                        dr["ErrorDesc"] = "Invalid Number";
-                        dtError.Rows.Add(dr);
+                        errorList.Add(tableDefColumnName + "-" + "Invalid Number");
+                        //DataRow dr = dtError.NewRow();
+                        //dr["RowNo"] = rowno;
+                        //dr["FieldName"] = tableDefColumnName;
+                        //dr["ErrorDesc"] = "Invalid Number";
+                        //dtError.Rows.Add(dr);
                     }
                     else if (tableDefFieldType == "S" && !isString(drExcel[tableDefColumnName].ToString()))
                     {
                         flag = true;
-                      
-                        DataRow dr = dtError.NewRow();
-                        dr["RowNo"] = rowno;
-                        dr["FieldName"] = tableDefColumnName;
-                        dr["ErrorDesc"] = "Invalid String";
-                        dtError.Rows.Add(dr);
+                        errorList.Add(tableDefColumnName + "-" + "Invalid String");
+                        //DataRow dr = dtError.NewRow();
+                        //dr["RowNo"] = rowno;
+                        //dr["FieldName"] = tableDefColumnName;
+                        //dr["ErrorDesc"] = "Invalid String";
+                        //dtError.Rows.Add(dr);
                     }
 
-
+                      
                     //------------------------------Field size checking-----------------------//
 
 
@@ -449,20 +486,26 @@ namespace ChurchApp.DAL
                         if (tableDefLength < excelColLength)
                         {
                             flag = true;
-
-                            DataRow dr = dtError.NewRow();
-                            dr["RowNo"] = rowno;
-                            dr["FieldName"] = tableDefColumnName;
-                            dr["ErrorDesc"] = "Invalid Field Size";
-                            dtError.Rows.Add(dr);
+                            errorList.Add(tableDefColumnName + "-" + "Invalid Field Size");
+                            //DataRow dr = dtError.NewRow();
+                            //dr["RowNo"] = rowno;
+                            //dr["FieldName"] = tableDefColumnName;
+                            //dr["ErrorDesc"] = "Invalid Field Size";
+                            //dtError.Rows.Add(dr);
                         }
                     }
+                }
                                                             
                 }
 
                                
                 if (flag == true)
                 {
+                    DataRow dr = dtError.NewRow();
+                    dr["RowNo"] = rowno;
+                    dr["FieldName"] = keyFields;
+                    dr["ErrorDesc"] = errorList;
+                    dtError.Rows.Add(dr);
                     rowno = rowno + 2;
                     return -1;
                 }
@@ -487,8 +530,8 @@ namespace ChurchApp.DAL
         {
             DataTable dtTemp = new DataTable();
             dtTemp.Columns.Add(new DataColumn("RowNo", typeof(int)));
-            dtTemp.Columns.Add(new DataColumn("FieldName", typeof(string)));
-            dtTemp.Columns.Add(new DataColumn("ErrorDesc", typeof(string)));
+            dtTemp.Columns.Add(new DataColumn("FieldName", typeof(List<string>)));
+            dtTemp.Columns.Add(new DataColumn("ErrorDesc", typeof(List<string>)));
             return dtTemp;
         }
         #endregion CreateErrorTable

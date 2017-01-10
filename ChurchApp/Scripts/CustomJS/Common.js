@@ -190,6 +190,7 @@ function postBlobAjax(formData, page) {
         traditional: true,
 
         success: function (data) {
+            debugger;
             $('#displaywait').hide();
             jsonResult = JSON.parse(data);
             if (jsonResult.statusCode == '555') {
