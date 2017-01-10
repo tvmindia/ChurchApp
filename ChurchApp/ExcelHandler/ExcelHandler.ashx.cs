@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
-using System.Configuration; 
+using System.Configuration;
+using ChurchApp.DAL; 
 
 namespace ChurchApp.ExcelHandler
 {
@@ -15,12 +16,11 @@ namespace ChurchApp.ExcelHandler
 
         public void ProcessRequest(HttpContext context)
         {
-            context.Response.ContentType = "text/plain";
-            DAL.Security.UserAuthendication UA = new DAL.Security.UserAuthendication();
-            DAL.ImportExcel ImportXL = new DAL.ImportExcel();
+            context.Response.ContentType = "text/plain";            
+            ImportExcel ImportXL = new ImportExcel();
             string currentSheet = null;  
-            DataSet dsFile = null;
-            DataSet dsTable = null;
+            DataSet dsExcel = null;
+            DataSet dsTableDefenition = null;
             HttpPostedFile postFile = null;
 
             try
@@ -30,54 +30,44 @@ namespace ChurchApp.ExcelHandler
                 {
                     if (context.Request.Form.GetValues("ActionTyp") != null)
                     {
-                        switch (context.Request.Form.GetValues("ActionTyp")[0])
+                        String[] excelSheets = null;
+                        string path = HttpContext.Current.Server.MapPath(ConfigurationManager.ConnectionStrings["TempFilePath"].ConnectionString).ToString();
+
+                        postFile = context.Request.Files["upImageFile"];
+                        string fileName = DateTime.Now.ToString("yyyyMMddhhmmssff") + "_" + postFile.FileName.ToString();
+
+                        string fileLocation = path + fileName;
+                        string fileExtension = System.IO.Path.GetExtension(fileName);
+
+                        ImportXL.fileName = fileName;
+                        ImportXL.fileLocation = fileLocation;
+                        ImportXL.tableName = context.Request.Form.GetValues("ActionTyp")[0];
+
+                        DeleteDuplicateFile(fileLocation);//deletes the file if the same file name exists in the folder
+                        postFile.SaveAs(fileLocation);
+                        excelSheets = ImportXL.OpenExcelFile();
+
+                        if (excelSheets != null)
                         {
-                            case "Church":
-
-                                String[] excelSheets = null;
-                                string path = HttpContext.Current.Server.MapPath(ConfigurationManager.ConnectionStrings["TempFilePath"].ConnectionString).ToString();
-
-                                postFile = context.Request.Files["upImageFile"];
-                                string fileName = UA.ChurchID + "_" + postFile.FileName.ToString();
-
-
-                                string fileLocation = path + fileName;
-                                string fileExtension = System.IO.Path.GetExtension(fileName);
-
-                                ImportXL.fileName = fileName;
-                                ImportXL.fileLocation = fileLocation;
-                                ImportXL.tableName = "Church";
-
+                            dsExcel = new DataSet();
+                            dsTableDefenition = ImportXL.GetTableDefinition();
+                            dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);
+                            bool result = ImportXL.Validation(dsExcel, dsTableDefenition);
+                          
+                            if (result == true)
+                            {
+                                ImportXL.ExcelImport(dsExcel, dsTableDefenition);  
+                             
+                            }
+                            if (result == false)
+                            {
                                 DeleteDuplicateFile(fileLocation);//deletes the file if the same file name exists in the folder
-                                postFile.SaveAs(fileLocation);
-                                excelSheets = ImportXL.OpenExcelFile();
-                                if (excelSheets != null)
-                                {                                   
-                                        dsFile = new DataSet();
-                                        dsTable = ImportXL.GetTableDefinition();
-                                        dsFile = ImportXL.ScanExcelFileToDS(excelSheets, dsTable);
-                                        bool result = ImportXL.Validation(dsFile, dsTable);
-                                        //if (columnExistCheck == true)
-                                        //{
+                            }
+                        }
+                        else
+                        {
 
-                                        //}
-                                        //if (columnExistCheck == false)
-                                        //{
-
-                                        //}
-                                  
-                                }
-                                else
-                                {
-
-                                }
-                                break;
-                            default:
-                                break;
-
-
-
-                        }//end of hasfile if
+                        }
                     }
                 }
                // ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
@@ -85,6 +75,8 @@ namespace ChurchApp.ExcelHandler
             }//end try
             catch (Exception ex)
             {
+
+
               
             }
             finally
