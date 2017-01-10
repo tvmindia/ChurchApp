@@ -8,11 +8,9 @@
   <style>
       #errorLabelsDiv
       {
-    background-color: #509ca5;
-    margin-top: 1%;
-    border-radius: 15px;
+    background-color: #eeeeee;
     padding-left: 37px;
-    color: #ffffff;
+    color: black;
       }
   </style>
 
@@ -61,9 +59,8 @@
         </div>
         <div class="row-fluid " id="excelErrorDiv" style="display:none;">
 
-                   <div class="" style="border-bottom:2px solid black" data-original-title>
-						<h2>Import Error Details</h2>
-					
+                   <div class="" style="border-bottom:1px solid black" data-original-title>
+						<h2>Import Details</h2>
 					</div>
                 <div class="span11" id="errorLabelsDiv">
                      <div class="span5">
@@ -114,7 +111,10 @@
 
            <div class="box span11">  
                 
-
+                     <div class="" style="border-bottom:2px solid black" data-original-title>
+						<h2>Error Details</h2>
+					
+					</div>
                  
 					<div class="box-content churchBox">
 				
