@@ -220,24 +220,24 @@ namespace ChurchApp.DAL
                 DataTable dt = new DataTable();
 
                 dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                if ((dt.Rows.Count >0) && (dt != null))
+                if ((dt.Rows.Count > 0) && (dt != null))
                 {
                     excelSheets = new String[dt.Rows.Count];
-                    int t = 0;
+                    //int t = 0;
                     foreach (DataRow row in dt.Rows)
                     {
-                        if ("'" + FileDescriptionSheetName + "$" + "'" == row["TABLE_NAME"].ToString())
-                        {
-                            SheetDescription = row["TABLE_NAME"].ToString();
-                            SheetDescription = SheetDescription.TrimEnd('$');
-                        }
-                        else
-                        {
-                            SheetName = row["TABLE_NAME"].ToString();
-                            SheetName = SheetName.TrimEnd('$');
-                        }
-                        excelSheets[t] = row["TABLE_NAME"].ToString();
-                        t++;
+                        //    if ("'" + FileDescriptionSheetName + "$" + "'" == row["TABLE_NAME"].ToString())
+                        //    {
+                        //        SheetDescription = row["TABLE_NAME"].ToString();
+                        //        SheetDescription = SheetDescription.TrimEnd('$');
+                        //    }
+                        //    else
+                        //    {
+                        SheetName = row["TABLE_NAME"].ToString();
+                        SheetName = SheetName.TrimEnd('$');
+                        //    }
+                        //    excelSheets[t] = row["TABLE_NAME"].ToString();
+                        //    t++;
                     }
 
                 }
@@ -335,11 +335,151 @@ namespace ChurchApp.DAL
         #endregion GetTableDefinition
 
         #region ImportData
-        public string ExcelImport()
+        public string ExcelImport(DataSet dsExcel, DataSet dsTableDefinition)
         {
+            int totalCount = dsExcel.Tables[0].Rows.Count;
+
+            DataSet DsExisting = null;
+
+
+
+            try
+            {
+
+                string conditions = "";
+                bool Flag;
+
+                DsExisting = GetExistingTableData();//function call with table name as parameter
+
+                //------------------Keyfields Checking-----------------------------//
+
+                DataRow[] drkeyfields = dsTableDefinition.Tables[0].Select("Key_Field='Y'");
+
+                for (int j = 0; j < totalCount; j++)
+                {
+                    conditions = "";
+                    DataRow drresult = dsExcel.Tables[0].Rows[j]; //Checking By Selecting Row by Row
+
+                    foreach (DataRow drw in drkeyfields)
+                    {
+                        conditions += drw[0].ToString() + "='" + dsExcel.Tables[0].Rows[j][drw[0].ToString()] + "' AND ";
+                    }
+
+                    if (conditions != "")
+                    {
+                        conditions = conditions.Remove(conditions.Length - 4);
+                        DataRow[] result = DsExisting.Tables[0].Select(conditions);
+                        if (result.Length > 0)
+                        {
+                            Flag = true;
+                        }
+                        else
+                        {
+                            Flag = false;
+                        }
+                        switch (tableName)
+                        {
+                            case "Church":
+                                {
+                                    if (Flag)
+                                    {
+                                        //update
+                                    }
+                                    else
+                                    {
+                                        //insert
+                                    }
+                                }
+
+                                break;
+                            case "MassTiming":
+                                if (Flag)
+                                {
+                                    //update
+                                }
+                                else
+                                {
+                                    //insert
+                                }
+                                break;
+                            case "Priest":
+                                if (Flag)
+                                {
+                                    //update
+                                }
+                                else
+                                {
+                                    //insert
+                                }
+                                break;
+                            case "TownMaster":
+                                if (Flag)
+                                {
+                                    //update
+                                }
+                                else
+                                {
+                                    //insert
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
             return "";
         }
         #endregion ImportData
+
+        #region GetTableDefinition
+        /// <summary>
+        /// Get Table Definition
+        /// </summary>
+        /// <returns>All Table Definition Data</returns>
+        public DataSet GetExistingTableData()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetTableData]";
+                cmd.Parameters.Add("@TableName", SqlDbType.NVarChar, 100).Value = tableName;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetTableDefinition
+		
+		
         #endregion Methods
 
         #region ValidationMethods
