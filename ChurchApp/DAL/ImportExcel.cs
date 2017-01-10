@@ -341,51 +341,43 @@ namespace ChurchApp.DAL
         #region ImportData
         public string ExcelImport(DataSet dsExcel, DataSet dsTableDefinition)
         {
-            int totalCount = dsExcel.Tables[0].Rows.Count;
-
+            int dsExcelCount = dsExcel.Tables[0].Rows.Count;
             DataSet DsExisting = null;
-
-
-
             try
             {
-
                 string conditions = "";
-                bool Flag;
-
+                bool IsUpdate;
                 DsExisting = GetExistingTableData();//function call with table name as parameter
 
                 //------------------Keyfields Checking-----------------------------//
-
                 DataRow[] drkeyfields = dsTableDefinition.Tables[0].Select("Key_Field='Y'");
-
-                for (int j = 0; j < totalCount; j++)
+                for (int j = 0; j < dsExcelCount; j++)   //--------------dsExcelLooping(Uploaded file)
                 {
                     conditions = "";
                     DataRow drresult = dsExcel.Tables[0].Rows[j]; //Checking By Selecting Row by Row
-
-                    foreach (DataRow drw in drkeyfields)
+                    foreach (DataRow drw in drkeyfields)          //where condition to find insertion of updation
                     {
-                        conditions += drw[0].ToString() + "='" + dsExcel.Tables[0].Rows[j][drw[0].ToString()] + "' AND ";
+                       // conditions += drw[0].ToString() + "='" + dsExcel.Tables[0].Rows[j][drw[0].ToString()] + "' AND ";
+                        conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(), dsExcel.Tables[0].Rows[j][drw[0].ToString()].ToString().Replace("'", "''"));
                     }
 
                     if (conditions != "")
                     {
-                        conditions = conditions.Remove(conditions.Length - 4);
+                        conditions = conditions.Remove(conditions.Length - 4);             //removing last 4 characters from conditions string       
                         DataRow[] result = DsExisting.Tables[0].Select(conditions);
                         if (result.Length > 0)
                         {
-                            Flag = true;
+                            IsUpdate = true;
                         }
                         else
                         {
-                            Flag = false;
+                            IsUpdate = false;
                         }
                         switch (tableName)
                         {
                             case "Church":
                                 {
-                                    if (Flag)
+                                    if (IsUpdate)
                                     {
                                         //update
                                     }
@@ -397,7 +389,7 @@ namespace ChurchApp.DAL
 
                                 break;
                             case "MassTiming":
-                                if (Flag)
+                                if (IsUpdate)
                                 {
                                     //update
                                 }
@@ -407,7 +399,7 @@ namespace ChurchApp.DAL
                                 }
                                 break;
                             case "Priest":
-                                if (Flag)
+                                if (IsUpdate)
                                 {
                                     //update
                                 }
@@ -417,7 +409,7 @@ namespace ChurchApp.DAL
                                 }
                                 break;
                             case "TownMaster":
-                                if (Flag)
+                                if (IsUpdate)
                                 {
                                     //update
                                 }
