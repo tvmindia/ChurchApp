@@ -57,8 +57,9 @@ namespace ChurchApp.ExcelHandler
                              dsExcel = new DataSet();
                             dsTableDefenition = ImportXL.GetTableDefinition();
                             dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);
-                            bool result = ImportXL.Validation(dsExcel, dsTableDefenition);
                             ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString();
+                            bool result = ImportXL.Validation(dsExcel, dsTableDefenition);
+                           
                             if (ImportXL.dtError.Rows.Count > 0)
                             {
                                 if (ImportXL.dtError.Rows.Count > 0)
