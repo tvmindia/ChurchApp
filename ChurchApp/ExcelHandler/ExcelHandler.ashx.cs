@@ -35,6 +35,8 @@ namespace ChurchApp.ExcelHandler
                         ImportXL = new DAL.ImportExcel();
                         jsSerializer = new JavaScriptSerializer();
                         ImportXL.parentRow = new List<Dictionary<string, object>>();
+                        ImportXL.updatedRows =Convert.ToInt32(0).ToString();
+                        ImportXL.insertedRows = Convert.ToInt32(0).ToString();
                         String[] excelSheets = null;
                         string path = HttpContext.Current.Server.MapPath(ConfigurationManager.ConnectionStrings["TempFilePath"].ConnectionString).ToString();
 

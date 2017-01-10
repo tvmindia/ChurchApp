@@ -38,6 +38,8 @@
                     GetAllErrorData(result.parentRow);
                     $("#lblTotalRows").text(result.totalExcelRows);
                     $("#lblErrorCount").text(result.errorCount);
+                    $("#lblInsertCount").text(result.insertedRows);
+                    $("#lblUpdateCount").text(result.updatedRows);
                 }
             //switch (result.status)
             //{

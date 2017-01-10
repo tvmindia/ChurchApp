@@ -512,6 +512,7 @@ namespace ChurchApp.DAL
                         {
                             ExcelDS.Tables[0].Rows.RemoveAt(i);
                             errorCount = errorCount + 1;
+                            status = false;
                         }
                     }
                    
@@ -681,7 +682,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool isAlphaNumeric(string strToCheck)
         {
-            Regex rg = new Regex(@"^[a-zA-Z\s.,0-9@#$%*():;""'/?!+=_-]{1,30}$");
+            Regex rg = new Regex(@"^[a-zA-Z\s.,0-9@#$%*():;""'/?!+=_-]{1,100}$");
             if (rg.IsMatch(strToCheck))
                 return true;
             else

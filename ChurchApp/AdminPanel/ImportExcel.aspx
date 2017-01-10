@@ -12,6 +12,14 @@
     padding-left: 37px;
     color: black;
       }
+      .lblRows
+      {
+          float: left;
+    padding-top: 5px;
+    text-align: left;
+    font-size: small;
+    font-weight: 600;
+      }
   </style>
 
     <div id="content" class="span10">
@@ -59,8 +67,8 @@
         </div>
         <div class="row-fluid " id="excelErrorDiv" style="display:none;">
 
-                   <div class="" style="border-bottom:1px solid black" data-original-title>
-						<h2>Import Details</h2>
+                   <div class="span11" style="border-bottom:1px solid black;margin-left:28px;" data-original-title>
+						<h3>Import Details</h3>
 					</div>
                 <div class="span11" id="errorLabelsDiv">
                      <div class="span5">
@@ -70,14 +78,14 @@
 
                               <label class="control-label" for="focusedInput">Total No.of Excel Rows</label>
                                <div class="controls">
-                             <label id="lblTotalRows" style="width:30px !important;font-weight:bold;"></label>
+                             <label id="lblTotalRows" class="lblRows" style="width:30px !important;"></label>
                               </div>
                               </div>
                                     <div class="control-group">
 
                               <label class="control-label" for="focusedInput">Total No.of Errors</label>
                                <div class="controls">
-                             <label id="lblErrorCount" style="width:30px !important;font-weight:bold;"></label>
+                             <label id="lblErrorCount" class="lblRows" style="width:30px !important;"></label>
                               </div>
                               </div>
                 </fieldset>
@@ -90,14 +98,14 @@
 
                               <label class="control-label" style="width:165px !important" for="focusedInput">Total No.of Rows Inserted</label>
                                <div class="controls">
-                             <label id="lblInsertCount" style="font-weight:bold;"></label>
+                             <label id="lblInsertCount" class="lblRows"></label>
                               </div>
                               </div>
                                             <div class="control-group">
 
                               <label class="control-label" style="width:165px !important" for="focusedInput">Total No.of Rows Updated</label>
                                <div class="controls">
-                             <label id="lblUpdateCount" style="font-weight:bold;"></label>
+                             <label id="lblUpdateCount" class="lblRows" ></label>
                               </div>
                               </div>
                 </fieldset>
@@ -112,7 +120,7 @@
            <div class="box span11">  
                 
                      <div class="" style="border-bottom:2px solid black" data-original-title>
-						<h2>Error Details</h2>
+						<h3>Error Details</h3>
 					
 					</div>
                  
