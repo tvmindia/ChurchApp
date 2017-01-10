@@ -30,26 +30,93 @@
                 formData.append('upImageFile', excelfile, excelfile.name);
                 formData.append('ActionTyp',Import.Exceltable);
              
-            var result = postBlobAjax(formData, " ../ExcelHandler/ExcelHandler.ashx");
-            switch (result.status)
-            {
-                case "1":
-                    noty({ type: 'success', text: Messages.InsertionSuccessFull });                   
-                    break;
-                case "0":
-                    noty({ type: 'error', text: Messages.FailureMsgCaption });
-                    break;
-                default:
-                    noty({ type: 'error', text: result.status });
-                    break;
-            }
+                var result = postBlobAjax(formData, " ../ExcelHandler/ExcelHandler.ashx");
+                debugger;
+                if (result.parentRow.length > 0)
+                {
+                    $("#excelErrorDiv").css("display", "");
+                    GetAllErrorData(result.parentRow);
+                    $("#lblTotalRows").text(result.totalExcelRows);
+                    $("#lblErrorCount").text(result.errorCount);
+                }
+            //switch (result.status)
+            //{
+            //    case "1":
+            //        noty({ type: 'success', text: Messages.InsertionSuccessFull });                   
+            //        break;
+            //    case "0":
+            //        noty({ type: 'error', text: Messages.FailureMsgCaption });
+            //        break;
+            //    default:
+            //        noty({ type: 'error', text: result.status });
+            //        break;
+            //}
           
         }
         
     })
 
-   
+    //try {
+
+    //    var ImportError = new Object();
+    //    ImportError = $('#Importtable').DataTable(
+    //     {
+    //         dom: '<"top"f>rt<"bottom"ip><"clear">',
+    //         order: [],
+    //         searching: true,
+    //         paging: true,
+    //         data: GetAllErrorData(Excel),
+    //         columns: [
+
+    //           { "data": "RowNo", "defaultContent": "<i>-</i>" },
+    //           { "data": "FieldName","defaultContent": "<i>-</i>" },
+    //           { "data": "ErrorDesc", "defaultContent": "<i>-</i>" }
+    //         ],
+    //         columnDefs: [
+    //          {//hiding hidden column field churchid
+    //              "targets": [0, 1],
+    //              "visible": false,
+    //              "searchable": false
+    //          }
+    //         ]
+    //     });
+
+    //}
+    //catch (e) {
+    //    noty({ type: 'error', text: e.message });
+    //}
+
 });// end of document.ready
+
+function GetAllErrorData(ds)
+{
+    debugger;
+    var table = {};
+    try
+    {
+        //table = JSON.parse(ds.d);
+        var ImportError = new Object();
+            ImportError = $('#Importtable').DataTable(
+             {
+                 dom: '<"top"f>rt<"bottom"ip><"clear">',
+                 order: [],
+                 searching: true,
+                 paging: true,
+                 data: ds,
+                 columns: [
+
+                   { "data": "RowNo", "defaultContent": "<i>-</i>" },
+                   { "data": "FieldName","defaultContent": "<i>-</i>" },
+                   { "data": "ErrorDesc", "defaultContent": "<i>-</i>" }
+                 ]
+             
+             });
+    }
+    catch(e)
+    {
+
+    }
+}
 
 function BindIImportTable() {
     try {

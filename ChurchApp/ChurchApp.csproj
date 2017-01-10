@@ -238,6 +238,7 @@
     <Content Include="img\Plussymbol.png" />
     <Content Include="img\prev.png" />
     <Content Include="img\ring.gif" />
+    <Content Include="img\slowrider.gif" />
     <Content Include="img\St_Thomas_Church,_Irinjalakuda.jpg" />
     <Content Include="img\top_arr.png" />
     <Content Include="Login.aspx" />
