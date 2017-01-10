@@ -16,7 +16,11 @@ namespace ChurchApp.DAL
     {
 
         #region Public Properties
-
+        public DataTable dtError
+        {
+            get;
+            set;
+        }
         public string insertedRows
         {
             get;
@@ -483,6 +487,12 @@ namespace ChurchApp.DAL
         #endregion Methods
 
         #region ValidationMethods
+        public static DataTable resort(DataTable dt)
+        {
+            dt.DefaultView.Sort = "RowNo asc";
+            dt = dt.DefaultView.ToTable();
+            return dt;
+        }
         #region Validation
         /// <summary>
         /// Excel sheet validation 
@@ -492,7 +502,7 @@ namespace ChurchApp.DAL
         /// <returns>True/False</returns>
         public bool Validation(DataSet ExcelDS,DataSet TableDefinitionDS)
         {
-            DataTable dtError = CreateErrorTable();
+            dtError = CreateErrorTable();
             bool status = true;
             int res;
             try
@@ -521,6 +531,7 @@ namespace ChurchApp.DAL
                     dr["ErrorDesc"] = excelNotExitingFields+" column(s) doesnot exists in excel template";
                     dtError.Rows.Add(dr);
                 }
+                dtError = resort(dtError);
             }
             catch(Exception ex)
             {

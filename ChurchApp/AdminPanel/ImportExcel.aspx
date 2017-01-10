@@ -5,7 +5,16 @@
       
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Import.js"></script>
-  
+  <style>
+      #errorLabelsDiv
+      {
+    background-color: #509ca5;
+    margin-top: 1%;
+    border-radius: 15px;
+    padding-left: 37px;
+    color: #ffffff;
+      }
+  </style>
 
     <div id="content" class="span10">
         <ul class="breadcrumb">
@@ -51,17 +60,62 @@
 				</div>
         </div>
         <div class="row-fluid " id="excelErrorDiv" style="display:none;">
-           <div class="box span12">  
-                
-                <div class="box span6"> 
-                    <div class="box-header" data-original-title>
+
+                   <div class="" style="border-bottom:2px solid black" data-original-title>
 						<h2>Import Error Details</h2>
-						<div class="box-icon">
-						
-							<a  style="cursor:pointer;" class="btn-minimize Importdoublebox"><i id="Importchevronup" class="halflings-icon chevron-down"></i></a>
-						
-						</div>
+					
 					</div>
+                <div class="span11" id="errorLabelsDiv">
+                     <div class="span5">
+                      <div class="form-horizontal">
+                <fieldset>
+                      <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Total No.of Excel Rows</label>
+                               <div class="controls">
+                             <label id="lblTotalRows" style="width:30px !important;font-weight:bold;"></label>
+                              </div>
+                              </div>
+                                    <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Total No.of Errors</label>
+                               <div class="controls">
+                             <label id="lblErrorCount" style="width:30px !important;font-weight:bold;"></label>
+                              </div>
+                              </div>
+                </fieldset>
+                          </div>
+            </div>
+             <div class="span6">
+                  <div class="form-horizontal">
+                <fieldset>
+                        <div class="control-group">
+
+                              <label class="control-label" style="width:165px !important" for="focusedInput">Total No.of Rows Inserted</label>
+                               <div class="controls">
+                             <label id="lblInsertCount" style="font-weight:bold;"></label>
+                              </div>
+                              </div>
+                                            <div class="control-group">
+
+                              <label class="control-label" style="width:165px !important" for="focusedInput">Total No.of Rows Updated</label>
+                               <div class="controls">
+                             <label id="lblUpdateCount" style="font-weight:bold;"></label>
+                              </div>
+                              </div>
+                </fieldset>
+                      </div>
+            </div>
+                </div>
+                
+  
+           
+            
+
+           <div class="box span11">  
+                
+
+                 
 					<div class="box-content churchBox">
 				
 						<table class="table table-bordered table-striped table-condensed" id="Importtable">
@@ -79,42 +133,7 @@
 						 </table>          
 					</div>
 
-                    </div>
-                 <div class="box span6"> 
-                       <div class="form-horizontal">
-                           <fieldset>
-                                    <div class="control-group">
-
-                              <label class="control-label" for="focusedInput">Total No.of Excel Rows</label>
-                               <div class="controls">
-                             <label id="lblTotalRows"></label>
-                              </div>
-                              </div>
-                                    <div class="control-group">
-
-                              <label class="control-label" for="focusedInput">Total No.of Errors</label>
-                               <div class="controls">
-                             <label id="lblErrorCount"></label>
-                              </div>
-                              </div>
-                                      <div class="control-group">
-
-                              <label class="control-label" for="focusedInput">Total No.of Rows Inserted</label>
-                               <div class="controls">
-                             <label id="lblInsertCount"></label>
-                              </div>
-                              </div>
-                                            <div class="control-group">
-
-                              <label class="control-label" for="focusedInput">Total No.of Rows Updated</label>
-                               <div class="controls">
-                             <label id="lblUpdateCount"></label>
-                              </div>
-                              </div>
-                           </fieldset>
-                           
-                           </div>
-                    </div>
+  
                 </div>
         </div>
         <!--Import Excel field-->

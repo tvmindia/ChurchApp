@@ -100,7 +100,7 @@ function GetAllErrorData(ds)
              {
                  dom: '<"top"f>rt<"bottom"ip><"clear">',
                  order: [],
-                 searching: true,
+                 searching: false,
                  paging: true,
                  data: ds,
                  columns: [

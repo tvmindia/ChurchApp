@@ -4,7 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Configuration;
-using ChurchApp.DAL; 
+using ChurchApp.DAL;
+using System.Web.Script.Serialization; 
 
 namespace ChurchApp.ExcelHandler
 {
@@ -17,11 +18,12 @@ namespace ChurchApp.ExcelHandler
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";            
-            ImportExcel ImportXL = new ImportExcel();
-            string currentSheet = null;  
+            ImportExcel ImportXL = null;
+            string currentSheet = null;
             DataSet dsExcel = null;
             DataSet dsTableDefenition = null;
             HttpPostedFile postFile = null;
+            JavaScriptSerializer jsSerializer = null;
 
             try
             {
@@ -30,6 +32,9 @@ namespace ChurchApp.ExcelHandler
                 {
                     if (context.Request.Form.GetValues("ActionTyp") != null)
                     {
+                        ImportXL = new DAL.ImportExcel();
+                        jsSerializer = new JavaScriptSerializer();
+                        ImportXL.parentRow = new List<Dictionary<string, object>>();
                         String[] excelSheets = null;
                         string path = HttpContext.Current.Server.MapPath(ConfigurationManager.ConnectionStrings["TempFilePath"].ConnectionString).ToString();
 
@@ -49,11 +54,35 @@ namespace ChurchApp.ExcelHandler
 
                         if (excelSheets != null)
                         {
-                            dsExcel = new DataSet();
+                             dsExcel = new DataSet();
                             dsTableDefenition = ImportXL.GetTableDefinition();
                             dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);
                             bool result = ImportXL.Validation(dsExcel, dsTableDefenition);
-                          
+                            ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString();
+                            if (ImportXL.dtError.Rows.Count > 0)
+                            {
+                                if (ImportXL.dtError.Rows.Count > 0)
+                                {
+                                    foreach (DataRow row in ImportXL.dtError.Rows)
+                                    {
+                                        ImportXL.childRow = new Dictionary<string, object>();
+                                        foreach (DataColumn col in ImportXL.dtError.Columns)
+                                        {
+                                            ImportXL.childRow.Add(col.ColumnName, row[col]);
+                                        }
+                                        ImportXL.parentRow.Add(ImportXL.childRow);
+                                    }
+
+                                }
+                                jsSerializer.Serialize(ImportXL.parentRow);
+                                ImportXL.dtError = null;
+                                // context.Response.Write(jsSerializer.Serialize(ImportXL.parentRow));
+                                context.Response.Write(jsSerializer.Serialize(ImportXL));
+                            }
+                            else
+                            {
+
+                            }
                             if (result == true)
                             {
                                 ImportXL.ExcelImport(dsExcel, dsTableDefenition);  
@@ -68,6 +97,7 @@ namespace ChurchApp.ExcelHandler
                         {
 
                         }
+                       
                     }
                 }
                // ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
@@ -83,8 +113,6 @@ namespace ChurchApp.ExcelHandler
             {
 
             }       
-
-            context.Response.Write("Hello World");
         }
 
         public bool IsReusable
