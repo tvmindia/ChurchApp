@@ -510,6 +510,7 @@ namespace ChurchApp.DAL
                         res = ValidateData(ExcelDS.Tables[0].Rows[i], TableDefinitionDS, i, dtError);
                         if(res==-1)
                         {
+                            ExcelDS.Tables[0].Rows.RemoveAt(i);
                             errorCount = errorCount + 1;
                         }
                     }
