@@ -409,11 +409,6 @@ namespace ChurchApp.DAL
                     if (drExcel[FieldName].ToString().Trim() == "" || string.IsNullOrEmpty(drExcel[FieldName].ToString()))
                     {
                         flag = true;
-                        //DataRow dr = dtError.NewRow();
-                        //dr["RowNo"] = rowno;
-                        //dr["FieldName"] = FieldName;
-                        //dr["ErrorDesc"] = "Field Is Empty";
-                        //dtError.Rows.Add(dr);
                         errorList.Add(FieldName + "-" + "Field Is Empty");
                     }
                     if (isKeyField == "Y" && drExcel[FieldName].ToString()!=string.Empty)
@@ -437,41 +432,21 @@ namespace ChurchApp.DAL
                     {
                         flag = true;
                         errorList.Add(tableDefColumnName + "-" + "Invalid Date format");
-                        //DataRow dr = dtError.NewRow();
-                        //dr["RowNo"] = rowno;
-                        //dr["FieldName"] = tableDefColumnName;
-                        //dr["ErrorDesc"] = "Invalid Date format";
-                        //dtError.Rows.Add(dr);
                     }
                     else if (tableDefFieldType == "A" && !isAlphaNumeric(drExcel[tableDefColumnName].ToString()))
                     {
                         flag = true;
                         errorList.Add(tableDefColumnName + "-" + "Invalid AlphaNumeric character");
-                        //DataRow dr = dtError.NewRow();
-                        //dr["RowNo"] = rowno;
-                        //dr["FieldName"] = tableDefColumnName;
-                        //dr["ErrorDesc"] = "Invalid AlphaNumeric character";
-                        //dtError.Rows.Add(dr);
                     }
                     else if (tableDefFieldType == "N" && !isNumber(drExcel[tableDefColumnName].ToString()))
                     {
                         flag = true;
                         errorList.Add(tableDefColumnName + "-" + "Invalid Number");
-                        //DataRow dr = dtError.NewRow();
-                        //dr["RowNo"] = rowno;
-                        //dr["FieldName"] = tableDefColumnName;
-                        //dr["ErrorDesc"] = "Invalid Number";
-                        //dtError.Rows.Add(dr);
                     }
                     else if (tableDefFieldType == "S" && !isString(drExcel[tableDefColumnName].ToString()))
                     {
                         flag = true;
                         errorList.Add(tableDefColumnName + "-" + "Invalid String");
-                        //DataRow dr = dtError.NewRow();
-                        //dr["RowNo"] = rowno;
-                        //dr["FieldName"] = tableDefColumnName;
-                        //dr["ErrorDesc"] = "Invalid String";
-                        //dtError.Rows.Add(dr);
                     }
 
                       
@@ -487,11 +462,6 @@ namespace ChurchApp.DAL
                         {
                             flag = true;
                             errorList.Add(tableDefColumnName + "-" + "Invalid Field Size");
-                            //DataRow dr = dtError.NewRow();
-                            //dr["RowNo"] = rowno;
-                            //dr["FieldName"] = tableDefColumnName;
-                            //dr["ErrorDesc"] = "Invalid Field Size";
-                            //dtError.Rows.Add(dr);
                         }
                     }
                 }
