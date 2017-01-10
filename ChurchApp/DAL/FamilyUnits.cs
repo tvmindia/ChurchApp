@@ -113,8 +113,8 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertFamilyUnit]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@UnitName", SqlDbType.NVarChar, 250).Value = unitName;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@UnitName", SqlDbType.NVarChar, 250).Value = unitName!=null&&unitName!=""?unitName:null;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -159,8 +159,8 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateFamilyUnit]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(unitId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@UnitName", SqlDbType.NVarChar, 250).Value = unitName;
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UnitName", SqlDbType.NVarChar, 250).Value = unitName!=null&&unitName!=""?unitName:null;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -398,8 +398,8 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertFamily]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyUnitsObj.churchId);
                 cmd.Parameters.Add("@UnitID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyUnitsObj.unitId);
-                cmd.Parameters.Add("@FamilyName", SqlDbType.NVarChar, 250).Value = familyName;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = familyUnitsObj.createdBy;
+                cmd.Parameters.Add("@FamilyName", SqlDbType.NVarChar, 250).Value = familyName!=null&&familyName!=""?familyName:null;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = familyUnitsObj.createdBy!=null&&familyUnitsObj.createdBy!=""?familyUnitsObj.createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -444,8 +444,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyUnitsObj.churchId);
                 cmd.Parameters.Add("@UnitID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyUnitsObj.unitId);
-                cmd.Parameters.Add("@FamilyName", SqlDbType.NVarChar, 250).Value = familyName;
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = familyUnitsObj.updatedBy;
+                cmd.Parameters.Add("@FamilyName", SqlDbType.NVarChar, 250).Value = familyName!=null&&familyName!=""?familyName:null;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = familyUnitsObj.updatedBy!=null&&familyUnitsObj.updatedBy!=""?familyUnitsObj.updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
