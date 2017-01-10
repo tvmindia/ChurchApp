@@ -26,6 +26,6 @@
         <a href="../Login.aspx" style="position: relative;left: 31%;">Login</a>
     </div>
     </form>
-    <footer style="position:fixed;bottom:3%">2017 © Thrithvam Technologies</footer>
+    <footer style="position:fixed;bottom:3%;color:gray;font-family:'Raleway', sans-serif">2017 © Thrithvam</footer>
 </body>
 </html>
