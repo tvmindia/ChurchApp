@@ -147,8 +147,8 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertNovenas]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronId);
-                cmd.Parameters.Add("@NovenaCaption", SqlDbType.NVarChar, 100).Value = novenaCaption;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@NovenaCaption", SqlDbType.NVarChar, 100).Value = novenaCaption!=null&&novenaCaption!=""?novenaCaption:null;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 if (startDate!= null && startDate != string.Empty)
                 {
                     cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = commonObj.Changeformat(startDate);
@@ -165,7 +165,7 @@ namespace ChurchApp.DAL
                 }
                
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -215,8 +215,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(novenaId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronId);
-                cmd.Parameters.Add("@NovenaCaption", SqlDbType.NVarChar, 100).Value = novenaCaption;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@NovenaCaption", SqlDbType.NVarChar, 100).Value = novenaCaption!=null&&novenaCaption!=""?novenaCaption:null;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 if (startDate != null && startDate != string.Empty)
                 {
                     cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = commonObj.Changeformat(startDate);
@@ -232,7 +232,7 @@ namespace ChurchApp.DAL
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
                 }
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -547,15 +547,15 @@ namespace ChurchApp.DAL
 
                 if (day != null && day != string.Empty)
                 {
-                    cmd.Parameters.Add("@Day", SqlDbType.NVarChar,3).Value = day; 
+                    cmd.Parameters.Add("@Day", SqlDbType.NVarChar,3).Value = day!=null&&day!=""?day:null; 
                 }
                 if (time != null && time != string.Empty)
                 {
                     time = FormatTimeto24Hr(time);
-                    cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value =time;
+                    cmd.Parameters.Add("@Time", SqlDbType.Time,7).Value =time!=null&&time!=""?time:null;
                 }
               
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                     //DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -599,7 +599,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@NovenaId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(novenaId);
                 cmd.Parameters.Add("@Day", SqlDbType.DateTime).Value = Convert.ToDateTime(day);
                 cmd.Parameters.Add("@Time", SqlDbType.DateTime).Value = Convert.ToDateTime(time);
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
