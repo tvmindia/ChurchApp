@@ -723,7 +723,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool isString(string strToCheck)
         {
-            Regex rg = new Regex(@"^[a-zA-Z\s\.',0-9-]+$",RegexOptions.Multiline);
+            Regex rg = new Regex(@"^[a-zA-Z\s\.'&,0-9-]+$",RegexOptions.Multiline);
             if (rg.IsMatch(strToCheck))
                 return true;
             else
