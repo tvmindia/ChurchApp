@@ -570,28 +570,41 @@ namespace ChurchApp.DAL
                     string tableDefFieldType = tableDefRow["Field_Type"].ToString();
                     string tableDefColumnName = tableDefRow["Field_Name"].ToString();
                     var tableDefFieldSize = tableDefRow["Field_Size"].ToString();
-                    
+                    string mandatoryField = tableDefRow["Key_Field"].ToString();
 
                     if (drExcel[tableDefColumnName].ToString().Trim() != "" && !string.IsNullOrEmpty(drExcel[tableDefColumnName].ToString()))
                     {
                     if (tableDefFieldType == "D" && !ValidateDate(drExcel[tableDefColumnName].ToString()))
                     {
-                        flag = true;
+                        if (mandatoryField == "true")
+                        {
+                            flag = true;
+                        }
+                        
                         errorList.Add(tableDefColumnName + "-" + "Invalid Date format");
                     }
                     else if (tableDefFieldType == "A" && !isAlphaNumeric(drExcel[tableDefColumnName].ToString()))
                     {
-                        flag = true;
+                        if (mandatoryField == "true")
+                        {
+                            flag = true;
+                        }
                         errorList.Add(tableDefColumnName + "-" + "Invalid AlphaNumeric character");
                     }
                     else if (tableDefFieldType == "N" && !isNumber(drExcel[tableDefColumnName].ToString()))
                     {
-                        flag = true;
+                        if (mandatoryField == "true")
+                        {
+                            flag = true;
+                        }
                         errorList.Add(tableDefColumnName + "-" + "Invalid Number");
                     }
                     else if (tableDefFieldType == "S" && !isString(drExcel[tableDefColumnName].ToString()))
                     {
-                        flag = true;
+                        if (mandatoryField == "true")
+                        {
+                            flag = true;
+                        }
                         errorList.Add(tableDefColumnName + "-" + "Invalid String");
                     }
 
@@ -606,7 +619,11 @@ namespace ChurchApp.DAL
                         int excelColLength = drExcel[tableDefColumnName].ToString().Length;
                         if (tableDefLength < excelColLength)
                         {
-                            flag = true;
+                            if (mandatoryField == "true")
+                            {
+                                flag = true;
+                            }
+                           
                             errorList.Add(tableDefColumnName + "-" + "Invalid Field Size");
                         }
                     }
@@ -682,7 +699,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool isAlphaNumeric(string strToCheck)
         {
-            Regex rg = new Regex(@"^[a-zA-Z\s.,0-9@#$%*():;""'/?!+=_-]{1,100}$");
+            Regex rg = new Regex(@"^[a-zA-Z\s.,0-9-]+$");
             if (rg.IsMatch(strToCheck))
                 return true;
             else
@@ -699,7 +716,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool isString(string strToCheck)
         {
-            Regex rg = new Regex(@"^[a-zA-Z\s\.',0-9]+$");
+            Regex rg = new Regex(@"^[a-zA-Z\s\.',0-9-]+$",RegexOptions.Multiline);
             if (rg.IsMatch(strToCheck))
                 return true;
             else
