@@ -138,8 +138,8 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertPiousOrg]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(piousOrgID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar,150).Value = Name;
-                cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar,150).Value = Name!=null&&Name!=""?Name:null;
+                cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(PatronID);
                 if(albumId!=null)
                 {
@@ -149,7 +149,7 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = albumId;
                 }
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =cmnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -194,8 +194,8 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(PatronID);
                 }
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = Name;
-                cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = Name!=null&&Name!=""?Name:null;
+                cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 if(albumId!=null)
                 {
                     cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
@@ -204,7 +204,7 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = albumId;
                 }
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
