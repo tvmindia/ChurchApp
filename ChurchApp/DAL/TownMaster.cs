@@ -194,12 +194,12 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertIntoTownMaster]";
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = name;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = name!=null&&name!=""?name:null;
                 if (imageId != null && imageId != "")
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -243,14 +243,14 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UpdateTownMaster]";
-                cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 10).Value = code;
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = name;
+                cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 10).Value = code!=null&&code!=""?code:null;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = name!=null&&name!=""?name:null;
                 if(imageId!=null)
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
                
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
