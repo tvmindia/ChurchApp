@@ -381,8 +381,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@UserContact", SqlDbType.NVarChar, 50).Value = UserContact!=null&&UserContact!=""?UserContact:null;
                 cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar, 50).Value = Remarks!=null&&Remarks!=""?Remarks:null;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email!=null&&Email!=""?Email:null;
-                cmd.Parameters.Add("@ImagePath", SqlDbType.NVarChar, 50).Value = ImagePath!=null&&ImagePath!=""?ImagePath:null;
-                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = ImageID!=null&&ImageID!=""?ImageID:null;
+                cmd.Parameters.Add("@ImagePath", SqlDbType.NVarChar, 150).Value = ImagePath!=null&&ImagePath!=""?ImagePath:null;
+                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = ImageID!=null&&ImageID!=""?Guid.Parse(ImageID):Guid.NewGuid();
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now); 
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outchurchid = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
