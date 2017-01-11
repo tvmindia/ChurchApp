@@ -21,12 +21,12 @@ namespace ChurchApp.DAL
             get;
             set;
         }
-        public string insertedRows
+        public int insertedRows
         {
             get;
             set;
         }
-        public string updatedRows
+        public int updatedRows
         {
             get;
             set;
@@ -351,6 +351,8 @@ namespace ChurchApp.DAL
 
                 //------------------Keyfields Checking-----------------------------//
                 DataRow[] drkeyfields = dsTableDefinition.Tables[0].Select("Key_Field='Y'");
+                insertedRows = 0;
+                updatedRows = 0;
                 for (int j = 0; j < dsExcelCount; j++)   //--------------dsExcelLooping(Uploaded file)
                 {
                     conditions = "";
@@ -376,46 +378,51 @@ namespace ChurchApp.DAL
                         switch (tableName)
                         {
                             case "Church":
+                                if (IsUpdate)
                                 {
-                                    if (IsUpdate)
-                                    {
-                                        //update
-                                    }
-                                    else
-                                    {
-                                        //insert
-                                    }
+                                    //update
+                                    updatedRows = updatedRows + 1;                                    
                                 }
-
+                                else
+                                {
+                                    //insert
+                                    insertedRows = insertedRows + 1;
+                                }
                                 break;
                             case "MassTiming":
                                 if (IsUpdate)
                                 {
                                     //update
+                                    updatedRows = updatedRows + 1;  
                                 }
                                 else
                                 {
                                     //insert
+                                    insertedRows = insertedRows + 1;
                                 }
                                 break;
                             case "Priest":
                                 if (IsUpdate)
                                 {
                                     //update
+                                    updatedRows = updatedRows + 1;  
                                 }
                                 else
                                 {
                                     //insert
+                                    insertedRows = insertedRows + 1;
                                 }
                                 break;
                             case "TownMaster":
                                 if (IsUpdate)
                                 {
                                     //update
+                                    updatedRows = updatedRows + 1;  
                                 }
                                 else
                                 {
                                     //insert
+                                    insertedRows = insertedRows + 1;
                                 }
                                 break;
                             default:

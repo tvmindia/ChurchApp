@@ -35,8 +35,6 @@ namespace ChurchApp.ExcelHandler
                         ImportXL = new DAL.ImportExcel();
                         jsSerializer = new JavaScriptSerializer();
                         ImportXL.parentRow = new List<Dictionary<string, object>>();
-                        ImportXL.updatedRows =Convert.ToInt32(0).ToString();
-                        ImportXL.insertedRows = Convert.ToInt32(0).ToString();
                         String[] excelSheets = null;
                         string path = HttpContext.Current.Server.MapPath(ConfigurationManager.ConnectionStrings["TempFilePath"].ConnectionString).ToString();
 
@@ -52,7 +50,7 @@ namespace ChurchApp.ExcelHandler
 
                         DeleteDuplicateFile(fileLocation);//deletes the file if the same file name exists in the folder
                         postFile.SaveAs(fileLocation);
-                        excelSheets = ImportXL.OpenExcelFile();
+                        excelSheets = ImportXL.OpenExcelFile();                                  
 
                         if (excelSheets != null)
                         {
@@ -61,6 +59,11 @@ namespace ChurchApp.ExcelHandler
                             dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);
                             ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString();
                             bool result = ImportXL.Validation(dsExcel, dsTableDefenition);
+                            
+                            if (dsExcel.Tables[0].Rows.Count > 0)
+                            {
+                                ImportXL.ExcelImport(dsExcel, dsTableDefenition);
+                            }        
                            
                             if (ImportXL.dtError.Rows.Count > 0)
                             {
@@ -81,16 +84,7 @@ namespace ChurchApp.ExcelHandler
                                 ImportXL.dtError = null;
                                 // context.Response.Write(jsSerializer.Serialize(ImportXL.parentRow));
                                 context.Response.Write(jsSerializer.Serialize(ImportXL));
-                            }                        
-                            if (dsExcel.Tables[0].Rows.Count>0)
-                            {
-                                ImportXL.ExcelImport(dsExcel, dsTableDefenition);  
-                             
                             }
-                            //if (result == false)
-                            //{
-                            //    //DeleteDuplicateFile(fileLocation);//deletes the file if the same file name exists in the folder
-                            //}
                         }  
                     }
                 }           
