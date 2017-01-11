@@ -25,7 +25,7 @@ $("document").ready(function (e) {
                     { "data": "Version", "defaultContent": "<i>-</i>" },
                      { "data": "Date", "defaultContent": "<i>-</i>" },
                       { "data": "IsFixed", "defaultContent": "<i>-</i>" },
-                   { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" title="Edit Error Log" onclick="EditErrorList(this)"><i class="halflings-icon white edit""></i></a>' }
+                 { "data": null, "defaultContent": "<i>-</i>" }
 
                  ],
                  columnDefs: [
@@ -39,6 +39,21 @@ $("document").ready(function (e) {
                            return ConvertJsonToDate(data);
                        },
                        "targets": 6
+                   },
+                   {
+                       "render": function (data, type, row) {
+                           if (row.IsFixed == false)
+                           {
+                               return '<a class="circlebtn circlebtn-info" title="Edit Error Log" onclick="EditErrorList(this)"><i class="halflings-icon white edit""></i></a>';
+                           }
+                           else
+                           {
+                              
+                               
+                           }
+                          
+                       },
+                       "targets": 8
                    },
                     {
                         "render": function (data, type, row) {
@@ -205,6 +220,7 @@ function FixedBugs()
         var ExceptionTrack = new Object();
         ExceptionTrack.startDate = date;
         BugDataTables.errorTable.clear().rows.add(GetAllFixedBugs(ExceptionTrack)).draw(false);
+        ClearControls();
     }
     catch(e)
     {
