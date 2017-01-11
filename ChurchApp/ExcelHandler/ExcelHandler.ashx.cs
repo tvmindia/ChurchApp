@@ -81,29 +81,19 @@ namespace ChurchApp.ExcelHandler
                                 ImportXL.dtError = null;
                                 // context.Response.Write(jsSerializer.Serialize(ImportXL.parentRow));
                                 context.Response.Write(jsSerializer.Serialize(ImportXL));
-                            }
-                            else
-                            {
-
-                            }
-                            if (result == true)
+                            }                        
+                            if (dsExcel.Tables[0].Rows.Count>0)
                             {
                                 ImportXL.ExcelImport(dsExcel, dsTableDefenition);  
                              
                             }
-                            if (result == false)
-                            {
-                                DeleteDuplicateFile(fileLocation);//deletes the file if the same file name exists in the folder
-                            }
-                        }
-                        else
-                        {
-
-                        }
-                       
+                            //if (result == false)
+                            //{
+                            //    //DeleteDuplicateFile(fileLocation);//deletes the file if the same file name exists in the folder
+                            //}
+                        }  
                     }
-                }
-               // ScriptManager.RegisterStartupScript(this, this.GetType(), "Upload", "GenerateTemplateNextClick();", true);
+                }           
 
             }//end try
             catch (Exception ex)
