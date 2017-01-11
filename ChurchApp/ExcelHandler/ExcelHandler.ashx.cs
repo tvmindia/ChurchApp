@@ -85,6 +85,11 @@ namespace ChurchApp.ExcelHandler
                                 // context.Response.Write(jsSerializer.Serialize(ImportXL.parentRow));
                                 context.Response.Write(jsSerializer.Serialize(ImportXL));
                             }
+                            else
+                            {
+                                ImportXL.dtError = null;
+                                context.Response.Write(jsSerializer.Serialize(ImportXL));
+                            }
                         }  
                     }
                 }           

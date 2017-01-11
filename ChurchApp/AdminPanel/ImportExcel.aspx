@@ -117,7 +117,7 @@
            
             
 
-           <div class="box span11">  
+           <div class="box span11" id="errorTableDiv">  
                 
                      <div class="" style="border-bottom:2px solid black" data-original-title>
 						<h3>Error Details</h3>

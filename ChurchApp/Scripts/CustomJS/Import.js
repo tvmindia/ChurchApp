@@ -1,4 +1,5 @@
-﻿$("document").ready(function (e) {
+﻿var ImportError = {};
+$("document").ready(function (e) {
     debugger;
     try
     {    
@@ -15,7 +16,28 @@
     {
         noty({ type: 'error', text: e.message });
     }
-    
+    try {
+        //table = JSON.parse(ds.d);
+       
+        ImportError = $('#Importtable').DataTable(
+         {
+             dom: '<"top"f>rt<"bottom"ip><"clear">',
+             order: [],
+             searching: false,
+             paging: true,
+             data: "",
+             columns: [
+
+               { "data": "RowNo", "defaultContent": "<i>-</i>" },
+               { "data": "FieldName", "defaultContent": "<i>-</i>" },
+               { "data": "ErrorDesc", "defaultContent": "<i>-</i>" }
+             ]
+
+         });
+    }
+    catch (e) {
+
+    }
     $(".uploadexcel").click(function (e) {
         debugger;     
         var excelresult;
@@ -35,7 +57,18 @@
                 if (result.parentRow.length > 0)
                 {
                     $("#excelErrorDiv").css("display", "");
-                    GetAllErrorData(result.parentRow);
+                    $("#errorTableDiv").css("display", "");
+                    ImportError.clear().rows.add(result.parentRow).draw(false);
+                    //GetAllErrorData(result.parentRow);
+                    $("#lblTotalRows").text(result.totalExcelRows);
+                    $("#lblErrorCount").text(result.errorCount);
+                    $("#lblInsertCount").text(result.insertedRows);
+                    $("#lblUpdateCount").text(result.updatedRows);
+                }
+                else
+                {
+                    $("#excelErrorDiv").css("display", "");
+                    $("#errorTableDiv").css("display", "none");
                     $("#lblTotalRows").text(result.totalExcelRows);
                     $("#lblErrorCount").text(result.errorCount);
                     $("#lblInsertCount").text(result.insertedRows);
@@ -97,14 +130,13 @@ function GetAllErrorData(ds)
     try
     {
         //table = JSON.parse(ds.d);
-        var ImportError = new Object();
-            ImportError = $('#Importtable').DataTable(
+        ImportError.DataTable(
              {
                  dom: '<"top"f>rt<"bottom"ip><"clear">',
                  order: [],
                  searching: false,
                  paging: true,
-                 data: ds,
+                 data: "",
                  columns: [
 
                    { "data": "RowNo", "defaultContent": "<i>-</i>" },
