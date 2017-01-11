@@ -237,19 +237,19 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertInstitution]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar,-1).Value = name;
-                cmd.Parameters.Add("@desc", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@Address", SqlDbType.NVarChar,-1).Value = address;
-                cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1;
-                cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2;
-                cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
-                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
-                cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar,-1).Value = name!=null&&name!=""?name:null;
+                cmd.Parameters.Add("@desc", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar,-1).Value = address!=null&&address!=""?address:null;
+                cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1!=null&&phone1!=""?phone1:null;
+                cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2!=null&&phone2!=""?phone2:null;
+                cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile!=null&&Mobile!=""?Mobile:null;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email!=null&&Email!=""?Email:null;
+                cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website!=null&&Website!=""?Website:null;
                 if(Founded!=null&&Founded!="")
                 {
                     cmd.Parameters.Add("@Founded", SqlDbType.Date).Value = commonObj.Changeformat(Founded);
                 }
-                cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
+                cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder!=null&&Founder!=""?Founder:null;
                 if (albumId != null && albumId != "")
                 {
                    cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value= Guid.Parse(albumId);
@@ -258,7 +258,7 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }               
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -306,15 +306,15 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateInstitution]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(institutionID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, -1).Value = name;
-                cmd.Parameters.Add("@desc", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
-                cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1;
-                cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2;
-                cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
-                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
-                cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website;
-                cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, -1).Value = name!=null&&name!=""?name:null;
+                cmd.Parameters.Add("@desc", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address!=null&&address!=""?address:null;
+                cmd.Parameters.Add("@Phone1", SqlDbType.NVarChar, 20).Value = phone1!=null&&phone1!=""?phone1:null;
+                cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2!=null&&phone2!=""?phone2:null;
+                cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile!=null&&Mobile!=""?Mobile:null;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email!=null&&Mobile!=""?Mobile:null;
+                cmd.Parameters.Add("@Website", SqlDbType.NVarChar, 100).Value = Website!=null&&Website!=""?Website:null;
+                cmd.Parameters.Add("@Founder", SqlDbType.NVarChar, 150).Value = Founder!=null&&Founder!=""?Founder:null;
                 if (Founded != null && Founded != "")
                 {
                     cmd.Parameters.Add("@Founded", SqlDbType.DateTime).Value = commonObj.Changeformat(Founded);
@@ -328,7 +328,7 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
