@@ -219,10 +219,10 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateGalleryAlbum]";
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@AlbumName", SqlDbType.NVarChar, 100).Value = albumName;
-                cmd.Parameters.Add("@AlbumType", SqlDbType.NVarChar, 20).Value = albumType;
+                cmd.Parameters.Add("@AlbumName", SqlDbType.NVarChar, 100).Value = albumName!=null&&albumName!=""?albumName:null;
+                cmd.Parameters.Add("@AlbumType", SqlDbType.NVarChar, 20).Value = albumType!=null&&albumType!=""?albumType:null;
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -418,9 +418,9 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertGalleryItems]";
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(galleryItemID);
                 cmd.Parameters.Add("@AlbumId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
-                cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url;
-                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = itemType;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url!=null&&url!=""?url:null;
+                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = itemType!=null&&itemType!=""?itemType:null;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy != null && createdBy != "" ? createdBy : null; ;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
               
