@@ -507,6 +507,7 @@ namespace ChurchApp.DAL
               
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@Place", SqlDbType.NVarChar, 100).Value = Place != null && Place != "" ? Place : null;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outchurchid = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
                 outchurchid.Direction = ParameterDirection.Output;
@@ -580,6 +581,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2 != null && phone2 != "" ? phone2 : null;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@Place", SqlDbType.NVarChar, 100).Value = Place != null && Place != "" ? Place : null;
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
