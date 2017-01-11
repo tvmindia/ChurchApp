@@ -699,7 +699,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool isString(string strToCheck)
         {
-            Regex rg = new Regex(@"^[a-zA-Z\s\.]+$");
+            Regex rg = new Regex(@"^[a-zA-Z\s\.',0-9]+$");
             if (rg.IsMatch(strToCheck))
                 return true;
             else
@@ -716,7 +716,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private bool isNumber(string strToCheck)
         {
-            Regex rg = new Regex(@"^[0-9\s,]+$");
+            Regex rg = new Regex(@"^[0-9\s,-]+$");
             if (rg.IsMatch(strToCheck))
                 return true;
             else
