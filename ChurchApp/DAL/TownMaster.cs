@@ -180,7 +180,7 @@ namespace ChurchApp.DAL
         /// Add New TownMaster
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string InsertTownMaster()
+        public void InsertTownMaster()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -220,7 +220,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return status;
+          //  return status;
         }
         #endregion InsertTownMaster
 
@@ -229,7 +229,7 @@ namespace ChurchApp.DAL
         /// Update TownMaster Details
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string UpdateTownMaster()
+        public void UpdateTownMaster()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -248,8 +248,7 @@ namespace ChurchApp.DAL
                 if(imageId!=null)
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
-                }
-               
+                }               
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
@@ -268,7 +267,7 @@ namespace ChurchApp.DAL
                 }
             }
             status = outParam.Value.ToString();
-            return status;
+           // return status;
         }
         #endregion UpdateTownMaster
 

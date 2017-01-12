@@ -42,6 +42,9 @@ namespace ChurchApp.ExcelHandler
                             ImportXL.churchObj = new DAL.Church();
                             ImportXL.churchObj.createdBy = UA.userName;
                             ImportXL.churchObj.updatedBy = UA.userName;
+                            ImportXL.townObj = new DAL.TownMaster();
+                            ImportXL.townObj.createdBy = UA.userName;
+                            ImportXL.townObj.updatedBy = UA.userName;
                             jsSerializer = new JavaScriptSerializer();
                             ImportXL.parentRow = new List<Dictionary<string, object>>();
                             String[] excelSheets = null;
