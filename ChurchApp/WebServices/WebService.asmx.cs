@@ -255,11 +255,76 @@ namespace ChurchApp.WebServices
 
         #endregion Get Data Details by ID
 
+        #region Request new church
+        [WebMethod]
+        public string RequestChurch()
+        {            
+            try
+            {
+                HttpFileCollection MyFileCollection = HttpContext.Current.Request.Files;
+                //Getting file dettails from http request
+                if (MyFileCollection.Count > 0){
+              
+                    string ImageID = Guid.NewGuid().ToString();
+                    string imagePath= ImageID +"."+ MyFileCollection[0].FileName.Split('.').Last();
+                    string FilePath = Server.MapPath("~/img/AppImages/") + imagePath;
+                    MyFileCollection[0].SaveAs(FilePath); //to save coming image to server folder
+
+
+                    //Getting other details
+                    ChurchApp.DAL.Church churchObj = new DAL.Church();
+                    churchObj.ImagePath = "/img/AppImages/" + imagePath;
+                    churchObj.ImageID = ImageID;
+
+                    if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["ChurchName"]))
+                    {
+                        churchObj.churchName = HttpContext.Current.Request.Form["ChurchName"];
+                    }
+                    if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["Address"]))
+                    {
+                        churchObj.address = HttpContext.Current.Request.Form["Address"];
+                    }
+                    if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["Place"]))
+                    {
+                        churchObj.Place = HttpContext.Current.Request.Form["Place"];
+                    }
+                    if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["UserName"]))
+                    {
+                        churchObj.UserName = HttpContext.Current.Request.Form["UserName"];
+                    }
+                    if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["UserContact"]))
+                    {
+                        churchObj.UserContact = HttpContext.Current.Request.Form["UserContact"];
+                    }
+                    if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["Remarks"]))
+                    {
+                        churchObj.Remarks = HttpContext.Current.Request.Form["Remarks"];
+                    }
+                    if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["Email"]))
+                    {
+                        churchObj.Email = HttpContext.Current.Request.Form["Email"];
+                    }         
+                    
+                    if (churchObj.InsertRequestChurch() == "0") throw new Exception(constants.FailToUpload);
+                    return "Message:" +constants.SuccessUpload;
+                }
+                return "Message:" + constants.FailToUpload;
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                return "Message:" + constants.FailToUpload + "\n" + ex.Message;
+            }
+            finally
+            {
+            }
+        }
+        #endregion
+
         #endregion Churches
-
-        // --More (dynamic)
-        #region Church Detail
-
+       
+        #region Church Details
+        // --More details (dynamic)
         #region Mass Timings
         [WebMethod]
         public string GetMassTimings(string ChurchID)
@@ -326,7 +391,7 @@ namespace ChurchApp.WebServices
 
         #endregion More Details of Church (Dynamic)
 
-        #endregion Church Detail
+        #endregion Church Details
 
         #region Town
 

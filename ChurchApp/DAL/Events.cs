@@ -353,8 +353,8 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertEvents]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 100).Value = eventName;
-                cmd.Parameters.Add("@Descrtiption", SqlDbType.NVarChar,-1).Value = description;
+                cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 100).Value = eventName!=null&&eventName!=""?eventName:null;
+                cmd.Parameters.Add("@Descrtiption", SqlDbType.NVarChar,-1).Value = description!=null&&description!=""?description:null;
 
                 if (startDate != string.Empty && startDate != null)
                 {
@@ -384,7 +384,7 @@ namespace ChurchApp.DAL
                 
                // cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!="";
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                     //DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -437,8 +437,8 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateEvents]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(eventId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 100).Value = eventName;
-                cmd.Parameters.Add("@Descrtiption", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 100).Value = eventName!=null&&eventName!=""?eventName:null;
+                cmd.Parameters.Add("@Descrtiption", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 if (startDate != string.Empty && startDate != null)
                 {
                     cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = commonObj.Changeformat(startDate); 
@@ -461,7 +461,7 @@ namespace ChurchApp.DAL
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                     //DateTime.Now;
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);

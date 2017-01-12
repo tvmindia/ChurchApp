@@ -13,21 +13,10 @@ using System.Web.Script.Serialization;
 namespace ChurchApp.DAL
 {
     public class Church
-    {
-        //public Administrators administrators = new Administrators();
-        //public AppImages appImages = new AppImages();
-        //public GalleryAlbum galleryAlbum = new GalleryAlbum();
-        //public Members members = new Members();
-        //public Events events = new Events();
-        //public FamilyUnits familyUnits = new FamilyUnits();
-        //public Institutions institutions = new Institutions();
-        //public Notices notices = new Notices();
-        //public Notification notifications = new Notification();
-        //public Novenas novenas = new Novenas();
-        //public PiousOrg piousOrg = new PiousOrg();
-        //public Priest priest = new Priest();
+    {      
         public Common comnObj = new Common();
         public AppImages appImagesObj;
+
         #region Public Properties
 
         public string churchId
@@ -61,6 +50,11 @@ namespace ChurchApp.DAL
             set;
         }
         public string ImagePath
+        {
+            get;
+            set;
+        }
+        public string ImageID
         {
             get;
             set;
@@ -171,12 +165,12 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string ChurchDenomination { get; set; }
+        public string PriorityOrder { get; set; }
+
         #endregion Public Properties
 
-        #region Church Methods
-
-
-     
+        #region Church Methods     
 
         #region SelectChurches
         /// <summary>
@@ -311,6 +305,7 @@ namespace ChurchApp.DAL
 
         }
         #endregion SelectChurchRequests
+
         #region Get RequestChurch Details By churchID
 
         public DataTable GetRequestChurchDetailsByChurchID()
@@ -351,6 +346,7 @@ namespace ChurchApp.DAL
         }
 
         #endregion Get RequestChurch Details By churchID
+
         #region InsertRequestChurch for App
         /// <summary>
         /// Insert Request New Church
@@ -371,13 +367,14 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertRequestChurch]";
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = churchName != null && churchName != "" ? churchName : null;
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address != null && address != "" ? address : null;
-                cmd.Parameters.Add("@Place", SqlDbType.NVarChar, 50).Value = Place;
-                cmd.Parameters.Add("@User", SqlDbType.NVarChar, 50).Value = UserName;
-                cmd.Parameters.Add("@UserContact", SqlDbType.NVarChar, 50).Value = UserContact;
-                cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar, 50).Value = Remarks;
-                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email;
-                cmd.Parameters.Add("@ImagePath", SqlDbType.NVarChar, 50).Value = ImagePath;
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@Place", SqlDbType.NVarChar, 50).Value = Place!=null&&Place!=""?Place:null;
+                cmd.Parameters.Add("@User", SqlDbType.NVarChar, 50).Value = UserName!=null&&UserName!=""?UserName:null;
+                cmd.Parameters.Add("@UserContact", SqlDbType.NVarChar, 50).Value = UserContact!=null&&UserContact!=""?UserContact:null;
+                cmd.Parameters.Add("@Remarks", SqlDbType.NVarChar, 50).Value = Remarks!=null&&Remarks!=""?Remarks:null;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50).Value = Email!=null&&Email!=""?Email:null;
+                cmd.Parameters.Add("@ImagePath", SqlDbType.NVarChar, 150).Value = ImagePath!=null&&ImagePath!=""?ImagePath:null;
+                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = ImageID!=null&&ImageID!=""?Guid.Parse(ImageID):Guid.NewGuid();
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now); 
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outchurchid = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
                 outchurchid.Direction = ParameterDirection.Output;
@@ -428,7 +425,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateRequestChurch]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@Status", SqlDbType.Int).Value = RequestStatus;
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
@@ -460,13 +457,8 @@ namespace ChurchApp.DAL
         /// Insert New Church
         /// </summary>
         /// <returns>success or failure</returns>
-        public string InsertChurch()
-        {
-            //if((MainPriestID=="")&&(MainPriestID==null))
-            //{
-              
-            //    throw new Exception("PriestID is NULL");
-            //}
+        public void InsertChurch()
+        {           
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParameter = null,outchurchid=null;
@@ -482,7 +474,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@TownCode", SqlDbType.NVarChar, 10).Value = townCode!=null&&townCode!=""?townCode:null;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about!=null&&about!=""?about:null;
-                if (mainImageId!=null)
+                if (mainImageId!=null && mainImageId!="")
                 {
                     cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
                 }
@@ -501,6 +493,9 @@ namespace ChurchApp.DAL
               
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@Place", SqlDbType.NVarChar, 100).Value = Place != null && Place != "" ? Place : null;
+                cmd.Parameters.Add("@ChurchDenomination", SqlDbType.NVarChar, 10).Value = ChurchDenomination != null && ChurchDenomination != "" ? ChurchDenomination : null;
+                cmd.Parameters.Add("@PriorityOrder", SqlDbType.Decimal).Value = PriorityOrder != null && PriorityOrder != "" ? PriorityOrder : null;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outchurchid = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
                 outchurchid.Direction = ParameterDirection.Output;
@@ -523,11 +518,8 @@ namespace ChurchApp.DAL
             }
             //insert success or failure
             churchId = outchurchid.Value.ToString();
-            status = outParameter.Value.ToString();
-            return status;
-
+            status = outParameter.Value.ToString(); 
         }
-
         #endregion InsertChurch
 
         #region UpdateChurch
@@ -535,7 +527,7 @@ namespace ChurchApp.DAL
         /// Edit Church
         /// </summary>
         /// <returns>success or failure</returns>
-        public Int16 UpdateChurch()
+        public void UpdateChurch()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -543,7 +535,6 @@ namespace ChurchApp.DAL
 
             try
             {
-
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -557,7 +548,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about != null && about != "" ? about : null;
                 //IsHome indicates call from home page
                 cmd.Parameters.Add("@IsHome", SqlDbType.Bit).Value = IsHome;
-                if (mainImageId!=null)
+                if (mainImageId != null && mainImageId != "")
                 {
                     cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(mainImageId);
                 }
@@ -574,28 +565,27 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Phone2", SqlDbType.NVarChar, 20).Value = phone2 != null && phone2 != "" ? phone2 : null;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
+                cmd.Parameters.Add("@ChurchDenomination", SqlDbType.NVarChar, 10).Value = ChurchDenomination != null && ChurchDenomination != "" ? ChurchDenomination : null;
+                cmd.Parameters.Add("@PriorityOrder", SqlDbType.Decimal).Value = PriorityOrder != null && PriorityOrder != "" ? PriorityOrder : null;
+                cmd.Parameters.Add("@Place", SqlDbType.NVarChar, 100).Value = Place != null && Place != "" ? Place : null;
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
-
             catch (Exception ex)
             {
                 throw ex;
             }
-
             finally
             {
                 if (dcon.SQLCon != null)
                 {
                     dcon.DisconectDB();
-
                 }
             }
             //insert success or failure
             status = outParameter.Value.ToString();
-            return Int16.Parse(outParameter.Value.ToString());
-
+            ///return Int16.Parse(outParameter.Value.ToString());
         }
         #endregion UpdateChurch
 
@@ -827,7 +817,6 @@ namespace ChurchApp.DAL
 
         #endregion Get My Church Details
 
-
         #region GetAllChurches
         public DataSet GetAllChurches()
         {
@@ -865,7 +854,6 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion GetAllChurches
-
 
         #region GetAllChurchIDandText
         public DataSet GetAllChurchIDandText()
@@ -1009,6 +997,7 @@ namespace ChurchApp.DAL
         #endregion Public Properties
 
         #region ChurchDetail Methods
+
         #region SelectChurchDetails
         /// <summary>
         /// Get All Church Details
@@ -1048,6 +1037,7 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectChurchDetails
+
         #region InsertChurchDetails
 
         /// <summary>
@@ -1069,10 +1059,10 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertChurchDetails]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchDetailID);
-                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, -1).Value = caption;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, -1).Value = caption!=null&&caption!=""?caption:null;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =comnObj.ConvertDatenow(DateTime.Now);
                 param1 = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 param1.Direction = ParameterDirection.Output;
@@ -1092,6 +1082,7 @@ namespace ChurchApp.DAL
             return param1.Value.ToString();
         }
         #endregion InsertChurchDetails
+
         #region UpdateChurchDetails
         /// <summary>
         /// Edit Church Details
@@ -1112,10 +1103,10 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateChurchDetails]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchDetailID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchDetailID);
-                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, -1).Value = caption;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, -1).Value = caption!=null&&caption!=""?caption:null;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 param1 = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 param1.Direction = ParameterDirection.Output;
@@ -1135,6 +1126,7 @@ namespace ChurchApp.DAL
             return param1.Value.ToString();
         }
         #endregion UpdateChurchDetails
+
         #region DeleteChurchDetails
         /// <summary>
         /// Delete Church Details
@@ -1209,6 +1201,7 @@ namespace ChurchApp.DAL
             return dt;
         }
         #endregion
+
         #endregion ChurchDetail Methods
 
     }
@@ -1315,9 +1308,9 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertMassTiming]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
-                cmd.Parameters.Add("@Day", SqlDbType.VarChar, -1).Value = massDay;
+                cmd.Parameters.Add("@Day", SqlDbType.VarChar, -1).Value = massDay!=null&&massDay!=""?massDay:null;
                 cmd.Parameters.Add("@Time", SqlDbType.Time, 7).Value = TimeSpan.Parse(massTime);
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -1360,10 +1353,10 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateMassTiming]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massTimingID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
-                cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day;
+                cmd.Parameters.Add("@Day", SqlDbType.NVarChar, 3).Value = day!=null&&day!=""?day:null;
                 massTime = massTime.Replace(" ", "");
                 cmd.Parameters.Add("@Time", SqlDbType.Time, 7).Value = TimeSpan.Parse(massTime);
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;

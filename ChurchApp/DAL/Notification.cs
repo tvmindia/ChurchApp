@@ -141,13 +141,13 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertNotifications]";
-                cmd.Parameters.Add("@Type", SqlDbType.NVarChar,20).Value = notificationType;
+                cmd.Parameters.Add("@Type", SqlDbType.NVarChar,20).Value = notificationType!=null&&notificationType!=""?notificationType:null;
                 if (linkID!=null && linkID !=string.Empty)
                 {
                     cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
                 }
-                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption!=null&&caption!=""?caption:null;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 if (startDate != null && startDate != string.Empty)
                 {
                     cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = commonObj.Changeformat(startDate); 
@@ -160,7 +160,7 @@ namespace ChurchApp.DAL
               //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -201,10 +201,10 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UpdateNotifications]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
-                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = notificationType;
+                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = notificationType!=null&&notificationType!=""?notificationType:null;
                 cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
-                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption!=null&&caption!=""?caption:null;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 if(startDate!=null && startDate !=string.Empty)
                 {
                     cmd.Parameters.Add("@StartDate", SqlDbType.Date).Value = commonObj.Changeformat(startDate);
@@ -215,7 +215,7 @@ namespace ChurchApp.DAL
                 }                
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -502,9 +502,9 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertNotificationType]";
-                cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = notificationType;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
+                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = notificationType!=null&&notificationType!=""?notificationType:null;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -543,9 +543,9 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UpdateNotificationType]";
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
-                cmd.Parameters.Add("@NoticeType", SqlDbType.NVarChar, 20).Value = notificationType;
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
+                cmd.Parameters.Add("@NoticeType", SqlDbType.NVarChar, 20).Value = notificationType!=null&&notificationType!=""?notificationType:null;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;

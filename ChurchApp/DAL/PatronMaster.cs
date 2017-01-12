@@ -166,7 +166,7 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertPatronMaster]";
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = patronMasterName;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = patronMasterName!=null&&patronMasterName!=""?patronMasterName:null;
                 if (description != null && description != string.Empty)
                 {
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
@@ -176,7 +176,7 @@ namespace ChurchApp.DAL
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
                 }
                
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =cmnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outPatronID = cmd.Parameters.Add("@OutPatronID", SqlDbType.UniqueIdentifier);
@@ -221,14 +221,14 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UpdatePatronMaster]";
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(patronMasterId);
-                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = patronMasterName;
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 100).Value = patronMasterName!=null&&patronMasterName!=""?patronMasterName:null;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 if (imageID != null && imageID != string.Empty)
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
                 }
               
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = cmnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;

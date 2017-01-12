@@ -12,11 +12,41 @@ using System.Web;
 
 namespace ChurchApp.DAL
 {
-    public class ImportExcel
+    public class ExcelImport
     {
 
         #region Public Properties
 
+        public Church churchObj = null;
+        public TownMaster townObj = null;
+        public Priest priestObj = null;
+        public MassTimings masstymObj = null;
+
+        public DataTable dtError
+        {
+            get;
+            set;
+        }
+        public int insertedRows
+        {
+            get;
+            set;
+        }
+        public int updatedRows
+        {
+            get;
+            set;
+        }
+        public string totalExcelRows
+        {
+            get;
+            set;
+        }
+        public DataTable dtImportError
+        {
+            get;
+            set;
+        }
         public string tableName
         {
             get;
@@ -70,8 +100,16 @@ namespace ChurchApp.DAL
             get;
             set;
         }
-
-       
+        public List<Dictionary<string, object>> parentRow
+        {
+            get;
+            set;
+        }
+        public Dictionary<string, object> childRow
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Methods
@@ -192,24 +230,24 @@ namespace ChurchApp.DAL
                 DataTable dt = new DataTable();
 
                 dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                if ((dt.Rows.Count >0) && (dt != null))
+                if ((dt.Rows.Count > 0) && (dt != null))
                 {
                     excelSheets = new String[dt.Rows.Count];
-                    int t = 0;
+                    //int t = 0;
                     foreach (DataRow row in dt.Rows)
                     {
-                        if ("'" + FileDescriptionSheetName + "$" + "'" == row["TABLE_NAME"].ToString())
-                        {
-                            SheetDescription = row["TABLE_NAME"].ToString();
-                            SheetDescription = SheetDescription.TrimEnd('$');
-                        }
-                        else
-                        {
-                            SheetName = row["TABLE_NAME"].ToString();
-                            SheetName = SheetName.TrimEnd('$');
-                        }
-                        excelSheets[t] = row["TABLE_NAME"].ToString();
-                        t++;
+                        //    if ("'" + FileDescriptionSheetName + "$" + "'" == row["TABLE_NAME"].ToString())
+                        //    {
+                        //        SheetDescription = row["TABLE_NAME"].ToString();
+                        //        SheetDescription = SheetDescription.TrimEnd('$');
+                        //    }
+                        //    else
+                        //    {
+                        SheetName = row["TABLE_NAME"].ToString();
+                        SheetName = SheetName.TrimEnd('$');
+                        //    }
+                        //    excelSheets[t] = row["TABLE_NAME"].ToString();
+                        //    t++;
                     }
 
                 }
@@ -307,14 +345,210 @@ namespace ChurchApp.DAL
         #endregion GetTableDefinition
 
         #region ImportData
-        public string ExcelImport()
+        public string ExcelImports(DataSet dsExcel, DataSet dsTableDefinition)
         {
+            int dsExcelCount = dsExcel.Tables[0].Rows.Count;
+            DataSet DsExisting = null;
+            try
+            {
+                string conditions = "";
+                bool IsUpdate;
+                DsExisting = GetExistingTableData();//function call with table name as parameter
+
+                //------------------Keyfields Checking-----------------------------//
+                DataRow[] drkeyfields = dsTableDefinition.Tables[0].Select("Key_Field='Y'");
+                insertedRows = 0;
+                updatedRows = 0;
+                for (int j = 0; j < dsExcelCount; j++)   //--------------dsExcelLooping(Uploaded file)
+                {
+                    conditions = "";
+                    DataRow drExcelrow = dsExcel.Tables[0].Rows[j]; //Checking By Selecting Row by Row
+                    foreach (DataRow drw in drkeyfields)          //where condition to find insertion of updation
+                    {
+                       // conditions += drw[0].ToString() + "='" + dsExcel.Tables[0].Rows[j][drw[0].ToString()] + "' AND ";
+                        conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(), dsExcel.Tables[0].Rows[j][drw[0].ToString()].ToString().Replace("'", "''"));
+                    }
+
+                    if (conditions != "")
+                    {
+                        conditions = conditions.Remove(conditions.Length - 4);             //removing last 4 characters from conditions string       
+                        DataRow[] drExisting = DsExisting.Tables[0].Select(conditions);
+                        if (drExisting.Length > 0)
+                        {
+                            IsUpdate = true;
+                        }
+                        else
+                        {
+                            IsUpdate = false;
+                        }
+                        switch (tableName)
+                        {
+                            case "Church":
+
+                                if (IsUpdate)
+                                {
+                                    //Get church id with name place and town code  from already taken dataset. 
+
+                                    //update
+                                    //  churchObj.updatedBy = UA.userName;
+                                    churchObj.churchId = drExisting[0][0].ToString();
+                                    churchObj.churchName = drExcelrow[0].ToString();
+                                    churchObj.townCode = drExcelrow[1].ToString();
+                                    churchObj.description = drExcelrow[2].ToString();
+                                    churchObj.about = drExcelrow[3].ToString();
+                                    churchObj.mainImageId = drExcelrow[4].ToString();
+                                    churchObj.address = drExcelrow[5].ToString();
+                                    churchObj.phone1 = drExcelrow[6].ToString();
+                                    churchObj.phone2 = drExcelrow[7].ToString();
+                                    churchObj.MainPriestID = drExcelrow[8].ToString();
+                                    churchObj.longitude = drExcelrow[9].ToString();
+                                    churchObj.latitude = drExcelrow[10].ToString();
+                                    churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
+                                    churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
+                                    churchObj.Place = drExcelrow[13].ToString();
+                                    churchObj.UpdateChurch();
+                                    if (churchObj.status == "1")
+                                    {
+                                        updatedRows = updatedRows + 1;
+                                    }
+                                }
+                                else
+                                {
+                                    //insert
+                                    churchObj.churchName = drExcelrow[0].ToString();
+                                    churchObj.townCode = drExcelrow[1].ToString();
+                                    churchObj.description = drExcelrow[2].ToString();
+                                    churchObj.about = drExcelrow[3].ToString();
+                                    churchObj.mainImageId = drExcelrow[4].ToString();
+                                    churchObj.address = drExcelrow[5].ToString();
+                                    churchObj.phone1 = drExcelrow[6].ToString();
+                                    churchObj.phone2 = drExcelrow[7].ToString();
+                                    churchObj.MainPriestID = drExcelrow[8].ToString();
+                                    churchObj.longitude = drExcelrow[9].ToString();
+                                    churchObj.latitude = drExcelrow[10].ToString();
+                                    churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
+                                    churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
+                                    churchObj.Place = drExcelrow[13].ToString();
+                                    churchObj.InsertChurch();
+                                    if (churchObj.status == "1")
+                                    {
+                                        insertedRows = insertedRows + 1;
+                                    }
+                                    
+                                }
+                                break;
+                            case "MassTiming":
+                                if (IsUpdate)
+                                {
+                                    //update
+                                    updatedRows = updatedRows + 1;  
+                                }
+                                else
+                                {
+                                    //insert
+                                    insertedRows = insertedRows + 1;
+                                }
+                                break;
+                            case "Priest":
+                                if (IsUpdate)
+                                {
+                                    //update
+                                    updatedRows = updatedRows + 1;  
+                                }
+                                else
+                                {
+                                    //insert
+                                    insertedRows = insertedRows + 1;
+                                }
+                                break;
+                            case "TownMaster":
+                                if (IsUpdate)
+                                {                                                                    
+                                   townObj.code = drExisting[0][0].ToString();
+                                   townObj.name=  drExcelrow[0].ToString();                                   
+                                   townObj.UpdateTownMaster();
+                                   if (townObj.status == "1")//update status return 2 while dupilcation,   
+                                   {
+                                       updatedRows = updatedRows + 1;  
+                                   }
+                                }
+                                else
+                                {                                 
+                                    townObj.name = drExcelrow[0].ToString();
+                                    townObj.InsertTownMaster();
+                                    if (townObj.status == "1")
+                                    {
+                                        insertedRows = insertedRows + 1;
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+            }
             return "";
         }
         #endregion ImportData
+
+        #region GetTableDefinition
+        /// <summary>
+        /// Get Table Definition
+        /// </summary>
+        /// <returns>All Table Definition Data</returns>
+        public DataSet GetExistingTableData()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetTableData]";
+                cmd.Parameters.Add("@TableName", SqlDbType.NVarChar, 100).Value = tableName;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetTableDefinition
+		
+		
         #endregion Methods
 
         #region ValidationMethods
+        public static DataTable resort(DataTable dt)
+        {
+            dt.DefaultView.Sort = "RowNo asc";
+            dt = dt.DefaultView.ToTable();
+            return dt;
+        }
         #region Validation
         /// <summary>
         /// Excel sheet validation 
@@ -324,22 +558,25 @@ namespace ChurchApp.DAL
         /// <returns>True/False</returns>
         public bool Validation(DataSet ExcelDS,DataSet TableDefinitionDS)
         {
-            DataTable dtError = CreateErrorTable();
+            dtError = CreateErrorTable();
             bool status = true;
             int res;
             try
             {
              
                 excelNotExitingFields = new List<string>();
-                status = ValidateType(ExcelDS, TableDefinitionDS, excelNotExitingFields);
+                List<string> keyField = null;
+                status = ValidateType(ExcelDS, TableDefinitionDS, excelNotExitingFields, keyField);
                 if(status==true)
                 {
-                    for (int i = ExcelDS.Tables[0].Rows.Count - 1; i >= 0; i--)
+                    for (int i = ExcelDS.Tables[0].Rows.Count-1; i >= 0; i--)
                     {
                         res = ValidateData(ExcelDS.Tables[0].Rows[i], TableDefinitionDS, i, dtError);
                         if(res==-1)
                         {
+                            ExcelDS.Tables[0].Rows.RemoveAt(i);
                             errorCount = errorCount + 1;
+                            status = false;
                         }
                     }
                    
@@ -348,27 +585,29 @@ namespace ChurchApp.DAL
                 {
                     DataRow dr = dtError.NewRow();
                     dr["RowNo"] = "";
-                    dr["FieldName"] = excelNotExitingFields.ToString();
-                    dr["ErrorDesc"] = "column(s) doesnot exists in excel template";
+                    dr["FieldName"] =keyField;
+                    dr["ErrorDesc"] = excelNotExitingFields+" column(s) doesnot exists in excel template";
                     dtError.Rows.Add(dr);
                 }
+                dtError = resort(dtError);
             }
             catch(Exception ex)
             {
                 throw ex;
             }
-                return status;
+            return status;
         }
         #endregion Validation
         #region ValidateData
         public int ValidateData(DataRow drExcel, DataSet dsTableDef, int rowno, DataTable dtError)
         {
-                
+            List<string> errorList = new List<string>();
+            List<string> keyFields = new List<string>();
             try
             {
               
                 bool flag = false;
-             
+
                 //----------------------Manadatory Fields Checking-------------------//
                 DataRow[] mandatoryFields = dsTableDef.Tables[0].Select("IsMandatory='true'");
 
@@ -376,16 +615,15 @@ namespace ChurchApp.DAL
                 {
                     string FieldName = item["Field_Name"].ToString();
                     string FieldDataType = item["Field_Type"].ToString();
-
+                    string isKeyField = item["Key_Field"].ToString();
                     if (drExcel[FieldName].ToString().Trim() == "" || string.IsNullOrEmpty(drExcel[FieldName].ToString()))
                     {
                         flag = true;
-                        DataRow dr = dtError.NewRow();
-                        dr["RowNo"] = rowno;
-                        dr["FieldName"] = FieldName;
-                        dr["ErrorDesc"] = "Field Is Empty";
-                        dtError.Rows.Add(dr);
-
+                        errorList.Add(FieldName + "-" + "Field Is Empty");
+                    }
+                    if (isKeyField == "Y" && drExcel[FieldName].ToString()!=string.Empty && drExcel[FieldName].ToString()!="NULL")
+                    {
+                        keyFields.Add(drExcel[FieldName].ToString());
                     }
                 }
 
@@ -396,48 +634,52 @@ namespace ChurchApp.DAL
                     string tableDefFieldType = tableDefRow["Field_Type"].ToString();
                     string tableDefColumnName = tableDefRow["Field_Name"].ToString();
                     var tableDefFieldSize = tableDefRow["Field_Size"].ToString();
+                    string mandatoryField = tableDefRow["Key_Field"].ToString();
+
+                    if (drExcel[tableDefColumnName].ToString().Trim() != "" && !string.IsNullOrEmpty(drExcel[tableDefColumnName].ToString()))
+                    {
                     if (tableDefFieldType == "D" && !ValidateDate(drExcel[tableDefColumnName].ToString()))
                     {
-                        flag = true;
+                       // if (mandatoryField == "true")
+                      //  {
+                            flag = true;
+                      //  }
                         
-                        DataRow dr = dtError.NewRow();
-                        dr["RowNo"] = rowno;
-                        dr["FieldName"] = tableDefColumnName;
-                        dr["ErrorDesc"] = "Invalid Date format";
-                        dtError.Rows.Add(dr);
+                        errorList.Add(tableDefColumnName + "-" + "Invalid Date format");
                     }
                     else if (tableDefFieldType == "A" && !isAlphaNumeric(drExcel[tableDefColumnName].ToString()))
                     {
-                        flag = true;
-                        
-                        DataRow dr = dtError.NewRow();
-                        dr["RowNo"] = rowno;
-                        dr["FieldName"] = tableDefColumnName;
-                        dr["ErrorDesc"] = "Invalid AlphaNumeric character";
-                        dtError.Rows.Add(dr);
+                       // if (mandatoryField == "true")
+                       // {
+                            flag = true;
+                      //  }
+                        errorList.Add(tableDefColumnName + "-" + "Invalid AlphaNumeric character");
                     }
                     else if (tableDefFieldType == "N" && !isNumber(drExcel[tableDefColumnName].ToString()))
                     {
-                        flag = true;
-                        
-                        DataRow dr = dtError.NewRow();
-                        dr["RowNo"] = rowno;
-                        dr["FieldName"] = tableDefColumnName;
-                        dr["ErrorDesc"] = "Invalid Number";
-                        dtError.Rows.Add(dr);
+                      //  if (mandatoryField == "true")
+                      //  {
+                            flag = true;
+                      //  }
+                        errorList.Add(tableDefColumnName + "-" + "Invalid Number");
                     }
                     else if (tableDefFieldType == "S" && !isString(drExcel[tableDefColumnName].ToString()))
                     {
-                        flag = true;
-                      
-                        DataRow dr = dtError.NewRow();
-                        dr["RowNo"] = rowno;
-                        dr["FieldName"] = tableDefColumnName;
-                        dr["ErrorDesc"] = "Invalid String";
-                        dtError.Rows.Add(dr);
+                       // if (mandatoryField == "true")
+                       // {
+                            flag = true;
+                       // }
+                        errorList.Add(tableDefColumnName + "-" + "Invalid String");
                     }
-
-
+                    else if (tableDefFieldType == "T" && !isValidDateAndTime(drExcel[tableDefColumnName].ToString()))
+                    {
+                       // if (mandatoryField == "true")
+                       // {
+                            flag = true;
+                       // }
+                        errorList.Add(tableDefColumnName + "-" + "Invalid Time");
+                    }
+                      
                     //------------------------------Field size checking-----------------------//
 
 
@@ -448,21 +690,26 @@ namespace ChurchApp.DAL
                         int excelColLength = drExcel[tableDefColumnName].ToString().Length;
                         if (tableDefLength < excelColLength)
                         {
-                            flag = true;
-
-                            DataRow dr = dtError.NewRow();
-                            dr["RowNo"] = rowno;
-                            dr["FieldName"] = tableDefColumnName;
-                            dr["ErrorDesc"] = "Invalid Field Size";
-                            dtError.Rows.Add(dr);
+                           // if (mandatoryField == "true")
+                           // {
+                                flag = true;
+                            //}
+                           
+                            errorList.Add(tableDefColumnName + "-" + "Invalid Field Size");
                         }
                     }
+                }
                                                             
                 }
 
                                
                 if (flag == true)
                 {
+                    DataRow dr = dtError.NewRow();
+                    dr["RowNo"] = rowno;
+                    dr["FieldName"] = keyFields;
+                    dr["ErrorDesc"] = errorList;
+                    dtError.Rows.Add(dr);
                     rowno = rowno + 2;
                     return -1;
                 }
@@ -487,8 +734,8 @@ namespace ChurchApp.DAL
         {
             DataTable dtTemp = new DataTable();
             dtTemp.Columns.Add(new DataColumn("RowNo", typeof(int)));
-            dtTemp.Columns.Add(new DataColumn("FieldName", typeof(string)));
-            dtTemp.Columns.Add(new DataColumn("ErrorDesc", typeof(string)));
+            dtTemp.Columns.Add(new DataColumn("FieldName", typeof(List<string>)));
+            dtTemp.Columns.Add(new DataColumn("ErrorDesc", typeof(List<string>)));
             return dtTemp;
         }
         #endregion CreateErrorTable
@@ -523,7 +770,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool isAlphaNumeric(string strToCheck)
         {
-            Regex rg = new Regex(@"^[a-zA-Z\s.,0-9@#$%*():;""'/?!+=_-]{1,30}$");
+            Regex rg = new Regex(@"^[a-zA-Z\s.,0-9-]+$");
             if (rg.IsMatch(strToCheck))
                 return true;
             else
@@ -540,7 +787,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool isString(string strToCheck)
         {
-            Regex rg = new Regex(@"^[a-zA-Z\s\.]+$");
+            Regex rg = new Regex(@"^[a-zA-Z\s\.'&,0-9-]+$",RegexOptions.Multiline);
             if (rg.IsMatch(strToCheck))
                 return true;
             else
@@ -548,6 +795,28 @@ namespace ChurchApp.DAL
         }
 
         #endregion String Validation
+
+        #region Time Validation
+        /// <summary>
+        /// Alphanumeric Validation
+        /// </summary>
+        /// <param name="strToCheck"></param>
+        /// <returns></returns>
+        private static bool isValidDateAndTime(string strToCheck)
+        {
+            if(strToCheck.Length>10)
+            {
+                strToCheck = strToCheck.Substring(10);
+            }
+            
+            Regex rg = new Regex(@"^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)?([ ]?[a|p]m)?$", RegexOptions.IgnoreCase);
+            if (rg.IsMatch(strToCheck))
+                return true;
+            else
+                return false;
+        }
+
+        #endregion String Time
 
         #region Numeric Validation
         /// <summary>
@@ -557,7 +826,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private bool isNumber(string strToCheck)
         {
-            Regex rg = new Regex(@"^[0-9\s,]+$");
+            Regex rg = new Regex(@"^[0-9\s,-]+$");
             if (rg.IsMatch(strToCheck))
                 return true;
             else
@@ -590,15 +859,17 @@ namespace ChurchApp.DAL
         /// <param name="ExcelDS"></param>
         /// <param name="TableDefinitionDS"></param>
         /// <returns>True/False</returns>
-        public bool ValidateType(DataSet ExcelDS, DataSet TableDefinitionDS, List<string> excelNotExitingFields)
+        public bool ValidateType(DataSet ExcelDS, DataSet TableDefinitionDS, List<string> excelNotExitingFields,List<string> keyFields)
         {
             bool status = true;
+            keyFields = new List<string>();
             try
             {
                 DataColumnCollection excelColumns = ExcelDS.Tables[0].Columns;
                 foreach (DataRow tableDefRow in TableDefinitionDS.Tables[0].Rows)
                {
                    string tableDefColumnName = tableDefRow["Field_Name"].ToString();
+                  keyFields.Add(ExcelDS.Tables[0].Rows[0][tableDefColumnName].ToString());
                    if (excelColumns.Contains(tableDefColumnName))
                    {
                        //status = true;
