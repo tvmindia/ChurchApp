@@ -95,11 +95,13 @@ function Redirect()
     window.location.href = "../AdminPanel/DashBoard.aspx?id=Request";
 }
 function GetParamValue() {
+    debugger;
+    var location = window.location;
     var query = window.location.search.substring(1);
     if(query!="")
     {
         $('#churchReqchevronup').click();
-        window.history.pushState("", "", "/AdminPanel/DashBoard.aspx");
+        window.history.pushState("", "", location.pathname);
     }
     else
     {

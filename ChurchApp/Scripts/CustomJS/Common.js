@@ -174,7 +174,7 @@ function postBlobAjax(formData, page) {
     //var request = new XMLHttpRequest();
     //request.open("POST", page);
     //request.send(formData);
-   
+    debugger;
     $('#displaywait').show();
     var jsonResult = {};
     $.ajax({
@@ -190,6 +190,7 @@ function postBlobAjax(formData, page) {
         traditional: true,
 
         success: function (data) {
+            debugger;
             $('#displaywait').hide();
             jsonResult = JSON.parse(data);
             if (jsonResult.statusCode == '555') {
@@ -197,7 +198,8 @@ function postBlobAjax(formData, page) {
             }
         },
         processData: false,
-        error: function (xmlhttprequest,textstatus,message) {
+        error: function (xmlhttprequest, textstatus, message) {
+            debugger;
             $('#displaywait').hide();
             $('body').empty();
             $('body').append(htmlerror());
@@ -210,10 +212,10 @@ function postBlobAjax(formData, page) {
     return jsonResult;
 }
 function getJsonData(data, page) {
-   
+    debugger;
     var jsonResult = {};
     $('#displaywait').show();
-    var req = $.ajax({
+    $.ajax({
         type: "post",
         url: page,
         data: data,

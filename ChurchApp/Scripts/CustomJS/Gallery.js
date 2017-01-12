@@ -1,4 +1,6 @@
-﻿$("document").ready(function (e) {
+﻿var canvas_elem = '';
+var $video = '';
+$("document").ready(function (e) {
    //Container for images and videos will be hidden first 
    $('#divImages').hide();
    $('#divVideos').hide();
@@ -8,7 +10,7 @@
             // Check All the File APIs are supported by browser.     
             document.getElementById('AlbumUploader').addEventListener('change', handleFileSelect, false);
             document.getElementById('imageUploader').addEventListener('change', handleFileSelectInImages, false);
-            document.getElementById('AlbumVidUploader').addEventListener('change', handleFileVideoAlbum, false);
+            //document.getElementById('AlbumVidUploader').addEventListener('change', handleFileVideoAlbum, false);
             document.getElementById('VideoUploader').addEventListener('change', handleVideoFile, false);
         }
         else {
@@ -90,7 +92,7 @@
                 if ($("#txtAlbumName").val() != "")
                 {
                     var GalleryAlbum = new Object();
-                    GalleryAlbum.albumName = $("#txtAlbumName").val();
+                    GalleryAlbum.albumName = (($("#txtAlbumName").val() != "" && $("#txtAlbumName").val() != null) ? $("#txtAlbumName").val() : "");
                     var result = InsertImageAlbum(GalleryAlbum);
                     switch (result.status) {
                         case "1":
@@ -173,6 +175,13 @@
         
         try {
             debugger;
+            var video = document.getElementById('previewVideodiv1video');
+            var canvas = document.getElementById('previewVideodiv1canvas');
+            canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
+            // Generate the image data
+            var Pic = document.getElementById("previewVideodiv1canvas").toDataURL("image/png");
+            Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "")
             var videofile;
 
             if ((videofile = $('#AlbumVidUploader')[0].files.length > 0)) {
@@ -180,6 +189,7 @@
                 barinAlbum.animate(0.1);  // Number from 0.0 to 1.0
                 var formData = new FormData();
                 formData.append('AlbumVideo', $('#AlbumVidUploader')[0].files[0], $('#AlbumVidUploader')[0].files[0].name);
+                formData.append('Thubnailimage', Pic);
                 barinAlbum.animate(0.2);
                 formData.append('Album', 'GalleryVideoAlbum');
                 barinAlbum.animate(0.8);
@@ -193,9 +203,10 @@
                 barinAlbum.animate(0.8);
                 switch (result.status) {
                     case "1":
+                        debugger;
                         barinAlbum.animate(1.0);  // Number from 0.0 to 1.0
-                        BindGalleryVideoAlbum();
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
+                        BindGalleryVideoAlbum();
                         $("#progressbarUploadinVidAlbum").hide();
                         break;
                     case "0":
@@ -426,6 +437,7 @@
 
     $('#newVideoalbum').click(function (e) {
         $('#NewVideoAlbumModel').modal('show');
+        //Videonow();
         $('#progressbarUploadinVidAlbum').hide();
     });
 
@@ -557,10 +569,17 @@
     $('.pencilEdit').show();
     $('#divAddMore').show();
     $('#divAddMoreVideos').show();
+    
 
 });//end of document.ready
 
-
+function Videosnapshot(this_obj)
+{
+    debugger;
+    var video = document.getElementById('previewVideodiv1video');
+    video.src = URL.createObjectURL(this_obj.files[0]);
+    $('#VideoPreviewdiv').show();
+}
 function deleteImage(obj)
 {
     try
@@ -916,6 +935,7 @@ function BindGalleryImageAlbum()
 {
     try
     {
+        debugger;
         var jsonResult = {};
         var GalleryAlbum = new Object();
         jsonResult = GetAllGalleryImageAlbumByChurchID(GalleryAlbum);
@@ -1016,6 +1036,7 @@ function GetAllGalleryImageAlbumByChurchID(GalleryAlbum)
 {
   
     try {
+        debugger;
         var ds = {};
         var table = {};
         var data = "{'GalleryAlbumObj':" + JSON.stringify(GalleryAlbum) + "}";
@@ -1141,6 +1162,7 @@ function AppendEditImages(Records) {
 
 function BindGalleryVideoAlbum() {
     try {
+        debugger;
         var jsonResult = {};
         var GalleryAlbum = new Object();
         jsonResult = GetAllGalleryVideoAlbumByChurchID(GalleryAlbum);
@@ -1157,6 +1179,7 @@ function BindGalleryVideoAlbum() {
 function AppendVideoAlbum(Records) {
     try
     {
+        debugger;
         $('.VidAlb').remove();
         $.each(Records, function (index, Records) {
             var thumbid = Records.GroupItemID;
@@ -1179,6 +1202,7 @@ function AppendVideoAlbum(Records) {
 function GetAllGalleryVideoAlbumByChurchID(GalleryAlbum) {
    
     try {
+        debugger;
         var ds = {};
         var table = {};
         var data = "{'GalleryAlbumObj':" + JSON.stringify(GalleryAlbum) + "}";

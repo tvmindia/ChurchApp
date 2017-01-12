@@ -15,6 +15,10 @@
             position:absolute!important;
             width:100%!important;
         }
+       .imagebutton:hover
+       {
+           opacity:0.4;
+       }
     </style>
     <div id="content" class="span10">
               <ul class="breadcrumb" id="breadcrumbGallery">
@@ -225,20 +229,18 @@
                          <div class="span12">
                                 <div class="span12">
 								  <input class="input-large focused span12" name="Name" id="txtVidAlbumName" placeholder="Enter album name(Maximum 100 characters)" type="text"/>
-                                    <input class="input-file" id="AlbumVidUploader" style="display:none" name="AlbumVidUploader[]" accept="video/*" type="file"/>
+                                    <input class="input-file" id="AlbumVidUploader" style="display:none" name="AlbumVidUploader[]" onchange="Videosnapshot(this)" accept="video/*" type="file"/>
                          		</div>
 		            	  </div>
                          <div class="span10" id="previewVideodiv">
-                            
-                               
-                            <output id="imageListVideoAlbum" class=""> 
-                       <span style="height: 176px!important;border: 2px dotted black;background-color: #fff;width: 180px;display: block;float: left;margin:4px;">
-                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 116px;left: 109px;" src="../img/Plussymbol.png"/>
-                        <a onclick="BtnVideoUpload();" class="" style="top:57%;left:28%;position:relative;cursor:pointer;"  id="btnuploadVideoAlb">Choose Videos</a>
-                       </span>
-                                
-
-                            </output>
+                             <div class="span6">
+                                 <img style="position:relative;cursor:pointer" class="imagebutton" title="ADD VIDEO" src="../img/VideoAdd.PNG" width="150" height="150" onclick="BtnVideoUpload();"/>
+                             </div>
+                            <div class="span6" id="VideoPreviewdiv" style="display:none;">
+                            <video id="previewVideodiv1video" src="" loop="loop" style="object-fit: cover!important;" width="250" height="250" type="video/mp4" controls autoplay></video><br/>
+                            <canvas id="previewVideodiv1canvas" width="247" height="247" style="visibility:hidden;position:absolute;"></canvas> <br/><br/>
+                            </div>
+                             
                                   
                         </div>
          
@@ -293,6 +295,32 @@
             <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>
 		</div>
 	          </div>
+
+         <%-- <div class="modal hide fade" id="NewVideoAlbumModel1">
+		    <div class="modal-header">
+			<button type="button" class="close modelClear" data-dismiss="modal">×</button>
+			<h3>New Video Album</h3>
+		</div>
+		          <div class="modal-body">
+             
+                         <div class="span12">
+                                <div class="span12">
+								  <input class="input-large focused span12" name="Name" id="txtVidAlbumName1" placeholder="Enter album name(Maximum 100 characters)" type="text"/>
+                                    <input class="input-file" id="AlbumVidUploader1" name="AlbumVidUploader[]" accept="video/*" onchange="Videosnapshot(this)" type="file"/>
+                         		</div>
+		            	  </div>
+                         <div class="span10" id="previewVideodiv1">
+                            <video id="previewVideodiv1video" src="" loop="loop" style="object-fit: cover!important;" width="250" height="250" type="video/mp4" controls autoplay></video><br/>
+                            <canvas id="previewVideodiv1canvas" width="200" height="200"></canvas> <br/><br/>      
+                        </div>
+         
+              
+
+			
+		</div>
+		     <div class="modal-footer">
+		</div>
+	          </div>--%>
               <!--End Models used in this page-->
 
 

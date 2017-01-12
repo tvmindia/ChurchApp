@@ -2,14 +2,8 @@
 #region Included Namespaces
 using ChurchApp.AdminPanel;
 using ChurchApp.DAL;
-using NReco.VideoConverter;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Threading;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.SessionState;
@@ -153,13 +147,9 @@ namespace ChurchApp.ImageHandler
                                             status = GalItemsObj.InsertGalleryItem();
                                             string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
                                             postFile.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
-                                           // HttpContext ctx = HttpContext.Current;
-                                            //new Thread(delegate()
-                                            //{
-                                            //    HttpContext.Current = ctx;
-                                                CreateThumbnailForVideo(GalItemsObj.galleryItemID, fileExtension);
-                                            //}).Start();
-                                           
+                                            CreateThumbnailForVideo(context.Request.Form.GetValues("Thubnailimage")[0], GalItemsObj.galleryItemID);
+                                            
+
 
                                         }//end of foreach
                                         jsSerializer = new JavaScriptSerializer();
@@ -187,11 +177,8 @@ namespace ChurchApp.ImageHandler
                                             status = GalItemsObj.InsertGalleryItem();
                                             string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));
                                             postFile.SaveAs(SaveLocation + @"\" + GalItemsObj.galleryItemID + fileExtension);
-                                            //new Thread(delegate()
-                                            //{
-                                                CreateThumbnailForVideo(GalItemsObj.galleryItemID, fileExtension);
-                                            //}).Start();
-                                           
+                                            CreateThumbnailForVideo(context.Request.Form.GetValues("Thubnailimage")[0], GalItemsObj.galleryItemID);
+
 
                                         }//end of foreach
                                         jsSerializer = new JavaScriptSerializer();
@@ -1147,7 +1134,7 @@ namespace ChurchApp.ImageHandler
                             }
                         }
                         #endregion ActionTyp
-
+                        
 
 
                     } //end of if count
@@ -1172,21 +1159,28 @@ namespace ChurchApp.ImageHandler
 
         }
         
-        public bool CreateThumbnailForVideo(string vidid,string ext)
+        public bool CreateThumbnailForVideo(string base64,string ThumbID)
         {
-            //try
-            //{
-                string frametime;
-                var ffProbe = new NReco.VideoInfo.FFProbe();
-                var videoInfo = ffProbe.GetMediaInfo(HttpContext.Current.Server.MapPath("~/vid/") + vidid + ext);
-                frametime = (videoInfo.Duration.TotalSeconds / 2).ToString();
-                var ffMpeg = new FFMpegConverter();
-                ffMpeg.GetVideoThumbnail(HttpContext.Current.Server.MapPath("~/vid/") + vidid + ext, HttpContext.Current.Server.MapPath("~/vid/Poster/") + vidid + ".jpg", float.Parse(frametime));
-           // }
-           //catch(Exception ex)
-           // {
-           //     throw ex;
-           // }
+            try
+            {
+                var outputFile = HttpContext.Current.Server.MapPath("~/vid/Poster/") + ThumbID + ".jpg";
+                using (FileStream fs = new FileStream(outputFile, FileMode.Create))
+                {
+                    using (BinaryWriter bw = new BinaryWriter(fs))
+                    {
+                        byte[] data = Convert.FromBase64String(base64);
+                        bw.Write(data);
+                        bw.Close();
+                    }
+                }
+                
+                
+
+            }
+           catch(Exception ex)
+            {
+                throw ex;
+            }
             return true;
         }
 

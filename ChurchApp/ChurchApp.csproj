@@ -39,14 +39,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="NReco.VideoConverter, Version=1.1.1.0, Culture=neutral, PublicKeyToken=395ccb334978a0cd, processorArchitecture=MSIL">
-      <HintPath>..\packages\NReco.VideoConverter.1.1.1\lib\net20\NReco.VideoConverter.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NReco.VideoInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NReco.VideoInfo.1.0.0\lib\NReco.VideoInfo.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -241,6 +233,7 @@
     <Content Include="img\slowrider.gif" />
     <Content Include="img\St_Thomas_Church,_Irinjalakuda.jpg" />
     <Content Include="img\top_arr.png" />
+    <Content Include="img\VideoAdd.PNG" />
     <Content Include="Login.aspx" />
     <Content Include="Master\AdminLayout.Master" />
     <Content Include="Font\fontawesome-webfont.eot" />
@@ -248,7 +241,6 @@
     <Content Include="Font\fontawesome-webfont.woff" />
     <Content Include="Font\fontawesome-webfont.woff2" />
     <Content Include="Font\FontAwesome.otf" />
-    <Content Include="readme.txt" />
     <Content Include="Scripts\bootstrap-checkbox.js" />
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\counter.js" />
@@ -297,7 +289,6 @@
     <Content Include="WebServices\WebService.asmx" />
     <Content Include="ImageHandler\UploadHandler.ashx" />
     <Content Include="Font\trench.100.otf" />
-    <Content Include="packages.config" />
     <Content Include="ExcelHandler\ExcelHandler.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

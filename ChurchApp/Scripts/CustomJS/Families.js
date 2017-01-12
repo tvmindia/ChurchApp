@@ -218,7 +218,7 @@ $(document).ready(function () {
                     var order = IdAndOrder.split(":")[1];
                     var orgType = "FU";
                     var unitId = $("#hdfUnitID").val();
-                    var mobile = $("#txtMobile").val();
+                    var mobile = (($("#txtMobile").val()!= "" && $("#txtMobile").val() != null) ? $("#txtMobile").val() : "");
                     var name = $("#ddlMember option:selected").text();
                     if (name != "Select Member")
                     {
@@ -456,17 +456,17 @@ function saveMember() {
         var FamilyUnits = new Object();
         var Family = new Object();
         var Members = new Object();
-        Members.firstName = $("#txtFirstName").val();
-        Members.lastName = $("#txtLastName").val();
-        Family.familyName = $("#txtFamilyName").val();
-        Members.familyName = $("#txtFamilyName").val();
-        Members.contact = $("#txtPhone").val();
-        Members.address = $("#txtAddress").val();
+        Members.firstName = (($("#txtFirstName").val() != "" && $("#txtFirstName").val() != null) ? $("#txtFirstName").val() : "");
+        Members.lastName = (($("#txtLastName").val() != "" && $("#txtLastName").val() != null) ? $("#txtLastName").val() : "");
+        Family.familyName = (($("#txtFamilyName").val()!= "" && $("#txtFamilyName").val() != null) ? $("#txtFamilyName").val() : "");
+        Members.familyName = (($("#txtFamilyName").val()!= "" && $("#txtFamilyName").val() != null) ? $("#txtFamilyName").val() : "");
+        Members.contact = (($("#txtPhone").val()!= "" && $("#txtPhone").val() != null) ? $("#txtPhone").val() : "");
+        Members.address = (($("#txtAddress").val() != "" && $("#txtAddress").val() != null) ? $("#txtAddress").val() : "");
         FamilyUnits.unitId = $("#hdfUnitID").val();
         Members.memberId = $("#hdfMemberID").val();
         Family.familyId = $("#hdfFamilyID").val();
         Members.churchId = churchObject.chid;
-         var unitName = $("#txtUnitName").val();
+        var unitName = (($("#txtUnitName").val() != "" && $("#txtUnitName").val() != null) ? $("#txtUnitName").val() : "");
         var isHead = null;
         if ($('#chkIsHead').closest('span').hasClass('checked') == true) {
             Members.isHead = true;
@@ -1021,12 +1021,12 @@ function saveFamily() {
         var Family = new Object();
         var Members = new Object();
 
-        var firstName = $("#txtFirstName").val();
-        var lastName = $("#txtLastName").val();
-        var familyName = $("#txtFamilyName").val();
-        var unitName = $("#txtUnitName").val();
-        var phone = $("#txtPhone").val();
-        var address = $("#txtAddress").val();
+        var firstName = (($("#txtFirstName").val() != "" && $("#txtFirstName").val() != null) ? $("#txtFirstName").val() : "");
+        var lastName = (($("#txtLastName").val() != "" && $("#txtLastName").val() != null) ? $("#txtLastName").val() : "");
+        var familyName = (($("#txtFamilyName").val() != "" && $("#txtFamilyName").val() != null) ? $("#txtFamilyName").val() : "");
+        var unitName = (($("#txtUnitName").val() != "" && $("#txtUnitName").val() != null) ? $("#txtUnitName").val() : "");
+        var phone = (($("#txtPhone").val() != "" && $("#txtPhone").val() != null) ? $("#txtPhone").val() : "");
+        var address = (($("#txtAddress").val() != "" && $("#txtAddress").val() != null) ? $("#txtAddress").val() : "");
         var unitID = $("#hdfUnitID").val();
         var memberID = $("#hdfMemberID").val();
         var familyID = $("#hdfFamilyID").val();
@@ -1411,7 +1411,7 @@ function saveFamilyUnit() {
         var jsonResult = {};
         var addOrEdit = $("#familyUnitAddOrEdit").text();
         var FamilyUnits = new Object();
-        var unitName = $("#txtUnitName").val();
+        var unitName = (($("#txtUnitName").val() != "" && $("#txtUnitName").val() != null) ? $("#txtUnitName").val() : "");
         var unitID = $("#hdfUnitID").val();
         FamilyUnits.unitId = unitID;
         FamilyUnits.unitName = unitName;
