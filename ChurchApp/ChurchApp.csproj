@@ -522,7 +522,7 @@
     </Compile>
     <Compile Include="DAL\FamilyUnits.cs" />
     <Compile Include="DAL\GalleryAlbum.cs" />
-    <Compile Include="DAL\ImportExcel.cs" />
+    <Compile Include="DAL\ExcelImport.cs" />
     <Compile Include="DAL\Institutions.cs" />
     <Compile Include="DAL\Members.cs" />
     <Compile Include="DAL\Notices.cs" />
