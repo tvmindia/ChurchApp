@@ -440,25 +440,65 @@ namespace ChurchApp.DAL
                             case "MassTiming":
                                 if (IsUpdate)
                                 {
-                                    //update
-                                    updatedRows = updatedRows + 1;  
+                                    //masstymObj.UpdateMassTiming();                                   
+                                    //if (townObj.status == "1")
+                                    //{
+                                    updatedRows = updatedRows + 1;
+                                    //}                                   
                                 }
                                 else
                                 {
-                                    //insert
+                                    //masstymObj.InsertMassTiming();
+                                    //if (townObj.status == "1")
+                                    //{
                                     insertedRows = insertedRows + 1;
+                                    //}
                                 }
                                 break;
                             case "Priest":
                                 if (IsUpdate)
                                 {
-                                    //update
-                                    updatedRows = updatedRows + 1;  
+                                    priestObj.priestName = drExcelrow[0].ToString();
+                                    priestObj.dob = drExcelrow[1].ToString();
+                                    priestObj.dateOrdination = drExcelrow[2].ToString();
+                                    priestObj.about = drExcelrow[3].ToString();
+                                    priestObj.BaptisumName = drExcelrow[4].ToString();
+                                    priestObj.address = drExcelrow[5].ToString();
+                                    priestObj.mobile = drExcelrow[6].ToString();
+                                    priestObj.Parish = drExcelrow[7].ToString();
+                                    priestObj.Diocese = drExcelrow[8].ToString();
+                                    priestObj.emailId = drExcelrow[9].ToString();
+                                    priestObj.designation = drExcelrow[10].ToString();
+                                    priestObj.Status = drExcelrow[11].ToString();
+                                    //priestObj.isactive = drExcelrow[12].ToString(); //-----isactive
+
+                                    //priestObj.UpdatePriest();
+                                    //if (priestObj.result == "1")
+                                    //{
+                                    updatedRows = updatedRows + 1;
+                                    //}
                                 }
                                 else
                                 {
-                                    //insert
+                                    priestObj.priestName = drExcelrow[0].ToString();
+                                    priestObj.dob = drExcelrow[1].ToString();
+                                    priestObj.dateOrdination = drExcelrow[2].ToString();
+                                    priestObj.about = drExcelrow[3].ToString();
+                                    priestObj.BaptisumName = drExcelrow[4].ToString();
+                                    priestObj.address = drExcelrow[5].ToString();
+                                    priestObj.mobile = drExcelrow[6].ToString();
+                                    priestObj.Parish = drExcelrow[7].ToString();
+                                    priestObj.Diocese = drExcelrow[8].ToString();
+                                    priestObj.emailId = drExcelrow[9].ToString();
+                                    priestObj.designation = drExcelrow[10].ToString();
+                                    priestObj.Status = drExcelrow[11].ToString();
+                                    //priestObj.isactive = drExcelrow[12].ToString(); //-----isactive
+
+                                    // priestObj.InsertPriest();
+                                    //if (priestObj.result == "1")
+                                    //{
                                     insertedRows = insertedRows + 1;
+                                    //}                                  
                                 }
                                 break;
                             case "TownMaster":
