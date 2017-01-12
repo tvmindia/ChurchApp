@@ -13,21 +13,10 @@ using System.Web.Script.Serialization;
 namespace ChurchApp.DAL
 {
     public class Church
-    {
-        //public Administrators administrators = new Administrators();
-        //public AppImages appImages = new AppImages();
-        //public GalleryAlbum galleryAlbum = new GalleryAlbum();
-        //public Members members = new Members();
-        //public Events events = new Events();
-        //public FamilyUnits familyUnits = new FamilyUnits();
-        //public Institutions institutions = new Institutions();
-        //public Notices notices = new Notices();
-        //public Notification notifications = new Notification();
-        //public Novenas novenas = new Novenas();
-        //public PiousOrg piousOrg = new PiousOrg();
-        //public Priest priest = new Priest();
+    {      
         public Common comnObj = new Common();
         public AppImages appImagesObj;
+
         #region Public Properties
 
         public string churchId
@@ -181,10 +170,7 @@ namespace ChurchApp.DAL
 
         #endregion Public Properties
 
-        #region Church Methods
-
-
-     
+        #region Church Methods     
 
         #region SelectChurches
         /// <summary>
@@ -319,6 +305,7 @@ namespace ChurchApp.DAL
 
         }
         #endregion SelectChurchRequests
+
         #region Get RequestChurch Details By churchID
 
         public DataTable GetRequestChurchDetailsByChurchID()
@@ -359,6 +346,7 @@ namespace ChurchApp.DAL
         }
 
         #endregion Get RequestChurch Details By churchID
+
         #region InsertRequestChurch for App
         /// <summary>
         /// Insert Request New Church
@@ -469,13 +457,8 @@ namespace ChurchApp.DAL
         /// Insert New Church
         /// </summary>
         /// <returns>success or failure</returns>
-        public string InsertChurch()
-        {
-            //if((MainPriestID=="")&&(MainPriestID==null))
-            //{
-              
-            //    throw new Exception("PriestID is NULL");
-            //}
+        public void InsertChurch()
+        {           
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParameter = null,outchurchid=null;
@@ -535,11 +518,8 @@ namespace ChurchApp.DAL
             }
             //insert success or failure
             churchId = outchurchid.Value.ToString();
-            status = outParameter.Value.ToString();
-            return status;
-
+            status = outParameter.Value.ToString(); 
         }
-
         #endregion InsertChurch
 
         #region UpdateChurch
@@ -547,7 +527,7 @@ namespace ChurchApp.DAL
         /// Edit Church
         /// </summary>
         /// <returns>success or failure</returns>
-        public Int16 UpdateChurch()
+        public void UpdateChurch()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -555,7 +535,6 @@ namespace ChurchApp.DAL
 
             try
             {
-
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -593,24 +572,20 @@ namespace ChurchApp.DAL
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
-
             catch (Exception ex)
             {
                 throw ex;
             }
-
             finally
             {
                 if (dcon.SQLCon != null)
                 {
                     dcon.DisconectDB();
-
                 }
             }
             //insert success or failure
             status = outParameter.Value.ToString();
-            return Int16.Parse(outParameter.Value.ToString());
-
+            ///return Int16.Parse(outParameter.Value.ToString());
         }
         #endregion UpdateChurch
 
@@ -842,7 +817,6 @@ namespace ChurchApp.DAL
 
         #endregion Get My Church Details
 
-
         #region GetAllChurches
         public DataSet GetAllChurches()
         {
@@ -880,7 +854,6 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion GetAllChurches
-
 
         #region GetAllChurchIDandText
         public DataSet GetAllChurchIDandText()
@@ -1024,6 +997,7 @@ namespace ChurchApp.DAL
         #endregion Public Properties
 
         #region ChurchDetail Methods
+
         #region SelectChurchDetails
         /// <summary>
         /// Get All Church Details
@@ -1063,6 +1037,7 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectChurchDetails
+
         #region InsertChurchDetails
 
         /// <summary>
@@ -1107,6 +1082,7 @@ namespace ChurchApp.DAL
             return param1.Value.ToString();
         }
         #endregion InsertChurchDetails
+
         #region UpdateChurchDetails
         /// <summary>
         /// Edit Church Details
@@ -1150,6 +1126,7 @@ namespace ChurchApp.DAL
             return param1.Value.ToString();
         }
         #endregion UpdateChurchDetails
+
         #region DeleteChurchDetails
         /// <summary>
         /// Delete Church Details
@@ -1224,6 +1201,7 @@ namespace ChurchApp.DAL
             return dt;
         }
         #endregion
+
         #endregion ChurchDetail Methods
 
     }

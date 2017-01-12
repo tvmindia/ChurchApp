@@ -18,6 +18,10 @@ namespace ChurchApp.DAL
         #region Public Properties
 
         public Church churchObj = null;
+        public TownMaster townObj = null;
+        public Priest priestObj = null;
+        public MassTimings masstymObj = null;
+
         public DataTable dtError
         {
             get;
@@ -380,30 +384,34 @@ namespace ChurchApp.DAL
                         switch (tableName)
                         {
                             case "Church":
-                               
+
                                 if (IsUpdate)
                                 {
                                     //Get church id with name place and town code  from already taken dataset. 
 
                                     //update
-                                  //  churchObj.updatedBy = UA.userName;
+                                    //  churchObj.updatedBy = UA.userName;
                                     churchObj.churchId = drExisting[0][0].ToString();
                                     churchObj.churchName = drExcelrow[0].ToString();
                                     churchObj.townCode = drExcelrow[1].ToString();
                                     churchObj.description = drExcelrow[2].ToString();
                                     churchObj.about = drExcelrow[3].ToString();
                                     churchObj.mainImageId = drExcelrow[4].ToString();
-                                    churchObj.address = drExcelrow[5].ToString();                                  
+                                    churchObj.address = drExcelrow[5].ToString();
                                     churchObj.phone1 = drExcelrow[6].ToString();
                                     churchObj.phone2 = drExcelrow[7].ToString();
-                                    churchObj.MainPriestID = drExcelrow[8].ToString();                                  
+                                    churchObj.MainPriestID = drExcelrow[8].ToString();
                                     churchObj.longitude = drExcelrow[9].ToString();
                                     churchObj.latitude = drExcelrow[10].ToString();
                                     churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
                                     churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
                                     churchObj.Place = drExcelrow[13].ToString();
                                     churchObj.UpdateChurch();
-                                    updatedRows = updatedRows + 1;}
+                                    if (churchObj.status == "1")
+                                    {
+                                        updatedRows = updatedRows + 1;
+                                    }
+                                }
                                 else
                                 {
                                     //insert
@@ -415,14 +423,18 @@ namespace ChurchApp.DAL
                                     churchObj.address = drExcelrow[5].ToString();
                                     churchObj.phone1 = drExcelrow[6].ToString();
                                     churchObj.phone2 = drExcelrow[7].ToString();
-                                    churchObj.MainPriestID = drExcelrow[8].ToString();        
+                                    churchObj.MainPriestID = drExcelrow[8].ToString();
                                     churchObj.longitude = drExcelrow[9].ToString();
                                     churchObj.latitude = drExcelrow[10].ToString();
                                     churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
                                     churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
                                     churchObj.Place = drExcelrow[13].ToString();
                                     churchObj.InsertChurch();
-                                    insertedRows = insertedRows + 1;
+                                    if (churchObj.status == "1")
+                                    {
+                                        insertedRows = insertedRows + 1;
+                                    }
+                                    
                                 }
                                 break;
                             case "MassTiming":
@@ -451,14 +463,23 @@ namespace ChurchApp.DAL
                                 break;
                             case "TownMaster":
                                 if (IsUpdate)
-                                {
-                                    //update
-                                    updatedRows = updatedRows + 1;  
+                                {                                                                    
+                                   townObj.code = drExisting[0][0].ToString();
+                                   townObj.name=  drExcelrow[0].ToString();                                   
+                                   townObj.UpdateTownMaster();
+                                   if (townObj.status == "1")//update status return 2 while dupilcation,   
+                                   {
+                                       updatedRows = updatedRows + 1;  
+                                   }
                                 }
                                 else
-                                {
-                                    //insert
-                                    insertedRows = insertedRows + 1;
+                                {                                 
+                                    townObj.name = drExcelrow[0].ToString();
+                                    townObj.InsertTownMaster();
+                                    if (townObj.status == "1")
+                                    {
+                                        insertedRows = insertedRows + 1;
+                                    }
                                 }
                                 break;
                             default:
