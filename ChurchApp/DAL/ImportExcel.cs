@@ -583,38 +583,45 @@ namespace ChurchApp.DAL
                     {
                     if (tableDefFieldType == "D" && !ValidateDate(drExcel[tableDefColumnName].ToString()))
                     {
-                        if (mandatoryField == "true")
-                        {
+                       // if (mandatoryField == "true")
+                      //  {
                             flag = true;
-                        }
+                      //  }
                         
                         errorList.Add(tableDefColumnName + "-" + "Invalid Date format");
                     }
                     else if (tableDefFieldType == "A" && !isAlphaNumeric(drExcel[tableDefColumnName].ToString()))
                     {
-                        if (mandatoryField == "true")
-                        {
+                       // if (mandatoryField == "true")
+                       // {
                             flag = true;
-                        }
+                      //  }
                         errorList.Add(tableDefColumnName + "-" + "Invalid AlphaNumeric character");
                     }
                     else if (tableDefFieldType == "N" && !isNumber(drExcel[tableDefColumnName].ToString()))
                     {
-                        if (mandatoryField == "true")
-                        {
+                      //  if (mandatoryField == "true")
+                      //  {
                             flag = true;
-                        }
+                      //  }
                         errorList.Add(tableDefColumnName + "-" + "Invalid Number");
                     }
                     else if (tableDefFieldType == "S" && !isString(drExcel[tableDefColumnName].ToString()))
                     {
-                        if (mandatoryField == "true")
-                        {
+                       // if (mandatoryField == "true")
+                       // {
                             flag = true;
-                        }
+                       // }
                         errorList.Add(tableDefColumnName + "-" + "Invalid String");
                     }
-
+                    else if (tableDefFieldType == "T" && !isValidDateAndTime(drExcel[tableDefColumnName].ToString()))
+                    {
+                       // if (mandatoryField == "true")
+                       // {
+                            flag = true;
+                       // }
+                        errorList.Add(tableDefColumnName + "-" + "Invalid Time");
+                    }
                       
                     //------------------------------Field size checking-----------------------//
 
@@ -626,10 +633,10 @@ namespace ChurchApp.DAL
                         int excelColLength = drExcel[tableDefColumnName].ToString().Length;
                         if (tableDefLength < excelColLength)
                         {
-                            if (mandatoryField == "true")
-                            {
+                           // if (mandatoryField == "true")
+                           // {
                                 flag = true;
-                            }
+                            //}
                            
                             errorList.Add(tableDefColumnName + "-" + "Invalid Field Size");
                         }
@@ -731,6 +738,28 @@ namespace ChurchApp.DAL
         }
 
         #endregion String Validation
+
+        #region Time Validation
+        /// <summary>
+        /// Alphanumeric Validation
+        /// </summary>
+        /// <param name="strToCheck"></param>
+        /// <returns></returns>
+        private static bool isValidDateAndTime(string strToCheck)
+        {
+            if(strToCheck.Length>10)
+            {
+                strToCheck = strToCheck.Substring(10);
+            }
+            
+            Regex rg = new Regex(@"^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)?([ ]?[a|p]m)?$", RegexOptions.IgnoreCase);
+            if (rg.IsMatch(strToCheck))
+                return true;
+            else
+                return false;
+        }
+
+        #endregion String Time
 
         #region Numeric Validation
         /// <summary>
