@@ -22,7 +22,7 @@ namespace ChurchApp.AdminPanel
         //<--------------------- Select Excel TableNames----------------------------->//
         #region SelectExcelTableNames
         [WebMethod(EnableSession = true)]
-        public static string SelectExcelTableNames(DAL.ImportExcel impxlObj)
+        public static string SelectExcelTableNames(ExcelImport impxlObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();

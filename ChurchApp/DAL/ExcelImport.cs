@@ -12,10 +12,12 @@ using System.Web;
 
 namespace ChurchApp.DAL
 {
-    public class ImportExcel
+    public class ExcelImport
     {
 
         #region Public Properties
+
+        public Church churchObj = null;
         public DataTable dtError
         {
             get;
@@ -339,7 +341,7 @@ namespace ChurchApp.DAL
         #endregion GetTableDefinition
 
         #region ImportData
-        public string ExcelImport(DataSet dsExcel, DataSet dsTableDefinition)
+        public string ExcelImports(DataSet dsExcel, DataSet dsTableDefinition)
         {
             int dsExcelCount = dsExcel.Tables[0].Rows.Count;
             DataSet DsExisting = null;
@@ -378,27 +380,27 @@ namespace ChurchApp.DAL
                         switch (tableName)
                         {
                             case "Church":
-                                Church churchObj= new Church();
+                               
                                 if (IsUpdate)
                                 {
                                     //Get church id with name place and town code  from already taken dataset. 
 
                                     //update
+                                  //  churchObj.updatedBy = UA.userName;
                                     churchObj.churchId = drExisting[0][0].ToString();
                                     churchObj.churchName = drExcelrow[0].ToString();
                                     churchObj.townCode = drExcelrow[1].ToString();
                                     churchObj.description = drExcelrow[2].ToString();
                                     churchObj.about = drExcelrow[3].ToString();
-                                    churchObj.ImageID = drExcelrow[4].ToString();
+                                    churchObj.mainImageId = drExcelrow[4].ToString();
                                     churchObj.address = drExcelrow[5].ToString();                                  
                                     churchObj.phone1 = drExcelrow[6].ToString();
                                     churchObj.phone2 = drExcelrow[7].ToString();
                                     churchObj.MainPriestID = drExcelrow[8].ToString();                                  
                                     churchObj.longitude = drExcelrow[9].ToString();
                                     churchObj.latitude = drExcelrow[10].ToString();
-                                   
-                                    //churchObj. = drExcelrow[11].ToString(); //-----ChurchDenomination 
-                                    //churchObj. = drExcelrow[12].ToString(); //-----ChurchPirority
+                                    churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
+                                    churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
                                     churchObj.Place = drExcelrow[13].ToString();
                                     churchObj.UpdateChurch();
                                     updatedRows = updatedRows + 1;}
@@ -409,13 +411,16 @@ namespace ChurchApp.DAL
                                     churchObj.townCode = drExcelrow[1].ToString();
                                     churchObj.description = drExcelrow[2].ToString();
                                     churchObj.about = drExcelrow[3].ToString();
-                                    churchObj.ImageID = drExcelrow[4].ToString();
+                                    churchObj.mainImageId = drExcelrow[4].ToString();
                                     churchObj.address = drExcelrow[5].ToString();
                                     churchObj.phone1 = drExcelrow[6].ToString();
                                     churchObj.phone2 = drExcelrow[7].ToString();
-                                    churchObj.Place = drExcelrow[13].ToString();
+                                    churchObj.MainPriestID = drExcelrow[8].ToString();        
                                     churchObj.longitude = drExcelrow[9].ToString();
                                     churchObj.latitude = drExcelrow[10].ToString();
+                                    churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
+                                    churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
+                                    churchObj.Place = drExcelrow[13].ToString();
                                     churchObj.InsertChurch();
                                     insertedRows = insertedRows + 1;
                                 }
