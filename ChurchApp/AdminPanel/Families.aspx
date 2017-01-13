@@ -236,4 +236,5 @@
     <input type="hidden" value="" id="hdfAdminStatus" />
     <input type="hidden" value="" id="hdfMemberImgID" />
     <input type="hidden" value="" id="hdfAdminImageID" />
+    <input type="hidden" value="" id="hdfAdminDefaultImg" />
 </asp:Content>

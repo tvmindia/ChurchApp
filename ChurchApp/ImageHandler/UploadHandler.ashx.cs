@@ -959,6 +959,7 @@ namespace ChurchApp.ImageHandler
                                         unitsObj.unitId = context.Request.Form.GetValues("unitId")[0];
                                         memberObj.memberId = context.Request.Form.GetValues("memberId")[0];
                                         memberObj.familyID = context.Request.Form.GetValues("familyId")[0];
+                                        memberObj.isHead = context.Request.Form.GetValues("isHead")[0];
                                         memberObj.createdBy = AppImgObj.createdBy;
                                         memberObj.imageId = AppImgObj.appImageId;
                                         memberObj.InsertMember();
@@ -1022,6 +1023,7 @@ namespace ChurchApp.ImageHandler
                                         unitsObj.unitId = context.Request.Form.GetValues("unitId")[0];
                                         memberObj.memberId = context.Request.Form.GetValues("memberId")[0];
                                         memberObj.familyID = context.Request.Form.GetValues("familyId")[0];
+                                        memberObj.isHead = context.Request.Form.GetValues("isHead")[0];
                                         memberObj.updatedBy = AppImgObj.updatedBy;
                                         memberObj.imageId = AppImgObj.appImageId;
                                         memberObj.UpdateMember();

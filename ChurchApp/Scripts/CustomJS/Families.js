@@ -229,6 +229,10 @@ $(document).ready(function () {
                     Administrators.desigId = desigID;
                     Administrators.memberId = memberID;
                     Administrators.imageID = $("#hdfAdminImageID").val();
+                    if ($("#hdfAdminDefaultImg").val() != "")
+                    {
+                        Administrators.imageID = $("#hdfAdminDefaultImg").val();
+                    }
                     Administrators.Name = name;
                     Administrators.Phone = mobile;
                     Administrators.churchId = churchObject.chid;
@@ -289,6 +293,7 @@ $(document).ready(function () {
                
                     }
                     else {
+                        debugger;
                         if (imgresult = $('#fluImage')[0].files.length > 0)
                         {
                             var formData = new FormData();
@@ -478,6 +483,7 @@ function saveMember() {
        
         Family.familyUnitsObj = FamilyUnits;
         Members.familyObj = Family;
+        debugger;
         if ($("#memberAddOrEdit").text() == "Add") {
             //if ($("#hdfMemberID").val() == null && $("#hdfMemberID").val() == "") {
                 ///////INSERT MEMBER THROUGH HANDLER
@@ -500,6 +506,7 @@ function saveMember() {
                     formData.append('unitId', FamilyUnits.unitId);
                     formData.append('memberId', Members.memberId);
                     formData.append('familyId', Family.familyId);
+                    formData.append('isHead', Members.isHead);
                     formData.append('createdby', document.getElementById("LoginName").innerHTML);
                     formData.append('ActionTyp', 'MemberImageInsert');
                     var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
@@ -569,6 +576,7 @@ function saveMember() {
                 formData.append('unitId', FamilyUnits.unitId);
                 formData.append('memberId', Members.memberId);
                 formData.append('familyId', Family.familyId);
+                formData.append('isHead', Members.isHead);
                 formData.append('memberImageID', $("#hdfMemberImgID").val());
                 formData.append('updatedby', document.getElementById("LoginName").innerHTML);
                 formData.append('ActionTyp', 'MemberImageUpdate');
@@ -1682,6 +1690,7 @@ function AdminMemberChange()
 {
     try
     {
+        debugger;
         if ($("#ddlMember").val() != "" && $("#ddlMember").val() != null && $("#ddlMember").val() != "-1") {
             var FamilyUnits = new Object();
             var Family = new Object();
@@ -1704,7 +1713,9 @@ function AdminMemberChange()
                 }
                 if (jsonResult[0].ImageID != "" && jsonResult[0].ImageID != null) {
                     adminImage = jsonResult[0].ImageID;
+                    $("#hdfAdminDefaultImg").val(adminImage);
                 }
+                
             }
         }
     }
@@ -1875,6 +1886,7 @@ function EditAdministrator(e)
     debugger;
     try
     {
+        $("#hdfAdminDefaultImg").val('')
         $("#hdfAdminImageID").val('');
         $("#hdfAdminID").val('');
         $('#modelAddAdmin').modal('show');
