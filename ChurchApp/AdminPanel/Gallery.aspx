@@ -46,7 +46,7 @@
 			       <div class="ImageAlbum-Gallery">
                    <div id="divCreateAlbum"style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 23%;display:none;float: left;padding-left: 5px;padding-bottom:8px;">
                    <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
-                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 32%;position: relative;cursor:pointer;" id="newalbum">Create Album</></a>
+                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 22%;color:#adb3bb;position: relative;cursor:pointer;font-size: 20px;font-weight: 700;cursor:pointer;" id="newalbum">Create Album</></a>
 
 
                    </div>
@@ -70,7 +70,7 @@
 						<div class="Image-Gallery">
                              <div id="divAddMore" style="height: 238px!important;border: 2px dotted black;background-color: #fff;width: 229px;float: left;padding-left: 5px;padding-bottom:8px;">
                          <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 103px;" src="../img/Plussymbol.png"/>
-                            <a data-rel="tooltip" data-original-title="Add More Images"  style="top: 67%;left: 34%;position: relative;cursor:pointer;" id="newimage">Add More</></a>
+                            <a data-rel="tooltip" data-original-title="Add More Images"  style="top: 67%;left: 26%;color:#adb3bb;position: relative;cursor:pointer;font-size: 20px;font-weight: 700;cursor:pointer;" id="newimage">Add More</></a>
                            </div>
                       
                         </div>
@@ -102,7 +102,7 @@
 
                          <div id="divCreateVideoAlbum"style="height: 238px!important;display:none;border: 2px dotted black;background-color: #fff;width: 23%;display: none;float: left;padding-left: 5px;padding-bottom:8px;">
                    <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
-                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 32%;position: relative;cursor:pointer;" id="newVideoalbum">Create Album</></a>
+                    <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 22%;color:#adb3bb;position: relative;cursor:pointer;font-size: 20px;font-weight: 700;cursor:pointer;" id="newVideoalbum">Create Album</></a>
 
                    </div>
 								
@@ -130,7 +130,7 @@
 						<div class="Video-gallery">
 		                 <div id="divAddMoreVideos" style="height: 249px!important;display:none;border: 2px dotted black;background-color:#fff;width: 380px;display: block;float: left;margin-left:15px;">
                          <img style="text-align: center;display: block;position: relative;height: 47px;width: 43px;top: 93px;left: 40%;" src="../img/Plussymbol.png"/>
-                            <a data-rel="tooltip" data-original-title="Add more videos" style="top: 44%;left: 38%;position: relative;cursor:pointer;" id="newvideo">Add More</></a>
+                            <a data-rel="tooltip" data-original-title="Add more videos" style="top: 44%;left: 28%;color:#adb3bb;position: relative;cursor:pointer;font-size: 33px;font-weight: 700;font-family: Helvetica, Arial, sans-serif;" id="newvideo">Add More</></a>
                            </div>
 			        
 
