@@ -154,6 +154,9 @@ function validateExcel() {
         noty({ type: 'error', text: "Kindly Upload file types of xlsx or xls" });       
         return false;
     }
+    else {
+        return true;
+    }
 }
 //function to validate Excel file extension
 function validateExcelExtension(ext) {
