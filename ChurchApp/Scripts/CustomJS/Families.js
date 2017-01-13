@@ -559,6 +559,7 @@ function saveMember() {
             //}
         }
         else {
+            debugger;
             if ((imgresult = $('#mfluImage')[0].files.length > 0)) {
 
                 var formData = new FormData();

@@ -33,10 +33,13 @@ $("document").ready(function (e) {
     }
     $(".uploadexcel").click(function (e) {
         debugger;
-        validateExcel();
+       
         var excelresult;
+        
         if ((excelresult = $('#excelfileuploader')[0].files.length > 0) && $("#ddlexceldropdown").val()!="")
         {
+            validateExcel();
+         
             var Import = new Object();
             Import.Exceltable = $("#ddlexceldropdown").val();
 
@@ -48,30 +51,29 @@ $("document").ready(function (e) {
 
             var result = postBlobAjax(formData, " ../ExcelHandler/ExcelHandler.ashx");
             debugger;
-            if (result.parentRow.length > 0)
-            {
-                $("#excelErrorDiv").css("display", "");
-                $("#errorTableDiv").css("display", "");
-                ImportError.clear().rows.add(result.parentRow).draw(false);
-                //GetAllErrorData(result.parentRow);
-                $("#lblTotalRows").text(result.totalExcelRows);
-                $("#lblErrorCount").text(result.errorCount);
-                $("#lblInsertCount").text(result.insertedRows);
-                $("#lblUpdateCount").text(result.updatedRows);
-            }
-            else
-            {
-                $("#excelErrorDiv").css("display", "");
-                $("#errorTableDiv").css("display", "none");
-                $("#lblTotalRows").text(result.totalExcelRows);
-                $("#lblErrorCount").text(result.errorCount);
-                $("#lblInsertCount").text(result.insertedRows);
-                $("#lblUpdateCount").text(result.updatedRows);
-            }
+            
             switch (result.status)
             {
                 case "1":
                     noty({ type: 'success', text: Messages.ExcelUploadSuccess });
+                    if (result.parentRow.length > 0) {
+                        $("#excelErrorDiv").css("display", "");
+                        $("#errorTableDiv").css("display", "");
+                        ImportError.clear().rows.add(result.parentRow).draw(false);
+                        //GetAllErrorData(result.parentRow);
+                        $("#lblTotalRows").text(result.totalExcelRows);
+                        $("#lblErrorCount").text(result.errorCount);
+                        $("#lblInsertCount").text(result.insertedRows);
+                        $("#lblUpdateCount").text(result.updatedRows);
+                    }
+                    else {
+                        $("#excelErrorDiv").css("display", "");
+                        $("#errorTableDiv").css("display", "none");
+                        $("#lblTotalRows").text(result.totalExcelRows);
+                        $("#lblErrorCount").text(result.errorCount);
+                        $("#lblInsertCount").text(result.insertedRows);
+                        $("#lblUpdateCount").text(result.updatedRows);
+                    }
                     break;
                 case "0":
                     noty({ type: 'error', text: Messages.ExcelUploadFailure });
