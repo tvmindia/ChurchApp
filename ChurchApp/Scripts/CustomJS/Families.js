@@ -805,7 +805,7 @@ function EditMembers(e) {
                 $("#btnDelete").css("display", "");
             }
             if (jsonResult[0].URL != "" && jsonResult[0].URL != undefined) {
-                $('#MemberImg').attr('src', jsonResult[0].URL)
+                $('#MemberImg').attr('src', jsonResult[0].URL + '?' + new Date().getTime())
             }
             else {
                 $('#MemberImg').attr('src', '../img/gallery/Noimage.png');
@@ -853,6 +853,7 @@ function AddFamilyMember() {
 //bind all family members after adding a member
 function FamilyMembersAutoBind() {
     try {
+        debugger;
         var jsonResult = {};
         var familyID = $("#hdfFamilyID").val();
         var familyName = $("#hdfFamilyName").val();
