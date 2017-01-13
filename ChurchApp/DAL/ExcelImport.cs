@@ -51,7 +51,7 @@ namespace ChurchApp.DAL
         {
             get;
             set;
-        }     
+        }
 
         public string fileName
         {
@@ -110,6 +110,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string status
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Methods
@@ -139,7 +144,7 @@ namespace ChurchApp.DAL
             {
                 if (ExcelFileName.Length > 0)
                 {
-                    
+
                     excelSheets = OpenExcelFile();
                     dsFile = ScanExcelFileToDS(excelSheets, dsTable);
                 }
@@ -168,7 +173,7 @@ namespace ChurchApp.DAL
                 excelConnection1.Open();
                 var command = excelConnection1.CreateCommand();
 
-             
+
                 command.CommandText = string.Format("Select * from [{0}]", SheetName + "$");
                 var conditions = "";
                 foreach (DataRow dr in dsTable.Tables[0].Rows)
@@ -180,12 +185,19 @@ namespace ChurchApp.DAL
                     command.CommandText += " WHERE " + conditions.Remove(conditions.Length - 4);
                 }
 
-            
-                using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(command.CommandText, excelConnection1))
+                try
                 {
-                    dataAdapter.Fill(dsFile);
+                    using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(command.CommandText, excelConnection1))
+                    {
+                        dataAdapter.Fill(dsFile);
+                    }
                 }
-               
+                catch (Exception ex)
+                {
+                    dsFile = null;
+                    throw;
+                }
+
             }
             catch (Exception ex)
             {
@@ -351,6 +363,7 @@ namespace ChurchApp.DAL
             DataSet DsExisting = null;
             try
             {
+                int j;
                 string conditions = "";
                 bool IsUpdate;
                 DsExisting = GetExistingTableData();//function call with table name as parameter
@@ -359,13 +372,13 @@ namespace ChurchApp.DAL
                 DataRow[] drkeyfields = dsTableDefinition.Tables[0].Select("Key_Field='Y'");
                 insertedRows = 0;
                 updatedRows = 0;
-                for (int j = 0; j < dsExcelCount; j++)   //--------------dsExcelLooping(Uploaded file)
+                for (j = 0; j < dsExcelCount; j++)   //--------------dsExcelLooping(Uploaded file)
                 {
                     conditions = "";
                     DataRow drExcelrow = dsExcel.Tables[0].Rows[j]; //Checking By Selecting Row by Row
                     foreach (DataRow drw in drkeyfields)          //where condition to find insertion of updation
                     {
-                       // conditions += drw[0].ToString() + "='" + dsExcel.Tables[0].Rows[j][drw[0].ToString()] + "' AND ";
+                        // conditions += drw[0].ToString() + "='" + dsExcel.Tables[0].Rows[j][drw[0].ToString()] + "' AND ";
                         conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(), dsExcel.Tables[0].Rows[j][drw[0].ToString()].ToString().Replace("'", "''"));
                     }
 
@@ -434,7 +447,7 @@ namespace ChurchApp.DAL
                                     {
                                         insertedRows = insertedRows + 1;
                                     }
-                                    
+
                                 }
                                 break;
                             case "MassTiming":
@@ -503,17 +516,17 @@ namespace ChurchApp.DAL
                                 break;
                             case "TownMaster":
                                 if (IsUpdate)
-                                {                                                                    
-                                   townObj.code = drExisting[0][0].ToString();
-                                   townObj.name=  drExcelrow[0].ToString();                                   
-                                   townObj.UpdateTownMaster();
-                                   if (townObj.status == "1")//update status return 2 while dupilcation,   
-                                   {
-                                       updatedRows = updatedRows + 1;  
-                                   }
+                                {
+                                    townObj.code = drExisting[0][0].ToString();
+                                    townObj.name = drExcelrow[0].ToString();
+                                    townObj.UpdateTownMaster();
+                                    if (townObj.status == "1")//update status return 2 while dupilcation,   
+                                    {
+                                        updatedRows = updatedRows + 1;
+                                    }
                                 }
                                 else
-                                {                                 
+                                {
                                     townObj.name = drExcelrow[0].ToString();
                                     townObj.InsertTownMaster();
                                     if (townObj.status == "1")
@@ -526,6 +539,10 @@ namespace ChurchApp.DAL
                                 break;
                         }
                     }
+                }
+                if (j == dsExcelCount)
+                {
+                    status = "1";
                 }
             }
             catch (Exception ex)
@@ -578,8 +595,8 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion GetTableDefinition
-		
-		
+
+
         #endregion Methods
 
         #region ValidationMethods
@@ -596,14 +613,13 @@ namespace ChurchApp.DAL
         /// <param name="ExcelDS"></param>
         /// <param name="TableDefinitionDS"></param>
         /// <returns>True/False</returns>
-        public bool Validation(DataSet ExcelDS,DataSet TableDefinitionDS)
+        public void Validation(DataSet ExcelDS,DataSet TableDefinitionDS)
         {
             dtError = CreateErrorTable();
             bool status = true;
             int res;
             try
             {
-             
                 excelNotExitingFields = new List<string>();
                 List<string> keyField = null;
                 status = ValidateType(ExcelDS, TableDefinitionDS, excelNotExitingFields, keyField);
@@ -619,8 +635,7 @@ namespace ChurchApp.DAL
                             status = false;
                         }
                     }
-                   
-                }     
+                }
                 else
                 {
                     DataRow dr = dtError.NewRow();
@@ -635,7 +650,6 @@ namespace ChurchApp.DAL
             {
                 throw ex;
             }
-            return status;
         }
         #endregion Validation
         #region ValidateData
@@ -645,7 +659,7 @@ namespace ChurchApp.DAL
             List<string> keyFields = new List<string>();
             try
             {
-              
+
                 bool flag = false;
 
                 //----------------------Manadatory Fields Checking-------------------//
@@ -678,87 +692,87 @@ namespace ChurchApp.DAL
 
                     if (drExcel[tableDefColumnName].ToString().Trim() != "" && !string.IsNullOrEmpty(drExcel[tableDefColumnName].ToString()))
                     {
-                    if (tableDefFieldType == "D" && !ValidateDate(drExcel[tableDefColumnName].ToString()))
-                    {
-                       // if (mandatoryField == "true")
-                      //  {
-                            flag = true;
-                      //  }
-                        
-                        errorList.Add(tableDefColumnName + "-" + "Invalid Date format");
-                    }
-                    else if (tableDefFieldType == "A" && !isAlphaNumeric(drExcel[tableDefColumnName].ToString()))
-                    {
-                       // if (mandatoryField == "true")
-                       // {
-                            flag = true;
-                      //  }
-                        errorList.Add(tableDefColumnName + "-" + "Invalid AlphaNumeric character");
-                    }
-                    else if (tableDefFieldType == "N" && !isNumber(drExcel[tableDefColumnName].ToString()))
-                    {
-                      //  if (mandatoryField == "true")
-                      //  {
-                            flag = true;
-                      //  }
-                        errorList.Add(tableDefColumnName + "-" + "Invalid Number");
-                    }
-                    else if (tableDefFieldType == "S" && !isString(drExcel[tableDefColumnName].ToString()))
-                    {
-                       // if (mandatoryField == "true")
-                       // {
-                            flag = true;
-                       // }
-                        errorList.Add(tableDefColumnName + "-" + "Invalid String");
-                    }
-                    else if (tableDefFieldType == "E" && !isEmail(drExcel[tableDefColumnName].ToString()))
-                    {
-                        // if (mandatoryField == "true")
-                        // {
-                        flag = true;
-                        // }
-                        errorList.Add(tableDefColumnName + "-" + "Invalid Email");
-                    }
-                    else if (tableDefFieldType == "M" && !isMobile(drExcel[tableDefColumnName].ToString()))
-                    {
-                        // if (mandatoryField == "true")
-                        // {
-                        flag = true;
-                        // }
-                        errorList.Add(tableDefColumnName + "-" + "Invalid Phone Number");
-                    }
-                    else if (tableDefFieldType == "T" && !isValidDateAndTime(drExcel[tableDefColumnName].ToString()))
-                    {
-                       // if (mandatoryField == "true")
-                       // {
-                            flag = true;
-                       // }
-                        errorList.Add(tableDefColumnName + "-" + "Invalid Time");
-                    }
-                      
-                    //------------------------------Field size checking-----------------------//
-
-
-                    if (tableDefFieldSize != null && tableDefFieldSize != "")
-                    {
-
-                        int tableDefLength = Convert.ToInt32(tableDefFieldSize);
-                        int excelColLength = drExcel[tableDefColumnName].ToString().Length;
-                        if (tableDefLength < excelColLength)
+                        if (tableDefFieldType == "D" && !ValidateDate(drExcel[tableDefColumnName].ToString()))
                         {
-                           // if (mandatoryField == "true")
-                           // {
+                            // if (mandatoryField == "true")
+                            //  {
+                            flag = true;
+                            //  }
+
+                            errorList.Add(tableDefColumnName + "-" + "Invalid Date format");
+                        }
+                        else if (tableDefFieldType == "A" && !isAlphaNumeric(drExcel[tableDefColumnName].ToString()))
+                        {
+                            // if (mandatoryField == "true")
+                            // {
+                            flag = true;
+                            //  }
+                            errorList.Add(tableDefColumnName + "-" + "Invalid AlphaNumeric character");
+                        }
+                        else if (tableDefFieldType == "N" && !isNumber(drExcel[tableDefColumnName].ToString()))
+                        {
+                            //  if (mandatoryField == "true")
+                            //  {
+                            flag = true;
+                            //  }
+                            errorList.Add(tableDefColumnName + "-" + "Invalid Number");
+                        }
+                        else if (tableDefFieldType == "S" && !isString(drExcel[tableDefColumnName].ToString()))
+                        {
+                            // if (mandatoryField == "true")
+                            // {
+                            flag = true;
+                            // }
+                            errorList.Add(tableDefColumnName + "-" + "Invalid String");
+                        }
+                        else if (tableDefFieldType == "E" && !isEmail(drExcel[tableDefColumnName].ToString()))
+                        {
+                            // if (mandatoryField == "true")
+                            // {
+                            flag = true;
+                            // }
+                            errorList.Add(tableDefColumnName + "-" + "Invalid Email");
+                        }
+                        else if (tableDefFieldType == "M" && !isMobile(drExcel[tableDefColumnName].ToString()))
+                        {
+                            // if (mandatoryField == "true")
+                            // {
+                            flag = true;
+                            // }
+                            errorList.Add(tableDefColumnName + "-" + "Invalid Phone Number");
+                        }
+                        else if (tableDefFieldType == "T" && !isValidDateAndTime(drExcel[tableDefColumnName].ToString()))
+                        {
+                            // if (mandatoryField == "true")
+                            // {
+                            flag = true;
+                            // }
+                            errorList.Add(tableDefColumnName + "-" + "Invalid Time");
+                        }
+
+                        //------------------------------Field size checking-----------------------//
+
+
+                        if (tableDefFieldSize != null && tableDefFieldSize != "")
+                        {
+
+                            int tableDefLength = Convert.ToInt32(tableDefFieldSize);
+                            int excelColLength = drExcel[tableDefColumnName].ToString().Length;
+                            if (tableDefLength < excelColLength)
+                            {
+                                // if (mandatoryField == "true")
+                                // {
                                 flag = true;
-                            //}
-                           
-                            errorList.Add(tableDefColumnName + "-" + "Invalid Field Size");
+                                //}
+
+                                errorList.Add(tableDefColumnName + "-" + "Invalid Field Size");
+                            }
                         }
                     }
-                }
-                                                            
+
                 }
 
-                               
+
                 if (flag == true)
                 {
                     DataRow dr = dtError.NewRow();
@@ -778,7 +792,7 @@ namespace ChurchApp.DAL
             {
                 throw ex;
             }
-           
+
         }
         #endregion ValidateData
         #region CreateErrorTable
@@ -898,7 +912,7 @@ namespace ChurchApp.DAL
             {
                 strToCheck = strToCheck.Substring(10);
             }
-            
+
             Regex rg = new Regex(@"^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)?([ ]?[a|p]m)?$", RegexOptions.IgnoreCase);
             if (rg.IsMatch(strToCheck))
                 return true;
@@ -957,20 +971,20 @@ namespace ChurchApp.DAL
             {
                 DataColumnCollection excelColumns = ExcelDS.Tables[0].Columns;
                 foreach (DataRow tableDefRow in TableDefinitionDS.Tables[0].Rows)
-               {
-                   string tableDefColumnName = tableDefRow["Field_Name"].ToString();
-                  keyFields.Add(ExcelDS.Tables[0].Rows[0][tableDefColumnName].ToString());
-                   if (excelColumns.Contains(tableDefColumnName))
-                   {
-                       //status = true;
-                   }
+                {
+                    string tableDefColumnName = tableDefRow["Field_Name"].ToString();
+                    keyFields.Add(ExcelDS.Tables[0].Rows[0][tableDefColumnName].ToString());
+                    if (excelColumns.Contains(tableDefColumnName))
+                    {
+                        //status = true;
+                    }
                     else
-                   {
-                       status = false;
-                       excelNotExitingFields.Add(tableDefColumnName);
-                   }
-               }
-               
+                    {
+                        status = false;
+                        excelNotExitingFields.Add(tableDefColumnName);
+                    }
+                }
+
             }
             catch(Exception ex)
             {

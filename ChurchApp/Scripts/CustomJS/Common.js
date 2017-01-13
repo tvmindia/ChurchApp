@@ -351,7 +351,8 @@ var Pages = {
     PiousInstitution: "Pious Institutions",
     MassShedules: "Mass Shedules",
     Novenas: "Novenas",
-    Notifications: "Notifications"
+    Notifications: "Notifications",
+    ImportExcel:"Import Excel"
 }
 
 //--------------* Messages * ---------------//
@@ -434,6 +435,9 @@ var Messages = {
 
     TimeSelect: " Please Select Time",
     DaySelect: "Please Select a Day",
+
+    ExcelUploadSuccess:"Upload Successfully Finished",
+    ExcelUploadFailure: "Uploading Failure",
 
     BugNotFixed: "Please fix the Bug..!!!",
     SelectBug: "Failure..!!! Please Select a Bug to Edit"

@@ -72,39 +72,51 @@ namespace ChurchApp.ExcelHandler
                             {
                                 dsExcel = new DataSet();
                                 dsTableDefenition = ImportXL.GetTableDefinition();
+                                try
+                                { 
                                 dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);
-                                ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString();
-                                bool result = ImportXL.Validation(dsExcel, dsTableDefenition);
-
-                                if (dsExcel.Tables[0].Rows.Count > 0)
+                                }
+                                catch (Exception ex)
                                 {
-                                    ImportXL.ExcelImports(dsExcel, dsTableDefenition);
+                                    ImportXL.status = ex.Message;
                                 }
 
-                                if (ImportXL.dtError.Rows.Count > 0)
+                                if (dsExcel != null && dsExcel.Tables.Count>0)
                                 {
+                                    ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString();
+                                    ImportXL.Validation(dsExcel, dsTableDefenition);                                    
+                                    if (dsExcel.Tables[0].Rows.Count > 0)
+                                    {
+                                        ImportXL.ExcelImports(dsExcel, dsTableDefenition);
+                                    }
                                     if (ImportXL.dtError.Rows.Count > 0)
                                     {
-                                        foreach (DataRow row in ImportXL.dtError.Rows)
+                                        if (ImportXL.dtError.Rows.Count > 0)
                                         {
-                                            ImportXL.childRow = new Dictionary<string, object>();
-                                            foreach (DataColumn col in ImportXL.dtError.Columns)
+                                            foreach (DataRow row in ImportXL.dtError.Rows)
                                             {
-                                                ImportXL.childRow.Add(col.ColumnName, row[col]);
+                                                ImportXL.childRow = new Dictionary<string, object>();
+                                                foreach (DataColumn col in ImportXL.dtError.Columns)
+                                                {
+                                                    ImportXL.childRow.Add(col.ColumnName, row[col]);
+                                                }
+                                                ImportXL.parentRow.Add(ImportXL.childRow);
                                             }
-                                            ImportXL.parentRow.Add(ImportXL.childRow);
                                         }
-
+                                        jsSerializer.Serialize(ImportXL.parentRow);
+                                        ImportXL.dtError = null;
+                                        // context.Response.Write(jsSerializer.Serialize(ImportXL.parentRow));
+                                        context.Response.Write(jsSerializer.Serialize(ImportXL));
                                     }
-                                    jsSerializer.Serialize(ImportXL.parentRow);
-                                    ImportXL.dtError = null;
-                                    // context.Response.Write(jsSerializer.Serialize(ImportXL.parentRow));
-                                    context.Response.Write(jsSerializer.Serialize(ImportXL));
+                                    else
+                                    {
+                                        ImportXL.dtError = null;
+                                        context.Response.Write(jsSerializer.Serialize(ImportXL));
+                                    }                                   
                                 }
-                                else
+                                else 
                                 {
-                                    ImportXL.dtError = null;
-                                    context.Response.Write(jsSerializer.Serialize(ImportXL));
+                                    context.Response.Write(jsSerializer.Serialize(ImportXL)); 
                                 }
                             }
                         }
