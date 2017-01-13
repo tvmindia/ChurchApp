@@ -1,55 +1,64 @@
 ﻿var formatRepo = "";
 var formatRepoSelection = "";
 $(document).ready(function () {
-    GetParamValue();
-    $(".ddlChurch").select2({
-        placeholder: 'Select church / town..',
-        allowClear: true,
-        ajax: {
-            url: "../AdminPanel/DashBoard.aspx/GetAllChurch",
-            dataType: 'json',
-            type: "post",
-            contentType: "application/json",
-            async: false,
-            delay: 250,
-            data: function (params) {
-                {
-                    var Church = new Object();
-                    Church.SearchTerm = params.term;
-                    return "{'churchObj':" + JSON.stringify(Church) + "}";
+    debugger;
+    try
+    {
+        GetParamValue();
+        $(".ddlChurch").select2({
+            placeholder: 'Select church / town..',
+            allowClear: true,
+            ajax: {
+                url: "../AdminPanel/DashBoard.aspx/GetAllChurch",
+                dataType: 'json',
+                type: "post",
+                contentType: "application/json",
+                async: false,
+                delay: 250,
+                data: function (params) {
+                    {
+                        var Church = new Object();
+                        Church.SearchTerm = params.term;
+                        return "{'churchObj':" + JSON.stringify(Church) + "}";
 
-                };
-            },
-            processResults: function (data, params) {
-                // parse the results into the format expected by Select2
-                // since we are using custom formatting functions we do not need to
-                // alter the remote JSON data, except to indicate that infinite
-                // scrolling can be used
-                params.page = params.page || 1;
+                    };
+                },
+                processResults: function (data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
 
-                return {
-                    results: JSON.parse(data.d),
-                    pagination: {
-                        more: (params.page * 30) < data.total_count
-                    }
-                };
+                    return {
+                        results: JSON.parse(data.d),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
             },
-            cache: true
-        },
-        //escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-        //minimumInputLength: 1,
-        //templateResult: formatRepo, // omitted for brevity, see the source of this page
-        //templateSelection: FormatResults // omitted for brevity, see the source of this page
-    });
-    var $eventchurchSelect = $("#churchSelect");
-    $eventchurchSelect.on("change", function (e) {
-       var churchId = $("#churchSelect").val();
-        if ((churchId != "") && (churchId != null))
-        {
-            window.location.replace(window.location.protocol + "//" + window.location.host + "/AdminPanel/DashBoard.aspx?eid=" + churchId);
-        }
-    });
-    BindNotification();
+            //escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+            //minimumInputLength: 1,
+            //templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: FormatResults // omitted for brevity, see the source of this page
+        });
+        var $eventchurchSelect = $("#churchSelect");
+        $eventchurchSelect.on("change", function (e) {
+            var churchId = $("#churchSelect").val();
+            if ((churchId != "") && (churchId != null))
+            {
+                window.location.replace(window.location.protocol + "//" + window.location.host + "/AdminPanel/DashBoard.aspx?eid=" + churchId);
+            }
+        });
+        BindNotification();
+    }
+    catch(e)
+    {
+
+    }
+    
 });   // end of document.ready
 
 function GetReviews() {
@@ -111,32 +120,39 @@ function GetParamValue() {
 }
 j = 0;
 function MultiReviewBind(Records, i, Date) {
-    debugger;
-    j = j + 1;
-    var spancount = document.getElementById("countspan");
-    spancount.innerHTML = j;
-    var ul = document.getElementById("NotifyArea");
-    var li = document.createElement("li");
-    var ali = document.createElement("a");
-    ali.setAttribute("onclick", "Redirect()")
-    li.setAttribute("id", Records.UserName);
-    var Spanform = document.createElement('span');
-    Spanform.className = "icon-comment-alt";
-    var ic = document.createElement("i");
+    try
+    {
+        debugger;
+        j = j + 1;
+        var spancount = document.getElementById("countspan");
+        spancount.innerHTML = j;
+        var ul = document.getElementById("NotifyArea");
+        var li = document.createElement("li");
+        var ali = document.createElement("a");
+        ali.setAttribute("onclick", "Redirect()")
+        li.setAttribute("id", Records.UserName);
+        var Spanform = document.createElement('span');
+        Spanform.className = "icon-comment-alt";
+        var ic = document.createElement("i");
 
-    ic.className = "icon-user";
-    Spanform.appendChild(ic);
-    var SpanMsg = document.createElement('span');
-    SpanMsg.className = "message";
-    SpanMsg.innerHTML = ' '+Records.UserName + ' Requested for Adding ' + Records.ChurchName;
-    var Spantime = document.createElement('span');
-    Spantime.className = "time";
-    Spantime.innerHTML = "\t &nbsp;&nbsp;&nbsp;" + ConvertJsonToDat(Records.CreatedDate);
-    ali.appendChild(Spanform);
-    ali.appendChild(SpanMsg);
-    ali.appendChild(Spantime);
-    li.appendChild(ali);
-    ul.appendChild(li);
+        ic.className = "icon-user";
+        Spanform.appendChild(ic);
+        var SpanMsg = document.createElement('span');
+        SpanMsg.className = "message";
+        SpanMsg.innerHTML = ' '+Records.UserName + ' Requested for Adding ' + Records.ChurchName;
+        var Spantime = document.createElement('span');
+        Spantime.className = "time";
+        Spantime.innerHTML = "\t &nbsp;&nbsp;&nbsp;" + ConvertJsonToDat(Records.CreatedDate);
+        ali.appendChild(Spanform);
+        ali.appendChild(SpanMsg);
+        ali.appendChild(Spantime);
+        li.appendChild(ali);
+        ul.appendChild(li);
+    }
+    catch(e)
+    {
+
+    }
 
 }
 function ConvertJsonToDat(jsonDate) {

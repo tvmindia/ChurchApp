@@ -7,6 +7,7 @@
         else
             $('i', $(this)).removeClass('chevron-down').addClass('chevron-up');
         $target.slideToggle(500);
+
     });
 
     $('.btn-setting').click(function(e){
