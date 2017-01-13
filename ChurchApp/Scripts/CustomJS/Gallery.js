@@ -1,5 +1,6 @@
 ﻿var canvas_elem = '';
 var $video = '';
+
 $("document").ready(function (e) {
    //Container for images and videos will be hidden first 
    $('#divImages').hide();
@@ -11,7 +12,7 @@ $("document").ready(function (e) {
             document.getElementById('AlbumUploader').addEventListener('change', handleFileSelect, false);
             document.getElementById('imageUploader').addEventListener('change', handleFileSelectInImages, false);
             //document.getElementById('AlbumVidUploader').addEventListener('change', handleFileVideoAlbum, false);
-            document.getElementById('VideoUploader').addEventListener('change', handleVideoFile, false);
+            //document.getElementById('VideoUploader').addEventListener('change', handleVideoFile, false);
         }
         else {
             noty({ type: 'error', text: Messages.BrowserSupport });
@@ -175,17 +176,20 @@ $("document").ready(function (e) {
         
         try {
             debugger;
+
+            $("#progressbarUploadinVidAlbum").show();
             var video = document.getElementById('previewVideodiv1video');
             var canvas = document.getElementById('previewVideodiv1canvas');
             canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-
+            $('#previewVideodiv1video').trigger('pause');
+            $('video').css('opacity', '0.2');
             // Generate the image data
             var Pic = document.getElementById("previewVideodiv1canvas").toDataURL("image/png");
             Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "")
             var videofile;
 
             if ((videofile = $('#AlbumVidUploader')[0].files.length > 0)) {
-                $("#progressbarUploadinVidAlbum").show();
+                
                 barinAlbum.animate(0.1);  // Number from 0.0 to 1.0
                 var formData = new FormData();
                 formData.append('AlbumVideo', $('#AlbumVidUploader')[0].files[0], $('#AlbumVidUploader')[0].files[0].name);
@@ -206,8 +210,7 @@ $("document").ready(function (e) {
                         debugger;
                         barinAlbum.animate(1.0);  // Number from 0.0 to 1.0
                         noty({ type: 'success', text: Messages.AlbumUploadInsert });
-                        BindGalleryVideoAlbum();
-                        $("#progressbarUploadinVidAlbum").hide();
+                        BindGalleryVideoAlbum();                      
                         break;
                     case "0":
                         $('#progressbarUploadinVidAlbum').hide();
@@ -218,6 +221,7 @@ $("document").ready(function (e) {
                         noty({ type: 'error', text: result.status });
                         break;
                 }
+                $('#BtnVideoAlbumSave').hide();
             }
         }
         catch (e) {
@@ -231,8 +235,16 @@ $("document").ready(function (e) {
       
         bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
         bar.text.style.fontSize = '2rem';
-     
         $('#progressbarUpload').show();
+        var video = document.getElementById('previewVideodiv1video1');
+        var canvas = document.getElementById('previewVideodiv1canvas1');
+        canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        $('#previewVideodiv1video1').trigger('pause');
+        $('video').css('opacity', '0.2');
+        // Generate the image data
+        var Pic = document.getElementById("previewVideodiv1canvas1").toDataURL("image/png");
+        Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "")
+        
         var albid = $('#hdfAlbumID').val();
         try {
             var videofile;
@@ -240,6 +252,7 @@ $("document").ready(function (e) {
                 bar.animate(0.3);  // Number from 0.0 to 1.0
                 var formData = new FormData();
                 formData.append('Video', $('#VideoUploader')[0].files[0], $('#VideoUploader')[0].files[0].name);
+                formData.append('Thubnailimage', Pic);
                 bar.animate(0.4);
                 formData.append('Album', 'AddMoreVideos');
                 bar.animate(0.5);
@@ -258,7 +271,7 @@ $("document").ready(function (e) {
                        
                         BindVideos(albid);
                        
-                        $('#progressbarUpload').hide();
+                        //$('#progressbarUpload').hide();
                         break;
                     case "0":
                      
@@ -271,7 +284,7 @@ $("document").ready(function (e) {
                         $('#progressbarUpload').hide();
                         break;
                 }
-             
+                $('#btnMoreVideoSave').hide();
            }
                
         }
@@ -451,8 +464,15 @@ $("document").ready(function (e) {
         try
         {
             debugger;
+            
+            $('#BtnVideoAlbumSave').show();
+            $('#btnMoreVideoSave').show();
+            $('video').css({'opacity': '','width':'250px','height':'250px'});
             $('#txtVidAlbumName').val('');
             $('#txtAlbumName').val('');
+            $('video').attr('src', '');
+            $('#VideoPreviewdiv').hide();
+            $('#VideoPreviewdiv1').hide();
             var fileinputcontrolID = ["AlbumUploader", "imageUploader", "AlbumVidUploader", "VideoUploader"];
             var handlemethods = [handleFileSelect, handleFileSelectInImages, handleFileVideoAlbum, handleVideoFile];
             for (i = 0; i < fileinputcontrolID.length; i++)
@@ -463,18 +483,6 @@ $("document").ready(function (e) {
                 document.getElementById(''+ fileinputcontrolID[i] +'').addEventListener("change", handlemethods[i], false);
                
             }
-            //document.getElementById('AlbumUploader').addEventListener('change', handleFileSelect, false);
-            //document.getElementById('imageUploader').addEventListener('change', handleFileSelectInImages, false);
-            //document.getElementById('AlbumVidUploader').addEventListener('change', handleFileVideoAlbum, false);
-            //document.getElementById('VideoUploader').addEventListener('change', handleVideoFile, false);
-            //Upload Controls clear
-            //document.getElementById("AlbumUploader").val('');
-            //document.getElementById("imageUploader").val('');
-            //document.getElementById("AlbumVidUploader").val('');
-            //document.getElementById("VideoUploader").val('');
-            //var cloned = $("#AlbumUploader").clone(true);
-            //cloned.val("");
-            //$("#AlbumUploader").replaceWith(cloned);
         }
         catch(e)
         {
@@ -572,7 +580,12 @@ $("document").ready(function (e) {
     
 
 });//end of document.ready
-
+function VideosAddnapshot(this_obj) {
+    debugger;
+    var video = document.getElementById('previewVideodiv1video1');
+    video.src = URL.createObjectURL(this_obj.files[0]);
+    $('#VideoPreviewdiv1').show();
+}
 function Videosnapshot(this_obj)
 {
     debugger;
@@ -905,8 +918,8 @@ function handleFileSelectInImages(evt) {
 function handleFileVideoAlbum(evt)
 {
  
-    var files = evt.target.files; // FileList object
-    $("#previewVideodiv").append('<span><i class="halflings-icon facetime-video"></i>' + files[0].name + '</span>');
+   // var files = evt.target.files; // FileList object
+   // $("#previewVideodiv").append('<span><i class="halflings-icon facetime-video"></i>' + files[0].name + '</span>');
  }
 
 function handleVideoFile(evt) {
@@ -1182,12 +1195,14 @@ function AppendVideoAlbum(Records) {
         debugger;
         $('.VidAlb').remove();
         $.each(Records, function (index, Records) {
-            var thumbid = Records.GroupItemID;
+            debugger;
+            var AlbumName = ((Records.AlbumName != null && Records.AlbumName != "") ? Records.AlbumName : "My Album");
+            var thumbid = Records.GroupItemID;  
             if (thumbid == null) {
-                var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewVideos(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 VidAlb Card"><a alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + Records.AlbumName + '</span><br><span class="badge"><i class="halflings-icon facetime-video white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Videos</span></div></div></a></div>';
+                var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewVideos(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 VidAlb Card"><a alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + AlbumName + '</span><br><span class="badge"><i class="halflings-icon facetime-video white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Videos</span></div></div></a></div>';
            }
             else {
-                var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewVideos(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 VidAlb Card"><a alt="Church"><div style="background-image: url(/vid/Poster/' + Records.GroupItemID + '.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + Records.AlbumName + '</span><br><span class="badge"><i class="halflings-icon facetime-video white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Videos</span></div></div></a></div>';
+                var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewVideos(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 VidAlb Card"><a alt="Church"><div style="background-image: url(/vid/Poster/' + Records.GroupItemID + '.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + AlbumName + '</span><br><span class="badge"><i class="halflings-icon facetime-video white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Videos</span></div></div></a></div>';
             }
             $('.VideoAlbum-gallery').append(html);
         })

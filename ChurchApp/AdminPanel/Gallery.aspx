@@ -244,7 +244,7 @@
                                   
                         </div>
          
-              <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:34px;" id="progressbarUploadinVidAlbum"></div>  
+              <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:65px;" id="progressbarUploadinVidAlbum"></div>  
 
 			
 		</div>
@@ -268,7 +268,7 @@
                                 <div class="control-group" style="margin-top:20px">
 							    <div class="controls">
 								 
-                                    <input class="input-file" id="VideoUploader" style="display:none" name="VidepUploader[]" accept="video/*" type="file"/>
+                                    <input class="input-file" id="VideoUploader" style="display:none" name="VidepUploader[]" onchange="VideosAddnapshot(this)" accept="video/*" type="file"/>
                          		</div>
 								</div>
                           
@@ -276,14 +276,17 @@
                                 </div>
                         </div>
                        <div class="span10" id="previewupVideodiv">
-                       <output id="imageListVideo" class=""> 
-                       <span style="height: 176px!important;border: 2px dotted black;background-color: #fff;width: 180px;display: block;float: left;margin:4px;">
-                       <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 133px;left: 109px;" src="../img/Plussymbol.png"/>
-                        <a onclick="BtnMoreVideoUploads();" class="" style="top:62%;left:28%;position:relative;cursor:pointer;"  id="btnuploadVideo">Choose Videos</a>
-                       </span>
-                                
-
-                            </output>
+                      
+                             <div class="span6">
+                                 <img style="position:relative;cursor:pointer" class="imagebutton" title="ADD VIDEO" src="../img/VideoAdd.PNG" width="150" height="150" onclick="BtnMoreVideoUploads();"/>
+                             </div>
+                            <div class="span6" id="VideoPreviewdiv1" style="display:none;">
+                            <video id="previewVideodiv1video1" src="" loop="loop" style="object-fit: cover!important;" width="250" height="250" type="video/mp4" controls autoplay></video><br/>
+                            <canvas id="previewVideodiv1canvas1" width="247" height="247" style="visibility:hidden;position:absolute;"></canvas> <br/><br/>
+                            </div>
+                             
+                                  
+                       
 
 
                             <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:29px;" id="progressbarUpload"></div>                                  
@@ -296,31 +299,6 @@
 		</div>
 	          </div>
 
-         <%-- <div class="modal hide fade" id="NewVideoAlbumModel1">
-		    <div class="modal-header">
-			<button type="button" class="close modelClear" data-dismiss="modal">×</button>
-			<h3>New Video Album</h3>
-		</div>
-		          <div class="modal-body">
-             
-                         <div class="span12">
-                                <div class="span12">
-								  <input class="input-large focused span12" name="Name" id="txtVidAlbumName1" placeholder="Enter album name(Maximum 100 characters)" type="text"/>
-                                    <input class="input-file" id="AlbumVidUploader1" name="AlbumVidUploader[]" accept="video/*" onchange="Videosnapshot(this)" type="file"/>
-                         		</div>
-		            	  </div>
-                         <div class="span10" id="previewVideodiv1">
-                            <video id="previewVideodiv1video" src="" loop="loop" style="object-fit: cover!important;" width="250" height="250" type="video/mp4" controls autoplay></video><br/>
-                            <canvas id="previewVideodiv1canvas" width="200" height="200"></canvas> <br/><br/>      
-                        </div>
-         
-              
-
-			
-		</div>
-		     <div class="modal-footer">
-		</div>
-	          </div>--%>
               <!--End Models used in this page-->
 
 
