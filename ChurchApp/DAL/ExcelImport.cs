@@ -440,25 +440,65 @@ namespace ChurchApp.DAL
                             case "MassTiming":
                                 if (IsUpdate)
                                 {
-                                    //update
-                                    updatedRows = updatedRows + 1;  
+                                    //masstymObj.UpdateMassTiming();                                   
+                                    //if (townObj.status == "1")
+                                    //{
+                                    updatedRows = updatedRows + 1;
+                                    //}                                   
                                 }
                                 else
                                 {
-                                    //insert
+                                    //masstymObj.InsertMassTiming();
+                                    //if (townObj.status == "1")
+                                    //{
                                     insertedRows = insertedRows + 1;
+                                    //}
                                 }
                                 break;
                             case "Priest":
                                 if (IsUpdate)
                                 {
-                                    //update
-                                    updatedRows = updatedRows + 1;  
+                                    priestObj.priestName = drExcelrow[0].ToString();
+                                    priestObj.dob = drExcelrow[1].ToString();
+                                    priestObj.dateOrdination = drExcelrow[2].ToString();
+                                    priestObj.about = drExcelrow[3].ToString();
+                                    priestObj.BaptisumName = drExcelrow[4].ToString();
+                                    priestObj.address = drExcelrow[5].ToString();
+                                    priestObj.mobile = drExcelrow[6].ToString();
+                                    priestObj.Parish = drExcelrow[7].ToString();
+                                    priestObj.Diocese = drExcelrow[8].ToString();
+                                    priestObj.emailId = drExcelrow[9].ToString();
+                                    priestObj.designation = drExcelrow[10].ToString();
+                                    priestObj.Status = drExcelrow[11].ToString();
+                                    //priestObj.isactive = drExcelrow[12].ToString(); //-----isactive
+
+                                    //priestObj.UpdatePriest();
+                                    //if (priestObj.result == "1")
+                                    //{
+                                    updatedRows = updatedRows + 1;
+                                    //}
                                 }
                                 else
                                 {
-                                    //insert
+                                    priestObj.priestName = drExcelrow[0].ToString();
+                                    priestObj.dob = drExcelrow[1].ToString();
+                                    priestObj.dateOrdination = drExcelrow[2].ToString();
+                                    priestObj.about = drExcelrow[3].ToString();
+                                    priestObj.BaptisumName = drExcelrow[4].ToString();
+                                    priestObj.address = drExcelrow[5].ToString();
+                                    priestObj.mobile = drExcelrow[6].ToString();
+                                    priestObj.Parish = drExcelrow[7].ToString();
+                                    priestObj.Diocese = drExcelrow[8].ToString();
+                                    priestObj.emailId = drExcelrow[9].ToString();
+                                    priestObj.designation = drExcelrow[10].ToString();
+                                    priestObj.Status = drExcelrow[11].ToString();
+                                    //priestObj.isactive = drExcelrow[12].ToString(); //-----isactive
+
+                                    // priestObj.InsertPriest();
+                                    //if (priestObj.result == "1")
+                                    //{
                                     insertedRows = insertedRows + 1;
+                                    //}                                  
                                 }
                                 break;
                             case "TownMaster":
@@ -671,6 +711,22 @@ namespace ChurchApp.DAL
                        // }
                         errorList.Add(tableDefColumnName + "-" + "Invalid String");
                     }
+                    else if (tableDefFieldType == "E" && !isEmail(drExcel[tableDefColumnName].ToString()))
+                    {
+                        // if (mandatoryField == "true")
+                        // {
+                        flag = true;
+                        // }
+                        errorList.Add(tableDefColumnName + "-" + "Invalid Email");
+                    }
+                    else if (tableDefFieldType == "M" && !isMobile(drExcel[tableDefColumnName].ToString()))
+                    {
+                        // if (mandatoryField == "true")
+                        // {
+                        flag = true;
+                        // }
+                        errorList.Add(tableDefColumnName + "-" + "Invalid Phone Number");
+                    }
                     else if (tableDefFieldType == "T" && !isValidDateAndTime(drExcel[tableDefColumnName].ToString()))
                     {
                        // if (mandatoryField == "true")
@@ -787,7 +843,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool isString(string strToCheck)
         {
-            Regex rg = new Regex(@"^[a-zA-Z\s\.'&,0-9-]+$",RegexOptions.Multiline);
+            Regex rg = new Regex(@"^[a-zA-Z\s\.():'&,0-9-]+$",RegexOptions.Multiline);
             if (rg.IsMatch(strToCheck))
                 return true;
             else
@@ -795,6 +851,40 @@ namespace ChurchApp.DAL
         }
 
         #endregion String Validation
+
+        #region Email Validation
+        /// <summary>
+        /// Alphanumeric Validation
+        /// </summary>
+        /// <param name="strToCheck"></param>
+        /// <returns></returns>
+        private static bool isEmail(string strToCheck)
+        {
+            Regex rg = new Regex(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+            if (rg.IsMatch(strToCheck))
+                return true;
+            else
+                return false;
+        }
+
+        #endregion Email Validation
+
+        #region Mobile Validation
+        /// <summary>
+        /// Alphanumeric Validation
+        /// </summary>
+        /// <param name="strToCheck"></param>
+        /// <returns></returns>
+        private static bool isMobile(string strToCheck)
+        {
+            Regex rg = new Regex(@"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
+            if (rg.IsMatch(strToCheck))
+                return true;
+            else
+                return false;
+        }
+
+        #endregion Mobile Validation
 
         #region Time Validation
         /// <summary>
