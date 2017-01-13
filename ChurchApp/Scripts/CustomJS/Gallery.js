@@ -178,12 +178,14 @@ $("document").ready(function (e) {
             debugger;
             if ((videofile = $('#AlbumVidUploader')[0].files.length > 0))
             {
+                $('video').css('opacity', '0.2');
                 $("#progressbarUploadinVidAlbum").show();
+                bar.animate(0.1);
                 var video = document.getElementById('previewVideodiv1video');
                 var canvas = document.getElementById('previewVideodiv1canvas');
                 canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
                 $('#previewVideodiv1video').trigger('pause');
-                $('video').css('opacity', '0.2');
+                
                 // Generate the image data
                 var Pic = document.getElementById("previewVideodiv1canvas").toDataURL("image/png");
                 Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "")
@@ -243,12 +245,13 @@ $("document").ready(function (e) {
         bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
         bar.text.style.fontSize = '2rem';
         if ((videofile = $('#VideoUploader')[0].files.length > 0)) {
+            $('video').css('opacity', '0.2');
             $('#progressbarUpload').show();
+            bar.animate(0.1);
             var video = document.getElementById('previewVideodiv1video1');
             var canvas = document.getElementById('previewVideodiv1canvas1');
             canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
             $('#previewVideodiv1video1').trigger('pause');
-            $('video').css('opacity', '0.2');
             // Generate the image data
             var Pic = document.getElementById("previewVideodiv1canvas1").toDataURL("image/png");
             Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "")
