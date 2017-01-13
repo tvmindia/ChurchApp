@@ -947,6 +947,41 @@ namespace ChurchApp.WebServices
 
         #endregion GetAllLatestEventsbyChurchId
 
+        #region GetAllOldEventsbyChurchId
+        [WebMethod]
+        public string GetAllOldEventsbyChurchID(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Events Evtobj = new DAL.Events();
+                Evtobj.churchId = ChurchID;
+                dt = Evtobj.SelectOldEvents().Tables[0];
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
+
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+
+        #endregion GetAllLatestEventsbyChurchId
+
         #endregion Events
 
         #region Priests
