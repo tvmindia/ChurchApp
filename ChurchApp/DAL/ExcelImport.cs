@@ -711,6 +711,22 @@ namespace ChurchApp.DAL
                        // }
                         errorList.Add(tableDefColumnName + "-" + "Invalid String");
                     }
+                    else if (tableDefFieldType == "E" && !isEmail(drExcel[tableDefColumnName].ToString()))
+                    {
+                        // if (mandatoryField == "true")
+                        // {
+                        flag = true;
+                        // }
+                        errorList.Add(tableDefColumnName + "-" + "Invalid Email");
+                    }
+                    else if (tableDefFieldType == "M" && !isMobile(drExcel[tableDefColumnName].ToString()))
+                    {
+                        // if (mandatoryField == "true")
+                        // {
+                        flag = true;
+                        // }
+                        errorList.Add(tableDefColumnName + "-" + "Invalid Phone Number");
+                    }
                     else if (tableDefFieldType == "T" && !isValidDateAndTime(drExcel[tableDefColumnName].ToString()))
                     {
                        // if (mandatoryField == "true")
@@ -827,7 +843,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool isString(string strToCheck)
         {
-            Regex rg = new Regex(@"^[a-zA-Z\s\.'&,0-9-]+$",RegexOptions.Multiline);
+            Regex rg = new Regex(@"^[a-zA-Z\s\.():'&,0-9-]+$",RegexOptions.Multiline);
             if (rg.IsMatch(strToCheck))
                 return true;
             else
@@ -835,6 +851,40 @@ namespace ChurchApp.DAL
         }
 
         #endregion String Validation
+
+        #region Email Validation
+        /// <summary>
+        /// Alphanumeric Validation
+        /// </summary>
+        /// <param name="strToCheck"></param>
+        /// <returns></returns>
+        private static bool isEmail(string strToCheck)
+        {
+            Regex rg = new Regex(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+            if (rg.IsMatch(strToCheck))
+                return true;
+            else
+                return false;
+        }
+
+        #endregion Email Validation
+
+        #region Mobile Validation
+        /// <summary>
+        /// Alphanumeric Validation
+        /// </summary>
+        /// <param name="strToCheck"></param>
+        /// <returns></returns>
+        private static bool isMobile(string strToCheck)
+        {
+            Regex rg = new Regex(@"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
+            if (rg.IsMatch(strToCheck))
+                return true;
+            else
+                return false;
+        }
+
+        #endregion Mobile Validation
 
         #region Time Validation
         /// <summary>
