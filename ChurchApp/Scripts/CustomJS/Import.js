@@ -32,26 +32,21 @@ $("document").ready(function (e) {
         noty({ type: 'error', text: e.message });
     }
     $(".uploadexcel").click(function (e) {
-        debugger;
-       
+        //debugger;
         var excelresult;
+        var valresult = validateExcel();
         
-        if ((excelresult = $('#excelfileuploader')[0].files.length > 0) && $("#ddlexceldropdown").val()!="")
+        if ((excelresult = $('#excelfileuploader')[0].files.length > 0) && $("#ddlexceldropdown").val()!="" && valresult)
         {
-            validateExcel();
-         
             var Import = new Object();
             Import.Exceltable = $("#ddlexceldropdown").val();
-
             var formData = new FormData();
             var excelfile;
             excelfile = $('#excelfileuploader')[0].files[0];
             formData.append('upImageFile', excelfile, excelfile.name);
             formData.append('ActionTyp',Import.Exceltable);
-
             var result = postBlobAjax(formData, " ../ExcelHandler/ExcelHandler.ashx");
-            debugger;
-            
+            //debugger;            
             switch (result.status)
             {
                 case "1":
@@ -82,45 +77,12 @@ $("document").ready(function (e) {
                     noty({ type: 'error', text: result.status });
                     break;
             }
-
         }
-        else
-        {
+        else {
+            if (valresult == true)
             noty({ type: 'error', text: Messages.Validation });
-        }
-        
+        }        
     })
-
-    //try {
-
-    //    var ImportError = new Object();
-    //    ImportError = $('#Importtable').DataTable(
-    //     {
-    //         dom: '<"top"f>rt<"bottom"ip><"clear">',
-    //         order: [],
-    //         searching: true,
-    //         paging: true,
-    //         data: GetAllErrorData(Excel),
-    //         columns: [
-
-    //           { "data": "RowNo", "defaultContent": "<i>-</i>" },
-    //           { "data": "FieldName","defaultContent": "<i>-</i>" },
-    //           { "data": "ErrorDesc", "defaultContent": "<i>-</i>" }
-    //         ],
-    //         columnDefs: [
-    //          {//hiding hidden column field churchid
-    //              "targets": [0, 1],
-    //              "visible": false,
-    //              "searchable": false
-    //          }
-    //         ]
-    //     });
-
-    //}
-    //catch (e) {
-    //    noty({ type: 'error', text: e.message });
-    //}
-
 });// end of document.ready
 
 function GetAllErrorData(ds)
@@ -169,6 +131,7 @@ function BindIImportTable() {
     }
 
 }
+
 function GetExcelTablenames(Excel) {
     var ds = {};
     var table = {};
@@ -182,7 +145,6 @@ function GetExcelTablenames(Excel) {
     return table;
 }
 
-
 function validateExcel() {
     debugger;
     var fileUpload = document.getElementById('excelfileuploader');
@@ -193,8 +155,6 @@ function validateExcel() {
         return false;
     }
 }
-
-
 //function to validate Excel file extension
 function validateExcelExtension(ext) {
     if (!/(\xls|\xlsx|\XLS|\XLSX)$/i.test(ext)) {
