@@ -265,6 +265,51 @@ namespace ChurchApp.DAL
         }
         #endregion SelectAllChurches
 
+        #region SelectTopChurches
+        /// <summary>
+        /// Selects all Churches
+        /// </summary>
+        /// <returns>All Churches</returns>
+        public DataSet SelectTopChurches()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+
+                dcon = new dbConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectTopChurches]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+
+
+        }
+        #endregion SelectTopChurches
+
         #region SelectChurchRequests
         public DataSet SelectAllChurchesRequest()
         {

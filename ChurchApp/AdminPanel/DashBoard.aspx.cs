@@ -1490,7 +1490,15 @@ namespace ChurchApp.AdminPanel
                 {
                     churchObj.churchId = UA.ChurchID;
                     DataSet ds = null;
-                    ds = churchObj.SelectChurches1();
+                    if(churchObj.SearchTerm==null)
+                    {
+                        ds = churchObj.SelectTopChurches();
+                    }
+                    else
+                    {
+                        ds = churchObj.SelectChurches1();
+                    }
+                    
 
                     if (ds.Tables[0].Rows.Count > 0)
                     {
@@ -1520,7 +1528,7 @@ namespace ChurchApp.AdminPanel
             return jsSerializer.Serialize(parentRow);
         }
         #endregion GetAllChurch
-        
+
         #region GetChurchReqDetailsByChurchID
         [WebMethod(EnableSession = true)]
         public static string GetChurchReqDetailsByChurchID(DAL.Church churchObj)
