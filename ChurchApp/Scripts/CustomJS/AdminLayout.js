@@ -46,9 +46,10 @@ $(document).ready(function () {
             });
             var $eventchurchSelect = $("#churchSelect");
             $eventchurchSelect.on("change", function (e) {
+                debugger;
                 var churchId = $("#churchSelect").val();
                 if ((churchId != "") && (churchId != null)) {
-                    window.location.replace(window.location.protocol + "//" + window.location.host + "/AdminPanel/DashBoard.aspx?eid=" + churchId);
+                    window.location.replace(location.pathname.slice(0, location.pathname.lastIndexOf("/")) + "/DashBoard.aspx?eid=" + churchId);
                 }
             });
             BindNotification();
