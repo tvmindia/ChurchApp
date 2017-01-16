@@ -727,7 +727,7 @@ function HtmlEmptyBind() {
 }
 // Html code for binding Institution details
 function HtmlBindInstitutions(InstituteDetails, i) {
-    
+    debugger;
     var ID = "'" + InstituteDetails.ID + "'";
     var imageurl = null;
     if (InstituteDetails.URL != null)
@@ -740,9 +740,9 @@ function HtmlBindInstitutions(InstituteDetails, i) {
     }
     
     var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + imageurl + '"/></li>'
-      + '<li><span class="choosepic">' + InstituteDetails.Name.substr(0, 40) + '</span> <br/>'
-      + '<strong>Address:</strong> ' + InstituteDetails.Address.substr(0, 40) + '<br/><strong>Founder:</strong>' + InstituteDetails.Founder.substr(0, 40) + '<br/>'
-      + '<strong>Founded:</strong>' + ConvertJsonToDate(InstituteDetails.Founded) + '<br /><strong>Website:</strong> ' + InstituteDetails.Website.substr(0, 40) + ' <br/>'
+      + '<li><span class="choosepic">' + (InstituteDetails.Name!=null?InstituteDetails.Name.substr(0, 40):"") + '</span> <br/>'
+      + '<strong>Address:</strong> ' + (InstituteDetails.Address!=null?InstituteDetails.Address.substr(0, 40):"") + '<br/><strong>Founder:</strong>' + (InstituteDetails.Founder!=null?InstituteDetails.Founder.substr(0, 40):"") + '<br/>'
+      + '<strong>Founded:</strong>' + ConvertJsonToDate(InstituteDetails.Founded) + '<br /><strong>Website:</strong> ' + (InstituteDetails.Website!=null?InstituteDetails.Website.substr(0, 40):"") + ' <br/>'
       + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenInstituteDetails(' + ID + ');">View more details</a>'
       + '</li></ul></div>');
     return html;
