@@ -31,6 +31,7 @@
             .errormsg{color:red;margin:0;font-size: 13px;}
             .btn{border-color:#4db3a5;background-color:#4db3a5;}
             .btn:hover{background-color:#19ebcf;}
+            .btn:focus{background-color:#19ebcf;}
     </style>
 
 
@@ -43,7 +44,7 @@
             <div id="LoginBoxDiv">
 
             <!-- BEGIN LOGIN FORM -->
-            <form class="login-form" runat="server">
+            <form class="login-form" id="Loginform" clientidmode="static" runat="server">
                 <h3 class="form-title font-green">Sign In</h3>
                 <asp:Label class="errormsg"  ID="lblmsg" runat="server" Text=""></asp:Label> 
                 <div class="clearfix"></div>
@@ -52,7 +53,7 @@
                 <div class="form-group">
                     <input class="form-control form-control-solid placeholder-no-fix" type="password" id="password" runat="server" autocomplete="off" placeholder="Password" name="password"/> </div>
                 <div class="">
-                    <button type="submit" id="btnlogin" class="btn uppercase loginbtn">LOGIN</button>                  
+                    <button type="submit" id="btnlogin" class="btn uppercase loginbtn" autofocus>LOGIN</button>                  
                
                     <a href="#" onclick="ForgotPassword()" id="forget-password" class="forget-password">Forgot Password?</a>
                 </div>

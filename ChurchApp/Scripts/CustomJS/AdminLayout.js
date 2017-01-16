@@ -73,20 +73,23 @@ function GetReviews() {
 }
 function BindNotification() {
     debugger;
-    $('#NotifyArea').find('li').remove();
-    var Reviews = {};
-    ReviewsCount = GetReviews();
-    Reviews = GetReviewCountforBubble();
+    if ($('#NotiDropdown').is(":visible"))
+    {
+        $('#NotifyArea').find('li').remove();
+        var Reviews = {};
+        ReviewsCount = GetReviews();
+        Reviews = GetReviewCountforBubble();
+
+        $.each(Reviews, function (index, Records) {
+            debugger;
+            if (Records.Status == 0) {
+                MultiReviewBind(Records, index, ReviewsCount[index].RDate);
+            }
+
+        })
+        return false;
+    }
     
-    $.each(Reviews, function (index, Records) {
-        debugger;
-        if (Records.Status == 0)
-        {
-            MultiReviewBind(Records, index, ReviewsCount[index].RDate);
-        }
-        
-    })
-    return false;
 
 }
 function GetReviewCountforBubble() {

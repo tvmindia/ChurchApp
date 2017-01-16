@@ -1,7 +1,7 @@
 ﻿/// <reference path="E:\Appln\BoutiqiueTeq\Boutique\AdminPanel/Login.aspx" />
 $("document").ready(function (e) {
    
-    $("#btnlogin").keyup(function (event) {
+    $("#password").keyup(function (event) {
         if (event.keyCode == 13) {
             $("#btnlogin").click();
         }
