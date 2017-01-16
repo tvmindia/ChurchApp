@@ -342,7 +342,7 @@ namespace ChurchApp.DAL
                     cmd.Parameters.Add("@MembID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(memberId);
                 }
 
-                if (imageID != null)
+                if (imageID != null && imageID!="")
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageID);
                 }

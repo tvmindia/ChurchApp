@@ -773,7 +773,7 @@ namespace ChurchApp.AdminPanel
                 {
                     AdminObj.churchId = UA.ChurchID;
                     AdminObj.updatedBy = UA.userName;
-                    AdminObj.UpdateAdministrator();
+                   AdminObj.status= AdminObj.UpdateAdministrator();
                 }
                 //Session is out
                 else
