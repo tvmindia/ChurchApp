@@ -52,8 +52,9 @@ $(document).ready(function () {
                     window.location.replace(location.pathname.slice(0, location.pathname.lastIndexOf("/")) + "/DashBoard.aspx?eid=" + churchId);
                 }
             });
-            BindNotification();
         }
+            BindNotification();
+        
     }
     catch(e)
     {
