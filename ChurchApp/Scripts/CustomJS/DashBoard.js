@@ -1028,7 +1028,7 @@ $("document").ready(function (e) {
                 var Church = new Object();
                     OrgDesignationMaster.position = (($("#txtPosition").val() != "" && $("#txtPosition").val() != null) ? $('#txtPosition').val() : "");
                     OrgDesignationMaster.orgType = (($("#idddlOrganization").val()!= "" && $("#idddlOrganization").val() != null) ? $('#idddlOrganization').val() : "");
-                    OrgDesignationMaster.order = (($("#txtOrder").val()!= "" && $("#idddlOrganization").val() != null) ? $('#idddlOrganization').val() : "");
+                    OrgDesignationMaster.order = (($("#txtOrder").val() != "" && $("#idddlOrganization").val() != null) ? $("#txtOrder").val() : "");
                 
 
                 if ($("#hdfDesignationID").val() == '') {
