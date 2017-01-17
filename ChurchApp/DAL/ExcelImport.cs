@@ -749,7 +749,14 @@ namespace ChurchApp.DAL
                             // }
                             errorList.Add(tableDefColumnName + "-" + "Invalid Time");
                         }
-
+                        else if (tableDefFieldType == "W" && !IsWeekDays(drExcel[tableDefColumnName].ToString()))
+                        {
+                            // if (mandatoryField == "true")
+                            // {
+                            flag = true;
+                            // }
+                            errorList.Add(tableDefColumnName + "-" + "Invalid Day");
+                        }
                         //------------------------------Field size checking-----------------------//
 
 
@@ -955,6 +962,23 @@ namespace ChurchApp.DAL
         }
 
         #endregion Alphabetic validation
+
+        #region WeekDays Validation
+        /// <summary>
+        /// WeekDays Validation
+        /// </summary>
+        /// <param name="strToCheck"></param>
+        /// <returns></returns>
+        private static bool IsWeekDays(string strToCheck)
+        {
+            string[] weekDays = new string[14] { "Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sun","Mon","Tue","Wed","Thur","Fri","Sat" };
+           if(weekDays.Contains(strToCheck))
+                return true;
+            else
+                return false;
+        }
+
+        #endregion WeekDays Validation
 
         #region ValidateType
         /// <summary>
