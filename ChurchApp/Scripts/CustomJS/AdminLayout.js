@@ -4,7 +4,7 @@ $(document).ready(function () {
     debugger;
     try {
         if ($("#churchSelect").is(":visible") == true) {
-            GetParamValue();
+            ExpandChurchRequestBox();
             $(".ddlChurch").select2({
                 placeholder: 'Select church / town..',
                 allowClear: true,
@@ -108,7 +108,7 @@ function Redirect()
 {
     window.location.href = "../AdminPanel/DashBoard.aspx?id=Request";
 }
-function GetParamValue() {
+function ExpandChurchRequestBox() {
     debugger;
     var location = window.location;
     var query = window.location.search.substring(1);
