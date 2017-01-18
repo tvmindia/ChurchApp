@@ -1339,7 +1339,7 @@ namespace ChurchApp.DAL
         /// Add New MassTiming
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string InsertMassTiming(string massDay,string massTime)
+        public void InsertMassTiming()
         {
             dbConnection dcon = null;
             SqlParameter outParam = null;
@@ -1353,9 +1353,9 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertMassTiming]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(massChurchId);
-                cmd.Parameters.Add("@Day", SqlDbType.VarChar, -1).Value = massDay!=null&&massDay!=""?massDay:null;
+                cmd.Parameters.Add("@Day", SqlDbType.VarChar, -1).Value = day != null && day != "" ? day : null;
                 cmd.Parameters.Add("@Time", SqlDbType.Time, 7).Value = TimeSpan.Parse(massTime);
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy != null && createdBy != "" ? createdBy : null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
@@ -1372,8 +1372,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            status=outParam.Value.ToString();
-            return status;
+            status = outParam.Value.ToString();
         }
 
         #endregion InsertMassTiming

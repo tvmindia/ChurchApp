@@ -48,6 +48,9 @@ namespace ChurchApp.ExcelHandler
                             ImportXL.priestObj = new DAL.Priest();
                             ImportXL.priestObj.createdBy = UA.userName;
                             ImportXL.priestObj.updatedBy = UA.userName;
+                            ImportXL.masstymObj = new DAL.MassTimings();
+                            ImportXL.masstymObj.createdBy = UA.userName;
+                            ImportXL.masstymObj.updatedBy = UA.userName;
 
                             jsSerializer = new JavaScriptSerializer();
                             ImportXL.parentRow = new List<Dictionary<string, object>>();
