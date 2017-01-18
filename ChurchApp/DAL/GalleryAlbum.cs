@@ -353,6 +353,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string Source
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region GalleryItem Methods
@@ -419,8 +424,9 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(galleryItemID);
                 cmd.Parameters.Add("@AlbumId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
                 cmd.Parameters.Add("@Url", SqlDbType.NVarChar, -1).Value = url!=null&&url!=""?url:null;
-                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = itemType!=null&&itemType!=""?itemType:null;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy != null && createdBy != "" ? createdBy : null; ;
+                cmd.Parameters.Add("@Source", SqlDbType.NVarChar, 10).Value = Source != null && Source != "" ? Source : null;
+                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = itemType != null && itemType != "" ? itemType : null;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy != null && createdBy != "" ? createdBy : null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
               
