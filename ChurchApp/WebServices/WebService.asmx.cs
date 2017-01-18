@@ -674,8 +674,32 @@ namespace ChurchApp.WebServices
             {
                 ChurchApp.DAL.GalleryAlbum galleryObj = new DAL.GalleryAlbum();
                 galleryObj.churchId = ChurchID;
-                dt = galleryObj.SelectGalleryAlbums().Tables[0];
+                dt = galleryObj.GetGalleryAlbums();
                 if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    if (dt.Rows[i]["AlbumType"].ToString() == "video")  //Have to make thumbnail
+                    {
+                        if (dt.Rows[i]["URL"].ToString().Contains("youtube"))//Get youtube thumbnail
+                        {
+                            var youtube_video_id = dt.Rows[i]["URL"].ToString().Substring(dt.Rows[i]["URL"].ToString().LastIndexOf("embed/") + 6);
+                            dt.Rows[i]["URL"] = "http://img.youtube.com/vi/" + youtube_video_id + "/0.jpg";
+                        }
+                        else if (dt.Rows[i]["URL"].ToString().Contains("vimeo"))//Get vimeo thumbnail
+                        {
+                            var vimeo_video_id = dt.Rows[i]["URL"].ToString().Substring(dt.Rows[i]["URL"].ToString().LastIndexOf("video/") + 6);
+                            dt.Rows[i]["URL"] = "http://i.vimeocdn.com/video/" + vimeo_video_id + ".jpg";
+                        }
+                        else    //video is from own server
+                        {
+                            string id = dt.Rows[i]["URL"].ToString().Substring(dt.Rows[i]["URL"].ToString().LastIndexOf("vid/") + 4);
+                            id=id.Substring(0, id.LastIndexOf("."));
+                            dt.Rows[i]["URL"] = "/vid/Poster/"+id+".jpg";
+                        }
+                    }
+                    
+
+                }
             }
             catch (Exception ex)
             {
