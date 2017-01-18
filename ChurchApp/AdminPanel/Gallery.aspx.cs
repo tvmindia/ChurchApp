@@ -233,6 +233,76 @@ namespace ChurchApp.AdminPanel
 
         #endregion DeleteAlbumItem
 
+        #region InsertVideoAlbum
+        [WebMethod(EnableSession = true)]
+        public static string InsertVideoAlbum(GalleryAlbum GalleryAlbumObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    GalleryAlbumObj.churchId = UA.ChurchID;
+                    GalleryAlbumObj.albumType = "video";
+                    GalleryAlbumObj.createdBy = UA.userName;
+                    GalleryAlbumObj.InsertGalleryAlbum();
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                GalleryAlbumObj.message = ex.Message;
+
+            }
+
+            return jsSerializer.Serialize(GalleryAlbumObj);
+
+        }
+        #endregion InsertImageAlbum
+
+        #region InsertVideoItemsAlbum
+        [WebMethod(EnableSession = true)]
+        public static string InsertVideoItemAlbum(GalleryItems GalItemsObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    GalItemsObj.createdBy = UA.userName;
+                    GalItemsObj.Source = "EXTL";
+                    GalItemsObj.InsertGalleryItem();
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                GalItemsObj.message = ex.Message;
+
+            }
+
+            return jsSerializer.Serialize(GalItemsObj);
+
+        }
+        #endregion InsertImageAlbum
  #region GetAllGalleryVideoAlbumByChurchID
  [WebMethod(EnableSession = true)]
  public static string GetAllGalleryVideoAlbumByChurchID(GalleryAlbum GalleryAlbumObj)

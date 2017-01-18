@@ -143,6 +143,7 @@ namespace ChurchApp.ImageHandler
                                             GalItemsObj.albumId = GalAlbumObj.albumId;
                                             GalItemsObj.url = "/vid/" + GalItemsObj.galleryItemID + fileExtension;
                                             GalItemsObj.itemType = "video";
+                                            GalItemsObj.Source = "INTL";
                                             GalItemsObj.createdBy = context.Request.Form.GetValues("createdby")[0];
                                             status = GalItemsObj.InsertGalleryItem();
                                             string SaveLocation = (HttpContext.Current.Server.MapPath("~/vid/"));

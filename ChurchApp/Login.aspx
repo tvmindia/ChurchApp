@@ -18,7 +18,7 @@
     <link href="../fonts/fontawesome-webfont-62877.woff" rel="stylesheet"/>--%>
    	<link  href="../CSS/bootstrap.min.css" rel="stylesheet"/>
 	<link href="../CSS/bootstrap-responsive.min.css" rel="stylesheet"/>
-	<link href="../CSS/style.css" rel="stylesheet"/>
+	<link href="../CSS/style.css?ve=123" rel="stylesheet"/>
 	<link href="../CSS/style-responsive.css" rel="stylesheet"/>
 	<link href="../CSS/googleapiFont.css" rel="stylesheet" />
     <script src="Scripts/CustomJS/Common.js"></script>
@@ -59,6 +59,7 @@
                 </div>
                
             </form>
+                
             <!-- END LOGIN FORM -->
             </div>
         </div>

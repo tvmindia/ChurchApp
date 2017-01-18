@@ -19,6 +19,77 @@
        {
            opacity:0.4;
        }
+       .Orspan{
+           position: relative;
+           margin-top: 70%;
+           font-size: x-large;
+           font-weight: 700;
+       }
+      .butto {
+  display: inline-block;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  background:#1c1c1c url('http://static.clipconverter.cc/css/black-tie/images/ui-bg_glass_55_1c1c1c_1x400.png') 50% 50% repeat-x;
+  color: white;
+  top:6.5px;
+  /* Hide the text 'play', which is present in the HTML document for accessibility */
+  font-size: 0;
+  line-height: normal;
+  cursor:pointer;
+
+}
+
+/* Properties for the pseudo-element that almost every button will need.
+   You can just merge it into the style below if you are only going to have
+   the play button. */
+.butto::before {
+  content: "";
+  display: block;
+  position: absolute;
+}
+@-webkit-keyframes glowing {
+  0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #6be5fb; }
+  50% { background-color: #FF0000; -webkit-box-shadow: 0 0 40px #41f5ef; }
+  100% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #07d8d8; }
+}
+
+@-moz-keyframes glowing {
+  0% { background-color: #B20000; -moz-box-shadow: 0 0 3px #6be5fb; }
+  50% { background-color: #FF0000; -moz-box-shadow: 0 0 40px #41f5ef; }
+  100% { background-color: #B20000; -moz-box-shadow: 0 0 3px #07d8d8; }
+}
+
+@-o-keyframes glowing {
+  0% { background-color: #B20000; box-shadow: 0 0 3px #6be5fb; }
+  50% { background-color: #FF0000; box-shadow: 0 0 40px #41f5ef; }
+  100% { background-color: #B20000; box-shadow: 0 0 3px #07d8d8; }
+}
+
+@keyframes glowing {
+  0% { background-color: #B20000; box-shadow: 0 0 3px #6be5fb; }
+  50% { background-color: #FF0000; box-shadow: 0 0 40px #41f5ef; }
+  100% { background-color: #B20000; box-shadow: 0 0 3px #07d8d8; }
+}
+
+.anim {
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+}
+/* Play button properties using font */
+.play1.butto::before {
+  font-family: 'Webdings';
+  font-size: 11px;
+  content: '\25B6';
+  top: 7px;
+  left: 12px;
+}
+.btn:hover{
+    border:2px solid rgba(0,0,0,0.25);
+}
     </style>
     <div id="content" class="span10">
               <ul class="breadcrumb" id="breadcrumbGallery">
@@ -104,10 +175,7 @@
                    <img style="text-align: center;display: block;position: absolute;height: 37px;width: 37px;top: 125px;left: 125px;" src="../img/Plussymbol.png"/>
                     <a data-rel="tooltip" data-original-title="Create New Album" style="top: 67%;left: 22%;color:#adb3bb;position: relative;cursor:pointer;font-size: 20px;font-weight: 700;cursor:pointer;" id="newVideoalbum">Create Album</></a>
 
-                   </div>
-								
-			        
-                           
+                   </div>                       
                             
                        <%--  <video controls="controls"  width="320" height="240" src="../vid/AH-64D%20Apache%20.mp4">HTML5 is required to play</video>		
                            <video controls="controls"  width="320" height="240" src="../vid/mosco.mp4">HTML5 is required to play</video>		
@@ -233,12 +301,33 @@
                          		</div>
 		            	  </div>
                          <div class="span10" id="previewVideodiv">
-                             <div class="span6">
-                                 <img style="position:relative;cursor:pointer" class="imagebutton" title="ADD VIDEO" src="../img/VideoAdd.PNG" width="150" height="150" onclick="BtnVideoUpload();"/>
+                             <div class="span5" id="Uploaddivitems">
+                                 <img style="position:relative;cursor:pointer;" id="Fileuploadimg" class="imagebutton" title="ADD VIDEO" src="../img/VideoAdd.PNG" width="150" height="150" onclick="BtnVideoUpload();"/>
+                               
+                                 
+                                 <div id="UrlAggingdiv" style="display:none">
+                                     <div class="" style="">
+                                         <span class="add-on" style="background-color:white;border-color:white;font-size:13px;font-weight:600;margin-bottom:2px;"><i class="fa fa-film" style="font-size:18px;color:#034d09;"></i> Video URL to Add:</span>
+                                         <input type="text" style="border-radius:5px;height:16px;margin-left:13px;" id="txtAddlink" class="input-large" placeholder="Paste Video url here...."/>
+                                     <a class="play1 butto" id="btnPlay" style="" title="Preview Video" onclick="PreviewYoutube()"></a>
+                                     </div>
+                                     
+                                 
+                                 </div>
+                                 
                              </div>
-                            <div class="span6" id="VideoPreviewdiv" style="display:none;">
-                            <video id="previewVideodiv1video" src="" loop="loop" style="object-fit: cover!important;" width="250" height="250" type="video/mp4" controls autoplay></video><br/>
-                            <canvas id="previewVideodiv1canvas" width="247" height="247" style="visibility:hidden;position:absolute;"></canvas> <br/><br/>
+                             <div class="span2" id="Orspan">
+                                 <span class="Orspan">OR</span>
+
+                             </div>
+                            <div class="span5" id="UploadContentdiv">
+                                <a class="btn" id="AddLink" style="width:auto;margin: 22%;background-color:white;font-family:sans-serif;font-weight:600;color:black;font-size:21px;border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);border-bottom-color: #b3b3b3;width:80%;" onclick="AddYoutubeLink()">Add <img src="../img/iconyou.png" style="vertical-align: text-bottom;"/> video</a>
+                                <div id="VideoPreviewdiv" style="display:none;">
+                                    <embed id="previewVideoyoutubediv1video" width="250" height="250" src="" frameborder="0" allowfullscreen style="display:none;" />
+                                    <video id="previewVideodiv1video" src="" loop="loop" style="object-fit: cover!important;display:none;" width="250" height="250" type="video/mp4" controls autoplay></video><br/>
+                                   <canvas id="previewVideodiv1canvas" width="247" height="247" style="visibility:hidden;position:absolute;"></canvas> <br/><br/>
+                                </div>
+                            
                             </div>
                              
                                   
@@ -279,6 +368,8 @@
                       
                              <div class="span6">
                                  <img style="position:relative;cursor:pointer" class="imagebutton" title="ADD VIDEO" src="../img/VideoAdd.PNG" width="150" height="150" onclick="BtnMoreVideoUploads();"/>
+                                 <br /><span class="Orspan">- OR -</span><br />
+                                 <a class="btn" style="margin: 2%;background-color:#E62117;font-family:sans-serif;font-weight:600;" >Add youtube url</a>
                              </div>
                             <div class="span6" id="VideoPreviewdiv1" style="display:none;">
                             <video id="previewVideodiv1video1" src="" loop="loop" style="object-fit: cover!important;" width="250" height="250" type="video/mp4" controls autoplay></video><br/>
