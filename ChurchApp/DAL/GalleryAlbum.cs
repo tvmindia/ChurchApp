@@ -73,13 +73,13 @@ namespace ChurchApp.DAL
         /// <summary>
         /// Get All Gallery Album
         /// </summary>
-        /// <returns>Gallery Album</returns>
-        public DataSet SelectGalleryAlbums()
+        /// <returns>Gallery Albumd, both image and video</returns>
+        public DataTable GetGalleryAlbums()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlDataAdapter sda = null;
-            DataSet ds = null;
+            DataTable dt = null;
             try
             {
                 dcon = new dbConnection();
@@ -87,12 +87,12 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllGalleryImageAlbumByChurchID]";
+                cmd.CommandText = "[GetAllGalleryAlbumsByChurchID]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
-                ds = new DataSet();
-                sda.Fill(ds);
+                dt = new DataTable();
+                sda.Fill(dt);
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return ds;
+            return dt;
         }
         #endregion SelectGalleryAlbums
 
