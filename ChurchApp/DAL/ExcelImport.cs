@@ -412,15 +412,22 @@ namespace ChurchApp.DAL
                                 }
                                 else
                                 {
-                                    String Condition = "Name='" + drExcelrow[0].ToString().Replace("'", "''") + "'and Place='" + drExcelrow[2].ToString() + "'and TownCode='" + drExcelrow[1].ToString() + "'";
+                                    String Condition = "Name='" + drExcelrow["ChurchName"].ToString().Replace("'", "''") + "'and Place='" + drExcelrow["Place"].ToString() + "'and TownCode='" + drExcelrow["TownCode"].ToString() + "'";
                                     DataRow[] drchurch = ChurchDS.Tables[0].Select(Condition); //To find ChurchID from Dataset
-                                    masstymObj.massChurchId = drchurch[0][0].ToString();
-                                    masstymObj.day = drExcelrow[3].ToString();
-                                    masstymObj.massTime = drExcelrow[4].ToString();
-                                    masstymObj.InsertMassTiming();
-                                    if (masstymObj.status == "1")
+                                    if (drchurch.Length>0)
+                                    { 
+                                        masstymObj.massChurchId = drchurch[0]["ID"].ToString();
+                                        masstymObj.day = drExcelrow["day"].ToString();
+                                        masstymObj.massTime = drExcelrow["Time"].ToString();
+                                        masstymObj.InsertMassTiming();
+                                        if (masstymObj.status == "1")
+                                        {
+                                            insertedRows = insertedRows + 1;
+                                        }
+                                    }
+                                    else
                                     {
-                                        insertedRows = insertedRows + 1;
+                                        errorCount = errorCount + 1;
                                     }
                                 }
                             }
