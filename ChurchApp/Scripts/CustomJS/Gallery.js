@@ -1051,7 +1051,11 @@ function BtnVideoUpload()
 }
 function BtnMoreVideoUploads()
 {
-     
+    $('#Orspan1').hide();
+    $('#AddLink1').hide();
+    $('#UrlAggingdiv1').hide();
+    $('#Uploaddivitems1').removeClass('span5').addClass('span6');
+    $('#UploadContentdiv1').removeClass('span5').addClass('span6');
     $('#VideoUploader').click();
 }
 function handleFileSelect(evt) {
