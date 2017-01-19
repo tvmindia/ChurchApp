@@ -690,7 +690,7 @@ namespace ChurchApp.WebServices
                             else if (dt.Rows[i]["URL"].ToString().Contains("vimeo"))//Get vimeo thumbnail
                             {
                                 var vimeo_video_id = dt.Rows[i]["URL"].ToString().Substring(dt.Rows[i]["URL"].ToString().LastIndexOf("video/") + 6);
-                                dt.Rows[i]["URL"] = "http://i.vimeocdn.com/video/" + vimeo_video_id + ".jpg";
+                                dt.Rows[i]["URL"] = "/vid/Poster/vimeo.png";
                             }
                             else    //video is from own server
                             {
@@ -755,7 +755,7 @@ namespace ChurchApp.WebServices
                             else if (dt.Rows[i]["URL"].ToString().Contains("vimeo"))//Get vimeo thumbnail
                             {
                                 var vimeo_video_id = dt.Rows[i]["URL"].ToString().Substring(dt.Rows[i]["URL"].ToString().LastIndexOf("video/") + 6);
-                                dt.Rows[i]["URL"] = "http://i.vimeocdn.com/video/" + vimeo_video_id + ".jpg";
+                                dt.Rows[i]["URL"] = "/vid/Poster/vimeo.png";
                             }
                             else    //video is from own server
                             {
