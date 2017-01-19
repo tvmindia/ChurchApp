@@ -364,7 +364,39 @@
                               
                                 </div>
                         </div>
-                       <div class="span10" id="previewupVideodiv">
+                     <div class="span10" id="previewupVideodiv">
+                             <div class="span5" id="Uploaddivitems1">
+                                 <img style="position:relative;cursor:pointer;" id="Fileuploadimg1" class="imagebutton" title="ADD VIDEO" src="../img/VideoAdd.PNG" width="150" height="150" onclick="BtnMoreVideoUploads();"/>
+                               
+                                 
+                                 <div id="UrlAggingdiv1" style="display:none">
+                                     <div class="" style="">
+                                         <span class="add-on" style="background-color:white;border-color:white;font-size:13px;font-weight:600;margin-bottom:2px;"><i class="fa fa-film" style="font-size:18px;color:#034d09;"></i> Video URL to Add:</span>
+                                         <input type="text" style="border-radius:5px;height:16px;margin-left:13px;" id="txtAddlink1" class="input-large" placeholder="Paste Video url here...."/>
+                                     <a class="play1 butto" id="btnPlay1" style="" title="Preview Video" onclick="PreviewYoutube1()"></a>
+                                     </div>
+                                     
+                                 
+                                 </div>
+                                 
+                             </div>
+                             <div class="span2" id="Orspan1">
+                                 <span class="Orspan">OR</span>
+
+                             </div>
+                            <div class="span5" id="UploadContentdiv1">
+                                <a class="btn" id="AddLink1" style="width:auto;margin: 22%;background-color:white;font-family:sans-serif;font-weight:600;color:black;font-size:21px;border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);border-bottom-color: #b3b3b3;width:80%;" onclick="AddYoutubeLinkMore()">Add <img src="../img/iconyou.png" style="vertical-align: text-bottom;"/> video</a>
+                                <div id="VideoPreviewdiv1" style="display:none;">
+                                    <embed id="previewVideoyoutubediv1video1" width="250" height="250" src="" frameborder="0" allowfullscreen style="display:none;" />
+                                    <video id="previewVideodiv1video1" src="" loop="loop" style="object-fit: cover!important;display:none;" width="250" height="250" controls autoplay></video><br/>
+                                   <canvas id="previewVideodiv1canvas1" width="247" height="247" style="visibility:hidden;position:absolute;"></canvas> <br/><br/>
+                                </div>
+                            
+                            </div>
+                             
+                                  
+                        </div>
+                      <%-- <div class="span10" id="previewupVideodiv">
                       
                              <div class="span6">
                                  <img style="position:relative;cursor:pointer" class="imagebutton" title="ADD VIDEO" src="../img/VideoAdd.PNG" width="150" height="150" onclick="BtnMoreVideoUploads();"/>
@@ -378,10 +410,10 @@
                              
                                   
                        
-
+                          </div>--%>
 
                             <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:29px;" id="progressbarUpload"></div>                                  
-                        </div>
+                        
   		        </div>
 		        <div class="modal-footer">
 			

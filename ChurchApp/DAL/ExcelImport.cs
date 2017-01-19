@@ -470,21 +470,21 @@ namespace ChurchApp.DAL
                                     case "Church":
                                         if (IsUpdate)
                                         {
-                                            churchObj.churchId = drExisting[0][0].ToString();   //Taking churchId from already taken dataset. 
-                                            churchObj.churchName = drExcelrow[0].ToString();
-                                            churchObj.townCode = drExcelrow[1].ToString();
-                                            churchObj.description = drExcelrow[2].ToString();
-                                            churchObj.about = drExcelrow[3].ToString();
-                                            churchObj.mainImageId = drExcelrow[4].ToString();
-                                            churchObj.address = drExcelrow[5].ToString();
-                                            churchObj.phone1 = drExcelrow[6].ToString();
-                                            churchObj.phone2 = drExcelrow[7].ToString();
-                                            churchObj.MainPriestID = drExcelrow[8].ToString();
-                                            churchObj.longitude = drExcelrow[9].ToString();
-                                            churchObj.latitude = drExcelrow[10].ToString();
-                                            churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
-                                            churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
-                                            churchObj.Place = drExcelrow[13].ToString();
+                                            churchObj.churchId = drExisting[0]["ID"].ToString();   //Taking churchId from already taken dataset. 
+                                            churchObj.churchName = drExcelrow["Name"].ToString();
+                                            churchObj.townCode = drExcelrow["TownCode"].ToString();
+                                            churchObj.description = drExcelrow["Description"].ToString();
+                                            churchObj.about = drExcelrow["About"].ToString();
+                                            //churchObj.mainImageId = drExcelrow["MainImageID"].ToString();
+                                            churchObj.address = drExcelrow["Address"].ToString();
+                                            churchObj.phone1 = drExcelrow["Phone1"].ToString();
+                                            churchObj.phone2 = drExcelrow["Phone2"].ToString();
+                                            //churchObj.MainPriestID = drExcelrow["MainPriestId"].ToString();
+                                            churchObj.longitude = drExcelrow["Longitude"].ToString();
+                                            churchObj.latitude = drExcelrow["Latitude"].ToString();
+                                            churchObj.ChurchDenomination = drExcelrow["ChurchDenomination"].ToString(); //-----ChurchDenomination 
+                                            churchObj.PriorityOrder = drExcelrow["PriorityOrder"].ToString(); //-----ChurchPirority
+                                            churchObj.Place = drExcelrow["Place"].ToString();
                                             churchObj.UpdateChurch();
                                             if (churchObj.status == "1")
                                             {
@@ -493,20 +493,20 @@ namespace ChurchApp.DAL
                                         }
                                         else
                                         {
-                                            churchObj.churchName = drExcelrow[0].ToString();
-                                            churchObj.townCode = drExcelrow[1].ToString();
-                                            churchObj.description = drExcelrow[2].ToString();
-                                            churchObj.about = drExcelrow[3].ToString();
-                                            churchObj.mainImageId = drExcelrow[4].ToString();
-                                            churchObj.address = drExcelrow[5].ToString();
-                                            churchObj.phone1 = drExcelrow[6].ToString();
-                                            churchObj.phone2 = drExcelrow[7].ToString();
-                                            churchObj.MainPriestID = drExcelrow[8].ToString();
-                                            churchObj.longitude = drExcelrow[9].ToString();
-                                            churchObj.latitude = drExcelrow[10].ToString();
-                                            churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
-                                            churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
-                                            churchObj.Place = drExcelrow[13].ToString();
+                                            churchObj.churchName = drExcelrow["Name"].ToString();
+                                            churchObj.townCode = drExcelrow["TownCode"].ToString();
+                                            churchObj.description = drExcelrow["Description"].ToString();
+                                            churchObj.about = drExcelrow["About"].ToString();
+                                            //churchObj.mainImageId = drExcelrow["MainImageID"].ToString();
+                                            churchObj.address = drExcelrow["Address"].ToString();
+                                            churchObj.phone1 = drExcelrow["Phone1"].ToString();
+                                            churchObj.phone2 = drExcelrow["Phone2"].ToString();
+                                            //churchObj.MainPriestID = drExcelrow["MainPriestId"].ToString();
+                                            churchObj.longitude = drExcelrow["Longitude"].ToString();
+                                            churchObj.latitude = drExcelrow["Latitude"].ToString();
+                                            churchObj.ChurchDenomination = drExcelrow["ChurchDenomination"].ToString(); //-----ChurchDenomination 
+                                            churchObj.PriorityOrder = drExcelrow["PriorityOrder"].ToString(); //-----ChurchPirority
+                                            churchObj.Place = drExcelrow["Place"].ToString();
                                             churchObj.InsertChurch();
                                             if (churchObj.status == "1")
                                             {
@@ -518,19 +518,21 @@ namespace ChurchApp.DAL
                                     case "Priest":
                                         if (IsUpdate)
                                         {
-                                            priestObj.priestName = drExcelrow[0].ToString();
-                                            priestObj.dob = drExcelrow[1].ToString();
-                                            priestObj.dateOrdination = drExcelrow[2].ToString();
-                                            priestObj.about = drExcelrow[3].ToString();
-                                            priestObj.BaptisumName = drExcelrow[4].ToString();
-                                            priestObj.address = drExcelrow[5].ToString();
-                                            priestObj.mobile = drExcelrow[6].ToString();
-                                            priestObj.Parish = drExcelrow[7].ToString();
-                                            priestObj.Diocese = drExcelrow[8].ToString();
-                                            priestObj.emailId = drExcelrow[9].ToString();
-                                            priestObj.designation = drExcelrow[10].ToString();
-                                            priestObj.Status = drExcelrow[11].ToString();
-                                            //priestObj.isactive = drExcelrow[12].ToString(); //-----isactive
+                                            //preist id?
+                                            priestObj.priestID = drExisting[0]["ID"].ToString();
+                                            priestObj.priestName = drExcelrow["Name"].ToString();
+                                            priestObj.dob = drExcelrow["DOB"].ToString();
+                                            priestObj.dateOrdination = drExcelrow["DateOrdination"].ToString();
+                                            priestObj.about = drExcelrow["About"].ToString();
+                                            priestObj.BaptisumName = drExcelrow["BaptismalName"].ToString();
+                                            priestObj.address = drExcelrow["Address"].ToString();
+                                            priestObj.mobile = drExcelrow["Mobile"].ToString();
+                                            priestObj.Parish = drExcelrow["Parish"].ToString();
+                                            priestObj.Diocese = drExcelrow["Diocese"].ToString();
+                                            priestObj.emailId = drExcelrow["Email"].ToString();
+                                            priestObj.designation = drExcelrow["Designation"].ToString();
+                                            priestObj.Status = drExcelrow["Status"].ToString();
+                                            //priestObj.isactive = drExcelrow[""].ToString(); //-----isactive
                                             priestObj.UpdatePriest();
                                             if (priestObj.result == "1")
                                             {
@@ -539,19 +541,19 @@ namespace ChurchApp.DAL
                                         }
                                         else
                                         {
-                                            priestObj.priestName = drExcelrow[0].ToString();
-                                            priestObj.dob = drExcelrow[1].ToString();
-                                            priestObj.dateOrdination = drExcelrow[2].ToString();
-                                            priestObj.about = drExcelrow[3].ToString();
-                                            priestObj.BaptisumName = drExcelrow[4].ToString();
-                                            priestObj.address = drExcelrow[5].ToString();
-                                            priestObj.mobile = drExcelrow[6].ToString();
-                                            priestObj.Parish = drExcelrow[7].ToString();
-                                            priestObj.Diocese = drExcelrow[8].ToString();
-                                            priestObj.emailId = drExcelrow[9].ToString();
-                                            priestObj.designation = drExcelrow[10].ToString();
-                                            priestObj.Status = drExcelrow[11].ToString();
-                                            //priestObj.isactive = drExcelrow[12].ToString(); //-----isactive
+                                            priestObj.priestName = drExcelrow["Name"].ToString();
+                                            priestObj.dob = drExcelrow["DOB"].ToString();
+                                            priestObj.dateOrdination = drExcelrow["DateOrdination"].ToString();
+                                            priestObj.about = drExcelrow["About"].ToString();
+                                            priestObj.BaptisumName = drExcelrow["BaptismalName"].ToString();
+                                            priestObj.address = drExcelrow["Address"].ToString();
+                                            priestObj.mobile = drExcelrow["Mobile"].ToString();
+                                            priestObj.Parish = drExcelrow["Parish"].ToString();
+                                            priestObj.Diocese = drExcelrow["Diocese"].ToString();
+                                            priestObj.emailId = drExcelrow["Email"].ToString();
+                                            priestObj.designation = drExcelrow["Designation"].ToString();
+                                            priestObj.Status = drExcelrow["Status"].ToString();
+                                            //priestObj.isactive = drExcelrow[""].ToString(); //-----isactive
                                             priestObj.InsertPriest();
                                             if (priestObj.result == "1")
                                             {
@@ -562,8 +564,8 @@ namespace ChurchApp.DAL
                                     case "TownMaster":
                                         if (IsUpdate)
                                         {
-                                            townObj.code = drExisting[0][0].ToString();
-                                            townObj.name = drExcelrow[0].ToString();
+                                            townObj.code = drExisting[0]["Code"].ToString();
+                                            townObj.name = drExcelrow["Name"].ToString();
                                             townObj.UpdateTownMaster();
                                             if (townObj.status == "1")//update status return 2 while dupilcation,   
                                             {
@@ -572,7 +574,7 @@ namespace ChurchApp.DAL
                                         }
                                         else
                                         {
-                                            townObj.name = drExcelrow[0].ToString();
+                                            townObj.name = drExcelrow["Name"].ToString();
                                             townObj.InsertTownMaster();
                                             if (townObj.status == "1")
                                             {

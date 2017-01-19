@@ -299,7 +299,11 @@ $("document").ready(function (e) {
             var Pic = document.getElementById("previewVideodiv1canvas1").toDataURL("image/png");
             Pic = Pic.replace(/^data:image\/(png|jpg);base64,/, "")
         }
-        
+        else if ($('#txtAddlink1').val() != "") {
+            $('embed').css('opacity', '0.2');
+            $("#progressbarUploadinVidAlbum1").show();
+            bar.animate(0.1);
+        }
         
         var albid = $('#hdfAlbumID').val();
         try {
@@ -341,10 +345,37 @@ $("document").ready(function (e) {
                 }
                 $('#btnMoreVideoSave').hide();
             }
-            else
+            else if ($('#txtAddlink1').val() != "")
             {
-                noty({ type: 'error', text: "No file selected" });
-            }
+                var Url = GetLinkID($('#txtAddlink1').val());
+                if (Url != false) {
+                    var GalleryItems = new Object();
+                    GalleryItems.albumId = albid;
+                    GalleryItems.url = Url;
+                    GalleryItems.itemType = "video";
+                    var result = InsertVideoItemsAlbum(GalleryItems);
+                    switch (result.status) {
+                        case "1":
+                            debugger;
+                            barinAlbum.animate(1.0);  // Number from 0.0 to 1.0
+                            noty({ type: 'success', text: Messages.AlbumUploadInsert });
+                            BindVideos(albid);
+                            break;
+                        case "0":
+                            $('#progressbarUpload').hide();
+                            noty({ type: 'error', text: Messages.AlbumUploadFailure });
+                            break;
+                        default:
+                            $('#progressbarUpload').hide();
+                            noty({ type: 'error', text: result.status });
+                            break;
+                    }
+                }
+                }
+                else
+                {
+                    noty({ type: 'error', text: "Added Url not Supporting!" });
+                }
                
         }
         catch (e) {
@@ -525,6 +556,8 @@ $("document").ready(function (e) {
             debugger;
             $('#Uploaddivitems').removeClass('span6').addClass('span5');
             $('#UploadContentdiv').removeClass('span6').addClass('span5');
+            $('#Uploaddivitems1').removeClass('span6').addClass('span5');
+            $('#UploadContentdiv1').removeClass('span6').addClass('span5');
             $('#BtnVideoAlbumSave').show();
             $('#btnMoreVideoSave').show();
             $('video').css({'opacity': ''});
@@ -535,13 +568,20 @@ $("document").ready(function (e) {
             $('#previewVideoyoutubediv1video').remove();
             $('#VideoPreviewdiv').prepend('<embed id="previewVideoyoutubediv1video" width="250" height="250" src="" frameborder="0" allowfullscreen style="display:none;" />');
             $('#VideoPreviewdiv').hide();
+            $('#VideoPreviewdiv1').prepend('<embed id="previewVideoyoutubediv1video1" width="250" height="250" src="" frameborder="0" allowfullscreen style="display:none;" />');
             $('#VideoPreviewdiv1').hide();
             $('#Fileuploadimg').show();
+            $('#Fileuploadimg1').show();
             $('#Orspan').show();
             $('#AddLink').show();
             $('#txtAddlink').val('');
             $('#UrlAggingdiv').hide();
             $('#btnPlay').removeClass('anim');
+            $('#Orspan1').show();
+            $('#AddLink1').show();
+            $('#txtAddlink1').val('');
+            $('#UrlAggingdiv1').hide();
+            $('#btnPlay1').removeClass('anim');
             var fileinputcontrolID = ["AlbumUploader", "imageUploader", "AlbumVidUploader", "VideoUploader"];
             var handlemethods = [handleFileSelect, handleFileSelectInImages, handleFileVideoAlbum, handleVideoFile];
             for (i = 0; i < fileinputcontrolID.length; i++)
@@ -650,6 +690,9 @@ $("document").ready(function (e) {
     $('#txtAddlink').on('paste, keydown', function () {
         $('#btnPlay').addClass('anim');
     });
+    $('#txtAddlink1').on('paste, keydown', function () {
+        $('#btnPlay').addClass('anim');
+    });
 });//end of document.ready
 function GetLinkID(Url)
 {
@@ -697,6 +740,31 @@ function AddYoutubeLink()
     $('#Uploaddivitems').removeClass('span5').addClass('span6');
     $('#UploadContentdiv').removeClass('span5').addClass('span6');
     $('#UrlAggingdiv').show();
+
+}
+function AddYoutubeLinkMore() {
+    $('#Fileuploadimg1').hide();
+    $('#Orspan1').hide();
+    $('#AddLink1').hide();
+    $('#Uploaddivitems1').removeClass('span5').addClass('span6');
+    $('#UploadContentdiv1').removeClass('span5').addClass('span6');
+    $('#UrlAggingdiv1').show();
+
+}
+function PreviewYoutube1() {
+    debugger;
+    $('#previewVideoyoutubediv1video1').remove();
+    $('#VideoPreviewdiv1').prepend('<embed id="previewVideoyoutubediv1video1" width="250" height="250" src="" frameborder="0" allowfullscreen style="display:none;" />');
+    var embed = document.getElementById('previewVideoyoutubediv1video1');
+    if (GetLinkID($('#txtAddlink1').val()) != false) {
+        embed.src = GetLinkID($('#txtAddlink1').val());
+        $('#previewVideoyoutubediv1video1').show();
+        $('#btnPlay1').removeClass('anim');
+        $('#VideoPreviewdiv1').show();
+    }
+    else {
+        noty({ type: 'error', text: "Added Url not Supporting!" });
+    }
 }
 function PreviewYoutube()
 {
