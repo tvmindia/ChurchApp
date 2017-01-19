@@ -396,21 +396,6 @@
                              
                                   
                         </div>
-                      <%-- <div class="span10" id="previewupVideodiv">
-                      
-                             <div class="span6">
-                                 <img style="position:relative;cursor:pointer" class="imagebutton" title="ADD VIDEO" src="../img/VideoAdd.PNG" width="150" height="150" onclick="BtnMoreVideoUploads();"/>
-                                 <br /><span class="Orspan">- OR -</span><br />
-                                 <a class="btn" style="margin: 2%;background-color:#E62117;font-family:sans-serif;font-weight:600;" >Add youtube url</a>
-                             </div>
-                            <div class="span6" id="VideoPreviewdiv1" style="display:none;">
-                            <video id="previewVideodiv1video1" src="" loop="loop" style="object-fit: cover!important;" width="250" height="250" controls autoplay></video><br/>
-                            <canvas id="previewVideodiv1canvas1" width="247" height="247" style="visibility:hidden;position:absolute;"></canvas> <br/><br/>
-                            </div>
-                             
-                                  
-                       
-                          </div>--%>
 
                             <div style="display:none; margin: 20px;width: 200px;height: 200px;position: absolute;left:342px;top:29px;" id="progressbarUpload"></div>                                  
                         
