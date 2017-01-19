@@ -324,7 +324,7 @@
                                 <a class="btn" id="AddLink" style="width:auto;margin: 22%;background-color:white;font-family:sans-serif;font-weight:600;color:black;font-size:21px;border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);border-bottom-color: #b3b3b3;width:80%;" onclick="AddYoutubeLink()">Add <img src="../img/iconyou.png" style="vertical-align: text-bottom;"/> video</a>
                                 <div id="VideoPreviewdiv" style="display:none;">
                                     <embed id="previewVideoyoutubediv1video" width="250" height="250" src="" frameborder="0" allowfullscreen style="display:none;" />
-                                    <video id="previewVideodiv1video" src="" loop="loop" style="object-fit: cover!important;display:none;" width="250" height="250" type="video/mp4" controls autoplay></video><br/>
+                                    <video id="previewVideodiv1video" src="" loop="loop" style="object-fit: cover!important;display:none;" width="250" height="250" controls autoplay></video><br/>
                                    <canvas id="previewVideodiv1canvas" width="247" height="247" style="visibility:hidden;position:absolute;"></canvas> <br/><br/>
                                 </div>
                             
@@ -372,7 +372,7 @@
                                  <a class="btn" style="margin: 2%;background-color:#E62117;font-family:sans-serif;font-weight:600;" >Add youtube url</a>
                              </div>
                             <div class="span6" id="VideoPreviewdiv1" style="display:none;">
-                            <video id="previewVideodiv1video1" src="" loop="loop" style="object-fit: cover!important;" width="250" height="250" type="video/mp4" controls autoplay></video><br/>
+                            <video id="previewVideodiv1video1" src="" loop="loop" style="object-fit: cover!important;" width="250" height="250" controls autoplay></video><br/>
                             <canvas id="previewVideodiv1canvas1" width="247" height="247" style="visibility:hidden;position:absolute;"></canvas> <br/><br/>
                             </div>
                              

@@ -183,7 +183,7 @@ $("document").ready(function (e) {
                 bar.animate(0.1);
                 var video = document.getElementById('previewVideodiv1video');
                 var canvas = document.getElementById('previewVideodiv1canvas');
-                canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+                canvas.getContext('2d').drawImage(video,0,0,247,247);
                 $('#previewVideodiv1video').trigger('pause');
                 
                 // Generate the image data
@@ -293,7 +293,7 @@ $("document").ready(function (e) {
             bar.animate(0.1);
             var video = document.getElementById('previewVideodiv1video1');
             var canvas = document.getElementById('previewVideodiv1canvas1');
-            canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+            canvas.getContext('2d').drawImage(video, 0, 0, 247, 247);
             $('#previewVideodiv1video1').trigger('pause');
             // Generate the image data
             var Pic = document.getElementById("previewVideodiv1canvas1").toDataURL("image/png");
@@ -1506,7 +1506,7 @@ function AppendVideos(Records) {
             }
             else
             {
-                var html = '<div class="VidContainer" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '"><video  style="object-fit: cover!important;"src="' + Records.URL + '" controls="controls" poster="/vid/Poster/' + Records.ID + '.jpg" loop="loop" preload="auto" height="250" width="385">HTML5 Video is required to play video</video></div>';
+                var html = '<div class="VidContainer" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '"><video  style="object-fit: cover!important;" src="' + Records.URL + '" controls="controls" poster="/vid/Poster/' + Records.ID + '.jpg" loop="loop" preload="auto" height="250" width="385">HTML5 Video is required to play video</video></div>';
             }
             
             $('.Video-gallery').append(html);
