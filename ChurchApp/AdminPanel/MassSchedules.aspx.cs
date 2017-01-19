@@ -90,7 +90,9 @@ namespace ChurchApp.AdminPanel
 
                     for (int i = 0; i < MassTimingsObj.mDay.Length; i++)
                     {
-                        MassTimingsObj.status = MassTimingsObj.InsertMassTiming(MassTimingsObj.mDay[i], MassTimingsObj.mTime[i]);
+                        MassTimingsObj.massTime = MassTimingsObj.mTime[i];
+                        MassTimingsObj.day = MassTimingsObj.mDay[i];
+                        MassTimingsObj.InsertMassTiming();
                     }
                    
                 }

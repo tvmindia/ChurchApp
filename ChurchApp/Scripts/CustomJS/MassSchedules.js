@@ -773,6 +773,7 @@ function UpdateMassTiming(MassTimings) {
 function BindMassTimingTable(Records) {
     try
     {
+        debugger;
         $("tbody#massTimingTableBody tr").remove();
         $.each(Records, function (index, Records) {
 
@@ -858,6 +859,10 @@ function timeTo12HrFormat(time) {   // Take a time in 24 hour format and format 
 
         if (parseInt(time_part_array[0]) > 12) {
             time_part_array[0] = time_part_array[0] - 12;
+        }
+        if (parseInt(time_part_array[0]) == 00)
+        {
+            time_part_array[0] = "12";
         }
 
         formatted_time = time_part_array[0] + ':' + time_part_array[1] + ' ' + ampm;

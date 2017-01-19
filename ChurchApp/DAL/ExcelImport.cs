@@ -335,7 +335,7 @@ namespace ChurchApp.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetTableDefinition]";
-                cmd.Parameters.Add("@TableName", SqlDbType.NVarChar,100).Value = tableName;
+                cmd.Parameters.Add("@TableName", SqlDbType.NVarChar, 100).Value = tableName;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -361,188 +361,235 @@ namespace ChurchApp.DAL
         {
             int dsExcelCount = dsExcel.Tables[0].Rows.Count;
             DataSet DsExisting = null;
+            int j;
+            string conditions = "";
+            bool IsUpdate;
+            DataRow[] drkeyfields;
+            insertedRows = 0;
+            updatedRows = 0;
             try
             {
-                int j;
-                string conditions = "";
-                bool IsUpdate;
-                DsExisting = GetExistingTableData();//function call with table name as parameter
-
-                //------------------Keyfields Checking-----------------------------//
-                DataRow[] drkeyfields = dsTableDefinition.Tables[0].Select("Key_Field='Y'");
-                insertedRows = 0;
-                updatedRows = 0;
-                for (j = 0; j < dsExcelCount; j++)   //--------------dsExcelLooping(Uploaded file)
+                switch (tableName)
                 {
-                    conditions = "";
-                    DataRow drExcelrow = dsExcel.Tables[0].Rows[j]; //Checking By Selecting Row by Row
-                    foreach (DataRow drw in drkeyfields)          //where condition to find insertion of updation
-                    {
-                        // conditions += drw[0].ToString() + "='" + dsExcel.Tables[0].Rows[j][drw[0].ToString()] + "' AND ";
-                        conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(), dsExcel.Tables[0].Rows[j][drw[0].ToString()].ToString().Replace("'", "''"));
-                    }
+                    case "MassTiming":
+                        //In the case of  Masstiming we want to find churchID and add as a column in dsExcel.                        
+                        DsExisting = GetMassTimingTableData();
+                        DataSet ChurchDS = churchObj.GetAllChurches();                  //To Get ChurchId for Insert Masstimings
 
-                    if (conditions != "")
-                    {
-                        conditions = conditions.Remove(conditions.Length - 4);             //removing last 4 characters from conditions string       
-                        DataRow[] drExisting = DsExisting.Tables[0].Select(conditions);
-                        if (drExisting.Length > 0)
+                        DataSet dtCloned = DsExisting.Clone();                          //clone datatable                         
+                        dtCloned.Tables[0].Columns["Time"].DataType = typeof(string);   //change data type of column
+                        foreach (DataRow row in DsExisting.Tables[0].Rows)              //import row to cloned datatable
                         {
-                            IsUpdate = true;
+                            dtCloned.Tables[0].ImportRow(row);
                         }
-                        else
+
+                        //------------------Keyfields Checking-----------------------------//
+                        drkeyfields = dsTableDefinition.Tables[0].Select("Key_Field='Y'");
+                        DataRow[] drfieldtypes = dsTableDefinition.Tables[0].Select("Field_Type='T'");
+                        for (j = 0; j < dsExcelCount; j++)   //--------------dsExcelLooping(Uploaded file)
                         {
-                            IsUpdate = false;
+                            conditions = "";
+                            DataRow drExcelrow = dsExcel.Tables[0].Rows[j]; //Checking By Selecting Row by Row                                                        
+                            foreach (DataRow drw in drkeyfields)          //where condition to find insertion of updation
+                            {
+                                if (drfieldtypes.Length > 0 && drw[0].ToString() == "Time")
+                                {
+                                    string time = dsExcel.Tables[0].Rows[j][drw[0].ToString()].ToString().Replace("'", "''");
+                                    conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(), time);
+                                }
+                                else
+                                {
+                                    conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(), dsExcel.Tables[0].Rows[j][drw[0].ToString()].ToString().Replace("'", "''"));
+                                }
+                            }
+                            if (conditions != "")
+                            {
+                                conditions = conditions.Remove(conditions.Length - 4);              //removing last 4 characters from conditions string       
+                                DataRow[] drExisting = dtCloned.Tables[0].Select(conditions);       //Selecting From Cloned Dataset
+                                if (drExisting.Length > 0)
+                                {
+                                    updatedRows = updatedRows + 1;                                  //No Changes Required So No Update                           
+                                }
+                                else
+                                {
+                                    String Condition = "Name='" + drExcelrow["ChurchName"].ToString().Replace("'", "''") + "'and Place='" + drExcelrow["Place"].ToString() + "'and TownCode='" + drExcelrow["TownCode"].ToString() + "'";
+                                    DataRow[] drchurch = ChurchDS.Tables[0].Select(Condition); //To find ChurchID from Dataset
+                                    if (drchurch.Length>0)
+                                    { 
+                                        masstymObj.massChurchId = drchurch[0]["ID"].ToString();
+                                        masstymObj.day = drExcelrow["day"].ToString();
+                                        masstymObj.massTime = drExcelrow["Time"].ToString();
+                                        masstymObj.InsertMassTiming();
+                                        if (masstymObj.status == "1")
+                                        {
+                                            insertedRows = insertedRows + 1;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        errorCount = errorCount + 1;
+                                    }
+                                }
+                            }
                         }
-                        switch (tableName)
+                        if (j == dsExcelCount)
                         {
-                            case "Church":
-
-                                if (IsUpdate)
-                                {
-                                    //Get church id with name place and town code  from already taken dataset. 
-
-                                    //update
-                                    //  churchObj.updatedBy = UA.userName;
-                                    churchObj.churchId = drExisting[0][0].ToString();
-                                    churchObj.churchName = drExcelrow[0].ToString();
-                                    churchObj.townCode = drExcelrow[1].ToString();
-                                    churchObj.description = drExcelrow[2].ToString();
-                                    churchObj.about = drExcelrow[3].ToString();
-                                    churchObj.mainImageId = drExcelrow[4].ToString();
-                                    churchObj.address = drExcelrow[5].ToString();
-                                    churchObj.phone1 = drExcelrow[6].ToString();
-                                    churchObj.phone2 = drExcelrow[7].ToString();
-                                    churchObj.MainPriestID = drExcelrow[8].ToString();
-                                    churchObj.longitude = drExcelrow[9].ToString();
-                                    churchObj.latitude = drExcelrow[10].ToString();
-                                    churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
-                                    churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
-                                    churchObj.Place = drExcelrow[13].ToString();
-                                    churchObj.UpdateChurch();
-                                    if (churchObj.status == "1")
-                                    {
-                                        updatedRows = updatedRows + 1;
-                                    }
-                                }
-                                else
-                                {
-                                    //insert
-                                    churchObj.churchName = drExcelrow[0].ToString();
-                                    churchObj.townCode = drExcelrow[1].ToString();
-                                    churchObj.description = drExcelrow[2].ToString();
-                                    churchObj.about = drExcelrow[3].ToString();
-                                    churchObj.mainImageId = drExcelrow[4].ToString();
-                                    churchObj.address = drExcelrow[5].ToString();
-                                    churchObj.phone1 = drExcelrow[6].ToString();
-                                    churchObj.phone2 = drExcelrow[7].ToString();
-                                    churchObj.MainPriestID = drExcelrow[8].ToString();
-                                    churchObj.longitude = drExcelrow[9].ToString();
-                                    churchObj.latitude = drExcelrow[10].ToString();
-                                    churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
-                                    churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
-                                    churchObj.Place = drExcelrow[13].ToString();
-                                    churchObj.InsertChurch();
-                                    if (churchObj.status == "1")
-                                    {
-                                        insertedRows = insertedRows + 1;
-                                    }
-
-                                }
-                                break;
-                            case "MassTiming":
-                                if (IsUpdate)
-                                {
-                                    //masstymObj.UpdateMassTiming();                                   
-                                    //if (townObj.status == "1")
-                                    //{
-                                    updatedRows = updatedRows + 1;
-                                    //}                                   
-                                }
-                                else
-                                {
-                                    //masstymObj.InsertMassTiming();
-                                    //if (townObj.status == "1")
-                                    //{
-                                    insertedRows = insertedRows + 1;
-                                    //}
-                                }
-                                break;
-                            case "Priest":
-                                if (IsUpdate)
-                                {
-                                    priestObj.priestName = drExcelrow[0].ToString();
-                                    priestObj.dob = drExcelrow[1].ToString();
-                                    priestObj.dateOrdination = drExcelrow[2].ToString();
-                                    priestObj.about = drExcelrow[3].ToString();
-                                    priestObj.BaptisumName = drExcelrow[4].ToString();
-                                    priestObj.address = drExcelrow[5].ToString();
-                                    priestObj.mobile = drExcelrow[6].ToString();
-                                    priestObj.Parish = drExcelrow[7].ToString();
-                                    priestObj.Diocese = drExcelrow[8].ToString();
-                                    priestObj.emailId = drExcelrow[9].ToString();
-                                    priestObj.designation = drExcelrow[10].ToString();
-                                    priestObj.Status = drExcelrow[11].ToString();
-                                    //priestObj.isactive = drExcelrow[12].ToString(); //-----isactive
-
-                                    //priestObj.UpdatePriest();
-                                    //if (priestObj.result == "1")
-                                    //{
-                                    updatedRows = updatedRows + 1;
-                                    //}
-                                }
-                                else
-                                {
-                                    priestObj.priestName = drExcelrow[0].ToString();
-                                    priestObj.dob = drExcelrow[1].ToString();
-                                    priestObj.dateOrdination = drExcelrow[2].ToString();
-                                    priestObj.about = drExcelrow[3].ToString();
-                                    priestObj.BaptisumName = drExcelrow[4].ToString();
-                                    priestObj.address = drExcelrow[5].ToString();
-                                    priestObj.mobile = drExcelrow[6].ToString();
-                                    priestObj.Parish = drExcelrow[7].ToString();
-                                    priestObj.Diocese = drExcelrow[8].ToString();
-                                    priestObj.emailId = drExcelrow[9].ToString();
-                                    priestObj.designation = drExcelrow[10].ToString();
-                                    priestObj.Status = drExcelrow[11].ToString();
-                                    //priestObj.isactive = drExcelrow[12].ToString(); //-----isactive
-
-                                    // priestObj.InsertPriest();
-                                    //if (priestObj.result == "1")
-                                    //{
-                                    insertedRows = insertedRows + 1;
-                                    //}                                  
-                                }
-                                break;
-                            case "TownMaster":
-                                if (IsUpdate)
-                                {
-                                    townObj.code = drExisting[0][0].ToString();
-                                    townObj.name = drExcelrow[0].ToString();
-                                    townObj.UpdateTownMaster();
-                                    if (townObj.status == "1")//update status return 2 while dupilcation,   
-                                    {
-                                        updatedRows = updatedRows + 1;
-                                    }
-                                }
-                                else
-                                {
-                                    townObj.name = drExcelrow[0].ToString();
-                                    townObj.InsertTownMaster();
-                                    if (townObj.status == "1")
-                                    {
-                                        insertedRows = insertedRows + 1;
-                                    }
-                                }
-                                break;
-                            default:
-                                break;
+                            status = "1";
                         }
-                    }
-                }
-                if (j == dsExcelCount)
-                {
-                    status = "1";
+
+                        break;
+                    default:
+
+                        DsExisting = GetExistingTableData();//function call with table name as parameter
+                        //------------------Keyfields Checking-----------------------------//
+                        drkeyfields = dsTableDefinition.Tables[0].Select("Key_Field='Y'");
+
+                        for (j = 0; j < dsExcelCount; j++)   //--------------dsExcelLooping(Uploaded file)
+                        {
+                            conditions = "";
+                            DataRow drExcelrow = dsExcel.Tables[0].Rows[j]; //Checking By Selecting Row by Row
+                            foreach (DataRow drw in drkeyfields)          //where condition to find insertion of updation
+                            {
+                                // conditions += drw[0].ToString() + "='" + dsExcel.Tables[0].Rows[j][drw[0].ToString()] + "' AND ";
+                                conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(), dsExcel.Tables[0].Rows[j][drw[0].ToString()].ToString().Replace("'", "''"));
+                            }
+                            if (conditions != "")
+                            {
+                                conditions = conditions.Remove(conditions.Length - 4);             //removing last 4 characters from conditions string       
+                                DataRow[] drExisting = DsExisting.Tables[0].Select(conditions);
+                                if (drExisting.Length > 0)
+                                {
+                                    IsUpdate = true;
+                                }
+                                else
+                                {
+                                    IsUpdate = false;
+                                }
+                                switch (tableName)
+                                {
+                                    case "Church":
+                                        if (IsUpdate)
+                                        {
+                                            churchObj.churchId = drExisting[0][0].ToString();   //Taking churchId from already taken dataset. 
+                                            churchObj.churchName = drExcelrow[0].ToString();
+                                            churchObj.townCode = drExcelrow[1].ToString();
+                                            churchObj.description = drExcelrow[2].ToString();
+                                            churchObj.about = drExcelrow[3].ToString();
+                                            churchObj.mainImageId = drExcelrow[4].ToString();
+                                            churchObj.address = drExcelrow[5].ToString();
+                                            churchObj.phone1 = drExcelrow[6].ToString();
+                                            churchObj.phone2 = drExcelrow[7].ToString();
+                                            churchObj.MainPriestID = drExcelrow[8].ToString();
+                                            churchObj.longitude = drExcelrow[9].ToString();
+                                            churchObj.latitude = drExcelrow[10].ToString();
+                                            churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
+                                            churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
+                                            churchObj.Place = drExcelrow[13].ToString();
+                                            churchObj.UpdateChurch();
+                                            if (churchObj.status == "1")
+                                            {
+                                                updatedRows = updatedRows + 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            churchObj.churchName = drExcelrow[0].ToString();
+                                            churchObj.townCode = drExcelrow[1].ToString();
+                                            churchObj.description = drExcelrow[2].ToString();
+                                            churchObj.about = drExcelrow[3].ToString();
+                                            churchObj.mainImageId = drExcelrow[4].ToString();
+                                            churchObj.address = drExcelrow[5].ToString();
+                                            churchObj.phone1 = drExcelrow[6].ToString();
+                                            churchObj.phone2 = drExcelrow[7].ToString();
+                                            churchObj.MainPriestID = drExcelrow[8].ToString();
+                                            churchObj.longitude = drExcelrow[9].ToString();
+                                            churchObj.latitude = drExcelrow[10].ToString();
+                                            churchObj.ChurchDenomination = drExcelrow[11].ToString(); //-----ChurchDenomination 
+                                            churchObj.PriorityOrder = drExcelrow[12].ToString(); //-----ChurchPirority
+                                            churchObj.Place = drExcelrow[13].ToString();
+                                            churchObj.InsertChurch();
+                                            if (churchObj.status == "1")
+                                            {
+                                                insertedRows = insertedRows + 1;
+                                            }
+                                        }
+                                        break;
+
+                                    case "Priest":
+                                        if (IsUpdate)
+                                        {
+                                            priestObj.priestName = drExcelrow[0].ToString();
+                                            priestObj.dob = drExcelrow[1].ToString();
+                                            priestObj.dateOrdination = drExcelrow[2].ToString();
+                                            priestObj.about = drExcelrow[3].ToString();
+                                            priestObj.BaptisumName = drExcelrow[4].ToString();
+                                            priestObj.address = drExcelrow[5].ToString();
+                                            priestObj.mobile = drExcelrow[6].ToString();
+                                            priestObj.Parish = drExcelrow[7].ToString();
+                                            priestObj.Diocese = drExcelrow[8].ToString();
+                                            priestObj.emailId = drExcelrow[9].ToString();
+                                            priestObj.designation = drExcelrow[10].ToString();
+                                            priestObj.Status = drExcelrow[11].ToString();
+                                            //priestObj.isactive = drExcelrow[12].ToString(); //-----isactive
+                                            priestObj.UpdatePriest();
+                                            if (priestObj.result == "1")
+                                            {
+                                                updatedRows = updatedRows + 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            priestObj.priestName = drExcelrow[0].ToString();
+                                            priestObj.dob = drExcelrow[1].ToString();
+                                            priestObj.dateOrdination = drExcelrow[2].ToString();
+                                            priestObj.about = drExcelrow[3].ToString();
+                                            priestObj.BaptisumName = drExcelrow[4].ToString();
+                                            priestObj.address = drExcelrow[5].ToString();
+                                            priestObj.mobile = drExcelrow[6].ToString();
+                                            priestObj.Parish = drExcelrow[7].ToString();
+                                            priestObj.Diocese = drExcelrow[8].ToString();
+                                            priestObj.emailId = drExcelrow[9].ToString();
+                                            priestObj.designation = drExcelrow[10].ToString();
+                                            priestObj.Status = drExcelrow[11].ToString();
+                                            //priestObj.isactive = drExcelrow[12].ToString(); //-----isactive
+                                            priestObj.InsertPriest();
+                                            if (priestObj.result == "1")
+                                            {
+                                                insertedRows = insertedRows + 1;
+                                            }
+                                        }
+                                        break;
+                                    case "TownMaster":
+                                        if (IsUpdate)
+                                        {
+                                            townObj.code = drExisting[0][0].ToString();
+                                            townObj.name = drExcelrow[0].ToString();
+                                            townObj.UpdateTownMaster();
+                                            if (townObj.status == "1")//update status return 2 while dupilcation,   
+                                            {
+                                                updatedRows = updatedRows + 1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            townObj.name = drExcelrow[0].ToString();
+                                            townObj.InsertTownMaster();
+                                            if (townObj.status == "1")
+                                            {
+                                                insertedRows = insertedRows + 1;
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+                        if (j == dsExcelCount)
+                        {
+                            status = "1";
+                        }
+                        break;
                 }
             }
             catch (Exception ex)
@@ -596,6 +643,46 @@ namespace ChurchApp.DAL
         }
         #endregion GetTableDefinition
 
+        #region GetMasstimingTableDefinition
+        /// <summary>
+        /// Get Mass Timing Table Definition
+        /// </summary>
+        /// <returns>Mass timing Definition Data after inner join with church </returns>
+        public DataSet GetMassTimingTableData()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetMasstimingTableDefinition]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                DataTable dt = new DataTable();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetMasstimingTableDefinition
+
 
         #endregion Methods
 
@@ -613,7 +700,7 @@ namespace ChurchApp.DAL
         /// <param name="ExcelDS"></param>
         /// <param name="TableDefinitionDS"></param>
         /// <returns>True/False</returns>
-        public void Validation(DataSet ExcelDS,DataSet TableDefinitionDS)
+        public void Validation(DataSet ExcelDS, DataSet TableDefinitionDS)
         {
             dtError = CreateErrorTable();
             bool status = true;
@@ -623,12 +710,12 @@ namespace ChurchApp.DAL
                 excelNotExitingFields = new List<string>();
                 List<string> keyField = null;
                 status = ValidateType(ExcelDS, TableDefinitionDS, excelNotExitingFields, keyField);
-                if(status==true)
+                if (status == true)
                 {
-                    for (int i = ExcelDS.Tables[0].Rows.Count-1; i >= 0; i--)
+                    for (int i = ExcelDS.Tables[0].Rows.Count - 1; i >= 0; i--)
                     {
                         res = ValidateData(ExcelDS.Tables[0].Rows[i], TableDefinitionDS, i, dtError);
-                        if(res==-1)
+                        if (res == -1)
                         {
                             ExcelDS.Tables[0].Rows.RemoveAt(i);
                             errorCount = errorCount + 1;
@@ -640,13 +727,13 @@ namespace ChurchApp.DAL
                 {
                     DataRow dr = dtError.NewRow();
                     dr["RowNo"] = "";
-                    dr["FieldName"] =keyField;
-                    dr["ErrorDesc"] = excelNotExitingFields+" column(s) doesnot exists in excel template";
+                    dr["FieldName"] = keyField;
+                    dr["ErrorDesc"] = excelNotExitingFields + " column(s) doesnot exists in excel template";
                     dtError.Rows.Add(dr);
                 }
                 dtError = resort(dtError);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -675,7 +762,7 @@ namespace ChurchApp.DAL
                         flag = true;
                         errorList.Add(FieldName + "-" + "Field Is Empty");
                     }
-                    if (isKeyField == "Y" && drExcel[FieldName].ToString()!=string.Empty && drExcel[FieldName].ToString()!="NULL")
+                    if (isKeyField == "Y" && drExcel[FieldName].ToString() != string.Empty && drExcel[FieldName].ToString() != "NULL")
                     {
                         keyFields.Add(drExcel[FieldName].ToString());
                     }
@@ -795,7 +882,7 @@ namespace ChurchApp.DAL
                     return 1;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -864,7 +951,7 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool isString(string strToCheck)
         {
-            Regex rg = new Regex(@"^[a-zA-Z\s\.():'&,0-9-]+$",RegexOptions.Multiline);
+            Regex rg = new Regex(@"^[a-zA-Z\s\.():'&,0-9-]+$", RegexOptions.Multiline);
             if (rg.IsMatch(strToCheck))
                 return true;
             else
@@ -915,13 +1002,13 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool isValidDateAndTime(string strToCheck)
         {
-            if(strToCheck.Length>10)
+            if (strToCheck.Length > 10)
             {
                 strToCheck = strToCheck.Substring(10);
             }
 
             Regex rg = new Regex(@"^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)?([ ]?[a|p]m)?$", RegexOptions.IgnoreCase);
-            if (rg.IsMatch(strToCheck))
+            if (rg.IsMatch(strToCheck.TrimStart()))
                 return true;
             else
                 return false;
@@ -971,8 +1058,8 @@ namespace ChurchApp.DAL
         /// <returns></returns>
         private static bool IsWeekDays(string strToCheck)
         {
-            string[] weekDays = new string[14] { "Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sun","Mon","Tue","Wed","Thur","Fri","Sat" };
-           if(weekDays.Contains(strToCheck))
+            string[] weekDays = new string[14] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat" };
+            if (weekDays.Contains(strToCheck))
                 return true;
             else
                 return false;
@@ -1010,7 +1097,7 @@ namespace ChurchApp.DAL
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
