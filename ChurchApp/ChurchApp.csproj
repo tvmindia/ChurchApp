@@ -288,6 +288,7 @@
     <Content Include="Scripts\retina.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\timepicki.js" />
+    <Content Include="vid\Poster\vimeo.png" />
     <Content Include="WebServices\WebService.asmx" />
     <Content Include="ImageHandler\UploadHandler.ashx" />
     <Content Include="Font\trench.100.otf" />
@@ -575,7 +576,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TempFiles\" />
-    <Folder Include="vid\Poster\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
