@@ -690,6 +690,9 @@ $("document").ready(function (e) {
     $('#txtAddlink').on('paste, keydown', function () {
         $('#btnPlay').addClass('anim');
     });
+    $('#txtAddlink1').on('paste, keydown', function () {
+        $('#btnPlay').addClass('anim');
+    });
 });//end of document.ready
 function GetLinkID(Url)
 {
