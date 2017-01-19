@@ -1465,7 +1465,7 @@ function AppendVideoAlbum(Records) {
                     var match = /vimeo.*\/(\d+)/i.exec(VideoUrl);
                     if (match) {
                         var vimeoVideoID = match[1];
-                        var VideothumbUrl = "//i.vimeocdn.com/video/"+vimeoVideoID+".jpg";
+                        var VideothumbUrl = "/vid/Poster/vimeo.png";//"//i.vimeocdn.com/video/"+vimeoVideoID+".jpg";
                         if (thumbid == null) {
                             var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewVideos(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 VidAlb Card"><a alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + AlbumName + '</span><br><span class="badge"><i class="halflings-icon facetime-video white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Videos</span></div></div></a></div>';
                         }
@@ -1647,7 +1647,7 @@ function EditAppendVideos(Records) {
                     var match = /vimeo.*\/(\d+)/i.exec(VideoUrl);
                     if (match) {
                         var vimeoVideoID = match[1];
-                        var VideothumbUrl = "//i.vimeocdn.com/video/"+vimeoVideoID+".jpg";
+                        var VideothumbUrl = "/vid/Poster/vimeo.png";//"//i.vimeocdn.com/video/"+vimeoVideoID+".jpg";
                         
                             //var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewVideos(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 VidAlb Card"><a alt="Church"><div style="background-image: url(' + VideothumbUrl + ')!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + AlbumName + '</span><br><span class="badge"><i class="halflings-icon facetime-video white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Videos</span></div></div></a></div>';
                             var html = '<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="' + VideothumbUrl + '" alt="' + Records.URL + '"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteVideo(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';

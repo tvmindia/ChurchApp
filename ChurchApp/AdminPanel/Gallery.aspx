@@ -321,7 +321,7 @@
 
                              </div>
                             <div class="span5" id="UploadContentdiv">
-                                <a class="btn" id="AddLink" style="width:auto;margin: 22%;background-color:white;font-family:sans-serif;font-weight:600;color:black;font-size:21px;border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);border-bottom-color: #b3b3b3;width:80%;" onclick="AddYoutubeLink()">Add <img src="../img/iconyou.png" style="vertical-align: text-bottom;"/> video</a>
+                                <a class="btn" id="AddLink" style="width:auto;margin: 22%;background-color:white;font-family:sans-serif;font-weight:600;color:black;font-size:21px;border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);border-bottom-color: #b3b3b3;width:80%;" onclick="AddYoutubeLink()">Add <img src="../img/iconyou.png" style="vertical-align: -7px;"/> video</a>
                                 <div id="VideoPreviewdiv" style="display:none;">
                                     <embed id="previewVideoyoutubediv1video" width="250" height="250" src="" frameborder="0" allowfullscreen style="display:none;" />
                                     <video id="previewVideodiv1video" src="" loop="loop" style="object-fit: cover!important;display:none;" width="250" height="250" controls autoplay></video><br/>
@@ -385,7 +385,7 @@
 
                              </div>
                             <div class="span5" id="UploadContentdiv1">
-                                <a class="btn" id="AddLink1" style="width:auto;margin: 22%;background-color:white;font-family:sans-serif;font-weight:600;color:black;font-size:21px;border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);border-bottom-color: #b3b3b3;width:80%;" onclick="AddYoutubeLinkMore()">Add <img src="../img/iconyou.png" style="vertical-align: text-bottom;"/> video</a>
+                                <a class="btn" id="AddLink1" style="width:auto;margin: 22%;background-color:white;font-family:sans-serif;font-weight:600;color:black;font-size:21px;border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);border-bottom-color: #b3b3b3;width:80%;" onclick="AddYoutubeLinkMore()">Add <img src="../img/iconyou.png" style="vertical-align:-7px;"/> video</a>
                                 <div id="VideoPreviewdiv1" style="display:none;">
                                     <embed id="previewVideoyoutubediv1video1" width="250" height="250" src="" frameborder="0" allowfullscreen style="display:none;" />
                                     <video id="previewVideodiv1video1" src="" loop="loop" style="object-fit: cover!important;display:none;" width="250" height="250" controls autoplay></video><br/>
