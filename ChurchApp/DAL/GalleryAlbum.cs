@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Web;
 
 namespace ChurchApp.DAL
@@ -460,6 +461,7 @@ namespace ChurchApp.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
+            SqlParameter outParam1 = null;
             try
             {
                 dcon = new dbConnection();
@@ -472,16 +474,21 @@ namespace ChurchApp.DAL
                // cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
+                outParam1 = cmd.Parameters.Add("@Source", SqlDbType.TinyInt);
+                outParam1.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 if(outParam.Value.ToString()=="1")
                 {
                     try
                         {
-                            System.IO.File.Delete(HttpContext.Current.Server.MapPath(url));
-                            if(itemType=="video")//delete thumbnail
+                            if (outParam1.Value.ToString() != "EXTL")
                             {
-                             System.IO.File.Delete(HttpContext.Current.Server.MapPath("/vid/Poster/"+galleryItemID+".jpg"));
-                            }
+                                System.IO.File.Delete(HttpContext.Current.Server.MapPath(url));
+                                if (itemType == "video")//delete thumbnail
+                                {
+                                    System.IO.File.Delete(HttpContext.Current.Server.MapPath("/vid/Poster/" + galleryItemID + ".jpg"));
+                                }
+                            }     
                          
                         }
                         catch (System.IO.IOException e)
