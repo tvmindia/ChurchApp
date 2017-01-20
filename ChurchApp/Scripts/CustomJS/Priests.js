@@ -754,7 +754,7 @@ function AutoComplete()
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + (priestDetails.URL != null ? priestDetails.URL + '?' + new Date().getTime() : "../img/gallery/priest.png") + '"/></li>'
           + '<li><span class="choosepic">' + (priestDetails.Name != null ? priestDetails.Name : '') + '</span> <br/>'
           + '<strong>Baptismal Name:</strong> ' + (priestDetails.BaptismalName != null ? priestDetails.BaptismalName : '') + ' <br/><strong>House Name:</strong> ' + (priestDetails.Address != null ? priestDetails.Address : '') + ' <br/><strong>Status:</strong> ' + (priestDetails.Status != null ? priestDetails.Status : '') + '<br/>'
-          + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
+          + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' +(priestDetails.DateOrdination!=null ?ConvertJsonToDate(priestDetails.DateOrdination):"") + '<br />'
           + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenPriestDetails(' + ID + ');">View more details</a>'
           + '</li></ul></div></div>');
         return html;
@@ -767,7 +767,7 @@ function AutoComplete()
         var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + (priestDetails.URL != null ? priestDetails.URL + '?' + new Date().getTime() : "../img/gallery/priest.png") + '"/></li>'
           + '<li><span class="choosepic">' + (priestDetails.Name != null ? priestDetails.Name : '') + '</span> <br/>'
           + '<strong>Baptismal Name:</strong> ' + (priestDetails.BaptismalName != null ? priestDetails.BaptismalName : '') + ' <br/><strong>House Name:</strong> ' + (priestDetails.Address != null ? priestDetails.Address : '') + ' <br/><strong>Status:</strong> ' + (priestDetails.Status != null ? priestDetails.Status : '') + '<br/>'
-          + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
+          + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' + (priestDetails.DateOrdination != null ? ConvertJsonToDate(priestDetails.DateOrdination) : "") + '<br />'
           + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenPriestDetails(' + ID + ');">View more details</a>'
           + '</li></ul></div>');
         return html;
