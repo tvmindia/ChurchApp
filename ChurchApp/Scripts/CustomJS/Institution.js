@@ -641,7 +641,7 @@ function BindDetails(intituteID) {
             document.getElementById('lblPhone2').innerText = InstituteRow.phone2.substring(0, 30);
             document.getElementById('lblMobile').innerText = InstituteRow.Mobile.substring(0, 30);
             if (InstituteRow.imagepath != "") {
-                $('#instituteDetailPreview').attr('src', InstituteRow.imagepath);
+                $('#instituteDetailPreview').attr('src', InstituteRow.imagepath + '?' + new Date().getTime());
             }
             else {
                 $('#instituteDetailPreview').attr('src', '../img/gallery/Institution.jpg');
@@ -799,7 +799,7 @@ function EditAdministrator(this_Obj)
         $('#ddlRole').val(AdminRow.desigId).change();
         if (AdminRow.imagePath != "")
         {
-            $('#AdminPicPreview').attr('src', AdminRow.imagePath)
+            $('#AdminPicPreview').attr('src', AdminRow.imagePath +'?' + new Date().getTime())
         }
         else
         {
@@ -888,7 +888,7 @@ function EditInstitute(this_obj) {
         $('#txtWebsite').val(InstituteRow.Website);
         if (InstituteRow.imagepath != "")
         {
-            $('#priestPreview').attr('src', InstituteRow.imagepath);
+            $('#priestPreview').attr('src', InstituteRow.imagepath + '?' + new Date().getTime());
         }
         else
         {

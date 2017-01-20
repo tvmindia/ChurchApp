@@ -619,7 +619,7 @@ function AutoComplete()
                 document.getElementById('lblStatus').innerText = PriestRow.Status;
                 $('#hdfPriestID').val(PriestRow.ID);
                 $('#hdfpriestImageID').val(PriestRow.ImageID);
-                $('#priestDetailPreview').attr('src', (PriestRow.imagePath != null && PriestRow.imagePath != "" ? PriestRow.imagePath : "../img/gallery/priest.png"));
+                $('#priestDetailPreview').attr('src', (PriestRow.imagePath != null && PriestRow.imagePath != "" ? PriestRow.imagePath + '?' + new Date().getTime() : "../img/gallery/priest.png"));
                 $('#iconEditPriest').attr('name', PriestRow.priestID);
                 $('#btnrefresh').attr('name', PriestRow.priestID);
                 $('#btnCancelDetails').attr('name', 'View');
@@ -667,7 +667,7 @@ function AutoComplete()
             $('#txtEmail').val(PriestRow.emailId);
             $('#txtMobile').val(PriestRow.mobile);
             $('#priestimg').val('');
-            $('#priestPreview').attr('src', (PriestRow.imagePath != null && PriestRow.imagePath != "" ? PriestRow.imagePath : "../img/gallery/priest.png"));
+            $('#priestPreview').attr('src', (PriestRow.imagePath != null && PriestRow.imagePath != "" ? PriestRow.imagePath + '?' + new Date().getTime() : "../img/gallery/priest.png"));
             document.getElementById('HeadDetails').innerText = "Edit Details";
             $('#hdfPriestID').val(priestid);
             $('#hdfpriestImageID').val(PriestRow.imageId);
