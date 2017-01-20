@@ -3,6 +3,7 @@
 $(document).ready(function () {
     try
     {
+        debugger;
         //Setting current churchid
         churchObject.chid = $("#hdfchid").val();
         
@@ -32,7 +33,7 @@ $(document).ready(function () {
            
         });
         //////--------------function cancel details wizad
-        $('#bthCancelDetails').click(function (e) {
+        $('#btnCancelDetails').click(function (e) {
             try
             {
                 var action = $(this).attr('name');
@@ -103,26 +104,28 @@ $(document).ready(function () {
         {
             try
             {
-                var priestID = $("#hdfPriestID").val();
-                var Priest = new Object();
-                Priest.churchID = null;
-                Priest.priestID = $("#hdfPriestID").val();
+                var deleteConirm = confirm("Want to delete?");
+                if (deleteConirm) {
+                    var priestID = $("#hdfPriestID").val();
+                    var Priest = new Object();
+                    Priest.churchID = null;
+                    Priest.priestID = $("#hdfPriestID").val();
 
 
-                result = DeletePriest(Priest);
+                    result = DeletePriest(Priest);
 
-                if (result.result == "1") {
-                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
-                    $('#assVicardiv').remove();
-                    $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
-                    check();
-                    $('#PriestEd').hide();
-                    $('#PriestShowDetails').hide();
-                    AutoComplete();
-                }
-                else
-                {
-                    noty({ text: result.result, type: 'error' });
+                    if (result.result == "1") {
+                        noty({ text: Messages.DeletionSuccessFull, type: 'success' });
+                        $('#assVicardiv').remove();
+                        $("<div id='assVicardiv'><div id='AsstVicarDefault'></div></div>").appendTo("#AsstVicartask");
+                        check();
+                        $('#PriestEd').hide();
+                        $('#PriestShowDetails').hide();
+                        AutoComplete();
+                    }
+                    else {
+                        noty({ text: result.result, type: 'error' });
+                    }
                 }
                
             }
@@ -180,6 +183,7 @@ $(document).ready(function () {
             $(this).css({ background: 'white' });
             $('#ErrorBox,#ErrorBox1').hide(1000);
         });
+        $('[data-toggle="popover"]').popover();
         //Acess check for login User
         var value = $('#ContentPlaceHolder2_btnAddNew').val();
         if (value != "") {
@@ -615,9 +619,10 @@ function AutoComplete()
                 document.getElementById('lblStatus').innerText = PriestRow.Status;
                 $('#hdfPriestID').val(PriestRow.ID);
                 $('#hdfpriestImageID').val(PriestRow.ImageID);
-                $('#priestDetailPreview').attr('src', PriestRow.imagePath);
+                $('#priestDetailPreview').attr('src', (PriestRow.imagePath != null && PriestRow.imagePath != "" ? PriestRow.imagePath : "../img/gallery/priest.png"));
                 $('#iconEditPriest').attr('name', PriestRow.priestID);
-                $('#bthCancelDetails').attr('name', 'View');
+                $('#btnrefresh').attr('name', PriestRow.priestID);
+                $('#btnCancelDetails').attr('name', 'View');
             }
             else
             {
@@ -661,13 +666,14 @@ function AutoComplete()
             $('#txtAddress').val(PriestRow.address);
             $('#txtEmail').val(PriestRow.emailId);
             $('#txtMobile').val(PriestRow.mobile);
-            $('#priestPreview').attr('src', PriestRow.imagePath);
+            $('#priestimg').val('');
+            $('#priestPreview').attr('src', (PriestRow.imagePath != null && PriestRow.imagePath != "" ? PriestRow.imagePath : "../img/gallery/priest.png"));
             document.getElementById('HeadDetails').innerText = "Edit Details";
             $('#hdfPriestID').val(priestid);
             $('#hdfpriestImageID').val(PriestRow.imageId);
             $('#PriestShowDetails').hide();
             $('#btnrefresh').show();
-            $('#btnrefresh').attr('onclick', 'cancel();')
+            //$('#btnrefresh').attr('onclick', 'cancel();')
             $('#PriestEd').show();
         }
         catch(e)
@@ -746,8 +752,8 @@ function AutoComplete()
         var html = ('<div id="VicarDefault"><div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Vicar</h2></div>'
           + '<div class="task high">'
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + (priestDetails.URL != null ? priestDetails.URL + '?' + new Date().getTime() : "../img/gallery/priest.png") + '"/></li>'
-          + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
-          + '<strong>Baptismal Name:</strong> ' + priestDetails.BaptismalName + ' <br/><strong>House Name:</strong> ' + priestDetails.Address + ' <br/><strong>Status:</strong> ' + priestDetails.Status+ '<br/>'
+          + '<li><span class="choosepic">' + (priestDetails.Name != null ? priestDetails.Name : '') + '</span> <br/>'
+          + '<strong>Baptismal Name:</strong> ' + (priestDetails.BaptismalName != null ? priestDetails.BaptismalName : '') + ' <br/><strong>House Name:</strong> ' + (priestDetails.Address != null ? priestDetails.Address : '') + ' <br/><strong>Status:</strong> ' + (priestDetails.Status != null ? priestDetails.Status : '') + '<br/>'
           + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
           + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenPriestDetails(' + ID + ');">View more details</a>'
           + '</li></ul></div></div>');
@@ -756,11 +762,11 @@ function AutoComplete()
     }
     // Html code for binding Asst Vicar details
     function HtmlBindWithAsst(priestDetails, i) {
-        
+        debugger;
         var ID ="'"+priestDetails.ID+"'";
         var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + (priestDetails.URL != null ? priestDetails.URL + '?' + new Date().getTime() : "../img/gallery/priest.png") + '"/></li>'
-          + '<li><span class="choosepic">' + priestDetails.Name + '</span> <br/>'
-          + '<strong>Baptismal Name:</strong> ' + priestDetails.BaptismalName + ' <br/><strong>House Name:</strong> ' + priestDetails.Address + ' <br/><strong>Status:</strong> ' + priestDetails.Status + '<br/>'
+          + '<li><span class="choosepic">' + (priestDetails.Name != null ? priestDetails.Name : '') + '</span> <br/>'
+          + '<strong>Baptismal Name:</strong> ' + (priestDetails.BaptismalName != null ? priestDetails.BaptismalName : '') + ' <br/><strong>House Name:</strong> ' + (priestDetails.Address != null ? priestDetails.Address : '') + ' <br/><strong>Status:</strong> ' + (priestDetails.Status != null ? priestDetails.Status : '') + '<br/>'
           + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
           + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenPriestDetails(' + ID + ');">View more details</a>'
           + '</li></ul></div>');

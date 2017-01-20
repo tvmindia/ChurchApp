@@ -5,46 +5,7 @@
     <link href="../CSS/CustomCSS/Priests.css" rel="stylesheet" />
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Priests.js"></script>
-   <%--<style>
-       
-       .btnNew {
-           -webkit-border-radius: 58;
-           -moz-border-radius: 58;
-           border-radius: 58px;
-           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-           color: #ffffff;
-           font-size: 20px;
-           background: #F44336;
-           padding: 8px 17px 8px 17px;
-           text-decoration: none;
-           position:relative;
-           cursor:pointer;
-       }
-
-       .btnNew:hover {
-           background: #eb5347;
-           color:lightsteelblue;
-           text-decoration: none;
-       }
-       .btnEdit {
-           -webkit-border-radius: 58;
-           -moz-border-radius: 58;
-           border-radius: 58px;
-           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-           color: #ffffff;
-           font-size: 20px;
-           background: #21a01b;
-           padding: 8px 10px 8px 13px;
-           text-decoration: none;
-           cursor:pointer;
-       }
-
-       .btnEdit:hover {
-           background: green;
-           color:whitesmoke;
-           text-decoration: none;
-       }
-   </style>--%>
+ 
       <div id="content" class="span10">
        <ul class="breadcrumb" style="margin-bottom:0px">
                 <li>
@@ -55,34 +16,6 @@
 				<li>Priests</li>
 				
 	  </ul>
-           <%--Alert boxes --%>
-               <div id="rowfluidDiv" style="display:none;">	
-				
-
-                 
-						<div class="alert alert-error" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Operation Not Successfull.</strong> 
-						</div>
-						<div class="alert alert-success" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Successfull.</strong> 
-						</div>
-						<div class="alert alert-info" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-						</div>
-						<div class="alert alert-block" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<h4 class="alert-heading">Warning!</h4>
-							<p>Best check yourself, you're not looking too good.</p>
-						</div>
-					
-
-              
-            </div>
-				
-	    <%--Alert boxes --%>
           <div class="row-fluid">
           <div class="span6">
             <div id="VicarDivDisplay">
@@ -221,7 +154,7 @@
                         <div class="form-actions">
                               <input type="hidden" id="hdnAddPriestID" />
 							  <a class="btn btn-primary" name="" style="display:none;" id="btnAddPriest">ADD NOW</a>
-                            <a class="btn btn-primary" id="bthCancelDetails">CANCEL</a>
+                            <a class="btn btn-primary" id="btnCancelDetails">CANCEL</a>
 							  
 							</div>
 						  </fieldset>
@@ -238,7 +171,7 @@
 					<div class="box-content">
 					<div class="form-horizontal">
 				    <fieldset>
-                    <a class="btnEdit" style="right:40px;top:-41px;position: absolute;display:none;" title="Back" id="btnrefresh"><i class="halflings-icon white repeat" aria-hidden="true" ></i></a>
+                    <a class="btnEdit" style="right:40px;top:-41px;position: absolute;display:none;" title="Back" id="btnrefresh" onclick="OpenPriestDetails(name);"><i class="halflings-icon white repeat" aria-hidden="true" ></i></a>
 
 							<div class="control-group">
 							  <img class="priestimage" id="priestPreview" src="../img/gallery/priest.png"/>
@@ -252,7 +185,7 @@
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtPriestName" placeholder="Search / Add.." autocomplete="off" onkeypress="return isnotNumber(event);" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtPriestName" data-placement="top" data-toggle="popover" data-trigger="focus" data-content="Select name from list appear when search or Enter the name and continue to save" placeholder="Search / Add.." autocomplete="off" onkeypress="return isnotNumber(event);" type="text"/>
                                 </div>
 								</div>
                          <div class="control-group">

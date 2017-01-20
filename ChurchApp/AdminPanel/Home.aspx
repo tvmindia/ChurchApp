@@ -174,7 +174,7 @@
                           
                             <div class="form-actions span12">
 							  <a class="btn btn-primary saveAll"   >Save changes</a>
-                              <a     class="btn btn-primary cancelAll">Cancel</a>   
+                              <a id="btnClear" class="btn btn-primary">Clear</a>   
 							</div>
                         </fieldset>
                     </div>
