@@ -90,8 +90,12 @@ namespace ChurchApp.ExcelHandler
                                     ImportXL.Validation(dsExcel, dsTableDefenition);                                    
                                     if (dsExcel.Tables[0].Rows.Count > 0)
                                     {
-                                        ImportXL.ExcelImports(dsExcel, dsTableDefenition);
+                                        ImportXL.ExcelImports(dsExcel, dsTableDefenition);                                      
                                     }
+                                   else
+                                    {
+                                        ImportXL.status = "0";
+                                    }                                    
                                     if (ImportXL.dtError.Rows.Count > 0)
                                     {
                                         if (ImportXL.dtError.Rows.Count > 0)
