@@ -23,8 +23,9 @@ $("document").ready(function (e) {
         }
     });
     
-    BindLatestNotices();
+    
     churchObject.chid = $("#hdfchid").val();
+    BindLatestNotices();
     //--Limit Notification Content 
     $('#txtnotificationCOntent').keypress(function (e) {
 
@@ -609,7 +610,7 @@ function FillNotice(Records) {
 
         var url = Records.URL;//<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NoticeName + '</a></div><div class="accordion-body collapse in">
         //<img class="noticeImage" id=img' + Records.ID + ' src=' + url + '/>
-        var html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.NoticeName + '</p><span class="fa fa-slack" id="spnStartDate"></span>  <span class="spnDateValues" >' + Records.NoticeType + '</span>&nbsp;<br /><p>' + Records.Description + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+        var html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + (Records.NoticeName!=null?Records.NoticeName:"") + '</p><span class="fa fa-slack" id="spnStartDate"></span>  <span class="spnDateValues" >' + (Records.NoticeType!=null?Records.NoticeType:"") + '</span>&nbsp;<br /><p>' + (Records.Description!=null?Records.Description:"") + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
         $("#DivNoticeType1").append(html);
 
         if (url != "") {

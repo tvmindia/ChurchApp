@@ -59,7 +59,7 @@ $(document).ready(function () {
     {
         noty({ type: 'error', text: e.message });
     }
-    
+    $('[data-toggle="popover"]').popover();
 });
 ///End document ready section
 
@@ -620,16 +620,16 @@ function HtmlBindInstitutions(InstituteDetails, i) {
     var ID = "'" + InstituteDetails.ID + "'";
     var imageurl = null;
     if (InstituteDetails.URL != null) {
-        imageurl = InstituteDetails.URL;
+        imageurl = InstituteDetails.URL+'?' + new Date().getTime() ;
     }
     else {
         imageurl = '../img/gallery/Institution.jpg';
     }
 
     var html = ('<ul class="media-list" style="border-bottom:1px solid #cfcece"><li class="media">'
-      + '<a class="pull-left"><img class="media-object" src="' + imageurl + '" style="max-height:80px;min-width:80px;max-width:80px;"/></a>'
-      + '<div class="media-body"><h4 class="media-heading">' + InstituteDetails.Name + '<span> </span><span class="fa fa-flag"></span></h4>Patron : ' + InstituteDetails.PatronName + '<br/>'
-      + '' + InstituteDetails.Desc + ''
+      + '<a class="pull-left"><img class="media-object" src="' + imageurl +  '" style="max-height:80px;min-width:80px;max-width:80px;"/></a>'
+      + '<div class="media-body"><h4 class="media-heading">' + (InstituteDetails.Name!=null?InstituteDetails.Name:"") + '<span> </span><span class="fa fa-flag"></span></h4>Patron : ' + (InstituteDetails.PatronName!=null?InstituteDetails.PatronName:"") + '<br/>'
+      + '' + (InstituteDetails.Desc!=null?InstituteDetails.Desc:"") + ''
       + '<div class="media"><a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenInstituteDetails(' + ID + ');">View more details</a>'
       + '</div></div></li></ul>');
     return html;
@@ -638,7 +638,7 @@ function HtmlBindInstitutions(InstituteDetails, i) {
 // Html code for binding admincard details
 function HtmlBindCards(AdminDetails, i) {
     var ID = "'" + AdminDetails.ID + "'";
-    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '"/>'
+    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '?' + new Date().getTime() + '"/>'
       + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address></div>'
       + '</li></ul>');
     return html;
@@ -656,7 +656,7 @@ function HtmlBindCardsEmpty() {
 function HtmlEditBindCards(AdminDetails, i) {
     debugger;
     var ID = "'" + AdminDetails.ID + "'";
-    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '"/>'
+    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '?' + new Date().getTime() + '"/>'
       + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address><i class="icon-edit" name=' + ID + ' style="position: relative;top: -19px;left: 105px;cursor:pointer;" onclick="EditAdministrator(this)"></i><i class="icon-trash" name=' + ID + ' style="position: relative;top: -19px;left: 109px;cursor:pointer;" onclick="DeleteAdministrator(this);"></i></div>'
       + '</li></ul>');
     return html;
@@ -850,7 +850,7 @@ function NewInstitute() {
             $('#EditGenDetails').toggleClass("active");
             $('#EditGen').toggleClass("show");
         }
-        $('#txtInstituteName').focus();
+        $('#txtPatron').focus();
     }
     catch (e) {
         noty({ type: 'error', text: e.message });

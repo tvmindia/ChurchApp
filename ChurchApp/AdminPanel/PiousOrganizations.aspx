@@ -151,18 +151,19 @@
                              <div id="Displaydiv">
                              </div>
                         </div>  
+                            <div class="control-group">
+								<label class="control-label" for="focusedInput">Patron:</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Patron" id="txtPatron" data-placement="top" data-toggle="popover" data-trigger="focus" data-content="Select patron with keystroks contact admin if patron not in the list" type="text" placeholder="Search Patron"/>
+                                </div>
+								</div>
                          <div class="control-group">
 								<label class="control-label" for="focusedInput">Name:</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtInstituteName" type="text"/>
                                 </div>
 								</div>
-                         <div class="control-group">
-								<label class="control-label" for="focusedInput">Patron:</label>
-								<div class="controls">
-								  <input class="input-large focused" name="Patron" id="txtPatron" type="text" placeholder="Search Patron"/>
-                                </div>
-								</div>
+                         
                      
                         
 
