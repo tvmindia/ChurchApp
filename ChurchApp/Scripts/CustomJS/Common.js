@@ -328,8 +328,6 @@ var Pages = {
 //--------------* Messages * ---------------//
 var Messages = {
     FileFormaterror: "Please select a valid Image",
-    exists: "The operation can’t be completed because the category is in use .",
-    existsBoutique: "The operation can’t be completed because the Boutique is in use .",
 
     Html5: "The File APIs are not fully supported in this browser.",
 
