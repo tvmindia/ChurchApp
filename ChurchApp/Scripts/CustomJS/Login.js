@@ -29,7 +29,7 @@ function ForgotPassword() {
 }
 
 function SendVerificationCode() {
-    debugger;
+    
     $('#Sendinggif').show();
     var Email = $('#txtEmail');
     var EmailAddress = Email[0].value;
@@ -79,7 +79,7 @@ function MatchVetification(EmailAddr)
 
 function VerifyCodeNow()
 {
-    debugger;
+    
     var Email=$('#HdnEmail').val();
     var VerifCode = $('#txtVerifyCode');
     var VerificationCod = VerifCode[0].value;
@@ -117,7 +117,7 @@ function VerifyCodeNow()
 }
 
 function EnterPassword(UsrID) {
-    debugger;
+    
     var HdnUserID = document.createElement('input');
     HdnUserID.setAttribute("type", "hidden");
     HdnUserID.setAttribute("id", "HdnUserID");   
@@ -142,7 +142,7 @@ function EnterPassword(UsrID) {
 
 function UpdatePassword()
 {
-    debugger;
+    
     var UsrID = $('#HdnUserID').val();
     var Passwd = $('#txtPassword').val();
     var CPasswd = $('#txtConfirmPassword').val();
@@ -194,7 +194,7 @@ function Succes() {
     LoginDIv.append(html);
 }
 function EmailValidation() {
-    debugger;
+    
     var Email = $('#txtEmail').val();
     var ptag = document.getElementById('lblerror');
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;

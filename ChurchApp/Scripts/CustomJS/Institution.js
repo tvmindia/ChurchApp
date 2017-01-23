@@ -131,7 +131,7 @@ function SaveAdministrator()
 {
     try
     {
-        debugger;
+        
         var InstituteID = $('#hdnInstituteID').val();
         var AdminID = $('#hdnAdminID').val();
         var Administrators = new Object();
@@ -385,7 +385,7 @@ function SaveAdministrator()
 function SaveInstitution()
 {
     try {
-        debugger;
+        
         var Institutions = new Object();
         Institutions.name = $('#txtInstituteName').val();
         Institutions.address = $('#txtAddress').val();
@@ -595,7 +595,7 @@ function BindSelect()
 function BindInstituteslist() {
     try
     {
-        debugger;
+        
         var InstituteDetails = {};
         var elems = $();
         InstituteDetails = GetInstitutionListChurchID();
@@ -625,7 +625,7 @@ function BindInstituteslist() {
 //Bind institution Details to view
 function BindDetails(intituteID) {
     try {
-        debugger;
+        
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);
         if (InstituteRow.results == null)
@@ -729,7 +729,7 @@ function HtmlEmptyBind() {
 }
 // Html code for binding Institution details
 function HtmlBindInstitutions(InstituteDetails, i) {
-    debugger;
+    
     var ID = "'" + InstituteDetails.ID + "'";
     var imageurl = null;
     if (InstituteDetails.URL != null)
@@ -981,7 +981,7 @@ function DeleteInstituteclick(this_Obj)
 //Add new institution button onclick function
 function NewInstitute() {
     try {
-        debugger;
+        
         ClearFields();
         RemoveStyle();
         

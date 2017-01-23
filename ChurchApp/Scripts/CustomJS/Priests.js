@@ -3,7 +3,7 @@
 $(document).ready(function () {
     try
     {
-        debugger;
+        
         //Setting current churchid
         churchObject.chid = $("#hdfchid").val();
         
@@ -58,7 +58,7 @@ $(document).ready(function () {
         $('#btnAddPriest').click(function (e) {
             try 
             {
-                debugger;
+                
                 var status = $(this).attr('name');
                 if (status == "")
                 {
@@ -203,7 +203,7 @@ $(document).ready(function () {
 //Save priest (functon with insert and update)
 function savePriest()
 {
-    debugger;
+    
     try {
 
         var i;
@@ -587,7 +587,7 @@ function AutoComplete()
     }
     //Onclick function for view priest details
     function OpenPriestDetails(priestID) {
-        debugger;
+        
         document.getElementById('priestimg').value = "";
 
         $('#hdfpriestImageID').val('');
@@ -646,7 +646,7 @@ function AutoComplete()
     {
         try
         {
-            debugger;
+            
             RemoveStyle();
             $('#btnDelete').show();
             $('#btnCancelPriest').show();
@@ -709,7 +709,7 @@ function AutoComplete()
     //CHeck Vicar Exist
     function VicarExist()
     {
-        debugger;
+        
         var Priest = new Object();
         var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
         jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/VicarExistornot");
@@ -762,7 +762,7 @@ function AutoComplete()
     }
     // Html code for binding Asst Vicar details
     function HtmlBindWithAsst(priestDetails, i) {
-        debugger;
+        
         var ID ="'"+priestDetails.ID+"'";
         var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + (priestDetails.URL != null ? priestDetails.URL + '?' + new Date().getTime() : "../img/gallery/priest.png") + '"/></li>'
           + '<li><span class="choosepic">' + (priestDetails.Name != null ? priestDetails.Name : '') + '</span> <br/>'

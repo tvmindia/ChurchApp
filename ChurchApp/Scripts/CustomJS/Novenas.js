@@ -87,7 +87,7 @@ $("document").ready(function (e)
                         }
                     }
                 }
-                debugger;
+                
                 var IsValid = NewNovenaValidation();
                 if (IsValid) {
                     var SuccessMsg = '';
@@ -164,7 +164,7 @@ $("document").ready(function (e)
                                     }
                                     //Insertion of novena timing
                                     $.each(NovenaDayAndTime, function (index, NovenaDayAndTime) {
-                                        debugger;
+                                        
                                         var day = NovenaDayAndTime.Day;
                                         var time = NovenaDayAndTime.Time;
 
@@ -224,7 +224,7 @@ $("document").ready(function (e)
         $('#btnDelete').click(function (e) {
             try
             {
-                debugger;
+                
                // $('#btnDelete').popover('show');
                 var deleteConirm = confirm("Want to delete?");
                 if (deleteConirm) {
@@ -281,7 +281,7 @@ $("document").ready(function (e)
         $('#btnEditPatron').click(function (e) {
             try
             {
-                debugger;
+                
 
                 //$('#rowfluidDiv').hide();
                 //$('.alert-success').hide();
@@ -472,7 +472,7 @@ function FillNovenas(Records) {
         $('#DivNovenas').html('');
 
         $.each(Records, function (index, Records) {
-            debugger;
+            
             var url = Records.URL;
             var ID = Records.ID;
             var html = '';
@@ -488,7 +488,7 @@ function FillNovenas(Records) {
             //then First item is set to day , others are times
             //I day is null , day is passed as 'dai'(daily) from sp
             //so it is also managed
-            debugger;
+            
             if (DayAndTime != null) {
 
                 if (DayAndTime.indexOf('|') > -1) {
@@ -624,7 +624,7 @@ function DeleteNovena(Novenas) {
 function FixedEditClick()
 {
     try {
-        debugger;
+        
         $('#rowfluidDiv').hide();
         $('.alert-success').hide();
         $('.alert-error').hide();
@@ -952,7 +952,7 @@ var DayAndTimeTemp = '';
 function BindNovenaMoreDetails(ID) {
     try
     {
-        debugger;
+        
         ScrollPage();
         //  $('#DivNovenaTiming').hide();
         SetControlsInViewFormat();
@@ -1082,7 +1082,7 @@ function SetControlsInNovenaFormat(IsNewButtonClicked)
 {
     try
     {
-        debugger;
+        
         IsNormal = true;
         ClearControls();
         if (PatronID != "") {
@@ -1275,12 +1275,12 @@ var DayNtimeHTML = '';
 function AddDayAndTimeToArray() {
     try
     {
-        debugger;
+        
         var IsValid = true;
         var dayarr = new Array();
 
         if ($("#ddlDay").val() != null) {
-            debugger;
+            
             var time = $("#TxtTime").val();
             var tim = parseInt(time.split(":")[0]);
             var mini = (time.split(" ")[0]).split(":")[1];
@@ -1369,7 +1369,7 @@ function DeleteTime(Obj) {
             var day = $tds[0].innerText;
             var time = $tds[1].innerText;
             NovenaDayAndTime = $.grep(NovenaDayAndTime, function (e) {
-                debugger;
+                
                 return (e.Day !== day && e.Time !== time);
             });
 

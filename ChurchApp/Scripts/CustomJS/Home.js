@@ -165,7 +165,7 @@ function UpdateChurch(Church) {
 }
 //// Show Picture preview for file upload Home Church image
 function UploadNow(input) {
-   // debugger;
+   // 
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {

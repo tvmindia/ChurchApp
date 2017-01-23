@@ -51,7 +51,7 @@ $(document).ready(function () {
         //////////////////////////////////////////////////////
         var value = $('#ContentPlaceHolder2_btnAddNew').val();
         if (value != "") {
-            debugger;
+            
             $('#iconEditInstitute').remove();
         }
     }
@@ -130,7 +130,7 @@ function showpreviewAdmin(input) {
 function SaveAdministrator()
 {
     try {
-        debugger;
+        
         var AppImgURL = '';
         var Administrators = new Object();
         var AdminID = $('#hdnAdminID').val();
@@ -263,7 +263,7 @@ function SaveAdministrator()
 ///function save and update Pious Organization
 function SaveInstitution() {
     try {
-        debugger;
+        
         var AppImgURL = '';
         var InstituteID = $("#hdnInstutID").val();
 
@@ -313,7 +313,7 @@ function SaveInstitution() {
         }
             //-----------------------UPDATE-------------------//
         else {
-            debugger;
+            
             var PiousOrg = new Object();
            // PiousOrg.piousOrgID = guid;
             PiousOrg.Name = $('#txtInstituteName').val();
@@ -405,10 +405,10 @@ function AutoComplete() {
 function AutoCompleteAdmin() {
     try
     {
-        debugger;
+        
         var ac = null;
         ac = GetMembers();
-        debugger;
+        
         var length = ac.length;
         var projects = new Array();
         for (i = 0; i < length; i++) {
@@ -439,7 +439,7 @@ function AutoCompleteAdmin() {
                 return false;
             },
             select: function (event, ui) {
-                debugger;
+                
                 var patronID = ui.item.desc;
                 if (ui.item.imageId == "")
                 {
@@ -509,7 +509,7 @@ function BindSelect() {
 /// Function for binding Pious Organization
 function BindInstituteslist() {
     try {
-        debugger;
+        
         var InstituteDetails = {};
         var elems = $();
         InstituteDetails = GetInstitutionListChurchID();
@@ -535,7 +535,7 @@ function BindInstituteslist() {
 //Bind Pious Organization Details to view
 function BindDetails(intituteID) {
     try {
-        debugger;
+        
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);
         ClearFields();
@@ -616,7 +616,7 @@ function BindEditCard(ID) {
 /////////////////////////////////////////////////////////////**************Html bind dynamic
 // Html code for binding Pious Organization details
 function HtmlBindInstitutions(InstituteDetails, i) {
-    debugger;
+    
     var ID = "'" + InstituteDetails.ID + "'";
     var imageurl = null;
     if (InstituteDetails.URL != null) {
@@ -654,7 +654,7 @@ function HtmlBindCardsEmpty() {
 }
 //Html code for binding Edit admincard details
 function HtmlEditBindCards(AdminDetails, i) {
-    debugger;
+    
     var ID = "'" + AdminDetails.ID + "'";
     var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '?' + new Date().getTime() + '"/>'
       + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address><i class="icon-edit" name=' + ID + ' style="position: relative;top: -19px;left: 105px;cursor:pointer;" onclick="EditAdministrator(this)"></i><i class="icon-trash" name=' + ID + ' style="position: relative;top: -19px;left: 109px;cursor:pointer;" onclick="DeleteAdministrator(this);"></i></div>'
@@ -671,7 +671,7 @@ function HtmlEditBindCards(AdminDetails, i) {
 ///Edit administrator button onclick function
 function EditAdministrator(this_Obj) {
     try {
-        debugger;
+        
         $("#hdfAdminImageID").val('');
         var AdminRow = {};
         var AdminID = $(this_Obj).attr('name');
@@ -784,7 +784,7 @@ function EditInstitute(this_obj) {
 //Delete Pious Organization button onclick function
 function DeleteInstituteclick(this_Obj) {
     try {
-        debugger;
+        
         var r = confirm("Are You Sure to Delete?");
         if (r == true) {
             var Adminresult = null;
@@ -996,7 +996,7 @@ function DeleteAdmin(AdminRow) {
 //Select all Institute with churchID
 function GetInstitutionListChurchID() {
     try {
-        debugger;
+        
         var ds = {};
         var table = {};
         var PiousOrg = new Object();
@@ -1058,7 +1058,7 @@ function UpdateInstitute(PiousOrg) {
 //Delete Pious Organization
 function DeleteInstitute(InstituteRow) {
     try {
-        debugger;
+        
         var PiousOrg = new Object();
         PiousOrg.piousOrgID = InstituteRow.piousOrgID;
         //PiousOrg.imagepath = InstituteRow.imagepath;
@@ -1133,7 +1133,7 @@ function GetPatronbyID(patronID)
 function InstitutionValidation() {
     try
     {
-        debugger;
+        
         var Name = $('#txtInstituteName');
         var Patron = $('#txtPatron');
 
@@ -1175,7 +1175,7 @@ function InstitutionValidation() {
 function AdminValidation() {
     try
     {
-        debugger;
+        
         var Name = $('#txtName');
         var Phone = $('#txtMobile');
         var Role = $('#ddlRole');

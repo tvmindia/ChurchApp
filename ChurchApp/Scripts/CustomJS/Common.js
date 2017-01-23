@@ -170,11 +170,12 @@ function htmlerror()
     return html;
 }
 
+
 function postBlobAjax(formData, page) {
     //var request = new XMLHttpRequest();
     //request.open("POST", page);
     //request.send(formData);
-    debugger;
+    
     $('#displaywait').show();
     var jsonResult = {};
     $.ajax({
@@ -190,7 +191,7 @@ function postBlobAjax(formData, page) {
         traditional: true,
 
         success: function (data) {
-            debugger;
+            
             $('#displaywait').hide();
             jsonResult = JSON.parse(data);
             if (jsonResult.statusCode == '555') {
@@ -199,7 +200,7 @@ function postBlobAjax(formData, page) {
         },
         processData: false,
         error: function (xmlhttprequest, textstatus, message) {
-            debugger;
+            
             $('#displaywait').hide();
             $('body').empty();
             $('body').append(htmlerror());
@@ -212,76 +213,45 @@ function postBlobAjax(formData, page) {
     return jsonResult;
 }
 function getJsonData(data, page) {
-    debugger;
+    
     var jsonResult = {};
     $('#displaywait').show();
-    $.ajax({
-        type: "post",
-        url: page,
-        data: data,
-        delay: 1,
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            $('#displaywait').hide();
-        },
-        error: function (xmlhttprequest,textstatus,message) {
-            debugger;
-            //message.code will be:-timeout", "error", "abort", and "parsererror"
-            $('#displaywait').hide();
-            $('body').empty();
-            $('body').attr('style', 'background-color:#A2BDCE;')
-            $('body').append(htmlerror());
-            window.history.pushState("", "", "/Login.aspx");
-            noty({ text:  message.code + ', ' + xmlhttprequest.statusText, type: 'error' })
+        $.ajax({
+            type: "post",
+            url: page,
+            data: data,
+            delay: 1,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                
+                if (data != null) {
+                    var vald = JSON.parse(data.d);
+                    if (vald.statusCode == '555') {
+                        window.location.replace(window.location.protocol + "//" + window.location.host + vald.url);
+                    }
+                }
 
-         }
+                jsonResult = data;
+            },
+            error: function (xmlhttprequest, textstatus, message) {
+                
+                //message.code will be:-timeout", "error", "abort", and "parsererror"
 
-    }).done(function (data) {
-        debugger;
-        if (data != null) {
-            var vald = JSON.parse(data.d);
-            if (vald.statusCode == '555') {
-                window.location.replace(window.location.protocol + "//" + window.location.host + vald.url);
+                $('body').empty();
+                $('body').attr('style', 'background-color:#A2BDCE;')
+                $('body').append(htmlerror());
+                window.history.pushState("", "", "/Login.aspx");
+                noty({ text: message.code + ', ' + xmlhttprequest.statusText, type: 'error' })
+
             }
-        }
-       
-        jsonResult = data;
-    });
+
+        }).always(function () {
+            $('#displaywait').hide();
+        });
     return jsonResult;
 }
-
-
-
-//function getJsonData(data, page) {
-   
-//    var jsonResult = {};
-//    $('#displaywait').show();
-//    var req = $.ajax({
-//        type: "post",
-//        url: page,
-//        data: data,
-//        delay: 3,
-//        async: false,
-//        contentType: "application/json; charset=utf-8",
-//        dataType: "json"
-
-//    }).done(function (data) {
-       
-//        if (data != null)
-//        {
-//            var vald = JSON.parse(data.d);
-//            if(vald.statusCode=='555')
-//            {
-//                window.location.replace(window.location.protocol + "//" + window.location.host + vald.url );
-//            }
-//        }
-//        $('#displaywait').hide();
-//        jsonResult = data;
-//    });
-//    return jsonResult;
-//}
 
 function ConvertJsonToDate(jsonDate) {
    

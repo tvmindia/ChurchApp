@@ -474,7 +474,7 @@ namespace ChurchApp.DAL
                // cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
-                outParam1 = cmd.Parameters.Add("@Source", SqlDbType.TinyInt);
+                outParam1 = cmd.Parameters.Add("@Source", SqlDbType.NVarChar,10);
                 outParam1.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
                 if(outParam.Value.ToString()=="1")

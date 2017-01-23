@@ -142,7 +142,7 @@ $("document").ready(function (e) {
 
         $('#btnSave').click(function (e) {
             try {
-                debugger;
+                
                     var today = new Date();
                     var startcheck = $("#dateStartDate").val();
                     var endcheck = $("#dateEndDate").val();
@@ -326,7 +326,7 @@ $("document").ready(function (e) {
                                 $("#hdfImageID").val(result.imageId);
                                 if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
                                 {
-                                    debugger;
+                                    
                                     var Notification = new Object();
                                     Notification.notificationType = NotificationTypeCode;
                                     Notification.linkID = result.eventId;
@@ -368,7 +368,7 @@ $("document").ready(function (e) {
 
                                 if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
                                 {
-                                    debugger;
+                                    
                                     var Notification = new Object();
                                     Notification.notificationType = NotificationTypeCode;
                                     Notification.linkID = InsertionStatus.eventId;
@@ -1089,7 +1089,7 @@ function FixedEditClick() {
     try
     {
          
-        debugger;
+        
         $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white repeat");
         $('#NoticeEdit').attr('onclick', 'cancelEdit();');
 
@@ -1306,7 +1306,7 @@ function showpreview(input) {
 
 function SetExpiryDateNow() {
     
-    debugger;
+    
     var EndDate     = $("#dateEndDate").val();
     var ExpireDate = $("#dateExpiryDate").val();
     if (EndDate != "" && EndDate != null && EndDate != undefined && $("#hdfEventID").val() == "" && ExpireDate == "" ) {

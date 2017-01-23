@@ -1,7 +1,7 @@
 ﻿var BugDataTables = {};
 
 $("document").ready(function (e) {
-    debugger;
+    
     try
     {
         try {
@@ -97,7 +97,7 @@ $("document").ready(function (e) {
 
     $(".updateBug").click(function (e)
     {
-        debugger;
+        
         var isFixed = $('#OptIsFixedYes').closest('span').hasClass('checked');
         if(isFixed==true)
         {
@@ -166,7 +166,7 @@ function BindBugTable() {
 }
 
 function getFormattedDate(input) {
-    debugger;
+    
     var pattern = /(.*?)\/(.*?)\/(.*?)$/;
     var result = input.replace(pattern, function (match, p1, p2, p3) {
         var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -177,7 +177,7 @@ function getFormattedDate(input) {
 }
 
 function formattedDate(date) {
-    debugger;
+    
     var d = new Date(date || Date.now()),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
@@ -209,7 +209,7 @@ function FixedBugs()
 {
     try
     {
-        debugger;
+        
         $("#txtStartDate").css("display", "");
         $("#lblStartDate").css("display","inline")
         var date = new Date(new Date().setDate(new Date().getDate() - 30));
@@ -286,7 +286,7 @@ function EditErrorList(curobj)
 
 //-----------------------------------------*Web Methods*---------------------------------------------------//
 function GetAllBugs(ExceptionTrack) {
-    debugger;
+    
     var ds = {};
     var table = {};
     try {
@@ -302,7 +302,7 @@ function GetAllBugs(ExceptionTrack) {
 
 function CopyAppLog()
 {
-    debugger;
+    
     try
     {
         var range = document.createRange();
@@ -338,7 +338,7 @@ function UpdateErrorLog(ExceptionTrack)
 
 function GetErrorDetailsByErrorID(ExceptionTrack)
 {
-    debugger;
+    
     var ds = {};
     var table = {};
     try
@@ -355,7 +355,7 @@ function GetErrorDetailsByErrorID(ExceptionTrack)
 }
 
 function GetAllFixedBugs(ExceptionTrack) {
-    debugger;
+    
     var ds = {};
     var table = {};
     try {
