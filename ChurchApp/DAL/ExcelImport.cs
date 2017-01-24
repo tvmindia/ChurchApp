@@ -718,7 +718,7 @@ namespace ChurchApp.DAL
                     for (int i = ExcelDS.Tables[0].Rows.Count - 1; i >= 0; i--)
                     {
                         res = ValidateData(ExcelDS.Tables[0].Rows[i], TableDefinitionDS, i, dtError);
-                        if (res == 1)   //-----------------vaildate logic inside------------//
+                        if (res == 1)     //-----------------vaildate logic inside------------//
                         {
                             res = LogicValidation(ExcelDS.Tables[0].Rows[i], i, dtError, dsExisting);   
                         }
@@ -813,13 +813,13 @@ namespace ChurchApp.DAL
         #region ValidateData
         public int ValidateData(DataRow drExcel, DataSet dsTableDef, int rowno, DataTable dtError)
         {
+
             List<string> errorList = new List<string>();
+
             List<string> keyFields = new List<string>();
             try
             {
-
                 bool flag = false;
-
                 //----------------------Manadatory Fields Checking-------------------//
                 DataRow[] mandatoryFields = dsTableDef.Tables[0].Select("IsMandatory='true'");
 
