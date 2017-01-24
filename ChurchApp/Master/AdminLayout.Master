@@ -5,6 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <!-- start: Meta -->
+    <meta http-equiv="Page-Enter" content="blendTrans(Duration=0)"/>
+
+    <meta http-equiv="Page-Exit" content="blendTrans(Duration=0)"/>
 	<meta charset="utf-8"/>
 	<title>GoChurch</title>
     <link rel="shortcut icon" type="image/png" href="../img/IconChurch.PNG" />
@@ -33,8 +36,7 @@
 
     <link href="../CSS/CustomCSS/AdminLayout.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
-    <link href="../CSS/jquery.dataTables.min.css" rel="stylesheet" />
-    <link href="../CSS/dataTables.material.min.css" rel="stylesheet" />
+    <link href="../Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
    
 
     <!-- end: CSS -->
@@ -54,9 +56,7 @@
 		<script src="../Scripts/jquery.cookie.js"></script>
 	
 		<script src='../Scripts/fullcalendar.min.js'></script>
-	
-		<script src='../Scripts/jquery.dataTables.min.js'></script>
-
+        <script src="../Scripts/DataTables/jquery.dataTables.min.js"></script>
 	   	<script src="../Scripts/excanvas.js"></script>
 	    <script src="../Scripts/jquery.flot.js"></script>
 	    <script src="../Scripts/jquery.flot.pie.js"></script>

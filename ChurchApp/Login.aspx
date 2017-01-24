@@ -8,7 +8,7 @@
      <!-- start: JavaScript-->
         <script src="../Scripts/jquery-1.12.3.min.js"></script>
 		<script src="../Scripts/bootstrap.min.js"></script>
-        <script src="../Scripts/custom.js"></script>
+        <script src="Scripts/jquery.noty.js"></script>
 	<!-- end: JavaScript-->
     <!-- start: Mobile Specific -->
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>

@@ -6,6 +6,11 @@ $("document").ready(function (e) {
             $("#btnlogin").click();
         }
     });
+    $('.noty').click(function (e) {
+        e.preventDefault();
+        var options = $.parseJSON($(this).attr('data-noty-options'));
+        noty(options);
+    });
 
 });//end of document.ready
 
@@ -16,7 +21,7 @@ function ForgotPassword() {
     var html = ('<div class="content" id="EmailBox">'
         + '<h2>Enter your Email</h2>'
         + '<div class="" title="Email">'
-        + '<input class="form-control form-control-solid placeholder-no-fix" name="Email" id="txtEmail" type="Email" onkeyup="return EmailValidation()"  autocomplete="off" placeholder="Email"'
+        + '<input class="form-control form-control-solid placeholder-no-fix" name="Email" id="txtEmail" type="Email" onkeyup="return EmailValidation()"  autocomplete="off" placeholder="Email"/>'
         + '</div>'
         + '<div><img src="../img/ring.gif" style="padding-left:147px;border:0;max-width:24%;height:auto;vertical-align:middle;display:none;" id="Sendinggif"></div>'
         + '<div class="button-login">'     
@@ -38,7 +43,7 @@ function SendVerificationCode() {
     var Security = new Object();
     Security.Email = EmailAddress;
     var data = "{'LoginObj':" + JSON.stringify(Security) + "}";
-    ds = getJsonData(data, "../Login.aspx/VerificationCodeEmit");
+    ds = getJsonData(data, window.location.pathname + "/VerificationCodeEmit");
     table = JSON.parse(ds.d);
     if (table.status == "true")
     {              
@@ -89,7 +94,7 @@ function VerifyCodeNow()
     Security.Email = Email;
     Security.VerifyCode = VerificationCod;
     var data = "{'LoginObj':" + JSON.stringify(Security) + "}";
-    ds = getJsonData(data, "../Login.aspx/VerifyCode");
+    ds = getJsonData(data, window.location.pathname + "/VerifyCode");
     table = JSON.parse(ds.d);
     if (table.msg === "True") {
         $('#VerifyBox').remove();
@@ -156,7 +161,7 @@ function UpdatePassword()
         Security.Password = CPasswd;
         Security.UserID = UsrID;
         var data = "{'LogObj':" + JSON.stringify(Security) + "}";
-        ds = getJsonData(data, "../Login.aspx/UpdatePassword");
+        ds = getJsonData(data, window.location.pathname + "/UpdatePassword");
         table = JSON.parse(ds.d);
 
         if (table.status == "True") {
@@ -206,7 +211,7 @@ function EmailValidation() {
         Users.Email = Email;
 
         var data = "{'UserObj':" + JSON.stringify(Users) + "}";
-        ds = getJsonData(data, "../Login.aspx/EmailValidation");
+        ds = getJsonData(data, window.location.pathname+"/EmailValidation");
         table = JSON.parse(ds.d);
         if (table === 1) {
             
