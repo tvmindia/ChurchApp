@@ -71,8 +71,27 @@ $("document").ready(function (e) {
                     }
                     break;
                 case "0":
-                    noty({ type: 'error', text: Messages.ExcelUploadFailure });
-                    break;
+                    //noty({ type: 'error', text: Messages.ExcelUploadFailure });
+                    noty({ type: 'success', text: Messages.ExcelUploadSuccess });
+                    if (result.parentRow.length > 0) {
+                        $("#excelErrorDiv").css("display", "");
+                        $("#errorTableDiv").css("display", "");
+                        ImportError.clear().rows.add(result.parentRow).draw(false);
+                        //GetAllErrorData(result.parentRow);
+                        $("#lblTotalRows").text(result.totalExcelRows);
+                        $("#lblErrorCount").text(result.errorCount);
+                        $("#lblInsertCount").text(result.insertedRows);
+                        $("#lblUpdateCount").text(result.updatedRows);
+                    }
+                    else {
+                        $("#excelErrorDiv").css("display", "");
+                        $("#errorTableDiv").css("display", "none");
+                        $("#lblTotalRows").text(result.totalExcelRows);
+                        $("#lblErrorCount").text(result.errorCount);
+                        $("#lblInsertCount").text(result.insertedRows);
+                        $("#lblUpdateCount").text(result.updatedRows);
+                    }
+                    break;                   
                 default:
                     noty({ type: 'error', text: result.status });
                     break;

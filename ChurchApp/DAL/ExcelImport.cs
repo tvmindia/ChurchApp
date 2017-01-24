@@ -424,11 +424,7 @@ namespace ChurchApp.DAL
                                         {
                                             insertedRows = insertedRows + 1;
                                         }
-                                    }
-                                    else
-                                    {
-                                        errorCount = errorCount + 1;
-                                    }
+                                    }                                   
                                 }
                             }
                         }
@@ -704,7 +700,7 @@ namespace ChurchApp.DAL
         /// <returns>True/False</returns>
         public void Validation(DataSet ExcelDS, DataSet TableDefinitionDS)
         {
-            dtError = CreateErrorTable();
+            dtError = CreateErrorTable();         
             bool status = true;
             int res;
             try
@@ -714,9 +710,18 @@ namespace ChurchApp.DAL
                 status = ValidateType(ExcelDS, TableDefinitionDS, excelNotExitingFields, keyField);
                 if (status == true)
                 {
+                    DataSet dsExisting = null;                   
+                    if (tableName == "MassTiming")
+                    {
+                        dsExisting = churchObj.GetAllChurches();  
+                    }                   
                     for (int i = ExcelDS.Tables[0].Rows.Count - 1; i >= 0; i--)
                     {
                         res = ValidateData(ExcelDS.Tables[0].Rows[i], TableDefinitionDS, i, dtError);
+                        if (res == 1)     //-----------------vaildate logic inside------------//
+                        {
+                            res = LogicValidation(ExcelDS.Tables[0].Rows[i], i, dtError, dsExisting);   
+                        }
                         if (res == -1)
                         {
                             ExcelDS.Tables[0].Rows.RemoveAt(i);
@@ -741,16 +746,80 @@ namespace ChurchApp.DAL
             }
         }
         #endregion Validation
-        #region ValidateData
-        public int ValidateData(DataRow drExcel, DataSet dsTableDef, int rowno, DataTable dtError)
+
+        #region ChurchExists
+        public bool ChurchExists(DataSet dsExisting,DataRow drExcel)
+        {
+            String condition = "Name='" + drExcel["ChurchName"].ToString().Replace("'", "''") + "'and Place='" + drExcel["Place"].ToString() + "'and TownCode='" + drExcel["TownCode"].ToString() + "'";
+            DataRow[] drcheck = dsExisting.Tables[0].Select(condition);
+            if (drcheck.Length == 0)
+            {
+                return false; 
+            }
+            return true;
+        }
+        #endregion ChurchExists
+
+        #region LogicValidation
+        public int LogicValidation(DataRow drExcel, int rowno, DataTable dtError, DataSet dsExisting)
         {
             List<string> errorList = new List<string>();
             List<string> keyFields = new List<string>();
             try
             {
-
                 bool flag = false;
+                switch (tableName)
+                {
+                    case "MassTiming":
+                        //String condition = "Name='" + drExcel["ChurchName"].ToString().Replace("'", "''") + "'and Place='" + drExcel["Place"].ToString() + "'and TownCode='" + drExcel["TownCode"].ToString() + "'";                        
+                        //DataRow[] drcheck = dsExisting.Tables[0].Select(condition);
+                  
+                        if (ChurchExists(dsExisting,drExcel)!=true)
+                        {
+                            flag = true;                                 
+                            keyFields.Add(drExcel["ChurchName"].ToString());
+                            keyFields.Add(drExcel["Place"].ToString());
+                            keyFields.Add(drExcel["Towncode"].ToString());
+                            errorList.Add(" Church doesn't  Exists");
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                if (flag == true)
+                {
+                    DataRow dr = dtError.NewRow();
+                    dr["RowNo"] = rowno;
+                    dr["FieldName"] = keyFields;
+                    dr["ErrorDesc"] = errorList;
+                    dtError.Rows.Add(dr);
+                    rowno = rowno + 2;
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
+           
+        }
+
+        #endregion LogicValidation
+        #region ValidateData
+        public int ValidateData(DataRow drExcel, DataSet dsTableDef, int rowno, DataTable dtError)
+        {
+
+            List<string> errorList = new List<string>();
+
+            List<string> keyFields = new List<string>();
+            try
+            {
+                bool flag = false;
                 //----------------------Manadatory Fields Checking-------------------//
                 DataRow[] mandatoryFields = dsTableDef.Tables[0].Select("IsMandatory='true'");
 
