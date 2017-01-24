@@ -131,7 +131,7 @@ function SaveAdministrator()
 {
     try
     {
-        debugger;
+        
         var InstituteID = $('#hdnInstituteID').val();
         var AdminID = $('#hdnAdminID').val();
         var Administrators = new Object();
@@ -385,7 +385,7 @@ function SaveAdministrator()
 function SaveInstitution()
 {
     try {
-        debugger;
+        
         var Institutions = new Object();
         Institutions.name = $('#txtInstituteName').val();
         Institutions.address = $('#txtAddress').val();
@@ -595,7 +595,7 @@ function BindSelect()
 function BindInstituteslist() {
     try
     {
-        debugger;
+        
         var InstituteDetails = {};
         var elems = $();
         InstituteDetails = GetInstitutionListChurchID();
@@ -625,7 +625,7 @@ function BindInstituteslist() {
 //Bind institution Details to view
 function BindDetails(intituteID) {
     try {
-        debugger;
+        
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);
         if (InstituteRow.results == null)
@@ -641,7 +641,7 @@ function BindDetails(intituteID) {
             document.getElementById('lblPhone2').innerText = InstituteRow.phone2.substring(0, 30);
             document.getElementById('lblMobile').innerText = InstituteRow.Mobile.substring(0, 30);
             if (InstituteRow.imagepath != "") {
-                $('#instituteDetailPreview').attr('src', InstituteRow.imagepath);
+                $('#instituteDetailPreview').attr('src', InstituteRow.imagepath + '?' + new Date().getTime());
             }
             else {
                 $('#instituteDetailPreview').attr('src', '../img/gallery/Institution.jpg');
@@ -649,6 +649,8 @@ function BindDetails(intituteID) {
 
             $('#aWebsite').attr('href', InstituteRow.Website);
             $('#iconEditInstitute').attr('name', InstituteRow.institutionID);
+            $('#iconShowInstitute').attr('name', InstituteRow.institutionID);
+            
             BindCard(intituteID);
             return true;
         }
@@ -727,7 +729,7 @@ function HtmlEmptyBind() {
 }
 // Html code for binding Institution details
 function HtmlBindInstitutions(InstituteDetails, i) {
-    debugger;
+    
     var ID = "'" + InstituteDetails.ID + "'";
     var imageurl = null;
     if (InstituteDetails.URL != null)
@@ -739,10 +741,10 @@ function HtmlBindInstitutions(InstituteDetails, i) {
         imageurl = '../img/gallery/Institution.jpg';
     }
     
-    var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + imageurl + '"/></li>'
+    var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + imageurl + '?' + new Date().getTime() + '"/></li>'
       + '<li><span class="choosepic">' + (InstituteDetails.Name!=null?InstituteDetails.Name.substr(0, 40):"") + '</span> <br/>'
       + '<strong>Address:</strong> ' + (InstituteDetails.Address!=null?InstituteDetails.Address.substr(0, 40):"") + '<br/><strong>Founder:</strong>' + (InstituteDetails.Founder!=null?InstituteDetails.Founder.substr(0, 40):"") + '<br/>'
-      + '<strong>Founded:</strong>' + ConvertJsonToDate(InstituteDetails.Founded) + '<br /><strong>Website:</strong> ' + (InstituteDetails.Website!=null?InstituteDetails.Website.substr(0, 40):"") + ' <br/>'
+      + '<strong>Founded:</strong>' +(InstituteDetails.Founded != null?ConvertJsonToDate(InstituteDetails.Founded):"") + '<br /><strong>Website:</strong> ' + (InstituteDetails.Website != null ? InstituteDetails.Website.substr(0, 40) : "") + ' <br/>'
       + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenInstituteDetails(' + ID + ');">View more details</a>'
       + '</li></ul></div>');
     return html;
@@ -751,7 +753,7 @@ function HtmlBindInstitutions(InstituteDetails, i) {
 // Html code for binding admincard details
 function HtmlBindCards(AdminDetails, i) {
     var ID = "'" + AdminDetails.ID + "'";
-    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '"/>'
+    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '?' + new Date().getTime() + '"/>'
       + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address></div>'
       + '</li></ul>');
     return html;
@@ -767,9 +769,9 @@ function HtmlBindCardsEmpty() {
 }
 //Html code for binding Edit admincard details
 function HtmlEditBindCards(AdminDetails, i) {
-    
+                                                                                                                                                        //'+'"?"'+new Date().getTime()+'                               
     var ID = "'" + AdminDetails.ID + "'";
-    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '"/>'
+    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '?' + new Date().getTime() + '"/>'
       + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address><i class="icon-edit" name=' + ID + ' style="position: relative;top: -19px;left: 105px;cursor:pointer;" onclick="EditAdministrator(this)"></i><i class="icon-trash" name=' + ID + ' style="position: relative;top: -19px;left: 109px;cursor:pointer;" onclick="DeleteAdministrator(this);"></i></div>'
       + '</li></ul>');
     return html;
@@ -797,7 +799,7 @@ function EditAdministrator(this_Obj)
         $('#ddlRole').val(AdminRow.desigId).change();
         if (AdminRow.imagePath != "")
         {
-            $('#AdminPicPreview').attr('src', AdminRow.imagePath)
+            $('#AdminPicPreview').attr('src', AdminRow.imagePath +'?' + new Date().getTime())
         }
         else
         {
@@ -886,7 +888,7 @@ function EditInstitute(this_obj) {
         $('#txtWebsite').val(InstituteRow.Website);
         if (InstituteRow.imagepath != "")
         {
-            $('#priestPreview').attr('src', InstituteRow.imagepath);
+            $('#priestPreview').attr('src', InstituteRow.imagepath + '?' + new Date().getTime());
         }
         else
         {
@@ -979,7 +981,7 @@ function DeleteInstituteclick(this_Obj)
 //Add new institution button onclick function
 function NewInstitute() {
     try {
-        debugger;
+        
         ClearFields();
         RemoveStyle();
         

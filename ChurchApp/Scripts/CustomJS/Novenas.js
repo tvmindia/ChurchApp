@@ -87,7 +87,7 @@ $("document").ready(function (e)
                         }
                     }
                 }
-                debugger;
+                
                 var IsValid = NewNovenaValidation();
                 if (IsValid) {
                     var SuccessMsg = '';
@@ -164,7 +164,7 @@ $("document").ready(function (e)
                                     }
                                     //Insertion of novena timing
                                     $.each(NovenaDayAndTime, function (index, NovenaDayAndTime) {
-                                        debugger;
+                                        
                                         var day = NovenaDayAndTime.Day;
                                         var time = NovenaDayAndTime.Time;
 
@@ -224,7 +224,7 @@ $("document").ready(function (e)
         $('#btnDelete').click(function (e) {
             try
             {
-                debugger;
+                
                // $('#btnDelete').popover('show');
                 var deleteConirm = confirm("Want to delete?");
                 if (deleteConirm) {
@@ -281,7 +281,7 @@ $("document").ready(function (e)
         $('#btnEditPatron').click(function (e) {
             try
             {
-                debugger;
+                
 
                 //$('#rowfluidDiv').hide();
                 //$('.alert-success').hide();
@@ -472,7 +472,7 @@ function FillNovenas(Records) {
         $('#DivNovenas').html('');
 
         $.each(Records, function (index, Records) {
-            debugger;
+            
             var url = Records.URL;
             var ID = Records.ID;
             var html = '';
@@ -488,7 +488,7 @@ function FillNovenas(Records) {
             //then First item is set to day , others are times
             //I day is null , day is passed as 'dai'(daily) from sp
             //so it is also managed
-            debugger;
+            
             if (DayAndTime != null) {
 
                 if (DayAndTime.indexOf('|') > -1) {
@@ -521,9 +521,9 @@ function FillNovenas(Records) {
             }
             if (StartDate == null) {
                 html = ('<ul class="dashboard-list NovenaList"><li><img class="NovenaImage" id=' + ID + ' src="' + (url != null ? url : "../img/No-Img_Chosen.png") + '"/></li>'
-                + '<li ><span class="NovenaCaption">' + Records.NovenaCaption + '</span> <br/>'
+                + '<li ><span class="NovenaCaption">' + (Records.NovenaCaption!=null?Records.NovenaCaption:"") + '</span> <br/>'
                 + NovenaTiming
-                + Records.ChurchName + '</strong><p class="pPriestDesc">' + Records.Description + '</p> '
+                + (Records.ChurchName!=null?Records.ChurchName:"") + '</strong><p class="pPriestDesc">' + (Records.Description!=null?Records.Description:"") + '</p> '
                 + '<a class="aNovenaViewMore" style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="BindNovenaMoreDetails(\'' + ID + '\')">View more details</a>'
                 + '<input id=' + ID + ' type="hidden" value=' + ID + '/></li></ul></div>');
 
@@ -531,10 +531,10 @@ function FillNovenas(Records) {
             else //Start Date Not Null
             {
                 html = ('<ul class="dashboard-list NovenaList"><li ><img class="NovenaImage" id=' + ID + ' src="' + (url != null ? url : "../img/No-Img_Chosen.png") + '"/></li>'
-                + '<li><span class="NovenaCaption">' + Records.NovenaCaption + '</span> <br/>'
-                + '<strong>' + ConvertJsonToDate(Records.StartDate) + '</strong> To' + '<strong>' + ConvertJsonToDate(Records.EndDate) + '</strong> ' + '<br/>'
+                + '<li><span class="NovenaCaption">' + (Records.NovenaCaption!=null?Records.NovenaCaption:"") + '</span> <br/>'
+                + '<strong>' + (Records.StartDate!=null?ConvertJsonToDate(Records.StartDate):"") + '</strong> To' + '<strong>' + (Records.EndDate!=null?ConvertJsonToDate(Records.EndDate):"") + '</strong> ' + '<br/>'
                 + NovenaTiming
-                + '<strong>' + Records.ChurchName + '</strong><p class="pPriestDesc">' + Records.Description + '</p> '
+                + '<strong>' + (Records.ChurchName!=null?Records.ChurchName:"") + '</strong><p class="pPriestDesc">' + (Records.Description!=null?Records.Description:"") + '</p> '
                 + '<a class="aNovenaViewMore" style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="BindNovenaMoreDetails(\'' + ID + '\')">View more details</a>'
                 + '<input id=' + ID + ' type="hidden" value=' + ID + '/></li></ul></div>');
 
@@ -624,7 +624,7 @@ function DeleteNovena(Novenas) {
 function FixedEditClick()
 {
     try {
-        debugger;
+        
         $('#rowfluidDiv').hide();
         $('.alert-success').hide();
         $('.alert-error').hide();
@@ -952,7 +952,7 @@ var DayAndTimeTemp = '';
 function BindNovenaMoreDetails(ID) {
     try
     {
-        debugger;
+        
         ScrollPage();
         //  $('#DivNovenaTiming').hide();
         SetControlsInViewFormat();
@@ -984,11 +984,11 @@ function BindNovenaMoreDetails(ID) {
                 else {
                     $('#ViewDate').show();
                     $('#lblViewDate').show();
-                    $('#lblViewDate').html(ConvertJsonToDate(jsonResult.StartDate) + ' <strong> To </strong> ' + ConvertJsonToDate(jsonResult.EndDate));
+                    $('#lblViewDate').html((jsonResult.StartDate!=null?ConvertJsonToDate(jsonResult.StartDate):"") + ' <strong> To </strong> ' +(jsonResult.EndDate!=null?ConvertJsonToDate(jsonResult.EndDate):""));
                 }
 
 
-                $('#lblDescription').text(jsonResult.Description);
+                $('#lblDescription').text(jsonResult.Description!=null?jsonResult.Description:"");
                 $('#hdfNovenaID').val(jsonResult.ID);
                 $('#hdfPatronID').val(jsonResult.PatronID);
 
@@ -1082,7 +1082,7 @@ function SetControlsInNovenaFormat(IsNewButtonClicked)
 {
     try
     {
-        debugger;
+        
         IsNormal = true;
         ClearControls();
         if (PatronID != "") {
@@ -1275,12 +1275,12 @@ var DayNtimeHTML = '';
 function AddDayAndTimeToArray() {
     try
     {
-        debugger;
+        
         var IsValid = true;
         var dayarr = new Array();
 
         if ($("#ddlDay").val() != null) {
-            debugger;
+            
             var time = $("#TxtTime").val();
             var tim = parseInt(time.split(":")[0]);
             var mini = (time.split(" ")[0]).split(":")[1];
@@ -1359,12 +1359,6 @@ function InsertNovenaTiming(NovenaTiming) {
 function DeleteTime(Obj) {
     try
     {
-        $('#rowfluidDiv').hide();
-        $('.alert-success').hide();
-        $('.alert-error').hide();
-
-
-
         var deleteConirm = confirm("Want to delete?");
         if (deleteConirm) {
 
@@ -1375,7 +1369,7 @@ function DeleteTime(Obj) {
             var day = $tds[0].innerText;
             var time = $tds[1].innerText;
             NovenaDayAndTime = $.grep(NovenaDayAndTime, function (e) {
-                debugger;
+                
                 return (e.Day !== day && e.Time !== time);
             });
 
@@ -1389,9 +1383,18 @@ function DeleteTime(Obj) {
                 NovenaTiming.time = $tds[1].innerText;
 
                 DeleteNovenaTiming(NovenaTiming);
-
+                
                 FixedEditClick();
-                BindNovenasPatronID(PatronID);
+                if (PatronID != "")
+                {
+                    BindNovenasPatronID(PatronID);
+                }
+                else
+                {
+                    BindAllNovenas();
+                }
+               
+                
             }
 
 
@@ -1577,7 +1580,7 @@ function FillPatronsInEditableFormat(Records) {
                     ObjUl.append('<div id="divAddSaint" class=' + SpanValue + '><img class="PlusImg" src="../img/Plussymbol.png"/><a data-rel="tooltip" data-original-title="Add New Saint"  id="aNewSaint" onclick="OpenNewSaintModal()">Add New Saint</></a></div><li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\' ID=\'' + Records.ID + '\' /><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" class="circlebtn circlebtn-danger deletetext" ID =' + ID + ' ImageID=' + ImageID + ' onclick="deletePatron(this)" ><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><a class="circlebtn circlebtn-success patronUpdate" title="Change" href="#" ID=' + ID + ' ImageID=' + ImageID + ' onclick="updatePatron(this)" URL="' + Records.URL + '" SaintName=\'' + Records.Name + '\' SaintDescription=\'' + Records.Description + '\'><i class="halflings-icon white pencil"></i> </a><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
                 }
                 else {
-                    ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\' ID=\'' + Records.ID + '\'/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" class="circlebtn circlebtn-danger deletetext" onclick="deletePatron(this)" ImageID=' + ImageID + ' ID =' + ID + '><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><a class="circlebtn circlebtn-success patronUpdate" title="Change" href="#" ID=' + ID + ' ImageID=' + ImageID + ' onclick="updatePatron(this)" URL="' + Records.URL + '" SaintName=\'' + Records.Name + '\' SaintDescription=\'' + Records.Description + '\'><i class="halflings-icon white pencil"></i> </a><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
+                    ObjUl.append('<li class=' + SpanValue + '> <div class="thumbnail"><img  src=' + imgurl + ' alt="" class="img-polaroid" onclick="ViewIndividualPatron(this)" SaintName=\'' + Records.Name + '\' ID=\'' + Records.ID + '\'/><a data-rel="tooltip" data-original-title="Delete" URL="' +URL + '" class="circlebtn circlebtn-danger deletetext" onclick="deletePatron(this)" ImageID=' + ImageID + ' ID =' + ID + '><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><a class="circlebtn circlebtn-success patronUpdate" title="Change" href="#" ID=' + ID + ' ImageID=' + ImageID + ' onclick="updatePatron(this)" URL="' + Records.URL + '" SaintName=\'' + Records.Name + '\' SaintDescription=\'' + Records.Description + '\'><i class="halflings-icon white pencil"></i> </a><strong>  ' + (Records.Name != null ? Records.Name : "") + '  </strong><p>' + (Records.Description != null ? Records.Description : "") + '</p> </div> </li>');
                 }
 
                 RecordsToBeProcessed = RecordsToBeProcessed - 1;

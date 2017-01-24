@@ -41,7 +41,7 @@
                             <div class="control-group">
                                 <label class="control-label" >Import Table Name</label>
                                 <div class="controls">
-                                      <select class="ddlexcel" id="ddlexceldropdown">
+                                      <select class="ddlexcel" id="ddlexceldropdown" onchange="ddldropdownchange()">
                                           <option></option>
                                   </select>
                                 </div>

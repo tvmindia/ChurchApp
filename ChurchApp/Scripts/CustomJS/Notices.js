@@ -23,8 +23,9 @@ $("document").ready(function (e) {
         }
     });
     
-    BindLatestNotices();
+    
     churchObject.chid = $("#hdfchid").val();
+    BindLatestNotices();
     //--Limit Notification Content 
     $('#txtnotificationCOntent').keypress(function (e) {
 
@@ -51,7 +52,7 @@ $("document").ready(function (e) {
     });
 
     $("#rdoNotificationYes").click(function () {
-        debugger;
+        
         $("#divNotificationDates").show();
 
         $("#DivNotificationContent").show();
@@ -178,7 +179,7 @@ $("document").ready(function (e) {
                         result = UpdateNotice(Notices);
                         switch (result.status) {
                             case "1":
-                                noty({ text: Messages.UpdationSuccessFull, type: 'success' }); debugger;
+                                noty({ text: Messages.UpdationSuccessFull, type: 'success' }); 
                                 if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
                                 {
                                     if (IsMobNotified)
@@ -250,7 +251,7 @@ $("document").ready(function (e) {
                                         if ($('#dateExpiryDate').val() != "") {
                                             Notification.expiryDate = $('#dateExpiryDate').val();
                                         }
-                                        debugger;
+                                        
                                         var notires=InsertNotification(Notification);
                                         if (notires.status == "1") {
                                             IsMobNotified = false;
@@ -330,7 +331,7 @@ $("document").ready(function (e) {
     $('#btnCancel').click(function (e) {
        
         //  $("#NoticeEditDivBox").hide();
-        debugger;
+        
 
 
         $('#rowfluidDiv').hide();
@@ -356,14 +357,14 @@ $("document").ready(function (e) {
     });
 
     $('#btnDelete').click(function (e) {
-        debugger;
+        
 
         var deleteConirm = confirm("Want to delete?");
-        debugger;
+        
 
         if (deleteConirm) {
 
-            debugger;
+            
 
             var NoticeID = $("#hdfNoticeID").val();
 
@@ -401,7 +402,7 @@ $("document").ready(function (e) {
 
         click: function (e) {
 
-            debugger;
+            
 
             BindNotices();
 
@@ -448,7 +449,7 @@ $("document").ready(function (e) {
     });
     var value = $('#ContentPlaceHolder2_btnAddNew').val();
     if (value != "") {
-        debugger;
+        
         $('#NoticeEdit').remove();
     }
 
@@ -475,12 +476,12 @@ function showpreview(input) {
 }
 
 function RemoveStyle() {
-    debugger;
+    
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
     $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
 }
 function NotificationValidation() {
-    debugger;
+    
     $('#Displaydiv').remove();
     var Start = $('#dateStartDate');
     var End = $('#dateExpiryDate');
@@ -516,7 +517,7 @@ function NotificationValidation() {
 
 }
 function NoticeValidation() {
-    debugger;
+    
     $('#Displaydiv').remove();
     var Name = $('#txtNoticeName');
     var Type = $('#ddlNoticeType');
@@ -559,7 +560,7 @@ function NoticeValidation() {
 
 //Notice Type Dropdown
 function BindNoticeTypeDropDown() {
-    debugger;
+    
     var jsonResult = {};
     var NoticeType = new Object();
     jsonResult = GetAllNoticeTypes(NoticeType);
@@ -582,7 +583,7 @@ function GetAllNoticeTypes(NoticeType) {
 // Bind Notices
 function BindNotices() {
 
-    debugger;
+    
 
     var jsonResult = {};
     var Notices = new Object();
@@ -605,11 +606,11 @@ function FillNotice(Records) {
     $('#DivNoticeType1').html('');
 
     $.each(Records, function (index, Records) {
-        debugger;
+        
 
         var url = Records.URL;//<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.NoticeName + '</a></div><div class="accordion-body collapse in">
         //<img class="noticeImage" id=img' + Records.ID + ' src=' + url + '/>
-        var html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.NoticeName + '</p><span class="fa fa-slack" id="spnStartDate"></span>  <span class="spnDateValues" >' + Records.NoticeType + '</span>&nbsp;<br /><p>' + Records.Description + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+        var html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + (Records.NoticeName!=null?Records.NoticeName:"") + '</p><span class="fa fa-slack" id="spnStartDate"></span>  <span class="spnDateValues" >' + (Records.NoticeType!=null?Records.NoticeType:"") + '</span>&nbsp;<br /><p>' + (Records.Description!=null?Records.Description:"") + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
         $("#DivNoticeType1").append(html);
 
         if (url != "") {
@@ -651,7 +652,7 @@ function GetNotices(Notices) {
 // Bind Latest Notices
 function BindLatestNotices() {
 
-    debugger;
+    
 
     var jsonResult = {};
     var Notices = new Object();
@@ -749,7 +750,7 @@ function BindControlsOnEdit(Notices) {
                 $('#rdoNotificationNo').parent().addClass('checked');
 
             }
-            debugger;
+            
             url = jsonResult.URL;
             $('#NoticePreview').attr('src', url);
 
@@ -811,7 +812,7 @@ function DeleteAppImage(AppImages) {
 
 //Insert Notification
 function InsertNotification(Notification) {
-    debugger;
+    
 
     var data = "{'NotificationObj':" + JSON.stringify(Notification) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Notices.aspx/InsertNotification");
@@ -866,7 +867,7 @@ function FixedEditClick() {
 
     if (jsonResult != undefined) {
         $.each(jsonResult, function (index, jsonResult) {
-            debugger;
+            
 
             $("#lblNoticeName").hide();
 
@@ -902,7 +903,7 @@ function FixedEditClick() {
                 $('#dateExpiryDate').attr('disabled', false);
                 $('#txtnotificationCOntent').attr('disabled', false);
             }
-            debugger;
+            
             url = jsonResult.URL;
            
             if (url == null) {
@@ -923,7 +924,7 @@ function FixedEditClick() {
 
 //--- Edit click of each notice
 function EditOnClick(id) {
-    debugger;
+    
 
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
@@ -952,7 +953,7 @@ function EditOnClick(id) {
     if (jsonResult != undefined) {
         $.each(jsonResult, function (index, jsonResult) {
             $("#h1Notice").text(jsonResult.NoticeName);
-            debugger;
+            
             url = jsonResult.URL;
 
             if (url == null) {
@@ -968,7 +969,7 @@ function EditOnClick(id) {
             imageId = jsonResult.ImageID;
             imgPath = jsonResult.URL;
 
-            debugger;
+            
             if (jsonResult.Description == null || jsonResult.Description == "" || jsonResult.Description == undefined) {
                 //$("#NoticePreviewOnView").css('width', '300px!important');
                 $('#NoticePreviewOnView').width(600);
@@ -1010,7 +1011,7 @@ function EditOnClick(id) {
 
 // Clear Control Functions
 function SetControlsInNewNoticeFormat() {
-    debugger;
+    
     ClearControls();
     $("#NoticeEditDivBox").show();
 
@@ -1036,7 +1037,7 @@ function SetControlsInNewNoticeFormat() {
 }
 
 function AddNewNoticeFormat() {
-    debugger;
+    
     $("#divView").hide();
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
@@ -1061,7 +1062,7 @@ function AddNewNoticeFormat() {
 }
 
 function ClearControls() {
-    debugger;
+    
     $("#txtNoticeName").text("");
     $("#txtNoticeName").val("");
     $("#txtDescription").text("");
@@ -1103,7 +1104,7 @@ function GetServerMapPath(path) {
         // dataType: "json",
         success: function (result) {
 
-            debugger;
+            
             return result;
         },
         error: function (err) {

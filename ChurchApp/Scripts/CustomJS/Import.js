@@ -104,6 +104,14 @@ $("document").ready(function (e) {
     })
 });// end of document.ready
 
+function ddldropdownchange()
+{
+    debugger;
+ 
+          $("#excelErrorDiv").css("display", "none");
+
+}
+
 function GetAllErrorData(ds)
 {
     debugger;

@@ -1,7 +1,7 @@
 ﻿var formatRepo = "";
 var formatRepoSelection = "";
 $(document).ready(function () {
-    debugger;
+    
     try {
         if ($("#churchSelect").is(":visible") == true) {
             ExpandChurchRequestBox();
@@ -46,7 +46,7 @@ $(document).ready(function () {
             });
             var $eventchurchSelect = $("#churchSelect");
             $eventchurchSelect.on("change", function (e) {
-                debugger;
+                
                 var churchId = $("#churchSelect").val();
                 if ((churchId != "") && (churchId != null)) {
                     window.location.replace(location.pathname.slice(0, location.pathname.lastIndexOf("/")) + "/DashBoard.aspx?eid=" + churchId);
@@ -74,7 +74,7 @@ function GetReviews() {
     return table;
 }
 function BindNotification() {
-    debugger;
+    
     if ($('#NotiDropdown').is(":visible"))
     {
         $('#NotifyArea').find('li').remove();
@@ -83,7 +83,7 @@ function BindNotification() {
         Reviews = GetReviewCountforBubble();
 
         $.each(Reviews, function (index, Records) {
-            debugger;
+            
             if (Records.Status == 0) {
                 MultiReviewBind(Records, index, ReviewsCount[index].RDate);
             }
@@ -109,7 +109,7 @@ function Redirect()
     window.location.href = "../AdminPanel/DashBoard.aspx?id=Request";
 }
 function ExpandChurchRequestBox() {
-    debugger;
+    
     var location = window.location;
     var query = window.location.search.substring(1);
     if(query!="")
@@ -127,7 +127,7 @@ j = 0;
 function MultiReviewBind(Records, i, Date) {
     try
     {
-        debugger;
+        
         j = j + 1;
         var spancount = document.getElementById("countspan");
         spancount.innerHTML = j;

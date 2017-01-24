@@ -57,7 +57,7 @@ ul.dashboard-list li .priestimage {
 }
 
 div.accordion {
-    background-color: #eee;
+    background-color: #eee!important;
     color: #444;
     cursor: pointer;
     padding: 6px;
@@ -71,21 +71,22 @@ div.accordion {
 }
 
 div.accordion.active, div.accordion:hover {
-    background-color: #FA603D!important;
-    color:white!important;
+    background-color: #b3b1b1!important;
+    color:black!important;
 }
 
 div.accordion:after {
-    content: '\02795'!important;
+    content: '∨'!important;
     font-size: 15px;
-    color: #777;
+    font-weight:600;
+    color: black;
     float: right;
     margin-left: 10px!important;
     margin-top:11px!important;
 }
 
 div.accordion.active:after {
-    content: "\2796"!important;
+    content: "∧"!important;
 }
 
 #divAdminInfo ul{

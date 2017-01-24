@@ -12,7 +12,7 @@ var IserrorTime = false;
 function PickTime()
 {
 
-    debugger;
+    
     if (IserrorTime == false) {
         TimePicked = true;
     }
@@ -154,7 +154,7 @@ function PickTime()
 
 
 			inputs.on('blur', function () {
-			    debugger;
+			    
 			    var tim = ele_next.find(".ti_tx input").val();
 			    var mini = ele_next.find(".mi_tx input").val();
 			    //var mer = ele_next.find(".mer_tx input").val();
@@ -173,7 +173,7 @@ function PickTime()
 
 			    if (tim > 12) {
 
-			        debugger;
+			        
 
 			        $(".ti_tx").css("color", "red");
 
@@ -259,7 +259,7 @@ function PickTime()
 			    if ((inputID == 'txtStartTime' && $('#txtStartTime').val() != ""))
 			    {
 			       
-			        debugger;
+			        
 			        strttime = $('#txtStartTime').val().replace(/ /g, '');
 
 			        var timeParts = strttime.split(':');
@@ -342,7 +342,7 @@ function PickTime()
 			}
 
 			function set_value(event, close) {
-			    debugger;
+			    
 			  
 				// use input values to set the time
 				var tim = ele_next.find(".ti_tx input").val();
@@ -363,7 +363,7 @@ function PickTime()
 			
 				if (tim > 12 ) {
 
-				    debugger;
+				    
 
 				    $(".ti_tx").css("color", "red");
 				  

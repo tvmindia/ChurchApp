@@ -84,14 +84,14 @@ $("document").ready(function (e) {
     try
     {
         $("#ddlChurchinRoles").on("select2:unselecting", function (e) {
-            debugger;
+            
             DashDataTables.roleTable.search('').draw(false);
             BindAllRoles();
             $("#idddlRoleName").select2("val", "");
         });
 
         $("#ddlChurchinRoles").on("change", function (e) {
-            debugger;
+            
             if (($("#ddlChurchinRoles").val() != "") && ($("#ddlChurchinRoles").val()!=null))
             {
                 var Roles = new Object();
@@ -238,7 +238,7 @@ $("document").ready(function (e) {
               },
               {//custom js functions can be callled in render property for that target column
                   "render": function (data, type, row) {
-                      debugger;
+                      
                       if (data.Status == 1)
                       {
                           return '<a class="circlebtn circlebtn-info" style="background-color:green;" title="Approved"><i class="halflings-icon white ok"></i></a>';
@@ -469,7 +469,7 @@ $("document").ready(function (e) {
         noty({ type: 'error', text: e.message });
     }
     $('#btnRequestReject').click(function (e) {
-        debugger;
+        
         Church.churchId = $("#hdfChurchID").val();
         Church.RequestStatus = 2;
         UpdateRequest(Church);
@@ -478,7 +478,7 @@ $("document").ready(function (e) {
     });
     $('#btnRequestChurchAdd').click(function (e) {
         try {
-            debugger;
+            
             var churchbit = ChurchReqValidation();
             if (churchbit) {
                 Church.churchName = ($('#txtReqChurchName').val() != "" ? $('#txtReqChurchName').val() : "");
@@ -520,7 +520,7 @@ $("document").ready(function (e) {
     });
     
     $('#btnChurchAdd').click(function (e) {
-        debugger;
+        
         try {
         var churchbit = ChurchValidation();
 
@@ -730,7 +730,7 @@ $("document").ready(function (e) {
         $("#idddlRoles").select2("val", "");
         try
         {
-            debugger;
+            
             RemoveStyle();
             DashDataTables.userTable.search('').draw(false);
             $("#ddlChurchinUsers").select2("val", "");
@@ -802,7 +802,7 @@ $("document").ready(function (e) {
     $('#btnUserAdd').click(function (e) {
       try
       {
-          debugger;
+          
             var pasflag = false;
             var userflag = UserValidation();
             var pas = document.getElementById('txtPassword');
@@ -946,7 +946,7 @@ $("document").ready(function (e) {
     $('#btnRolesAdd').click(function (e) {
         try
         {
-            debugger;
+            
            
             var rolesflag = RolesValidation();
             if (rolesflag)
@@ -1017,7 +1017,7 @@ $("document").ready(function (e) {
 
 
     $('#btnDesignationAdd').click(function (e) {
-        debugger;
+        
         try
         {
            
@@ -1463,7 +1463,7 @@ function EditTown(curobj) {
 
     var data = DashDataTables.townTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
-    debugger;
+    
     var TownMaster = new Object();
 
     TownMaster.code = data.Code;
@@ -1549,7 +1549,7 @@ function TownImagePreview(input) {
 
 
 function RemoveTown(curobj) {
-    debugger;
+    
     try {
         var r = confirm("Are You Sure to Delete?");
         if (r == true) {
@@ -1999,7 +1999,7 @@ function RemoveSaint(curobj)
 
 }
 function EditRequestChurch(curobj) {
-    debugger;
+    
     //Get Current table row data
     var data = DashDataTables.churchReqtable.row($(curobj).parents('tr')).data();
     RemoveStyle();
@@ -2027,7 +2027,7 @@ function EditRequestChurch(curobj) {
 }
 function EditChurch(curobj)
 {
-    debugger;
+    
     //Get Current table row data
     var data = DashDataTables.churchTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
@@ -2057,7 +2057,7 @@ function EditChurch(curobj)
 
 function EditUsers(curobj)
 {
-    debugger;
+    
     RemoveStyle();
     //Getting ID from datatable selected row
     var data = DashDataTables.userTable.row($(curobj).parents('tr')).data();
@@ -2152,7 +2152,7 @@ function UpdateDesignation(OrgDesignationMaster) {
 
 function EditRole(curobj)
 {
-    debugger;
+    
      
     var data = DashDataTables.roleTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
@@ -2183,7 +2183,7 @@ function EditDesignation(curobj)
  }
 
 function EditSaint(curobj) {
-    debugger;
+    
     var data = DashDataTables.patronTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     var PatronMaster = new Object();
@@ -3007,7 +3007,7 @@ function GetMap() {
 }
 
 //function initAutocomplete() {
-//    debugger;
+//    
 //    var map = new google.maps.Map(document.getElementById('dvMap'), {
 //        center: { lat: 9.9816, lng: 76.2998 },
 //        zoom: 13,
@@ -3153,7 +3153,7 @@ function initMap() {
 
        // var jlm = new google.maps.Map(document.getElementById('map'), map);
         google.maps.event.addListener(map, 'click', function (e) {
-            debugger;
+            
             $("#txtLongitude").val(e.latLng.lng());
             $("#txtLatitude").val(e.latLng.lat());
             $("#txtReqLongitude").val(e.latLng.lng());

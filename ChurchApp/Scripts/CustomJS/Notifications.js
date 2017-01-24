@@ -75,7 +75,7 @@
 
     //---------------- * Delete Notification * -------------------//
     $(".Delete").click(function () {
-        debugger;
+        
         var result = "";
         var churchId = $("#hdfChurchID").val();
         var notificationID = $("#hdfNotificationID").val();
@@ -106,7 +106,7 @@
 
     //---------------- * Cancel btn click of Notification * -------------------//
     $(".Cancel").click(function () {
-        debugger;
+        
         $('#rowfluidDiv').hide();
         $(".dark").css("margin-top", "0px");
         $("#btnContainer").show();
@@ -137,7 +137,7 @@
 
     $(".aViewDetails").live({
         click: function (e) {
-            debugger;         
+                     
             $('#rowfluidDiv').hide();
             $("#btnContainer").show();
             $(".dark").css("margin-top", "0px");
@@ -156,7 +156,7 @@
     });
 
     $(".NotificationEdit").click(function () {
-        debugger;
+        
         $('#rowfluidDiv').hide();
         $(".Save").show();
         $(".Delete").show();
@@ -217,7 +217,7 @@
     });
     var value = $('#ContentPlaceHolder2_btnAddNew').val();
     if (value != "") {
-        debugger;
+        
         $('#NoticeEdit').remove();
     }
 });
@@ -225,7 +225,7 @@
 
 function NotificationValidation()
 {
-    debugger;
+    
     $('#Displaydiv').remove();
     var caption = $('#txtCaption');
     var notyType = $('#ddlType');
@@ -290,7 +290,7 @@ function NotificationValidation()
 
 function SaveNotification()
 {
-    debugger;
+    
     var result = "";
     var today = new Date();
     var caption = $("#txtCaption").val();
@@ -331,7 +331,7 @@ function SaveNotification()
         Notifications.linkID = linkID;
         Notifications.notificationID = notificationID;
         var addOrEdit = $("#detailsHeading").text();
-        debugger;
+        
         if (addOrEdit == "Add Notification") {
             result = InsertNotification(Notifications);
             switch(result.status)
@@ -367,7 +367,7 @@ function SaveNotification()
 
 function DetailsView()
 {
-    debugger;
+    
     var caption = $("#lblCaption").text();
     var description = $("#lblDescription").text();
     if (description.length > 200)
@@ -453,7 +453,7 @@ function DeleteNotification(Notifications)
 
 function BindControlsOnViewDetails(Records)
 {
-    debugger;
+    
     HideAllTextBoxes();
     ShowAllLabels();
     var jsonResult = {};
@@ -463,7 +463,7 @@ function BindControlsOnViewDetails(Records)
         $.each(jsonResult, function (index, jsonResult) {
             var startDate = new Date(parseInt(jsonResult.StartDate.substr(6)));
             startDate = formattedDate(startDate);
-            debugger;
+            
             var ExpiryDate = new Date(parseInt(jsonResult.ExpiryDate.substr(6)));
             ExpiryDate = formattedDate(ExpiryDate);
             $("#hdfType").val(jsonResult.Type);
@@ -487,7 +487,7 @@ function BindControlsOnViewDetails(Records)
 }
 function BindControlsOnEdit(Records)
 {
-    debugger;
+    
     var jsonResult = {};
     var description = "";
     jsonResult = GetNotificationByID(Records);
@@ -497,7 +497,7 @@ function BindControlsOnEdit(Records)
             //startDate = formattedDate(startDate);
             //startDate = startDate.split("/").join("-");
             //startDate = toDate(startDate);
-            debugger;
+            
             //var ExpiryDate = new Date(parseInt(jsonResult.ExpiryDate.substr(6)));
             //ExpiryDate = formattedDate(ExpiryDate);
             //ExpiryDate = ExpiryDate.split("/").join("-");
@@ -512,12 +512,12 @@ function BindControlsOnEdit(Records)
     }
 }
 function toDate(dateStr) {
-    debugger;
+    
     var parts = dateStr.split("-");
     return parts[1]+"-"+ parts[0]+"-"+ parts[2];
 }
 function getFormattedDate(input) {
-    debugger;
+    
     var pattern = /(.*?)\/(.*?)\/(.*?)$/;
     var result = input.replace(pattern, function (match, p1, p2, p3) {
         var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -537,7 +537,7 @@ function GetNotificationByID(Records)
 }
 function BindAsyncNotificationTableForAll()
 {
-    debugger;
+    
     // var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
     var churchId = "";
     $("#hdfChurchID").val(churchId);
@@ -545,13 +545,13 @@ function BindAsyncNotificationTableForAll()
     var Notifications = new Object();
     Notifications.churchId = churchId;
     jsonResult = SelectAllNotifications(Notifications);
-    debugger;
+    
     if (jsonResult != undefined) {
         BindGetAllNotificationTable(jsonResult);
     }
 }
 function BindAsyncNotificationTable() {
-    debugger;
+    
     // var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
     var churchId = "";
     $("#hdfChurchID").val(churchId);
@@ -559,7 +559,7 @@ function BindAsyncNotificationTable() {
     var Notifications = new Object();
     Notifications.churchId = churchId;
     jsonResult = GetAllNotifications(Notifications);
-    debugger;
+    
     if (jsonResult != undefined) {
             BindGetAllNotificationTable(jsonResult);        
     }
@@ -574,14 +574,14 @@ function BindAsynOldNotificationTableForAll()
     var Notifications = new Object();
     Notifications.churchId = churchId;
     jsonResult = GetAllOldNotifications(Notifications);
-    debugger;
+    
     if (jsonResult != undefined) {
         BindGetOldNotificationTable(jsonResult);
     }
 }
 function BindAsynOldNotificationTable()
 {
-    debugger;
+    
     $("#OldNotificationGrid").html('');
     // var churchId = '41f453f6-62a4-4f80-8fc5-1124e6074287';
     var churchId = "";
@@ -599,7 +599,7 @@ function BindAsynOldNotificationTable()
 function BindGetAllNotificationTable(Records)
 {
     $("#NewNotificationGrid").html('');
-    debugger;
+    
     var length = Records.length;
     $.each(Records, function (index, Records) {
         var desc = Records.Description;
@@ -641,7 +641,7 @@ function BindGetAllNotificationTable(Records)
 }
 function BindGetOldNotificationTable(Records) {
     $("#OldNotificationGrid").html('');
-    debugger;
+    
     var length = Records.length;
     $.each(Records, function (index, Records) {
         var desc = Records.Description;
@@ -744,7 +744,7 @@ function ShowAllTextBoxes() {
 }
 
 function formattedDate(date) {
-    debugger;
+    
     var d = new Date(date || Date.now()),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),

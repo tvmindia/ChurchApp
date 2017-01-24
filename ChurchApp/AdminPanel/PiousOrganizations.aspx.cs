@@ -212,7 +212,7 @@ namespace ChurchApp.AdminPanel
                     {
                         PiousObj.PatronID = null;
                     }
-
+                    PiousObj.churchID = UA.ChurchID;
                     PiousObj.updatedBy = UA.userName;
                     status = PiousObj.UpdatePiousOrg().ToString();
                     PiousObj.results = status;

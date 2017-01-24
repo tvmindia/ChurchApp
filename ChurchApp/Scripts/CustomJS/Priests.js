@@ -3,7 +3,7 @@
 $(document).ready(function () {
     try
     {
-        debugger;
+        
         //Setting current churchid
         churchObject.chid = $("#hdfchid").val();
         
@@ -58,7 +58,7 @@ $(document).ready(function () {
         $('#btnAddPriest').click(function (e) {
             try 
             {
-                debugger;
+                
                 var status = $(this).attr('name');
                 if (status == "")
                 {
@@ -203,7 +203,7 @@ $(document).ready(function () {
 //Save priest (functon with insert and update)
 function savePriest()
 {
-    debugger;
+    
     try {
 
         var i;
@@ -587,7 +587,7 @@ function AutoComplete()
     }
     //Onclick function for view priest details
     function OpenPriestDetails(priestID) {
-        debugger;
+        
         document.getElementById('priestimg').value = "";
 
         $('#hdfpriestImageID').val('');
@@ -619,7 +619,7 @@ function AutoComplete()
                 document.getElementById('lblStatus').innerText = PriestRow.Status;
                 $('#hdfPriestID').val(PriestRow.ID);
                 $('#hdfpriestImageID').val(PriestRow.ImageID);
-                $('#priestDetailPreview').attr('src', (PriestRow.imagePath != null && PriestRow.imagePath != "" ? PriestRow.imagePath : "../img/gallery/priest.png"));
+                $('#priestDetailPreview').attr('src', (PriestRow.imagePath != null && PriestRow.imagePath != "" ? PriestRow.imagePath + '?' + new Date().getTime() : "../img/gallery/priest.png"));
                 $('#iconEditPriest').attr('name', PriestRow.priestID);
                 $('#btnrefresh').attr('name', PriestRow.priestID);
                 $('#btnCancelDetails').attr('name', 'View');
@@ -646,7 +646,7 @@ function AutoComplete()
     {
         try
         {
-            debugger;
+            
             RemoveStyle();
             $('#btnDelete').show();
             $('#btnCancelPriest').show();
@@ -667,7 +667,7 @@ function AutoComplete()
             $('#txtEmail').val(PriestRow.emailId);
             $('#txtMobile').val(PriestRow.mobile);
             $('#priestimg').val('');
-            $('#priestPreview').attr('src', (PriestRow.imagePath != null && PriestRow.imagePath != "" ? PriestRow.imagePath : "../img/gallery/priest.png"));
+            $('#priestPreview').attr('src', (PriestRow.imagePath != null && PriestRow.imagePath != "" ? PriestRow.imagePath + '?' + new Date().getTime() : "../img/gallery/priest.png"));
             document.getElementById('HeadDetails').innerText = "Edit Details";
             $('#hdfPriestID').val(priestid);
             $('#hdfpriestImageID').val(PriestRow.imageId);
@@ -709,7 +709,7 @@ function AutoComplete()
     //CHeck Vicar Exist
     function VicarExist()
     {
-        debugger;
+        
         var Priest = new Object();
         var data = "{'PriestObj':" + JSON.stringify(Priest) + "}";
         jsonResult = getJsonData(data, "../AdminPanel/Priests.aspx/VicarExistornot");
@@ -754,7 +754,7 @@ function AutoComplete()
           + '<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + (priestDetails.URL != null ? priestDetails.URL + '?' + new Date().getTime() : "../img/gallery/priest.png") + '"/></li>'
           + '<li><span class="choosepic">' + (priestDetails.Name != null ? priestDetails.Name : '') + '</span> <br/>'
           + '<strong>Baptismal Name:</strong> ' + (priestDetails.BaptismalName != null ? priestDetails.BaptismalName : '') + ' <br/><strong>House Name:</strong> ' + (priestDetails.Address != null ? priestDetails.Address : '') + ' <br/><strong>Status:</strong> ' + (priestDetails.Status != null ? priestDetails.Status : '') + '<br/>'
-          + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
+          + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' +(priestDetails.DateOrdination!=null ?ConvertJsonToDate(priestDetails.DateOrdination):"") + '<br />'
           + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenPriestDetails(' + ID + ');">View more details</a>'
           + '</li></ul></div></div>');
         return html;
@@ -762,12 +762,12 @@ function AutoComplete()
     }
     // Html code for binding Asst Vicar details
     function HtmlBindWithAsst(priestDetails, i) {
-        debugger;
+        
         var ID ="'"+priestDetails.ID+"'";
         var html = ('<ul class="dashboard-list vicarlist"><li><img class="priestimage" src="' + (priestDetails.URL != null ? priestDetails.URL + '?' + new Date().getTime() : "../img/gallery/priest.png") + '"/></li>'
           + '<li><span class="choosepic">' + (priestDetails.Name != null ? priestDetails.Name : '') + '</span> <br/>'
           + '<strong>Baptismal Name:</strong> ' + (priestDetails.BaptismalName != null ? priestDetails.BaptismalName : '') + ' <br/><strong>House Name:</strong> ' + (priestDetails.Address != null ? priestDetails.Address : '') + ' <br/><strong>Status:</strong> ' + (priestDetails.Status != null ? priestDetails.Status : '') + '<br/>'
-          + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' + ConvertJsonToDate(priestDetails.DateOrdination) + '<br />'
+          + '<strong>Date of Birth:</strong>  ' + (priestDetails.DOB != null ? ConvertJsonToDate(priestDetails.DOB) : '') + '<br /><strong>Date of Ordination:</strong>  ' + (priestDetails.DateOrdination != null ? ConvertJsonToDate(priestDetails.DateOrdination) : "") + '<br />'
           + '<a style="color:saddlebrown;font-weight:700;cursor:pointer;text-decoration: underline;" onclick="OpenPriestDetails(' + ID + ');">View more details</a>'
           + '</li></ul></div>');
         return html;

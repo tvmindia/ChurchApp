@@ -208,7 +208,7 @@ $(document).ready(function () {
         //save or edit btn click of Administrator
         $(".SaveAdmin").click(function (e) {
             try {
-                debugger;
+                
                 var i = "0";
                 var jsonResult = {};
                 var position = $("#ddlRole option:selected").text();
@@ -293,7 +293,7 @@ $(document).ready(function () {
                
                     }
                     else {
-                        debugger;
+                        
                         if (imgresult = $('#fluImage')[0].files.length > 0)
                         {
                             var formData = new FormData();
@@ -483,7 +483,7 @@ function saveMember() {
        
         Family.familyUnitsObj = FamilyUnits;
         Members.familyObj = Family;
-        debugger;
+        
         if ($("#memberAddOrEdit").text() == "Add") {
             //if ($("#hdfMemberID").val() == null && $("#hdfMemberID").val() == "") {
                 ///////INSERT MEMBER THROUGH HANDLER
@@ -559,7 +559,7 @@ function saveMember() {
             //}
         }
         else {
-            debugger;
+            
             if ((imgresult = $('#mfluImage')[0].files.length > 0)) {
 
                 var formData = new FormData();
@@ -735,7 +735,7 @@ function BindGetAllFamilyMemeberData(Records) {
     {
         $('#FamilyUnitsTableBox').css("height", "auto");
         $("#FamilyUnitsTableBox").html('');
-        debugger;
+        
         var length = Records.length;
         var value = $('#ContentPlaceHolder2_btnAddNew').val();
         if (value == "") {
@@ -772,7 +772,7 @@ function BindGetAllFamilyMemeberData(Records) {
 function EditMembers(e) {
     try
     {
-        debugger;
+        
         Member();
         var jsonResult = {};
         var memberID = e.id.split(",")[0];
@@ -853,7 +853,7 @@ function AddFamilyMember() {
 //bind all family members after adding a member
 function FamilyMembersAutoBind() {
     try {
-        debugger;
+        
         var jsonResult = {};
         var familyID = $("#hdfFamilyID").val();
         var familyName = $("#hdfFamilyName").val();
@@ -1692,7 +1692,7 @@ function AdminMemberChange()
 {
     try
     {
-        debugger;
+        
         if ($("#ddlMember").val() != "" && $("#ddlMember").val() != null && $("#ddlMember").val() != "-1") {
             var FamilyUnits = new Object();
             var Family = new Object();
@@ -1851,7 +1851,7 @@ function DeleteAdministrator(e)
 {
     try
     {
-        debugger;
+        
         var jsonResult = {};
         var adminID = e.id;
         var Administrators = new Object();
@@ -1885,7 +1885,7 @@ function DeleteAdministrator(e)
 //edit Admin
 function EditAdministrator(e)
 {
-    debugger;
+    
     try
     {
         $("#hdfAdminDefaultImg").val('')
