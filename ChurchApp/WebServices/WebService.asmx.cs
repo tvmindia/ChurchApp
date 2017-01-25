@@ -1282,33 +1282,5 @@ namespace ChurchApp.WebServices
             return getDbDataAsJSON(dt);
         }
         #endregion
-
-        [WebMethod]
-        public string chummaTest(string titleString, string descriptionString, Boolean isCommon, string churchID)
-        {
-            DataTable dt = new DataTable();
-          
-            try
-            {
-                Notification noti = new Notification();
-                noti.SendToFCM(titleString,descriptionString,isCommon,churchID);
-            }
-            catch (Exception ex)
-            {
-                //Return error message
-                dt = new DataTable();
-                dt.Columns.Add("Flag", typeof(Boolean));
-                dt.Columns.Add("Message", typeof(String));
-                DataRow dr = dt.NewRow();
-                dr["Flag"] = false;
-                dr["Message"] = ex.Message;
-                dt.Rows.Add(dr);
-            }
-            finally
-            {
-
-            }
-            return getDbDataAsJSON(dt);
-        }
     }
 }
