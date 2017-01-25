@@ -480,10 +480,10 @@ namespace ChurchApp.DAL
                         {
                             to =to_String,
 
-                            notification = new
+                            data = new
                             {
-                                title= titleString,
-                                body= descriptionString,
+                                title = titleString,
+                                body = descriptionString,
                                 sound = "default"
                             }
                         };
