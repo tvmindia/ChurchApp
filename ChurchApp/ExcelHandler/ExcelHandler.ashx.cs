@@ -74,7 +74,7 @@ namespace ChurchApp.ExcelHandler
                             if (excelSheets != null)
                             {
                                 dsExcel = new DataSet();
-                                dsTableDefenition = ImportXL.GetTableDefinition();
+                                dsTableDefenition = ImportXL.GetTableDefinition();                              
                                 try
                                 { 
                                 dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);
@@ -83,11 +83,24 @@ namespace ChurchApp.ExcelHandler
                                 {
                                     ImportXL.status = ex.Message;
                                 }
-
                                 if (dsExcel != null && dsExcel.Tables.Count>0)
                                 {
+                                    //starting here
+                                    DataSet dsMastertable = null;
+                                    DataRow[] MasterTableFields = dsTableDefenition.Tables[0].Select("Master_Table IS NOT NULL  and Master_Field IS NOT NULL ");
+                                    if (MasterTableFields.Length > 0)
+                                    {  
+                                        foreach (var item in MasterTableFields)
+                                        {
+                                            string MasterTable = item["Master_Table"].ToString();
+                                            string MasterField = item["Master_Field"].ToString();
+                                            ImportXL.Mastertable = MasterTable;
+                                            ImportXL.MasterField = MasterField;
+                                            dsMastertable = ImportXL.GetMasterFieldsFromMasterTable();
+                                        }
+                                    }                                    
                                     ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString();
-                                    ImportXL.Validation(dsExcel, dsTableDefenition);                                    
+                                    ImportXL.Validation(dsExcel, dsTableDefenition,dsMastertable);                                    
                                     if (dsExcel.Tables[0].Rows.Count > 0)
                                     {
                                         ImportXL.ExcelImports(dsExcel, dsTableDefenition);                                      

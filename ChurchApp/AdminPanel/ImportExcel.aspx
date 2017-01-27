@@ -76,14 +76,14 @@
                 <fieldset>
                       <div class="control-group">
 
-                              <label class="control-label" for="focusedInput">Total No.of Excel Rows</label>
+                              <label class="control-label" for="focusedInput">Total Rows</label>
                                <div class="controls">
                              <label id="lblTotalRows" class="lblRows" style="width:30px !important;"></label>
                               </div>
                               </div>
                                     <div class="control-group">
 
-                              <label class="control-label" for="focusedInput">Total No.of Errors</label>
+                              <label class="control-label" for="focusedInput">Errors Rows</label>
                                <div class="controls">
                              <label id="lblErrorCount" class="lblRows" style="width:30px !important;"></label>
                               </div>
@@ -96,14 +96,14 @@
                 <fieldset>
                         <div class="control-group">
 
-                              <label class="control-label" style="width:165px !important" for="focusedInput">Total No.of Rows Inserted</label>
+                              <label class="control-label" style="width:165px !important" for="focusedInput">Rows Inserted</label>
                                <div class="controls">
                              <label id="lblInsertCount" class="lblRows"></label>
                               </div>
                               </div>
                                             <div class="control-group">
 
-                              <label class="control-label" style="width:165px !important" for="focusedInput">Total No.of Rows Updated</label>
+                              <label class="control-label" style="width:165px !important" for="focusedInput">Rows Updated</label>
                                <div class="controls">
                              <label id="lblUpdateCount" class="lblRows" ></label>
                               </div>
