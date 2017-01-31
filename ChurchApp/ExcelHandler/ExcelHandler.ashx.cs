@@ -73,12 +73,13 @@ namespace ChurchApp.ExcelHandler
 
                             if (excelSheets != null)
                             {
-                                dsExcel = new DataSet();
+                                dsExcel = new DataSet();                                
                                 dsTableDefenition = ImportXL.GetTableDefinition();                              
                                 try
                                 { 
-                                dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);
-                                    //Adding values to Priest
+                                    dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);
+                                    //---------------- to add churchid to Priest Table 
+                                    dsExcel = ImportXL.FillColumnValues(dsExcel);
                                 }
                                 catch (Exception ex)
                                 {
@@ -104,6 +105,7 @@ namespace ChurchApp.ExcelHandler
                                     ImportXL.Validation(dsExcel, dsTableDefenition,dsMastertable);     //validation by passing excelfile,table defenition & MasterTable fields                           
                                     if (dsExcel.Tables[0].Rows.Count > 0)
                                     {
+                                        //use try catch to show error  
                                         ImportXL.ExcelImports(dsExcel, dsTableDefenition);                                      
                                     }
                                    else
