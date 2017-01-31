@@ -78,6 +78,7 @@ namespace ChurchApp.ExcelHandler
                                 try
                                 { 
                                 dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);
+                                    //Adding values to Priest
                                 }
                                 catch (Exception ex)
                                 {
@@ -85,7 +86,7 @@ namespace ChurchApp.ExcelHandler
                                 }
                                 if (dsExcel != null && dsExcel.Tables.Count>0)
                                 {
-                                    //starting here
+                                    //Checking Master Table Fields 
                                     DataSet dsMastertable = null;
                                     DataRow[] MasterTableFields = dsTableDefenition.Tables[0].Select("Master_Table IS NOT NULL  and Master_Field IS NOT NULL ");
                                     if (MasterTableFields.Length > 0)
@@ -99,8 +100,8 @@ namespace ChurchApp.ExcelHandler
                                             dsMastertable = ImportXL.GetMasterFieldsFromMasterTable();
                                         }
                                     }                                    
-                                    ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString();
-                                    ImportXL.Validation(dsExcel, dsTableDefenition,dsMastertable);                                    
+                                    ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString(); //Total rows in excel file
+                                    ImportXL.Validation(dsExcel, dsTableDefenition,dsMastertable);     //validation by passing excelfile,table defenition & MasterTable fields                           
                                     if (dsExcel.Tables[0].Rows.Count > 0)
                                     {
                                         ImportXL.ExcelImports(dsExcel, dsTableDefenition);                                      

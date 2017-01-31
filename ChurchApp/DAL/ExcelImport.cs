@@ -141,8 +141,7 @@ namespace ChurchApp.DAL
         }
 
         #endregion ExcelSheetNames
-
-
+        
         #region GetExcelData
         public DataSet GetExcelData(DataSet dsTable)
         {
@@ -223,7 +222,6 @@ namespace ChurchApp.DAL
 
         #endregion ScanExcelFileToDS
 
-
         #region OpenExcelFile
         public string[] OpenExcelFile()
         {
@@ -285,8 +283,7 @@ namespace ChurchApp.DAL
             return excelSheets;
         }
         #endregion OpenExcelFile
-
-
+        
         #region SelectTableNames
         /// <summary>
         /// Select table names
@@ -326,7 +323,6 @@ namespace ChurchApp.DAL
         }
         #endregion SelectTableNames
 
-        //GetMasterFieldsFromMasterTable
         #region GetMasterFieldsFromMasterTable
 
         public DataSet GetMasterFieldsFromMasterTable()
@@ -364,7 +360,6 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion GetMasterFieldsFromMasterTable
-
 
         #region GetTableDefinition
         /// <summary>
@@ -729,18 +724,21 @@ namespace ChurchApp.DAL
         #endregion Methods
 
         #region ValidationMethods
+
         public static DataTable resort(DataTable dt)
         {
             dt.DefaultView.Sort = "RowNo asc";
             dt = dt.DefaultView.ToTable();
             return dt;
         }
+
         #region Validation
         /// <summary>
         /// Excel sheet validation 
         /// </summary>
         /// <param name="ExcelDS"></param>
         /// <param name="TableDefinitionDS"></param>
+        /// <param name="dsMastertable"
         /// <returns>True/False</returns>
         public void Validation(DataSet ExcelDS, DataSet TableDefinitionDS,DataSet dsMastertable)
         {
@@ -884,6 +882,7 @@ namespace ChurchApp.DAL
         }
 
         #endregion LogicValidation
+
         #region ValidateData
         public int ValidateData(DataRow drExcel, DataSet dsTableDef, int rowno, DataTable dtError,DataSet dsMastertable)
         {            
@@ -1056,6 +1055,7 @@ namespace ChurchApp.DAL
 
         }
         #endregion ValidateData
+
         #region CreateErrorTable
         /// <summary>
         /// Create datatable for Error Descriptions
@@ -1070,6 +1070,7 @@ namespace ChurchApp.DAL
             return dtTemp;
         }
         #endregion CreateErrorTable
+
         #region Date validation
         /// <summary>
         /// Date validation
@@ -1272,6 +1273,7 @@ namespace ChurchApp.DAL
         }
 
         #endregion #region ValidateType
+
         #endregion ValidationMethods
     }
 }
