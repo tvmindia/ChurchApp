@@ -205,50 +205,6 @@ namespace ChurchApp.DAL
 
         #endregion ScanExcelFileToDS
 
-        #region FillColumnValues
-        //public bool FillColumnValues(DataRow drExcelrow,int j,DataSet DsExcel)
-        //{
-        //    //int ExcelrowCount = DsExcel.Tables[0].Rows.Count;
-        //    List<string> errorList = new List<string>();
-        //    List<string> keyFields = new List<string>();
-          
-        //    try
-        //    {              
-        //        if (drExcelrow["ChurchName"].ToString() != "" && drExcelrow["Place"].ToString() != "" && drExcelrow["TownCode"].ToString() != "")
-        //        {
-        //            bool churchexists = ChurchExists(churchObj.GetAllChurches(), drExcelrow);
-        //            if (churchexists) //true
-        //            {
-        //                DsExcel.Tables[0].Rows[j]["ChurchId"] = churchid;
-        //                return false;
-        //            }
-        //            else //false
-        //            {                     
-        //                keyFields.Add(drExcelrow["ChurchName"].ToString());
-        //                keyFields.Add(drExcelrow["Place"].ToString());
-        //                keyFields.Add(drExcelrow["Towncode"].ToString());
-        //                errorList.Add(" Church doesn't  Exists");
-        //                return true;
-        //            }                 
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }             
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-
-        //    }
-
-           
-        //}
-        #endregion FillColumnValues
-
         #region OpenExcelFile
         public string[] OpenExcelFile()
         {
@@ -593,9 +549,8 @@ namespace ChurchApp.DAL
                                             priestObj.Parish = drExcelrow["Parish"].ToString();
                                             priestObj.Diocese = drExcelrow["Diocese"].ToString();
                                             priestObj.emailId = drExcelrow["Email"].ToString();
-                                            priestObj.designation = drExcelrow["Designation"].ToString();
-                                            string vicarStatus = new CultureInfo("en-US").TextInfo.ToTitleCase(drExcelrow["Status"].ToString());
-                                            priestObj.Status = vicarStatus;
+                                            priestObj.designation = drExcelrow["Designation"].ToString();                                            
+                                            priestObj.Status = new CultureInfo("en-US").TextInfo.ToTitleCase(drExcelrow["Status"].ToString());
                                             priestObj.churchID = drExcelrow["churchId"].ToString(); //churchId
                                             priestObj.isImport = true;
                                             priestObj.UpdatePriest();
@@ -799,7 +754,6 @@ namespace ChurchApp.DAL
                         {
                             res = LogicValidation(ExcelDS, i, dtError, dsExisting);   
                         }
-
                         if (res == -1)
                         {
                             ExcelDS.Tables[0].Rows.RemoveAt(i);
@@ -830,12 +784,10 @@ namespace ChurchApp.DAL
         {
             String condition = "Name='" + drExcel["ChurchName"].ToString().Replace("'", "''") + "'and Place='" + drExcel["Place"].ToString() + "'and TownCode='" + drExcel["TownCode"].ToString() + "'";
             DataRow[] drcheck = dsExisting.Tables[0].Select(condition);
-            if (drcheck.Length == 0)
-            {
+            if (drcheck.Length == 0)     {
                 return false;
             }
-            else
-            {
+            else    {
                 churchid = drcheck[0]["ID"].ToString();
                 return true;
             }
@@ -894,15 +846,14 @@ namespace ChurchApp.DAL
                             keyFields.Add(drExcel["Name"].ToString());                         
                             errorList.Add("Status must be VICAR or ASST VICAR ");
                         }
-                        //adding church id 
-                       // flag=FillColumnValues(drExcel,rowno,ExcelDS);
 
-                        //add column churchid//
+                        // Fill churchid Column Values                      
                         if (drExcel["ChurchName"].ToString() != "" && drExcel["Place"].ToString() != "" && drExcel["TownCode"].ToString() != "")
                         {
                             bool churchexists = ChurchExists(churchObj.GetAllChurches(), drExcel);
                             if (churchexists) //true
                             {
+                                
                                 ExcelDS.Tables[0].Rows[rowno]["ChurchId"] = churchid;                                
                             }
                             else //false

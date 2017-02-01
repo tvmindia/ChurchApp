@@ -316,74 +316,7 @@ namespace ChurchApp.DAL
            
         }
         #endregion SelectPriestsUsingPriestID
-
-        //#region InsertPriest
-        ///// <summary>
-        ///// Add new Priest
-        ///// </summary>
-        ///// <returns>Success/Failure</returns>
-        //public void InsertPriest()
-        //{
-        //    dbConnection dcon = null;
-        //    SqlCommand cmd = null;
-        //    SqlParameter outParam = null;
-        //    try
-        //    {
-        //        dcon = new dbConnection();
-        //        dcon.GetDBConnection();
-        //        cmd = new SqlCommand();
-        //        cmd.Connection = dcon.SQLCon;
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        cmd.CommandText = "[InsertPriest]";
-        //      //  cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(priestID);
-        //        cmd.Parameters.Add("@Name", SqlDbType.NVarChar,150).Value = priestName;
-        //        cmd.Parameters.Add("@BaptismName", SqlDbType.NVarChar, 150).Value = BaptisumName;
-        //        cmd.Parameters.Add("@Parish", SqlDbType.NVarChar, 150).Value = Parish;
-        //        cmd.Parameters.Add("@Diocese", SqlDbType.NVarChar, 150).Value = Diocese;
-        //        cmd.Parameters.Add("@Status", SqlDbType.NVarChar, 150).Value = Status;
-        //        if(dob!="")
-        //        {
-        //            cmd.Parameters.Add("@DOB", SqlDbType.Date).Value = commonObj.Changeformat(dob);
-        //        }
-                
-        //        cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about;
-        //        if(dateOrdination!="")
-        //        {
-        //            cmd.Parameters.Add("@DateOrdination", SqlDbType.Date).Value = commonObj.Changeformat(dateOrdination);
-        //        }
-        //        cmd.Parameters.Add("@Designation", SqlDbType.NVarChar, 150).Value = designation;
-        //        cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address;
-        //        cmd.Parameters.Add("@Email", SqlDbType.NVarChar,255).Value = emailId;
-        //        cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = mobile;
-        //        cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = true;
-        //        cmd.Parameters.Add("@IsDeleted", SqlDbType.Bit).Value = false;
-        //        cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
-        //        if (imageId != null)
-        //        {
-        //            cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
-        //        }
-        //        cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy;
-        //        cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =commonObj.ConvertDatenow(DateTime.Now);
-        //        outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
-        //        outParam.Direction = ParameterDirection.Output;
-        //        cmd.ExecuteNonQuery();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        result = ex.Message;
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        if (dcon.SQLCon != null)
-        //        {
-        //            dcon.DisconectDB();
-        //        }
-        //    }
-        //    result= outParam.Value.ToString();
-        //}
-        //#endregion InsertPriest
-
+    
         #region VicarExist
         public void VicarExistornot()
         {
@@ -445,7 +378,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address != null && address != "" ? address : null;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = emailId != null && emailId != "" ? emailId : null;
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = mobile != null && mobile != "" ? mobile : null;
-                if (churchID != null)  {
+                if (churchID != null && churchID!="")  {
                     cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
                 }
                 if (imageId != null)   {

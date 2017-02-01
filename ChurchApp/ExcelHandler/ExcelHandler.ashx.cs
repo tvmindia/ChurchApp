@@ -98,7 +98,8 @@ namespace ChurchApp.ExcelHandler
                                             ImportXL.MasterField = MasterField;
                                             dsMastertable = ImportXL.GetMasterFieldsFromMasterTable();
                                         }
-                                    }                                    
+                                    }
+                                    dsExcel.Tables[0].Columns.Add("ChurchId", typeof(String));                              
                                     ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString(); //Total rows in excel file
                                     ImportXL.Validation(dsExcel, dsTableDefenition,dsMastertable);     //validation by passing excelfile,table defenition & MasterTable fields                           
                                     if (dsExcel.Tables[0].Rows.Count > 0)
@@ -145,14 +146,10 @@ namespace ChurchApp.ExcelHandler
                 }
             }//end try
             catch (Exception ex)
-            {
-
-
-              
+            {              
             }
             finally
             {
-
             }       
         }
 
@@ -173,10 +170,8 @@ namespace ChurchApp.ExcelHandler
                     System.IO.File.Delete(location);
                     return true;
                 }
-
                 catch (Exception ex)
-                {                  
-                
+                { 
                     throw ex;
                 }
             }
