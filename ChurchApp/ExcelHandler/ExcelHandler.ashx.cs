@@ -77,9 +77,7 @@ namespace ChurchApp.ExcelHandler
                                 dsTableDefenition = ImportXL.GetTableDefinition();                              
                                 try
                                 { 
-                                    dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);
-                                    //---------------- to add churchid to Priest Table 
-                                    dsExcel = ImportXL.FillColumnValues(dsExcel);
+                                    dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);                                  
                                 }
                                 catch (Exception ex)
                                 {
@@ -106,7 +104,7 @@ namespace ChurchApp.ExcelHandler
                                     if (dsExcel.Tables[0].Rows.Count > 0)
                                     {
                                         //use try catch to show error  
-                                        ImportXL.ExcelImports(dsExcel, dsTableDefenition);                                      
+                                       ImportXL.ExcelImports(dsExcel, dsTableDefenition);                                      
                                     }
                                    else
                                     {

@@ -109,6 +109,11 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public bool isImport
+        {
+            get;
+            set;
+        }
         public string result
         {
             get;
@@ -513,7 +518,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = address!=null&&address!=""?address:null;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = emailId!=null&&emailId!=""?emailId:null;
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = mobile!=null&&mobile!=""?mobile:null;
-                if (churchID != null)
+                if (churchID != null && churchID!="")
                 {
                     cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
                 }
@@ -523,6 +528,10 @@ namespace ChurchApp.DAL
                 }
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
+                if (isImport)
+                {
+                    cmd.Parameters.Add("@isImport", SqlDbType.Bit).Value = isImport;
+                }
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
