@@ -136,6 +136,10 @@ namespace ChurchApp.DAL
         {
             get { return "Town or Town code already Exists "; }
         }
+        public string VicarExists
+        {
+            get { return "Please Verify Status-Vicar is already existing "; }
+        }
 
         #region PageUrl
 

@@ -601,7 +601,7 @@ namespace ChurchApp.DAL
                                             keyFields.Add(drExcelrow["Place"].ToString());
                                             //keyFields.Add(drExcelrow["Towncode"].ToString());
                                             //keyFields.Add(drExcelrow["Status"].ToString());
-                                            errorList.Add("Please Verify Status-Vicar is already existing ");
+                                            errorList.Add(constObj.VicarExists);  // message string from Common.cs 
                                             DataRow dr = dtError.NewRow();
                                             dr["FieldName"] = keyFields;
                                             dr["ErrorDesc"] = errorList;
@@ -852,7 +852,7 @@ namespace ChurchApp.DAL
                             keyFields.Add(drExcel["ChurchName"].ToString());
                             keyFields.Add(drExcel["Place"].ToString());
                             keyFields.Add(drExcel["Towncode"].ToString());
-                            errorList.Add(constObj.Nochurch);  // messages from Common.cs 
+                            errorList.Add(constObj.Nochurch);  // message string from Common.cs 
                         }
                         break;
                     case "TownMaster":
@@ -861,7 +861,7 @@ namespace ChurchApp.DAL
                             flag = true;
                             keyFields.Add(drExcel["Name"].ToString());                    
                             keyFields.Add(drExcel["Code"].ToString());
-                            errorList.Add(constObj.TownExists); // messages from Common.cs 
+                            errorList.Add(constObj.TownExists); // message string from Common.cs 
                         }
                         break;
                     case "Priest":
@@ -871,7 +871,7 @@ namespace ChurchApp.DAL
                         {
                             flag = true;
                             keyFields.Add(drExcel["Name"].ToString());                         
-                            errorList.Add(constObj.Prieststatus);  // messages from Common.cs 
+                            errorList.Add(constObj.Prieststatus); // message string from Common.cs 
                         }
 
                         // Fill churchid Column Values                      
@@ -890,7 +890,7 @@ namespace ChurchApp.DAL
                                 keyFields.Add(drExcel["ChurchName"].ToString());
                                 keyFields.Add(drExcel["Place"].ToString());
                                 keyFields.Add(drExcel["Towncode"].ToString());
-                                errorList.Add(constObj.Nochurch);         // messages from Common.cs                 
+                                errorList.Add(constObj.Nochurch);     // message string from Common.cs      
                             }
                         }
                         break;
