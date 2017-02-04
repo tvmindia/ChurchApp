@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,97 +22,90 @@ namespace ChurchApp.DAL
         public TownMaster townObj = null;
         public Priest priestObj = null;
         public MassTimings masstymObj = null;
+        public Const constObj = null;
+        string churchid;
 
-        public DataTable dtError
-        {
+        public DataTable dtError    {
+            get;set;
+        }
+        public int insertedRows        {
             get;
             set;
         }
-        public int insertedRows
-        {
+        public int updatedRows        {
             get;
             set;
         }
-        public int updatedRows
-        {
+        public string totalExcelRows        {
             get;
             set;
         }
-        public string totalExcelRows
-        {
+        public DataTable dtImportError        {
             get;
             set;
         }
-        public DataTable dtImportError
-        {
-            get;
-            set;
-        }
-        public string tableName
-        {
+        public string tableName        {
             get;
             set;
         }
 
-        public string fileName
-        {
+        public string fileName        {
             get;
             set;
         }
-        public string ExcelConnectionString
-        {
+        public string ExcelConnectionString        {
             get;
             set;
         }
-        public string fileLocation
-        {
+        public string fileLocation        {
             get;
             set;
         }
-        public string SheetDescription
-        {
+        public string SheetDescription        {
             get;
             set;
         }
-        public string SheetName
-        {
+        public string SheetName        {
             get;
             set;
         }
-
-        public string temporaryFolder { get; set; }
-        public HttpRequestBase request
-        {
+        public string temporaryFolder {
             get;
             set;
         }
-        public string ExcelFileName
-        {
+        public HttpRequestBase request        {
             get;
             set;
         }
-        public List<string> excelNotExitingFields
-        {
+        public string ExcelFileName        {
             get;
             set;
         }
-        public int errorCount
-        {
+        public List<string> excelNotExitingFields        {
             get;
             set;
         }
-        public List<Dictionary<string, object>> parentRow
-        {
+        public int errorCount        {
             get;
             set;
         }
-        public Dictionary<string, object> childRow
-        {
+        public List<Dictionary<string, object>> parentRow        {
             get;
             set;
         }
-        public string status
-        {
+        public Dictionary<string, object> childRow        {
+            get;
+            set;
+        }
+        public string status        {
+            get;
+            set;
+        }
+        public string MasterField        {
+            get;
+            set;
+        }
+        public string Mastertable        {
             get;
             set;
         }
@@ -131,8 +125,7 @@ namespace ChurchApp.DAL
         }
 
         #endregion ExcelSheetNames
-
-
+        
         #region GetExcelData
         public DataSet GetExcelData(DataSet dsTable)
         {
@@ -213,7 +206,6 @@ namespace ChurchApp.DAL
 
         #endregion ScanExcelFileToDS
 
-
         #region OpenExcelFile
         public string[] OpenExcelFile()
         {
@@ -275,8 +267,7 @@ namespace ChurchApp.DAL
             return excelSheets;
         }
         #endregion OpenExcelFile
-
-
+        
         #region SelectTableNames
         /// <summary>
         /// Select table names
@@ -315,6 +306,44 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectTableNames
+
+        #region GetMasterFieldsFromMasterTable
+
+        public DataSet GetMasterFieldsFromMasterTable()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetMasterFieldsFromMasterTable]";
+                cmd.Parameters.Add("@MasterTable", SqlDbType.NVarChar, 100).Value = Mastertable;
+                cmd.Parameters.Add("@MasterField", SqlDbType.NVarChar, 100).Value = MasterField;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetMasterFieldsFromMasterTable
 
         #region GetTableDefinition
         /// <summary>
@@ -471,11 +500,9 @@ namespace ChurchApp.DAL
                                             churchObj.townCode = drExcelrow["TownCode"].ToString().Trim();
                                             churchObj.description = drExcelrow["Description"].ToString();
                                             churchObj.about = drExcelrow["About"].ToString();
-                                            //churchObj.mainImageId = drExcelrow["MainImageID"].ToString();
                                             churchObj.address = drExcelrow["Address"].ToString();
                                             churchObj.phone1 = drExcelrow["Phone1"].ToString();
                                             churchObj.phone2 = drExcelrow["Phone2"].ToString();
-                                            //churchObj.MainPriestID = drExcelrow["MainPriestId"].ToString();
                                             churchObj.longitude = drExcelrow["Longitude"].ToString();
                                             churchObj.latitude = drExcelrow["Latitude"].ToString();
                                             churchObj.ChurchDenomination = drExcelrow["ChurchDenomination"].ToString(); //-----ChurchDenomination 
@@ -492,12 +519,10 @@ namespace ChurchApp.DAL
                                             churchObj.churchName = drExcelrow["Name"].ToString().Trim();
                                             churchObj.townCode = drExcelrow["TownCode"].ToString().Trim();
                                             churchObj.description = drExcelrow["Description"].ToString();
-                                            churchObj.about = drExcelrow["About"].ToString();
-                                            //churchObj.mainImageId = drExcelrow["MainImageID"].ToString();
+                                            churchObj.about = drExcelrow["About"].ToString();                                           
                                             churchObj.address = drExcelrow["Address"].ToString();
                                             churchObj.phone1 = drExcelrow["Phone1"].ToString();
-                                            churchObj.phone2 = drExcelrow["Phone2"].ToString();
-                                            //churchObj.MainPriestID = drExcelrow["MainPriestId"].ToString();
+                                            churchObj.phone2 = drExcelrow["Phone2"].ToString();                                          
                                             churchObj.longitude = drExcelrow["Longitude"].ToString();
                                             churchObj.latitude = drExcelrow["Latitude"].ToString();
                                             churchObj.ChurchDenomination = drExcelrow["ChurchDenomination"].ToString(); //-----ChurchDenomination 
@@ -512,9 +537,9 @@ namespace ChurchApp.DAL
                                         break;
 
                                     case "Priest":
+                                        bool flag=false;
                                         if (IsUpdate)
                                         {
-                                            //preist id?
                                             priestObj.priestID = drExisting[0]["ID"].ToString();
                                             priestObj.priestName = drExcelrow["Name"].ToString().Trim();
                                             priestObj.dob = drExcelrow["DOB"].ToString();
@@ -526,13 +551,18 @@ namespace ChurchApp.DAL
                                             priestObj.Parish = drExcelrow["Parish"].ToString();
                                             priestObj.Diocese = drExcelrow["Diocese"].ToString();
                                             priestObj.emailId = drExcelrow["Email"].ToString();
-                                            priestObj.designation = drExcelrow["Designation"].ToString();
-                                            priestObj.Status = drExcelrow["Status"].ToString();
-                                            //priestObj.isactive = drExcelrow[""].ToString(); //-----isactive
+                                            priestObj.designation = drExcelrow["Designation"].ToString();                                            
+                                            priestObj.Status = new CultureInfo("en-US").TextInfo.ToTitleCase(drExcelrow["Status"].ToString().Trim());
+                                            priestObj.churchID = drExcelrow["churchId"].ToString(); //churchId
+                                            priestObj.isImport = true;
                                             priestObj.UpdatePriest();
                                             if (priestObj.result == "1")
                                             {
                                                 updatedRows = updatedRows + 1;
+                                            }
+                                            else
+                                            {
+                                                flag = true;
                                             }
                                         }
                                         else
@@ -548,19 +578,40 @@ namespace ChurchApp.DAL
                                             priestObj.Diocese = drExcelrow["Diocese"].ToString();
                                             priestObj.emailId = drExcelrow["Email"].ToString();
                                             priestObj.designation = drExcelrow["Designation"].ToString();
-                                            priestObj.Status = drExcelrow["Status"].ToString();
-                                            //priestObj.isactive = drExcelrow[""].ToString(); //-----isactive
+                                            priestObj.Status = new CultureInfo("en-US").TextInfo.ToTitleCase(drExcelrow["Status"].ToString().Trim());
+                                            priestObj.churchID = drExcelrow["churchId"].ToString(); //churchId 
                                             priestObj.InsertPriest();
                                             if (priestObj.result == "1")
                                             {
                                                 insertedRows = insertedRows + 1;
                                             }
+                                            else
+                                            {
+                                                flag = true;
+                                            }
+                                           
+                                        }
+                                        if (flag)
+                                        { //---------on vicar is already existing case updation
+                                            errorCount = errorCount + 1;
+                                            List<string> errorList = new List<string>();
+                                            List<string> keyFields = new List<string>();                                           
+                                            keyFields.Add(drExcelrow["Name"].ToString());
+                                            keyFields.Add(drExcelrow["ChurchName"].ToString());
+                                            keyFields.Add(drExcelrow["Place"].ToString());
+                                            //keyFields.Add(drExcelrow["Towncode"].ToString());
+                                            //keyFields.Add(drExcelrow["Status"].ToString());
+                                            errorList.Add(constObj.VicarExists);  // message string from Common.cs 
+                                            DataRow dr = dtError.NewRow();
+                                            dr["FieldName"] = keyFields;
+                                            dr["ErrorDesc"] = errorList;
+                                            dtError.Rows.Add(dr);
                                         }
                                         break;
                                     case "TownMaster":
                                         if (IsUpdate)
                                         {
-                                            townObj.code = drExisting[0]["Code"].ToString();
+                                            townObj.code = drExisting[0]["Code"].ToString().Trim();
                                             townObj.name = drExcelrow["Name"].ToString().Trim();
                                             townObj.UpdateTownMaster();
                                             if (townObj.status == "1")//update status return 2 while dupilcation,   
@@ -571,6 +622,7 @@ namespace ChurchApp.DAL
                                         else
                                         {
                                             townObj.name = drExcelrow["Name"].ToString().Trim();
+                                            townObj.code = drExcelrow["Code"].ToString().Trim();
                                             townObj.InsertTownMaster();
                                             if (townObj.status == "1")
                                             {
@@ -685,20 +737,23 @@ namespace ChurchApp.DAL
         #endregion Methods
 
         #region ValidationMethods
+
         public static DataTable resort(DataTable dt)
         {
             dt.DefaultView.Sort = "RowNo asc";
             dt = dt.DefaultView.ToTable();
             return dt;
         }
+
         #region Validation
         /// <summary>
         /// Excel sheet validation 
         /// </summary>
         /// <param name="ExcelDS"></param>
         /// <param name="TableDefinitionDS"></param>
+        /// <param name="dsMastertable"
         /// <returns>True/False</returns>
-        public void Validation(DataSet ExcelDS, DataSet TableDefinitionDS)
+        public void Validation(DataSet ExcelDS, DataSet TableDefinitionDS,DataSet dsMastertable)
         {
             dtError = CreateErrorTable();         
             bool status = true;
@@ -714,13 +769,17 @@ namespace ChurchApp.DAL
                     if (tableName == "MassTiming")
                     {
                         dsExisting = churchObj.GetAllChurches();  
-                    }                   
+                    }   
+                    else if(tableName=="TownMaster")
+                    {
+                        dsExisting = townObj.SelectTownMasters();
+                    }               
                     for (int i = ExcelDS.Tables[0].Rows.Count - 1; i >= 0; i--)
                     {
-                        res = ValidateData(ExcelDS.Tables[0].Rows[i], TableDefinitionDS, i, dtError);
+                        res = ValidateData(ExcelDS.Tables[0].Rows[i], TableDefinitionDS, i, dtError, dsMastertable);
                         if (res == 1)     //-----------------vaildate logic inside------------//
                         {
-                            res = LogicValidation(ExcelDS.Tables[0].Rows[i], i, dtError, dsExisting);   
+                            res = LogicValidation(ExcelDS, i, dtError, dsExisting);   
                         }
                         if (res == -1)
                         {
@@ -752,17 +811,33 @@ namespace ChurchApp.DAL
         {
             String condition = "Name='" + drExcel["ChurchName"].ToString().Replace("'", "''") + "'and Place='" + drExcel["Place"].ToString() + "'and TownCode='" + drExcel["TownCode"].ToString() + "'";
             DataRow[] drcheck = dsExisting.Tables[0].Select(condition);
-            if (drcheck.Length == 0)
-            {
-                return false; 
+            if (drcheck.Length == 0)     {
+                return false;
             }
-            return true;
+            else    {
+                churchid = drcheck[0]["ID"].ToString();
+                return true;
+            }
         }
         #endregion ChurchExists
 
-        #region LogicValidation
-        public int LogicValidation(DataRow drExcel, int rowno, DataTable dtError, DataSet dsExisting)
+        #region TownExists
+        public bool TownExists(DataSet dsExisting, DataRow drExcel)
         {
+            String condition = "Name='" + drExcel["Name"].ToString() + "'OR Code='" + drExcel["Code"].ToString() + "'";
+            DataRow[] drcheck = dsExisting.Tables[0].Select(condition);
+            if (drcheck.Length == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+        #endregion TownExists
+
+        #region LogicValidation
+        public int LogicValidation(DataSet ExcelDS, int rowno, DataTable dtError, DataSet dsExisting)
+        {
+            DataRow drExcel = ExcelDS.Tables[0].Rows[rowno];
             List<string> errorList = new List<string>();
             List<string> keyFields = new List<string>();
             try
@@ -770,17 +845,53 @@ namespace ChurchApp.DAL
                 bool flag = false;
                 switch (tableName)
                 {
-                    case "MassTiming":
-                        //String condition = "Name='" + drExcel["ChurchName"].ToString().Replace("'", "''") + "'and Place='" + drExcel["Place"].ToString() + "'and TownCode='" + drExcel["TownCode"].ToString() + "'";                        
-                        //DataRow[] drcheck = dsExisting.Tables[0].Select(condition);
-                  
+                    case "MassTiming":                     
                         if (ChurchExists(dsExisting,drExcel)!=true)
                         {
                             flag = true;                                 
                             keyFields.Add(drExcel["ChurchName"].ToString());
                             keyFields.Add(drExcel["Place"].ToString());
                             keyFields.Add(drExcel["Towncode"].ToString());
-                            errorList.Add(" Church doesn't  Exists");
+                            errorList.Add(constObj.Nochurch);  // message string from Common.cs 
+                        }
+                        break;
+                    case "TownMaster":
+                        if (TownExists(dsExisting, drExcel) == true)
+                        {
+                            flag = true;
+                            keyFields.Add(drExcel["Name"].ToString());                    
+                            keyFields.Add(drExcel["Code"].ToString());
+                            errorList.Add(constObj.TownExists); // message string from Common.cs 
+                        }
+                        break;
+                    case "Priest":
+                        string vicarStatus = drExcel["Status"].ToString();
+                        vicarStatus = new CultureInfo("en-US").TextInfo.ToTitleCase(drExcel["Status"].ToString().Trim());
+                        if (vicarStatus != "Vicar" && vicarStatus != "Asst Vicar" && vicarStatus != "")
+                        {
+                            flag = true;
+                            keyFields.Add(drExcel["Name"].ToString());                         
+                            errorList.Add(constObj.Prieststatus); // message string from Common.cs 
+                        }
+
+                        // Fill churchid Column Values                      
+                        if (drExcel["ChurchName"].ToString() != "" && drExcel["Place"].ToString() != "" && drExcel["TownCode"].ToString() != "")
+                        {
+                            bool churchexists = ChurchExists(churchObj.GetAllChurches(), drExcel);
+                            if (churchexists) //true
+                            {
+                                
+                                ExcelDS.Tables[0].Rows[rowno]["ChurchId"] = churchid;                                
+                            }
+                            else //false
+                            {
+                                flag = true;
+                                keyFields.Add(drExcel["Name"].ToString());
+                                keyFields.Add(drExcel["ChurchName"].ToString());
+                                keyFields.Add(drExcel["Place"].ToString());
+                                keyFields.Add(drExcel["Towncode"].ToString());
+                                errorList.Add(constObj.Nochurch);     // message string from Common.cs      
+                            }
                         }
                         break;
                     default:
@@ -789,11 +900,11 @@ namespace ChurchApp.DAL
                 if (flag == true)
                 {
                     DataRow dr = dtError.NewRow();
+                    rowno = rowno + 2;
                     dr["RowNo"] = rowno;
                     dr["FieldName"] = keyFields;
                     dr["ErrorDesc"] = errorList;
-                    dtError.Rows.Add(dr);
-                    rowno = rowno + 2;
+                    dtError.Rows.Add(dr);                   
                     return -1;
                 }
                 else
@@ -804,22 +915,43 @@ namespace ChurchApp.DAL
             catch (Exception ex)
             {
                 throw ex;
-            }
-
-           
+            }           
         }
 
         #endregion LogicValidation
+
         #region ValidateData
-        public int ValidateData(DataRow drExcel, DataSet dsTableDef, int rowno, DataTable dtError)
-        {
-
+        public int ValidateData(DataRow drExcel, DataSet dsTableDef, int rowno, DataTable dtError,DataSet dsMastertable)
+        {            
             List<string> errorList = new List<string>();
-
             List<string> keyFields = new List<string>();
             try
             {
                 bool flag = false;
+                
+                if (dsMastertable != null && dsMastertable.Tables[0].Rows.Count>0)
+                { 
+                    switch(tableName)
+                    {
+                        case "Church":
+                            string wherecondition = "FieldValue='" + drExcel["ChurchDenomination"].ToString() + "'";
+
+                            DataRow[] checkisexits = dsMastertable.Tables[0].Select(wherecondition);
+                            if (checkisexits.Length > 0)
+                            {
+                                flag = false;
+                            }
+                            else
+                            {
+                                flag = true;
+                                errorList.Add(drExcel["ChurchDenomination"].ToString() + " doesn't Exists in ChurchDenominationMaster");
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
                 //----------------------Manadatory Fields Checking-------------------//
                 DataRow[] mandatoryFields = dsTableDef.Tables[0].Select("IsMandatory='true'");
 
@@ -960,6 +1092,7 @@ namespace ChurchApp.DAL
 
         }
         #endregion ValidateData
+
         #region CreateErrorTable
         /// <summary>
         /// Create datatable for Error Descriptions
@@ -974,6 +1107,7 @@ namespace ChurchApp.DAL
             return dtTemp;
         }
         #endregion CreateErrorTable
+
         #region Date validation
         /// <summary>
         /// Date validation
@@ -1176,6 +1310,7 @@ namespace ChurchApp.DAL
         }
 
         #endregion #region ValidateType
+
         #endregion ValidationMethods
     }
 }

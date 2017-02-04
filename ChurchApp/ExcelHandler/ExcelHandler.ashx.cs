@@ -73,24 +73,39 @@ namespace ChurchApp.ExcelHandler
 
                             if (excelSheets != null)
                             {
-                                dsExcel = new DataSet();
-                                dsTableDefenition = ImportXL.GetTableDefinition();
+                                dsExcel = new DataSet();                                
+                                dsTableDefenition = ImportXL.GetTableDefinition();                              
                                 try
                                 { 
-                                dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);
+                                    dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);                                  
                                 }
                                 catch (Exception ex)
                                 {
                                     ImportXL.status = ex.Message;
                                 }
-
                                 if (dsExcel != null && dsExcel.Tables.Count>0)
                                 {
-                                    ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString();
-                                    ImportXL.Validation(dsExcel, dsTableDefenition);                                    
+                                    //Checking Master Table Fields 
+                                    DataSet dsMastertable = null;
+                                    DataRow[] MasterTableFields = dsTableDefenition.Tables[0].Select("Master_Table IS NOT NULL  and Master_Field IS NOT NULL ");
+                                    if (MasterTableFields.Length > 0)
+                                    {  
+                                        foreach (var item in MasterTableFields)
+                                        {
+                                            string MasterTable = item["Master_Table"].ToString();
+                                            string MasterField = item["Master_Field"].ToString();
+                                            ImportXL.Mastertable = MasterTable;
+                                            ImportXL.MasterField = MasterField;
+                                            dsMastertable = ImportXL.GetMasterFieldsFromMasterTable();
+                                        }
+                                    }
+                                    dsExcel.Tables[0].Columns.Add("ChurchId", typeof(String));                              
+                                    ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString(); //Total rows in excel file
+                                    ImportXL.Validation(dsExcel, dsTableDefenition,dsMastertable);     //validation by passing excelfile,table defenition & MasterTable fields                           
                                     if (dsExcel.Tables[0].Rows.Count > 0)
                                     {
-                                        ImportXL.ExcelImports(dsExcel, dsTableDefenition);                                      
+                                        //use try catch to show error  
+                                       ImportXL.ExcelImports(dsExcel, dsTableDefenition);                                      
                                     }
                                    else
                                     {
@@ -131,14 +146,10 @@ namespace ChurchApp.ExcelHandler
                 }
             }//end try
             catch (Exception ex)
-            {
-
-
-              
+            {              
             }
             finally
             {
-
             }       
         }
 
@@ -159,10 +170,8 @@ namespace ChurchApp.ExcelHandler
                     System.IO.File.Delete(location);
                     return true;
                 }
-
                 catch (Exception ex)
-                {                  
-                
+                { 
                     throw ex;
                 }
             }

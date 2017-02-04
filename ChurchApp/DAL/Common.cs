@@ -123,6 +123,23 @@ namespace ChurchApp.DAL
             }
         }
 
+        public string Nochurch
+        {
+            get { return " Church doesn't  Exists"; }
+        }
+        
+        public string Prieststatus
+        {
+            get { return "Status must be VICAR or ASST VICAR " ; }
+        }
+        public string TownExists
+        {
+            get { return "Town or Town code already Exists "; }
+        }
+        public string VicarExists
+        {
+            get { return "Please Verify Status-Vicar is already existing "; }
+        }
 
         #region PageUrl
 
