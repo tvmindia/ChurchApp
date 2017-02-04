@@ -235,6 +235,7 @@
     <Content Include="CSS\CustomCSS\Novenas.css" />
     <Content Include="CSS\CustomCSS\PiousOrg.css" />
     <Content Include="CSS\CustomCSS\Priests.css" />
+    <Content Include="CSS\dataTables.checkboxes.css" />
     <Content Include="CSS\elfinder.min.css" />
     <Content Include="CSS\elfinder.theme.css" />
     <Content Include="CSS\font-awesome.min.css" />
@@ -276,6 +277,7 @@
     <Content Include="Global.asax" />
     <Content Include="img\00000000-0000-0000-0000-000000000000.jpg" />
     <Content Include="img\ad.png" />
+    <Content Include="img\add.png" />
     <Content Include="img\AppImages\00000000-0000-0000-0000-000000000000.jpg" />
     <Content Include="img\AppImages\040cb5d2-fdbf-40e0-1b21-1fe3bc08e82b.jpg" />
     <Content Include="img\AppImages\06437727-380e-a0f8-2860-c12f7f4b8124.jpg" />
@@ -338,15 +340,16 @@
     <Content Include="img\AppImages\f7f77106-4a55-dc44-f40a-9afc8a5a97d8.jpg" />
     <Content Include="img\AppImages\fb9187d1-57f0-9325-abc0-d8585d083fa1.jpg" />
     <Content Include="img\arrow.png" />
+    <Content Include="img\back.PNG" />
     <Content Include="img\bg.jpg" />
-    <Content Include="img\bgChurch.jpg" />
-    <Content Include="img\Bgrepeat.jpg" />
     <Content Include="img\church-black-silhouette-with-a-cross-on-topblack1616.png" />
     <Content Include="img\close.png" />
     <Content Include="img\copy.png" />
     <Content Include="img\dbError.png" />
     <Content Include="img\defaultalbumadd.jpg" />
     <Content Include="img\DefaultChurch.jpg" />
+    <Content Include="img\delete.PNG" />
+    <Content Include="img\edit.png" />
     <Content Include="img\gallery\1.jpg" />
     <Content Include="img\gallery\2.jpg" />
     <Content Include="img\gallery\3.JPG" />
@@ -367,13 +370,17 @@
     <Content Include="img\LoadChurch.gif" />
     <Content Include="img\loading.gif" />
     <Content Include="img\Loadingchurch.gif" />
+    <Content Include="img\minus.png" />
     <Content Include="img\More.png" />
     <Content Include="img\next.png" />
     <Content Include="img\No-Img_Chosen.png" />
     <Content Include="img\nodata.jpg" />
     <Content Include="img\Plussymbol.png" />
     <Content Include="img\prev.png" />
+    <Content Include="img\reset.PNG" />
     <Content Include="img\ring.gif" />
+    <Content Include="img\save.PNG" />
+    <Content Include="img\sentmail.png" />
     <Content Include="img\slowrider.gif" />
     <Content Include="img\St_Thomas_Church,_Irinjalakuda.jpg" />
     <Content Include="img\top_arr.png" />
@@ -385,6 +392,7 @@
     <Content Include="Font\fontawesome-webfont.woff" />
     <Content Include="Font\fontawesome-webfont.woff2" />
     <Content Include="Font\FontAwesome.otf" />
+    <Content Include="AdminPanel\Notify.aspx" />
     <Content Include="Scripts\bootstrap-checkbox.js" />
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\counter.js" />
@@ -437,6 +445,7 @@
     <Content Include="Scripts\DataTables\dataTables.bootstrap4.min.js" />
     <Content Include="Scripts\DataTables\dataTables.buttons.js" />
     <Content Include="Scripts\DataTables\dataTables.buttons.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.checkboxes.js" />
     <Content Include="Scripts\DataTables\dataTables.colReorder.js" />
     <Content Include="Scripts\DataTables\dataTables.colReorder.min.js" />
     <Content Include="Scripts\DataTables\dataTables.fixedColumns.js" />
@@ -772,6 +781,13 @@
     </Compile>
     <Compile Include="Master\AdminLayout.Master.designer.cs">
       <DependentUpon>AdminLayout.Master</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Notify.aspx.cs">
+      <DependentUpon>Notify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Notify.aspx.designer.cs">
+      <DependentUpon>Notify.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FileFlush.cs" />

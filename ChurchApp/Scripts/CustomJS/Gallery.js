@@ -395,8 +395,13 @@ $("document").ready(function (e) {
         debugger
         try {
             $('#divCreateAlbum').hide();
-            $('#EditAlbum').hide();
-            $('#RefreshAlbum').show();
+            //$('#EditAlbum').hide();
+            //$('#RefreshAlbum').show();
+            //$('#h2PhotoAlbumName').hide();
+            //$('#txtPhotoAlbumName').show();
+            //Dynamicbutton("btnMain", "Save", "");
+            Dynamicbutton("RefreshAlbum", "Reset", "");
+            Dynamicbutton("EditAlbum", "EditCancel", "");
             EditBindGalleryImageAlbum();
         }
         catch (e) {
@@ -411,9 +416,10 @@ $("document").ready(function (e) {
         debugger
         try {
             $('#divCreateVideoAlbum').hide();
-            $('#EditVideoAlbum').hide();
-            $('#RefreshVideoAlbum').show();
-
+            //$('#EditVideoAlbum').hide();
+            //$('#RefreshVideoAlbum').show();
+            Dynamicbutton("RefreshVideoAlbum", "Reset", "");
+            Dynamicbutton("EditVideoAlbum", "EditCancel", "");
             EditBindGalleryVideoAlbum();
         
 
@@ -429,11 +435,17 @@ $("document").ready(function (e) {
         debugger
         try {
             $('#divAddMore').hide();
-            $('#EditImageAlbum').hide();
-            $('#RefreshImageAlbum').show();
-            
+            //$('#EditImageAlbum').hide();
+            //$('#RefreshImageAlbum').show();
+            $('#h2PhotoAlbumName').hide();
+            $('#txtPhotoAlbumName').show();
+            $('#txtVideoAlbumName').val('');
+            Dynamicbutton("btnMainImageAlbum", "Save", "UpdateImageAlbumName");
+            Dynamicbutton("EditImageAlbum", "EditCancel", "");
+            Dynamicbutton("RefreshImageAlbum", "Reset", "");
             var albid = $('#hdfAlbumID').val();
             EditImageBind(albid);
+            $('#txtPhotoAlbumName').focus();
           
            
         }
@@ -449,11 +461,17 @@ $("document").ready(function (e) {
          
         try {
             $('#divAddMoreVideos').hide();
-            $('#EditVideo').hide();
-            $('#RefreshVideo').show();
-
+            //$('#EditVideo').hide();
+            //$('#RefreshVideo').show();
+            $('#h2VideoAlbumName').hide();
+            $('#txtVideoAlbumName').show();
+            $('#txtPhotoAlbumName').val('');
+            Dynamicbutton("btnMainVideo", "Save", "UpdateImageAlbumName");
+            Dynamicbutton("RefreshVideo", "Reset", "");
+            Dynamicbutton("EditVideo", "EditCancel", "");
             var albid = $('#hdfAlbumID').val();
-            EditBindVideos(albid); 
+            EditBindVideos(albid);
+            $('#txtVideoAlbumName').focus();
         }
         catch (e) {
             noty({ type: 'error', text: e.message });
@@ -466,12 +484,19 @@ $("document").ready(function (e) {
         debugger
         try {
             $('#divAddMore').show();
-            $('#RefreshImageAlbum').hide();
-            $('#EditImageAlbum').show();
-
+            //$('#RefreshImageAlbum').hide();
+            //$('#EditImageAlbum').show();
+            $('#h2PhotoAlbumName').show();
+            $('#txtPhotoAlbumName').hide();
+            Dynamicbutton("btnMainImageAlbum", "SaveCancel", "");
+            Dynamicbutton("RefreshImageAlbum", "ResetCancel", "");
+            Dynamicbutton("EditImageAlbum", "Edit", "");
             var albid = $('#hdfAlbumID').val();
             $('.EditDiv').remove();
             BindImages(albid);
+            document.getElementById("ImageDivTitle").innerHTML = $('#txtPhotoAlbumName').val();
+            
+
         }
         catch (e) {
             noty({ type: 'error', text: e.message });
@@ -483,9 +508,13 @@ $("document").ready(function (e) {
         debugger
         try {
             $('#divCreateAlbum').show();
-            $('#RefreshAlbum').hide();
-            $('#EditAlbum').show();
-
+            //$('#RefreshAlbum').hide();
+            //$('#EditAlbum').show();
+            //$('#h2PhotoAlbumName').show();
+            //$('#txtPhotoAlbumName').hide();
+            //Dynamicbutton("btnMain", "SaveCancel", "");
+            Dynamicbutton("RefreshAlbum", "ResetCancel", "");
+            Dynamicbutton("EditAlbum", "Edit", "");
             $('.Alb').remove();
             BindGalleryImageAlbum();
 
@@ -503,12 +532,17 @@ $("document").ready(function (e) {
         debugger
         try {
             $('#divAddMoreVideos').show();
-            $('#RefreshVideo').hide();
-            $('#EditVideo').show();
-
+            //$('#RefreshVideo').hide();
+            //$('#EditVideo').show();
+            $('#h2VideoAlbumName').show();
+            $('#txtVideoAlbumName').hide();
+            Dynamicbutton("btnMainVideo", "SaveCancel", "");
+            Dynamicbutton("RefreshVideo", "ResetCancel", "");
+            Dynamicbutton("EditVideo", "Edit", "");
             var albid = $('#hdfAlbumID').val();
             $('.EditDiv').remove();
             BindVideos(albid);
+            document.getElementById("VideoDivTitle").innerHTML = $('#txtVideoAlbumName').val();
         }
         catch (e) {
             noty({ type: 'error', text: e.message });
@@ -521,9 +555,10 @@ $("document").ready(function (e) {
         debugger
         try {
             $('#divCreateVideoAlbum').show();
-            $('#RefreshVideoAlbum').hide();
-            $('#EditVideoAlbum').show();
-
+            //$('#RefreshVideoAlbum').hide();
+            //$('#EditVideoAlbum').show();
+            Dynamicbutton("RefreshVideoAlbum", "ResetCancel", "");
+            Dynamicbutton("EditVideoAlbum", "Edit", "");
             var albid = $('#hdfAlbumID').val();
             $('.EditDiv').remove();
             BindGalleryVideoAlbum();
@@ -698,6 +733,32 @@ $("document").ready(function (e) {
         $('#btnPlay').addClass('anim');
     });
 });//end of document.ready
+function UpdateImageAlbumName()
+{
+    debugger;
+    var GalleryAlbum = new Object;
+    if ($('#txtPhotoAlbumName').val() != "")
+    {
+        GalleryAlbum.albumName = $('#txtPhotoAlbumName').val();
+    }
+    if ($('#txtVideoAlbumName').val() != "") {
+        GalleryAlbum.albumName = $('#txtVideoAlbumName').val();
+    }
+    GalleryAlbum.albumId = $("#hdfAlbumID").val();
+    var result = UpdateAlbumNameUsingID(GalleryAlbum);
+    switch (result.status)
+    {
+        case "1":
+            noty({ type: 'success', text: 'Album Name Updated Successfully' });
+            break;
+        case "0":
+            noty({ type: 'error', text: 'Not Updated Successfully' });
+            break;
+        default:
+            noty({ type: 'error', text: result.status });
+            break;
+    }
+}
 function GetLinkID(Url)
 {
     
@@ -958,7 +1019,19 @@ function deleteAlbum(albobj)
     }
    
 }
-
+function UpdateAlbumNameUsingID(GalleryAlbum)
+{
+    try {
+        var data = "{'GalleryAlbumObj':" + JSON.stringify(GalleryAlbum) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Gallery.aspx/UpdateAlbumNameUsingID");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+}
 function DeleteAlbumItem(GalleryItems) {
     try
     {
@@ -1227,10 +1300,10 @@ function AppendImageAlbum(Records)
         $.each(Records, function (index, Records) {
             var imgurl = Records.URL;
             if (imgurl == null) {
-                var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb Card"><a alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + Records.AlbumName + '</span><br><span class="badge"><i class="halflings-icon camera white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Photos</span></div></div></a></div>';
+                var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + (Records.AlbumName != null && Records.AlbumName != "" ? Records.AlbumName : "My Photo Album") + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb Card"><a alt="Church"><div style="background-image: url(/img/defaultalbumadd.jpg)!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + (Records.AlbumName != null && Records.AlbumName != "" ? Records.AlbumName : "My Photo Album") + '</span><br><span class="badge"><i class="halflings-icon camera white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Photos</span></div></div></a></div>';
             }
             else {
-                var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb Card"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + Records.AlbumName + '</span><br><span class="badge"><i class="halflings-icon camera white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Photos</span></div></div></a></div>';
+                var html = '<div style="background-image: url(/img/bg-login.jpg)!important;padding-left: 6px;margin-left: 10px !important;margin-bottom: 10px !important;" onclick="ViewImages(this)" AlbumID="' + Records.AlbumID + '" AlbumName="' + (Records.AlbumName != null && Records.AlbumName != "" ? Records.AlbumName : "My Photo Album") + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="span3 Alb Card"><a alt="Church"><div style="background-image: url(' + imgurl + ')!important;height:247px;transform:rotate(2deg)" class="dynamicImgAlbum span12 Card"><div class="span12 desc"><span> ' + (Records.AlbumName != null && Records.AlbumName != "" ? Records.AlbumName : "My Photo Album") + '</span><br><span class="badge"><i class="halflings-icon camera white"></i> ' + Records.ItemCount + '</span><span style="font-size: 12px;font-weight: 300;"> Photos</span></div></div></a></div>';
             }
             $('.ImageAlbum-Gallery').append(html);
         })
@@ -1255,6 +1328,7 @@ function EditAppendImageAlbum(Records) {
                 var html = '<div class="span3 Alb"><div style="background-image: url(' + imgurl + ')!important;height:247px;opacity: 0.3;" class="dynamicImgAlbum span12"></div><a AlbumID="' + Records.AlbumID + '" AlbumName="' + Records.AlbumName + '" AlbumType="' + Records.AlbumType + '" GroupItemID="' + Records.GroupItemID + '" Type="' + Records.Type + '" id="' + Records.AlbumID + '" class="circlebtn circlebtn-danger" style="z-index: 1;position: relative;font-size: 16px;font-weight: bold;left: 46%;top: -56%;cursor: pointer;" onclick="deleteAlbum(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div class="span12" style="padding: 15px;text-align: center;background-color: #fff;color: black;font-size: 18px;margin-top: -30%;position: relative;font-weight: 300;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-left: 0;!important">' + Records.AlbumName + '</div></div>';
             }
             $('.ImageAlbum-Gallery').append(html);
+
         })
     }
     catch(e)
@@ -1277,10 +1351,12 @@ function ViewImages(obj)
         var imgalbid = $(obj).attr('albumid');
         var albname = $(obj).attr('AlbumName');
         document.getElementById("ImageDivTitle").innerHTML = albname;
+        $('#txtPhotoAlbumName').val(albname);
         $("#hdfAlbumID").val(imgalbid);
         //breadcrumb handling
         $(".Gallery").remove();//removes gallery
         $("#breadcrumbGallery").append('<li class="Gallery"><a href="../AdminPanel/Gallery.aspx"> Gallery </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + albname + '</li>');
+        $('#btnBackImageAlbum').attr('href', '../AdminPanel/Gallery.aspx');
         BindImages(imgalbid);
     }
     catch (e) {
@@ -1406,6 +1482,7 @@ function AppendEditImages(Records) {
 
             var html = '<div class="EditDiv"><img style="width: 100% !important;" class="Editimage" src="' + Records.URL + '" alt="' + Records.URL + '"/><a data-rel="tooltip" data-original-title="Delete" URL="' + Records.URL + '" AlbumID="' + Records.AlbumID + '" ImageID="' + Records.ID + '" ImageType="' + Records.Type + '" class="circlebtn circlebtn-danger deletetext" onclick="deleteImage(this)"><i style="font-size: 19px;color: whitesmoke !important;" class="fa fa-times" aria-hidden="true"></i></a><div>';
             $('.Image-Gallery').append(html);
+            $('.EditDiv').find('div').first().remove();
         })
     }
     catch(e)
@@ -1523,10 +1600,12 @@ function ViewVideos(obj) {
         var vidalbid = $(obj).attr('albumid');
         var albname = $(obj).attr('AlbumName');
         document.getElementById("VideoDivTitle").innerHTML = albname;
+        $('#txtVideoAlbumName').val(albname);
         $("#hdfAlbumID").val(vidalbid);
         ////breadcrumb handling
        $(".Gallery").remove();//removes gallery
        $("#breadcrumbGallery").append('<li class="Gallery"><a href="../AdminPanel/Gallery.aspx"> Gallery </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + albname + '</li>');
+       $('#btnBackVideo').attr('href', '../AdminPanel/Gallery.aspx');
        BindVideos(vidalbid);
     }
     catch (e) {

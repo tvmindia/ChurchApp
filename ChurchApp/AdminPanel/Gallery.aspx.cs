@@ -269,6 +269,41 @@ namespace ChurchApp.AdminPanel
         }
         #endregion InsertImageAlbum
 
+        #region UpdateAlbumNameUsingID
+        [WebMethod(EnableSession = true)]
+        public static string UpdateAlbumNameUsingID(GalleryAlbum GalleryAlbumObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    GalleryAlbumObj.churchId = UA.ChurchID;
+                    GalleryAlbumObj.updatedBy = UA.userName;
+                    GalleryAlbumObj.UpdateGalleryAlbum();
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                GalleryAlbumObj.message = ex.Message;
+
+            }
+
+            return jsSerializer.Serialize(GalleryAlbumObj);
+
+        }
+        #endregion UpdateAlbumNameUsingID
+
         #region InsertVideoItemsAlbum
         [WebMethod(EnableSession = true)]
         public static string InsertVideoItemAlbum(GalleryItems GalItemsObj)
@@ -303,7 +338,7 @@ namespace ChurchApp.AdminPanel
 
         }
         #endregion InsertImageAlbum
- #region GetAllGalleryVideoAlbumByChurchID
+        #region GetAllGalleryVideoAlbumByChurchID
  [WebMethod(EnableSession = true)]
  public static string GetAllGalleryVideoAlbumByChurchID(GalleryAlbum GalleryAlbumObj)
  {

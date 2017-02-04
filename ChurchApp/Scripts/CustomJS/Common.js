@@ -1,39 +1,84 @@
-﻿//function EmailValidation(this_Obj) {
-//    
-//    var value;
-//    try {
-//        if (this_Obj.value != "") {
-
-//            var Email = this_Obj.value;
-//        }
-        
-       
-//        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-//        if (emailReg.test(Email)) {
-//            var txtA = document.getElementById(this_Obj.id);
-//            txtB.style.backgroundImage = "url(' ')";
-//            txtA.style.style.backgroundColor = "white!important";
-            
-//        }
-//        else {
-//            var txtB = document.getElementById(this_Obj.id);
-//            txtB.style.backgroundImage = "url('../img/invalid.png')";
-//            txtB.style.backgroundPosition = "95% center";
-//            txtB.style.backgroundRepeat = "no-repeat";
-
-//        }
-//    }
-//    catch (e) {
-//        var ExceptionTrack = new Object();
-//        ExceptionTrack.Description = e.message;
-//        ExceptionTrack.Module = "People";
-//        ExceptionTrack.Method = "EmailValidation";
-//        ExceptionTrack.ErrorSource = "JavaScript";
-//        ExceptionTrack.IsMobile = false;
-//        //InsertException(ExceptionTrack);
-//    }
-//    //return false;
-//}
+﻿//The function Dynamically append button images and click functions as per the programmer privillage
+function Dynamicbutton(ID, Keyword, Event) {
+    debugger;
+    switch (Keyword) {
+        case "Save":
+            $('#' + ID + ' img').attr('src', '/img/save.PNG');
+            $('#' + ID).attr('onclick', Event + '(this);');
+            $('#' + ID).attr('title', 'Save');
+            $('#' + ID).attr('class', 'facebook saveAll');
+            break;
+        case "SaveCancel":
+            $('#' + ID + ' img').attr('src', '/img/save.PNG');
+            $('#' + ID).removeAttr("title")
+            $('#' + ID).removeAttr("onclick")
+            $('#' + ID).attr('class', 'rss');
+            break;
+        case "Edit":
+            $('#' + ID + ' img').attr('src', '/img/edit.PNG');
+            $('#' + ID).attr('onclick', Event + '(name);');
+            $('#' + ID).attr('title', 'Edit');
+            $('#' + ID).attr('class', 'facebook');
+            break;
+        case "EditCancel":
+            $('#' + ID + ' img').attr('src', '/img/edit.PNG');
+            $('#' + ID).removeAttr("title")
+            $('#' + ID).removeAttr("onclick")
+            $('#' + ID).attr('class', 'rss');
+            break;
+        case "Cancel":
+            $('#' + ID + ' img').attr('src', '/img/back.PNG');
+            $('#' + ID).attr('onclick', Event + '();');
+            $('#' + ID).attr('title', 'Back');
+            $('#' + ID).attr('class', 'facebook');
+            break;
+        case "Reset":
+            $('#' + ID + ' img').attr('src', '/img/reset.PNG');
+            $('#' + ID).attr('onclick', Event + '(name);');
+            $('#' + ID).attr('title', 'Reset');
+            $('#' + ID).attr('class', 'facebook');
+            break;
+        case "ResetCancel":
+            $('#' + ID + ' img').attr('src', '/img/reset.PNG');
+            $('#' + ID).removeAttr('onclick');
+            $('#' + ID).removeAttr('title');
+            $('#' + ID).attr('class', 'rss');
+            break;
+        case "SendNoti":
+            $('#' + ID + ' img').attr('src', '/img/sentmail.PNG');
+            $('#' + ID).attr('onclick', Event + '();');
+            $('#' + ID).attr('title', 'Push Notification');
+            $('#' + ID).attr('class', 'facebook');
+            break;
+        case "SendNotiCancel":
+            $('#' + ID + ' img').attr('src', '/img/sentmail.PNG');
+            $('#' + ID).removeAttr("title")
+            $('#' + ID).removeAttr("onclick")
+            $('#' + ID).attr('class', 'rss');
+            break;
+        case "Delete":
+            $('#' + ID + ' img').attr('src', '/img/delete.PNG');
+            $('#' + ID).attr('onclick', Event + '();');
+            $('#' + ID).attr('title', 'Delete');
+            $('#' + ID).attr('class', 'facebook');
+            break;
+        case "DeleteCancel":
+            $('#' + ID + ' img').attr('src', '/img/delete.PNG');
+            $('#' + ID).removeAttr("title")
+            $('#' + ID).removeAttr("onclick")
+            $('#' + ID).attr('class', 'rss');
+            break;
+        default:
+            //noty({ text: Messages.UpdationFailure, type: 'error' });
+            break;
+    }
+}
+//Scroll the page respect to the element position passing element ID
+function Animateto(ID) {
+    $('html, body').animate({
+        scrollTop: $("#" + ID).offset().top
+    }, 500);
+}
 
 // function Allowing only alphabets in Textbox 
 function isnotNumber(evt) {

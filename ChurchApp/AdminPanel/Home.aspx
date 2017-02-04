@@ -121,10 +121,17 @@
             </li>
             <li>Home</li>
         </ul>
+         <div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198">		
+			<a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewclick();"><img  src="/img/add.PNG"/></a>
+            <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
+            <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
+			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
+            <a class="rss" id="btnSendNotification"><img src="/img/sentmail.png"/></a>
+        </div>
         <!--breadcrumb-->
 
         <!--churchtable-->
-        <div class="row-fluid sortable">
+        <div class="row-fluid sortable" style="margin-top:3%">
             <div class="box span12">
                 <div class="box-header" data-original-title>
                     <h2 id="h2ChurchName"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>ST.Thomas Cathedral</h2>

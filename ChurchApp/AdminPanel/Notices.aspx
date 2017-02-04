@@ -9,7 +9,24 @@
     <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/Notices.js"></script>
     <link href="../CSS/CustomCSS/Notice.css" rel="stylesheet" />
+     <style>
+        #dtbselect option{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif!important;
+            font-size:12px!important;
+        }
 
+
+
+
+
+
+    </style>
+    <script>
+        function saveoredit(id)
+        {
+            $(id).attr('src', '/img/edit.PNG');
+        }
+    </script>
     <%-- <link href="../CSS/lightbox.css" rel="stylesheet" />
     <script src="../Scripts/lightbox.js"></script>--%>
 </asp:Content>
@@ -25,33 +42,14 @@
                 <li>Notices</li>
             </ul>
 
-            <%--Alert boxes --%>
-            <div id="rowfluidDiv" style="display: none;">
+           <div class="buttonpatch" style="position:fixed;width:198px;right:0;top:7.5%;z-index:198">
+            <a class="twitter" title="Back"><img src="/img/back.PNG"/></a>
+			<a class="dribble" title="Reset"><img src="/img/reset.PNG"/></a>
+			<a class="facebook" title="Save" ><img onclick="saveoredit(this);" src="/img/save.PNG"/></a>
+			<a class="rss" title="Delete"><img src="/img/delete.PNG"/></a>
+        </div>
 
-                <div class="alert alert-block" id="ErrorBox" style="display: none; background-color: #fdeaea !important; color: #ca6f74 !important; border: 1px solid #f27b81 !important;">
-                    <div id="Displaydiv">
-                    </div>
-                </div>
-
-                <div class="alert alert-error" style="display: none;">
-                    <strong>Operation Not Successfull.</strong>
-                </div>
-                <div class="alert alert-success" style="display: none;">
-                    <strong>Successfull.</strong>
-                </div>
-                <div class="alert alert-info" style="display: none;">
-                    <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-                </div>
-                <div class="alert alert-block" style="display: none;">
-                    <h4 class="alert-heading">Warning!</h4>
-                    <p>Best check yourself, you're not looking too good.</p>
-                </div>
-
-            </div>
-
-            <%--Alert boxes --%>
-
-            <div class="row-fluid">
+            <div class="row-fluid" style="margin-top:3%">
 
                 <div class=" span6">
 
@@ -271,4 +269,5 @@
 
 
     </form>
+
 </asp:Content>

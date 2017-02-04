@@ -82,12 +82,7 @@ namespace ChurchApp.AdminPanel
         public static string GetNotificationByID(Notification NotificationsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
             DAL.Security.UserAuthendication UA;
-           
-            string jsonResult = null;
-            DataSet ds = null;
             ChurchApp.DAL.Church churchObj = new DAL.Church();
             try
             {
@@ -96,41 +91,19 @@ namespace ChurchApp.AdminPanel
                 if(UA!=null)
                 {
                     NotificationsObj.churchId = UA.ChurchID;
-                    ds = NotificationsObj.SelectNotificationByID();
-                    // ds = N
-
-                    //Converting to Json
-                   
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        foreach (DataRow row in ds.Tables[0].Rows)
-                        {
-                            childRow = new Dictionary<string, object>();
-                            foreach (DataColumn col in ds.Tables[0].Columns)
-                            {
-                                childRow.Add(col.ColumnName, row[col]);
-                            }
-                            parentRow.Add(childRow);
-                        }
-
-                    }
-
-
-                    jsonResult = jsSerializer.Serialize(parentRow);
-
+                    NotificationsObj.SelectNotificationByID();
                 }
                 else
                 {
                     Common comonObj = new Common();
                     return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
                 }
+                return jsSerializer.Serialize(NotificationsObj);
             }
             catch(Exception ex)
             {
                 throw ex;
             }
-            
-            return jsonResult;
         }
         #endregion GetNotificationByID
 
@@ -446,5 +419,59 @@ namespace ChurchApp.AdminPanel
             return jsonResult;
         }
         #endregion SelectAllNewNotifications
+
+        #region SelectNewNotifications
+        [WebMethod(EnableSession = true)]
+        public static string SelectNewNotifications(Notification NotificationsObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            DAL.Security.UserAuthendication UA;
+
+            string jsonResult = null;
+            DataSet ds = null;
+            ChurchApp.DAL.Church churchObj = new DAL.Church();
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    NotificationsObj.churchId = UA.ChurchID;
+                    ds = NotificationsObj.SelectAllNotifications();
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+
+                    }
+
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return jsonResult;
+        }
+        #endregion SelectAllNotifications
     }
 }
