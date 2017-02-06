@@ -40,13 +40,26 @@ $("document").ready(function (e) {
         {
             var Import = new Object();
             Import.Exceltable = $("#ddlexceldropdown").val();
+            Import.ImageFile = $('#folderpath').val();
+
             var formData = new FormData();
             var excelfile;
             excelfile = $('#excelfileuploader')[0].files[0];
-            formData.append('upImageFile', excelfile, excelfile.name);
-            formData.append('ActionTyp',Import.Exceltable);
+            formData.append('upExcelFile', excelfile, excelfile.name);
+            formData.append('TableImport', Import.Exceltable);
+            //formData.append('ImgFileLocation', Import.ImageFile);
+            var imagefiles;        
+            if ((imagefiles = $('#imgfolderpathupload')[0].files.length > 0)) {               
+                for (i = 0; i < $('#imgfolderpathupload')[0].files.length ; i++) {                   
+                    formData.append('upImageFile'+i, $('#imgfolderpathupload')[0].files[i], $('#imgfolderpathupload')[0].files[i].name);
+                }  
+               // formData.append('upImageFile', imagefiles, imagefiles.name);             
+                //var result = postBlobAjax(formData2, " ../ImageHandler/UploadHandler.ashx");  
+              
+            }
+            debugger;
             var result = postBlobAjax(formData, " ../ExcelHandler/ExcelHandler.ashx");
-            //debugger;            
+
             switch (result.status)
             {
                 case "1":
@@ -107,8 +120,18 @@ $("document").ready(function (e) {
 function ddldropdownchange()
 {
     debugger;
- 
-          $("#excelErrorDiv").css("display", "none");
+    $("#excelErrorDiv").css("display", "none");
+
+    var checkvalue = document.getElementById('ddlexceldropdown').value;
+    if (checkvalue == "Priest"|| checkvalue =="Church")
+    {
+        $("#folderpathdiv").css("display", "");
+    }
+    else
+    {
+        $("#folderpathdiv").css("display", "none");
+    }
+        
 
 }
 
@@ -192,3 +215,28 @@ function validateExcelExtension(ext) {
     }
     return true;
 }
+
+//function showPathDir(e) {
+//    debugger;
+
+//    var theFiles = e.target.files;
+//    var relativePath = theFiles[0].webkitRelativePath;
+//    var folder = relativePath.split("/");
+//    //var item = createObjectURL(this_obj.files[0]);
+//    //alert(folder[0]);
+//   // document.getElementById("folderpath").value = "~/"+folder[0]+"/";
+
+//var fileUpload = document.getElementById('imgfolderpathupload');
+////var filePath = $('#imgfolderpathupload').val();
+////console.log(filePath.path);
+////var Extension = fileUpload.value.substring(fileUpload.value.lastIndexOf('.') + 1).toLowerCase();
+////var flag = validateExcelExtension(Extension)
+//if (1) {
+ 
+//   // noty({ type: 'error', text: "Kindly Upload file types of xlsx or xls" });       
+//    return false;
+//}
+//else {
+//    return true;
+//}
+//}
