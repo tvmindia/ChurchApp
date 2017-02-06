@@ -357,15 +357,32 @@ function myfunc(ele) {
 function sendNotification() {
     try
     {
-        var NotiCollection = table.rows('.selected').data();
-
-        alert("Selected " + NotiCollection.length + "Notifications");
+        debugger;
+        var NotiCollection = [];        
+        var tabledata = table.rows('.selected').data();
+        for (var i = 0; i < tabledata.length; i++)
+        {
+            var Notification = new Object();
+            Notification.notificationID = tabledata[i].ID;
+            Notification.caption = tabledata[i].Caption;
+            Notification.description=tabledata[i].Description;
+            NotiCollection.push(Notification);            
+        }
+        result = SendNotificationToApp(NotiCollection);
+        switch (result[0].status) {
+            case "1":
+                noty({ text: Messages.NotificationInitiated, type: 'success' });
+                break;
+            default:
+                noty({ text: Messages.FailureMsgCaption, type: 'error' });
+                break;
+        }  
     }
     catch(e)
     {
-
+        noty({ text: Messages.FailureMsgCaption, type: 'error' });
     }
-    
+    BindAllNotification();    
 }
 //onclick delete
 function Delete() {
@@ -655,6 +672,14 @@ function AddNotification()
     $('input[type=text],input[type=password]').css({ background: 'white' });
     $('textarea,select').css({ background: 'white' });
     $("#txtCaption").focus();
+}
+function SendNotificationToApp(Notifications) {
+    debugger;
+    var data = "{'NotificationsObj':" + JSON.stringify(Notifications) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notifications.aspx/SendNotificationToApp");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
 }
 
 function DeleteNotification(Notifications)

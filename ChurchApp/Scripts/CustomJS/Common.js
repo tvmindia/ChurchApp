@@ -453,5 +453,7 @@ var Messages = {
     ExcelUploadFailure: "Uploading Failure",
 
     BugNotFixed: "Please fix the Bug..!!!",
-    SelectBug: "Failure..!!! Please Select a Bug to Edit"
+    SelectBug: "Failure..!!! Please Select a Bug to Edit",
+
+    NotificationInitiated: "Inititated processing notifications"
 }
