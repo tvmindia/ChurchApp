@@ -22,12 +22,13 @@
             <li>Events</li>
 
         </ul>
-         <div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198">		
-			<a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewclick();"><img  src="/img/add.PNG"/></a>
-            <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
+         <div class="buttonpatch" style="position:fixed;width:280px;right:0;top:8%;z-index:198">		
+			<a class="facebook" title="Add New" id="btnAddNew" onclick="SetControlsInNewEventFormat();"><img  src="/img/add.PNG"/></a>
+             <a class="rss" id="NoticeEdit"><img src="/img/edit.png"/></a>
+            <a class="twitter" id="btnSave"><img src="/img/save.png"/></a>
             <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
 			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
-            <a class="rss" id="btnSendNotification"><img src="/img/sentmail.png"/></a>
+            <a class="rss" id="btnNotify"><img src="/img/notyfi.png"/></a>
         </div>
         <%--END : Alert boxes --%>
 
@@ -39,7 +40,7 @@
                     <div id="divLatestEvents">
                         <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
                             <h2>Latest Events</h2>
-                            <a class="btnNew AddNew" id="btnAddNew" runat="server" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Event">+</i></a>
+                            <%--<a class="btnNew AddNew" id="btnAddNew" runat="server" title="" onclick="SetControlsInNewEventFormat();"><i title="Add New Event">+</i></a>--%>
 
                         </div>
                        
@@ -85,7 +86,7 @@
 
                 <div class="dark">
                     <h2><span class="fa fa-calendar"> </span>  <span id="h1Event">Event</span></h2>
-                        <a id="NoticeEdit" class="btnEdit"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a>
+                        <%--<a id="NoticeEdit" class="btnEdit"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Event"></i></a>--%>
                     <div class="box-content">
                     <div class="form-horizontal">
                         <fieldset>
@@ -241,12 +242,12 @@
 							  </div>--%>
 
 
-                            <div class="form-actions">
+                            <%--<div class="form-actions">
                                 <a class="btn btn-primary saveAll" id="btnSave"><span></span>Save</a>
                                 <a class="btn btn-primary cancelAll" id="btnCancel"><span></span>Cancel</a>
                                 <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
 
-                            </div>
+                            </div>--%>
                         </fieldset>
                     </div>
                 </div>
