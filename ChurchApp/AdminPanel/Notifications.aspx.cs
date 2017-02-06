@@ -227,6 +227,49 @@ namespace ChurchApp.AdminPanel
         }
         #endregion UpdateNotification
 
+        #region Send Notification To App
+        [WebMethod(EnableSession = true)]
+        public static string SendNotificationToApp(List<Notification> NotificationsObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {                   
+                    foreach(var notification in NotificationsObj)
+                    {
+                        try
+                        {
+                            notification.churchId = UA.ChurchID;
+                            notification.SendToFCM(notification.caption, notification.description, false, notification.churchId);
+                            notification.status = "1";//Processed status to db
+                            notification.UpdateNotificationStatus();
+                        }
+                        catch(Exception e)
+                        {
+                            notification.status = "2";//Failure status to db
+                            notification.UpdateNotificationStatus();
+                        }
+                    }
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                NotificationsObj[0].status = ex.Message;
+            }
+           return jsSerializer.Serialize(NotificationsObj);
+        }
+        #endregion Send Notification To App
+
         #region DeleteNotification
         [WebMethod(EnableSession = true)]
         public static string DeleteNotification(Notification NotificationsObj)

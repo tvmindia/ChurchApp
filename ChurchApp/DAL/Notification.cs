@@ -476,12 +476,12 @@ namespace ChurchApp.DAL
             //Validation
             if (!isCommon)//if not a message to all apps, churchID should be provided
             {
-                if(churchID=="")
+                if (churchID == "" || churchID == null)
                     throw new Exception("No ChurchID");
             }
-            if (titleString == "")
+            if (titleString == "" || titleString== null)
                 throw new Exception("No title");
-            if (descriptionString == "")
+            if (descriptionString == "" || descriptionString == null)
                 throw new Exception("No description");
             //Sending notification through Firebase Cluod Messaging
             try
@@ -549,6 +549,47 @@ namespace ChurchApp.DAL
         }
         #endregion Notification message to Cloud messaging system
 
+        #region Update Notification Status
+        /// <summary>
+        /// Update Notification Status
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string UpdateNotificationStatus()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateNotificationStatus]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
+                cmd.Parameters.Add("@Status", SqlDbType.Int).Value = Int32.Parse(status);
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy != null && updatedBy != "" ? updatedBy : null;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
+                outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            status = outParam.Value.ToString();
+            return status;
+        }
+        #endregion Update Notification Status
 
         #region SelectAllNotifications
         /// <summary>
@@ -682,7 +723,7 @@ namespace ChurchApp.DAL
         /// Update NotificationType
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string UpdateNotificationType()
+        public string UpdateNotificationType()      //SP might have errors. Don't use without checking
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
