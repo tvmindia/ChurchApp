@@ -23,10 +23,15 @@ namespace ChurchApp.DAL
         public Priest priestObj = null;
         public MassTimings masstymObj = null;
         public Const constObj = null;
+        public AppImages appimgObj = null;
         string churchid;
-
+        public string ImageFileLocation
+        {
+            get; set;
+        }
         public DataTable dtError    {
-            get;set;
+            get;
+            set;
         }
         public int insertedRows        {
             get;
@@ -505,6 +510,7 @@ namespace ChurchApp.DAL
                                             churchObj.phone2 = drExcelrow["Phone2"].ToString();
                                             churchObj.longitude = drExcelrow["Longitude"].ToString();
                                             churchObj.latitude = drExcelrow["Latitude"].ToString();
+                                            churchObj.mainImageId=drExcelrow["ImageId"].ToString();
                                             churchObj.ChurchDenomination = drExcelrow["ChurchDenomination"].ToString(); //-----ChurchDenomination 
                                             churchObj.PriorityOrder = drExcelrow["PriorityOrder"].ToString(); //-----ChurchPirority
                                             churchObj.Place = drExcelrow["Place"].ToString().Trim();
@@ -525,6 +531,7 @@ namespace ChurchApp.DAL
                                             churchObj.phone2 = drExcelrow["Phone2"].ToString();                                          
                                             churchObj.longitude = drExcelrow["Longitude"].ToString();
                                             churchObj.latitude = drExcelrow["Latitude"].ToString();
+                                            churchObj.mainImageId = drExcelrow["ImageId"].ToString();
                                             churchObj.ChurchDenomination = drExcelrow["ChurchDenomination"].ToString(); //-----ChurchDenomination 
                                             churchObj.PriorityOrder = drExcelrow["PriorityOrder"].ToString(); //-----ChurchPirority
                                             churchObj.Place = drExcelrow["Place"].ToString().Trim();
@@ -549,6 +556,7 @@ namespace ChurchApp.DAL
                                             priestObj.address = drExcelrow["Address"].ToString();
                                             priestObj.mobile = drExcelrow["Mobile"].ToString();
                                             priestObj.Parish = drExcelrow["Parish"].ToString();
+                                            priestObj.imageId= drExcelrow["ImageId"].ToString();
                                             priestObj.Diocese = drExcelrow["Diocese"].ToString();
                                             priestObj.emailId = drExcelrow["Email"].ToString();
                                             priestObj.designation = drExcelrow["Designation"].ToString();                                            
@@ -577,6 +585,7 @@ namespace ChurchApp.DAL
                                             priestObj.Parish = drExcelrow["Parish"].ToString();
                                             priestObj.Diocese = drExcelrow["Diocese"].ToString();
                                             priestObj.emailId = drExcelrow["Email"].ToString();
+                                            priestObj.imageId = drExcelrow["ImageId"].ToString();
                                             priestObj.designation = drExcelrow["Designation"].ToString();
                                             priestObj.Status = new CultureInfo("en-US").TextInfo.ToTitleCase(drExcelrow["Status"].ToString().Trim());
                                             priestObj.churchID = drExcelrow["churchId"].ToString(); //churchId 
@@ -598,9 +607,7 @@ namespace ChurchApp.DAL
                                             List<string> keyFields = new List<string>();                                           
                                             keyFields.Add(drExcelrow["Name"].ToString());
                                             keyFields.Add(drExcelrow["ChurchName"].ToString());
-                                            keyFields.Add(drExcelrow["Place"].ToString());
-                                            //keyFields.Add(drExcelrow["Towncode"].ToString());
-                                            //keyFields.Add(drExcelrow["Status"].ToString());
+                                            keyFields.Add(drExcelrow["Place"].ToString());                                           
                                             errorList.Add(constObj.VicarExists);  // message string from Common.cs 
                                             DataRow dr = dtError.NewRow();
                                             dr["FieldName"] = keyFields;
@@ -773,7 +780,12 @@ namespace ChurchApp.DAL
                     else if(tableName=="TownMaster")
                     {
                         dsExisting = townObj.SelectTownMasters();
-                    }               
+                    }
+                    else if(tableName == "Priest")
+                    {
+                        ExcelDS.Tables[0].Columns.Add("ChurchId", typeof(String)); //adding churchid column to priest dataset    
+                    }
+                      
                     for (int i = ExcelDS.Tables[0].Rows.Count - 1; i >= 0; i--)
                     {
                         res = ValidateData(ExcelDS.Tables[0].Rows[i], TableDefinitionDS, i, dtError, dsMastertable);
@@ -874,7 +886,7 @@ namespace ChurchApp.DAL
                             errorList.Add(constObj.Prieststatus); // message string from Common.cs 
                         }
 
-                        // Fill churchid Column Values                      
+                        //--------------------- Filling  churchid Column with Values-------------------------------------------//                      
                         if (drExcel["ChurchName"].ToString() != "" && drExcel["Place"].ToString() != "" && drExcel["TownCode"].ToString() != "")
                         {
                             bool churchexists = ChurchExists(churchObj.GetAllChurches(), drExcel);
@@ -893,7 +905,7 @@ namespace ChurchApp.DAL
                                 errorList.Add(constObj.Nochurch);     // message string from Common.cs      
                             }
                         }
-                        break;
+                        break;                  
                     default:
                         break;
                 }
@@ -984,92 +996,63 @@ namespace ChurchApp.DAL
                     {
                         if (tableDefFieldType == "D" && !ValidateDate(drExcel[tableDefColumnName].ToString()))
                         {
-                            // if (mandatoryField == "true")
-                            //  {
                             flag = true;
-                            //  }
-
                             errorList.Add(tableDefColumnName + "-" + "Invalid Date format");
                         }
                         else if (tableDefFieldType == "A" && !isAlphaNumeric(drExcel[tableDefColumnName].ToString()))
                         {
-                            // if (mandatoryField == "true")
-                            // {
                             flag = true;
-                            //  }
                             errorList.Add(tableDefColumnName + "-" + "Invalid AlphaNumeric character");
                         }
                         else if (tableDefFieldType == "N" && !isNumber(drExcel[tableDefColumnName].ToString()))
                         {
-                            //  if (mandatoryField == "true")
-                            //  {
                             flag = true;
-                            //  }
                             errorList.Add(tableDefColumnName + "-" + "Invalid Number");
                         }
                         else if (tableDefFieldType == "S" && !isString(drExcel[tableDefColumnName].ToString()))
                         {
-                            // if (mandatoryField == "true")
-                            // {
                             flag = true;
-                            // }
                             errorList.Add(tableDefColumnName + "-" + "Invalid String");
                         }
                         else if (tableDefFieldType == "E" && !isEmail(drExcel[tableDefColumnName].ToString()))
                         {
-                            // if (mandatoryField == "true")
-                            // {
                             flag = true;
-                            // }
                             errorList.Add(tableDefColumnName + "-" + "Invalid Email");
                         }
                         else if (tableDefFieldType == "M" && !isMobile(drExcel[tableDefColumnName].ToString()))
-                        {
-                            // if (mandatoryField == "true")
-                            // {
-                            flag = true;
-                            // }
+                        {                            
+                            flag = true;                            
                             errorList.Add(tableDefColumnName + "-" + "Invalid Phone Number");
                         }
                         else if (tableDefFieldType == "T" && !isValidDateAndTime(drExcel[tableDefColumnName].ToString()))
-                        {
-                            // if (mandatoryField == "true")
-                            // {
+                        {                          
                             flag = true;
-                            // }
                             errorList.Add(tableDefColumnName + "-" + "Invalid Time");
                         }
                         else if (tableDefFieldType == "W" && !IsWeekDays(drExcel[tableDefColumnName].ToString()))
-                        {
-                            // if (mandatoryField == "true")
-                            // {
-                            flag = true;
-                            // }
+                        {                           
+                            flag = true;                          
                             errorList.Add(tableDefColumnName + "-" + "Invalid Day");
                         }
+                        else if (tableDefFieldType == "P" && !ImageFileExtension(drExcel[tableDefColumnName].ToString()))
+                        {                       
+                            flag = true;                         
+                            errorList.Add(tableDefColumnName + "-" + "Invalid Image Extension");
+                        }
+
                         //------------------------------Field size checking-----------------------//
-
-
                         if (tableDefFieldSize != null && tableDefFieldSize != "")
                         {
-
                             int tableDefLength = Convert.ToInt32(tableDefFieldSize);
                             int excelColLength = drExcel[tableDefColumnName].ToString().Length;
                             if (tableDefLength < excelColLength)
                             {
-                                // if (mandatoryField == "true")
-                                // {
                                 flag = true;
-                                //}
-
                                 errorList.Add(tableDefColumnName + "-" + "Invalid Field Size");
                             }
                         }
                     }
-
                 }
-
-
                 if (flag == true)
                 {
                     DataRow dr = dtError.NewRow();
@@ -1271,6 +1254,24 @@ namespace ChurchApp.DAL
         }
 
         #endregion WeekDays Validation
+
+        #region Picture Validation
+        /// <summary>
+        /// Image File Validation
+        /// </summary>
+        /// <param name="strToCheck"></param>
+        /// <returns></returns>
+        private static bool ImageFileExtension(string strToCheck)
+        {
+            String[] filename = strToCheck.Split('.');
+            int len=filename.Length;
+            if (filename[len-1] =="jpg" || filename[len-1] == "jpeg")
+                return true;
+            else
+                return false;
+        }
+
+        #endregion  Picture Validation
 
         #region ValidateType
         /// <summary>

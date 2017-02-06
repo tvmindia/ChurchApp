@@ -8,6 +8,7 @@ using System.Web.Script.Serialization;
 using System.Web.SessionState;
 using ChurchApp.AdminPanel;
 using ChurchApp.DAL;
+using System.IO;
 
 namespace ChurchApp.ExcelHandler
 {
@@ -21,10 +22,11 @@ namespace ChurchApp.ExcelHandler
         {
             context.Response.ContentType = "text/plain";            
             ExcelImport ImportXL = null;
-            string currentSheet = null;
+           // string currentSheet = null;
             DataSet dsExcel = null;
             DataSet dsTableDefenition = null;
             HttpPostedFile postFile = null;
+            HttpPostedFile postFileImage = null;
             JavaScriptSerializer jsSerializer = null;
             Security.UserAuthendication UA = null;
 
@@ -36,7 +38,7 @@ namespace ChurchApp.ExcelHandler
                 {            
                     if (context.Request.Files.Count > 0)//chechhasfile DataImportFileUpload
                     {
-                        if (context.Request.Form.GetValues("ActionTyp") != null)
+                        if (context.Request.Form.GetValues("TableImport") != null)
                         {
                             ImportXL = new DAL.ExcelImport();
                             ImportXL.churchObj = new DAL.Church();
@@ -51,13 +53,16 @@ namespace ChurchApp.ExcelHandler
                             ImportXL.masstymObj = new DAL.MassTimings();
                             ImportXL.masstymObj.createdBy = UA.userName;
                             ImportXL.masstymObj.updatedBy = UA.userName;
+                            ImportXL.appimgObj = new DAL.AppImages();
+                            ImportXL.appimgObj.createdBy = UA.userName;
+                            ImportXL.appimgObj.updatedBy = UA.userName;
 
                             jsSerializer = new JavaScriptSerializer();
                             ImportXL.parentRow = new List<Dictionary<string, object>>();
                             String[] excelSheets = null;
                             string path = HttpContext.Current.Server.MapPath(ConfigurationManager.ConnectionStrings["TempFilePath"].ConnectionString).ToString();
 
-                            postFile = context.Request.Files["upImageFile"];
+                            postFile = context.Request.Files["upExcelFile"];
                             string fileName = DateTime.Now.ToString("yyyyMMddhhmmssff") + "_" + postFile.FileName.ToString();
 
                             string fileLocation = path + fileName;
@@ -65,7 +70,7 @@ namespace ChurchApp.ExcelHandler
                        
                             ImportXL.fileName = fileName;
                             ImportXL.fileLocation = fileLocation;
-                            ImportXL.tableName = context.Request.Form.GetValues("ActionTyp")[0];
+                            ImportXL.tableName = context.Request.Form.GetValues("TableImport")[0];
 
                             DeleteDuplicateFile(fileLocation);//deletes the file if the same file name exists in the folder
                             postFile.SaveAs(fileLocation);
@@ -98,10 +103,65 @@ namespace ChurchApp.ExcelHandler
                                             ImportXL.MasterField = MasterField;
                                             dsMastertable = ImportXL.GetMasterFieldsFromMasterTable();
                                         }
-                                    }
-                                    dsExcel.Tables[0].Columns.Add("ChurchId", typeof(String));                              
-                                    ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString(); //Total rows in excel file
+                                    } 
+                                                                       ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString(); //Total rows in excel file
                                     ImportXL.Validation(dsExcel, dsTableDefenition,dsMastertable);     //validation by passing excelfile,table defenition & MasterTable fields                           
+
+                                    //------------------------------image Validation  and adding  imageid to DataSet----------------------------// 
+                                    #region ImportImage 
+                                    //bool IsPicture =false;
+
+                                    DataRow[] PicFields = dsTableDefenition.Tables[0].Select("Field_Type='P'");
+                                   
+                                    //foreach (DataRow tableDefRow in dsTableDefenition.Tables[0].Rows)
+                                    //{
+                                    //    string tableDefFieldType = tableDefRow["Field_Type"].ToString();
+                                    //    if(tableDefFieldType == "P")
+                                    //    {
+                                    //        IsPicture = true;
+                                    //    }
+                                       
+                                    //}
+                                    //switch (context.Request.Form.GetValues("TableImport")[0])
+                                    if (PicFields.Length > 0)
+                                    {
+                                        try
+                                        {
+                                            dsExcel.Tables[0].Columns.Add("ImageId", typeof(String));
+                                            for (int i = dsExcel.Tables[0].Rows.Count - 1; i >= 0; i--)//excel file
+                                            {
+                                                foreach (string content in context.Request.Files)//images upload loop
+                                                {
+                                                    if (content != "upExcelFile")
+                                                    {
+                                                        postFileImage = context.Request.Files[content];
+                                                        string ExcelImgfilename = postFileImage.FileName.ToString();
+                                                        if (dsExcel.Tables[0].Rows[i]["ImageFileName"].ToString() == ExcelImgfilename)
+                                                        {
+                                                            ImportXL.appimgObj = new DAL.AppImages();
+                                                            ImportXL.appimgObj.createdBy = UA.userName;
+                                                            ImportXL.appimgObj.updatedBy = UA.userName;
+                                                                //insert into Apptable with image id                                                            
+
+                                                            fileExtension = Path.GetExtension(postFileImage.FileName);
+                                                            ImportXL.appimgObj.url = "/img/ImportImages/" + ImportXL.appimgObj.appImageId + fileExtension;                                                              
+                                                            ImportXL.appimgObj.type = "image";
+                                                            ImportXL.appimgObj.InsertAppImage1().ToString();
+
+                                                            dsExcel.Tables[0].Rows[i]["ImageId"] = ImportXL.appimgObj.appImageId;
+
+                                                            string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/ImportImages"));
+                                                            postFileImage.SaveAs(SaveLocation + @"\" + ImportXL.appimgObj.appImageId + fileExtension);
+
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        catch (Exception ex)  {}                                    
+                                    }                                 
+                                    #endregion ImportImage
+
                                     if (dsExcel.Tables[0].Rows.Count > 0)
                                     {
                                         //use try catch to show error  

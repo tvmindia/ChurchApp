@@ -48,14 +48,22 @@
                             </div>
                                  
                             <div class="control-group">
-                                <label class="control-label" for="focusedInput">Browse</label>
+                                <label class="control-label" for="focusedInput">Browse Excel File</label>
                                 <div class="controls">
                                         <input type="file" onchange="validateExcel();" id="excelfileuploader" />
                                 </div>
-                            </div>                       
-                                                 
-                         
-                          
+                            </div>   
+                             
+                          <div class="control-group" id="folderpathdiv" style="display:none;">
+                                <label class="control-label" for="focusedInput">ImageFiles Location</label>
+                                <div class="controls">
+                                    <input type="file" id="imgfolderpathupload" onchange="showPathDir(event);" accept=".jpg,.jpeg"  webkitdirectory mozdirectory msdirectory odirectory directory multiple/>                                  
+                                </div>
+                             <%-- <div class="controls">
+                                    <input type="text" id="folderpath" placeholder="Paste FileLocation" />                                  
+                                </div>         --%>                       
+                            </div>    
+
                           <div class="form-actions">
 							    <a class="btn btn-primary uploadexcel" href="#">Upload</></a>
                     </div> 
