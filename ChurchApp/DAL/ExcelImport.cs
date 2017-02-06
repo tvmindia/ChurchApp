@@ -7,7 +7,6 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -15,7 +14,6 @@ namespace ChurchApp.DAL
 {
     public class ExcelImport
     {
-
         #region Public Properties
 
         public Church churchObj = null;
@@ -479,8 +477,7 @@ namespace ChurchApp.DAL
                             conditions = "";
                             DataRow drExcelrow = dsExcel.Tables[0].Rows[j]; //Checking By Selecting Row by Row
                             foreach (DataRow drw in drkeyfields)          //where condition to find insertion of updation
-                            {
-                                // conditions += drw[0].ToString() + "='" + dsExcel.Tables[0].Rows[j][drw[0].ToString()] + "' AND ";
+                            {                           
                                 conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(), dsExcel.Tables[0].Rows[j][drw[0].ToString()].ToString().Replace("'", "''").Trim());
                             }
                             if (conditions != "")
@@ -745,12 +742,14 @@ namespace ChurchApp.DAL
 
         #region ValidationMethods
 
+        #region Sort
         public static DataTable resort(DataTable dt)
         {
             dt.DefaultView.Sort = "RowNo asc";
             dt = dt.DefaultView.ToTable();
             return dt;
         }
+        #endregion Sort
 
         #region Validation
         /// <summary>
@@ -891,9 +890,8 @@ namespace ChurchApp.DAL
                         {
                             bool churchexists = ChurchExists(churchObj.GetAllChurches(), drExcel);
                             if (churchexists) //true
-                            {
-                                
-                                ExcelDS.Tables[0].Rows[rowno]["ChurchId"] = churchid;                                
+                            {                                
+                                ExcelDS.Tables[0].Rows[rowno]["ChurchId"] = churchid;      //inserting churchid into dataset                          
                             }
                             else //false
                             {
@@ -939,15 +937,13 @@ namespace ChurchApp.DAL
             List<string> keyFields = new List<string>();
             try
             {
-                bool flag = false;
-                
+                bool flag = false;                
                 if (dsMastertable != null && dsMastertable.Tables[0].Rows.Count>0)
                 { 
                     switch(tableName)
                     {
                         case "Church":
                             string wherecondition = "FieldValue='" + drExcel["ChurchDenomination"].ToString() + "'";
-
                             DataRow[] checkisexits = dsMastertable.Tables[0].Select(wherecondition);
                             if (checkisexits.Length > 0)
                             {
@@ -1109,7 +1105,6 @@ namespace ChurchApp.DAL
             {
                 return false;
             }
-
         }
 
         #endregion Date validation
@@ -1301,7 +1296,6 @@ namespace ChurchApp.DAL
                         excelNotExitingFields.Add(tableDefColumnName);
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -1309,7 +1303,6 @@ namespace ChurchApp.DAL
             }
             return status;
         }
-
         #endregion #region ValidateType
 
         #endregion ValidationMethods
