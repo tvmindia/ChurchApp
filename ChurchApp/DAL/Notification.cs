@@ -138,6 +138,7 @@ namespace ChurchApp.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
+            SqlParameter outParam1 = null;
             try
             {
                 dcon = new dbConnection();
@@ -169,6 +170,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value =commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
+                outParam1 = cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier);
+                outParam1.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -183,6 +186,7 @@ namespace ChurchApp.DAL
                 }
             }
             status=outParam.Value.ToString();
+            notificationID= outParam1.Value.ToString();
             return status;
         }
         #endregion InsertNotification
@@ -207,7 +211,11 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateNotifications]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
                 cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = notificationType!=null&&notificationType!=""?notificationType:null;
-                cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
+                if(linkID!=null&&linkID!="")
+                {
+                    cmd.Parameters.Add("@LinkID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(linkID);
+                }
+                
                 cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 100).Value = caption!=null&&caption!=""?caption:null;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 if(startDate!=null && startDate !=string.Empty)
@@ -307,6 +315,18 @@ namespace ChurchApp.DAL
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow dr = ds.Tables[0].Rows[0];
+                    notificationID = dr["ID"].ToString();
+                    linkID = dr["LinkID"].ToString();
+                    notificationType= dr["Type"].ToString();
+                    caption = dr["Caption"].ToString();
+                    description = dr["Description"].ToString();
+                    startDate = (dr["StartDate"].ToString()!=null&& dr["StartDate"].ToString()!="")?(DateTime.Parse(dr["StartDate"].ToString().ToString()).ToString("dd-MMM-yyyy")):"";
+                    expiryDate = (dr["ExpiryDate"].ToString() != null && dr["ExpiryDate"].ToString() != "") ? (DateTime.Parse(dr["ExpiryDate"].ToString()).ToString("dd-MMM-yyyy")):"";
+                   
+                }
             }
             catch (Exception ex)
             {
@@ -529,9 +549,49 @@ namespace ChurchApp.DAL
         }
         #endregion Notification message to Cloud messaging system
 
+
+        #region SelectAllNotifications
+        /// <summary>
+        /// Select All New Notifications By ChurchID
+        /// </summary>
+        /// <returns>All New Notifications</returns>
+        public DataSet SelectAllNotifications()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectAllNotifications]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion SelectAllNotifications
         #endregion Methods
     }
-       
+
     public class NotificationType : Notification
     {
         Common commonObj = new Common();

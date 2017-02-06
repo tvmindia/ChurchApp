@@ -27,7 +27,7 @@
  		<li>Import Excel</li>
 		</ul>
         <!--Import Excel field-->  
-        <div class="row-fluid ">		
+        <div class="row-fluid " style="margin-top:3%">		
 				<div class="box span12">
                      <div class="box-header" data-original-title>
                         <h2><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>Import Excel</h2>

@@ -16,8 +16,14 @@
 				</li>
 				<li>Institutions</li>
 			</ul>
-             
-               <div class="row-fluid">
+              <div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198">		
+			<a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewclick();"><img  src="/img/add.PNG"/></a>
+            <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
+            <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
+			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
+            <a class="rss" id="btnSendNotification"><img src="/img/sentmail.png"/></a>
+        </div>
+               <div class="row-fluid" style="margin-top:3%">
               <%-- Div Institution list --%>
                 <div class="span6">
                <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Institutions</h2><a class="btnNew AddNew" style="left:93%;top:-14px;" title="ADD NEW" id="btnAddNew" runat="server" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>

@@ -219,10 +219,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UpdateGalleryAlbum]";
                 cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@AlbumName", SqlDbType.NVarChar, 100).Value = albumName!=null&&albumName!=""?albumName:null;
-                cmd.Parameters.Add("@AlbumType", SqlDbType.NVarChar, 20).Value = albumType!=null&&albumType!=""?albumType:null;
-                cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);

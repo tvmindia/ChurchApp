@@ -745,8 +745,8 @@ ul.messages li .message {
 }
 
 .breadcrumb {
-	margin: -28px -28px 28px -28px;
-	line-height: 20px;/*34px;*/
+	margin: -23px -28px 28px -28px;
+	line-height: 25px;/*34px;*/
 	background:#fcfdfe; /*#bbdefb;*/ /*#eee;*/
 	border: 0px;
 	color: #2a3510;/*#aaa;*/
@@ -756,6 +756,13 @@ ul.messages li .message {
   	-webkit-border-radius: 0px;
        -moz-border-radius: 0px;
 	        border-radius: 0px; 	
+            position: fixed;
+    background: #f3f2f2;
+    z-index: 198;
+    width: 100%;
+    box-shadow:0 1px 0px rgba(0, 0, 0, .25), 0 0px 0px rgba(0, 0, 0, .1);
+    -webkit-box-shadow:0 1px 0px rgba(0, 0, 0, .25), 0 0px 0px rgba(0, 0, 0, .1);
+    -moz-box-shadow:0 1px 0px rgba(0, 0, 0, .25), 0 0px 0px rgba(0, 0, 0, .1);
 }
 
 .breadcrumb span {
@@ -3385,3 +3392,119 @@ dialogoverlay{
           #dialogbox > div > #dialogboxhead{ background: #ebeffa; font-size:19px; padding:10px; color:red; }
           #dialogbox > div > #dialogboxbody{ background:#FFF; padding:20px; color:#1a1a00; }
           #dialogbox > div > #dialogboxfoot{ background: #EFE7E7; padding:2px; text-align:right; }
+          
+          buttonpatch {
+	text-align: center;
+	font-family: Arial;
+    position:fixed;
+    width:198px;
+    right:0;
+    top:7.5%;
+    z-index:198
+}
+
+
+
+.buttonpatch a {
+	margin-right: 15px;
+	width: 28px;
+	height: 28px;
+	display: inline-block;
+	position: relative;
+    cursor:not-allowed;
+    opacity:0.6;
+	/*line-height: 40px;*/
+	background-color: #eaeaea;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eaeaea));
+	background-image: -webkit-linear-gradient(top, #f6f6f6, #eaeaea);
+	background-image: -moz-linear-gradient(top, #f6f6f6, #eaeaea); 
+	background-image: -ms-linear-gradient(top, #f6f6f6, #eaeaea); 
+	background-image: -o-linear-gradient(top, #f6f6f6, #eaeaea);
+	background-image: linear-gradient(top, #f6f6f6, #eaeaea);
+	-moz-border-radius: 32px;
+	-webkit-border-radius: 32px;
+	border-radius: 32px;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+}
+
+.buttonpatch a:active {
+	top: 1px;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#f6f6f6));
+	background-image: -webkit-linear-gradient(top, #eaeaea, #f6f6f6);
+	background-image: -moz-linear-gradient(top, #eaeaea, #f6f6f6); 
+	background-image: -ms-linear-gradient(top, #eaeaea, #f6f6f6); 
+	background-image: -o-linear-gradient(top, #eaeaea, #f6f6f6);
+	background-image: linear-gradient(top, #eaeaea, #f6f6f6);
+}
+
+.buttonpatch a::before{
+		content: '';
+		position: absolute;
+		z-index: -1;
+		top: -4px;
+		right: -4px;
+		bottom: -4px;
+		left: -4px;
+		background-color: #eaeaea;
+		-moz-border-radius: 140px;
+		-webkit-border-radius: 140px;
+		border-radius: 140px;
+	opacity: 0.5;		
+}
+
+.buttonpatch a:active::before {
+	top: -7px;
+}
+
+.buttonpatch a:hover::before { opacity: 1; }
+
+/*.buttonpatch a.twitter:hover::before {
+	background-color: #c6f0f8;
+}*/
+
+.buttonpatch a.facebook:hover::before {
+	background-color: #56ea87;
+}
+
+/*.buttonpatch a.dribble:hover::before {
+	background-color: #f8ebb6;
+}
+
+.buttonpatch a.rss:hover::before {
+	background-color:#fadae6 ;
+}*/
+
+.twitter img { vertical-align: -8px;position:relative;left:6px }
+.dribble img { vertical-align: -8px;position:relative;left:6px }
+.facebook img { vertical-align: -8px;position:relative;left:6px}
+.rss img { vertical-align: -9px;position:relative;left:6px}
+.facebook{cursor:pointer!important;opacity:1!important;}
+.buttonpatch a img { border: 0; }
+
+
+
+
+a[title]:hover:after{
+content: attr(title);
+padding: 4px 6px;
+color: #85003a;
+position: absolute;
+left: 0;
+top: 100%;
+white-space: nowrap;
+z-index: 20;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+-moz-box-shadow: 0px 0px 2px #c0c1c2;
+-webkit-box-shadow: 0px 0px 2px #c0c1c2;
+box-shadow: 0px 0px 2px #c0c1c2;
+background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
+background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ffffff),color-stop(1, #eeeeee));
+background-image: -webkit-linear-gradient(top, #ffffff, #eeeeee);
+background-image: -moz-linear-gradient(top, #ffffff, #eeeeee);
+background-image: -ms-linear-gradient(top, #ffffff, #eeeeee);
+background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
+}

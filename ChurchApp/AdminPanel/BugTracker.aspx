@@ -12,9 +12,9 @@
         <ul class="breadcrumb">
  		<li>Bug Tracker</li>
 		</ul>
-
+        
          <!--BugTrackerTable-->
-        <div class="row-fluid">		
+        <div class="row-fluid" style="margin-top:3%">		
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2>BugTracker</h2>

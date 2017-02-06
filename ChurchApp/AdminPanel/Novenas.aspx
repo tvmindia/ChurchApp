@@ -113,31 +113,16 @@ a._p {
             <li class="Novena">Novenas</li>
         </ul>
 
-        <%--Alert boxes --%>
-        <div id="rowfluidDiv" style="display: none;">
-
-            
-
-            <div class="alert alert-error" style="display: none;">
-                <strong>Operation Not Successfull.</strong>
-            </div>
-            <div class="alert alert-success" style="display: none;">
-                <strong>Successfull.</strong>
-            </div>
-            <div class="alert alert-info" style="display: none;">
-                <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-            </div>
-            <div class="alert alert-block" style="display: none;">
-                <h4 class="alert-heading">Warning!</h4>
-                <p>Best check yourself, you're not looking too good.</p>
-            </div>
-
+       <div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198">		
+			<a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewclick();"><img  src="/img/add.PNG"/></a>
+            <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
+            <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
+			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
+            <a class="rss" id="btnSendNotification"><img src="/img/sentmail.png"/></a>
         </div>
 
-        <%--END : Alert boxes --%>
 
-
-        <div class="row-fluid" id="divImageAlbum">
+        <div class="row-fluid" id="divImageAlbum" style="margin-top:3%">
             <div class="box span12">
                 <div class="box-header" id="DivBoxHeader">
                     <h2><i class="halflings-icon picture"></i><span class="break" id="spnSaint">Novenas</span></h2>

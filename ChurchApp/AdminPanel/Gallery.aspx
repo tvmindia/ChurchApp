@@ -101,15 +101,26 @@
 				<li class="Gallery">Gallery</li>
 			</ul><a class="btnNew" id="btnAddNew" style="display:none;" runat="server" title=""><i title="Add New Notice">+</i></a>
            
-              <div class="row-fluid" id="divImageAlbum">
+              <div class="row-fluid" id="divImageAlbum" style="margin-top:3%">
                   
 				<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon picture"></i><span class="break"></span> Albums</h2>
-						<div class="box-icon">
-				            <a class="pencilEdit" style="position: relative; top: -1px;  right: 0px;display:none;" title="Edit" id="EditAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
-                            <a class="" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon repeat" aria-hidden="true"></i></a>
+						<h2 ><i class="halflings-icon picture"></i><span class="break"></span> Photo Albums</h2>
+						
+				            <%--<a class="pencilEdit" style="position: relative; top: -1px;  right: 0px;display:none;" title="Edit" id="EditAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>--%>
+                           <%-- <a class="" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon repeat" aria-hidden="true"></i></a>
+                            <a class="facebook pencilEdit" title="Edit" id="EditAlbum"><img src="/img/edit.PNG"/></a>--%>
+                        <div class="buttonpatch" style="height:0px;position:relative;left:750px;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			           <a class="facebook" title="Edit" id="EditAlbum"><img src="/img/edit.png"/></a>
+                       <%--<a class="dribble" id="btnMain"><img src="/img/save.png"/></a>--%>
+                       <a class="dribble" id="RefreshAlbum"><img src="/img/reset.png"/></a>
+			           </div> 
+                        <div class="box-icon">
+                        
+                            <span class="break"></span>
                             <a class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+          
+                        
 							
 						</div>
 					</div>
@@ -128,14 +139,21 @@
 				    </div><!--/span-->
               </div>
               </div> 
-              <div class="row-fluid" id="divImages" style="display:none;">
+              <div class="row-fluid" id="divImages" style="display:none;margin-top:3%;">
                 	<div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon picture"></i><span class="break"></span><span class="textneveroverflow" id="ImageDivTitle">Album Images</span></h2>
-						<div class="box-icon">
+						<h2 id="h2PhotoAlbumName"><i class="halflings-icon picture"></i><span class="break"></span><span class="textneveroverflow" id="ImageDivTitle">Album Images</span></h2>
+                        <input type="text" id="txtPhotoAlbumName" style="display:none;border:none;" placeholder="Provide Album Name"/>
+						<%--<div class="box-icon">
 							<a class="pencilEdit" style="position: relative; top: -1px;  right: -4px;" title="Edit" id="EditImageAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
                             <a class="" style="display:none;position: relative; top: -1px;  right: -4px;" title="Refresh" id="RefreshImageAlbum"><i class="halflings-icon repeat" aria-hidden="true"></i></a>
-						</div>
+						</div>--%>
+                       <div class="buttonpatch" style="height:0px;position:relative;float:right;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			           <a class="facebook" title="Back" id="btnBackImageAlbum"><img src="/img/back.png"/></a>
+                       <a class="facebook" title="Edit" id="EditImageAlbum"><img src="/img/edit.png"/></a>
+                       <a class="dribble" id="btnMainImageAlbum"><img src="/img/save.png"/></a>
+                       <a class="dribble" id="RefreshImageAlbum"><img src="/img/reset.png"/></a>
+			           </div> 
 					</div>
 					<div class="box-content">
 						<div class="Image-Gallery">
@@ -157,14 +175,20 @@
          
        
 
-              <div class="row-fluid" id="divVideoAlbum">
+              <div class="row-fluid" id="divVideoAlbum" style="margin-top:3%">
              <div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span> Video Album</h2>
+						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span> Video Albums</h2>
+                         <div class="buttonpatch" style="height:0px;position:relative;left:750px;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			           <a class="facebook" title="Edit" id="EditVideoAlbum"><img src="/img/edit.png"/></a>
+                       <%--<a class="dribble" id="btnMain"><img src="/img/save.png"/></a>--%>
+                       <a class="dribble" id="RefreshVideoAlbum"><img src="/img/reset.png"/></a>
+			           </div>
 						<div class="box-icon">
 						
-					        <a class="pencilEdit" style="position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="EditVideoAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
-                            <a class="" style="display:none;position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="RefreshVideoAlbum"><i class="halflings-icon repeat" aria-hidden="true"></i></a>
+					       <%-- <a class="pencilEdit" style="position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="EditVideoAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
+                            <a class="" style="display:none;position: relative; top: -1px;display:none;  right: 0px;" title="Edit" id="RefreshVideoAlbum"><i class="halflings-icon repeat" aria-hidden="true"></i></a>--%>
+                            <span class="break"></span>
                             <a class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 						</div>
 					</div>
@@ -184,15 +208,22 @@
 					</div>
 				</div><!--/span-->
 			</div>
-              <div class="row-fluid" id="divVideos" style="display:none;">
+              <div class="row-fluid" id="divVideos" style="display:none;margin-top:3%">
              <div class="box span12">
 					<div class="box-header" data-original-title>
-						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span><span class="textneveroverflow" id="VideoDivTitle">AlbumName Videos</span></h2>
-                       <div class="box-icon">
+						<h2 id="h2VideoAlbumName"><i class="halflings-icon facetime-video"></i><span class="break"></span><span class="textneveroverflow" id="VideoDivTitle">AlbumName Videos</span></h2>
+                       <input type="text" id="txtVideoAlbumName" style="display:none;border:none;" placeholder="Provide Album Name"/>
+                        <%--<div class="box-icon">
 							<a class="pencilEdit" style="position:relative;top: -1px;right: -4px;" title="Edit" id="EditVideo"><i class="halflings-icon pencil" aria-hidden="true"></i></a>
                             <a style="position:relative;top: -1px;right: -4px;" title="Refresh" id="RefreshVideo"><i class="halflings-icon repeat" aria-hidden="true"></i></a>
 						
-						</div>
+						</div>--%>
+                        <div class="buttonpatch" style="height:0px;position:relative;float:right;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			           <a class="facebook" title="Back" id="btnBackVideo"><img src="/img/back.png"/></a>
+                       <a class="facebook" title="Edit" id="EditVideo"><img src="/img/edit.png"/></a>
+                       <a class="dribble" id="btnMainVideo"><img src="/img/save.png"/></a>
+                       <a class="dribble" id="RefreshVideo"><img src="/img/reset.png"/></a>
+			           </div>
 					</div>
 					<div class="box-content">
 						<div class="Video-gallery">
