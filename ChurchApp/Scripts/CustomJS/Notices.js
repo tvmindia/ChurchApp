@@ -87,246 +87,9 @@ $("document").ready(function (e) {
         data: BindNoticeTypeDropDown()
     });
 
-    $('#btnSave').click(function (e) {
-        try
-        {
-
-            $('#rowfluidDiv').show();
-            var IsValid = NoticeValidation();
-            if (IsValid) {
-
-                if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
-                {
-                    var today = new Date();
-                    var startcheck = $('#dateStartDate').val();
-                    var endcheck = $('#dateExpiryDate').val();
-
-                    if (startcheck != "" || endcheck != "") {
-                        if ((Datecheck(startcheck) > Datecheck(endcheck))) {
-                            noty({ text: Messages.InvalidExpiry, type: 'information' });
-                            return false;
-                        }
-                    }
-                    var valid = NotificationValidation();
-                    if(valid){}
-                    else {
-                        return false;
-                    }
-                }
-                var Notices = new Object();
-                Notices.noticeName = $("#txtNoticeName").val();
-                Notices.description = $("#txtDescription").val();
-                Notices.noticeType = $("#ddlNoticeType").val();
-                Notices.churchId = churchObject.chid;
-
-                if ($("#hdfNoticeID").val() != "" && $("#hdfNoticeID").val() != null) {
-
-                    Notices.noticeId = $("#hdfNoticeID").val();
-
-                    var imgresult;
-                    if ((imgresult = $('#UpNotice')[0].files.length > 0)) {
-                        Notices.imageId = $("#hdfImageID").val();
-                        var formData = new FormData();
-                        var imagefile;
-                        imagefile = $('#UpNotice')[0].files[0];
-                        formData.append('upImageFile', imagefile, imagefile.name);
-                        formData.append('churchID', Notices.churchId);
-                        formData.append('noticeId', Notices.noticeId);
-                        formData.append('NoticeimageId', Notices.imageId);
-                        formData.append('noticeName', Notices.noticeName);
-                        formData.append('description', Notices.description);
-                        formData.append('noticeType', Notices.noticeType);
-                        formData.append('updatedby', document.getElementById("LoginName").innerHTML);
-                        formData.append('ActionTyp', 'NoticeImageUpdate');
-                        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                        switch (result.status) {
-                            case "1":
-                                noty({ text: Messages.UpdationSuccessFull, type: 'success' });
-                                if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
-                                {
-                                    if (IsMobNotified)
-                                    {
-                                        var Notification = new Object();
-                                        Notification.notificationType = NotificationTypeCode;
-                                        Notification.linkID = Notices.noticeId;
-                                        Notification.caption = Notices.noticeName;
-                                        Notification.description = Notices.description;
-                                        if ($('#dateStartDate').val() != "") {
-                                            Notification.startDate = $('#dateStartDate').val();
-                                        }
-                                        if ($('#dateExpiryDate').val() != "") {
-                                            Notification.expiryDate = $('#dateExpiryDate').val();
-                                        }
-
-                                        InsertNotification(Notification);
-                                    }
-                                   
-                                }
-                                break;
-                            case "0":
-                                noty({ text: Messages.UpdationFailure, type: 'error' });
-                                break;
-                            default:
-                                noty({ type: 'error', text: result.status });
-                                break;
-
-                        }
-                        BindNotices();
-                        $("#hdfNoticeID").val(Notices.noticeId);
-
-                    }
-                    else {
-                        result = UpdateNotice(Notices);
-                        switch (result.status) {
-                            case "1":
-                                noty({ text: Messages.UpdationSuccessFull, type: 'success' }); 
-                                if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
-                                {
-                                    if (IsMobNotified)
-                                    {
-                                        var Notification = new Object();
-                                        Notification.notificationType = NotificationTypeCode;
-                                        Notification.linkID = Notices.noticeId;
-                                        Notification.caption = Notices.noticeName;
-                                        Notification.description = Notices.description;
-                                        if ($('#dateStartDate').val() != "") {
-                                            Notification.startDate = $('#dateStartDate').val();
-                                        }
-                                        if ($('#dateExpiryDate').val() != "") {
-                                            Notification.expiryDate = $('#dateExpiryDate').val();
-                                        }
-                                        InsertNotification(Notification);
-                                    }
-                                   
-                                    
-                                }
-                                break;
-                            case "0":
-                                noty({ text: Messages.UpdationFailure, type: 'error' });
-                                break;
-                            default:
-                                noty({ type: 'error', text: result.status });
-                                break;
-
-                        }
-                       
-                        BindNotices();
-                        $("#hdfNoticeID").val(Notices.noticeId);
-                    }
-                }
-                else {
-
-                    //INSERT
-                    ///////Image insert using handler
-                    var imgresult;
-                    if ((imgresult = $('#UpNotice')[0].files.length > 0)) {
-
-                        var formData = new FormData();
-                        var imagefile;
-                        imagefile = $('#UpNotice')[0].files[0];
-                        formData.append('upImageFile', imagefile, imagefile.name);
-                        formData.append('churchID', Notices.churchId);
-                        formData.append('noticeName', Notices.noticeName);
-                        formData.append('description', Notices.description);
-                        formData.append('noticeType', Notices.noticeType);
-                        formData.append('createdby', document.getElementById("LoginName").innerHTML);
-                        formData.append('ActionTyp', 'NoticeImageInsert');
-                        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-
-                        switch (result.status) {
-                            case "1":
-                                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
-                                $("#hdfEventID").val(result.eventId);
-                                $("#hdfImageID").val(result.imageId);
-                                if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
-                                {
-                                        var Notification = new Object();
-                                        Notification.notificationType = NotificationTypeCode;
-                                        Notification.linkID = result.noticeId;
-                                        Notification.caption = Notices.noticeName;
-                                        Notification.description = Notices.description;
-                                        if ($('#dateStartDate').val() != "") {
-                                            Notification.startDate = $('#dateStartDate').val();
-                                        }
-                                        if ($('#dateExpiryDate').val() != "") {
-                                            Notification.expiryDate = $('#dateExpiryDate').val();
-                                        }
-                                        
-                                        var notires=InsertNotification(Notification);
-                                        if (notires.status == "1") {
-                                            IsMobNotified = false;
-                                            $('#lblAlreadyNotificationSend').show();
-                                            $('#dateStartDate').attr('disabled', true);
-                                            $('#dateExpiryDate').attr('disabled', true);
-                                            $('#txtnotificationCOntent').attr('disabled', true);
-                                        }
-                                    
-                                    
-                                }
-                                break;
-                         case "0":
-                             noty({ text: Messages.InsertionFailure, type: 'error' });
-                         break;
-                         default:
-                             noty({ type: 'error', text: result.status });
-                         break;
-               
-                        }
-                        BindNotices();
-                        $("#hdfNoticeID").val(result.noticeId);
-                    }
-                    else {
-                        result = InsertNotice(Notices);
-                        switch (result.status) {
-                            case "1":
-                                noty({ text: Messages.InsertionSuccessFull, type: 'success' });
-                                $("#hdfEventID").val(result.eventId);
-                                $("#hdfImageID").val(result.imageId);
-                                if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
-                                {
-                                    var Notification = new Object();
-                                    Notification.notificationType = NotificationTypeCode;
-                                    Notification.linkID = result.noticeId;
-                                    Notification.caption = Notices.noticeName;
-                                    Notification.description = Notices.description;
-                                    if ($('#dateStartDate').val() != "") {
-                                        Notification.startDate = $('#dateStartDate').val();
-                                    }
-                                    if ($('#dateExpiryDate').val() != "") {
-                                        Notification.expiryDate = $('#dateExpiryDate').val();
-                                    }
-                                    var notires = InsertNotification(Notification);
-                                    if (notires.status == "1") {
-                                        IsMobNotified = false;
-                                        $('#lblAlreadyNotificationSend').show();
-                                        $('#dateStartDate').attr('disabled', true);
-                                        $('#dateExpiryDate').attr('disabled', true);
-                                        $('#txtnotificationCOntent').attr('disabled', true);
-
-                                    }
-                                }
-                                break;
-                            case "0":
-                                noty({ text: Messages.InsertionFailure, type: 'error' });
-                                break;
-                            default:
-                                noty({ type: 'error', text: result.result });
-                                break;
-
-                        }
-                        
-                        BindNotices();
-                        $("#hdfNoticeID").val(result.noticeId);
-                  
-                    }
-                }
-            }
-        }
-        catch (e)
-        {
-            noty({ type: 'error', text: e.message });
-        }
-    });
+    //$('#btnSave').click(function (e) {
+        
+    //});
     $('[data-toggle="popover"]').popover();
     $('#btnCancel').click(function (e) {
        
@@ -356,44 +119,11 @@ $("document").ready(function (e) {
         RemoveStyle();
     });
 
-    $('#btnDelete').click(function (e) {
+    //$('#btnDelete').click(function (e) {
         
 
-        var deleteConirm = confirm("Want to delete?");
-        
-
-        if (deleteConirm) {
-
-            
-
-            var NoticeID = $("#hdfNoticeID").val();
-
-            var Notices = new Object();
-            Notices.noticeId = NoticeID;
-
-            var DeletionStatus = DeleteNotice(Notices);
-            switch (DeletionStatus.status) {
-                case "1":
-                    noty({ text: Messages.DeletionSuccessFull, type: 'success' });
-                    break;
-                case "0":
-                    noty({ text: Messages.DeletionFailure, type: 'error' });
-                    break;
-                default:
-                    noty({ type: 'error', text: result.result });
-                    break;
-
-            }
-            
-            BindNotices();
-            SetControlsInNewNoticeFormat();
-            $('#NoticeEditDivBox').hide();
-
-        }
-        else {
-            return false;
-        }
-    });
+       
+    //});
 
     //------------- * LATEST Events view more,Back  *------------//
 
@@ -447,16 +177,300 @@ $("document").ready(function (e) {
     function () {
         RemoveStyle();
     });
-    var value = $('#ContentPlaceHolder2_btnAddNew').val();
-    if (value != "") {
+    //var value = $('#ContentPlaceHolder2_btnAddNew').val();
+    //if (value != "") {
         
-        $('#NoticeEdit').remove();
-    }
+    //    $('#NoticeEdit').remove();
+    //}
 
 });
 //------------End of document ready----------------//
 
+function SaveNotices()
+{
+try
+{
+ $('#rowfluidDiv').show();
+    var IsValid = NoticeValidation();
+    if (IsValid) {
 
+        if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+        {
+            var today = new Date();
+            var startcheck = $('#dateStartDate').val();
+            var endcheck = $('#dateExpiryDate').val();
+
+            if (startcheck != "" || endcheck != "") {
+                if ((Datecheck(startcheck) > Datecheck(endcheck))) {
+                    noty({ text: Messages.InvalidExpiry, type: 'information' });
+                    return false;
+                }
+            }
+            var valid = NotificationValidation();
+            if(valid){}
+            else {
+                return false;
+            }
+        }
+        var Notices = new Object();
+        Notices.noticeName = $("#txtNoticeName").val();
+        Notices.description = $("#txtDescription").val();
+        Notices.noticeType = $("#ddlNoticeType").val();
+        Notices.churchId = churchObject.chid;
+
+        if ($("#hdfNoticeID").val() != "" && $("#hdfNoticeID").val() != null) {
+
+            Notices.noticeId = $("#hdfNoticeID").val();
+
+            var imgresult;
+            if ((imgresult = $('#UpNotice')[0].files.length > 0)) {
+                Notices.imageId = $("#hdfImageID").val();
+                var formData = new FormData();
+                var imagefile;
+                imagefile = $('#UpNotice')[0].files[0];
+                formData.append('upImageFile', imagefile, imagefile.name);
+                formData.append('churchID', Notices.churchId);
+                formData.append('noticeId', Notices.noticeId);
+                formData.append('NoticeimageId', Notices.imageId);
+                formData.append('noticeName', Notices.noticeName);
+                formData.append('description', Notices.description);
+                formData.append('noticeType', Notices.noticeType);
+                formData.append('updatedby', document.getElementById("LoginName").innerHTML);
+                formData.append('ActionTyp', 'NoticeImageUpdate');
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                switch (result.status) {
+                    case "1":
+                        noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                        Dynamicbutton("btnDelete", "Delete", "DeleteNotices");
+                        if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+                        {
+                            if (IsMobNotified)
+                            {
+                                var Notification = new Object();
+                                Notification.notificationType = NotificationTypeCode;
+                                Notification.linkID = Notices.noticeId;
+                                Notification.caption = Notices.noticeName;
+                                Notification.description = Notices.description;
+                                if ($('#dateStartDate').val() != "") {
+                                    Notification.startDate = $('#dateStartDate').val();
+                                }
+                                if ($('#dateExpiryDate').val() != "") {
+                                    Notification.expiryDate = $('#dateExpiryDate').val();
+                                }
+
+                                InsertNotification(Notification);
+                            }
+                                   
+                        }
+                        break;
+                    case "0":
+                        noty({ text: Messages.UpdationFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.status });
+                        break;
+
+                }
+                BindNotices();
+                $("#hdfNoticeID").val(Notices.noticeId);
+
+            }
+            else {
+                result = UpdateNotice(Notices);
+                switch (result.status) {
+                    case "1":
+                        noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+                        Dynamicbutton("btnDelete", "Delete", "DeleteNotices");
+                        if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+                        {
+                            if (IsMobNotified)
+                            {
+                                var Notification = new Object();
+                                Notification.notificationType = NotificationTypeCode;
+                                Notification.linkID = Notices.noticeId;
+                                Notification.caption = Notices.noticeName;
+                                Notification.description = Notices.description;
+                                if ($('#dateStartDate').val() != "") {
+                                    Notification.startDate = $('#dateStartDate').val();
+                                }
+                                if ($('#dateExpiryDate').val() != "") {
+                                    Notification.expiryDate = $('#dateExpiryDate').val();
+                                }
+                                InsertNotification(Notification);
+                            }
+                                   
+                                    
+                        }
+                        break;
+                    case "0":
+                        noty({ text: Messages.UpdationFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.status });
+                        break;
+
+                }
+                       
+                BindNotices();
+                $("#hdfNoticeID").val(Notices.noticeId);
+            }
+        }
+        else {
+
+            //INSERT
+            ///////Image insert using handler
+            var imgresult;
+            if ((imgresult = $('#UpNotice')[0].files.length > 0)) {
+
+                var formData = new FormData();
+                var imagefile;
+                imagefile = $('#UpNotice')[0].files[0];
+                formData.append('upImageFile', imagefile, imagefile.name);
+                formData.append('churchID', Notices.churchId);
+                formData.append('noticeName', Notices.noticeName);
+                formData.append('description', Notices.description);
+                formData.append('noticeType', Notices.noticeType);
+                formData.append('createdby', document.getElementById("LoginName").innerHTML);
+                formData.append('ActionTyp', 'NoticeImageInsert');
+                var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+
+                switch (result.status) {
+                    case "1":
+                        noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                        $("#hdfEventID").val(result.eventId);
+                        $("#hdfImageID").val(result.imageId);
+                        Dynamicbutton("btnDelete", "Delete", "DeleteNotices");
+                        if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+                        {
+                            var Notification = new Object();
+                            Notification.notificationType = NotificationTypeCode;
+                            Notification.linkID = result.noticeId;
+                            Notification.caption = Notices.noticeName;
+                            Notification.description = Notices.description;
+                            if ($('#dateStartDate').val() != "") {
+                                Notification.startDate = $('#dateStartDate').val();
+                            }
+                            if ($('#dateExpiryDate').val() != "") {
+                                Notification.expiryDate = $('#dateExpiryDate').val();
+                            }
+                                        
+                            var notires=InsertNotification(Notification);
+                            if (notires.status == "1") {
+                                IsMobNotified = false;
+                                $('#lblAlreadyNotificationSend').show();
+                                $('#dateStartDate').attr('disabled', true);
+                                $('#dateExpiryDate').attr('disabled', true);
+                                $('#txtnotificationCOntent').attr('disabled', true);
+                            }
+                                    
+                                    
+                        }
+                        break;
+                    case "0":
+                        noty({ text: Messages.InsertionFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.status });
+                        break;
+               
+                }
+                BindNotices();
+                $("#hdfNoticeID").val(result.noticeId);
+            }
+            else {
+                result = InsertNotice(Notices);
+                switch (result.status) {
+                    case "1":
+                        noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+                        $("#hdfEventID").val(result.eventId);
+                        $("#hdfImageID").val(result.imageId);
+                        Dynamicbutton("btnDelete", "Delete", "DeleteNotices");
+                        if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
+                        {
+                            var Notification = new Object();
+                            Notification.notificationType = NotificationTypeCode;
+                            Notification.linkID = result.noticeId;
+                            Notification.caption = Notices.noticeName;
+                            Notification.description = Notices.description;
+                            if ($('#dateStartDate').val() != "") {
+                                Notification.startDate = $('#dateStartDate').val();
+                            }
+                            if ($('#dateExpiryDate').val() != "") {
+                                Notification.expiryDate = $('#dateExpiryDate').val();
+                            }
+                            var notires = InsertNotification(Notification);
+                            if (notires.status == "1") {
+                                IsMobNotified = false;
+                                $('#lblAlreadyNotificationSend').show();
+                                $('#dateStartDate').attr('disabled', true);
+                                $('#dateExpiryDate').attr('disabled', true);
+                                $('#txtnotificationCOntent').attr('disabled', true);
+
+                            }
+                        }
+                        break;
+                    case "0":
+                        noty({ text: Messages.InsertionFailure, type: 'error' });
+                        break;
+                    default:
+                        noty({ type: 'error', text: result.result });
+                        break;
+
+                }
+                        
+                BindNotices();
+                $("#hdfNoticeID").val(result.noticeId);
+                  
+            }
+        }
+    }
+}
+        catch (e)
+{
+    noty({ type: 'error', text: e.message });
+}
+}
+function DeleteNotices()
+{
+    var deleteConirm = confirm("Want to delete?");
+
+
+    if (deleteConirm) {
+
+
+
+        var NoticeID = $("#hdfNoticeID").val();
+
+        var Notices = new Object();
+        Notices.noticeId = NoticeID;
+
+        var DeletionStatus = DeleteNotice(Notices);
+        switch (DeletionStatus.status) {
+            case "1":
+                noty({ text: Messages.DeletionSuccessFull, type: 'success' });
+                Dynamicbutton("NoticeEdit", "EditCancel", "");
+                Dynamicbutton("btnSave", "SaveCancel", "");
+                Dynamicbutton("btnDelete", "DeleteCancel", "");
+                Dynamicbutton("btnReset", "ResetCancel", "");
+                break;
+            case "0":
+                noty({ text: Messages.DeletionFailure, type: 'error' });
+                break;
+            default:
+                noty({ type: 'error', text: result.result });
+                break;
+
+        }
+
+        BindNotices();
+        SetControlsInNewNoticeFormat();
+        //$('#NoticeEditDivBox').hide();
+
+    }
+    else {
+        return false;
+    }
+}
 //General
 function createGuid() {
     function s4() {
@@ -822,7 +836,27 @@ function InsertNotification(Notification) {
 }
 //--------------------------------//
 function cancelEdit() {
-    $('#btnCancel').click();
+   // $('#btnCancel').click();
+    if ($("#hdfNoticeID").val() != "") {
+        FixedEditClick();
+    }
+    else {
+        RemoveStyle();
+        ClearControls();
+        $("#divNotificationDates").hide();
+
+        $("#rdoNotificationYes").parent().removeClass('checked');
+        $('#rdoNotificationNo').parent().addClass('checked');
+        $('#txtNoticeName').focus();
+        $("#divnoticeName").show();
+        $("#divNoticeType").show();
+        $("#DivFile").show();
+        $("#divNoticeDescription").show();
+        $("#divNotification").show();
+        $("#DivImg").show();
+        $("#divNotification").show();
+        $("#lblAlreadyNotificationSend").hide();
+    }
 }
 
 //Edit
@@ -830,9 +864,13 @@ function cancelEdit() {
 function FixedEditClick() {
 
     //$('#NoticeEdit').hide();
+    Dynamicbutton("NoticeEdit", "EditCancel", "");
+    Dynamicbutton("btnSave", "Save", "SaveNotices");
+    Dynamicbutton("btnDelete", "Delete", "DeleteNotices");
+    Dynamicbutton("btnReset", "Reset", "cancelEdit");
     $('#UpNotice')[0].files[0] = null;
-    $('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white repeat");
-    $('#NoticeEdit').attr('onclick', 'cancelEdit();');
+    //$('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white repeat");
+    //$('#NoticeEdit').attr('onclick', 'cancelEdit();');
     $("#lblStartDate").hide();
     $("#dateStartDate").show();
     $("#lblExpiryDate").hide();
@@ -925,14 +963,17 @@ function FixedEditClick() {
 //--- Edit click of each notice
 function EditOnClick(id) {
     
-
+    Dynamicbutton("NoticeEdit", "Edit", "FixedEditClick");
+    Dynamicbutton("btnSave", "SaveCancel", "");
+    Dynamicbutton("btnReset", "ResetCancel", "");
+    Dynamicbutton("btnDelete", "Delete", "DeleteNotices");
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
-    $("#NoticeEdit").show();
-    $('#NoticeEdit').attr('onclick', 'FixedEditClick();')
-    $('#iconEdit').removeClass("halflings-icon white repeat").addClass("halflings-icon white pencil");
-    $("#btnDelete").hide();
+    //$("#NoticeEdit").show();
+    //$('#NoticeEdit').attr('onclick', 'FixedEditClick();')
+    //$('#iconEdit').removeClass("halflings-icon white repeat").addClass("halflings-icon white pencil");
+    //$("#btnDelete").hide();
     $("#divView").show();
     $("#divNotificationDates").hide();
 
@@ -994,8 +1035,8 @@ function EditOnClick(id) {
         });
     }
 
-    $("#btnSave").hide();
-    $("#btnCancel").hide();
+    //$("#btnSave").hide();
+    //$("#btnCancel").hide();
 
     $("#divnoticeName").hide();
     $("#divNoticeType").hide();
@@ -1017,18 +1058,21 @@ function SetControlsInNewNoticeFormat() {
 
     $("#txtNoticeName").show();
     $("#txtDescription").show();
-    $("#btnSave").show();
+    //$("#btnSave").show();
+    Dynamicbutton("btnSave", "Save", "SaveNotices");
+    Dynamicbutton("btnReset", "Reset", "ResetCancel");
     $("#h1Notice").text("Add Notice");
 
     $("#lblNoticeDescription").hide();
     $("#lblNoticeName").hide();
-    $("#NoticeEdit").hide();
+    //$("#NoticeEdit").hide();
+    Dynamicbutton("NoticeEdit", "EditCancel", "");
     $("#DivFile").show();
-
+    
     $('#NoticePreview').attr('src', "../img/No-Img_Chosen.png");
     $('#UpNotice').val('');
-    $("#btnDelete").hide();
-
+    //$("#btnDelete").hide();
+    Dynamicbutton("btnDelete", "DeleteCancel", "");
     document.getElementById("rdoNotificationNo").disabled = false;
     document.getElementById("rdoNotificationYes").disabled = false;
 
@@ -1058,7 +1102,7 @@ function AddNewNoticeFormat() {
     $("#divNotification").show();
     $("#lblAlreadyNotificationSend").hide();
 
-    $("#btnCancel").show();
+    //$("#btnCancel").show();
 }
 
 function ClearControls() {

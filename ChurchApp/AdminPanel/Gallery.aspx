@@ -272,9 +272,13 @@
 
                </div>  
                <div class="modal-footer">
-			
-			<a href="#" class="btn btn-primary" id="btnSaveImageAlbum">Save</a>
-                <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>
+			<div class="buttonpatch" style="position:relative;float:right;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			          
+                       <a class="facebook" id="btnSaveImageAlbum" title="Save"><img src="/img/save.png" style="left:-6px;"/></a>
+                       <a class="facebook modelClear" data-dismiss="modal" title="Close"><img src="/img/closemodel.png" style="left:-6px;"/></a>
+			           </div>
+			<%--<a href="#" class="btn btn-primary" id="btnSaveImageAlbum">Save</a>
+                <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>--%>
 		    </div>
 		       </div>
                <div class="modal hide fade" id="NewImageModel">
@@ -313,9 +317,13 @@
 			
 		</div>
 	            <div class="modal-footer">
-			
-			<a href="#" id="btnMoreImagesAdd" class="btn btn-primary">Save</a>
-            <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>
+			<div class="buttonpatch" style="position:relative;float:right;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			          
+                       <a class="facebook" id="btnMoreImagesAdd" title="Save"><img src="/img/save.png" style="left:-6px;"/></a>
+                       <a class="facebook modelClear" data-dismiss="modal" title="Close"><img src="/img/closemodel.png" style="left:-6px;"/></a>
+			           </div>
+			<%--<a href="#" id="btnMoreImagesAdd" class="btn btn-primary">Save</a>
+            <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>--%>
 		</div>
      	       </div>
                <div class="modal hide fade" id="NewVideoAlbumModel">
@@ -369,9 +377,13 @@
 			
 		</div>
 		     <div class="modal-footer">
-			
-			<a href="#" id="BtnVideoAlbumSave" class="btn btn-primary">Save</a>
-            <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>
+			<div class="buttonpatch" style="position:relative;float:right;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			          
+                       <a class="facebook" id="BtnVideoAlbumSave" title="Save"><img src="/img/save.png" style="left:-6px;"/></a>
+                       <a class="facebook modelClear" data-dismiss="modal" title="Close"><img src="/img/closemodel.png" style="left:-6px;"/></a>
+			           </div>
+			<%--<a href="#" id="BtnVideoAlbumSave" class="btn btn-primary">Save</a>
+            <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>--%>
 		</div>
 	          </div>
                <div class="modal hide fade" id="NewVideoModel">
@@ -432,9 +444,13 @@
                         
   		        </div>
 		        <div class="modal-footer">
-			
-			<a href="#" id="btnMoreVideoSave" class="btn btn-primary">Save</a>
-            <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>
+			<div class="buttonpatch" style="position:relative;float:right;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			          
+                       <a class="facebook" id="btnMoreVideoSave" title="Save"><img src="/img/save.png" style="left:-6px;"/></a>
+                       <a class="facebook modelClear" data-dismiss="modal" title="Close"><img src="/img/closemodel.png" style="left:-6px;"/></a>
+			           </div>
+			<%--<a href="#" id="btnMoreVideoSave" class="btn btn-primary">Save</a>
+            <a href="#" class="btn btn-primary modelClear" data-dismiss="modal">Close</a>--%>
 		</div>
 	          </div>
 

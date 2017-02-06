@@ -42,11 +42,13 @@
                 <li>Notices</li>
             </ul>
 
-           <div class="buttonpatch" style="position:fixed;width:198px;right:0;top:7.5%;z-index:198">
-            <a class="twitter" title="Back"><img src="/img/back.PNG"/></a>
-			<a class="dribble" title="Reset"><img src="/img/reset.PNG"/></a>
-			<a class="facebook" title="Save" ><img onclick="saveoredit(this);" src="/img/save.PNG"/></a>
-			<a class="rss" title="Delete"><img src="/img/delete.PNG"/></a>
+           <div class="buttonpatch" style="position:fixed;width:280px;right:0;top:8%;z-index:198">		
+			<a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewNoticeFormat();"><img  src="/img/add.PNG"/></a>
+             <a class="rss" id="NoticeEdit"><img src="/img/edit.png"/></a>
+            <a class="twitter" id="btnSave"><img src="/img/save.png"/></a>
+            <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
+			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
+            <a class="rss" id="btnNotify"><img src="/img/notyfi.png"/></a>
         </div>
 
             <div class="row-fluid" style="margin-top:3%">
@@ -56,8 +58,8 @@
                 <div>
                     <div id="divLatestEvents">
                         <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
-                            <h2>Latest Notices</h2>
-                           <a class="btnNew AddNew" id="btnAddNew" runat="server" title="" onclick="AddNewNoticeFormat();"><i title="Add New Notice">+</i></a>
+                            <h2>Notices</h2>
+                           <%--<a class="btnNew AddNew" id="btnAddNew" runat="server" title="" onclick="AddNewNoticeFormat();"><i title="Add New Notice">+</i></a>--%>
 
                         </div>
                         <%--class="box-content"--%> 
@@ -89,7 +91,7 @@
                 <div class="span6 noMarginLeft" id="NoticeEditDivBox" style="margin-top:1%">
                     <div class="dark">
                         <h2><span class="fa fa-bell-o"> </span>  <span id="h1Event">Notices</span></h2>
-                        <a id="NoticeEdit" class="btnEdit"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Notice"></i></a>
+                        <%--<a id="NoticeEdit" class="btnEdit"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Notice"></i></a>--%>
                         
                     <div class="box-content">
                         <div class="form-horizontal">
@@ -247,11 +249,11 @@
                                 --%>
 
 
-                                <div class="form-actions">
+                               <%-- <div class="form-actions">
                                     <a class="btn btn-primary saveAll" id="btnSave"><span></span>Save</a>
                                     <a class="btn btn-primary cancelAll" id="btnCancel"><span></span>Cancel</a>
                                     <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
-                                </div>
+                                </div>--%>
                             </fieldset>
                         </div>
                     </div>

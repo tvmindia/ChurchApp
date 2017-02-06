@@ -344,6 +344,7 @@
     <Content Include="img\bg.jpg" />
     <Content Include="img\church-black-silhouette-with-a-cross-on-topblack1616.png" />
     <Content Include="img\close.png" />
+    <Content Include="img\closemodel.png" />
     <Content Include="img\copy.png" />
     <Content Include="img\dbError.png" />
     <Content Include="img\defaultalbumadd.jpg" />
@@ -375,6 +376,7 @@
     <Content Include="img\next.png" />
     <Content Include="img\No-Img_Chosen.png" />
     <Content Include="img\nodata.jpg" />
+    <Content Include="img\notyfi.png" />
     <Content Include="img\Plussymbol.png" />
     <Content Include="img\prev.png" />
     <Content Include="img\reset.PNG" />
