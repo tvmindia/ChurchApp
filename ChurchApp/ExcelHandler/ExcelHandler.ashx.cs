@@ -29,7 +29,6 @@ namespace ChurchApp.ExcelHandler
             HttpPostedFile postFileImage = null;
             JavaScriptSerializer jsSerializer = null;
             Security.UserAuthendication UA = null;
-          //  AppImages AppImgObj = null;
 
             try
             {
@@ -72,7 +71,6 @@ namespace ChurchApp.ExcelHandler
                             ImportXL.fileName = fileName;
                             ImportXL.fileLocation = fileLocation;
                             ImportXL.tableName = context.Request.Form.GetValues("TableImport")[0];
-                            //ImportXL.ImageFileLocation= context.Request.Form.GetValues("ImgFileLocation")[0]; 
 
                             DeleteDuplicateFile(fileLocation);//deletes the file if the same file name exists in the folder
                             postFile.SaveAs(fileLocation);
@@ -105,12 +103,8 @@ namespace ChurchApp.ExcelHandler
                                             ImportXL.MasterField = MasterField;
                                             dsMastertable = ImportXL.GetMasterFieldsFromMasterTable();
                                         }
-                                    }
-                                   
-                                        //dsExcel.Tables[0].Columns.Add("ChurchId", typeof(String)); //adding churchid column
-                                   
-                                                              
-                                    ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString(); //Total rows in excel file
+                                    } 
+                                                                       ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString(); //Total rows in excel file
                                     ImportXL.Validation(dsExcel, dsTableDefenition,dsMastertable);     //validation by passing excelfile,table defenition & MasterTable fields                           
 
                                     //------------------------------image Validation  and adding  imageid to DataSet----------------------------// 
@@ -150,13 +144,13 @@ namespace ChurchApp.ExcelHandler
                                                                 //insert into Apptable with image id                                                            
 
                                                             fileExtension = Path.GetExtension(postFileImage.FileName);
-                                                            ImportXL.appimgObj.url = "/img/ImportGallery/" + ImportXL.appimgObj.appImageId + fileExtension;                                                              
+                                                            ImportXL.appimgObj.url = "/img/ImportImages/" + ImportXL.appimgObj.appImageId + fileExtension;                                                              
                                                             ImportXL.appimgObj.type = "image";
                                                             ImportXL.appimgObj.InsertAppImage1().ToString();
 
                                                             dsExcel.Tables[0].Rows[i]["ImageId"] = ImportXL.appimgObj.appImageId;
 
-                                                            string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/ImportGallery"));
+                                                            string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/ImportImages"));
                                                             postFileImage.SaveAs(SaveLocation + @"\" + ImportXL.appimgObj.appImageId + fileExtension);
 
                                                         }

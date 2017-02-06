@@ -905,20 +905,7 @@ namespace ChurchApp.DAL
                                 errorList.Add(constObj.Nochurch);     // message string from Common.cs      
                             }
                         }
-                        break;
-                    //case "Church":
-                    //    string filename = ImageFileLocation + "\\" + drExcel["ImageFileName"].ToString();
-
-                    //    bool valuecheck;
-                    //    valuecheck = File.Exists(filename);
-                    //    if (valuecheck)
-                    //    {
-                    //        HttpPostedFile postFile = null;
-
-                    //        postFile.SaveAs(fileLocation);
-                    //        upload file into temp folder
-                    //    }
-                    //    break;
+                        break;                  
                     default:
                         break;
                 }
