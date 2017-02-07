@@ -17,16 +17,16 @@
 				<li>Institutions</li>
 			</ul>
               <div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198">		
-			<a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewclick();"><img  src="/img/add.PNG"/></a>
+			<a class="facebook" title="Add New" id="btnAddNew" onclick="NewInstitute();"><img  src="/img/add.PNG"/></a>
+            <a class="twitter" id="iconEditInstitute"><img src="/img/edit.png"/></a>
             <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
             <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
-			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
-            <a class="rss" id="btnSendNotification"><img src="/img/sentmail.png"/></a>
+			<a class="rss" id="btnDeleteInstitute"><img src="/img/delete.png"/></a>
         </div>
                <div class="row-fluid" style="margin-top:3%">
-              <%-- Div Institution list --%>
+              <%-- Div Institution list --%><%--<a class="btnNew AddNew" style="left:93%;top:-14px;" title="ADD NEW" id="A1" runat="server" onclick="NewInstitute();"><i class="material-icons">+</i></a>--%>
                 <div class="span6">
-               <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Institutions</h2><a class="btnNew AddNew" style="left:93%;top:-14px;" title="ADD NEW" id="btnAddNew" runat="server" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+               <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;"><h2>Institutions</h2></div>
 			   <div class="task high">
                     <div id="Institutediv">
             <div id="InstituteDefault">
@@ -55,7 +55,7 @@
 				<div class="box-content">
 				<div class="form-horizontal">
 				    <fieldset>
-                    <a class="btnEdit" style="right:40px;top:-41px;position: absolute;" title="EDIT" id="iconEditInstitute" onclick="EditInstitute(this);"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
+                    <%--<a class="btnEdit" style="right:40px;top:-41px;position: absolute;" title="EDIT" id="iconEditInstitute" onclick="EditInstitute(this);"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>--%>
                          <div class="control-group span12" style="margin-top:20px;width:100%!important">
 							  <img class="priestimage" id="instituteDetailPreview" src="../img/gallery/Institution.jpg"/>
 							</div> 
@@ -136,14 +136,14 @@
 				</div>
 				
 				</div>	
-              <!---------------------  Add New Priest and Edit details ----------------------------->
+              <!---------------------  Add New Institution and Edit details ----------------------------->
                 <div id="InstituteEdit" style="display:none;margin-top:1%;" class="span6 noMarginLeft">
 					<div class="dark">
 					<h1 id="HeadDetails">Add Details</h1>
 					<div class="box-content">
 					<div class="form-horizontal">
 				    <fieldset>
-                        <a class="btnEdit" style="right:40px;top:-41px;position:absolute;" title="EDIT" id="iconShowInstitute" name="Edit" onclick="OpenInstituteDetails(name);"><i class="halflings-icon white repeat" aria-hidden="true" ></i></a>
+                        <%--<a class="btnEdit" style="right:40px;top:-41px;position:absolute;" title="EDIT" id="iconShowInstitute" name="Edit" onclick="OpenInstituteDetails(name);"><i class="halflings-icon white repeat" aria-hidden="true" ></i></a>--%>
                     <%--<a class="btnEdit" style="right:30px;position: absolute;" onclick="EditInstitute();"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i></a>--%>
                         <div class="control-group span12">
 					    <img class="priestimage" id="priestPreview" src="../img/gallery/Institution.jpg"/>
@@ -236,7 +236,7 @@
                          <%-----Default card with button for Adding new administrator -----%>
                             <ul class="thumbnails span4">
                             <li class="span12" style="position: relative;height:229px;">
-                               <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;color:black!important;background:white!important;" title="ADD" onclick="OpenAdminModal()"><i style="font-size:48px;">+</i></a>
+                               <a class="btnNew" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 10%!important;color:black!important;background:white!important;" title="Add Administrators" onclick="OpenAdminModal()"><i style="font-size:48px;">+</i></a>
                                <div class="thumbnail" style="position:relative!important;top: -33px;opacity:0.7;">
                                <img class="img-rounded" style="height:179px" src="../img/gallery/Noimage.png" alt=""/>
                                 <address>
@@ -256,12 +256,12 @@
 						<input type="hidden" id="hdnInstutID" />
                         <input id="hdfImageID" type="hidden" value="" />
                         <input id="hdfAdminImageID" type="hidden" value="" />
-							<div class="form-actions span12">
+							<%--<div class="form-actions span12">
 							  <a class="btn btn-primary saveAll" name="" id="btnSaveInstitute">Save changes</a>
                                 <a id="btncancelInstitute" name="" class="btn btn-primary cancelAll" onclick="Cancel(this);">Cancel</a>
                                 <a class="btn btn-primary" name="" id="btnDeleteInstitute">Delete</a>
 							  
-							</div>
+							</div>--%>
 						  </fieldset>
 					</div>   
 					</div>
@@ -325,8 +325,13 @@
 
 		</div>
 		  <div class="modal-footer">
-			<a class="btn btn-primary" data-dismiss="modal">Close</a>
-			<a id="btnAddAdmin" name="" class="btn btn-primary">Save changes</a>
+              <div class="buttonpatch" style="position:relative;float:right;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			          
+                       <a class="facebook" id="btnAddAdmin" title="Save"><img src="/img/save.png" style="left:-6px;"/></a>
+                       <a class="facebook modelClear" data-dismiss="modal" title="Close"><img src="/img/closemodel.png" style="left:-6px;"/></a>
+			           </div>
+			<%--<a class="btn btn-primary" data-dismiss="modal">Close</a>
+			<a id="btnAddAdmin" name="" class="btn btn-primary">Save changes</a>--%>
 		</div>
 	      </div>
                <script>

@@ -18,13 +18,7 @@
 				</li>
 				<li>Mass Schedules</li>
 			</ul>
-          <div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198">		
-			<a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewclick();"><img  src="/img/add.PNG"/></a>
-            <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
-            <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
-			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
-            <a class="rss" id="btnSendNotification"><img src="/img/sentmail.png"/></a>
-        </div>
+          
            <!--MassTable-->
              <a class="btnNew" id="btnAddNew" runat="server" style="display:none" ></a>	
         <div class="row-fluid sortable" style="margin-top:3%">	

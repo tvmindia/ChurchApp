@@ -24,14 +24,9 @@ $(document).ready(function () {
         });
         ///
         /// Save button Click for Institution Add & Update
-        $('#btnSaveInstitute').click(function (e) {
-            try {
-                InstitutionValidation();
-            }
-            catch (e) {
-                noty({ type: 'error', text: e.message });
-            }
-        });
+        //$('#btnSaveInstitute').click(function (e) {
+           
+        //});
 
         //
         //Style setting for client side Validation
@@ -47,11 +42,11 @@ $(document).ready(function () {
         });
         //////////////////////////////////////////////////////
 
-        var value = $('#ContentPlaceHolder2_btnAddNew').val();
-        if (value != "") {
+        //var value = $('#ContentPlaceHolder2_btnAddNew').val();
+        //if (value != "") {
 
-            $('#iconEditInstitute').remove();
-        }
+        //    $('#iconEditInstitute').remove();
+        //}
     }
     catch(e)
     {
@@ -546,6 +541,7 @@ function SaveInstitution()
                             $('#divAccoAdmininfo').toggleClass("active");
                             $('#divAdminInfo').toggleClass("show");
                         }
+
                         break;
                     case "0":
                         noty({ text: Messages.InsertionFailure, type: 'error' });
@@ -783,6 +779,17 @@ function HtmlEditBindCards(AdminDetails, i) {
 
 ////////////////////////////////////////////////**** onclick functions
 //
+///Save Onclick
+function SaveInstitutionClick()
+{
+    try
+    {
+        InstitutionValidation();
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+}
 ///Edit administrator button onclick function
 function EditAdministrator(this_Obj)
 {
@@ -854,10 +861,16 @@ function OpenInstituteDetails(intituteID) {
         {
             $('#InstituteEdit').hide();
             $('#InstituteShow').show();
+            $('#btnDeleteInstitute').attr('name', intituteID);
             if (!$("#divGendetailsacc").hasClass("active")) {
                 $('#divGendetailsacc').toggleClass("active");
                 $('#divGenDetals').toggleClass("show");
             }
+            //Button Changes
+            Dynamicbutton("btnReset", "CancelReset", "Cancel");
+            Dynamicbutton("btnMain", "SaveCancel", "");
+            Dynamicbutton("btnDeleteInstitute", "Delete", "DeleteInstituteclick");
+            Dynamicbutton("iconEditInstitute", "Edit", "EditInstitute");
         }
         
     }
@@ -873,7 +886,7 @@ function EditInstitute(this_obj) {
     try
     {
         RemoveStyle();
-        var intituteID = $(this_obj).attr('name');
+        var intituteID = this_obj;
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);;
         $('#txtInstituteName').val(InstituteRow.name);
@@ -898,9 +911,9 @@ function EditInstitute(this_obj) {
         document.getElementById('HeadDetails').innerText = "Edit Details";
         $('#hdnInstutID').val(InstituteRow.institutionID);
         $('#hdnInstituteID').val(InstituteRow.institutionID);
-        $('#btnDeleteInstitute').show();
+        //$('#btnDeleteInstitute').show();
         $('#btnDeleteInstitute').attr('name', InstituteRow.institutionID);
-        $('#btnDeleteInstitute').attr('onclick', 'DeleteInstituteclick(this)');
+        //$('#btnDeleteInstitute').attr('onclick', 'DeleteInstituteclick(this)');
         BindEditCard(intituteID);
         $('#iconShowInstitute').show();
         $('#InstituteShow').hide();
@@ -913,6 +926,10 @@ function EditInstitute(this_obj) {
             $('#EditGenDetails').toggleClass("active");
             $('#EditGen').toggleClass("show");
         }
+        Dynamicbutton("btnReset", "Reset", "Cancel");
+        Dynamicbutton("btnMain", "Save", "SaveInstitutionClick");
+        Dynamicbutton("btnDeleteInstitute", "Delete", "DeleteInstituteclick");
+        Dynamicbutton("iconEditInstitute", "EditCancel", "");
     }
     catch(e)
     {
@@ -933,7 +950,8 @@ function DeleteInstituteclick(this_Obj)
             var Adminresult = null;
             var AdminDetails = {};
             var InstituteRow = {};
-            var intituteID = $(this_Obj).attr('name');
+            //$(this_Obj).attr('name')
+            var intituteID = this_Obj;
             AdminDetails = BindAdminCard(intituteID);
             InstituteRow = GetInstituteDetailsUsingID(intituteID);
             if (AdminDetails.length == 0) {
@@ -957,6 +975,10 @@ function DeleteInstituteclick(this_Obj)
                         BindInstituteslist();
                         $('#InstituteEdit').hide();
                         $('#InstituteShow').hide();
+                        Dynamicbutton("btnReset", "ResetCancel", "");
+                        Dynamicbutton("btnMain", "SaveCancel", "");
+                        Dynamicbutton("btnDeleteInstitute", "DeleteCancel", "");
+                        Dynamicbutton("iconEditInstitute", "EditCancel", "");
                         break;
                     case "0":
                         noty({ text: Messages.DeletionFailure, type: 'error' });
@@ -992,17 +1014,22 @@ function NewInstitute() {
         $('#iconShowInstitute').hide();
         $('#priestPreview').attr('src', '../img/gallery/Institution.jpg');
         document.getElementById('HeadDetails').innerText = "Add Institution";
-        $('#btncancelInstitute').show();
-        $('#btncancelInstitute').attr('name', 'new');
+        //$('#btncancelInstitute').show();
+        //$('#btncancelInstitute').attr('name', 'new');
         $('#InstituteEdit').show();
         $('#InstituteShow').hide();
-        $('#btnDeleteInstitute').hide();
-        $('#btnDeleteInstitute').attr('name', '');
+        //$('#btnDeleteInstitute').hide();
+        //$('#btnDeleteInstitute').attr('name', '');
         if (!$("#EditGenDetails").hasClass("active")) {
             $('#EditGenDetails').toggleClass("active");
             $('#EditGen').toggleClass("show");
         }
         $('#txtInstituteName').focus();
+        //Button Changes
+        Dynamicbutton("btnReset", "Reset", "Cancel");
+        Dynamicbutton("btnMain", "Save", "SaveInstitutionClick");
+        Dynamicbutton("btnDeleteInstitute", "DeleteCancel", "");
+        Dynamicbutton("iconEditInstitute", "EditCancel", "");
     }
     catch (e) {
         noty({ type: 'error', text: e.message });
@@ -1029,19 +1056,31 @@ function OpenAdminModal() {
 }
 //
 //Cancel button onclick function
-function Cancel(this_Obj) {
+function Cancel() {
     try {
-        $('#rowfluidDiv').hide();
-        var attr = $(this_Obj).attr('name');
-        if (attr == 'new') {
+        if ($("#hdnInstutID").val() != "")
+        {
+            EditInstitute($("#hdnInstutID").val());
+        }
+        else
+        {
+            debugger;
             ClearFields();
-            $('#InstituteEdit').hide();
-            $('#InstituteShow').hide();
+            RemoveStyle();
+            $('#priestPreview').attr('src', '../img/gallery/Institution.jpg');
+            document.getElementById('instituteimg').value = "";
         }
-        if (attr == "Edit") {
-            $('#InstituteEdit').hide();
-            $('#InstituteShow').show();
-        }
+        //$('#rowfluidDiv').hide();
+        //var attr = $(this_Obj).attr('name');
+        //if (attr == 'new') {
+        //    ClearFields();
+        //    $('#InstituteEdit').hide();
+        //    $('#InstituteShow').hide();
+        //}
+        //if (attr == "Edit") {
+        //    $('#InstituteEdit').hide();
+        //    $('#InstituteShow').show();
+        //}
     }
     catch (e) {
         noty({ type: 'error', text: e.message });

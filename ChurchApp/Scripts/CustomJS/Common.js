@@ -58,14 +58,15 @@ function Dynamicbutton(ID, Keyword, Event) {
             break;
         case "Delete":
             $('#' + ID + ' img').attr('src', '/img/delete.PNG');
-            $('#' + ID).attr('onclick', Event + '();');
+            $('#' + ID).attr('onclick', Event + '(name);');
             $('#' + ID).attr('title', 'Delete');
             $('#' + ID).attr('class', 'facebook');
             break;
         case "DeleteCancel":
             $('#' + ID + ' img').attr('src', '/img/delete.PNG');
-            $('#' + ID).removeAttr("title")
-            $('#' + ID).removeAttr("onclick")
+            $('#' + ID).removeAttr("title");
+            $('#' + ID).removeAttr("onclick");
+            $('#' + ID).removeAttr("name");
             $('#' + ID).attr('class', 'rss');
             break;
         default:
