@@ -1460,7 +1460,6 @@ function TownValidation() {
 }
 
 function EditTown(curobj) {
-
     var data = DashDataTables.townTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     
@@ -1999,7 +1998,7 @@ function RemoveSaint(curobj)
 
 }
 function EditRequestChurch(curobj) {
-    
+    Animateto("txtReqChurchName");
     //Get Current table row data
     var data = DashDataTables.churchReqtable.row($(curobj).parents('tr')).data();
     RemoveStyle();
@@ -2027,7 +2026,7 @@ function EditRequestChurch(curobj) {
 }
 function EditChurch(curobj)
 {
-    
+    Animateto("txtChurchName");
     //Get Current table row data
     var data = DashDataTables.churchTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
@@ -2057,7 +2056,7 @@ function EditChurch(curobj)
 
 function EditUsers(curobj)
 {
-    
+    Animateto("txtUserName");
     RemoveStyle();
     //Getting ID from datatable selected row
     var data = DashDataTables.userTable.row($(curobj).parents('tr')).data();
@@ -2153,7 +2152,7 @@ function UpdateDesignation(OrgDesignationMaster) {
 function EditRole(curobj)
 {
     
-     
+    Animateto("idddlRoleName");
     var data = DashDataTables.roleTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
    
@@ -2170,6 +2169,7 @@ function EditRole(curobj)
 
 function EditDesignation(curobj)
 {
+    Animateto("txtPosition");
     var data = DashDataTables.designationTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     var OrgDesignationMaster = new Object();
@@ -2183,7 +2183,7 @@ function EditDesignation(curobj)
  }
 
 function EditSaint(curobj) {
-    
+    Animateto("txtSaintName");
     var data = DashDataTables.patronTable.row($(curobj).parents('tr')).data();
     RemoveStyle();
     var PatronMaster = new Object();
