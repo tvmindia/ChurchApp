@@ -114,8 +114,13 @@
                              </div>
                         </div>
                       <div class="form-actions">
-								<a class="btn btn-primary AddMass saveAll">Save</a>
-								<a class="btn btn-primary cancel">Cancel</a>
+                          <div class="buttonpatch" style="position:relative;float:left;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			          
+                       <a class="facebook AddMass saveAll" title="Save"><img src="/img/save.png"/></a>
+                       <a class="facebook cancel" title="Cancel"><img src="/img/closemodel.png"/></a>
+			           </div>
+								<%--<a class="btn btn-primary AddMass saveAll">Save</a>
+								<a class="btn btn-primary cancel">Cancel</a>--%>
 							  </div>
                 </div>
                 </div>
