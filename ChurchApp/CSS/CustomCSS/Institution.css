@@ -76,17 +76,14 @@ div.accordion.active, div.accordion:hover {
 }
 
 div.accordion:after {
-    content: '∨'!important;
-    font-size: 15px;
-    font-weight:600;
-    color: black;
+    content: url('../../img/down.png')!important;
     float: right;
-    margin-left: 16px!important;
-    margin-top:11px!important;
+    margin-right: 14px!important;
+    margin-top:4px!important;
 }
 
 div.accordion.active:after {
-    content: "∧"!important;
+    content: url('../../img/up.png')!important;
 }
 
 #divAdminInfo ul{

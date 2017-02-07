@@ -350,6 +350,7 @@
     <Content Include="img\defaultalbumadd.jpg" />
     <Content Include="img\DefaultChurch.jpg" />
     <Content Include="img\delete.PNG" />
+    <Content Include="img\down.png" />
     <Content Include="img\edit.png" />
     <Content Include="img\gallery\1.jpg" />
     <Content Include="img\gallery\2.jpg" />
@@ -386,6 +387,7 @@
     <Content Include="img\slowrider.gif" />
     <Content Include="img\St_Thomas_Church,_Irinjalakuda.jpg" />
     <Content Include="img\top_arr.png" />
+    <Content Include="img\up.png" />
     <Content Include="img\VideoAdd.PNG" />
     <Content Include="Login.aspx" />
     <Content Include="Master\AdminLayout.Master" />
