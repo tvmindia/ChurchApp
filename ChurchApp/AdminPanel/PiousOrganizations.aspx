@@ -15,17 +15,18 @@
 				<li>Pious Organizations</li>
 			</ul>
           <div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198">		
-			<a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewclick();"><img  src="/img/add.PNG"/></a>
+			<a class="facebook" title="Add New" id="btnAddNew" onclick="NewInstitute();"><img  src="/img/add.PNG"/></a>
+              <a class="rss" id="btnedit"><img src="/img/edit.png"/></a>
             <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
             <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
 			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
-            <a class="rss" id="btnSendNotification"><img src="/img/sentmail.png"/></a>
+            
         </div>
                <div class="row-fluid" style="margin-top:3%">
-              
+              <%-- <a class="btnNew AddNew" id="btnAddNew" runat="server" style="left:93%!important;top:-14px;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a> --%>
                <div class="span6">
                    <h2>Pious Organizations</h2>
-                   <div class="" style="border-bottom: 1.5px solid #FA603D;line-height: 0px;"><a class="btnNew AddNew" id="btnAddNew" runat="server" style="left:93%!important;top:-14px;" title="ADD NEW" onclick="NewInstitute();"><i class="material-icons">+</i></a></div>
+                   <div class="" style="border-bottom: 1.5px solid #FA603D;line-height: 0px;"></div>
 			   
             <div id="Institutediv" style="margin-top:6%">
             <div id="InstituteDefault">
