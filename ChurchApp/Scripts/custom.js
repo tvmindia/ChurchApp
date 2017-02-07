@@ -351,10 +351,10 @@ function template_functions(){
 	    firstDay: 1,
 	    dateFormat: "dd-MM-yy",
 	    monthNames: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
-	    onSelect: function () {
-	        // The "this" keyword refers to the input (in this case: #someinput)
-	        this.focus();
-	    }
+	    //onSelect: function () {
+	    //    // The "this" keyword refers to the input (in this case: #someinput)
+	    //    this.blur();
+	    //}
 	});
 	
 	/* ---------- Notifications ---------- */

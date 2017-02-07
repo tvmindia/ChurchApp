@@ -270,6 +270,24 @@ $("document").ready(function (e) {
         
         $('#NoticeEdit').remove();
     }
+
+    //Schedule-----------------------
+    $("#notificationScheduleTable").hide();
+    $("#selectDate").hide();
+    $("#rdoNotificationScheduleNo").click(function () {
+        $("#notificationScheduleTable").hide();
+        $("#selectDate").hide();
+    });
+    $("#rdoNotificationScheduleYes").click(function () {
+        $("#notificationScheduleTable").show();
+        $("#selectDate").show();
+    });
+    $("#selectDate").datepicker(
+        'option' , 'onSelect', function(){
+            debugger;
+            noty({ text: Messages.NotificationInitiated, type: 'success' });
+        }
+    );
 });
 //end of document.ready()
 
@@ -597,6 +615,10 @@ function BindAllNotification() {
     table.clear().rows.add(GetAllNotificationstbl()).draw(false);
 }
 
+//Schedule
+function ScheduleDateSelect() {
+
+}
 
 function DetailsView()
 {

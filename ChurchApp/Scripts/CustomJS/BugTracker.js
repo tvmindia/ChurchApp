@@ -131,11 +131,17 @@ $("document").ready(function (e) {
         }
     })
 
-    $(".datepicker").datepicker({
-       
-          
-       
-    });
+    $("#txtStartDate").datepicker( 'option' , 'onSelect', function(){          
+            try {
+                var date = $("#txtStartDate").val();
+                var ExceptionTrack = new Object();
+                ExceptionTrack.startDate = date;
+                BugDataTables.errorTable.clear().rows.add(GetAllFixedBugs(ExceptionTrack)).draw(false);
+            }
+            catch (e) {
+            }            
+        }
+    );
 });// end of document.ready
 
 function ClearControls()
@@ -189,21 +195,6 @@ function formattedDate(date) {
     return [month, day, year].join('/');
 }
 
-function DateChange()
-{
-    try
-    {
-        var date = $("#txtStartDate").val();
-        var ExceptionTrack = new Object();
-        ExceptionTrack.startDate = date;
-        BugDataTables.errorTable.clear().rows.add(GetAllFixedBugs(ExceptionTrack)).draw(false);
-    }
-    catch(e)
-    {
-
-    }
-    
-}
 
 function FixedBugs()
 {
