@@ -544,6 +544,16 @@ namespace ChurchApp.DAL
             }
             catch (Exception ex)
             {
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.Description = ex.Message;
+                ETObj.Date = commonObj.ConvertDatenow(DateTime.Now).ToString();
+                ETObj.Module = "Notification";
+                ETObj.Method = "SendToFCM";
+                ETObj.ChurchID = churchID;
+                ETObj.ErrorSource = "Firebase Cloud Messaging System";
+                ETObj.IsMobile = false;
+                ETObj.InsertErrorDetails();
+
                 throw ex;
             }
         }
