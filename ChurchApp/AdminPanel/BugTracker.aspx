@@ -4,8 +4,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 
     <link href="../CSS/CustomCSS/BugTracker.css" rel="stylesheet" />
-      <script src="../Scripts/CustomJS/Common.js"></script>
     <script src="../Scripts/CustomJS/BugTracker.js"></script>
+      <script src="../Scripts/CustomJS/Common.js"></script>
   
 
     <div id="content" class="span10">
@@ -43,7 +43,7 @@
 								
                                         
                                          <div class="span9"><label id="lblStartDate" style="display:none;vertical-align:super;">Start Date : </label>
-                                          <input  class="input-large datepicker" name="StartDate" id="txtStartDate" onselect="return DateChange();" style="display:none;" type="text" placeholder="From"/></div>
+                                          <input  class="input-large datepicker" name="StartDate" id="txtStartDate" style="display:none;" type="text" placeholder="From"/></div>
                                         </div>
 								</div>
                                      

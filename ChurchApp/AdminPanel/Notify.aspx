@@ -264,7 +264,45 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
 							  </div>
 							</div>
 
+						<div class="control-group" id="lblScheduleH">
+						<label class="control-label" for="date01" >Do you want to Schedule?</label>
+						
+
+                            
+
+                        <div class="controls">
+                                        <label class="radio">
+                                            <input type="radio" name="IsnotificationScheduleNeeded" id="rdoNotificationScheduleYes" value="Yes" />
+                                            Yes
+                                        </label>
+
+                                        <label class="radio">
+                                            <input type="radio" name="IsnotificationScheduleNeeded" id="rdoNotificationScheduleNo" value="No" checked="" />
+                                            No
+                                        </label>
+                        </div>
+                            	</div>
+
+                        <div class="controls">
+                                <input type="text" class="input-large datepicker" readonly="true" id="selectDate"  placeholder="Select date" />
+                                </div>
+                        <%--onselect="return ScheduleDateSelect();"--%>
+                         <div class="controls">
+                        <table id="notificationScheduleTable" class="table table-striped table-bordered bootstrap-datatable span3">
+						  <thead>
+							  <tr>
+								  <th>Date</th>
+								  <th>Actions</th>
+							  </tr>
+						  </thead>   
+						  <tbody id="notificationScheduleBody">
 							
+						    </tbody>
+					    </table> 
+                            </div>
+					
+
+
 						  </fieldset>
 					</div>   
 					</div>
