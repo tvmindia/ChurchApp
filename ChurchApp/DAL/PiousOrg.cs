@@ -296,6 +296,7 @@ namespace ChurchApp.DAL
                     description = dr["Desc"].ToString();
                     albumId = dr["AlbumID"].ToString();
                     Patron= dr["PatronName"].ToString();
+                    PatronID = dr["PatronID"].ToString();
                     churchID = dr["ChurchID"].ToString();
                     imagepath = dr["URL"].ToString();
                     //albumId = dr["AlbumID"].ToString();

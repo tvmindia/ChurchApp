@@ -27,14 +27,9 @@ $(document).ready(function () {
         });
         ///
         /// Save button Click for Institution Add & Update
-        $('#btnSaveInstitute').click(function (e) {
-            try {
-                InstitutionValidation();
-            }
-            catch (e) {
-                noty({ type: 'error', text: e.message });
-            }
-        });
+        //$('#btnSaveInstitute').click(function (e) {
+            
+        //});
 
         //
         //Style setting for client side Validation
@@ -49,11 +44,11 @@ $(document).ready(function () {
             $('#ErrorBox,#ErrorBox1').hide(1000);
         });
         //////////////////////////////////////////////////////
-        var value = $('#ContentPlaceHolder2_btnAddNew').val();
-        if (value != "") {
+        //var value = $('#ContentPlaceHolder2_btnAddNew').val();
+        //if (value != "") {
             
-            $('#iconEditInstitute').remove();
-        }
+        //    $('#iconEditInstitute').remove();
+        //}
     }
     catch(e)
     {
@@ -263,7 +258,7 @@ function SaveAdministrator()
 ///function save and update Pious Organization
 function SaveInstitution() {
     try {
-        
+        debugger;
         var AppImgURL = '';
         var InstituteID = $("#hdnInstutID").val();
 
@@ -515,6 +510,12 @@ function BindInstituteslist() {
         InstituteDetails = GetInstitutionListChurchID();
         if (InstituteDetails.length == 0) {
             //return;
+            $('#InstituteDefault').remove();
+            $('#Institutediv').empty();
+            var img = document.createElement('img');
+            img.src = "../img/nodata.jpg";
+            img.id = "NoData";
+            $('#Institutediv').append(img);
         }
         else {
             for (var i = 0; i < InstituteDetails.length; i++) {
@@ -535,7 +536,7 @@ function BindInstituteslist() {
 //Bind Pious Organization Details to view
 function BindDetails(intituteID) {
     try {
-        
+        debugger;
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);
         ClearFields();
@@ -551,6 +552,8 @@ function BindDetails(intituteID) {
 
         //$('#aWebsite').attr('href', InstituteRow.Website);
         $('#iconEditInstitute').attr('name', InstituteRow.piousOrgID);
+        $('#btnDeleteInstitute').attr('name', InstituteRow.piousOrgID);
+        $('#hdnPatron').val(InstituteRow.PatronID);
         BindCard(intituteID);
     }
     catch (e) {
@@ -668,6 +671,18 @@ function HtmlEditBindCards(AdminDetails, i) {
 
 ////////////////////////////////////////////////**** onclick functions
 //
+///SaveOrganization onclick
+function SaveOrganizationClick()
+{
+    try
+    {
+        InstitutionValidation();
+    }
+    catch (e)
+    {
+        noty({ type: 'error', text: e.message });
+    }
+}
 ///Edit administrator button onclick function
 function EditAdministrator(this_Obj) {
     try {
@@ -730,6 +745,11 @@ function OpenInstituteDetails(intituteID) {
             $('#divGendetailsacc').toggleClass("active");
             $('#divGenDetals').toggleClass("show");
         }
+        //Button Changes
+        Dynamicbutton("btnReset", "CancelReset", "Cancel");
+        Dynamicbutton("btnMain", "SaveCancel", "");
+        Dynamicbutton("btnDeleteInstitute", "Delete", "DeleteInstituteclick");
+        Dynamicbutton("iconEditInstitute", "Edit", "EditInstitute");
     }
     catch (e) {
         noty({ type: 'error', text: e.message });
@@ -740,8 +760,8 @@ function OpenInstituteDetails(intituteID) {
 //Edit Pious Organization button onclick function
 function EditInstitute(this_obj) {
     try {
-
-        var intituteID = $(this_obj).attr('name');
+        debugger;
+        var intituteID = this_obj;
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);
         $('#iconDisInstitute').show();
@@ -760,9 +780,10 @@ function EditInstitute(this_obj) {
         document.getElementById('HeadDetails').innerText = "Edit Details";
         $('#hdnInstutID').val(InstituteRow.piousOrgID);
         $('#hdnInstituteID').val(InstituteRow.piousOrgID);
-        $('#btnDeleteInstitute').removeAttr("disabled");
+
+        //$('#btnDeleteInstitute').removeAttr("disabled");
         $('#btnDeleteInstitute').attr('name', InstituteRow.piousOrgID);
-        $('#btnDeleteInstitute').attr('onclick', 'DeleteInstituteclick(this)');
+        //$('#btnDeleteInstitute').attr('onclick', 'DeleteInstituteclick(this)');
         BindEditCard(intituteID);
         $('#iconShowInstitute').show();
         $('#InstituteShow').hide();
@@ -774,6 +795,10 @@ function EditInstitute(this_obj) {
             $('#EditGenDetails').toggleClass("active");
             $('#EditGen').toggleClass("show");
         }
+        Dynamicbutton("btnReset", "Reset", "Cancel");
+        Dynamicbutton("btnMain", "Save", "SaveOrganizationClick");
+        Dynamicbutton("btnDeleteInstitute", "Delete", "DeleteInstituteclick");
+        Dynamicbutton("iconEditInstitute", "EditCancel", "");
     }
     catch (e) {
         noty({ type: 'error', text: e.message });
@@ -790,7 +815,7 @@ function DeleteInstituteclick(this_Obj) {
             var Adminresult = null;
             var AdminDetails = {};
             var InstituteRow = {};
-            var intituteID = $(this_Obj).attr('name');
+            var intituteID = this_Obj;
             AdminDetails = BindAdminCard(intituteID);
             InstituteRow = GetInstituteDetailsUsingID(intituteID);
             if (AdminDetails.length == 0) {
@@ -813,6 +838,10 @@ function DeleteInstituteclick(this_Obj) {
                     BindInstituteslist();
                     $('#InstituteEdit').hide();
                     $('#InstituteShow').hide();
+                    Dynamicbutton("btnReset", "ResetCancel", "");
+                    Dynamicbutton("btnMain", "SaveCancel", "");
+                    Dynamicbutton("btnDeleteInstitute", "DeleteCancel", "");
+                    Dynamicbutton("iconEditInstitute", "EditCancel", "");
                 }
                 if (result.results != "1") {
                     noty({ text: result.results, type: 'error' });
@@ -840,10 +869,10 @@ function NewInstitute() {
         $('#iconShowInstitute').hide();
         $('#priestPreview').attr('src', '../img/gallery/Institution.jpg');
         document.getElementById('HeadDetails').innerText = "Add Pious Organization";
-        $('#btncancelInstitute').attr('name', 'new');
+       // $('#btncancelInstitute').attr('name', 'new');
         $('#InstituteEdit').show();
         $('#InstituteShow').hide();
-        $('#btnDeleteInstitute').hide();
+        //$('#btnDeleteInstitute').hide();
         //$('#btnDeleteInstitute').attr('disabled', 'disabled');
         $('#btnDeleteInstitute').attr('name', '');
         if (!$("#EditGenDetails").hasClass("active")) {
@@ -851,6 +880,11 @@ function NewInstitute() {
             $('#EditGen').toggleClass("show");
         }
         $('#txtPatron').focus();
+        //Button Changes
+        Dynamicbutton("btnReset", "Reset", "Cancel");
+        Dynamicbutton("btnMain", "Save", "SaveOrganizationClick");
+        Dynamicbutton("btnDeleteInstitute", "DeleteCancel", "");
+        Dynamicbutton("iconEditInstitute", "EditCancel", "");
     }
     catch (e) {
         noty({ type: 'error', text: e.message });
@@ -879,18 +913,17 @@ function OpenAdminModal() {
 }
 //
 //Cancel button onclick function
-function Cancel(this_Obj) {
+function Cancel() {
     try {
-        $('#rowfluidDiv').hide();
-        var attr = $(this_Obj).attr('name');
-        if (attr == 'new') {
-            ClearFields();
-            $('#InstituteEdit').hide();
-            $('#InstituteShow').hide();
+        if ($("#hdnInstutID").val() != "") {
+            EditInstitute($("#hdnInstutID").val());
         }
-        if (attr == "Edit") {
-            $('#InstituteEdit').hide();
-            $('#InstituteShow').show();
+        else {
+            debugger;
+            ClearFields();
+            RemoveStyle();
+            $('#priestPreview').hide();
+            document.getElementById('lblPatron').innerHTML = "";
         }
     }
     catch (e) {

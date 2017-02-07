@@ -16,10 +16,10 @@
 			</ul>
           <div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198">		
 			<a class="facebook" title="Add New" id="btnAddNew" onclick="NewInstitute();"><img  src="/img/add.PNG"/></a>
-              <a class="rss" id="btnedit"><img src="/img/edit.png"/></a>
+              <a class="rss" id="iconEditInstitute"><img src="/img/edit.png"/></a>
             <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
             <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
-			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
+			<a class="rss" id="btnDeleteInstitute"><img src="/img/delete.png"/></a>
             
         </div>
                <div class="row-fluid" style="margin-top:3%">
@@ -57,12 +57,12 @@
 				<div class="box-content">
 				<div class="form-horizontal">
 				    <fieldset>
-                    <a class="btnEdit" style="right:40px;top:-41px;position: absolute;" title="EDIT" id="iconEditInstitute" onclick="EditInstitute(this);"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>
+                    <%--<a class="btnEdit" style="right:40px;top:-41px;position: absolute;" title="EDIT" id="iconEditInstitute" onclick="EditInstitute(this);"><i class="halflings-icon white pencil" aria-hidden="true" ></i></a>--%>
                          <div class="control-group span12" style="margin-top:20px;width:100%!important">
 							  <img class="priestimage" id="instituteDetailPreview" src="../img/gallery/Pious.jpg"/>
 							</div> 
                         <div class="control-group span12" >
-						<label class="labelName" for="focusedInput" id="lblInstituteName">Amaljyothi Institute of science and technology</label>
+						<label class="labelName" for="focusedInput" id="lblInstituteName"></label>
 					    </div>
                         <%-- Accordion Show details general information --%>
                          <div class="control-group accordion span12" id="divGendetailsacc" style="background-color:#FFEFEC;margin-bottom:0px!important;">
@@ -72,11 +72,11 @@
                          <div id="divGenDetals" class="panel span12">
                        <address>
                            <strong>Patron</strong><br />
-                           <p><label id="lblPatronDisplay">Thrissur Kerala</label> </p>
+                           <p><label id="lblPatronDisplay"></label> </p>
                        </address>
                        <address>
                            <strong>History</strong><br />
-                           <p><label id="lblHistory">suggestion for a separate Provincialate was approved by the Election Chapter of 1975. Though a plot of land adjacentto Nazareth Ashram was bought for the purpose, it was not foundvery convenient. Hence, with the approval of the ExtraordinaryChapter of 1976, another plot in Aluva was bought in 1977. All the arrangements for the purchase of the new plot was made by Br. Ignatius.</label></p>
+                           <p><label id="lblHistory"></label></p>
                        </address>
                              </div>
                         <%-- Accordion details admonostration information --%>
@@ -117,7 +117,7 @@
 					<div class="box-content">
 					<div class="form-horizontal">
 				    <fieldset>
-                        <a class="btnEdit" id="iconDisInstitute" style="right:40px;top:-41px;position: absolute;" title="EDIT" name="Edit" onclick="Cancel(this);"><i class="halflings-icon white refresh" aria-hidden="true" ></i></a>
+                        <%--<a class="btnEdit" id="iconDisInstitute" style="right:40px;top:-41px;position: absolute;" title="EDIT" name="Edit" onclick="Cancel(this);"><i class="halflings-icon white refresh" aria-hidden="true" ></i></a>--%>
                     
                         <div class="control-group span12">
 					    <img class="priestimage span4" style="display:none;" id="priestPreview" src="../img/gallery/Pious.jpg"/>
@@ -131,10 +131,7 @@
                         <%-- Accordion end  --%>
                         <%-- Div General information --%>
                         <div class="panel span12" id="EditGen" style="margin-top:10px!important;">
-                            <div class="alert alert-error" id="ErrorBox" style="display: none;">
-                             <div id="Displaydiv">
-                             </div>
-                        </div>  
+                            
                             <div class="control-group">
 								<label class="control-label" for="focusedInput">Patron:</label>
 								<div class="controls">
@@ -190,12 +187,12 @@
                         <%-- End div Administrator information --%>
 						<input type="hidden" id="hdnInstutID" />
                         <input type="hidden" id="hdnPatron" />
-							<div class="form-actions span12">
+							<%--<div class="form-actions span12">
 							  <a class="btn btn-primary saveAll" name="" id="btnSaveInstitute">Save changes</a>
                                 <a id="btncancelInstitute" name="" class="btn btn-primary cancelAll" onclick="Cancel(this);">Cancel</a>
                                 <a class="btn btn-primary" name="" id="btnDeleteInstitute">Delete</a>
 							  
-							</div>
+							</div>--%>
 						  </fieldset>
 					</div>   
 					</div>
@@ -245,10 +242,7 @@
                        <input class="span12" onkeypress="return isNumber(event);" name="mobile" id="txtMobile" type="text"/>
                        </div>
 					  </div> 
-                           <div class="alert alert-error" id="ErrorBox1" style="display: none;">
-                             <div id="Displaydiv1">
-                             </div>
-                        </div> 
+                           
                       <input id="hdnInstituteID" type="hidden" />
                            <input id="hdnAdminID" type="hidden" />
                            <input id="hdnmemID" type="hidden" />
@@ -261,9 +255,13 @@
 
 		</div>
 		  <div class="modal-footer">
-			
-			<a id="btnAddAdmin" name="" class="btn btn-primary">Save</a>
-              <a class="btn btn-primary" data-dismiss="modal">Close</a>
+			 <div class="buttonpatch" style="position:relative;float:right;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			          
+                       <a class="facebook" id="btnAddAdmin" title="Save"><img src="/img/save.png" style="left:-6px;"/></a>
+                       <a class="facebook modelClear" data-dismiss="modal" title="Close"><img src="/img/closemodel.png" style="left:-6px;"/></a>
+			           </div>
+			<%--<a id="btnAddAdmin" name="" class="btn btn-primary">Save</a>
+              <a class="btn btn-primary" data-dismiss="modal">Close</a>--%>
 		</div>
 	      </div>
     <script>

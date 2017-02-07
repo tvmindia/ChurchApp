@@ -2,11 +2,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-   <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootpag/1.0.4/jquery.bootpag.js" ></script>--%>
-    <link href="../CSS/CustomCSS/Notifications.css" rel="stylesheet" />
-     <script src="../Scripts/CustomJS/Common.js"></script>
-    <script src="../Scripts/CustomJS/Notifications.js"></script>
-    <div id="content" class="span10">
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootpag/1.0.4/jquery.bootpag.js" ></script>--%>
+    <%--<link href="../CSS/CustomCSS/Notifications.css" rel="stylesheet" />--%>
+     <%--<script src="../Scripts/CustomJS/Common.js"></script>--%>
+    <%--<script src="../Scripts/CustomJS/Notifications.js"></script>--%>
+   <%-- <div id="content" class="span10">
         <ul class="breadcrumb" style="margin-bottom:0px;">
 				 <li>
 					<i class="icon-home"></i>
@@ -21,20 +21,20 @@
         		<div class="row-fluid">				
 				<div class="span6">
 					<%--<h1>Notifications</h1>--%>
-					<div>
+					<%--<div>
 					<%--<div class="priority high">--%>
-                        <div class="" id="highNoty" style="border-bottom:1.5px solid #F44336;line-height:0px;">
+                        <%--<div class="" id="highNoty" style="border-bottom:1.5px solid #F44336;line-height:0px;">
                             <h2>Latest Notifications</h2>
-                            <a class="btnNew AddNew" id="btnAddNew" runat="server" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>
+                            <a class="btnNew AddNew" id="btnAddNew" runat="server" title="ADD NEW" onclick="AddNotification();"><i>+</i></a></div>--%>
                         
 					<%--</div>--%>
 					<%--<div class="task high" style="padding-left: 5px;" >--%>
                      
-	                <div id="NewNotificationGrid">
+	                <%--<div id="NewNotificationGrid">
 
-					</div>
+					</div>--%>
                     
-				<div id="viewAllLatest">
+				<%--<div id="viewAllLatest">
                        <ul class="pager">
                                <li class="previous">
                                    <a class="aBack" style="display: none;">&larr; Back</a>
@@ -45,19 +45,19 @@
                                  </ul>
 <%--                     <a class="aBack" style="display:none;">Back To Notifications</a>
                       <a class="aViewMore" >View All Latest>></a>--%>
-				</div>
+				<%--</div>--%>
                       
                         <%--<div id="pagination-here"></div>--%>
-                        </div>
+                        <%--</div>--%>
 					<%--</div>--%>
 					<%--<div class="priority low">--%>
-                        <div class="" id="oldNoty" style="border-bottom:1.5px solid #87c16f"><h2>Old Notifications</h2></div>
+                        <%--<div class="" id="oldNoty" style="border-bottom:1.5px solid #87c16f"><h2>Old Notifications</h2></div>--%>
 				<%--	</div>--%>
 
-                  <div id="OldNotificationGrid">
+                  <%--<div id="OldNotificationGrid">
 
-                  </div>
-                    <div id="viewAllOld">
+                  </div>--%>
+                    <%--<div id="viewAllOld">
                            <ul class="pager">
                                <li class="previous">
                                    <a class="aOldBack" style="display: none;">&larr; Back</a>
@@ -68,14 +68,14 @@
                                  </ul>
         <%--                <a class="aOldBack" style="display:none;">Back To Notifications</a>
 				 <a class="aOldViewMore" >View All Old>></a>--%>
-                    </div>
+                    <%--</div>--%>--%>
 				 
                    
-					<div class="clearfix"></div>		
+					<%--<div class="clearfix"></div>--%>		
 					
-				</div>
+				<%--</div>--%>
 				<%--<br />--%>
-                      <div id="NotificationDetails" class="span6 noMarginLeft"  style="display:none;margin-top:1%">
+                      <%--<div id="NotificationDetails" class="span6 noMarginLeft"  style="display:none;margin-top:1%">
                         <div class="dark">
                             <h2><span class="fa fa-comments-o" aria-hidden="true"></span> <span id="captionHeading"></span></h2>
                             <a id="NoticeEdit" class="btnEdit NotificationEdit"><i class="halflings-icon white pencil NotificationEdit" title="Edit" aria-hidden="true"></i></a>
@@ -85,32 +85,32 @@
                                       
                      
                          
-                           <br /><div class="spanDiv">
+                           <%--<br />--%><%--<div class="spanDiv">
                                 <span class="spnDates">Start : </span>  <span class="spnDateValues" id="sDate">nov 1 2016</span>&nbsp;
                                      <span class="spnDates">Expire : </span>  <span class="spnDateValues" id="eDate">nov 1 2016</span>&nbsp;
-                                 </div>
+                                 </div>--%>
                                    
                                      <%--<label id="sDate"></label>--%>
                             <%--<label id="eDate"></label>--%>
-                                    <br />
-                                     <label id="desc"></label>
+                                    <%--<br />--%>
+                                     <%--<label id="desc"></label>--%>
                            
-                                    <div class="form-actions" id="btnContainer" style="display:none;margin-top:1%"">
+                                    <%--<div class="form-actions" id="btnContainer" style="display:none;margin-top:1%"">
 							  <a class="btn btn-primary Save">Save</a>
                                 <a class="btn btn-primary Delete">Delete</a>
 							  <a class="btn btn-primary Cancel" id="cancelDetail">Cancel</a>
-							</div>
-                                    </div>
+							</div>--%>
+                                   <%-- </div>
                                 </div>
                        </div>
-                    </div>
+                    </div>--%>--%>
 
-				<div id="NotificationEditDivBox" class="span6 noMarginLeft">
+				<%--<div id="NotificationEditDivBox" class="span6 noMarginLeft">
 					
 					<div class="dark">
                         <h2 ><span class="fa fa-comments-o" aria-hidden="true"></span> <span id="detailsHeading"></span></h2>
 					     
-					<%--<h1 id="detailsHeading"></h1>--%>
+					
 						<div class="box-content">
                                    <div class="alert alert-error" id="ErrorBox" style="display: none;">
                              <div id="Displaydiv">
@@ -126,9 +126,9 @@
 								<label class="control-label" for="focusedInput" >Caption</label>
 								<div class="controls">
 								  <%--<input class="input-large focused" name="Name" id="txtEventName" type="text"/>--%>
-                                    <label class="control-label" for="focusedInput" id="lblCaption"></label>
-								  <input class="input-large focused" name="Caption" id="txtCaption" type="text" />
-								</div>
+                                    <%--<label class="control-label" for="focusedInput" id="lblCaption"></label>--%>
+								  <%--<input class="input-large focused" name="Caption" id="txtCaption" type="text" />--%>
+								<%--</div>
 								</div>
                         
 
@@ -148,9 +148,9 @@
 								<label class="control-label" for="focusedInput" >Description</label>
 								<div class="controls">
 								 <label class="control-label" for="focusedInput" id="lblDescription"></label>
-                                     <textarea class="input-large" id="txtDescription" name="Description" rows="5"></textarea>
-								  <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
-								</div>
+                                     <textarea class="input-larg--%><%--e" id="txtDescription" name="Description" rows="5"></textarea>
+								 --%> <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
+								<%--</div>
 								</div>
 
                           <div class="control-group"  id="lblStartH">
@@ -180,16 +180,16 @@
 				
 				</div>
 				
-				</div>	
+				</div>--%>--%>	
 
                   
 						
-			</div>
+			<%--</div>
 
 
-    </div>
-    <input type="hidden" id="hdfNotificationID" />
+    </div>--%>
+    -<%--<input type="hidden" id="hdfNotificationID" />
     <input type="hidden" id="hdfChurchID" />
     <input type="hidden" id="hdfType" />
-    <input type="hidden" id="hdfEditID" />
+    <input type="hidden" id="hdfEditID" />---%>
 </asp:Content>

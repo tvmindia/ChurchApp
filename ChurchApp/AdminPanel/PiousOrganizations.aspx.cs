@@ -317,7 +317,7 @@ namespace ChurchApp.AdminPanel
         }
         #endregion GetPuOrgList Details
 
-        #region GetPatronDetailsUsing ID
+        #region GetPiousOrgDetailsUsingID ID
         /// <summary>
         /// Get Priest Details Using priestID
         /// </summary>
@@ -355,6 +355,6 @@ namespace ChurchApp.AdminPanel
             
             return jsSerializer.Serialize(PiousObj);
         }
-        #endregion GetPatronDetailsUsing ID
+        #endregion GetPiousOrgDetailsUsingID ID
     }
 }
