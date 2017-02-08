@@ -107,6 +107,59 @@ namespace ChurchApp.AdminPanel
         }
         #endregion GetNotificationByID
 
+        #region Get Notification Schedules
+        [WebMethod(EnableSession = true)]
+        public static string GetNotificationSchedules(NotificationSchedule NotificationSchedulesObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            DAL.Security.UserAuthendication UA;
+
+            string jsonResult = null;
+            DataSet ds = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    ds = NotificationSchedulesObj.SelectNotificationSchedule();
+                    // ds = N
+
+                    //Converting to Json
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+
+                    }
+
+
+                    jsonResult = jsSerializer.Serialize(parentRow);
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return jsonResult;
+        }
+        #endregion Get Notification Schedules
+
         #region InsertNotification
         [WebMethod(EnableSession = true)]
         public static string InsertNotification(Notification NotificationsObj)

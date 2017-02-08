@@ -357,6 +357,8 @@ function EditNotification(curobj)
         Dynamicbutton("btnDelete", "DeleteCancel", "");
         Dynamicbutton("btnSendNotification", "SendNotiCancel", "");
         Animateto("divnotificationAdd");
+        //Schedules
+        BindNotificationScheduleTable(data.ID);
     }
     catch(e)
     {
@@ -449,13 +451,7 @@ function AddNewclick()
         $('#tblNotifications').find('tr.selected').removeClass('selected');
         $('#txtCaption').focus();
         //schedule clear
-        $("#rdoNotificationScheduleYes").parent().removeClass('checked');
-        $('#rdoNotificationScheduleNo').parent().addClass('checked');
-        $("#notificationScheduleTable").hide();
-        $("#selectDate").hide();
-        scheduleDates.length = 0;
-        $("#selectDate").datepicker('setDate', null);
-        $("#notificationScheduleBody").html('');
+        scheduleClear();
     }
     catch(e)
     {
@@ -487,13 +483,7 @@ function Reset(this_obj)
             Dynamicbutton("btnSendNotification", "SendNotiCancel", "");
 
             //schedule clear
-            $("#rdoNotificationScheduleYes").parent().removeClass('checked');
-            $('#rdoNotificationScheduleNo').parent().addClass('checked');
-            $("#notificationScheduleTable").hide();
-            $("#selectDate").hide();
-            scheduleDates.length = 0;
-            $("#selectDate").datepicker('setDate', null);
-            $("#notificationScheduleBody").html('');
+            scheduleClear();
         }
     }
     catch(e)
@@ -651,7 +641,6 @@ function BindAllNotification() {
     table.clear().rows.add(GetAllNotificationstbl()).draw(false);
 }
 
-//Schedule
 
 
 function DetailsView()
@@ -993,6 +982,49 @@ function GetAllNotifications(Notifications) {
     ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetAllNotifications");
     table = JSON.parse(ds.d);
     return table;
+}
+//Schedule
+function BindNotificationScheduleTable(notificationID) {
+    scheduleClear();
+    //Getting schedules
+    var jsonResult = {};
+    var NotificationSchedules = new Object();
+    NotificationSchedules.notificationID = notificationID;
+    jsonResult = GetNotificationSchedules(NotificationSchedules);
+    
+    if (jsonResult != undefined) {
+        var Records = jsonResult;
+        if (Records.length != 0) {
+            $.each(Records, function (index, Records) {
+                scheduleDates.push(ConvertJsonToDate(Records.ScheduledDate));
+                var html = '<tr> <td>' + ConvertJsonToDate(Records.ScheduledDate) + '</td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteDate(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
+                $("#notificationScheduleBody").append(html);
+            });
+            $("#rdoNotificationScheduleYes").parent().addClass('checked');
+            $('#rdoNotificationScheduleNo').parent().removeClass('checked');
+            $("#notificationScheduleTable").show();
+            $("#selectDate").show();
+        }
+    }
+
+}
+function GetNotificationSchedules(NotificationSchedules) {
+    var ds = {};
+    var table = {};
+    var data = "{'NotificationSchedulesObj':" + JSON.stringify(NotificationSchedules) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetNotificationSchedules");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function scheduleClear() {
+    //schedule clear
+    $("#rdoNotificationScheduleYes").parent().removeClass('checked');
+    $('#rdoNotificationScheduleNo').parent().addClass('checked');
+    $("#notificationScheduleTable").hide();
+    $("#selectDate").hide();
+    scheduleDates.length = 0;
+    $("#selectDate").datepicker('setDate', null);
+    $("#notificationScheduleBody").html('');
 }
 function GetAllNotificationstbl() {
     debugger;
