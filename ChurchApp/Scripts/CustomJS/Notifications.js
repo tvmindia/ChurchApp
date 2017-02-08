@@ -278,6 +278,9 @@ $("document").ready(function (e) {
     $("#rdoNotificationScheduleNo").click(function () {
         $("#notificationScheduleTable").hide();
         $("#selectDate").hide();
+        scheduleDates.length = 0;
+        $("#selectDate").datepicker('setDate', null);
+        $("#notificationScheduleBody").html('');
     });
     $("#rdoNotificationScheduleYes").click(function () {
         $("#notificationScheduleTable").show();
@@ -445,6 +448,14 @@ function AddNewclick()
         Animateto("divnotificationAdd");
         $('#tblNotifications').find('tr.selected').removeClass('selected');
         $('#txtCaption').focus();
+        //schedule clear
+        $("#rdoNotificationScheduleYes").parent().removeClass('checked');
+        $('#rdoNotificationScheduleNo').parent().addClass('checked');
+        $("#notificationScheduleTable").hide();
+        $("#selectDate").hide();
+        scheduleDates.length = 0;
+        $("#selectDate").datepicker('setDate', null);
+        $("#notificationScheduleBody").html('');
     }
     catch(e)
     {
@@ -474,6 +485,15 @@ function Reset(this_obj)
             $("#ddlType").select2("val", "");
             Dynamicbutton("btnDelete", "DeleteCancel", "");
             Dynamicbutton("btnSendNotification", "SendNotiCancel", "");
+
+            //schedule clear
+            $("#rdoNotificationScheduleYes").parent().removeClass('checked');
+            $('#rdoNotificationScheduleNo').parent().addClass('checked');
+            $("#notificationScheduleTable").hide();
+            $("#selectDate").hide();
+            scheduleDates.length = 0;
+            $("#selectDate").datepicker('setDate', null);
+            $("#notificationScheduleBody").html('');
         }
     }
     catch(e)
@@ -489,14 +509,10 @@ function NotificationValidation()
     {
         var caption = $('#txtCaption');
         var desc = $('#txtDescription');
-        var startDate = $('#txtStartDate');
-        var endDate = $('#txtExpiryDate');
 
         var container = [
             { id: caption[0].id, name: caption[0].name, Value: caption[0].value },
-            { id: desc[0].id, name: desc[0].name, Value: desc[0].value },
-            { id: startDate[0].id, name: startDate[0].name, Value: startDate[0].value },
-            { id: endDate[0].id, name: endDate[0].name, Value: endDate[0].value },
+            { id: desc[0].id, name: desc[0].name, Value: desc[0].value }
         ];
 
         var j = 0;
@@ -581,24 +597,24 @@ function SaveNotification()
                 result = InsertNotification(Notifications);
                 switch (result.status) {
                     case "1":
-                        //BindAsyncNotificationTable();
-                        //BindAsynOldNotificationTable();
-                        //$("#NotificationEditDivBox").hide();
                         //Inserting schedules
-                        try{
-                            var scheduleCollection = [];
-                            while (scheduleDates.length!=0) {
-                                var schedule = new Object();
-                                schedule.notificationID = result.notificationID;
-                                schedule.scheduleDate = scheduleDates.pop();
-                                schedule.scheduleStatus = '0';
-                                scheduleCollection.push(schedule);
+                        if ($('input[name=IsnotificationScheduleNeeded]:checked').val() == "Yes") {
+                            try {
+                                var scheduleCollection = [];
+                                while (scheduleDates.length != 0) {
+                                    var schedule = new Object();
+                                    schedule.notificationID = result.notificationID;
+                                    schedule.scheduleDate = scheduleDates.pop();
+                                    schedule.scheduleStatus = '0';
+                                    scheduleCollection.push(schedule);
+                                }
+                                InsertNotificationSchedule(scheduleCollection);
                             }
-                            InsertNotificationSchedule(scheduleCollection);
+                            catch (e) {
+                                noty({ text: Messages.UpdationFailure, type: 'error' });
+                            }
                         }
-                        catch (e) {
-                            noty({ text: Messages.UpdationFailure, type: 'error' });
-                        }
+                        
 
                         BindAllNotification();
                         $("#hdfNotificationID").val(result.notificationID);
