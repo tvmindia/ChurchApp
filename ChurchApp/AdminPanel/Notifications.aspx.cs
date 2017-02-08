@@ -139,6 +139,41 @@ namespace ChurchApp.AdminPanel
         }
         #endregion InsertNotification
 
+        #region Insert Notification Schedule
+        [WebMethod(EnableSession = true)]
+        public static string InsertNotificationSchedule(List<NotificationSchedule> NotScheduleObj)
+        {
+
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    foreach (var schedule in NotScheduleObj)
+                    {
+                        schedule.createdBy = UA.userName;
+                        schedule.InsertNotificationSchedule();
+                    }
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return jsSerializer.Serialize(NotScheduleObj);
+        }
+        #endregion Insert Notification Schedule
+
+
         #region GetAllNotificationType
         [WebMethod(EnableSession = true)]
         public static string GetAllNotificationType(NotificationType NotificationTypeObj)
