@@ -381,7 +381,7 @@ namespace ChurchApp.DAL
                 if (churchID != null && churchID!="")  {
                     cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
                 }
-                if (imageId != null)   {
+                if (imageId != null && imageId!="")   {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy != null && createdBy != "" ? createdBy : null;
@@ -455,7 +455,7 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
                 }
-                if (imageId != null)
+                if (imageId != null && imageId!="")
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(imageId);
                 }

@@ -161,15 +161,12 @@ namespace ChurchApp.DAL
         #region ScanExcelFileToDS
         public DataSet ScanExcelFileToDS(string[] excelSheets, DataSet dsTable)
         {
-
             DataSet dsFile = new DataSet();
             OleDbConnection excelConnection1 = new OleDbConnection(ExcelConnectionString);
             try
             {
                 excelConnection1.Open();
                 var command = excelConnection1.CreateCommand();
-
-
                 command.CommandText = string.Format("Select * from [{0}]", SheetName + "$");
                 var conditions = "";
                 foreach (DataRow dr in dsTable.Tables[0].Rows)
@@ -180,7 +177,6 @@ namespace ChurchApp.DAL
                 {
                     command.CommandText += " WHERE " + conditions.Remove(conditions.Length - 4);
                 }
-
                 try
                 {
                     using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(command.CommandText, excelConnection1))
@@ -193,7 +189,6 @@ namespace ChurchApp.DAL
                     dsFile = null;
                     throw;
                 }
-
             }
             catch (Exception ex)
             {
@@ -203,7 +198,6 @@ namespace ChurchApp.DAL
             {
                 excelConnection1.Close();
             }
-
             return dsFile;
         }
 
@@ -406,11 +400,12 @@ namespace ChurchApp.DAL
                     case "MassTiming":
                         //In the case of  Masstiming we want to find churchID and add as a column in dsExcel.                        
                         DsExisting = GetMassTimingTableData();
-                        DataSet ChurchDS = churchObj.GetAllChurches();                  //To Get ChurchId for Insert Masstimings
-
-                        DataSet dtCloned = DsExisting.Clone();                          //clone datatable                         
-                        dtCloned.Tables[0].Columns["Time"].DataType = typeof(string);   //change data type of column
-                        foreach (DataRow row in DsExisting.Tables[0].Rows)              //import row to cloned datatable
+                        //--------To Get ChurchId for Insert Masstimings--------------------------------//
+                        DataSet ChurchDS = churchObj.GetAllChurches();                  
+                        //--------Cloning the  dataSet  DsExisting for codition checking(Time)----------//
+                        DataSet dtCloned = DsExisting.Clone();                                                  
+                        dtCloned.Tables[0].Columns["Time"].DataType = typeof(string);   //change datatype of column Time 
+                        foreach (DataRow row in DsExisting.Tables[0].Rows)              //Importing rows to cloned datatable
                         {
                             dtCloned.Tables[0].ImportRow(row);
                         }
@@ -464,25 +459,18 @@ namespace ChurchApp.DAL
                         {
                             status = "1";
                         }
-
                         break;
                     default:
-
                         DsExisting = GetExistingTableData();//function call with table name as parameter
                         //------------------Keyfields Checking-----------------------------//
                         drkeyfields = dsTableDefinition.Tables[0].Select("Key_Field='Y'");
-
                         for (j = 0; j < dsExcelCount; j++)   //--------------dsExcelLooping(Uploaded file)
-                        {
-                            conditions = "";
+                        {                           
                             DataRow drExcelrow = dsExcel.Tables[0].Rows[j]; //Checking By Selecting Row by Row
-                            foreach (DataRow drw in drkeyfields)          //where condition to find insertion of updation
-                            {                           
-                                conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(), dsExcel.Tables[0].Rows[j][drw[0].ToString()].ToString().Replace("'", "''").Trim());
-                            }
+                            //---------Generate Conditions with keyfields from table definition.(Passing Row)---------------// 
+                            conditions = GetExcelImportWhereCondtionforTables(drExcelrow);                         
                             if (conditions != "")
-                            {
-                                conditions = conditions.Remove(conditions.Length - 4);             //removing last 4 characters from conditions string       
+                            {                                    
                                 DataRow[] drExisting = DsExisting.Tables[0].Select(conditions);
                                 if (drExisting.Length > 0)
                                 {
@@ -507,7 +495,7 @@ namespace ChurchApp.DAL
                                             churchObj.phone2 = drExcelrow["Phone2"].ToString();
                                             churchObj.longitude = drExcelrow["Longitude"].ToString();
                                             churchObj.latitude = drExcelrow["Latitude"].ToString();
-                                            churchObj.mainImageId=drExcelrow["ImageId"].ToString();
+                                            churchObj.mainImageId = drExcelrow["ImageId"].ToString();
                                             churchObj.ChurchDenomination = drExcelrow["ChurchDenomination"].ToString(); //-----ChurchDenomination 
                                             churchObj.PriorityOrder = drExcelrow["PriorityOrder"].ToString(); //-----ChurchPirority
                                             churchObj.Place = drExcelrow["Place"].ToString().Trim();
@@ -610,6 +598,11 @@ namespace ChurchApp.DAL
                                             dr["FieldName"] = keyFields;
                                             dr["ErrorDesc"] = errorList;
                                             dtError.Rows.Add(dr);
+
+                                            appimgObj.appImageId = drExcelrow["ImageId"].ToString();
+                                            appimgObj.url = ""; //for avoiding deletion of latest url
+                                            appimgObj.DeleteAppImage();                                          
+
                                         }
                                         break;
                                     case "TownMaster":
@@ -739,32 +732,24 @@ namespace ChurchApp.DAL
 
 
         #region GetExcelImportWhereCondtionforTables
-        public string GetExcelImportWhereCondtionforTables(int j, DataSet Excelds)
+        public string GetExcelImportWhereCondtionforTables(DataRow drExcelrow)
         {
              string conditions = "";
             DataSet TableDefenition = GetTableDefinition();
-            DataRow[] datarowkeyfields = TableDefenition.Tables[0].Select("Key_Field='Y'");
-
-
-            //for (int j = 0; j < Excelds.Tables[0].Rows.Count; j++)   //--------------dsExcelLooping(Uploaded file)
-            //{
+            DataRow[] datarowkeyfields = TableDefenition.Tables[0].Select("Key_Field='Y'");                  
                 conditions = "";
-                DataRow drExcelrow = Excelds.Tables[0].Rows[j]; //Checking By Selecting Row by Row
+            
                 foreach (DataRow drw in datarowkeyfields)
                 {
-                    conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(), Excelds.Tables[0].Rows[j][drw[0].ToString()].ToString().Replace("'", "''").Trim());
-
+                    conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(),drExcelrow[ drw[0].ToString()].ToString().Replace("'", "''").Trim());
                 }
                 if (conditions != "")
                 {
                     conditions = conditions.Remove(conditions.Length - 4);
-
-                }
-            
+                }            
                 return conditions;
             }
         #endregion GetExcelImportWhereCondtionforTables
-
 
         #endregion Methods
 
@@ -970,6 +955,7 @@ namespace ChurchApp.DAL
                 { 
                     switch(tableName)
                     {
+
                         case "Church":
                             string wherecondition = "FieldValue='" + drExcel["ChurchDenomination"].ToString() + "'";
                             DataRow[] checkisexits = dsMastertable.Tables[0].Select(wherecondition);
