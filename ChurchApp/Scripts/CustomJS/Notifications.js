@@ -1,4 +1,5 @@
 ﻿var table = {};
+var scheduleDates = new Array();
 $("document").ready(function (e) {    
     table=$('#tblNotifications').DataTable({
         'data': GetAllNotificationstbl(),
@@ -283,9 +284,15 @@ $("document").ready(function (e) {
         $("#selectDate").show();
     });
     $("#selectDate").datepicker(
-        'option' , 'onSelect', function(){
-            debugger;
-            noty({ text: Messages.NotificationInitiated, type: 'success' });
+        'option', 'onSelect', function () {
+            if ((scheduleDates.indexOf($("#selectDate").val())) > -1) {    //Already selected                
+                noty({ text: Messages.AlreadyExistsMsgCaption, type: 'information' });
+            }
+            else {
+                scheduleDates.push($("#selectDate").val());
+                var html = '<tr> <td>' + $("#selectDate").val() + '</td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteDate(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
+                $("#notificationScheduleBody").append(html);
+            }            
         }
     );
 });
@@ -375,7 +382,6 @@ function myfunc(ele) {
 function sendNotification() {
     try
     {
-        debugger;
         var NotiCollection = [];        
         var tabledata = table.rows('.selected').data();
         for (var i = 0; i < tabledata.length; i++)
@@ -482,14 +488,12 @@ function NotificationValidation()
     try
     {
         var caption = $('#txtCaption');
-        var notyType = $('#ddlType');
         var desc = $('#txtDescription');
         var startDate = $('#txtStartDate');
         var endDate = $('#txtExpiryDate');
 
         var container = [
             { id: caption[0].id, name: caption[0].name, Value: caption[0].value },
-            { id: notyType[0].id, name: notyType[0].name, Value: notyType[0].value },
             { id: desc[0].id, name: desc[0].name, Value: desc[0].value },
             { id: startDate[0].id, name: startDate[0].name, Value: startDate[0].value },
             { id: endDate[0].id, name: endDate[0].name, Value: endDate[0].value },
@@ -580,6 +584,22 @@ function SaveNotification()
                         //BindAsyncNotificationTable();
                         //BindAsynOldNotificationTable();
                         //$("#NotificationEditDivBox").hide();
+                        //Inserting schedules
+                        try{
+                            var scheduleCollection = [];
+                            while (scheduleDates.length!=0) {
+                                var schedule = new Object();
+                                schedule.notificationID = result.notificationID;
+                                schedule.scheduleDate = scheduleDates.pop();
+                                schedule.scheduleStatus = '0';
+                                scheduleCollection.push(schedule);
+                            }
+                            InsertNotificationSchedule(scheduleCollection);
+                        }
+                        catch (e) {
+                            noty({ text: Messages.UpdationFailure, type: 'error' });
+                        }
+
                         BindAllNotification();
                         $("#hdfNotificationID").val(result.notificationID);
                         $('#btnReset').attr('name', result.notificationID);
@@ -616,9 +636,7 @@ function BindAllNotification() {
 }
 
 //Schedule
-function ScheduleDateSelect() {
 
-}
 
 function DetailsView()
 {
@@ -671,6 +689,13 @@ function InsertNotification(Notifications) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
+function InsertNotificationSchedule(Schedules) {
+    var data = "{'NotScheduleObj':" + JSON.stringify(Schedules) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notifications.aspx/InsertNotificationSchedule");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
 
 function AddNotification()
 {
@@ -696,7 +721,6 @@ function AddNotification()
     $("#txtCaption").focus();
 }
 function SendNotificationToApp(Notifications) {
-    debugger;
     var data = "{'NotificationsObj':" + JSON.stringify(Notifications) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Notifications.aspx/SendNotificationToApp");
     var table = {};

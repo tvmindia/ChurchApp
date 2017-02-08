@@ -287,8 +287,8 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
                                 <input type="text" class="input-large datepicker" readonly="true" id="selectDate"  placeholder="Select date" />
                                 </div>
                         <%--onselect="return ScheduleDateSelect();"--%>
-                         <div class="controls">
-                        <table id="notificationScheduleTable" class="table table-striped table-bordered bootstrap-datatable span3">
+                         <div class="controls span3">
+                        <table id="notificationScheduleTable" class="table table-striped table-bordered bootstrap-datatable">
 						  <thead>
 							  <tr>
 								  <th>Date</th>
