@@ -22,7 +22,7 @@
             <li>Events</li>
 
         </ul>
-         <div class="buttonpatch" style="position:fixed;width:280px;right:0;top:8%;z-index:198">		
+         <div class="buttonpatch" style="position:fixed;width:290px;right:0;top:8%;z-index:198">		
 			<a class="facebook" title="Add New" id="btnAddNew" onclick="SetControlsInNewEventFormat();"><img  src="/img/add.PNG"/></a>
              <a class="rss" id="NoticeEdit"><img src="/img/edit.png"/></a>
             <a class="twitter" id="btnSave"><img src="/img/save.png"/></a>

@@ -20,7 +20,7 @@ namespace ChurchApp.DAL
         public TownMaster townObj = null;
         public Priest priestObj = null;
         public MassTimings masstymObj = null;
-        public Const constObj = null;
+        public Const constObj = new Const();
         public AppImages appimgObj = null;
         string churchid;
         public string ImageFileLocation
@@ -736,6 +736,34 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion GetMasstimingTableDefinition
+
+
+        #region GetExcelImportWhereCondtionforTables
+        public string GetExcelImportWhereCondtionforTables(int j, DataSet Excelds)
+        {
+             string conditions = "";
+            DataSet TableDefenition = GetTableDefinition();
+            DataRow[] datarowkeyfields = TableDefenition.Tables[0].Select("Key_Field='Y'");
+
+
+            //for (int j = 0; j < Excelds.Tables[0].Rows.Count; j++)   //--------------dsExcelLooping(Uploaded file)
+            //{
+                conditions = "";
+                DataRow drExcelrow = Excelds.Tables[0].Rows[j]; //Checking By Selecting Row by Row
+                foreach (DataRow drw in datarowkeyfields)
+                {
+                    conditions += string.Format("{0} ='{1}' AND ", drw[0].ToString(), Excelds.Tables[0].Rows[j][drw[0].ToString()].ToString().Replace("'", "''").Trim());
+
+                }
+                if (conditions != "")
+                {
+                    conditions = conditions.Remove(conditions.Length - 4);
+
+                }
+            
+                return conditions;
+            }
+        #endregion GetExcelImportWhereCondtionforTables
 
 
         #endregion Methods
