@@ -833,12 +833,8 @@ namespace ChurchApp.DAL
 
         #region NotificationSchedule Methods
 
-        #region SelectNotificationType
-        /// <summary>
-        /// Select All NotificationType
-        /// </summary>
-        /// <returns>All NotificationType</returns>
-        public DataSet SelectNotificationType()
+        #region Select Notification Schedule
+        public DataSet SelectNotificationSchedule()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -851,7 +847,8 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllNotificationType]";
+                cmd.CommandText = "[GetNotificationSchedule]";
+                cmd.Parameters.Add("@NotificationId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -870,7 +867,7 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion SelectNotificationType
+        #endregion Select Notification Schedule
 
         #region Insert Notification Schedule        
         public string InsertNotificationSchedule()
@@ -910,7 +907,7 @@ namespace ChurchApp.DAL
         }
         #endregion Insert Notification Schedule   
 
-        #region UpdateNotificationType
+      /*  #region UpdateNotificationType
         /// <summary>
         /// Update NotificationType
         /// </summary>
@@ -987,7 +984,7 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion DeleteNotificationType
+        #endregion DeleteNotificationType*/
 
         #endregion NotificationSchedule Methods
     }
