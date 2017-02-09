@@ -914,7 +914,7 @@ namespace ChurchApp.DAL
                                         keyFields.Add(drExcel["ChurchName"].ToString());
                                         keyFields.Add(drExcel["Place"].ToString());
                                         keyFields.Add(drExcel["Towncode"].ToString());
-                                        errorList.Add("Priest Status 'Vicar' is Repeated for Same Church in Excel Import");
+                                        errorList.Add(constObj.VicarExistsExcel);
                                     }
                                     else
                                     {
