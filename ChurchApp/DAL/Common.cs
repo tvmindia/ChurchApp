@@ -127,6 +127,8 @@ namespace ChurchApp.DAL
         {
             get { return " Church doesn't  Exists"; }
         }
+
+       
         
         public string Prieststatus
         {
@@ -138,7 +140,14 @@ namespace ChurchApp.DAL
         }
         public string VicarExists
         {
-            get { return "Please Verify Status-Vicar is already existing "; }
+            get { return "Please Verify Status-Vicar is already existing in System "; }
+        }
+        public string VicarExistsExcel
+        {
+            get
+            {
+                return "Priest Status 'Vicar' is Repeated for same Church in Excel Import";
+            }
         }
 
         #region PageUrl
