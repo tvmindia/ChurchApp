@@ -276,11 +276,18 @@ $("document").ready(function (e) {
     $("#notificationScheduleTable").hide();
     $("#selectDate").hide();
     $("#rdoNotificationScheduleNo").click(function () {
-        $("#notificationScheduleTable").hide();
-        $("#selectDate").hide();
-        scheduleDates.length = 0;
-        $("#selectDate").datepicker('setDate', null);
-        $("#notificationScheduleBody").html('');
+        var noScheduleConirm = confirm("Want to remove the scheduled dates?");
+        if (noScheduleConirm) {
+            $("#notificationScheduleTable").hide();
+            $("#selectDate").hide();
+            scheduleDates.length = 0;
+            $("#selectDate").datepicker('setDate', null);
+            $("#notificationScheduleBody").html('');
+        }
+        else {
+            $("#rdoNotificationScheduleYes").parent().addClass('checked');
+            $('#rdoNotificationScheduleNo').parent().removeClass('checked');
+        }
     });
     $("#rdoNotificationScheduleYes").click(function () {
         $("#notificationScheduleTable").show();
@@ -430,6 +437,16 @@ function Delete() {
     }
     
    
+}
+
+function DeleteDate(Obj) {
+    var deleteConirm = confirm("Want to remove this date?");
+    if (deleteConirm) {
+        var deletedDay = $(Obj).closest("tr").find('td:eq(0)').text();
+        $(Obj).closest("tr").remove();
+        scheduleDates.splice(scheduleDates.indexOf(deletedDay), 1);
+        debugger;
+    }
 }
 //onclick Add new Notification
 function AddNewclick()
@@ -595,7 +612,7 @@ function SaveNotification()
                                     var schedule = new Object();
                                     schedule.notificationID = result.notificationID;
                                     schedule.scheduleDate = scheduleDates.pop();
-                                    schedule.scheduleStatus = '0';
+                                    schedule.scheduleStatus = '3';
                                     scheduleCollection.push(schedule);
                                 }
                                 InsertNotificationSchedule(scheduleCollection);
@@ -603,8 +620,7 @@ function SaveNotification()
                             catch (e) {
                                 noty({ text: Messages.UpdationFailure, type: 'error' });
                             }
-                        }
-                        
+                        }                        
 
                         BindAllNotification();
                         $("#hdfNotificationID").val(result.notificationID);
@@ -620,6 +636,24 @@ function SaveNotification()
                 result = UpdateNotification(Notifications);
                 switch (result.status) {
                     case "1":
+                        //Inserting schedules
+                        if ($('input[name=IsnotificationScheduleNeeded]:checked').val() == "Yes") {
+                            try {
+                                var scheduleCollection = [];
+                                while (scheduleDates.length != 0) {
+                                    var schedule = new Object();
+                                    schedule.notificationID = result.notificationID;
+                                    schedule.scheduleDate = scheduleDates.pop();
+                                    schedule.scheduleStatus = '3';
+                                    scheduleCollection.push(schedule);
+                                }
+                                UpdateNotificationSchedule(scheduleCollection,result.notificationID);
+                            }
+                            catch (e) {
+                                noty({ text: Messages.UpdationFailure, type: 'error' });
+                            }
+                        }
+
                         BindAllNotification();
                         noty({ text: Messages.UpdationSuccessFull, type: 'success' });
                         break;
@@ -697,6 +731,14 @@ function InsertNotification(Notifications) {
 function InsertNotificationSchedule(Schedules) {
     var data = "{'NotScheduleObj':" + JSON.stringify(Schedules) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Notifications.aspx/InsertNotificationSchedule");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+function UpdateNotificationSchedule(Schedules, notificationID) {
+    debugger;
+    var data = "{'NotScheduleObj':" + JSON.stringify(Schedules) +",'notificationID':'" + notificationID+ "'}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notifications.aspx/UpdateNotificationSchedule");
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
@@ -995,13 +1037,23 @@ function BindNotificationScheduleTable(notificationID) {
     if (jsonResult != undefined) {
         var Records = jsonResult;
         if (Records.length != 0) {
-            $.each(Records, function (index, Records) {
-                scheduleDates.push(ConvertJsonToDate(Records.ScheduledDate));
-                var html = '<tr> <td>' + ConvertJsonToDate(Records.ScheduledDate) + '</td><td class="center"><a class="circlebtn circlebtn-danger TimeDelete" title="Delete" href="#" onclick="DeleteDate(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
+            $.each(Records, function (index, Records) {                
+                var html = '<tr> <td>' + ConvertJsonToDate(Records.ScheduledDate) + '</td>';
+                switch (Records.StatusCode) {
+                    case 3:
+                        html = html + '<td class="center"><a class="circlebtn circlebtn-danger" title="Delete" href="#" onclick="DeleteDate(this)"><i class="halflings-icon white trash" ></i> </a></td></tr>';
+                        scheduleDates.push(ConvertJsonToDate(Records.ScheduledDate));
+                        break;
+                    default :
+                        html = html + '<td class="center">' + Records.Status + '</td></tr>';
+                        $('#rdoNotificationScheduleNo').attr('disabled', true);
+                }            
+                
                 $("#notificationScheduleBody").append(html);
             });
+            $('input[name=IsnotificationScheduleNeeded]:checked').val('Yes');
             $("#rdoNotificationScheduleYes").parent().addClass('checked');
-            $('#rdoNotificationScheduleNo').parent().removeClass('checked');
+            $('#rdoNotificationScheduleNo').parent().removeClass('checked');            
             $("#notificationScheduleTable").show();
             $("#selectDate").show();
         }
@@ -1020,6 +1072,7 @@ function scheduleClear() {
     //schedule clear
     $("#rdoNotificationScheduleYes").parent().removeClass('checked');
     $('#rdoNotificationScheduleNo').parent().addClass('checked');
+    $('#rdoNotificationScheduleNo').attr('disabled', false);
     $("#notificationScheduleTable").hide();
     $("#selectDate").hide();
     scheduleDates.length = 0;
