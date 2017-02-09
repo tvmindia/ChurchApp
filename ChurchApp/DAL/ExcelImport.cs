@@ -794,7 +794,7 @@ namespace ChurchApp.DAL
                         dsExisting = townObj.SelectTownMasters();
                     }
                     else if(tableName == "Priest")
-                    {
+                    { 
                         ExcelDS.Tables[0].Columns.Add("ChurchId", typeof(String)); //adding churchid column to priest dataset    
                     }
                       
@@ -903,8 +903,29 @@ namespace ChurchApp.DAL
                         {
                             bool churchexists = ChurchExists(churchObj.GetAllChurches(), drExcel);
                             if (churchexists) //true
-                            {                                
-                                ExcelDS.Tables[0].Rows[rowno]["ChurchId"] = churchid;      //inserting churchid into dataset                          
+                            {
+                                if (vicarStatus == "Vicar")
+                                {
+                                    DataRow[] checkvicarstatus = ExcelDS.Tables[0].Select("ChurchId='" + churchid + "' and Status='" + drExcel["Status"].ToString() + "'");                                  
+                                    if (checkvicarstatus.Length > 0)
+                                    {
+                                        flag = true;
+                                        keyFields.Add(drExcel["Name"].ToString());
+                                        keyFields.Add(drExcel["ChurchName"].ToString());
+                                        keyFields.Add(drExcel["Place"].ToString());
+                                        keyFields.Add(drExcel["Towncode"].ToString());
+                                        errorList.Add("Priest Status 'Vicar' is Repeated for Same Church in Excel Import");
+                                    }
+                                    else
+                                    {
+                                        ExcelDS.Tables[0].Rows[rowno]["ChurchId"] = churchid;      //inserting churchid into dataset
+                                    
+                                    }
+                                }
+                                else
+                                {
+                                    ExcelDS.Tables[0].Rows[rowno]["ChurchId"] = churchid;      //inserting churchid into dataset
+                                }
                             }
                             else //false
                             {
@@ -916,7 +937,7 @@ namespace ChurchApp.DAL
                                 errorList.Add(constObj.Nochurch);     // message string from Common.cs      
                             }
                         }
-                        break;                  
+                         break;                  
                     default:
                         break;
                 }
