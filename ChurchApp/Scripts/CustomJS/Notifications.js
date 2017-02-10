@@ -369,7 +369,7 @@ function EditNotification(curobj)
         //Schedules
         BindNotificationScheduleTable(data.ID);
         debugger;
-        if (data.StatusCode > maxScheduleStatus) {
+        if (data.StatusCode > maxScheduleStatus && scheduleDates.length==0) {
             maxScheduleStatus = data.StatusCode;
         }
     }
