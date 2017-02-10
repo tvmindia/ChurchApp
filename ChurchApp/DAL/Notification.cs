@@ -162,8 +162,8 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = commonObj.Changeformat(expiryDate);
                 }
-                
-              //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
+                cmd.Parameters.Add("@Status", SqlDbType.Int).Value = status != null && status != "" ? status : "0";
+                //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
@@ -225,7 +225,8 @@ namespace ChurchApp.DAL
                 if(expiryDate!=null && expiryDate!=string.Empty)
                 {
                     cmd.Parameters.Add("@ExpiryDate", SqlDbType.Date).Value = commonObj.Changeformat(expiryDate);
-                }                
+                }
+                cmd.Parameters.Add("@Status", SqlDbType.Int).Value = status != null && status != "" ? status : "0";
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;

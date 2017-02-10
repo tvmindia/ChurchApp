@@ -1,6 +1,5 @@
 ﻿//The function Dynamically append button images and click functions as per the programmer privillage
-function Dynamicbutton(ID, Keyword, Event) {
-    debugger;
+function Dynamicbutton(ID, Keyword, Event) {    
     switch (Keyword) {
         case "Save":
             $('#' + ID + ' img').attr('src', '/img/save.PNG');
