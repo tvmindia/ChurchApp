@@ -99,14 +99,14 @@ namespace ChurchApp.ExcelHandler
                             //----------------------Total rows in excel file---------------//
                             ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString(); 
                             //-----------------------validation by passing excelfile,table defenition & MasterTable fields-------------//
-                            ImportXL.Validation(dsExcel, dsTableDefenition,dsMastertable);     
+                            ImportXL.Validation(dsExcel, dsTableDefenition,dsMastertable);
 
                             //------------------------------Image Validation and Adding ImageID to DataSet----------------------------// 
                             #region ImportImage 
-                                                         
+
                             DataRow[] PicFields = dsTableDefenition.Tables[0].Select("Field_Type='P'");
                             dsExcel.Tables[0].Columns.Add("ImageId", typeof(String));  //Add column ImageId to Excel DataSet
-                            if (PicFields.Length > 0 && context.Request.Files.Count>1)// condition check  if image folder upoaded contains file
+                            if (PicFields.Length > 0 && context.Request.Files.Count > 1)// condition check  if image folder upoaded contains file
                             {
                                 try
                                 {
@@ -143,7 +143,7 @@ namespace ChurchApp.ExcelHandler
                                                         ImportXL.appimgObj = new DAL.AppImages();
                                                         ImportXL.appimgObj.appImageId = ExistingImageID;
                                                         ImportXL.appimgObj.SelectAppImageByID();
-                                                        string imgpath = HttpContext.Current.Server.MapPath(ConfigurationManager.ConnectionStrings["ImpImgFilePath"].ConnectionString).ToString();                                                                
+                                                        string imgpath = HttpContext.Current.Server.MapPath(ConfigurationManager.ConnectionStrings["ImpImgFilePath"].ConnectionString).ToString();
                                                         String[] filename = ImportXL.appimgObj.url.Split('/');
                                                         int len = filename.Length;
                                                         string imgloc = imgpath + filename[len - 1];
@@ -155,16 +155,16 @@ namespace ChurchApp.ExcelHandler
                                                     }
                                                     ImportXL.appimgObj = new DAL.AppImages();
                                                     ImportXL.appimgObj.createdBy = UA.userName;
-                                                    ImportXL.appimgObj.updatedBy = UA.userName;                                                                
+                                                    ImportXL.appimgObj.updatedBy = UA.userName;
                                                     //-----------insert into Apptable with Imageid----------------//
                                                     fileExtension = Path.GetExtension(postFileImage.FileName);
-                                                    ImportXL.appimgObj.url = "/img/ImportImages/" + ImportXL.appimgObj.appImageId + fileExtension;                                                              
+                                                    ImportXL.appimgObj.url = "/img/ImportImages/" + ImportXL.appimgObj.appImageId + fileExtension;
                                                     ImportXL.appimgObj.type = "image";
                                                     ImportXL.appimgObj.InsertAppImage1().ToString();
                                                     //---------Imageid inserting into Dataset Column--------------//
-                                                    dsExcel.Tables[0].Rows[i]["ImageId"] = ImportXL.appimgObj.appImageId; 
-                                                    string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/ImportImages"));                                                                                                                                                                                                                                                                                                                                                               
-                                                    postFileImage.SaveAs(SaveLocation + @"\" + ImportXL.appimgObj.appImageId + fileExtension);                                                                                                             
+                                                    dsExcel.Tables[0].Rows[i]["ImageId"] = ImportXL.appimgObj.appImageId;
+                                                    string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/ImportImages"));
+                                                    postFileImage.SaveAs(SaveLocation + @"\" + ImportXL.appimgObj.appImageId + fileExtension);
                                                 }
                                             }
                                         }//foreach
@@ -173,7 +173,7 @@ namespace ChurchApp.ExcelHandler
                                 catch (Exception ex)
                                 {
                                     ImportXL.status = ex.Message;
-                                }                                    
+                                }
                             }//if                                           
                             #endregion ImportImage
 
@@ -182,7 +182,8 @@ namespace ChurchApp.ExcelHandler
                                 //----------------After all validations importing dsExcel data into databse----------------//
                                 ImportXL.ExcelImports(dsExcel, dsTableDefenition);
                                 // ----------------Deleting OldAppImages after updating NewAppImages----------------------//
-                                if (OldImageIds.Count>0 )
+                                
+                                if (OldImageIds!=null)
                                 {
                                     foreach (string var in OldImageIds)
                                     {
@@ -226,7 +227,7 @@ namespace ChurchApp.ExcelHandler
             }//end try
             catch (Exception ex)
             {
-                //ImportXL.status = ex.Message;               
+                ImportXL.status = ex.Message;               
             }
             finally
             {
