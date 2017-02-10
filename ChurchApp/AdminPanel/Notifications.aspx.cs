@@ -315,6 +315,45 @@ namespace ChurchApp.AdminPanel
         }
         #endregion UpdateNotification
 
+        #region Update Notification Schedule
+        [WebMethod(EnableSession = true)]
+        public static string UpdateNotificationSchedule(List<NotificationSchedule> NotScheduleObj,string notificationID)
+        {
+
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    //Deletes pending notification
+                    NotificationSchedule notScheduleTemp = new NotificationSchedule();
+                    notScheduleTemp.notificationID = notificationID;
+                    notScheduleTemp.DeleteNotificationSchedule();
+                    //Inserting new notification schedules
+                    foreach (var schedule in NotScheduleObj)
+                    {
+                        schedule.createdBy = UA.userName;
+                        schedule.InsertNotificationSchedule();
+                    }
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return jsSerializer.Serialize(NotScheduleObj);
+        }
+        #endregion Update Notification Schedule
+
         #region Send Notification To App
         [WebMethod(EnableSession = true)]
         public static string SendNotificationToApp(List<Notification> NotificationsObj)

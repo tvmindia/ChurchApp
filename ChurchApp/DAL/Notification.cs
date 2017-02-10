@@ -162,8 +162,8 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = commonObj.Changeformat(expiryDate);
                 }
-                
-              //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
+                cmd.Parameters.Add("@Status", SqlDbType.Int).Value = status != null && status != "" ? status : "0";
+                //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
@@ -225,7 +225,8 @@ namespace ChurchApp.DAL
                 if(expiryDate!=null && expiryDate!=string.Empty)
                 {
                     cmd.Parameters.Add("@ExpiryDate", SqlDbType.Date).Value = commonObj.Changeformat(expiryDate);
-                }                
+                }
+                cmd.Parameters.Add("@Status", SqlDbType.Int).Value = status != null && status != "" ? status : "0";
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
@@ -907,12 +908,8 @@ namespace ChurchApp.DAL
         }
         #endregion Insert Notification Schedule   
 
-      /*  #region UpdateNotificationType
-        /// <summary>
-        /// Update NotificationType
-        /// </summary>
-        /// <returns>Success/Failure</returns>
-        public string UpdateNotificationType()      //SP might have errors. Don't use without checking
+        #region Delete Notification Schedule
+        public string DeleteNotificationSchedule()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -924,49 +921,8 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[UpdateNotificationType]";
-                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description != null && description != "" ? description : null;
-                cmd.Parameters.Add("@NoticeType", SqlDbType.NVarChar, 20).Value = notificationType != null && notificationType != "" ? notificationType : null;
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy != null && updatedBy != "" ? updatedBy : null;
-                cmd.Parameters.Add("@UpdateStatus", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
-                outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
-                outParam.Direction = ParameterDirection.Output;
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (dcon.SQLCon != null)
-                {
-                    dcon.DisconectDB();
-                }
-            }
-            return outParam.Value.ToString();
-        }
-        #endregion UpdateNotificationType
-
-        #region DeleteNotificationType
-        /// <summary>
-        /// Delete NotificationType
-        /// </summary>
-        /// <returns>Success/Failure</returns>
-        public string DeleteNotificationType()
-        {
-            dbConnection dcon = null;
-            SqlCommand cmd = null;
-            SqlParameter outParam = null;
-            try
-            {
-                dcon = new dbConnection();
-                dcon.GetDBConnection();
-                cmd = new SqlCommand();
-                cmd.Connection = dcon.SQLCon;
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[DeleteNotificationType]";
-                cmd.Parameters.Add("@Type", SqlDbType.NVarChar, 20).Value = notificationType;
+                cmd.CommandText = "[DeleteNotificationSchedule]";
+                cmd.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -984,7 +940,7 @@ namespace ChurchApp.DAL
             }
             return outParam.Value.ToString();
         }
-        #endregion DeleteNotificationType*/
+        #endregion Delete Notification Schedule
 
         #endregion NotificationSchedule Methods
     }
