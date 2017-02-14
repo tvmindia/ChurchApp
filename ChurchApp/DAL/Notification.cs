@@ -531,7 +531,6 @@ namespace ChurchApp.DAL
                                     using (StreamReader tReader = new StreamReader(dataStreamResponse))
                                     {
                                         String responseFromFirebaseServer = tReader.ReadToEnd();
-
                                         tReader.Close();
                                         dataStream.Close();
                                         tResponse.Close();
@@ -542,6 +541,46 @@ namespace ChurchApp.DAL
                                 }
                             }
                         }
+
+
+                /////////////////////////////////////////////////////////
+                //For idividual churches
+                WebRequest tRequest1 = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                tRequest1.Method = "post";
+                tRequest1.ContentType = "application/json";
+                if (ConfigurationManager.AppSettings[churchID + "_FCMServerKey"] != null)
+                {
+                    //Put here the Server key from Firebase
+                    string FCMServerKey1 = ConfigurationManager.AppSettings[churchID + "_FCMServerKey"].ToString();
+                    tRequest1.Headers.Add(string.Format("Authorization: key={0}", FCMServerKey1));
+                    //Put here the Sender ID from Firebase
+                    string FCMSenderID1 = ConfigurationManager.AppSettings[churchID + "_FCMSenderID"].ToString();
+                    tRequest1.Headers.Add(string.Format("Sender: id={0}", FCMSenderID1));
+
+                    using (Stream dataStream1 = tRequest1.GetRequestStream())
+                    {
+                        dataStream1.Write(byteArray, 0, byteArray.Length);
+                        using (WebResponse tResponse1 = tRequest1.GetResponse())
+                        {
+                            using (Stream dataStreamResponse1 = tResponse1.GetResponseStream())
+                            {
+                                using (StreamReader tReader1 = new StreamReader(dataStreamResponse1))
+                                {
+                                    String responseFromFirebaseServer1 = tReader1.ReadToEnd();
+
+                                    tReader1.Close();
+                                    dataStream1.Close();
+                                    tResponse1.Close();
+
+                                    if (!responseFromFirebaseServer1.Contains("message_id"))//Doesn't contain message_id means some error occured
+                                        throw new Exception(responseFromFirebaseServer1);
+                                }
+                            }
+                        }
+                    }
+                }
+                /////////////////////////////////////////////////////////
+
             }
             catch (Exception ex)
             {
