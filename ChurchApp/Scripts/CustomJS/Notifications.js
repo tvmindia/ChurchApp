@@ -431,15 +431,38 @@ function Delete() {
     try
     {
         var deleteConirm = confirm("Want to delete?");
-        if (deleteConirm) {
-            var NotiCollection = table.rows('.selected').data();
-
-            alert("Deleted " + NotiCollection.length + " Notifications");
-        }
+    /*    if (deleteConirm) {
+          
+           try
+                {
+                    var NotiCollection = [];        
+                    var tabledata = table.rows('.selected').data();
+                    for (var i = 0; i < tabledata.length; i++)
+                    {
+                        var Notification = new Object();
+                        Notification.notificationID = tabledata[i].ID;
+                        NotiCollection.push(Notification);            
+                    }
+                    result = SendNotificationToApp(NotiCollection);
+                    switch (result[0].status) {
+                        case "1":
+                            noty({ text: Messages.NotificationInitiated, type: 'success' });
+                            break;
+                        default:
+                            noty({ text: Messages.FailureMsgCaption, type: 'error' });
+                            break;
+                    }  
+                }
+            catch(e)
+                {
+                    noty({ text: Messages.FailureMsgCaption, type: 'error' });
+                }
+                BindAllNotification(); 
+        }*/
     }
     catch(e)
     {
-
+        noty({ type: 'error', text: e.message });
     }
     
    
@@ -547,7 +570,7 @@ function NotificationValidation()
             }
         }
         if (j == '1') {
-            noty({ type: 'error', text: "* Some Fields Are Empty !" });
+            noty({ type: 'error', text: "Some Fields Are Empty !" });
             return false;
         }
         if (j == '0') {
