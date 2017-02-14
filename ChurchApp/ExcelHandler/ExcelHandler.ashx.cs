@@ -70,159 +70,158 @@ namespace ChurchApp.ExcelHandler
 
                     if (excelSheets != null)
                     {
-                        dsExcel = new DataSet();                                
-                        dsTableDefenition = ImportXL.GetTableDefinition();                              
+                        bool Status = false;
+                        dsExcel = new DataSet();
+                        dsTableDefenition = ImportXL.GetTableDefinition();
                         try
-                        { 
-                            dsExcel = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition);                                  
+                        {
+                            Status = ImportXL.ScanExcelFileToDS(excelSheets, dsTableDefenition, dsExcel);
                         }
                         catch (Exception ex)
                         {
                             ImportXL.status = ex.Message;
                         }
-                        if (dsExcel != null && dsExcel.Tables.Count>0)
+                        if (Status)
                         {
-                            //Checking Master Table Fields 
-                            DataSet dsMastertable = null;
-                            DataRow[] MasterTableFields = dsTableDefenition.Tables[0].Select("Master_Table IS NOT NULL  and Master_Field IS NOT NULL ");
-                            if (MasterTableFields.Length > 0)
-                            {  
-                                foreach (var item in MasterTableFields)
-                                {
-                                    string MasterTable = item["Master_Table"].ToString();
-                                    string MasterField = item["Master_Field"].ToString();
-                                    ImportXL.Mastertable = MasterTable;
-                                    ImportXL.MasterField = MasterField;
-                                    dsMastertable = ImportXL.GetMasterFieldsFromMasterTable();
-                                }
-                            }
-                            //----------------------Total rows in excel file---------------//
-                            ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString(); 
-                            //-----------------------validation by passing excelfile,table defenition & MasterTable fields-------------//
-                            ImportXL.Validation(dsExcel, dsTableDefenition,dsMastertable);
 
-                            //------------------------------Image Validation and Adding ImageID to DataSet----------------------------// 
-                            #region ImportImage 
-
-                            DataRow[] PicFields = dsTableDefenition.Tables[0].Select("Field_Type='P'");
-                            dsExcel.Tables[0].Columns.Add("ImageId", typeof(String));  //Add column ImageId to Excel DataSet
-                            if (PicFields.Length > 0 && context.Request.Files.Count > 1)// condition check  if image folder upoaded contains file
+                            if (dsExcel != null && dsExcel.Tables.Count > 0)
                             {
-                                try
+                                //Checking Master Table Fields 
+                                DataSet dsMastertable = null;
+                                DataRow[] MasterTableFields = dsTableDefenition.Tables[0].Select("Master_Table IS NOT NULL  and Master_Field IS NOT NULL ");
+                                if (MasterTableFields.Length > 0)
                                 {
-                                    OldImageIds = new List<string>();
-                                    DataSet DsExisting = ImportXL.GetExistingTableData();  //Existing Table to get Old ImageID
-                                    for (int i = dsExcel.Tables[0].Rows.Count - 1; i >= 0; i--) // Looping excel file
+                                    foreach (var item in MasterTableFields)
                                     {
-                                        //---------Generate Conditions with keyfields from table definition.(Passing Row)---------------//
-                                        string conditions = ImportXL.GetExcelImportWhereCondtionforTables(dsExcel.Tables[0].Rows[i]);
-                                        DataRow[] drExisting = DsExisting.Tables[0].Select(conditions);
+                                        string MasterTable = item["Master_Table"].ToString();
+                                        string MasterField = item["Master_Field"].ToString();
+                                        ImportXL.Mastertable = MasterTable;
+                                        ImportXL.MasterField = MasterField;
+                                        dsMastertable = ImportXL.GetMasterFieldsFromMasterTable();
+                                    }
+                                }
+                                //----------------------Total rows in excel file---------------//
+                                ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString();
+                                //-----------------------validation by passing excelfile,table defenition & MasterTable fields-------------//
+                                ImportXL.Validation(dsExcel, dsTableDefenition, dsMastertable);
 
-                                        foreach (string content in context.Request.Files) //Images upload loop
+                                //------------------------------Image Validation and Adding ImageID to DataSet----------------------------// 
+                                #region ImportImage 
+
+                                DataRow[] PicFields = dsTableDefenition.Tables[0].Select("Field_Type='P'");
+                                dsExcel.Tables[0].Columns.Add("ImageId", typeof(String));  //Add column ImageId to Excel DataSet
+                                if (PicFields.Length > 0 && context.Request.Files.Count > 1)// condition check  if image folder upoaded contains file
+                                {
+                                    try
+                                    {
+                                        OldImageIds = new List<string>();
+                                        DataSet DsExisting = ImportXL.GetExistingTableData();  //Existing Table to get Old ImageID
+                                        for (int i = dsExcel.Tables[0].Rows.Count - 1; i >= 0; i--) // Looping excel file
                                         {
-                                            if (content != "upExcelFile")
-                                            {
-                                                postFileImage = context.Request.Files[content];
-                                                string ExcelImgfilename = postFileImage.FileName.ToString();
-                                                //----------------  Check the Imagefile Name With uploaded ImageName and excel ImageFileName -------------//
-                                                if (dsExcel.Tables[0].Rows[i]["ImageFileName"].ToString() == ExcelImgfilename)
-                                                {
-                                                    string ExistingImageID;
-                                                    if (ImportXL.tableName == "Church")
-                                                    {
-                                                        ExistingImageID = drExisting[0]["MainImageID"].ToString();
-                                                    }
-                                                    else
-                                                    {
-                                                        ExistingImageID = drExisting[0]["ImageID"].ToString();
-                                                    }
-                                                    if (ExistingImageID != "")
-                                                    {
-                                                        OldImageIds.Add(ExistingImageID);  //---keeping AppImages ID to delete after Updating----//
-                                                        //-----------------getting imagename from url in AppImages passing ID--------------------------------//
-                                                        ImportXL.appimgObj = new DAL.AppImages();
-                                                        ImportXL.appimgObj.appImageId = ExistingImageID;
-                                                        ImportXL.appimgObj.SelectAppImageByID();
-                                                        string imgpath = HttpContext.Current.Server.MapPath(ConfigurationManager.ConnectionStrings["ImpImgFilePath"].ConnectionString).ToString();
-                                                        String[] filename = ImportXL.appimgObj.url.Split('/');
-                                                        int len = filename.Length;
-                                                        string imgloc = imgpath + filename[len - 1];
-                                                        //------------check file Exists,If Exists deleting from Folder---------------//
-                                                        if (File.Exists(imgloc))
-                                                        {
-                                                            DeleteDuplicateFile(imgloc);
-                                                        }
-                                                    }
-                                                    ImportXL.appimgObj = new DAL.AppImages();
-                                                    ImportXL.appimgObj.createdBy = UA.userName;
-                                                    ImportXL.appimgObj.updatedBy = UA.userName;
-                                                    //-----------insert into Apptable with Imageid----------------//
-                                                    fileExtension = Path.GetExtension(postFileImage.FileName);
-                                                    ImportXL.appimgObj.url = "/img/ImportImages/" + ImportXL.appimgObj.appImageId + fileExtension;
-                                                    ImportXL.appimgObj.type = "image";
-                                                    ImportXL.appimgObj.InsertAppImage1().ToString();
-                                                    //---------Imageid inserting into Dataset Column--------------//
-                                                    dsExcel.Tables[0].Rows[i]["ImageId"] = ImportXL.appimgObj.appImageId;
-                                                    string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/ImportImages"));
-                                                    postFileImage.SaveAs(SaveLocation + @"\" + ImportXL.appimgObj.appImageId + fileExtension);
-                                                }
-                                            }
-                                        }//foreach
-                                    }//for
-                                }//try
-                                catch (Exception ex)
-                                {
-                                    ImportXL.status = ex.Message;
-                                }
-                            }//if                                           
-                            #endregion ImportImage
+                                            //---------Generate Conditions with keyfields from table definition.(Passing Row)---------------//
+                                            string conditions = ImportXL.GetExcelImportWhereCondtionforTables(dsExcel.Tables[0].Rows[i]);
+                                            DataRow[] drExisting = DsExisting.Tables[0].Select(conditions);
 
-                            if (dsExcel.Tables[0].Rows.Count > 0)
-                            {
-                                //----------------After all validations importing dsExcel data into databse----------------//
-                                ImportXL.ExcelImports(dsExcel, dsTableDefenition);
-                                // ----------------Deleting OldAppImages after updating NewAppImages----------------------//
-                                
-                                if (OldImageIds!=null)
-                                {
-                                    foreach (string var in OldImageIds)
+                                            foreach (string content in context.Request.Files) //Images upload loop
+                                            {
+                                                if (content != "upExcelFile")
+                                                {
+                                                    postFileImage = context.Request.Files[content];
+                                                    string ExcelImgfilename = postFileImage.FileName.ToString();
+                                                    //----------------  Check the Imagefile Name With uploaded ImageName and excel ImageFileName -------------//
+                                                    if (dsExcel.Tables[0].Rows[i]["ImageFileName"].ToString() == ExcelImgfilename)
+                                                    {
+                                                        string ExistingImageID;
+                                                        if (ImportXL.tableName == "Church")
+                                                        {
+                                                            ExistingImageID = drExisting[0]["MainImageID"].ToString();
+                                                        }
+                                                        else
+                                                        {
+                                                            ExistingImageID = drExisting[0]["ImageID"].ToString();
+                                                        }
+                                                        if (ExistingImageID != "")
+                                                        {
+                                                            OldImageIds.Add(ExistingImageID);  //---keeping AppImages ID to delete after Updating----//
+                                                                                               //-----------------getting imagename from url in AppImages passing ID--------------------------------//
+                                                            ImportXL.appimgObj = new DAL.AppImages();
+                                                            ImportXL.appimgObj.appImageId = ExistingImageID;
+                                                            ImportXL.appimgObj.SelectAppImageByID();
+                                                            string imgpath = HttpContext.Current.Server.MapPath(ConfigurationManager.ConnectionStrings["ImpImgFilePath"].ConnectionString).ToString();
+                                                            String[] filename = ImportXL.appimgObj.url.Split('/');
+                                                            int len = filename.Length;
+                                                            string imgloc = imgpath + filename[len - 1];
+                                                            //------------check file Exists,If Exists deleting from Folder---------------//
+                                                            if (File.Exists(imgloc))
+                                                            {
+                                                                DeleteDuplicateFile(imgloc);
+                                                            }
+                                                        }
+                                                        ImportXL.appimgObj = new DAL.AppImages();
+                                                        ImportXL.appimgObj.createdBy = UA.userName;
+                                                        ImportXL.appimgObj.updatedBy = UA.userName;
+                                                        //-----------insert into Apptable with Imageid----------------//
+                                                        fileExtension = Path.GetExtension(postFileImage.FileName);
+                                                        ImportXL.appimgObj.url = "/img/ImportImages/" + ImportXL.appimgObj.appImageId + fileExtension;
+                                                        ImportXL.appimgObj.type = "image";
+                                                        ImportXL.appimgObj.InsertAppImage1().ToString();
+                                                        //---------Imageid inserting into Dataset Column--------------//
+                                                        dsExcel.Tables[0].Rows[i]["ImageId"] = ImportXL.appimgObj.appImageId;
+                                                        string SaveLocation = (HttpContext.Current.Server.MapPath("~/img/ImportImages"));
+                                                        postFileImage.SaveAs(SaveLocation + @"\" + ImportXL.appimgObj.appImageId + fileExtension);
+                                                    }
+                                                }
+                                            }//foreach
+                                        }//for
+                                    }//try
+                                    catch (Exception ex)
                                     {
-                                        ImportXL.appimgObj.appImageId = var;
-                                        ImportXL.appimgObj.url = ""; //for avoiding deletion of latest url
-                                        ImportXL.appimgObj.DeleteAppImage();
+                                        ImportXL.status = ex.Message;
+                                    }
+                                }//if                                           
+                                #endregion ImportImage
+
+                                if (dsExcel.Tables[0].Rows.Count > 0)
+                                {
+                                    //----------------After all validations importing dsExcel data into databse----------------//
+                                    ImportXL.ExcelImports(dsExcel, dsTableDefenition);
+                                    // ----------------Deleting OldAppImages after updating NewAppImages----------------------//
+
+                                    if (OldImageIds != null)
+                                    {
+                                        foreach (string var in OldImageIds)
+                                        {
+                                            ImportXL.appimgObj.appImageId = var;
+                                            ImportXL.appimgObj.url = ""; //for avoiding deletion of latest url
+                                            ImportXL.appimgObj.DeleteAppImage();
+                                        }
                                     }
                                 }
-                            }
-                            else
-                            {
-                                ImportXL.status = "0"; 
-                            }                                    
-                            if (ImportXL.dtError.Rows.Count > 0)
-                            {
-                                foreach (DataRow row in ImportXL.dtError.Rows)
+                                else
                                 {
-                                    ImportXL.childRow = new Dictionary<string, object>();
-                                    foreach (DataColumn col in ImportXL.dtError.Columns)
+                                    ImportXL.status = "0";
+                                }
+                                if (ImportXL.dtError.Rows.Count > 0)
+                                {
+                                    foreach (DataRow row in ImportXL.dtError.Rows)
                                     {
-                                        ImportXL.childRow.Add(col.ColumnName, row[col]);
+                                        ImportXL.childRow = new Dictionary<string, object>();
+                                        foreach (DataColumn col in ImportXL.dtError.Columns)
+                                        {
+                                            ImportXL.childRow.Add(col.ColumnName, row[col]);
+                                        }
+                                        ImportXL.parentRow.Add(ImportXL.childRow);
                                     }
-                                    ImportXL.parentRow.Add(ImportXL.childRow);
-                                }                              
-                                jsSerializer.Serialize(ImportXL.parentRow);
-                                ImportXL.dtError = null;                              
-                                //context.Response.Write(jsSerializer.Serialize(ImportXL));
-                            }
-                            else
-                            {
-                                ImportXL.dtError = null;
-                                //context.Response.Write(jsSerializer.Serialize(ImportXL));
-                            }                                   
+                                    jsSerializer.Serialize(ImportXL.parentRow);
+                                    ImportXL.dtError = null;                                   
+                                }
+                                else
+                                {
+                                    ImportXL.dtError = null;                                   
+                                }
+                            }                          
                         }
-                        //else 
-                        //{
-                        //    context.Response.Write(jsSerializer.Serialize(ImportXL)); 
-                        //}
-                    }                   
+                    }                 
                 }
             }//end try
             catch (Exception ex)
