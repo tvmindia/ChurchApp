@@ -162,8 +162,8 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@ExpiryDate", SqlDbType.DateTime).Value = commonObj.Changeformat(expiryDate);
                 }
-                
-              //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
+                cmd.Parameters.Add("@Status", SqlDbType.Int).Value = status != null && status != "" ? status : "0";
+                //  cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(false);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy!=null&&createdBy!=""?createdBy:null;
@@ -225,7 +225,8 @@ namespace ChurchApp.DAL
                 if(expiryDate!=null && expiryDate!=string.Empty)
                 {
                     cmd.Parameters.Add("@ExpiryDate", SqlDbType.Date).Value = commonObj.Changeformat(expiryDate);
-                }                
+                }
+                cmd.Parameters.Add("@Status", SqlDbType.Int).Value = status != null && status != "" ? status : "0";
                 cmd.Parameters.Add("@IsDelete", SqlDbType.Bit).Value = Convert.ToBoolean(isDelete);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = updatedBy!=null&&updatedBy!=""?updatedBy:null;
@@ -530,7 +531,6 @@ namespace ChurchApp.DAL
                                     using (StreamReader tReader = new StreamReader(dataStreamResponse))
                                     {
                                         String responseFromFirebaseServer = tReader.ReadToEnd();
-
                                         tReader.Close();
                                         dataStream.Close();
                                         tResponse.Close();
@@ -541,6 +541,46 @@ namespace ChurchApp.DAL
                                 }
                             }
                         }
+
+
+                /////////////////////////////////////////////////////////
+                //For idividual churches
+                WebRequest tRequest1 = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+                tRequest1.Method = "post";
+                tRequest1.ContentType = "application/json";
+                if (ConfigurationManager.AppSettings[churchID + "_FCMServerKey"] != null)
+                {
+                    //Put here the Server key from Firebase
+                    string FCMServerKey1 = ConfigurationManager.AppSettings[churchID + "_FCMServerKey"].ToString();
+                    tRequest1.Headers.Add(string.Format("Authorization: key={0}", FCMServerKey1));
+                    //Put here the Sender ID from Firebase
+                    string FCMSenderID1 = ConfigurationManager.AppSettings[churchID + "_FCMSenderID"].ToString();
+                    tRequest1.Headers.Add(string.Format("Sender: id={0}", FCMSenderID1));
+
+                    using (Stream dataStream1 = tRequest1.GetRequestStream())
+                    {
+                        dataStream1.Write(byteArray, 0, byteArray.Length);
+                        using (WebResponse tResponse1 = tRequest1.GetResponse())
+                        {
+                            using (Stream dataStreamResponse1 = tResponse1.GetResponseStream())
+                            {
+                                using (StreamReader tReader1 = new StreamReader(dataStreamResponse1))
+                                {
+                                    String responseFromFirebaseServer1 = tReader1.ReadToEnd();
+
+                                    tReader1.Close();
+                                    dataStream1.Close();
+                                    tResponse1.Close();
+
+                                    if (!responseFromFirebaseServer1.Contains("message_id"))//Doesn't contain message_id means some error occured
+                                        throw new Exception(responseFromFirebaseServer1);
+                                }
+                            }
+                        }
+                    }
+                }
+                /////////////////////////////////////////////////////////
+
             }
             catch (Exception ex)
             {
@@ -808,5 +848,139 @@ namespace ChurchApp.DAL
         #endregion DeleteNotificationType
 
         #endregion NotificationType Methods
+    }
+
+    public class NotificationSchedule : Notification
+    {
+        Common commonObj = new Common();
+        #region Properties
+        public string notifiScheduleID
+        {
+            get;
+            set;
+        }
+        public string scheduleDate
+        {
+            get;
+            set;
+        }
+        public string scheduleStatus
+        {
+            get;
+            set;
+        }
+        #endregion
+
+        #region NotificationSchedule Methods
+
+        #region Select Notification Schedule
+        public DataSet SelectNotificationSchedule()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetNotificationSchedule]";
+                cmd.Parameters.Add("@NotificationId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion Select Notification Schedule
+
+        #region Insert Notification Schedule        
+        public string InsertNotificationSchedule()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertNotificationSchedule]";
+                cmd.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
+                cmd.Parameters.Add("@ScheduledDate", SqlDbType.Date).Value = scheduleDate;
+                cmd.Parameters.Add("@Status", SqlDbType.Int).Value = scheduleStatus;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = createdBy != null && createdBy != "" ? createdBy : null;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
+                outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion Insert Notification Schedule   
+
+        #region Delete Notification Schedule
+        public string DeleteNotificationSchedule()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteNotificationSchedule]";
+                cmd.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
+                outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion Delete Notification Schedule
+
+        #endregion NotificationSchedule Methods
     }
 }

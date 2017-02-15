@@ -248,7 +248,7 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
 								</div>
 								</div>
 
-                          <div class="control-group"  id="lblStartH">
+                          <div style="display: none;" class="control-group"  id="lblStartH">
 							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
 								 <%--<label class="control-label" for="date01" id="lblStartDate"></label>--%>
@@ -256,7 +256,7 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
 							  </div>
 							</div>
 
-                          <div class="control-group" id="lblExpiryH">
+                          <div style="display: none;" class="control-group" id="lblExpiryH">
 							  <label class="control-label" for="date01" >Expiry Date</label>
 							  <div class="controls">
 								 <%--<label class="control-label" for="date01" id="lblExpiryDate">Caption</label>--%>
@@ -287,8 +287,8 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
                                 <input type="text" class="input-large datepicker" readonly="true" id="selectDate"  placeholder="Select date" />
                                 </div>
                         <%--onselect="return ScheduleDateSelect();"--%>
-                         <div class="controls">
-                        <table id="notificationScheduleTable" class="table table-striped table-bordered bootstrap-datatable span3">
+                         <div class="controls span3">
+                        <table id="notificationScheduleTable" class="table table-striped table-bordered bootstrap-datatable">
 						  <thead>
 							  <tr>
 								  <th>Date</th>

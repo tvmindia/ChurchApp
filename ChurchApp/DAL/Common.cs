@@ -123,11 +123,23 @@ namespace ChurchApp.DAL
             }
         }
 
+        #region exportimport
         public string Nochurch
         {
             get { return " Church doesn't  Exists"; }
         }
-        
+        public string NoChurchDenominationMaster
+        {
+            get { return "- doesn't Exists in ChurchDenominationMaster"; }
+        }
+        public string Nocolumns
+        {
+            get { return "- column(s) doesnot exists in excel template"; }
+        }
+        public string Excelmismatch
+        {
+            get { return " Excel Template Mismatch"; }
+        }
         public string Prieststatus
         {
             get { return "Status must be VICAR or ASST VICAR " ; }
@@ -138,8 +150,60 @@ namespace ChurchApp.DAL
         }
         public string VicarExists
         {
-            get { return "Please Verify Status-Vicar is already existing "; }
+            get { return "Please Verify Status-Vicar is already existing in System "; }
         }
+        public string VicarExistsExcel
+        {
+            get { return "Priest Status 'Vicar' is Repeated for same Church in Excel Import"; }
+        }
+        public string InvalidDate
+        {
+            get { return "-Invalid Date format.Eg:10-Sep-2011"; }
+        }
+        public string InvalidAlphaNumeric
+        {
+            get { return "- Invalid AlphaNumeric character"; }
+        }
+        public string InvalidNumber
+        {
+            get { return "-Invalid Number  "; }
+        }
+        public string InvalidString
+        {
+            get { return "- Invalid String "; }
+        }
+        public string InvalidEmail
+        {
+            get { return "- Invalid Email "; }
+        }
+        public string InvalidPhoneNumber
+        {
+            get { return "- Invalid Phone Number  "; }
+        }
+        public string InvalidTime
+        {
+            get { return "- Invalid Time Eg: 15:15:00 "; }
+        }
+        public string InvalidDay
+        {
+            get { return "- Invalid Day  "; }
+        }
+        public string ImageExtension
+        {
+            get { return "- Invalid Image Extension"; }
+        }
+        public string FieldEmpty
+        {
+            get { return "- Field Is Empty"; }
+        }
+        public string InvalidFieldSize
+        {
+            get { return "- Invalid Field Size"; }
+        }
+
+
+
+        #endregion exportimport
 
         #region PageUrl
 

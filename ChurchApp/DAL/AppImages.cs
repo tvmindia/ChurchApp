@@ -315,7 +315,11 @@ namespace ChurchApp.DAL
                 try
                 {
                     //delete current appimage from folder
-                    System.IO.File.Delete(HttpContext.Current.Server.MapPath(url));
+                    if (url!="" )
+                    {
+                        System.IO.File.Delete(HttpContext.Current.Server.MapPath(url));
+                    }
+                   
                 }
                 catch (Exception ex)
                 {
