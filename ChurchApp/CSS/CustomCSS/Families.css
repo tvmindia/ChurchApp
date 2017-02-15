@@ -9,7 +9,7 @@
 }
 .imgNoImage
 {
-    height:85px;
+    /*height:85px;*/
 }
 .unitViewDetails
 {
@@ -102,15 +102,15 @@ left: 82%;
 }
 .thumbnail>img
 {
-    height:85px !important;
+    /*height:85px !important;*/
 }
-.row-fluid [class*="span"]
+/*.row-fluid [class*="span"]
 {
     margin-left:-0.435897%!important;
-}
-.row-fluid .span4 {
+}*/
+/*.row-fluid .span4 {
     width: 34.623932%;
-}
+}*/
 h4 {
     line-height: 0px;
 }
@@ -120,10 +120,10 @@ h4 {
 div#faMemberHeaderDiv {
     margin-left: -5px;
 }
-img#NoData
+/*img#NoData
 {
     height:165px !important;
-}
+}*/
 h4#familyLink>a:hover {
     text-decoration: underline;
     color:#337ab7;
@@ -141,13 +141,13 @@ i#faUser {
 {
  cursor:pointer;   
 }
-.row-fluid .span4 {
+/*.row-fluid .span4 {
     width: 22.623932%;
-}
-.thumbnail {
+}*/
+/*.thumbnail {
     border:none !important;
     padding:0px !important;
-}
+}*/
 #rowfluidDiv {
     position: absolute;
     top: 1%;
@@ -164,7 +164,7 @@ i#faUser {
 }*/
 #imgThumbnail>img
 {
-    height: 85px !important;
+    /*height: 85px !important;*/
 }
 .circlebtn {
     position: absolute;
@@ -200,10 +200,10 @@ i#faUser {
     font-weight:500;
     line-height:20px;
 }
-.btnNew {
+/*.btnNew {
     left: 93%!important;
     top: -14px;
-}
+}*/
 
 /*h2
 {
@@ -215,11 +215,11 @@ i#faUser {
 }
 img#imgFamily
 {
-    height:85px !important;
+    /*height:85px !important;*/
 }
-img#AdminImg {
+/*img#AdminImg {
     height: 130px !important;
-}
+}*/
 img#MemberImg {
-    height: 85px !important;
+    height: 150px !important;
 }

@@ -1,10 +1,10 @@
-﻿<%--<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Families.aspx.cs" Inherits="ChurchApp.AdminPanel.Families" %>--%>
-<%--<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="FamilyUnit.aspx.cs" Inherits="ChurchApp.AdminPanel.FamilyUnit" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <link href="../CSS/CustomCSS/Families.css" rel="stylesheet" />
+     <link href="../CSS/CustomCSS/Families.css" rel="stylesheet" />
      <script src="../Scripts/CustomJS/Common.js"></script>
-    <script src="../Scripts/CustomJS/Families.js"></script>
+    <script src="../Scripts/CustomJS/FamilyUnit.js"></script>
      <div id="content" class="span10">
         <ul class="breadcrumb" id="breadcrumbFamily" style="margin-bottom:0px">
 			 <li>
@@ -12,25 +12,26 @@
 					<a href="../AdminPanel/Home.aspx">Home</a> 
 					<i class="fa fa-angle-right" aria-hidden="true"></i>
 				</li>
-				<li class="faUnits">Families</li>
+				<li class="faUnits">Family Units</li>
 			</ul>
-          <div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198">		
-			<a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewclick();"><img  src="/img/add.PNG"/></a>
+          <div class="buttonpatch" style="position:fixed;width:291px;right:0;top:8%;z-index:198">		
+			<a class="rss" id="btnBack"><img src="/img/back.png"/></a>
+            <a class="facebook" id="btnAddNew"><img  src="/img/add.PNG"/></a>
+            <a class="rss" id="btnEdit"><img src="/img/edit.png"/></a>
             <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
             <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
 			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
-            <a class="rss" id="btnSendNotification"><img src="/img/sentmail.png"/></a>
         </div>
          <div class="row-fluid" style="margin-top:3%">
              <div class="span6">
 					<div>
                          <div id="divFamilyUnitsGrid">
                               <div class="" style="border-bottom:1.5px solid #F44336;line-height:0px;">
-						<h2 id="unitHeader"></h2>--%>
+						<h2 id="unitHeader"></h2>
                       
 						<%--<a class="btnNew" id="btnAddNew" runat="server"  title="ADD NEW FAMILY MEMBER" onclick="AddFamilyMember();" ><i>+</i></a>
                          <a class="btnNew" id="btnfamilyAdd" runat="server"  title="ADD NEW FAMILY" onclick="AddFamily();"><i>+</i></a>--%>
-                        <%-- <a class="btnNew" id="btnAddNew" runat="server" title="ADD NEW FAMILY UNIT" onclick="AddFamilyUnit();"><i>+</i></a>
+                         <%--<a class="btnNew" id="btnAddNew" runat="server" title="ADD NEW FAMILY UNIT" onclick="AddFamilyUnit();"><i>+</i></a>--%>
 							
 						</div>
                             
@@ -39,63 +40,29 @@
 					</div>
                               </div>
 					</div>
-				</div>--%>
+				</div>
                <%-- Show details portion for institution --%>	
 		
            
              <!---------------------  Add New Family and Edit details ----------------------------->
-               <%-- <div id="FamilyAdd" style="display:none; margin-top:1% ;" class="span6">
+                <div id="FamilyAdd" style="display:none; margin-top:1% ;" class="span6">
                    
-					<div class="dark">	--%>
-                         	<%--<div id="executivesHeader">--%>
-						<%--<h2 id="executivesHeader" style="margin-top:1% !important;">Unit Executives</h2>--%> 
-						<%--<div class="box-icon">--%>
-						<%--<a class="btnEdit" id="AdminEdit" title="EDIT UNIT EXECUTIVES" style="display:none;right:40px;top:13px;position: absolute;" onclick="EditFamily(this)"><i class="halflings-icon white pencil FamiliesEdit" id="iconEdit" aria-hidden="true"></i></a>--%>
-							
-						<%--</div>--%>
-				<%--	</div>	--%>
+					<div class="dark">
                        
                            
-					<%--<div class="form-horizontal">
+					<div class="form-horizontal">
 				    <fieldset>
-                            <div id="divAdminDetals" class="span12" style="min-height:50px !important;max-height:1500px !important;opacity:1!important;margin-top:5%;">
                            
-                            </div>--%>
-                        <%-- Div General information --%>
-                           <%--<div id="divAdminInfo" style="display:none;" class="span12">--%>
-                         <%-----Default card with button for Adding new administrator -----%>
-                           <%-- <ul class="thumbnails span4">
-                            <li class="span12" id="noRecordLi" style="position: relative;height:229px;">
-                               <a class="btnNew" id="AdminBtnNew" style="position:relative!important;z-index:50;padding:25px 20px 10px !important;top:30px!important;left: 20%!important;color:black!important;background:white!important;" title="ADD" data-toggle="modal" data-target="#modelAddAdmin"><i style="font-size:48px;">+</i></a>
-                               <div class="thumbnail" id="noRecordThumbnail" style="position:relative!important;top: -55px;opacity:0.7;">
-                               <img class="img-rounded" style="height:159px" src="../img/gallery/Noimage.png"  alt=""/>
-                                <address>
-                                    <br/>
-                                    <strong><br/>No Records Found</strong>
-                                    <br/>
-                                </address>                
-                              </div>
-                                <br />
-                            </li>
-                            </ul>--%>
-                            <%-- End Default card add new --%>
-                      <%--  </div>
-                              
                          <div class="span12" id="familyMembersPhotoDiv"  style="margin-top:10px!important;display:none;">  
                           
                              </div>
                        
                         <div class=" span12" id="familyAddDiv"  style="margin-top:10px!important;display:none;">  
-                               <div class="box-header" data-original-title="">
-						<h2 id="FamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="memberAddOrEdit"></span> Family Member</h2>
-                        <h2 id="AddFamilyHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="familyAddOrEdit"></span> Family </h2>
-						<h2 id="AddFamilyUnitHeader"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span><span id="familyUnitAddOrEdit"></span> Family Unit </h2>
+                               <div class="box-header" data-original-title="" style="width:88%">
+						<h2 id="Header">Family Member</h2>
                                       
 					    </div>
-                             <div class="alert alert-error" id="ErrorBox" style="display: none;">
-                             <div id="Displaydiv">
-                             </div>
-                            </div>
+                             
                                <div class="control-group" id="firstNameDiv" style="margin-top:2%">
 								<label class="control-label" for="focusedInput"><span id="familyHeadFirst" style="display:none;">Family Head </span>First Name:</label>
 								<div class="controls">
@@ -111,14 +78,21 @@
                                <div class="control-group" id="familyNameDiv">
 								<label class="control-label" for="focusedInput">Family Name:</label>
 								<div class="controls">
-								  <input type="text" class="input-large focused" id="txtFamilyName" onkeypress="return isnotNumber(event);" disabled="disabled"/>
+								  <input type="text" class="input-large focused" id="txtFamilyName" onkeypress="return isnotNumber(event);"/>
                                 </div>
 								</div>
                         
                                <div class="control-group" id="unitNameDiv">
 								<label class="control-label" for="focusedInput">Unit Name:</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtUnitName" onkeypress="return isnotNumber(event);" disabled="disabled" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtUnitName" onkeypress="return isnotNumber(event);" type="text"/>
+                                    <label class="control-label" id="lblUnitName" for="focusedInput"  style="display:none;"></label>
+                                </div>
+								</div>
+                                <div class="control-group" id="unitCountDiv">
+								<label class="control-label" for="focusedInput">Family Number:</label>
+								<div class="controls">
+                                    <label class="control-label" id="lblmemCount" for="focusedInput"  style="display:none;"></label>
                                 </div>
 								</div>
                                <div class="control-group" id="phoneDiv">
@@ -141,44 +115,47 @@
                                 </div>
 								</div> 
                                 <div class="control-group" id="memberImgDiv">
-                       <img id="MemberImg" src="../img/gallery/priest.png" class="img-rounded"/>
-                       <input class="" id="mfluImage" type="file" accept="image/*" onchange="OnUpload(this);showpreviewMember(this);" />--%>
+                       <img id="MemberImg" src="../img/gallery/Noimage.png" class="img-rounded"/>
+                       <input class="" id="mfluImage" type="file" accept="image/*" onchange="OnUpload(this);showpreviewMember(this);" />
                           <%-- <output id="AdminPreview"></output>--%>
                        </div>
                         </div>
-                
-                        <%-- End general information --%>
-                 
-                        <%-- Div for Administrator information --%>
-                     
-                        <%-- End div Administrator information --%>
-						<%--<input type="hidden" id="hdnInstutID" />
-							<div class="form-actions span12" id="btnDiv">
-							  <a class="btn btn-primary Save" name="" id="btnSavePriest">Save</a>
-                                <a id="btnCancelPriest" class="btn btn-primary Cancel">Cancel</a>
-                                <a class="btn btn-primary Delete" name="" id="btnDelete">Delete</a>
-							  
-							</div>
-                            <div class="form-actions span12" id="btnFamilyDiv">
-							  <a class="btn btn-primary SaveFamily" name="" >Save</a>
-                                <a class="btn btn-primary CancelFamily">Cancel</a>
-                                <a class="btn btn-primary DeleteFamily" name="">Delete</a>
-							  
-							</div>
-                            <div class="form-actions span12" id="btnFamilyUnitDiv">
-							  <a class="btn btn-primary SaveUnit" name="" >Save</a>
-                                <a class="btn btn-primary CancelUnit">Cancel</a>
-                                <a class="btn btn-primary DeleteUnit" name="">Delete</a>
-							  
-							</div>
+						<input type="hidden" id="hdnInstutID" />
+							
 						  </fieldset>
-					</div>			
+					</div>	
+                        <h2 id="executivesHeader" style="margin-top:7% !important;margin-left: 2%;">Unit Executives</h2> 
+                         <div id="divAdminDetals" class="span12" >
+                            
+                          </div>
+                           <div id="divAdminInfo" class="span12">
+                               <div class="w3-note w3-panel" id="tipDiv" style="display:none;">
+                                <p><strong>Tip:</strong> If you are trying for Adding Executives Please try after adding Families and Members.</p>
+                             </div>
+                            <ul class="thumbnails span4">
+                            <li class="span12" style="position: relative;height:229px;">
+                               <a class="btnNew" id="btnAdminAdd" style="position:relative!important;z-index:50;padding:50px 44px 35px 44px !important;top:100px!important;left: 15%!important;color:black!important;background:white!important;" title="Add Administrators" data-toggle="modal" data-target="#modelAddAdmin" onclick="OpenAdminModal()"><i style="font-size:48px;">+</i></a>
+                               <div class="thumbnail" style="position:relative!important;top: -33px;opacity:0.7;">
+                               <img class="img-rounded" style="max-height:179px;min-height:179px;" src="../img/gallery/Noimage.png" alt=""/>
+                                <address>
+                                    <br/>
+                                    <strong><br/>No Records Found<br/></strong>
+                                    <br/>
+                                </address>                
+                              </div>
+                            </li>
+                            </ul>
+                            <div id="EditdivAppend">
+
+                            </div>
+                           </div>
+                              		
 				</div>				
 				</div>	
              </div>
-    </div>--%>
+    </div>
      <%-- Modal Insert Administration Faculties --%>
-              <%-- <div class="modal hide fade" id="modelAddAdmin">
+     <div class="modal hide fade" id="modelAddAdmin">
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" onclick="clearAdminControls();">×</button>
 			<h3><span id="AddOrEditAdmin">Add</span> Administrator</h3>
@@ -188,10 +165,10 @@
 				    <fieldset>
                        <div class="span12"> 
                        <div class="control-group">
-                       <img id="AdminImg" src="../img/gallery/priest.png" class="img-rounded"/>
-                       <input class="" id="fluImage" type="file" accept="image/*" onchange="OnUpload(this);showpreviewAdmin(this);" />--%>
+                       <img id="AdminImg" style="max-width:150px;min-height:150px;" src="../img/gallery/Noimage.png" class="img-rounded"/>
+                       <input class="" id="fluImage" type="file" accept="image/*" onchange="OnUpload(this);showpreviewAdmin(this);" />
                           <%-- <output id="AdminPreview"></output>--%>
-                      <%-- </div>
+                       </div>
                       <div class="control-group">
                       <label class="control-label" for="inputIcon">Designation</label>
 					  <div class="input-prepend span6">
@@ -227,14 +204,20 @@
 
 		</div>
 		  <div class="modal-footer">
-              <a id="btnAddAdmin" class="btn btn-primary SaveAdmin">Save</a>
-			<a class="btn btn-primary" data-dismiss="modal" onclick="clearAdminControls();">Close</a>
+               <div class="buttonpatch" style="position:relative;float:right;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			          
+                       <a class="facebook" id="btnAddAdmin" title="Save"><img src="/img/save.png" style="left:-6px;"/></a>
+                       <a class="facebook modelClear" data-dismiss="modal" title="Close" onclick="clearAdminControls();"><img src="/img/closemodel.png" style="left:-6px;"/></a>
+			           </div>
+              <%--<a id="btnAddAdmin" class="btn btn-primary SaveAdmin">Save</a>
+			<a class="btn btn-primary" data-dismiss="modal" onclick="clearAdminControls();">Close</a>--%>
 			
 		</div>
 	      </div>
     <input type="hidden" value="" id="hdfUnitName" />
     <input type="hidden" value="" id="hdfUnitID" />
     <input type="hidden" value="" id="hdfExecutivesLength" />
+    <input type="hidden" value="" id="hdfFamilyAddress" />
     <input type="hidden" value="" id="hdfFamilyName" />
     <input type="hidden" value="" id="hdfFamilyID" />
     <input type="hidden" value="" id="hdfMemberID" />
@@ -243,5 +226,20 @@
     <input type="hidden" value="" id="hdfAdminStatus" />
     <input type="hidden" value="" id="hdfMemberImgID" />
     <input type="hidden" value="" id="hdfAdminImageID" />
-    <input type="hidden" value="" id="hdfAdminDefaultImg" />--%>
-<%--</asp:Content>--%>
+    <input type="hidden" value="" id="hdfAdminDefaultImg" />
+     <style>
+.w3-note {
+    background-color: #ffffcc;
+    border-left: 6px solid #ffeb3b;
+}
+.w3-panel {
+    padding: 0.01em 16px;
+    margin-bottom: 16px!important;
+}
+.w3-panel:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+    </style>
+</asp:Content>

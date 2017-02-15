@@ -1285,6 +1285,7 @@ function UpdateFamily(e) {
 function BindFamilies(e) {
     try
     {
+        debugger;
         Families();
         var jsonResult = {};
         $("#hdfUnitName").val(e.textContent);
@@ -1553,7 +1554,7 @@ function BindNavUnits() {
         if (jsonResult != undefined) {
             BindFamilyTable(jsonResult);
         }
-        $("#breadcrumbFamily").append('<li class="faUnits"><a href="../AdminPanel/Families.aspx"> Families </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="unitName"> ' + unitName + '</li>');
+        $("#breadcrumbFamily").append('<li class="faUnits"><a href="../AdminPanel/Families.aspx"> Family Units </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="unitName"> ' + unitName + '</li>');
         if ($('#iconEdit').hasClass('halflings-icon white refresh') == true) {
             $('#iconEdit').removeClass("halflings-icon white refresh").addClass("halflings-icon white pencil");
             $('#iconEdit').attr('title', 'Edit Unit Executives');
@@ -1831,6 +1832,7 @@ function showpreviewAdmin(input) {
 function BindFamilyUnitMemebrs() {
     try
     {
+        debugger;
         var jsonResult = {};
         var FamilyUnits = new Object();
         FamilyUnits.unitId = $("#hdfUnitID").val();
@@ -2247,7 +2249,7 @@ function GetAllFamilyUnitMembers(FamilyUnits) {
         var ds = {};
         var table = {};
         var data = "{'familyUnitsObj':" + JSON.stringify(FamilyUnits) + "}";
-        ds = getJsonData(data, "../AdminPanel/Families.aspx/GetAllFamilyUnitMembers");
+        ds = getJsonData(data, "../AdminPanel/Families.aspx/GetAdminListUsingUnitID");
         table = JSON.parse(ds.d);
         return table;
     }
