@@ -7,8 +7,11 @@
 
     <%--<script src="../Scripts/timepicki.js"></script>
     <link href="../CSS/timepicki.css" rel="stylesheet" />--%>
-   <style>
-        ._30vx {
+<style>
+#divDay .dropdown-menu{
+    top:-150px!important;
+}
+._30vx {
     left: 20px;
     position: relative;
     top: -180px;
@@ -36,16 +39,6 @@
     width: 34px;
     word-wrap: normal;
 }
-/*a {
-    color: #365899;
-    cursor: pointer;
-    text-decoration: none;
-}*/
-/*a:-webkit-any-link {
-    color: -webkit-link;
-    text-decoration: underline;
-    cursor: auto;
-}*/
 ._30w0 {
     -webkit-font-smoothing: antialiased;
     padding-left: 26px;
@@ -89,8 +82,8 @@ a._p {
 ._30vy:hover ._30v-, ._30vy:focus ._30v-, .coverImage:hover ._5pwk ._30v-{
     transition: opacity .3s cubic-bezier(.175, .885, .32, 1.275), width .3s step-start;
 }
-    </style>
-     <script>
+</style>
+<script>
         function popUpload()
         {
             $('#flupCoverpic').click();
