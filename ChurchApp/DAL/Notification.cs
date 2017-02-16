@@ -981,6 +981,46 @@ namespace ChurchApp.DAL
         }
         #endregion Delete Notification Schedule
 
+        #region Select Notification Schedule
+        /// <summary>
+        /// To get notifications which are scheduled for a specific date
+        /// </summary>
+        /// <returns></returns>
+        public DataSet SelectNotificationsOnScheduledDate()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetNotificationOnScheduledDate]";
+                cmd.Parameters.Add("@ScheduledDate", SqlDbType.Date).Value = commonObj.ConvertDatenow(DateTime.Now.Date);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion Select Notification Schedule
+
         #endregion NotificationSchedule Methods
     }
 }
