@@ -135,17 +135,31 @@
             <div class="box span12">
                 <div class="box-header" data-original-title>
                     <h2 id="h2ChurchName"><i class="fa fa-user" aria-hidden="true"></i><span class="break"></span>ST.Thomas Cathedral</h2>
-                    <div class="box-icon">
+                  <%--  <div class="box-icon">
                         <a id="btnAddNew" runat="server" class="btn-setting"><i class="halflings-icon pencil"></i></a>
                         <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-                    </div>
+                    </div>--%>
+                     <div class="buttonpatch" style="height:0px;position:relative;left:512px;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			           <a class="facebook" title="Edit" id="btnEdit" onclick="EditChurch()"><img src="/img/edit.png"/></a>
+                       <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
+			           </div> 
+                        <div class="box-icon">
+                        
+                            <span class="break"></span>
+                            <a class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+          
+                        
+							
+						</div>
                 </div>
-                <div class="row-fluid" id="churchContainer">
+                <div class="row-fluid" id="churchContainer" style="border:1px solid #808080">
                     <div class="box-content" id="IdDivChurchDisplay">
                         <div class="masonry-thumb">
                             <img class="grayscale" src="" alt="My Church" />
                         </div>
                         <h3 id="h3ChurchName"></h3>
+                        <h3 id="h3ChurchPhone"></h3>
+                        <h3 id="h3ChurchAddress"></h3>
                         <h3>About the Church</h3>
                         <p id="pChurchDesc"></p>
                     </div>
@@ -168,7 +182,20 @@
                             <div class="control-group">
                                 <label class="control-label" for="focusedInput">Name</label>
                                 <div class="controls">
-                                    <input class="input-large focused" name="Caption" id="txtCaption" type="text" value="" />
+                                    <input class="input-xlarge span10 focused" name="Caption" id="txtCaption" type="text" value="" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="focusedInput">Phone Number</label>
+                                <div class="controls">
+                                    <input class="input-xlarge span10 focused" name="Caption" id="txtNumber" onkeypress="return isNumber(event);" type="text" value="" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="focusedInput">Address</label>
+                                <div class="controls">
+                                    <%--  <input class="input-large focused" name="Description" id="txtDescription" type="text"/>--%>
+                                    <textarea tabindex="3" class="input-xlarge span10" id="txtAddress" name="Address" rows="4" placeholder=""></textarea>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -179,9 +206,14 @@
                                 </div>
                             </div>
                           
-                            <div class="form-actions span12">
-							  <a class="btn btn-primary saveAll"   >Save changes</a>
-                              <a id="btnClear" class="btn btn-primary">Clear</a>   
+                            <div class="form-actions">
+                                 <div class="buttonpatch" style="position:relative;float:left;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			          
+                       <a class="facebook" title="Save" id="btnSave"><img src="/img/save.png"/></a>
+                       <a class="facebook cancel" title="Clear" id="btnClear"><img src="/img/closemodel.png"/></a>
+			           </div>
+							  <%--<a class="btn btn-primary saveAll"   >Save changes</a>
+                              <a id="btnClear" class="btn btn-primary">Clear</a>   --%>
 							</div>
                         </fieldset>
                     </div>
