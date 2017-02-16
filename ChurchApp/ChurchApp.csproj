@@ -359,10 +359,6 @@
     <Content Include="img\gallery\4.jpg" />
     <Content Include="img\gallery\5.jpg" />
     <Content Include="img\gallery\6.jpg" />
-    <Content Include="img\gallery\assist vicar.jpg" />
-    <Content Include="img\gallery\Cycle.jpg" />
-    <Content Include="img\gallery\Institution.jpg" />
-    <Content Include="img\gallery\kozhipadan.jpg" />
     <Content Include="img\IconChurch.PNG" />
     <Content Include="img\iconyou.png" />
     <Content Include="img\loader1.gif" />
@@ -386,7 +382,6 @@
     <Content Include="img\save.PNG" />
     <Content Include="img\sentmail.png" />
     <Content Include="img\slowrider.gif" />
-    <Content Include="img\St_Thomas_Church,_Irinjalakuda.jpg" />
     <Content Include="img\top_arr.png" />
     <Content Include="img\up.png" />
     <Content Include="img\VideoAdd.PNG" />
@@ -529,7 +524,6 @@
     <Content Include="img\avatar.jpg" />
     <Content Include="img\bg-input-focus.png" />
     <Content Include="img\bg-input.png" />
-    <Content Include="img\bg-login.jpg" />
     <Content Include="img\browser-chrome-big.png" />
     <Content Include="img\browser-firefox-big.png" />
     <Content Include="img\browser-ie.png" />
