@@ -113,17 +113,30 @@ a._p {
             <li class="Novena">Novenas</li>
         </ul>
 
-      
+      <div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198;display:none;">		
+			<a class="facebook" title="Add New" id="btnAdd" onclick="SetControlsInNovenaFormat(true);"><img  src="/img/add.PNG"/></a>
+            <a class="twitter" id="iconEditInstitute"><img src="/img/edit.png"/></a>
+            <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
+            <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
+			<a class="rss" id="btnDeleteInstitute"><img src="/img/delete.png"/></a>
+        </div>
 
 
         <div class="row-fluid" id="divImageAlbum" style="margin-top:3%">
             <div class="box span12">
                 <div class="box-header" id="DivBoxHeader">
                     <h2><i class="halflings-icon picture"></i><span class="break" id="spnSaint">Novenas</span></h2>
+                    <div class="buttonpatch" style="height:0px;position:relative;left:860px;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			           <a class="facebook" title="Edit" id="btnAddNew" onclick="AddNewNovena();"><img src="/img/add.png"/></a>
+                       <%--<a class="dribble" id="btnMain"><img src="/img/save.png"/></a>--%>
+                       <%--<a class="dribble" id="RefreshAlbum"><img src="/img/reset.png"/></a>--%>
+			           </div> 
                     <div class="box-icon">
+                        <span class="break"></span>
                             <%--<a class="AddNew" onclick="AddNewNovena();"><i title="Add New Novena">+</i></a>--%>
-					        <a class="" style="position: relative; top: -1px;  right: 0px;" id="btnAddNew" runat="server" title="Edit" onclick="AddNewNovena();" ><i class="halflings-icon pencil" id="iconPatronRefresh" aria-hidden="true"></i></a>
-                            <a class="" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon refresh" aria-hidden="true"></i></a>
+                            
+					        <%--<a class="" style="/*position: relative; top: -1px;  right: 0px;*/" id="btnAddNew" runat="server" title="Edit" onclick="AddNewNovena();" ><i class="halflings-icon pencil" id="iconPatronRefresh" aria-hidden="true"></i></a>--%>
+                            <%--<a class="" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon refresh" aria-hidden="true"></i></a>--%>
                             <a class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 							
 						</div>
@@ -163,7 +176,7 @@ a._p {
                             <h2>Novenas</h2>
                             <div style="border-bottom: 1.5px solid #FA603D;line-height: 0px;">
                                 
-                                <a class="btnNew" onclick="SetControlsInNovenaFormat(true);"><i title="Add New Novena">+</i></a>
+                                <%--<a class="btnNew" onclick="SetControlsInNovenaFormat(true);"><i title="Add New Novena">+</i></a>--%>
 
                             </div>
 

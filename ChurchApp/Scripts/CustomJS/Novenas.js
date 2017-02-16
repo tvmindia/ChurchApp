@@ -908,7 +908,7 @@ function AddNewNovena() {
         BindAllNovenas();
         $(".Novena").remove();//removes novena li from breadcrumb
         $("#breadcrumbNovena").append('<li><a href="../AdminPanel/Novenas.aspx"> Novenas </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="newnovenabread"> New Novena</li>');
-
+        $('.buttonpatch').show();
     }
     catch(e)
     {
@@ -953,7 +953,7 @@ function BindNovenaMoreDetails(ID) {
     try
     {
         
-        ScrollPage();
+        //ScrollPage();
         //  $('#DivNovenaTiming').hide();
         SetControlsInViewFormat();
         var jsonResult = {};
