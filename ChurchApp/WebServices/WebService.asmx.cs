@@ -1209,7 +1209,7 @@ namespace ChurchApp.WebServices
             
                 fmlyObj.churchId = ChurchID;
                 fmlyObj.unitId = UnitID;
-               dt = fmlyObj.SelectFamilyUnitMembers().Tables[0];
+               dt = fmlyObj.GetAdminListUsingUnitID().Tables[0];
             }
             catch (Exception ex)
             {

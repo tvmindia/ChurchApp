@@ -1,6 +1,18 @@
 ﻿//The function Dynamically append button images and click functions as per the programmer privillage
 function Dynamicbutton(ID, Keyword, Event) {    
     switch (Keyword) {
+        case "Add":
+            $('#' + ID + ' img').attr('src', '/img/add.PNG');
+            $('#' + ID).attr('onclick', Event + '();');
+            $('#' + ID).attr('title', 'Add New');
+            $('#' + ID).attr('class', 'facebook');
+            break;
+        case "AddCancel":
+            $('#' + ID + ' img').attr('src', '/img/add.PNG');
+            $('#' + ID).removeAttr("title")
+            $('#' + ID).removeAttr("onclick")
+            $('#' + ID).attr('class', 'rss');
+            break;
         case "Save":
             $('#' + ID + ' img').attr('src', '/img/save.PNG');
             $('#' + ID).attr('onclick', Event + '(this);');
@@ -25,11 +37,17 @@ function Dynamicbutton(ID, Keyword, Event) {
             $('#' + ID).removeAttr("onclick")
             $('#' + ID).attr('class', 'rss');
             break;
-        case "Cancel":
+        case "Back":
             $('#' + ID + ' img').attr('src', '/img/back.PNG');
             $('#' + ID).attr('onclick', Event + '();');
             $('#' + ID).attr('title', 'Back');
             $('#' + ID).attr('class', 'facebook');
+            break;
+        case "BackCancel":
+            $('#' + ID + ' img').attr('src', '/img/back.PNG');
+            $('#' + ID).removeAttr("title");
+            $('#' + ID).removeAttr("onclick");
+            $('#' + ID).attr('class', 'rss');
             break;
         case "Reset":
             $('#' + ID + ' img').attr('src', '/img/reset.PNG');
@@ -396,9 +414,12 @@ var Messages = {
     SelectDay: "Select days you preffer",
     SelectPatron: "Select Patron includes",
     LoginSuccess: "Successfully logged in",
+    HeadChange: 'Family Head changed, Member details Successfully Edited',
+    HeadChangeInsert: 'Family Head changed, Member details Successfully Added',
     InsertionSuccessFull: "Successfully Inserted",
     InsertionFailure: "Not Successfuly Saved Try Again",
     UpdationSuccessFull: "Successfully Edited",
+    HeadExist:'Operation Failed! The member you trying to delete belongs to Head',
     UpdationFailure: "Edit Failed Try Again Later",
     DeletionSuccessFull: "Deleted Successfully",
     SuccessfulUpload: "Successfully Uploaded",

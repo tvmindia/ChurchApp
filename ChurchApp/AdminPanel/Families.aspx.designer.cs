@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ChurchApp.AdminPanel {
+//namespace ChurchApp.AdminPanel {
     
     
-    public partial class Families {
+//    public partial class Families {
         
         /// <summary>
         /// btnAddNew control.
@@ -19,6 +19,6 @@ namespace ChurchApp.AdminPanel {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnAddNew;
-    }
-}
+//        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnAddNew;
+//    }
+//}

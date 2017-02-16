@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web;
 
 namespace ChurchApp.DAL
 {
@@ -341,6 +342,7 @@ namespace ChurchApp.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParam = null;
+            SqlParameter outParam1 = null;
             try
             {
                 dcon = new dbConnection();
@@ -351,8 +353,55 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[DeleteMember]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(memberId);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
-                cmd.Parameters.Add("@FamilyID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyObj.familyId);
+                cmd.Parameters.Add("@FamilyID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyID);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParam1 = cmd.Parameters.Add("@UrlStatus", SqlDbType.NVarChar,-1);
+                outParam.Direction = ParameterDirection.Output;
+                outParam1.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                if(outParam1.Value.ToString() != ""&& outParam1.Value.ToString() != null)
+                {
+                    System.IO.File.Delete(HttpContext.Current.Server.MapPath(outParam1.Value.ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            status=outParam.Value.ToString();
+
+            return status;
+        }
+        #endregion DeleteMember
+
+        #region DeleteMember
+        /// <summary>
+        /// Delete Member
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string CheckIsHead()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[CheckIsHead]";
+                cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(memberId);
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
+                outParam = cmd.Parameters.Add("@Status", SqlDbType.TinyInt);
                 outParam.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
@@ -367,7 +416,8 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            status=outParam.Value.ToString();
+            status = outParam.Value.ToString();
+
             return status;
         }
         #endregion DeleteMember

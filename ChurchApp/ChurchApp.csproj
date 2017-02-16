@@ -60,7 +60,7 @@
   <ItemGroup>
     <Content Include="AdminPanel\BugTracker.aspx" />
     <Content Include="AdminPanel\Events.aspx" />
-    <Content Include="AdminPanel\Families.aspx" />
+    <Content Include="AdminPanel\FamilyUnit.aspx" />
     <Content Include="AdminPanel\Gallery.aspx" />
     <Content Include="AdminPanel\ImportExcel.aspx" />
     <Content Include="AdminPanel\Institutions.aspx" />
@@ -262,6 +262,7 @@
     <Content Include="CSS\uniform.default.css" />
     <Content Include="CSS\uploadify.css" />
     <Content Include="Default.aspx" />
+    <Content Include="AdminPanel\Families.aspx" />
     <Content Include="Font\fontawesome-webfont.svg" />
     <Content Include="Font\glyphicons-regular-0.eot" />
     <Content Include="Font\glyphicons-regular.eot" />
@@ -403,6 +404,7 @@
     <Content Include="Scripts\CustomJS\BugTracker.js" />
     <Content Include="Scripts\CustomJS\Events.js" />
     <Content Include="Scripts\CustomJS\Families.js" />
+    <Content Include="Scripts\CustomJS\FamilyUnit.js" />
     <Content Include="Scripts\CustomJS\Gallery.js" />
     <Content Include="Scripts\CustomJS\Import.js" />
     <Content Include="Scripts\CustomJS\Institution.js" />
@@ -646,12 +648,12 @@
     <Compile Include="AdminPanel\Events.aspx.designer.cs">
       <DependentUpon>Events.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminPanel\Families.aspx.cs">
-      <DependentUpon>Families.aspx</DependentUpon>
+    <Compile Include="AdminPanel\FamilyUnit.aspx.cs">
+      <DependentUpon>FamilyUnit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminPanel\Families.aspx.designer.cs">
-      <DependentUpon>Families.aspx</DependentUpon>
+    <Compile Include="AdminPanel\FamilyUnit.aspx.designer.cs">
+      <DependentUpon>FamilyUnit.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\Gallery.aspx.cs">
       <DependentUpon>Gallery.aspx</DependentUpon>
@@ -758,6 +760,12 @@
     </Compile>
     <Compile Include="ExcelHandler\ExcelHandler.ashx.cs">
       <DependentUpon>ExcelHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Families.aspx.cs">
+      <DependentUpon>Families.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Families.aspx.designer.cs">
+      <DependentUpon>Families.aspx</DependentUpon>
     </Compile>
     <Compile Include="General\Dbdown.aspx.cs">
       <DependentUpon>Dbdown.aspx</DependentUpon>

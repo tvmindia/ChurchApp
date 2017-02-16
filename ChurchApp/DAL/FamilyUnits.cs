@@ -8,7 +8,7 @@ namespace ChurchApp.DAL
     public class FamilyUnits
     {
         Common commonObj = new Common();
-        //public Family familyObj;
+       // public Family familyObj;
         #region Public Properties
         public string unitId
         {
@@ -222,12 +222,12 @@ namespace ChurchApp.DAL
         }
         #endregion DeleteFamilyUnit
 
-        #region SelectFamilyUnitMembers
+        #region GetAdminListUsingUnitID
         /// <summary>
         /// Selects All Family Unit Members By churchID
         /// </summary>
         /// <returns>All FamilyUnits</returns>
-        public DataSet SelectFamilyUnitMembers()
+        public DataSet GetAdminListUsingUnitID()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -240,7 +240,7 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[SelectMembersOfFamilyUnits]";
+                cmd.CommandText = "[SelectAdminsOfFamilyUnitUsingID]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 if(unitId!=null && unitId!=string.Empty)
                 {
@@ -268,7 +268,7 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion SelectFamilyUnitMembers
+        #endregion GetAdminListUsingUnitID
 
         #endregion FamilyUnit Methods
     }
@@ -287,6 +287,12 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string address
+        {
+            get;
+            set;
+        }
+
         public string status
         {
             get;
@@ -399,6 +405,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyUnitsObj.churchId);
                 cmd.Parameters.Add("@UnitID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyUnitsObj.unitId);
                 cmd.Parameters.Add("@FamilyName", SqlDbType.NVarChar, 250).Value = familyName!=null&&familyName!=""?familyName:null;
+                cmd.Parameters.Add("@FamilyAddress", SqlDbType.NVarChar, 250).Value = address != null && address != "" ? address : null;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = familyUnitsObj.createdBy!=null&&familyUnitsObj.createdBy!=""?familyUnitsObj.createdBy:null;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -445,6 +452,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyUnitsObj.churchId);
                 cmd.Parameters.Add("@UnitID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(familyUnitsObj.unitId);
                 cmd.Parameters.Add("@FamilyName", SqlDbType.NVarChar, 250).Value = familyName!=null&&familyName!=""?familyName:null;
+                cmd.Parameters.Add("@FamilyAddress", SqlDbType.NVarChar, 250).Value = address != null && address != "" ? address : null;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 100).Value = familyUnitsObj.updatedBy!=null&&familyUnitsObj.updatedBy!=""?familyUnitsObj.updatedBy:null;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
