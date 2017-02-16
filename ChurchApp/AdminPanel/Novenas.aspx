@@ -113,12 +113,13 @@ a._p {
             <li class="Novena">Novenas</li>
         </ul>
 
-      <div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198;display:none;">		
-			<a class="facebook" title="Add New" id="btnAdd" onclick="SetControlsInNovenaFormat(true);"><img  src="/img/add.PNG"/></a>
-            <a class="twitter" id="iconEditInstitute"><img src="/img/edit.png"/></a>
+      <div class="buttonpatch" style="position:fixed;width:290px;right:0;top:8%;z-index:198;display:none;">		
+			<a class="twitter" id="btnBack"><img src="/img/back.png"/></a>
+            <a class="facebook" title="Add New" id="btnAdd" onclick="SetControlsInNovenaFormat(true);"><img  src="/img/add.PNG"/></a>
+            <a class="twitter" id="btnEdit"><img src="/img/edit.png"/></a>
             <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
             <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
-			<a class="rss" id="btnDeleteInstitute"><img src="/img/delete.png"/></a>
+			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
         </div>
 
 
@@ -127,7 +128,7 @@ a._p {
                 <div class="box-header" id="DivBoxHeader">
                     <h2><i class="halflings-icon picture"></i><span class="break" id="spnSaint">Novenas</span></h2>
                     <div class="buttonpatch" style="height:0px;position:relative;left:860px;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
-			           <a class="facebook" title="Edit" id="btnAddNew" onclick="AddNewNovena();"><img src="/img/add.png"/></a>
+			           <a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewNovena();"><img src="/img/add.png"/></a>
                        <%--<a class="dribble" id="btnMain"><img src="/img/save.png"/></a>--%>
                        <%--<a class="dribble" id="RefreshAlbum"><img src="/img/reset.png"/></a>--%>
 			           </div> 
@@ -190,11 +191,11 @@ a._p {
 
                         </div>
                         <div class="span1"></div>
-                        <div id="DivNewNovena" class="span6 noMarginLeft">
+                        <div id="DivNewNovena" style="display:none;" class="span6 noMarginLeft">
 
                             <div class="box-header">
                                 <h2><i class="fa fa-anchor" aria-hidden="true"></i><span class="break"></span><span id="h1Event" style="position: absolute">New Novena</span>
-                                    <a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Novena"></i></a></h2>
+                                    <%--<a id="NoticeEdit" class="btnEdit" onclick="FixedEditClick()"><i id="iconEdit" class="halflings-icon white pencil" aria-hidden="true" title="Edit Novena"></i></a>--%></h2>
 
                             </div>
                             <div class="box-content">
@@ -402,12 +403,12 @@ a._p {
 
                                     </fieldset>
                                 </div>
-                                <div class="form-actions">
+                                <%--<div class="form-actions">
                                     <a class="btn btn-primary saveAll" id="btnSave"><span></span>Save</a>
                                     <a class="btn btn-primary" id="btnCancel"><span></span>Cancel</a>
                                     <a class="btn btn-primary" id="btnDelete"><span></span>Delete</a>
 
-                                </div>
+                                </div>--%>
 
                             </div>
 
