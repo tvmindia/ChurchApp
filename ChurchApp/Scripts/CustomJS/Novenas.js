@@ -12,7 +12,7 @@ var IsNormal = true;                //Variable to check whether novena type is s
 var NovenaDayAndTime = new Array(); // on each + button clicked ,day and time will be pushed to this, later NOVENA TIMING saving is done by retrieving this array
 var PatronID = '';                  //id of patron user clicked (Its value sets when a saint image is clicked)
 var PatronImgID = '';
-
+var AddNewNovenaTag = '';//General  &&  Minor
 var IsUpdateTimeClicked = false;   //Not using now, Might be helpful if update functionality is giving for each novena time
 
 $("document").ready(function (e)
@@ -1049,31 +1049,27 @@ function FixedEditClick()
 function ViewIndividualPatron(obj) {
     try
     {
-        $('#rowfluidDiv').hide();
-        $('.alert-success').hide();
-        $('.alert-error').hide();
-
-
+        debugger;
         IsNormal = true;
-
         $('#DivBoxHeader').hide();
-        $('#EditPatron').hide();
-
         $('#DivSaints').hide();
         $('#DivIndividualPatron').show();
-
         var SaintName = $(obj).attr('SaintName');
         var SaintID = $(obj).attr('ID');
         BindNovenasPatronID(SaintID);
-
         PatronID = SaintID;
-
         //document.getElementById("spnSaint").innerHTML = SaintName;
         //$('.latest').text(SaintName)  ;
         $(".Novena").remove();//removes novena li from breadcrumb
-
         $("#breadcrumbNovena").append('<li><a href="../AdminPanel/Novenas.aspx"> Novenas </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + SaintName + '</li>');
-
+        $('.buttonpatch').show();
+        Dynamicbutton("btnBack", "Back", "");
+        Dynamicbutton("btnEdit", "EditCancel", "");
+        Dynamicbutton("btnMain", "SaveCancel", "");
+        Dynamicbutton("btnReset", "ResetCancel", "");
+        Dynamicbutton("btnDelete", "DeleteCancel", "");
+        $('#btnBack').attr('href', '../AdminPanel/Novenas.aspx');
+        AddNewNovenaTag = "Minor";
     }
     catch(e)
     {
@@ -1083,6 +1079,7 @@ function ViewIndividualPatron(obj) {
 function AddNewNovena() {
     try
     {
+        debugger;
         IsNormal = true;
         $('#DivBoxHeader').hide();
         $('#DivSaints').hide();
@@ -1097,6 +1094,7 @@ function AddNewNovena() {
         Dynamicbutton("btnReset", "ResetCancel", "");
         Dynamicbutton("btnDelete", "DeleteCancel", "");
         $('#btnBack').attr('href', '../AdminPanel/Novenas.aspx');
+        AddNewNovenaTag = "General";
     }
     catch(e)
     {
@@ -1107,34 +1105,34 @@ function AddNewNovena() {
 
 
 
-//Onclick Of Saint Image
-function ViewIndividualPatron(obj) {
-    try
-    {
-        $('#rowfluidDiv').hide();
-        $('.alert-success').hide();
-        $('.alert-error').hide();
-        IsNormal = true;
-        $('#DivBoxHeader').hide();
-        $('#EditPatron').hide();
-        $('#DivSaints').hide();
-        $('#DivIndividualPatron').show();
-        var SaintName = $(obj).attr('SaintName');
-        var SaintID = $(obj).attr('ID');
-        BindNovenasPatronID(SaintID);
-        PatronID = SaintID;
-        $("#hdfPatronID").val(PatronID);
-        //document.getElementById("spnSaint").innerHTML = SaintName;
-        //$('.latest').text(SaintName)  ;
-        $(".Novena").remove();//removes novena li from breadcrumb
-        $("#breadcrumbNovena").append('<li><a href="../AdminPanel/Novenas.aspx"> Novenas </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + SaintName + '</li>');
+////Onclick Of Saint Image
+//function ViewIndividualPatron(obj) {
+//    try
+//    {
+//        $('#rowfluidDiv').hide();
+//        $('.alert-success').hide();
+//        $('.alert-error').hide();
+//        IsNormal = true;
+//        $('#DivBoxHeader').hide();
+//        $('#EditPatron').hide();
+//        $('#DivSaints').hide();
+//        $('#DivIndividualPatron').show();
+//        var SaintName = $(obj).attr('SaintName');
+//        var SaintID = $(obj).attr('ID');
+//        BindNovenasPatronID(SaintID);
+//        PatronID = SaintID;
+//        $("#hdfPatronID").val(PatronID);
+//        //document.getElementById("spnSaint").innerHTML = SaintName;
+//        //$('.latest').text(SaintName)  ;
+//        $(".Novena").remove();//removes novena li from breadcrumb
+//        $("#breadcrumbNovena").append('<li><a href="../AdminPanel/Novenas.aspx"> Novenas </a><i class="fa fa-angle-right" aria-hidden="true"></i></li><li class="Pictures"> ' + SaintName + '</li>');
 
-    }
-    catch(e)
-    {
-        noty({ type: 'error', text: e.message });
-    }
-   }
+//    }
+//    catch(e)
+//    {
+//        noty({ type: 'error', text: e.message });
+//    }
+//   }
 var DayAndTimeTemp = '';
 //More Details (VIEW DETAILS CLICK)
 function BindNovenaMoreDetails(ID) {
@@ -1273,14 +1271,14 @@ function SetControlsInNovenaFormat(IsNewButtonClicked)
 {
     try
     {
-        
+        debugger;
         IsNormal = true;
         ClearControls();
-        if (PatronID != "") {
-            $("#ddlPatron").val($('#hdfPatronID').val()).trigger("change");
+        if (PatronID != ""&& AddNewNovenaTag == "Minor") {
+            $("#ddlPatron").val(PatronID).trigger("change");
         }
 
-        if ($('#hdfNovenaID').val() != "" && IsNewButtonClicked == null) {
+        if ($('#hdfNovenaID').val()!=""&&IsNewButtonClicked == null) {
             BindNovenaMoreDetails($('#hdfNovenaID').val());
         }
         else {
