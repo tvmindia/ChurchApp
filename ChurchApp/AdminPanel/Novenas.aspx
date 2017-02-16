@@ -120,7 +120,7 @@ a._p {
             <div class="box span12">
                 <div class="box-header" id="DivBoxHeader">
                     <h2><i class="halflings-icon picture"></i><span class="break" id="spnSaint">Novenas</span></h2>
-                    <div class="buttonpatch" style="height:0px;position:relative;left:860px;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+                    <div class="buttonpatch" style="height:0px;position:relative;left:80%;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
 			           <a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewNovena();"><img src="/img/add.png"/></a>
                        <%--<a class="dribble" id="btnMain"><img src="/img/save.png"/></a>--%>
                        <%--<a class="dribble" id="RefreshAlbum"><img src="/img/reset.png"/></a>--%>
@@ -417,7 +417,7 @@ a._p {
                 <!--/span-->
 
                 <!--Models used in this page-->
-                <div class="modal hide fade" id="NewSaintModel">
+                <%--<div class="modal hide fade" id="NewSaintModel">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">×</button>
                         <h3 id="ModalHead">Add New Saint</h3>
@@ -443,11 +443,9 @@ a._p {
                                         <img class="Preview" id="imgSaint" src="../img/No-Img_Chosen.png" />
                                     </div>
                                     <input type="file" id="UpSaint" value="Choose Image" onchange="showpreview(this);" />
-                                </div>
-
-
-                                <%--<div class="span1"></div>--%>
-                            </div>
+                                </div>--%>
+                <%--<div class="span1"></div>--%>
+                <%--</div>
                         </div>
 
 
@@ -458,7 +456,7 @@ a._p {
 
                     </div>
 
-                </div>
+                </div>--%>
             </div>
         </div>
         <input id="hdfNovenaID" type="hidden" />
