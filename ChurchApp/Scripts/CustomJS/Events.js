@@ -24,7 +24,42 @@ $("document").ready(function (e) {
         BindOldEvents();
         //Setting current churchid
         churchObject.chid = $("#hdfchid").val();
+        $('#btnSaveNotification').click(function () {
+            if (NotificationValidation) {
+                debugger;
+                var Notification = new Object();
+                Notification.notificationType = NotificationTypeCode;
+                Notification.linkID = $("#hdfEventID").val();
+                Notification.caption = $('#txtCaption').val();
+                Notification.description = $("#txtnotificationCOntent").val();
+                var result = InsertNotification(Notification);
+                switch (result.status) {
+                    case "1":
+                        $('.modelClear').click();
+                        $("#lblAlreadyNotificationSend").show();
+                        $("#lblAlreadyNotificationSend").text("Notification Already added");
+                        $('#NotificationInfo').show();
+                        $('#txtCaption').attr('disabled', true);
+                        $('#txtnotificationCOntent').attr('disabled', true);
+                        IsMobNotified = false;
+                        noty({ type: 'success', text: Messages.InsertionSuccessFull });
 
+                        break;
+                    default:
+                        $('.modelClear').click();
+                        $("#lblAlreadyNotificationSend").hide();
+                        $('#NotificationInfo').hide();
+                        $('#txtCaption').attr('disabled', false);
+                        $('#txtnotificationCOntent').attr('disabled', false);
+                        IsMobNotified = true;
+                        noty({ type: 'error', text: result.status });
+                        break;
+                }
+
+            }
+
+
+        });
         //--Limit Notification Content 
         $('#txtnotificationCOntent').keypress(function (e) {
             try
@@ -245,7 +280,22 @@ $("document").ready(function (e) {
     }
     
 });//end of document.ready
+function SendNotification() {
+    if ($("#txtEventName").val() != "") {
+        $("#txtCaption").val($("#txtEventName").val());
+    }
 
+    if ($("#txtDescription").val() != "") {
+
+        if ($("#txtDescription").val().length > MaxCharacterLimit) {
+            $("#txtnotificationCOntent").val($("#txtDescription").val().substring(0, MaxCharacterLimit));
+        }
+
+        else {
+            $("#txtnotificationCOntent").val($("#txtDescription").val());
+        }
+    }
+}
 function SaveEvents()
 {
     try {
@@ -430,6 +480,8 @@ function SaveEvents()
                         $("#hdfEventID").val(result.eventId);
                         $("#hdfImageID").val(result.imageId);
                         Dynamicbutton("btnDelete", "Delete", "DeleteEvents");
+                        Dynamicbutton("btnNotify", "PushNoti", "SendNotification");
+                        $('#btnNotify').attr('data-target', '#notificationModal');
                         if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
                         {
 
@@ -472,6 +524,8 @@ function SaveEvents()
                         noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                         $("#hdfEventID").val(InsertionStatus.eventId);
                         Dynamicbutton("btnDelete", "Delete", "DeleteEvents");
+                        Dynamicbutton("btnNotify", "PushNoti", "SendNotification");
+                        $('#btnNotify').attr('data-target', '#notificationModal');
                         if ($('input[name=IsnotificationNeeded]:checked').val() == "Yes") //Add Notification
                         {
 
@@ -532,6 +586,7 @@ function DeleteEvents()
                     Dynamicbutton("btnSave", "SaveCancel", "");
                     Dynamicbutton("btnDelete", "DeleteCancel", "");
                     Dynamicbutton("btnReset", "ResetCancel", "");
+                    Dynamicbutton("btnNotify", "PushNotiCancel", "");
                     break;
                 case "0":
                     noty({ text: Messages.DeletionFailure, type: 'error' });
@@ -906,8 +961,8 @@ function SetControlsInNewEventFormat() {
 
         $("#optHideNo").parent().removeClass('checked');
         $('#optHideYes').parent().addClass('checked');
-        document.getElementById("rdoNotificationNo").disabled = false;
-        document.getElementById("rdoNotificationYes").disabled = false;
+        //document.getElementById("rdoNotificationNo").disabled = false;
+        //document.getElementById("rdoNotificationYes").disabled = false;
         $("#rdoNotificationYes").parent().removeClass('checked');
         $('#rdoNotificationNo').parent().addClass('checked');
         $('#txtnotificationCOntent').attr('disabled', false);
@@ -922,11 +977,15 @@ function SetControlsInNewEventFormat() {
         Dynamicbutton("btnDelete", "DeleteCancel", "");
         Dynamicbutton("NoticeEdit", "EditCancel", "");
         Dynamicbutton("btnReset", "Reset", "cancelEdit");
+        Dynamicbutton("btnNotify", "PushNotiCancel", "");
         //$("#btnCancel").show();
         //$("#btnDelete").hide();
 
         $("#hdfEventID").val("");
-
+        $("#lblAlreadyNotificationSend").hide();
+        $('#NotificationInfo').hide();
+        $('#txtCaption').attr('disabled', false);
+        $('#txtnotificationCOntent').attr('disabled', false);
         //$("#NoticeEdit").hide();
     }
     catch(e)
@@ -1012,11 +1071,14 @@ function EditOnClick(id) {
     try
     {
         RemoveStyle();
+        Dynamicbutton("btnNotify", "PushNoti", "SendNotification");
+        $('#btnNotify').attr('data-target', '#notificationModal');
         //$('#NoticeEdit').attr('onclick', 'FixedEditClick();')
         Dynamicbutton("NoticeEdit", "Edit", "FixedEditClick");
         Dynamicbutton("btnSave", "SaveCancel", "");
         Dynamicbutton("btnReset", "ResetCancel", "");
         Dynamicbutton("btnDelete", "Delete", "DeleteEvents");
+        Dynamicbutton("btnNotify", "PushNotiCancel", "");
         //$('#iconEdit').removeClass("halflings-icon white repeat").addClass("halflings-icon white pencil");
         
         SetControlsInViewFormat();
@@ -1107,8 +1169,8 @@ function cancelEdit()
         ClearControls();
         $("#optHideNo").parent().removeClass('checked');
         $('#optHideYes').parent().addClass('checked');
-        document.getElementById("rdoNotificationNo").disabled = false;
-        document.getElementById("rdoNotificationYes").disabled = false;
+        //document.getElementById("rdoNotificationNo").disabled = false;
+        //document.getElementById("rdoNotificationYes").disabled = false;
         $("#rdoNotificationYes").parent().removeClass('checked');
         $('#rdoNotificationNo').parent().addClass('checked');
         $('#txtnotificationCOntent').attr('disabled', false);
@@ -1128,7 +1190,8 @@ function FixedEditClick() {
         Dynamicbutton("btnSave", "Save", "SaveEvents");
         Dynamicbutton("btnDelete", "Delete", "DeleteEvents");
         Dynamicbutton("btnReset", "Reset", "cancelEdit");
-
+        Dynamicbutton("btnNotify", "PushNoti", "SendNotification");
+        $('#btnNotify').attr('data-target', '#notificationModal');
         ClearControls();
         SetControlsInEditableFormat();
         $("#h1Event").text("Edit Event");
@@ -1188,17 +1251,22 @@ function FixedEditClick() {
                     IsMobNotified = false;
                     $("#lblAlreadyNotificationSend").show();
                     $("#lblAlreadyNotificationSend").text("Notification Already added");
-                    $('#rdoNotificationYes').parent().addClass('checked');
-                    $("#rdoNotificationNo").parent().removeClass('checked');
-                    $("#DivNotificationContent").show();
+                    $('#NotificationInfo').show();
+                    //$('#rdoNotificationYes').parent().addClass('checked');
+                    //$("#rdoNotificationNo").parent().removeClass('checked');
+                    //$("#DivNotificationContent").show();
+                    $('#txtCaption').attr('disabled', true);
+                    $('#txtCaption').val(jsonResult.Caption);
                     $('#txtnotificationCOntent').attr('disabled', true);
                     $("#txtnotificationCOntent").val(jsonResult.Descrtiption);
                 }
                 else {
-                    $("#rdoNotificationNo").parent().addClass('checked');
-                    $("#rdoNotificationYes").parent().removeClass('checked');
                     $("#lblAlreadyNotificationSend").hide();
+                    $('#NotificationInfo').hide();
+                    //$('#dateStartDate').attr('disabled', false);
+                    //$('#dateExpiryDate').attr('disabled', false);
                     $('#txtnotificationCOntent').attr('disabled', false);
+                    $('#txtCaption').attr('disabled', false);
                     IsMobNotified = true;
                     IsAlreadyNotified = false;
                 }
@@ -1402,6 +1470,43 @@ function EventValidation() {
         noty({ type: 'error', text: e.message });
     }
     
+
+}
+
+function NotificationValidation() {
+
+    $('#Displaydiv').remove();
+    var Start = $('#txtCaption');
+    var End = $('#txtnotificationCOntent');
+
+    var container = [
+        { id: Start[0].id, name: Start[0].name, Value: Start[0].value },
+    { id: End[0].id, name: End[0].name, Value: End[0].value }
+
+    ];
+
+    var j = 0;
+
+    for (var i = 0; i < container.length; i++) {
+        if (container[i].Value == "") {
+            j = 1;
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+
+        }
+    }
+
+    if (j == '1') {
+        noty({ type: 'error', text: Messages.Validation });
+        return false;
+    }
+    if (j == '0') {
+
+        return true;
+    }
+
 
 }
 

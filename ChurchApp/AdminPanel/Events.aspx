@@ -11,7 +11,21 @@
       <link href="../CSS/lightbox.css" rel="stylesheet" />
     <script src="../Scripts/lightbox.js"></script>
    <script src="../Scripts/progressbar.js"></script>
-
+    <style>
+        .w3-note {
+    background-color: #ffffcc;
+    border-left: 6px solid #ffeb3b;
+}
+.w3-panel {
+    padding: 0.01em 16px;
+    margin-bottom: 16px!important;
+}
+.w3-panel:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+    </style>
     <div id="content" class="span10">
         <ul class="breadcrumb" style="margin-bottom:0px;">
             <li>
@@ -28,7 +42,7 @@
             <a class="twitter" id="btnSave"><img src="/img/save.png"/></a>
             <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
 			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
-            <a class="rss" id="btnNotify"><img src="/img/notyfi.png"/></a>
+            <a class="rss" id="btnNotify" data-toggle="modal"><img src="/img/notyfi.png"/></a>
         </div>
         <%--END : Alert boxes --%>
 
@@ -90,10 +104,7 @@
                     <div class="box-content">
                     <div class="form-horizontal">
                         <fieldset>
-                              <div class="alert alert-block" id="ErrorBox" style="display: none; background-color: #fdeaea !important; color: #ca6f74 !important; border: 1px solid #f27b81 !important;">
-                <div id="Displaydiv">
-                </div>
-            </div>
+                              
 
                             <%--<a style="right:30px;position: fixed;" onclick="FixedEditClick()"><i class="fa fa-pencil eventEdit" aria-hidden="true"></i> Edit</a>--%>
                             <div id="EditContent">
@@ -171,7 +182,7 @@
                                 </div>
 
                                 <%--Notification(Radio) --%>
-                                <div class="control-group" id="divNotification">
+                               <%-- <div class="control-group" id="divNotification">
                                     <label class="control-label">Want to Add Mobile Notification?</label>
                                     <div class="controls">
                                         <label class="radio">
@@ -198,7 +209,7 @@
                                         <textarea class="input-xlarge" id="txtnotificationCOntent" name="Description" rows="4" placeholder=""></textarea>
 
                                     </div>
-                                </div>
+                                </div>---%>
 
 
                             </div>
@@ -260,6 +271,40 @@
 
 
         </div>
+        <!--Models used in this page-->
+                <div class="modal hide fade" id="notificationModal">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h3 id="ModalHead">Push Notification</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-block" id="ErrorBox1" style="display: none; background-color: #fdeaea !important; color: #ca6f74 !important; border: 1px solid #f27b81 !important;">
+              
+                    </div>
+                        <div class="form-horizontal">
+                            <div class="span12" style="min-height:200px;max-height:200px;">
+                                <div class="span6">
+                                     <label for="name">Caption</label><input name="Caption" id="txtCaption" type="text" />
+                                    <label for="name">Description</label><textarea id="txtnotificationCOntent" name="Description" rows="3" placeholder=""></textarea>
+                                    <label class="control-label" id="lblAlreadyNotificationSend">Notification Was added</label>
+                                    <i class="fa fa-info-circle" id="NotificationInfo" style="display:none;position:relative;top:53px;left:-53px;" data-toggle="popover" data-trigger="hover" data-content="If you added the Mobile notification once you can only edit it from the notification portal !"></i>
+                                </div>
+                                <div class="span6">
+                                    <div class="w3-note w3-panel" style="margin-top:10%;">
+                                    <p><strong>Tip:</strong><br />1) Recheck Caption. <br />2) Recheck Description (field allows only 200 characters).<br />3) Push Notification from here and shedule it from notification section. </p>
+                                    </div>
+                                </div>                                   
+                           </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <div class="buttonpatch" style="position:relative;float:right;z-index:196;">
+			          <a class="facebook" title="Push Notification" id="btnSaveNotification"><img src="/img/push.png" style="left:-6px;"/></a>
+                       <a class="facebook modelClear" data-dismiss="modal" title="Close"><img src="/img/closemodel.png" style="left:-6px;"/></a>
+			           </div>
+                    </div>
+
+                </div>
         </div>
         <input id="hdfImageID" type="hidden" value="" />
         <input id="hdfEventID" type="hidden" value="" />

@@ -139,7 +139,7 @@
                         <a id="btnAddNew" runat="server" class="btn-setting"><i class="halflings-icon pencil"></i></a>
                         <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
                     </div>--%>
-                     <div class="buttonpatch" style="height:0px;position:relative;left:512px;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+                     <div class="buttonpatch" style="height:0px;position:relative;left:48%;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
 			           <a class="facebook" title="Edit" id="btnEdit" onclick="EditChurch()"><img src="/img/edit.png"/></a>
                        <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
 			           </div> 

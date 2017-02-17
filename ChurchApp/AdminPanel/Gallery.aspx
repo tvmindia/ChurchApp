@@ -110,7 +110,7 @@
 				            <%--<a class="pencilEdit" style="position: relative; top: -1px;  right: 0px;display:none;" title="Edit" id="EditAlbum"><i class="halflings-icon pencil" aria-hidden="true"></i></a>--%>
                            <%-- <a class="" style="display:none;position: relative; top: -1px;  right: 0px;" title="Edit" id="RefreshAlbum"><i class="halflings-icon repeat" aria-hidden="true"></i></a>
                             <a class="facebook pencilEdit" title="Edit" id="EditAlbum"><img src="/img/edit.PNG"/></a>--%>
-                        <div class="buttonpatch" style="height:0px;position:relative;left:750px;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+                        <div class="buttonpatch" style="height:0px;position:relative;left:70%;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
 			           <a class="facebook" title="Edit" id="EditAlbum"><img src="/img/edit.png"/></a>
                        <%--<a class="dribble" id="btnMain"><img src="/img/save.png"/></a>--%>
                        <a class="dribble" id="RefreshAlbum"><img src="/img/reset.png"/></a>
@@ -179,7 +179,7 @@
              <div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2><i class="halflings-icon facetime-video"></i><span class="break"></span> Video Albums</h2>
-                         <div class="buttonpatch" style="height:0px;position:relative;left:750px;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+                         <div class="buttonpatch" style="height:0px;position:relative;left:70%;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
 			           <a class="facebook" title="Edit" id="EditVideoAlbum"><img src="/img/edit.png"/></a>
                        <%--<a class="dribble" id="btnMain"><img src="/img/save.png"/></a>--%>
                        <a class="dribble" id="RefreshVideoAlbum"><img src="/img/reset.png"/></a>
