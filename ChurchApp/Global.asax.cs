@@ -14,6 +14,7 @@ namespace ChurchApp
         protected void Application_Start(object sender, EventArgs e)
         {            
             Services.FileFlush.FileFlushing();
+            Services.NotificationSendingService.SendNotifications();
         }
 
         protected void Session_Start(object sender, EventArgs e)
@@ -44,6 +45,7 @@ namespace ChurchApp
         protected void Application_End(object sender, EventArgs e)
         {
             Services.FileFlush.StopFileDeleteThread();
+            Services.NotificationSendingService.StopSendNotificationsThread();
             //  Code that runs on application shutdown
         }
     }

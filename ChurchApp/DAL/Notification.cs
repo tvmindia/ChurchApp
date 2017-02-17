@@ -981,6 +981,86 @@ namespace ChurchApp.DAL
         }
         #endregion Delete Notification Schedule
 
+        #region Select Notifications Scheduled Today
+        /// <summary>
+        /// To get notifications which are scheduled for a specific date
+        /// </summary>
+        /// <returns></returns>
+        public DataSet SelectNotificationsOnScheduledDate()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetNotificationOnScheduledDate]";
+                cmd.Parameters.Add("@ScheduledDate", SqlDbType.Date).Value = commonObj.ConvertDatenow(DateTime.Now.Date);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion Select Notifications Scheduled Today
+
+        #region Update Notification Schedule Status and Notification Status
+        /// <summary>
+        /// To update notification schedule status and notification status
+        /// </summary>
+        /// <returns></returns>
+        public string UpdateNotificationScheduleStatus()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateNotificationScheduleStatus]";
+                cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notifiScheduleID);
+                cmd.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
+                cmd.Parameters.Add("@Status", SqlDbType.Int).Value = scheduleStatus;
+                outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion
+
         #endregion NotificationSchedule Methods
     }
 }

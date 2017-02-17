@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
 using System.Web;
+using System.Data;
+using ChurchApp.DAL;
 
 namespace ChurchApp.Services
 {
@@ -27,18 +26,36 @@ namespace ChurchApp.Services
 
             while (true)
             {
-                var minutes = 2;
-                System.Threading.Thread.Sleep(minutes * 60 * 1000);
+                var hours = 24;
+                System.Threading.Thread.Sleep(hours * 60 * 60 * 1000);
                 try
                 {
 
-                    //------------------Deleting temporary files created by excel files----------------
-                    string[] filePaths2 = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/TempFiles/"));
-                    foreach (string filePath in filePaths2)
-                        if (DateTime.UtcNow - File.GetCreationTimeUtc(filePath) > TimeSpan.FromHours(10))
+                    //------------------Sending notifications which are scheduled today----------------
+                    DataTable dt = new DataTable();
+                    NotificationSchedule noti = new NotificationSchedule();
+                    dt = noti.SelectNotificationsOnScheduledDate().Tables[0];
+                    Notification notiTemp = new Notification();
+                    NotificationSchedule notiSchedTemp = new NotificationSchedule();
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        notiSchedTemp.notifiScheduleID = dr["ScheduleID"].ToString();
+                        notiSchedTemp.notificationID = dr["ID"].ToString();
+                        try
                         {
-                            File.Delete(filePath);
+                            notiTemp.SendToFCM(dr["Caption"].ToString(), dr["Description"].ToString(), false, dr["ChurchID"].ToString());                            
+                            notiSchedTemp.scheduleStatus = "1";//Processed
                         }
+                        catch(Exception exc)
+                        {
+                            notiSchedTemp.scheduleStatus = "2";//Failed                            
+                        }
+                        finally
+                        {
+                            notiSchedTemp.UpdateNotificationScheduleStatus();
+                        }
+                    }                  
+                   
 
                 }
                 catch (Exception ex)
