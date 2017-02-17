@@ -36,12 +36,24 @@ namespace ChurchApp.Services
                     NotificationSchedule noti = new NotificationSchedule();
                     dt = noti.SelectNotificationsOnScheduledDate().Tables[0];
                     Notification notiTemp = new Notification();
+                    NotificationSchedule notiSchedTemp = new NotificationSchedule();
                     foreach (DataRow dr in dt.Rows)
                     {
-
-
-                        notiTemp.SendToFCM(dr["Caption"].ToString(), dr["Description"].ToString(), false, dr["ChurchID"].ToString());
-                     
+                        notiSchedTemp.notifiScheduleID = dr["ScheduleID"].ToString();
+                        notiSchedTemp.notificationID = dr["ID"].ToString();
+                        try
+                        {
+                            notiTemp.SendToFCM(dr["Caption"].ToString(), dr["Description"].ToString(), false, dr["ChurchID"].ToString());                            
+                            notiSchedTemp.scheduleStatus = "1";//Processed
+                        }
+                        catch(Exception exc)
+                        {
+                            notiSchedTemp.scheduleStatus = "2";//Failed                            
+                        }
+                        finally
+                        {
+                            notiSchedTemp.UpdateNotificationScheduleStatus();
+                        }
                     }                  
                    
 

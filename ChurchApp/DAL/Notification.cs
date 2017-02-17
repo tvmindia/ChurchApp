@@ -981,7 +981,7 @@ namespace ChurchApp.DAL
         }
         #endregion Delete Notification Schedule
 
-        #region Select Notification Schedule
+        #region Select Notifications Scheduled Today
         /// <summary>
         /// To get notifications which are scheduled for a specific date
         /// </summary>
@@ -1019,7 +1019,47 @@ namespace ChurchApp.DAL
             }
             return ds;
         }
-        #endregion Select Notification Schedule
+        #endregion Select Notifications Scheduled Today
+
+        #region Update Notification Schedule Status and Notification Status
+        /// <summary>
+        /// To update notification schedule status and notification status
+        /// </summary>
+        /// <returns></returns>
+        public string UpdateNotificationScheduleStatus()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateNotificationScheduleStatus]";
+                cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notifiScheduleID);
+                cmd.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(notificationID);
+                cmd.Parameters.Add("@Status", SqlDbType.Int).Value = scheduleStatus;
+                outParam = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion
 
         #endregion NotificationSchedule Methods
     }
