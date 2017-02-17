@@ -377,6 +377,7 @@
     <Content Include="img\notyfi.png" />
     <Content Include="img\Plussymbol.png" />
     <Content Include="img\prev.png" />
+    <Content Include="img\push.png" />
     <Content Include="img\reset.PNG" />
     <Content Include="img\ring.gif" />
     <Content Include="img\save.PNG" />

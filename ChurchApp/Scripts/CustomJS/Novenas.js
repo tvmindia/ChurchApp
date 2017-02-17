@@ -1923,7 +1923,7 @@ function BindPatrons() {
     }
 }
 function FillPatrons(Records) {
-
+    debugger;
     $('#DivSaints').html('');
     // var TotalRecords = Records.length+1;
     var TotalRecords = Records.length + 1;            // Adding 1 bcz ADD NEW EVENT div has to be appended first
@@ -1995,7 +1995,7 @@ function FillPatrons(Records) {
         var img = document.createElement('img');
         img.src = "../img/nodata.jpg";
         img.id = "NoData";
-        $("#DivNovenas").append(img);
+        $("#DivSaints").append(img);
     }
 }
 function GetAllPatrons(PatronMaster) {

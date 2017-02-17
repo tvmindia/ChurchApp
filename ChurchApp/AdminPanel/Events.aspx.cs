@@ -545,7 +545,7 @@ namespace ChurchApp.AdminPanel
                 {
                     NotificationObj.churchId = UA.ChurchID;
                     NotificationObj.createdBy = UA.userName;
-                    status = NotificationObj.InsertNotification().ToString();
+                    NotificationObj.InsertNotification().ToString();
                 }
                 //Session is out
                 else
@@ -562,9 +562,9 @@ namespace ChurchApp.AdminPanel
             finally
             {
             }
-            // return jsSerializer.Serialize(NotificationObj);
+            return jsSerializer.Serialize(NotificationObj);
 
-            return status;
+            //return status;
         }
 
 

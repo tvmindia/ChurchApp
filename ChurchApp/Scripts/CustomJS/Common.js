@@ -64,13 +64,26 @@ function Dynamicbutton(ID, Keyword, Event) {
         case "SendNoti":
             $('#' + ID + ' img').attr('src', '/img/sentmail.PNG');
             $('#' + ID).attr('onclick', Event + '();');
-            $('#' + ID).attr('title', 'Push Notification');
+            $('#' + ID).attr('title', 'Send Notification');
             $('#' + ID).attr('class', 'facebook');
             break;
         case "SendNotiCancel":
             $('#' + ID + ' img').attr('src', '/img/sentmail.PNG');
             $('#' + ID).removeAttr("title")
             $('#' + ID).removeAttr("onclick")
+            $('#' + ID).attr('class', 'rss');
+            break;
+        case "PushNoti":
+            $('#' + ID + ' img').attr('src', '/img/notyfi.PNG');
+            $('#' + ID).attr('onclick', Event + '();');
+            $('#' + ID).attr('title', 'Push Notification');
+            $('#' + ID).attr('class', 'facebook');
+            break;
+        case "PushNotiCancel":
+            $('#' + ID + ' img').attr('src', '/img/notyfi.PNG');
+            $('#' + ID).removeAttr("title")
+            $('#' + ID).removeAttr("onclick")
+            $('#' + ID).removeAttr("data-target")
             $('#' + ID).attr('class', 'rss');
             break;
         case "Delete":
