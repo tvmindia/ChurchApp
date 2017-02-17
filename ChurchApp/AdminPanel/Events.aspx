@@ -166,7 +166,7 @@
                                     </div>
                                 </div>
 
-                                <%--<div class="control-group">
+                                <div class="control-group">
                                     <label class="control-label">Auto Hide</label>
                                     <div class="controls">
                                         <label class="radio">
@@ -179,7 +179,7 @@
                                             No
                                         </label>
                                     </div>
-                                </div>--%>
+                                </div>
 
                                 <%--Notification(Radio) --%>
                                <%-- <div class="control-group" id="divNotification">
