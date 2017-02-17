@@ -281,7 +281,7 @@ function postBlobAjax(formData, page) {
             $('body').empty();
             $('body').append(htmlerror());
             window.history.pushState("", "", "/Opps!");
-        noty({ text:  message.code + ', ' + xmlhttprequest.statusText, type: 'error' })
+        //noty({ text:  message.code + ', ' + xmlhttprequest.statusText, type: 'error' })
 
     }
     });
@@ -319,7 +319,7 @@ function getJsonData(data, page) {
                 $('body').attr('style', 'background-color:#A2BDCE;')
                 $('body').append(htmlerror());
                 window.history.pushState("", "", "/Login.aspx");
-                noty({ text: message.code + ', ' + xmlhttprequest.statusText, type: 'error' })
+                //noty({ text: message.code + ', ' + xmlhttprequest.statusText, type: 'error' })
 
             }
 
