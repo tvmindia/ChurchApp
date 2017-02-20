@@ -749,7 +749,7 @@ function HtmlBindInstitutions(InstituteDetails, i) {
 // Html code for binding admincard details
 function HtmlBindCards(AdminDetails, i) {
     var ID = "'" + AdminDetails.ID + "'";
-    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '?' + new Date().getTime() + '"/>'
+    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + (AdminDetails.URL != null ? AdminDetails.URL + '?' + new Date().getTime() : "../img/gallery/Noimage.png") + '"/>'
       + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address></div>'
       + '</li></ul>');
     return html;
@@ -767,7 +767,7 @@ function HtmlBindCardsEmpty() {
 function HtmlEditBindCards(AdminDetails, i) {
                                                                                                                                                         //'+'"?"'+new Date().getTime()+'                               
     var ID = "'" + AdminDetails.ID + "'";
-    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '?' + new Date().getTime() + '"/>'
+    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + (AdminDetails.URL != null ? AdminDetails.URL + '?' + new Date().getTime() : "../img/gallery/Noimage.png") + '"/>'
       + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address><i class="icon-edit" name=' + ID + ' style="position: relative;top: -19px;left: 105px;cursor:pointer;" onclick="EditAdministrator(this)"></i><i class="icon-trash" name=' + ID + ' style="position: relative;top: -19px;left: 109px;cursor:pointer;" onclick="DeleteAdministrator(this);"></i></div>'
       + '</li></ul>');
     return html;

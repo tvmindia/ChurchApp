@@ -901,7 +901,7 @@ function BindMemberSelect() {
             $('#ddlMember').append($('<option>',
             {
                 value: selectRow[i].ID,
-                text: selectRow[i].FirstName + " " + selectRow[i].LastName + " " + selectRow[i].FamilyName
+                text: selectRow[i].FirstName + "." + selectRow[i].LastName + " 🏠 " + selectRow[i].FamilyName
             }));
         }
     }

@@ -13,6 +13,7 @@ $(document).ready(function () {
         //
         /// Function Binding Dropdown Select roles
         BindSelect();
+        BindMemberSelect();
         AutoComplete();
         AutoCompleteAdmin();
         ///
@@ -114,6 +115,44 @@ function showpreviewAdmin(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+//member select dropdown change of administrator
+function AdminMemberChange() {
+    try {
+        debugger;
+        if ($("#ddlMember").val() != "" && $("#ddlMember").val() != null && $("#ddlMember").val() != "-1") {
+            var FamilyUnits = new Object();
+            var Family = new Object();
+            var Members = new Object();
+            //var unitID = $("#hdfUnitID").val();
+            //FamilyUnits.unitId = unitID;
+            Family.familyUnitsObj = FamilyUnits;
+            Members.familyObj = Family;
+            Members.memberId = $("#ddlMember").val();
+            var jsonResult = GetAdminMemberDetails(Members);
+            if (jsonResult != undefined && jsonResult != null) {
+                $('#hdnmemID').val(jsonResult[0].ID);
+                $('#hdnmemName').val(jsonResult[0].FirstName);
+                if (jsonResult[0].Phone != "" && jsonResult[0].Phone != undefined && jsonResult[0].Phone != null) {
+                    $("#txtMobile").val(jsonResult[0].Phone);
+                }
+                else {
+                    $("#txtMobile").val(jsonResult[0].Contact);
+                }
+                if (jsonResult[0].URL != null && jsonResult[0].URL != "") {
+                    $('#AdminPicPreview').attr('src', jsonResult[0].URL);
+                }
+                if (jsonResult[0].ImageID != "" && jsonResult[0].ImageID != null) {
+                    adminImage = jsonResult[0].ImageID;
+                    $("#hdfAdminImageID").val(adminImage);
+                }
+
+            }
+        }
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+}
 ///End Common functions
 
 
@@ -125,14 +164,14 @@ function showpreviewAdmin(input) {
 function SaveAdministrator()
 {
     try {
-        
+        debugger;
         var AppImgURL = '';
         var Administrators = new Object();
         var AdminID = $('#hdnAdminID').val();
         var InstituteID = $('#hdnInstituteID').val();
         Administrators.churchId=churchObject.chid;
         Administrators.desigId = $('#ddlRole').val();
-        Administrators.Name = $('#txtName').val();
+        Administrators.Name = $('#hdnmemName').val();
         Administrators.Phone = $('#txtMobile').val();
         Administrators.orgType = "PUINST";
         Administrators.orgId = InstituteID;
@@ -274,8 +313,8 @@ function SaveInstitution() {
             PiousOrg.PatronID = $('#hdnPatron').val();
             $("#hdnInstutID").val(guid);
             $('#hdnInstituteID').val(guid);
-            if (PiousOrg.PatronID != "" && PiousOrg.PatronID != null)
-            {
+            //if (PiousOrg.PatronID != "" && PiousOrg.PatronID != null)
+            //{
                 result = InsertInstitute(PiousOrg);
 
                 if (result.results == "1") {
@@ -296,11 +335,11 @@ function SaveInstitution() {
                 if (result.results != "1") {
                     noty({ text: result.results, type: 'error' });
                 }
-            }
-            else
-            {
-                noty({ text: Messages.SelectExistingPatron, type: 'error' });
-            }
+            //}
+            //else
+            //{
+            //    noty({ text: Messages.SelectExistingPatron, type: 'error' });
+            //}
            
           
 
@@ -313,13 +352,23 @@ function SaveInstitution() {
            // PiousOrg.piousOrgID = guid;
             PiousOrg.Name = $('#txtInstituteName').val();
             PiousOrg.description = $('#txtHistory').val();
-            PiousOrg.PatronID = $('#hdnPatron').val();
+            if ($('#txtPatron').val() != "")
+            {
+                
+                PiousOrg.PatronID = $('#hdnPatron').val();
+
+            }
+            else
+            {
+                $('#priestPreview').attr('src', '../img/gallery/Pious.jpg');
+            }
+            
             //Institutions.imageId = $("#hdnInstutID").val();
             PiousOrg.piousOrgID = $("#hdnInstutID").val();
 
 
-            if (PiousOrg.PatronID != "" && PiousOrg.PatronID != null)
-            {
+            //if (PiousOrg.PatronID != "" && PiousOrg.PatronID != null)
+            //{
                 result = UpdateInstitute(PiousOrg);
 
                 if (result.results == "1") {
@@ -328,12 +377,12 @@ function SaveInstitution() {
                 if (result.results != "1") {
                     noty({ text: result.results, type: 'error' });
                 }
-            }
-            else
-            {
+            //}
+            //else
+            //{
 
-                noty({ text: Messages.SelectExistingPatron, type: 'error' });
-            }
+            //    noty({ text: Messages.SelectExistingPatron, type: 'error' });
+            //}
           
 
         }
@@ -394,6 +443,27 @@ function AutoComplete() {
         noty({ type: 'error', text: e.message });
     }
     
+}
+//
+//Binds Admin member
+function BindMemberSelect() {
+    try {
+        debugger;
+        var Members = new Object();
+        var selectRow = {};
+        selectRow = GetAllUnitMembersForAdmin(Members);
+        $('#ddlMember').find('option:not(:first)').remove();
+        for (var i = 0; i < selectRow.length; i++) {
+            $('#ddlMember').append($('<option>',
+            {
+                value: selectRow[i].ID,
+                text: selectRow[i].FirstName + "." + selectRow[i].LastName + " 🏠 " + selectRow[i].FamilyName
+            }));
+        }
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
 }
 //
 //Function For auto complete text box for patron
@@ -547,7 +617,7 @@ function BindDetails(intituteID) {
             $('#instituteDetailPreview').attr('src', InstituteRow.imagepath);
         }
         else {
-            $('#instituteDetailPreview').attr('src', '../img/gallery/Institution.jpg');
+            $('#instituteDetailPreview').attr('src', '../img/gallery/Pious.jpg');
         }
 
         //$('#aWebsite').attr('href', InstituteRow.Website);
@@ -626,7 +696,7 @@ function HtmlBindInstitutions(InstituteDetails, i) {
         imageurl = InstituteDetails.URL+'?' + new Date().getTime() ;
     }
     else {
-        imageurl = '../img/gallery/Institution.jpg';
+        imageurl = '../img/gallery/Pious.jpg';
     }
 
     var html = ('<ul class="media-list" style="border-bottom:1px solid #cfcece"><li class="media">'
@@ -641,7 +711,7 @@ function HtmlBindInstitutions(InstituteDetails, i) {
 // Html code for binding admincard details
 function HtmlBindCards(AdminDetails, i) {
     var ID = "'" + AdminDetails.ID + "'";
-    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '?' + new Date().getTime() + '"/>'
+    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + (AdminDetails.URL != null ? AdminDetails.URL + '?' + new Date().getTime() : "../img/gallery/Noimage.png") + '"/>'
       + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address></div>'
       + '</li></ul>');
     return html;
@@ -659,7 +729,7 @@ function HtmlBindCardsEmpty() {
 function HtmlEditBindCards(AdminDetails, i) {
     
     var ID = "'" + AdminDetails.ID + "'";
-    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + AdminDetails.URL + '?' + new Date().getTime() + '"/>'
+    var html = ('<ul class="thumbnails span4"><li class="span12"><div class="thumbnail"><img class="img-rounded" style="height:179px!important;" src="' + (AdminDetails.URL != null ? AdminDetails.URL + '?' + new Date().getTime() : "../img/gallery/Noimage.png") + '"/>'
       + '<address><strong>' + AdminDetails.Position + '</strong><p>' + AdminDetails.Name + '<br/>' + AdminDetails.Phone + '</p></address><i class="icon-edit" name=' + ID + ' style="position: relative;top: -19px;left: 105px;cursor:pointer;" onclick="EditAdministrator(this)"></i><i class="icon-trash" name=' + ID + ' style="position: relative;top: -19px;left: 109px;cursor:pointer;" onclick="DeleteAdministrator(this);"></i></div>'
       + '</li></ul>');
     return html;
@@ -774,7 +844,7 @@ function EditInstitute(this_obj) {
             $('#priestPreview').attr('src', InstituteRow.imagepath);
         }
         else {
-            $('#priestPreview').attr('src', '../img/gallery/Institution.jpg');
+            $('#priestPreview').attr('src', '../img/gallery/Pious.jpg');
         }
 
         document.getElementById('HeadDetails').innerText = "Edit Details";
@@ -867,7 +937,7 @@ function NewInstitute() {
         $('#divAccoAdmininfo').hide();
         $('#divAdminInfo').hide();
         $('#iconShowInstitute').hide();
-        $('#priestPreview').attr('src', '../img/gallery/Institution.jpg');
+        $('#priestPreview').attr('src', '../img/gallery/Pious.jpg');
         document.getElementById('HeadDetails').innerText = "Add Pious Organization";
        // $('#btncancelInstitute').attr('name', 'new');
         $('#InstituteEdit').show();
@@ -936,6 +1006,20 @@ function Cancel() {
 
 
 //////////////////////////////////////////////////////////*******Sending Json data and retrive methods
+/////GetAdminDetails
+function GetAdminMemberDetails(Members) {
+    try {
+        var ds = {};
+        var table = {};
+        var data = "{'memberObj':" + JSON.stringify(Members) + "}";
+        ds = getJsonData(data, "../AdminPanel/FamilyUnit.aspx/GetAdminMemberDetails");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+}
 //Get roles for dropdown
 function GetRoles() {
     try {
@@ -979,6 +1063,20 @@ function GetAdminDetails(AdminID) {
 
     }
 
+}
+//Bind All unit members for admin select
+function GetAllUnitMembersForAdmin(Members) {
+    try {
+        var ds = {};
+        var table = {};
+        var data = "{'memberObj':" + JSON.stringify(Members) + "}";
+        ds = getJsonData(data, "../AdminPanel/FamilyUnit.aspx/GetAllFamilyMemberUsingChurchID");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
 }
 //Insert Administrator
 function InsertAdministrator(Administrators) {
@@ -1168,11 +1266,11 @@ function InstitutionValidation() {
     {
         
         var Name = $('#txtInstituteName');
-        var Patron = $('#txtPatron');
+        //var Patron = $('#txtPatron');
 
         var container = [
             { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
-            { id: Patron[0].id, name: Patron[0].name, Value: Patron[0].value },
+           // { id: Patron[0].id, name: Patron[0].name, Value: Patron[0].value },
         ];
 
         var j = 0;
@@ -1209,7 +1307,7 @@ function AdminValidation() {
     try
     {
         
-        var Name = $('#txtName');
+        var Name = $('#ddlMember');
         var Phone = $('#txtMobile');
         var Role = $('#ddlRole');
 

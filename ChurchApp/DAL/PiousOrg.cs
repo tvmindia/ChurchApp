@@ -140,7 +140,10 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchID);
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar,150).Value = Name!=null&&Name!=""?Name:null;
                 cmd.Parameters.Add("@Desc", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
-                cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(PatronID);
+                if(PatronID!=null&&PatronID!="")
+                {
+                    cmd.Parameters.Add("@PatronID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(PatronID);
+                }
                 if(albumId!=null)
                 {
                     cmd.Parameters.Add("@AlbumID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(albumId);

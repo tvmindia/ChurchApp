@@ -32,7 +32,7 @@
             <div id="InstituteDefault">
 				<ul class="media-list" style="border-bottom:1px solid #cfcece">
                 <li class="media">
-               <a class="pull-left"><img class="media-object" src="../img/gallery/Institution.jpg" style="max-height:80px;"/></a>
+               <a class="pull-left"><img class="media-object" src="../img/gallery/Pious.jpg" style="max-height:80px;"/></a>
                 <div class="media-body">
                 <h4 class="media-heading">No Record Found<span> </span><span class="fa fa-flag"></span></h4>
                  <br />
@@ -120,7 +120,7 @@
                         <%--<a class="btnEdit" id="iconDisInstitute" style="right:40px;top:-41px;position: absolute;" title="EDIT" name="Edit" onclick="Cancel(this);"><i class="halflings-icon white refresh" aria-hidden="true" ></i></a>--%>
                     
                         <div class="control-group span12">
-					    <img class="priestimage span4" style="display:none;" id="priestPreview" src="../img/gallery/Pious.jpg"/>
+					    <img class="priestimage span4" id="priestPreview" src="../img/gallery/Pious.jpg"/>
                             <strong class="span6"><br /><br /><br /><h2 id="lblPatron"></h2></strong>
                          <%--<input type="file" value="Choose Image" id="instituteimg" accept="image/*" style="position: absolute;top: 10%;left: 7%;cursor:pointer;background-color: lightsteelblue;color: white;" onchange="OnUpload(this);showpreview(this);" />--%>
 							</div>
@@ -232,7 +232,10 @@
                       <label class="control-label" for="inputIcon">Name</label>
 					  <div class="input-prepend span6">
                        <span class="add-on"><i class="icon-user"></i></span>
-                       <input class="span12" name="name" id="txtName" type="text"/>
+                       <%--<input class="span12" name="name" placeholder="search & select" id="txtName" type="text"/>--%>
+                       <select class="span12" id="ddlMember" onchange="AdminMemberChange();">
+                           <option value="-1" selected disabled">Select Member</option>
+                       </select>
                        </div>
 					  </div>     
                         <div class="control-group">
@@ -246,6 +249,7 @@
                       <input id="hdnInstituteID" type="hidden" />
                            <input id="hdnAdminID" type="hidden" />
                            <input id="hdnmemID" type="hidden" />
+                           <input id="hdnmemName" type="hidden" />
                            <input id="hdfAdminImageID" type="hidden" />
                           
 					  </div> 

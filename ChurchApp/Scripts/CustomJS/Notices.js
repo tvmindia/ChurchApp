@@ -510,6 +510,7 @@ function DeleteNotices()
                 Dynamicbutton("btnDelete", "DeleteCancel", "");
                 Dynamicbutton("btnReset", "ResetCancel", "");
                 Dynamicbutton("btnNotify", "PushNotiCancel", "");
+                $("#NoticeEditDivBox").hide();
                 break;
             case "0":
                 noty({ text: Messages.DeletionFailure, type: 'error' });
@@ -521,7 +522,7 @@ function DeleteNotices()
         }
 
         BindNotices();
-        SetControlsInNewNoticeFormat();
+        //SetControlsInNewNoticeFormat();
         //$('#NoticeEditDivBox').hide();
 
     }
