@@ -200,6 +200,11 @@ namespace ChurchApp.DAL
         {
             get { return "- Invalid Field Size"; }
         }
+        public string InvalidLatLong
+        {
+            get { return "- Invalid Latitude and Longtitude."; }
+        }
+
 
 
 

@@ -843,9 +843,9 @@ namespace ChurchApp.DAL
                         {
                             ExcelDS.Tables[0].Rows.RemoveAt(i);
                             errorCount = errorCount + 1;
-                            //status = false;
-                        }
+                            //status = false;                            
                     }
+                }
                 //}
                 //else
                 //{
@@ -855,7 +855,7 @@ namespace ChurchApp.DAL
                 //    dr["ErrorDesc"] = excelNotExitingFields + constObj.Nocolumns;
                 //    dtError.Rows.Add(dr);
                 //}
-                //dtError = resort(dtError);
+                dtError = resort(dtError);
             }
             catch (Exception ex)
             {
@@ -1104,6 +1104,11 @@ namespace ChurchApp.DAL
                             flag = true;                         
                             errorList.Add(tableDefColumnName + constObj.ImageExtension);
                         }
+                        else if (tableDefFieldType == "F" && !IsLatLong(drExcel[tableDefColumnName].ToString()))
+                        {
+                            flag = true;
+                            errorList.Add(tableDefColumnName + constObj.InvalidLatLong);
+                        }
 
                         //------------------------------Field size checking-----------------------//
                         if (tableDefFieldSize != null && tableDefFieldSize != "")
@@ -1329,6 +1334,21 @@ namespace ChurchApp.DAL
 
         #endregion WeekDaysTrim
 
+        #region IsLatLong
+        public bool IsLatLong(string value)
+        {
+            decimal result;
+            if (Decimal.TryParse(value,out result))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }  
+        }
+        #endregion IsLatLong
+        
         #region Picture Validation
         /// <summary>
         /// Image File Validation
