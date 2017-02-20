@@ -29,6 +29,16 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string ChurchStatusName
+        {
+            get;
+            set;
+        }
+        public string ChurchRite
+        {
+            get;
+            set;
+        }
         public string townCode
         {
             get;
@@ -49,7 +59,28 @@ namespace ChurchApp.DAL
             get;
             set;
         }
+        public string DioceseID
+        {
+            get;
+            set;
+        }
+        public string ForaneID
+        {
+            get;
+            set;
+        }
+        public string StatusID
+        {
+            get;
+            set;
+        }
         public string ImagePath
+        {
+            get;
+            set;
+        }
+        
+        public string NickName
         {
             get;
             set;
@@ -516,6 +547,7 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertChurch]";
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = churchName!=null&&churchName!=""?churchName:null;
+                cmd.Parameters.Add("@NickName", SqlDbType.NVarChar, 150).Value = NickName != null && NickName != "" ? NickName : null;
                 cmd.Parameters.Add("@TownCode", SqlDbType.NVarChar, 10).Value = townCode!=null&&townCode!=""?townCode:null;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description!=null&&description!=""?description:null;
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about!=null&&about!=""?about:null;
@@ -541,6 +573,18 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Place", SqlDbType.NVarChar, 100).Value = Place != null && Place != "" ? Place : null;
                 cmd.Parameters.Add("@ChurchDenomination", SqlDbType.NVarChar, 10).Value = ChurchDenomination != null && ChurchDenomination != "" ? ChurchDenomination : null;
                 cmd.Parameters.Add("@PriorityOrder", SqlDbType.Decimal).Value = PriorityOrder != null && PriorityOrder != "" ? PriorityOrder : null;
+                if(DioceseID!=null&& DioceseID!="")
+                {
+                    cmd.Parameters.Add("@DioceseID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DioceseID);
+                }                
+                if (ForaneID != null && ForaneID != "")
+                {
+                    cmd.Parameters.Add("@ForaneID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ForaneID);
+                }                   
+                if (StatusID != null && StatusID != "")
+                {
+                    cmd.Parameters.Add("@ChurchStatus", SqlDbType.UniqueIdentifier).Value = Guid.Parse(StatusID);
+                }                  
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outchurchid = cmd.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
                 outchurchid.Direction = ParameterDirection.Output;
@@ -588,6 +632,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[UpdateChurch]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(churchId);
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 150).Value = churchName != null && churchName != "" ? churchName : null;
+                cmd.Parameters.Add("@NickName", SqlDbType.NVarChar, 150).Value = NickName != null && NickName != "" ? NickName : null;
                 cmd.Parameters.Add("@TownCode", SqlDbType.NVarChar, 10).Value = townCode != null && townCode != "" ? townCode : null;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = description != null && description != "" ? description : null;
                 cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = about != null && about != "" ? about : null;
@@ -612,6 +657,18 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = comnObj.ConvertDatenow(DateTime.Now);
                 cmd.Parameters.Add("@ChurchDenomination", SqlDbType.NVarChar, 10).Value = ChurchDenomination != null && ChurchDenomination != "" ? ChurchDenomination : null;
                 cmd.Parameters.Add("@PriorityOrder", SqlDbType.Decimal).Value = PriorityOrder != null && PriorityOrder != "" ? PriorityOrder : null;
+                if (DioceseID != null && DioceseID != "")
+                {
+                    cmd.Parameters.Add("@DioceseID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DioceseID);
+                }
+                if (ForaneID != null && ForaneID != "")
+                {
+                    cmd.Parameters.Add("@ForaneID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ForaneID);
+                }
+                if (StatusID != null && StatusID != "")
+                {
+                    cmd.Parameters.Add("@ChurchStatus", SqlDbType.UniqueIdentifier).Value = Guid.Parse(StatusID);
+                }
                 cmd.Parameters.Add("@Place", SqlDbType.NVarChar, 100).Value = Place != null && Place != "" ? Place : null;
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
@@ -777,6 +834,86 @@ namespace ChurchApp.DAL
         }
 
         #endregion Get Church Details By churchID
+
+        #region GetAllStatusFor Dropdown
+        /// <summary>
+        /// Select All TownMaster
+        /// </summary>
+        /// <returns>All TownMaster</returns>
+        public DataSet GetAllStatus()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 250).Value = ChurchStatusName;
+                cmd.CommandText = "[GetAllStatus]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllStatusFor Dropdown
+
+        #region GetAllRiteFor Dropdown
+        /// <summary>
+        /// Select All TownMaster
+        /// </summary>
+        /// <returns>All TownMaster</returns>
+        public DataSet GetAllRite()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 250).Value = ChurchRite;
+                cmd.CommandText = "[GetAllRite]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllRiteFor Dropdown
 
         #region Get My Church Details
 

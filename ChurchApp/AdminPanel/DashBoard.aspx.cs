@@ -167,7 +167,39 @@ namespace ChurchApp.AdminPanel
 
         #endregion GetAllChurches
 
+        #region GetRoleForUserAuthentication
+        [WebMethod(EnableSession = true)]
+        public static string GetRoleForUserAuthentication()
+        {
+            string Rolename = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
 
+                    Rolename = UA.Role;
+                }
+
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+            return jsSerializer.Serialize(Rolename);
+
+        }
+        #endregion GetAllChurchIDandText
         #region GetAllChurchIDandText
         [WebMethod(EnableSession = true)]
         public static string GetAllChurchIDandText(DAL.Church churchObj)
@@ -266,13 +298,210 @@ namespace ChurchApp.AdminPanel
             return jsSerializer.Serialize(parentRow);
 
         }
-#endregion GetAllTowns
+        #endregion GetAllTowns
+
+        #region GetAllDiocese
+        [WebMethod(EnableSession = true)]
+        public static string GetAllDioceseIDAndName(Diocese dioceseObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+
+                    DataSet ds = null;
+
+                    ds = dioceseObj.GetAllDioceseIDAndName();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion GetAllDiocese
 
 
-     
+        #region GetForaneOnDiocese
+        [WebMethod(EnableSession = true)]
+        public static string GetForaneOnDiocese(Diocese dioceseObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
 
+                    DataSet ds = null;
 
-       #region InsertChurch
+                    ds = dioceseObj.foraneObj.GetForaneOnDiosesID();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion GetForaneOnDiocese
+
+        #region GetAllChurchStatus
+        [WebMethod(EnableSession = true)]
+        public static string GetChurchStatus(DAL.Church ChurchObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+
+                    DataSet ds = null;
+
+                    ds = ChurchObj.GetAllStatus();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion GetAllChurchStatus
+
+        #region GetAllRite
+        [WebMethod(EnableSession = true)]
+        public static string GetChurchRite(DAL.Church ChurchObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Security.UserAuthendication UA = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+
+                    DataSet ds = null;
+
+                    ds = ChurchObj.GetAllRite();
+                    //Converting to Json
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    }
+
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return jsSerializer.Serialize(parentRow);
+
+        }
+        #endregion GetAllRite
+
+        #region InsertChurch
         [WebMethod(EnableSession = true)]
         public static string InsertChurch(DAL.Church churchObj)
         {

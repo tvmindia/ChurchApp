@@ -3,6 +3,12 @@ var formatRepoSelection = "";
 $(document).ready(function () {
     
     try {
+        debugger;
+        var Role = GetRoleforAuthentication();
+        if (Role == "User")
+        {
+            $('.buttonpatch').hide();
+        }
         if ($("#churchSelect").is(":visible") == true) {
             ExpandChurchRequestBox();
             $(".ddlChurch").select2({
@@ -94,6 +100,14 @@ function BindNotification() {
     
 
 }
+function GetRoleforAuthentication()
+{
+    var table = {};
+    ds = getJsonData('', "../AdminPanel/DashBoard.aspx/GetRoleForUserAuthentication");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
 function GetReviewCountforBubble() {
 
     var ds = {};

@@ -109,14 +109,40 @@ table{
                               </div>
 
                               <div class="control-group">
-                             <label class="control-label" for="focusedInput">Towns</label>
+
+                              <label class="control-label" for="focusedInput">Nick Names</label>
                                <div class="controls">
-                                  <select id="idddlTownCode" name="ddlTownCode" class="ddlTownCode"><option></option></select>
+                               <input class="input-large focused" name="txtChurchName" id="txtNickNames" onkeypress="return isnotNumber(event);" type="text"/>
+                              </div>
+                              </div>
+                                 <div class="control-group">
+                             <label class="control-label" for="focusedInput">Diocese</label>
+                               <div class="controls">
+                                  <select id="idddlDiocese" name="ddlDiocese" class="ddlDiocese"><option></option></select>
                                   
                                  </div>
-                             </div>
-
-
+                             </div> 
+                                 <div class="control-group">
+                             <label class="control-label" for="focusedInput">Forane</label>
+                               <div class="controls">
+                                  <select id="idddlForane" name="ddlForane" class="ddlForane"><option></option></select>
+                                  
+                                 </div>
+                             </div> 
+                                 <div class="control-group">
+                             <label class="control-label" for="focusedInput">Church Status</label>
+                               <div class="controls">
+                                  <select id="idddlChurchStatus" name="ddlChurchStatus" class="ddlChurchStatus"><option></option></select>
+                                  
+                                 </div>
+                             </div> 
+                                  <div class="control-group">
+                             <label class="control-label" for="focusedInput">Church Status</label>
+                               <div class="controls">
+                                  <select id="idddlChurchRite" name="ddlChurchRite" class="ddlChurchRite"><option></option></select>
+                                  
+                                 </div>
+                             </div> 
                                    <div class="control-group">
                              <label class="control-label" for="focusedInput">Address</label>
                                <div class="controls">
@@ -140,7 +166,20 @@ table{
                              </div>
                                   </div>
                              <div class="span6">
+                                 <div class="control-group">
+                             <label class="control-label" for="focusedInput">Towns</label>
+                               <div class="controls">
+                                  <select id="idddlTownCode" name="ddlTownCode" class="ddlTownCode"><option></option></select>
                                   
+                                 </div>
+                             </div> 
+                              <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Place</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="txtPhone1" id="txtPlace" placeholder="" type="text"/>
+                              </div>
+                              </div>
 						      <div class="control-group">
 
                               <label class="control-label" for="focusedInput">Phone 1</label>
@@ -172,7 +211,13 @@ table{
                                <input class="input-large focused"  name="txtLongitude" id="txtLongitude" placeholder="" onfocus="GetMap();" type="text"/>
                               </div>
                               </div>
-                                
+                                <div class="control-group">
+
+                              <label class="control-label" for="focusedInput">Priority Order</label>
+                               <div class="controls">
+                               <input class="input-large focused" name="" id="txtPriority" placeholder="" type="text"/>
+                              </div>
+                              </div>
 
                                    <div class="control-group">
 								<label class="control-label">Main Image</label>
@@ -773,7 +818,7 @@ table{
         <div class="row-fluid">
              <div class="box span12">
 					<div class="box-header">
-						<h2>Saint</h2>
+						<h2>Saints/Patrons</h2>
 						<div class="box-icon">
 							
 							<a style="cursor:pointer;" class="btn-minimize"><i class="halflings-icon chevron-down"></i></a>

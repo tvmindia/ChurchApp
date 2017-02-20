@@ -57,6 +57,7 @@ $("document").ready(function (e) {
                      // since we are using custom formatting functions we do not need to
                      // alter the remote JSON data, except to indicate that infinite
                      // scrolling can be used
+                     debugger;
                      params.page = params.page || 1;
 
                      return {
@@ -79,8 +80,212 @@ $("document").ready(function (e) {
     {
         noty({ type: 'error', text: e.message });
     }
+    try {
+        
+
+        $(".ddlDiocese").select2({
+            placeholder: 'Select Diocese..',
+            allowClear: true,
+            ajax: {
+                url: "../AdminPanel/DashBoard.aspx/GetAllDioceseIDAndName",
+                dataType: 'json',
+                type: "post",
+                contentType: "application/json",
+                async: false,
+                delay: 250,
+
+                data: function (params) {
+                    {
+                        var Diocese = new Object();
+                        Diocese.DioceseName = params.term;
+                        return "{'dioceseObj':" + JSON.stringify(Diocese) + "}";
+
+                    };
+                },
+                processResults: function (data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    debugger;
+                    params.page = params.page || 1;
+
+                    return {
+                        results: JSON.parse(data.d),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            //escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+            //minimumInputLength: 1,
+            //templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: FormatResults // omitted for brevity, see the source of this page
+        });
+
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+   
+    try {
+        //dropdownContainer.ddlTown=$(".ddlTownCode").select2({
+        //    placeholder: "Choose Town",
+        //    allowClear: true,
+        //  data: BindTownMasterDropdown()
+        //});
+        //  BindTownMasterDropdown();
+
+        $(".ddlForane").select2({
+            placeholder: 'Select Forane..',
+            allowClear: true,
+            ajax: {
+                url: "../AdminPanel/DashBoard.aspx/GetForaneOnDiocese",
+                dataType: 'json',
+                type: "post",
+                contentType: "application/json",
+                async: false,
+                delay: 250,
+
+                data: function (params) {
+                    {
+                        debugger;
+                        var Diocese = new Object();
+                        var forane = new Object();
+                        forane.DioceseID = $('#idddlDiocese').val();
+                        forane.ForaneName = params.term;
+                        Diocese.foraneObj = forane;
+                        return "{'dioceseObj':" + JSON.stringify(Diocese) + "}";
+
+                    };
+                },
+                processResults: function (data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+
+                    return {
+                        results: JSON.parse(data.d),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            //escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+            //minimumInputLength: 1,
+            //templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: FormatResults // omitted for brevity, see the source of this page
+        });
+
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+    try {
 
 
+        $(".ddlChurchStatus").select2({
+            placeholder: 'Select Status..',
+            allowClear: true,
+            ajax: {
+                url: "../AdminPanel/DashBoard.aspx/GetChurchStatus",
+                dataType: 'json',
+                type: "post",
+                contentType: "application/json",
+                async: false,
+                delay: 250,
+
+                data: function (params) {
+                    {
+                        var Church = new Object();
+                        Church.ChurchStatusName = params.term;
+                        return "{'ChurchObj':" + JSON.stringify(Church) + "}";
+
+                    };
+                },
+                processResults: function (data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    debugger;
+                    params.page = params.page || 1;
+
+                    return {
+                        results: JSON.parse(data.d),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            //escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+            //minimumInputLength: 1,
+            //templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: FormatResults // omitted for brevity, see the source of this page
+        });
+
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+    try {
+
+
+        $(".ddlChurchRite").select2({
+            placeholder: 'Select Rite..',
+            allowClear: true,
+            ajax: {
+                url: "../AdminPanel/DashBoard.aspx/GetChurchRite",
+                dataType: 'json',
+                type: "post",
+                contentType: "application/json",
+                async: false,
+                delay: 250,
+
+                data: function (params) {
+                    {
+                        var Church = new Object();
+                        Church.ChurchRite = params.term;
+                        return "{'ChurchObj':" + JSON.stringify(Church) + "}";
+
+                    };
+                },
+                processResults: function (data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    debugger;
+                    params.page = params.page || 1;
+
+                    return {
+                        results: JSON.parse(data.d),
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            //escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+            //minimumInputLength: 1,
+            //templateResult: formatRepo, // omitted for brevity, see the source of this page
+            //templateSelection: FormatResults // omitted for brevity, see the source of this page
+        });
+
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+   
     try
     {
         $("#ddlChurchinRoles").on("select2:unselecting", function (e) {
@@ -539,7 +744,13 @@ $("document").ready(function (e) {
                 Church.phone2 = ($('#txtPhone2').val() != "" ? $('#txtPhone2').val() : "");
                 Church.longitude = ($('#txtLongitude').val() != "" ? $('#txtLongitude').val() : "");
                 Church.latitude = ($('#txtLatitude').val() != "" ? $('#txtLatitude').val() : "");
-
+                Church.NickName = ($('#txtNickNames').val() != "" ? $('#txtNickNames').val() : "");
+                Church.Place = ($('#txtPlace').val() != "" ? $('#txtPlace').val() : "");
+                Church.PriorityOrder = ($('#txtPriority').val() != "" ? $('#txtPriority').val() : "");
+                Church.StatusID = ($('#idddlChurchStatus').val() != "" ? $('#idddlChurchStatus').val() : "");
+                Church.ForaneID = ($('#idddlForane').val() != "" ? $('#idddlForane').val() : "");
+                Church.DioceseID = ($('#idddlDiocese').val() != "" ? $('#idddlDiocese').val() : "");
+                Church.ChurchDenomination = ($('#idddlChurchRite').val() != "" ? $('#idddlChurchRite').val() : "");
                 if ($("#hdfChurchID").val() == '') {
                     //INSERT
                     ///////Image insert using handler
@@ -2026,6 +2237,7 @@ function EditRequestChurch(curobj) {
 }
 function EditChurch(curobj)
 {
+    debugger;
     Animateto("txtChurchName");
     //Get Current table row data
     var data = DashDataTables.churchTable.row($(curobj).parents('tr')).data();
@@ -2038,6 +2250,17 @@ function EditChurch(curobj)
     $("#txtChurchName").val(churchDetail[0].ChurchName != null && churchDetail[0].ChurchName != "" ? churchDetail[0].ChurchName : '');
     var $option = $("<option selected></option>").val(churchDetail[0].TownCode).text(churchDetail[0].TownName);
     $(".ddlTownCode").append($option).trigger('change');
+    var $option = $("<option selected></option>").val(churchDetail[0].DioceseID).text(churchDetail[0].DioceseName);
+    $(".ddlDiocese").append($option).trigger('change');
+    var $option = $("<option selected></option>").val(churchDetail[0].ForaneID).text(churchDetail[0].ForaneName);
+    $(".ddlForane").append($option).trigger('change');
+    var $option = $("<option selected></option>").val(churchDetail[0].ChurchStatus).text(churchDetail[0].Status);
+    $(".ddlChurchStatus").append($option).trigger('change');
+    var $option = $("<option selected></option>").val(churchDetail[0].Code).text(churchDetail[0].Name);
+    $(".ddlChurchRite").append($option).trigger('change'); 
+    $("#txtPlace").val(churchDetail[0].Place != null && churchDetail[0].Place != "" ? churchDetail[0].Place : '');
+    $("#txtNickNames").val(churchDetail[0].NickNames != null && churchDetail[0].NickNames != "" ? churchDetail[0].NickNames : '');
+    $("#txtPriority").val(churchDetail[0].PriorityOrder != null && churchDetail[0].PriorityOrder != "" ? churchDetail[0].PriorityOrder : '');
     $("#txtAddress").val(churchDetail[0].Address != null && churchDetail[0].Address != "" ? churchDetail[0].Address : '');
     $("#txtDescription").val(churchDetail[0].Description != null && churchDetail[0].Description != "" ? churchDetail[0].Description : '');
     $("#txtAbout").val(churchDetail[0].About != null && churchDetail[0].About != "" ? churchDetail[0].About : '');

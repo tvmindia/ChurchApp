@@ -666,6 +666,7 @@
     <Compile Include="DAL\Church.cs" />
     <Compile Include="DAL\Common.cs" />
     <Compile Include="DAL\dbConnection.cs" />
+    <Compile Include="DAL\Diocese.cs" />
     <Compile Include="DAL\Events.cs" />
     <Compile Include="DAL\ExceptionTrack.cs">
       <SubType>Code</SubType>
