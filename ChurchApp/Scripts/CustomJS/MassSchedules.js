@@ -15,7 +15,8 @@ $("document").ready(function (e) {
         dropdown: true,
         change: function (time) {
             if ($('.dropcheck').attr('placeholder') != "Select Days") {
-                AddTempTable();
+                //AddTempTable();
+                GetDayandTime();
             }
             else
             {
@@ -35,8 +36,9 @@ $("document").ready(function (e) {
     });
     //--------------- *Save MassTiming* ----------------//
     $(".cancel").click(function (e) {
-        
-        $("#massTimingTempTable").html('');
+        debugger;
+        $("#massTimingTempTableBody").empty();
+        $('#massTimingsUpdate').hide();
         $("#AddorEditSpan").text("Save");
         var day = $("#hdfEditMassDay").val();
         if (day != null && day != "")
@@ -55,25 +57,27 @@ $("document").ready(function (e) {
         }
         else
         {
-            $('.dropcheck', this.$container).attr('placeholder', "Select Days");
+            //$('.dropcheck', this.$container).attr('placeholder', "Select Days");
+            $("#ddlDay").val("");
+            $('#ddlDay').multiselect('refresh');
         }
        
         $("#TxtTime").val("");
-        $('.dropdown-menu li.active').removeClass('active');
-        $("input[type=checkbox]").prop('checked', false);
-        $('input[value="' + day + '"]').prop("checked", true);
-        $('.dropdown-menu li input[value="' + day + '"]').closest('li').addClass('active');
-        $('#rowfluidDiv').hide();
+        $("#ddlDay").multiselect("enable");
+        //$('.dropdown-menu li.active').removeClass('active');
+        //$("input[type=checkbox]").prop('checked', false);
+        //$('input[value="' + day + '"]').prop("checked", true);
+        //$('.dropdown-menu li input[value="' + day + '"]').closest('li').addClass('active');
+        //$('#rowfluidDiv').hide();
         NovenaDayAndTime.length = 0;
     });
 
     $(".AddMass").click(function (e) {
-        
+        debugger;
         if ($('.dropcheck').attr('placeholder') != "Select Days") {
             if ($("#TxtTime").val() != "" && $("#TxtTime").val() != null) {
                 var MassTimings = new Object();
-                $("#NoData").remove();
-                $("#massTimingUpdateTable").html('');
+                $("#NoData").remove();                
                 $('#massTimingTableBox').css("height", "auto");
                 var saveOrEdit = $("#AddorEditSpan").text();
                 if (saveOrEdit == "Save") {
@@ -105,15 +109,25 @@ $("document").ready(function (e) {
                             var jsonResult = {};
                             MassTimings.day = day + ",";
                             jsonResult = selectMassTimeByDay(MassTimings);
-                            if (jsonResult.length > 0) {
+                            if (jsonResult.length > 0)
+                            {
                                 ReBindMassTimingUpdateTable(jsonResult);
                             }
-                            else {
+                            else
+                            {
                                 //$("#massTimingTempTable").html('');
                                 //$("#massTimingTempTable").hide();
                                 //$('.dropcheck', this.$container).attr('placeholder', "Select Days");
                                 //$("#TxtTime").val("");
                             }
+                            
+                                $("#massTimingTempTableBody").empty();
+                                $('#massTimingUpdateTableBody').empty();
+                                $('#massTimingsUpdate').hide();
+                                $("#ddlDay").val("");
+                                $('#ddlDay').multiselect('refresh');
+                                $("#TxtTime").val("");
+                                $("#ddlDay").multiselect("enable");                          
                             noty({ text: Messages.InsertionSuccessFull, type: 'success' });
                             break;
                         case "0":
@@ -241,39 +255,39 @@ $("document").ready(function (e) {
     //        AddTempTable();
     //    }
     //});
-    var $eventDaySelect = $("#ddlDay");
-    $eventDaySelect.on("change", function (e) {
+    //var $eventDaySelect = $("#ddlDay");
+    //$eventDaySelect.on("change", function (e) {
         
-        counter = 0;
-        $("#AddorEditSpan").text("Save");
-        var dayarr = new Array();
-        if ($("#ddlDay").val() != null)
-        {
-            // BindGridOnDaySelect();
-            $('#ddlDay :selected').each(function (i, sel) {
-                dayarr.push($(sel).val());
+    //    counter = 0;
+    //    $("#AddorEditSpan").text("Save");
+    //    var dayarr = new Array();
+    //    if ($("#ddlDay").val() != null)
+    //    {
+    //        // BindGridOnDaySelect();
+    //        $('#ddlDay :selected').each(function (i, sel) {
+    //            dayarr.push($(sel).val());
                 
-            });
-            //alert(dayarr);
-            //BindGridOnDaySelect(dayarr);
-            AddTempTable();
-        }
-        else
-        {
-            if ($("#hdfEditMassDay").val() != null && $("#hdfEditMassDay").val() != "")
-            {
-                dayarr.push($("#hdfEditMassDay").val());
-                BindGridOnDaySelect(dayarr);
-            }
-            else
-            {
-                dayarr.length = 0;
-            }
+    //        });
+    //        //alert(dayarr);
+    //        //BindGridOnDaySelect(dayarr);
+    //        AddTempTable();
+    //    }
+    //    else
+    //    {
+    //        if ($("#hdfEditMassDay").val() != null && $("#hdfEditMassDay").val() != "")
+    //        {
+    //            dayarr.push($("#hdfEditMassDay").val());
+    //            BindGridOnDaySelect(dayarr);
+    //        }
+    //        else
+    //        {
+    //            dayarr.length = 0;
+    //        }
            
-        }
-        dayarr.length = 0;
+    //    }
+    //    dayarr.length = 0;
        
-    });
+    //});
     $('#ddlDay').multiselect({
 
         includeSelectAllOption: true
@@ -295,7 +309,34 @@ $("document").ready(function (e) {
 });//end of document.ready
 
 //----------Insert MassTiming--------------//
+function GetDayandTime()
+{
+    debugger;
+    counter = 0;
+        $("#AddorEditSpan").text("Save");
+    var dayarr = new Array();
+    if ($("#ddlDay").val() != null) {
+        // BindGridOnDaySelect();
+        $('#ddlDay :selected').each(function (i, sel) {
+            dayarr.push($(sel).val());
 
+        });
+        //alert(dayarr);
+        //BindGridOnDaySelect(dayarr);
+        AddTempTable();
+    }
+    else {
+        if ($("#hdfEditMassDay").val() != null && $("#hdfEditMassDay").val() != "") {
+            dayarr.push($("#hdfEditMassDay").val());
+            BindGridOnDaySelect(dayarr);
+        }
+        else {
+            dayarr.length = 0;
+        }
+
+    }
+    dayarr.length = 0;
+}
 function BindGridOnDaySelect(dayarr)
 {
     try
@@ -323,15 +364,15 @@ function ReBindMassTimingUpdateTable(jsonResult) {
         else {
             var MassID = jsonResult[0]["ID"];
             var length = jsonResult.length;
-            $("#massTimingUpdateTable").html("");
+            $("#massTimingUpdateTableBody").empty();
             for (var i = 0; i < length; i++) {
                 var ID = jsonResult[i]["ID"];
                 massChurchID = jsonResult[i]["ChurchID"];
                 Day = jsonResult[i]["Day"];
                 var MassTime = jsonResult[i]["Time"];
-                MassTime = hrsToAmPm(MassTime)
-                var html = '<tr class="MassTimingUpdateRows" ID="' + ID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + MassTime + '"><td>' + Day + '</td><td class="center">' + MassTime + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
-                $("#massTimingUpdateTable").append(html);
+                MassTime = hrsToAmPm(MassTime)                          ////<a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a>
+                var html = '<tr class="MassTimingUpdateRows" ID="' + ID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + MassTime + '"><td>' + Day + '</td><td class="center">' + MassTime + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+                $("#massTimingUpdateTableBody").append(html);
             }
 
             if (MassID != "") {
@@ -559,11 +600,14 @@ function BindTime(Time) {
 function BindMassEditGrid(e) {
     try
     {
-        $('.dropdown-menu li.active').removeClass('active');
-        $("input[type=checkbox]").prop('checked', false);
-        $('.dropdown-menu li input[type=checkbox]').prop('checked', false);
-        $('.dropcheck', this.$container).attr('placeholder', "Select Days");
-        $('#rowfluidDiv').hide();
+        debugger;
+        //$('.dropdown-menu li.active').removeClass('active');
+        //$("input[type=checkbox]").prop('checked', false);
+        //$('.dropdown-menu li input[type=checkbox]').prop('checked', false);
+        //$('.dropcheck', this.$container).attr('placeholder', "Select Days");
+        //$('#rowfluidDiv').hide();
+        $("#ddlDay").val("");
+        $('#ddlDay').multiselect('refresh');
         $("#TxtTime").val("");
         $("#massTimingTempTable").hide();
         document.getElementById("massTimingUpdateTable").style.display = '';
@@ -582,6 +626,7 @@ function BindMassEditGrid(e) {
         $("#hdfEditMassDay").val(Day);
         $('.dropcheck', this.$container).attr('placeholder', Day);
         BindMassTimingUpdateTable(MassID, massChurchID, Day, Time);
+        $("#ddlDay").multiselect("disable");
     }
     catch(e)
     {
@@ -592,7 +637,8 @@ function BindMassEditGrid(e) {
 function BindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
     try
     {
-        document.getElementById("massTimingUpdateTable").innerHTML = "";
+        //document.getElementById("massTimingUpdateTable").innerHTML = "";
+        $('#massTimingUpdateTableBody').empty();
         var jsonResult = {};
         var MassTimings = new Object();
         MassTimings.day = Day + ",";
@@ -602,10 +648,10 @@ function BindMassTimingUpdateTable(MassID, massChurchID, Day, Time) {
             var ID = jsonResult[i]["ID"];
             massChurchID = jsonResult[i]["ChurchID"];
             Day = jsonResult[i]["Day"];
-            var MassTime = jsonResult[i]["Time"];
+            var MassTime = jsonResult[i]["Time"];///<a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a>
             MassTime = hrsToAmPm(MassTime);
-            var html = '<tr class="MassTimingUpdateRows" ID="' + ID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + MassTime + '"><td>' + Day + '</td><td class="center">' + MassTime + '</td></td><td class="center"><a class="circlebtn circlebtn-info massTimeEditbtn" title="Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
-            $("#massTimingUpdateTable").append(html);
+            var html = '<tr class="MassTimingUpdateRows" ID="' + ID + '"ChurchID="' + massChurchID + '"Day="' + Day + '"Time="' + MassTime + '"><td>' + Day + '</td><td class="center">' + MassTime + '</td></td><td class="center"><a class="circlebtn circlebtn-danger massTimeDelete" title="Delete" href="#"><i class="halflings-icon white trash"></i> </a></td></tr>';
+            $("#massTimingUpdateTableBody").append(html);
         }
 
         document.getElementById("massTimingsUpdate").style.display = "";

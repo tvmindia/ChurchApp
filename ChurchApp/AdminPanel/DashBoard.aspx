@@ -137,7 +137,7 @@ table{
                                  </div>
                              </div> 
                                   <div class="control-group">
-                             <label class="control-label" for="focusedInput">Church Status</label>
+                             <label class="control-label" for="focusedInput">Rite</label>
                                <div class="controls">
                                   <select id="idddlChurchRite" name="ddlChurchRite" class="ddlChurchRite"><option></option></select>
                                   
