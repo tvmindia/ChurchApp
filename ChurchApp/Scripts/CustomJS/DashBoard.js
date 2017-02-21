@@ -285,7 +285,16 @@ $("document").ready(function (e) {
     catch (e) {
         noty({ type: 'error', text: e.message });
     }
-   
+    try
+    {
+        $('#idddlDiocese').on('change', function (e) {
+            $("#idddlForane").select2("val", "");
+        });
+    }
+    catch(e)
+    {
+
+    }
     try
     {
         $("#ddlChurchinRoles").on("select2:unselecting", function (e) {
