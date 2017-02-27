@@ -83,27 +83,13 @@ namespace ChurchApp.ExcelHandler
                         }
                         if (Status)
                         {
-
                             if (dsExcel != null && dsExcel.Tables.Count > 0)
-                            {
-                                //Checking Master Table Fields 
-                                DataSet dsMastertable = null;
-                                DataRow[] MasterTableFields = dsTableDefenition.Tables[0].Select("Master_Table IS NOT NULL  and Master_Field IS NOT NULL ");
-                                if (MasterTableFields.Length > 0)
-                                {
-                                    foreach (var item in MasterTableFields)
-                                    {
-                                        string MasterTable = item["Master_Table"].ToString();
-                                        string MasterField = item["Master_Field"].ToString();
-                                        ImportXL.Mastertable = MasterTable;
-                                        ImportXL.MasterField = MasterField;
-                                        dsMastertable = ImportXL.GetMasterFieldsFromMasterTable();
-                                    }
-                                }
+                            {                               
                                 //----------------------Total rows in excel file---------------//
                                 ImportXL.totalExcelRows = dsExcel.Tables[0].Rows.Count.ToString();
+
                                 //-----------------------validation by passing excelfile,table defenition & MasterTable fields-------------//
-                                ImportXL.Validation(dsExcel, dsTableDefenition, dsMastertable);
+                                ImportXL.Validation(dsExcel, dsTableDefenition);
 
                                 //------------------------------Image Validation and Adding ImageID to DataSet----------------------------// 
                                 #region ImportImage 

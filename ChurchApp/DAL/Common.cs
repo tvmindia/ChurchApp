@@ -128,10 +128,11 @@ namespace ChurchApp.DAL
         {
             get { return " Church doesn't  Exists"; }
         }
-        public string NoChurchDenominationMaster
+        public string NoChurchMasters
         {
-            get { return "- doesn't Exists in ChurchDenominationMaster"; }
+            get { return "- doesn't Exists.Please check Diocese,Forane,ChurchStatus and ChurchDenominationMaster"; }
         }
+    
         public string Nocolumns
         {
             get { return "- column(s) doesnot exists in excel template"; }
