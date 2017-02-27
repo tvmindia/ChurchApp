@@ -1426,18 +1426,18 @@ namespace ChurchApp.DAL
 
 
         #region MasterFieldValidation
-        public bool MasterFieldValidation( string tblname,DataRow drExcel,bool flag, DataSet dsMastertable,List<string> errorList,DataSet dsTblDef)
+        public bool MasterFieldValidation( string MasterTableName,DataRow drExcel,bool flag, DataSet dsMastertable,List<string> errorList,DataSet dsTblDef)
         {
 
             string ColumnName="";
-            DataRow[] drfieldname = dsTblDef.Tables[0].Select("Master_Table='" + tblname+"' and TableName='"+tableName+"'");
+            DataRow[] drfieldname = dsTblDef.Tables[0].Select("Master_Table='" + MasterTableName+"' and TableName='"+tableName+"'");
             ColumnName = drfieldname[0]["Field_Name"].ToString();
 
             if (drExcel[ColumnName].ToString() != "")
             {
 
                 string condition = "FieldValue ='" + drExcel[ColumnName].ToString() + "'";
-                DataRow[] isexits = dsMastertable.Tables[tblname].Select(condition);
+                DataRow[] isexits = dsMastertable.Tables[MasterTableName].Select(condition);
                 if (isexits.Length > 0)
                 {
                     flag = false;
@@ -1445,7 +1445,7 @@ namespace ChurchApp.DAL
                 }
                 else
                 {                   
-                    errorList.Add(drExcel[ColumnName].ToString() + constObj.NoChurchMasters);
+                    errorList.Add(drExcel[ColumnName].ToString() + constObj.NoChurchMasters.Replace("$$", MasterTableName));
                 }
                 if (errorList.Count>0)
                 {

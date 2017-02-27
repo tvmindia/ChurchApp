@@ -130,7 +130,7 @@ namespace ChurchApp.DAL
         }
         public string NoChurchMasters
         {
-            get { return "- doesn't Exists.Please check Diocese,Forane,ChurchStatus and ChurchDenominationMaster"; }
+            get { return "- Master Entry doesnot exist ($$)"; }
         }
     
         public string Nocolumns
