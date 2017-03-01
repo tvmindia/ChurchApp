@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Web;
 using System.Data;
 using ChurchApp.DAL;
+using System.Configuration;
 
 namespace ChurchApp.Services
 {
@@ -26,7 +27,7 @@ namespace ChurchApp.Services
 
             while (true)
             {
-                var hours = 24;
+                var hours = Int32.Parse(ConfigurationManager.AppSettings["NotificationFrequencyHours"].ToString());
                 System.Threading.Thread.Sleep(hours * 60 * 60 * 1000);
                 try
                 {
