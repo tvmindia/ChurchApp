@@ -1295,7 +1295,7 @@ namespace ChurchApp.WebServices
                 EduEventAbout eduForumAbout = new EduEventAbout();
                 eduForumAbout.ChurchID = ChurchID;
                 dt = eduForumAbout.SelectEduForumAbout().Tables[0];
-                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
+                if (dt.Rows.Count == 0 || dt.Rows[0]["EduForumAbout"]==DBNull.Value) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
             {
