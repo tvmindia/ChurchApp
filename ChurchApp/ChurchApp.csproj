@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminPanel\BugTracker.aspx" />
+    <Content Include="AdminPanel\EducationForum.aspx" />
     <Content Include="AdminPanel\Events.aspx" />
     <Content Include="AdminPanel\FamilyUnit.aspx" />
     <Content Include="AdminPanel\Gallery.aspx" />
@@ -339,6 +340,7 @@
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\counter.js" />
     <Content Include="Scripts\CustomJS\BugTracker.js" />
+    <Content Include="Scripts\CustomJS\EducationForum.js" />
     <Content Include="Scripts\CustomJS\Events.js" />
     <Content Include="Scripts\CustomJS\Families.js" />
     <Content Include="Scripts\CustomJS\FamilyUnit.js" />
@@ -577,6 +579,13 @@
     <Compile Include="AdminPanel\DashBoard.aspx.designer.cs">
       <DependentUpon>DashBoard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminPanel\EducationForum.aspx.cs">
+      <DependentUpon>EducationForum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\EducationForum.aspx.designer.cs">
+      <DependentUpon>EducationForum.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPanel\Events.aspx.cs">
       <DependentUpon>Events.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -667,6 +676,7 @@
     <Compile Include="DAL\Common.cs" />
     <Compile Include="DAL\dbConnection.cs" />
     <Compile Include="DAL\Diocese.cs" />
+    <Compile Include="DAL\EducationForum.cs" />
     <Compile Include="DAL\Events.cs" />
     <Compile Include="DAL\ExceptionTrack.cs">
       <SubType>Code</SubType>

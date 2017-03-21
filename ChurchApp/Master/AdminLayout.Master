@@ -315,7 +315,9 @@ li#LIChurches {
 						<li><a href="../AdminPanel/Home.aspx"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Home</span></a></li>
 					    <li><a href="../AdminPanel/Priests.aspx"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Priests</span></a></li>
 						<li><a href="../AdminPanel/Events.aspx"><i class="fa fa-bullhorn" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Events</span></a></li>
-						<li><a href="../AdminPanel/FamilyUnit.aspx"><i class="fa fa-users fa-lg" aria-hidden="false"></i><span class="hidden-tablet navtitle"> Family Units</span></a></li>
+						<li><a href="../AdminPanel/EducationForum.aspx"><i class="fa fa-graduation-cap" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Education Forum</span></a></li>
+						
+                        <li><a href="../AdminPanel/FamilyUnit.aspx"><i class="fa fa-users fa-lg" aria-hidden="false"></i><span class="hidden-tablet navtitle"> Family Units</span></a></li>
 						<li><a href="../AdminPanel/Gallery.aspx"><i class="fa fa-television" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Gallery</span></a></li>
 						<li><a href="../AdminPanel/Institutions.aspx"><i class="fa fa-university" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Institutions</span></a></li>
 
