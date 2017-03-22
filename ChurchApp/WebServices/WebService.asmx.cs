@@ -1321,7 +1321,7 @@ namespace ChurchApp.WebServices
             DataTable dt = new DataTable();
             try
             {
-                dt.Columns.Add("IsUser");
+                dt.Columns.Add("IsMember");
                 dt.Columns.Add("OTP");
                 dt.Columns.Add("EduForumMemberID");
 
@@ -1333,11 +1333,11 @@ namespace ChurchApp.WebServices
                 DataRow row = dt.NewRow();
                 if (memberDetails.Rows.Count == 0)
                 {
-                    row["IsUser"] = false;
+                    row["IsMember"] = false;
                 }
                 else
                 {
-                    row["IsUser"] = true;
+                    row["IsMember"] = true;
                     row["EduForumMemberID"] = memberDetails.Rows[0]["ID"];
                 }
                 Random rnd = new Random();                  // Random number creation for OTP
