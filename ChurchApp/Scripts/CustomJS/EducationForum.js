@@ -11,18 +11,98 @@ var IsMobNotified = '';
 var IsAlreadyNotified = false;
 var MaxCharacterLimit = 200;
 var churchObject = {};
+var DataTables = {};
 
 //--------------------------------//
 
 
 $("document").ready(function (e) {
     try {
-
-        $('[data-toggle="popover"]').popover();
-        BindEvents();
-        BindOldEvents();
+        debugger;
         //Setting current churchid
         churchObject.chid = $("#hdfchid").val();
+        DataTables.EduForumMember = $('#tblEduForumMembers').DataTable(
+        {
+            dom: '<"top"f>rt<"bottom"ip><"clear">',
+            order: [],
+            searching: true,
+            paging: true,
+            data: GetEduForumMembers(),
+            columns: [
+
+              { "data": "ID" },
+              { "data": "Name" },
+              { "data": "ParentName" },
+              { "data": "Class", "defaultContent": "<i>-</i>" },
+              { "data": "School", "defaultContent": "<i>-</i>" },
+              { "data": "DBO", "defaultContent": "<i>-</i>" },
+              { "data": "Mobile", "orderable": false, "defaultContent": "<i>-</i>" },
+              { "data": "Email", "defaultContent": "<i>-</i>" }
+
+            ],
+            columnDefs: [
+             {//hiding hidden column field churchid
+                 "targets": [0],
+                 "visible": false,
+                 "searchable": false
+             }, {
+                 "targets": 5,
+                 "render": function (data, type, full, meta) {
+                     debugger;
+                     var DOB = ConvertJsonToDate(full.DOB).split("-");
+                     if (DOB)
+                     {
+                         var currentYear = new Date().getFullYear();
+                         return (currentYear - parseInt(DOB[2]));
+                     }
+                     else
+                     {
+                         return "--";
+                     }
+                     
+                 }
+             }
+             
+            ]
+        });
+        DataTables.EduForumResponse = $('#tblResponse').DataTable(
+        {
+            dom: '<"top"f>rt<"bottom"ip><"clear">',
+            order: [],
+            searching: true,
+            paging: true,
+            data: null,
+            columns: [
+
+              { "data": "ID" },
+              { "data": "Name" },
+              { "data": "Response" },
+              { "data": "Mobile" },
+              { "data": "CreatedDate", "defaultContent": "<i>-</i>" }
+
+            ],
+            columnDefs: [
+             {//hiding hidden column field churchid
+                 "targets": [0],
+                 "visible": false,
+                 "searchable": false
+             },
+             {
+                 "targets": 4,
+                 "render": function (data, type, full, meta) {
+                     return ConvertJsonToDate(data);
+
+
+                 }
+             }
+
+            ]
+        });
+        $('[data-toggle="popover"]').popover();
+        BindEvents();
+       
+        BindOldEvents();
+        
         $('#btnSaveNotification').click(function () {
             if (NotificationValidation) {
                 debugger;
@@ -216,6 +296,16 @@ $("document").ready(function (e) {
     }
 
 });//end of document.ready
+function GetEduForumMembers()
+{
+    var ds = {};
+    var table = {};
+    var EduForumMember = new Object();
+    var data = "{'forumMemberObj':" + JSON.stringify(EduForumMember) + "}";
+    ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/GetForumMembers");
+    table = JSON.parse(ds.d);
+    return table;
+}
 function SendNotification() {
     if ($("#txtEventName").val() != "") {
         $("#txtCaption").val($("#txtEventName").val());
@@ -234,7 +324,7 @@ function SendNotification() {
 }
 function SaveEvents() {
     try {
-
+        debugger;
         var today = new Date();
         var startcheck = $("#dateStartDate").val();
         var endcheck = $("#dateEndDate").val();
@@ -249,45 +339,35 @@ function SaveEvents() {
 
         if (IsValid) {
 
-            var Events = new Object();
-            Events.eventName = (($("#txtEventName").val() != "" && $("#txtEventName").val() != null) ? $("#txtEventName").val() : "");
-            Events.description = (($("#txtDescription").val() != "" && $("#txtDescription").val() != null) ? $("#txtDescription").val() : "");
-            Events.startDate = (($("#dateStartDate").val() != "" && $("#dateStartDate").val() != null) ? $("#dateStartDate").val() : "");
-            Events.endDate = (($("#dateEndDate").val() != "" && $("#dateEndDate").val() != null) ? $("#dateEndDate").val() : "");
-            Events.eventExpiryDate = (($("#dateExpiryDate").val() != "" && $("#dateExpiryDate").val() != null) ? $("#dateExpiryDate").val() : "");
-            Events.isAutoHide = $("#hdfIsAutoHide").val();
-            Events.churchId = churchObject.chid;
-            Events.isAutoHide = true;
-            if ($('input[name=rdoHide]:checked').val() == "No") //Add Notification
-            {
-                Events.isAutoHide = false;
-            }
-            $("#hdfIsAutoHide").val(Events.isAutoHide);
+            var EducationForum = new Object();
+            EducationForum.EventName = (($("#txtEventName").val() != "" && $("#txtEventName").val() != null) ? $("#txtEventName").val() : "");
+            EducationForum.Description = (($("#txtDescription").val() != "" && $("#txtDescription").val() != null) ? $("#txtDescription").val() : "");
+            EducationForum.StartDate = (($("#dateStartDate").val() != "" && $("#dateStartDate").val() != null) ? $("#dateStartDate").val() : "");
+            EducationForum.EndDate = (($("#dateEndDate").val() != "" && $("#dateEndDate").val() != null) ? $("#dateEndDate").val() : "");
+            EducationForum.ChurchID = churchObject.chid;
 
 
             if ($("#hdfEventID").val() != "" && $("#hdfEventID").val() != null) {
 
 
-                Events.eventId = $("#hdfEventID").val();
+                EducationForum.ID = $("#hdfEventID").val();
 
                 var imgresult;
                 if ((imgresult = $('#UpEvent')[0].files.length > 0)) {
-                    Events.imageId = $("#hdfImageID").val();
+                    EducationForum.ImageID = $("#hdfImageID").val();
                     var formData = new FormData();
                     var imagefile;
                     imagefile = $('#UpEvent')[0].files[0];
                     formData.append('upImageFile', imagefile, imagefile.name);
-                    formData.append('churchID', Events.churchId);
-                    formData.append('eventId', Events.eventId);
-                    formData.append('EventimageId', Events.imageId);
-                    formData.append('eventName', Events.eventName);
-                    formData.append('description', Events.description);
-                    formData.append('startDate', Events.startDate);
-                    formData.append('endDate', Events.endDate);
-                    formData.append('eventExpiryDate', Events.eventExpiryDate);
-                    formData.append('isAutoHide', Events.isAutoHide);
-                    formData.append('updatedby', document.getElementById("LoginName").innerHTML);
-                    formData.append('ActionTyp', 'EventImageUpdate');
+                    formData.append('ChurchID', EducationForum.ChurchID);
+                    formData.append('ID', EducationForum.ID);
+                    formData.append('EventimageId', EducationForum.ImageID);
+                    formData.append('EventName', EducationForum.EventName);
+                    formData.append('Description', EducationForum.Description);
+                    formData.append('StartDate', EducationForum.StartDate);
+                    formData.append('EndDate', EducationForum.EndDate);
+                    formData.append('UpdatedBy', document.getElementById("LoginName").innerHTML);
+                    formData.append('ActionTyp', 'EducationForumImageUpdate');
                     var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
 
                     if (result.Status == "1") {
@@ -326,7 +406,7 @@ function SaveEvents() {
 
                 }
                 else {
-                    var UpdationStatus = UpdateEvent(Events);
+                    var UpdationStatus = UpdateEvent(EducationForum);
 
                     if (UpdationStatus.Status == "1") {
                         noty({ text: Messages.UpdationSuccessFull, type: 'success' });
@@ -373,15 +453,15 @@ function SaveEvents() {
                     var imagefile;
                     imagefile = $('#UpEvent')[0].files[0];
                     formData.append('upImageFile', imagefile, imagefile.name);
-                    formData.append('churchID', Events.churchId);
-                    formData.append('eventName', Events.eventName);
-                    formData.append('description', Events.description);
-                    formData.append('startDate', Events.startDate);
-                    formData.append('endDate', Events.endDate);
-                    formData.append('eventExpiryDate', Events.eventExpiryDate);
-                    formData.append('isAutoHide', Events.isAutoHide);
-                    formData.append('createdby', document.getElementById("LoginName").innerHTML);
-                    formData.append('ActionTyp', 'EventImageInsert');
+                    formData.append('ChurchID', EducationForum.ChurchID);
+                    formData.append('ID', EducationForum.ID);
+                    formData.append('ImageID', EducationForum.ImageID);
+                    formData.append('EventName', EducationForum.EventName);
+                    formData.append('Description', EducationForum.Description);
+                    formData.append('StartDate', EducationForum.StartDate);
+                    formData.append('EndDate', EducationForum.EndDate);
+                    formData.append('CreatedBY', document.getElementById("LoginName").innerHTML);
+                    formData.append('ActionTyp', 'EducationForumImageInsert');
                     var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
                     if (result.Status == "1") {
                         noty({ text: Messages.InsertionSuccessFull, type: 'success' });
@@ -426,11 +506,11 @@ function SaveEvents() {
 
                 }
                 else {
-                    var InsertionStatus = InsertEvent(Events);
+                    var InsertionStatus = InsertEvent(EducationForum);
 
                     if (InsertionStatus.Status == "1") {
                         noty({ text: Messages.InsertionSuccessFull, type: 'success' });
-                        $("#hdfEventID").val(InsertionStatus.eventId);
+                        $("#hdfEventID").val(InsertionStatus.ID);
                         Dynamicbutton("btnDelete", "Delete", "DeleteEvents");
                         Dynamicbutton("btnNotify", "PushNoti", "SendNotification");
                         $('#btnNotify').attr('data-target', '#notificationModal');
@@ -519,8 +599,8 @@ function DeleteEvents() {
 function BindEvents() {
     try {
         var jsonResult = {};
-        var Events = new Object();
-        jsonResult = GetEvents(Events);
+        var EducationForum = new Object();
+        jsonResult = GetEvents(EducationForum);
         if (jsonResult != undefined) {
             FillEvents(jsonResult);
 
@@ -551,14 +631,14 @@ function FillEvents(Records) {
             var url = Records.URL;
             var html = '';
 
-            if (Records.StartDate == null && Records.EndDate == null && Records.EventExpiryDate == null) {
-                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + (Records.EventName != null ? Records.EventName : "") + '</p><p>' + (Records.Descrtiption != null ? Records.Descrtiption : "") + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+            if (Records.StartDate == null && Records.EndDate == null ) {
+                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + (Records.EventName != null ? Records.EventName : "") + '</p><p>' + (Records.Description != null ? Records.Description : "") + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
             }
 
             else {
-                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + (Records.EventName != null ? Records.EventName : "") + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span>  <span class="spnDateValues" >' + (Records.StartDate != null ? ConvertJsonToDate(Records.StartDate) : "") + '</span>&nbsp;<br /><p>' + (Records.Descrtiption != null ? Records.Descrtiption : "") + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + (Records.EventName != null ? Records.EventName : "") + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span>  <span class="spnDateValues" >' + (Records.StartDate != null ? ConvertJsonToDate(Records.StartDate) : "") + '</span>&nbsp;<br /><p>' + (Records.Description != null ? Records.Description : "") + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details </a><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="ViewResponse(\'' + Records.ID + '\')" > View Responses</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
             }
-            //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+            //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Description + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
             $("#DivNoticeType1").append(html);
 
             if (url != "" && url != null) {
@@ -588,13 +668,58 @@ function FillEvents(Records) {
     }
 
 }
-
-function GetEvents(Events) {
+function ViewResponse(EventID)
+{
+    var EduEventResponse = new Object();
+    EduEventResponse.EduEventID = EventID;
+    EduEventResponse.ChurchID = churchObject.chid;
+    var result = GetResponsecount(EduEventResponse)
+    $('#lblResponseCound').text(result.TotalCount);
+    $('#lblAttendCound').text(result.AttendCount);
+    $('#lblNotAttendCound').text(result.NotSureCount);
+    $('#lblNotSureCound').text(result.NotAttendCount);
+    DataTables.EduForumResponse.clear().rows.add(GetResponse(EduEventResponse)).draw(false);
+    
+    $('#EventEditDivBox').show();
+    $('#EditContent').hide();
+    $('#divView').hide();
+    $('#ResponseSection').show();
+}
+function GetResponse(EduEventResponse)
+{
     try {
         var ds = {};
         var table = {};
-        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-        ds = getJsonData(data, "../AdminPanel/Events.aspx/GetEvents");
+        var data = "{'forumResponseObj':" + JSON.stringify(EduEventResponse) + "}";
+        ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/GetEduResponse");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch (e) {
+
+    }
+}
+function GetResponsecount(EduEventResponse)
+{
+
+    try {
+        var ds = {};
+        var table = {};
+        var data = "{'forumResponseObj':" + JSON.stringify(EduEventResponse) + "}";
+        ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/GetResponseCountWithID");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch (e) {
+
+    }
+}
+function GetEvents(EducationForum) {
+    try {
+        var ds = {};
+        var table = {};
+        var data = "{'eduForumEventsObj':" + JSON.stringify(EducationForum) + "}";
+        ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/GetAllEduForumLatestEvents");
         table = JSON.parse(ds.d);
         return table;
     }
@@ -701,17 +826,17 @@ function FillOldEvents(Records) {
             var html = '';
 
             if (Records.StartDate == null && Records.EndDate == null && Records.EventExpiryDate == null) {
-                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><p>' + Records.Descrtiption + '</p><span class="" style="float:right;><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div>>/div>'
+                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><p>' + Records.Description + '</p><span class="" style="float:right;><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div>>/div>'
             }
 
             else {
 
-                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span> <span class="spnDateValues" >' + (Records.StartDate != null ? ConvertJsonToDate(Records.StartDate) : "") + '</span>&nbsp;<br /><p>' + Records.Descrtiption + '</p><span class="" style="float:right;><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div>'
+                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span> <span class="spnDateValues" >' + (Records.StartDate != null ? ConvertJsonToDate(Records.StartDate) : "") + '</span>&nbsp;<br /><p>' + Records.Description + '</p><span class="" style="float:right;><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div>'
 
             }
 
 
-            //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Descrtiption + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+            //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Description + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
             $("#OldEventsGrid").append(html);
 
             if (url != "" && url != null) {
@@ -831,6 +956,7 @@ function SetControlsInNewEventFormat() {
     try {
         ClearControls();
         RemoveStyle();
+        $('#ResponseSection').hide();
         $("#lblEventName").hide();
         $("#lblDescription").hide();
         $("#lblStartDate").hide();
@@ -929,6 +1055,7 @@ function SetControlsInEditableFormat() {
 //Edit -- view only
 function EditOnClick(id) {
     try {
+        debugger;
         RemoveStyle();
         Dynamicbutton("btnNotify", "PushNoti", "SendNotification");
         $('#btnNotify').attr('data-target', '#notificationModal');
@@ -942,8 +1069,8 @@ function EditOnClick(id) {
 
         SetControlsInViewFormat();
 
-        var Events = new Object();
-        Events.eventId = id;
+        var EducationForum = new Object();
+        EducationForum.ID = id;
 
         if (id != "" && id != null) {
 
@@ -951,10 +1078,10 @@ function EditOnClick(id) {
 
             var jsonResult = {};
 
-            jsonResult = GetEventsByEventID(Events);
+            jsonResult = GetEventsByEventID(EducationForum);
 
             if (jsonResult != undefined) {
-                $.each(jsonResult, function (index, jsonResult) {
+               // $.each(jsonResult, function (index, jsonResult) {
                     $("#h1Event").text(jsonResult.EventName);
 
 
@@ -977,7 +1104,7 @@ function EditOnClick(id) {
                     DeletedImgPath = imgPath;
 
 
-                    if (jsonResult.Descrtiption == null || jsonResult.Descrtiption == "" || jsonResult.Descrtiption == undefined) {
+                    if (jsonResult.Description == null || jsonResult.Description == "" || jsonResult.Description == undefined) {
                         //$("#NoticePreviewOnView").css('width', '300px!important');
                         $('#eventPreviewOnView').width(600);
                         $('#eventPreviewOnView').height('auto');
@@ -987,10 +1114,10 @@ function EditOnClick(id) {
                     else {
                         $('#eventPreviewOnView').height(200);
                         $('#eventPreviewOnView').width(150);
-                        $('#lblEventDescriptionOnView').text(jsonResult.Descrtiption);
+                        $('#lblEventDescriptionOnView').text(jsonResult.Description);
                     }
 
-                });
+                //});
             }
         }
     }
@@ -1000,12 +1127,13 @@ function EditOnClick(id) {
 
 }
 
-function GetEventsByEventID(Events) {
+function GetEventsByEventID(EducationForum) {
     try {
+        debugger;
         var ds = {};
         var table = {};
-        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-        ds = getJsonData(data, "../AdminPanel/Events.aspx/GetEventsByEventID");
+        var data = "{'eduForumEventsObj':" + JSON.stringify(EducationForum) + "}";
+        ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/GetEventsByEventID");
         table = JSON.parse(ds.d);
         return table;
     }
@@ -1035,6 +1163,7 @@ function cancelEdit() {
 
 function FixedEditClick() {
     try {
+        debugger;
         Dynamicbutton("NoticeEdit", "EditCancel", "");
         Dynamicbutton("btnSave", "Save", "SaveEvents");
         Dynamicbutton("btnDelete", "Delete", "DeleteEvents");
@@ -1045,18 +1174,18 @@ function FixedEditClick() {
         SetControlsInEditableFormat();
         $("#h1Event").text("Edit Event");
 
-        var Events = new Object();
-        Events.eventId = $("#hdfEventID").val();
+        var EducationForum = new Object();
+        EducationForum.ID = $("#hdfEventID").val();
 
         var jsonResult = {};
 
-        jsonResult = GetEventsByEventID(Events);
+        jsonResult = GetEventsByEventID(EducationForum);
 
         if (jsonResult != undefined) {
-            $.each(jsonResult, function (index, jsonResult) {
+            //$.each(jsonResult, function (index, jsonResult) {
 
                 $("#txtEventName").val(jsonResult.EventName);
-                $("#txtDescription").val(jsonResult.Descrtiption);
+                $("#txtDescription").val(jsonResult.Description);
 
                 url = jsonResult.URL;
 
@@ -1072,28 +1201,11 @@ function FixedEditClick() {
                 imgPath = url;
 
                 if (jsonResult.StartDate != null && jsonResult.StartDate != "") {
-                    $("#dateStartDate").val(ConvertJsonToDate(jsonResult.StartDate));
+                    $("#dateStartDate").val(jsonResult.StartDate);
                 }
 
                 if (jsonResult.EndDate != null && jsonResult.EndDate != "") {
-                    $("#dateEndDate").val(ConvertJsonToDate(jsonResult.EndDate));
-                }
-
-                if (jsonResult.EventExpiryDate != null && jsonResult.EventExpiryDate != "") {
-                    $("#dateExpiryDate").val(ConvertJsonToDate(jsonResult.EventExpiryDate));
-                }
-
-                if (jsonResult.IsAutoHide == true) {
-                    $('#optHideYes').parent().addClass('checked');
-                    $("#optHideNo").parent().removeClass('checked');
-                    $("#hdfIsAutoHide").val(true)
-
-                }
-                else {
-                    $('#optHideNo').parent().addClass('checked');
-                    $("#optHideYes").parent().removeClass('checked');
-
-                    $("#hdfIsAutoHide").val(false)
+                    $("#dateEndDate").val(jsonResult.EndDate);
                 }
                 if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
                     IsAlreadyNotified = true;
@@ -1107,7 +1219,7 @@ function FixedEditClick() {
                     $('#txtCaption').attr('disabled', true);
                     $('#txtCaption').val(jsonResult.Caption);
                     $('#txtnotificationCOntent').attr('disabled', true);
-                    $("#txtnotificationCOntent").val(jsonResult.Descrtiption);
+                    $("#txtnotificationCOntent").val(jsonResult.Description);
                 }
                 else {
                     $("#lblAlreadyNotificationSend").hide();
@@ -1119,7 +1231,7 @@ function FixedEditClick() {
                     IsMobNotified = true;
                     IsAlreadyNotified = false;
                 }
-            });
+            //});
         }
         RemoveStyle();
     }
@@ -1131,12 +1243,12 @@ function FixedEditClick() {
 //--------------------------------//
 
 //Insert
-function InsertEvent(Events) {
+function InsertEvent(EducationForum) {
     try {
         var ds = {};
         var table = {};
-        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-        ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/InsertEvent");
+        var data = "{'eduForumEventsObj':" + JSON.stringify(EducationForum) + "}";
+        ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/InsertEduEvent");
         table = JSON.parse(ds.d);
         return table;
     }
@@ -1149,12 +1261,12 @@ function InsertEvent(Events) {
 
 
 //update
-function UpdateEvent(Events) {
+function UpdateEvent(EducationForum) {
     try {
         var ds = {};
         var table = {};
-        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-        ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/UpdateEvent");
+        var data = "{'eduForumEventsObj':" + JSON.stringify(EducationForum) + "}";
+        ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/UpdateEduEvent");
         table = JSON.parse(ds.d);
         return table;
     }

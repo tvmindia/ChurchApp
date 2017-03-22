@@ -44,6 +44,7 @@ namespace ChurchApp.ImageHandler
                     DAL.Institutions InstObj = null;
                     GalleryAlbum GalAlbumObj = null;
                     GalleryItems GalItemsObj = null;
+                    ChurchApp.DAL.EducationForum EduForumObj = null;
                     Members memberObj = null;
                     Family familyObj = null;
                     FamilyUnits unitsObj = null;
@@ -755,6 +756,92 @@ namespace ChurchApp.ImageHandler
                                     {
                                         EventObj.Status = ex.Message;
                                         context.Response.Write(jsSerializer.Serialize(EventObj));
+                                    }
+                                    break;
+                                case "EducationForumImageInsert":
+                                    try
+                                    {
+                                        EduForumObj = new DAL.EducationForum();
+                                        //Insert to table
+                                        AppImgObj = new AppImages();
+                                        postFile = context.Request.Files["upImageFile"];
+                                        fileExtension = Path.GetExtension(postFile.FileName);
+                                        AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                        AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                        AppImgObj.type = "image";
+                                        AppImgObj.InsertAppImage1().ToString();
+                                        EduForumObj.ChurchID = context.Request.Form.GetValues("ChurchID")[0];
+                                        EduForumObj.Description = context.Request.Form.GetValues("Description")[0];
+                                        EduForumObj.EventName = context.Request.Form.GetValues("EventName")[0];
+                                        EduForumObj.StartDate = context.Request.Form.GetValues("StartDate")[0];
+                                        EduForumObj.EndDate = context.Request.Form.GetValues("EndDate")[0];
+                                        EduForumObj.CreatedBY = AppImgObj.createdBy;
+                                        EduForumObj.ImageID = AppImgObj.appImageId;
+                                        EduForumObj.InsertEduEventEvent();
+                                        postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                        jsSerializer = new JavaScriptSerializer();
+                                        context.Response.Write(jsSerializer.Serialize(EduForumObj));
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        EduForumObj.Status = ex.Message;
+                                        context.Response.Write(jsSerializer.Serialize(EduForumObj));
+                                    }
+                                    break;
+                                case "EducationForumImageUpdate":
+                                    try
+                                    {
+                                        EduForumObj = new DAL.EducationForum();
+                                        AppImgObj = new AppImages();
+                                        postFile = context.Request.Files["upImageFile"];
+                                        fileExtension = Path.GetExtension(postFile.FileName);
+                                        if ((context.Request.Form.GetValues("EventimageId")[0] != "") && (context.Request.Form.GetValues("EventimageId")[0] != null))
+                                        {
+                                            //update currrent image with new one
+                                            AppImgObj.appImageId = context.Request.Form.GetValues("EventimageId")[0];
+                                            AppImgObj.DeleteFromFolder();
+                                            AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                            AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                                            AppImgObj.type = "image";
+                                            AppImgObj.Extension = fileExtension;
+                                            AppImgObj.postedFile = postFile;
+                                            AppImgObj.UpdateAppImage();
+                                            if (AppImgObj.status == "1")
+                                            {
+                                                //Delete Previous image from folder and save new folder 
+                                                AppImgObj.UpdateCurrentAppImageInFolder();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            //insert new image for imageless Event
+                                            AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                            AppImgObj.createdBy = context.Request.Form.GetValues("updatedby")[0];
+                                            AppImgObj.type = "image";
+                                            AppImgObj.Extension = fileExtension;
+                                            AppImgObj.postedFile = postFile;
+                                            AppImgObj.InsertAppImage1().ToString();
+                                            postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+
+                                        }
+                                        //Update Events
+                                        EduForumObj.ChurchID = context.Request.Form.GetValues("ChurchID")[0];
+                                        EduForumObj.ID = context.Request.Form.GetValues("ID")[0];
+                                        EduForumObj.Description= context.Request.Form.GetValues("Description")[0];
+                                        EduForumObj.EventName = context.Request.Form.GetValues("EventName")[0];
+                                        EduForumObj.StartDate = context.Request.Form.GetValues("StartDate")[0];
+                                        EduForumObj.EndDate = context.Request.Form.GetValues("EndDate")[0];
+                                        EduForumObj.UpdatedBy = AppImgObj.updatedBy;
+                                        EduForumObj.ImageID = AppImgObj.appImageId;
+                                        EduForumObj.UpdateEduForumEvent();
+
+                                        jsSerializer = new JavaScriptSerializer();
+                                        context.Response.Write(jsSerializer.Serialize(EduForumObj));
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        EduForumObj.Status = ex.Message;
+                                        context.Response.Write(jsSerializer.Serialize(EduForumObj));
                                     }
                                     break;
                                 case "NoticeImageInsert":

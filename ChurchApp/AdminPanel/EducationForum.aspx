@@ -19,7 +19,7 @@ content: "";
 display: table;
 clear: both;
 }
-.active
+li.active
 {
     font-weight:800!important;
 }
@@ -175,6 +175,43 @@ clear: both;
 
 </div>
 
+<div id="ResponseSection" style="display:none;">
+<div class="control-group" >
+<label class="control-label" for="txtEventName">Total Response :</label>
+<div class="controls">
+<label class="control-label" for="focusedInput" id="lblResponseCound">XXX</label>
+</div>
+</div>
+    <div class="control-group" >
+<label class="control-label" for="txtEventName">Attending :</label>
+<div class="controls">
+<label class="control-label" for="focusedInput" id="lblAttendCound">XXX</label>
+</div>
+</div>
+    <div class="control-group" >
+<label class="control-label" for="txtEventName">Not Attending :</label>
+<div class="controls">
+<label class="control-label" for="focusedInput" id="lblNotAttendCound">XXX</label>
+</div>
+</div>
+<div class="control-group" >
+<label class="control-label" for="txtEventName">Not Sure :</label>
+<div class="controls">
+<label class="control-label" for="focusedInput" id="lblNotSureCound">XXX</label>
+</div>
+</div>
+    <table id="tblResponse" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Response</th>
+<th>Contact</th>
+<th>Response Date</th>
+</tr>
+</thead>
+</table>
+</div>
                           
 </fieldset>
 </div>
@@ -185,7 +222,7 @@ clear: both;
 </div>
 </div>
 <div class="tab-pane" id="tab2">
-<table id="tblOrderList" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+<table id="tblEduForumMembers" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 <thead>
 <tr>
 <th>ID</th>

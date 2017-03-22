@@ -216,8 +216,8 @@ namespace ChurchApp.DAL
                     ID = dr["ID"].ToString();
                     EventName = dr["EventName"].ToString();
                     Description = dr["Description"].ToString();
-                    StartDate = dr["StartDate"].ToString()!=""?(DateTime.Parse(dr["StartDate"].ToString().ToString()).ToString("dd-MMM-yyyy")):"";
-                    EndDate = dr["EndDate"].ToString()!=""?(DateTime.Parse(dr["EndDate"].ToString().ToString()).ToString("dd-MMM-yyyy")):"";
+                    StartDate = dr["StartDate"].ToString() != "" ? (DateTime.Parse(dr["StartDate"].ToString().ToString()).ToString("dd-MMM-yyyy")) : "";
+                    EndDate = dr["EndDate"].ToString() != "" ? (DateTime.Parse(dr["EndDate"].ToString().ToString()).ToString("dd-MMM-yyyy")) : "";
                     URL = dr["URL"].ToString();
                     ImageID = dr["ImageID"].ToString();
                     NotificationID = dr["NotificationID"].ToString();
@@ -234,7 +234,7 @@ namespace ChurchApp.DAL
                     dcon.DisconectDB();
                 }
             }
-            return ds;
+            //return dt;
         }
         #endregion Get Events By EventID
 
@@ -259,7 +259,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[InsertEduForumEvents]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
                 cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 100).Value = EventName != null && EventName != "" ? EventName : null;
-                cmd.Parameters.Add("@Descrtiption", SqlDbType.NVarChar, -1).Value = Description != null && Description != "" ? Description : null;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description != null && Description != "" ? Description : null;
 
                 if (StartDate != string.Empty && StartDate != null)
                 {
@@ -278,7 +278,7 @@ namespace ChurchApp.DAL
                 {
                     cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ImageID);
                 }
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = CreatedBY != null && CreatedBY != "";
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = CreatedBY;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 //DateTime.Now;
                 outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -332,7 +332,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ID);
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
                 cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 100).Value = EventName != null && EventName != "" ? EventName : null;
-                cmd.Parameters.Add("@Descrtiption", SqlDbType.NVarChar, -1).Value = Description != null && Description != "" ? Description : null;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description != null && Description != "" ? Description : null;
                 if (StartDate != string.Empty && StartDate != null)
                 {
                     cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = commonObj.Changeformat(StartDate);
@@ -550,6 +550,10 @@ namespace ChurchApp.DAL
         public string CreatedDate { get; set; }
         public string UpdatedDate { get; set; }
         public string Status { get; set; }
+        public int TotalCount { get; set; }
+        public int AttendCount { get; set; }
+        public int NotSureCount { get; set; }
+        public int NotAttendCount { get; set; }
         #endregion Properties
         #region InsertEduRedponse
         /// <summary>
@@ -611,7 +615,7 @@ namespace ChurchApp.DAL
         /// Get All Events based on churchID
         /// </summary>
         /// <returns>All Events</returns>
-        public DataSet SelectAllForumMembers()
+        public DataSet SelectEduResponse()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -624,7 +628,7 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[]";
+                cmd.CommandText = "[GetAllResponse]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
                 cmd.Parameters.Add("@EduEventID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(EduEventID);
                 sda = new SqlDataAdapter();
@@ -646,6 +650,54 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectEduMembers
+        #region Get Response For Event
+        /// <summary>
+        /// GetEventsByEventID
+        /// </summary>
+        /// <returns>All Events</returns>
+        public void SelectCountsResponse()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectResponseCount]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
+                cmd.Parameters.Add("@EduEventID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(EduEventID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow dr = dt.Rows[0];
+                    TotalCount = dr["Total"].ToString() != "" ? int.Parse(dr["Total"].ToString()) : TotalCount;
+                    AttendCount = dr["Attend"].ToString() != "" ? int.Parse(dr["Attend"].ToString()) : AttendCount;
+                    NotSureCount = dr["NotSure"].ToString() != "" ? int.Parse(dr["NotSure"].ToString()) : NotSureCount;
+                    NotAttendCount = dr["NotAttend"].ToString() != "" ? int.Parse(dr["NotAttend"].ToString()) : NotAttendCount;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //return dt;
+        }
+        #endregion Get Response For Event
 
 
     }
