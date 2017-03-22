@@ -1283,6 +1283,83 @@ namespace ChurchApp.WebServices
         }
         #endregion
 
+        #region Education Forum
+
+        [WebMethod]
+        public string GetEduForumAbout(string ChurchID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                EduEventAbout eduForumAbout = new EduEventAbout();
+                eduForumAbout.ChurchID = ChurchID;
+                dt = eduForumAbout.SelectEduForumAbout().Tables[0];
+                if (dt.Rows.Count == 0 || dt.Rows[0]["EduForumAbout"]==DBNull.Value) throw new Exception(constants.NoItems);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        [WebMethod]
+        public string EduForumOTP(string mobile,string ChurchID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt.Columns.Add("IsMember");
+                dt.Columns.Add("OTP");
+                dt.Columns.Add("EduForumMemberID");
+
+                EduForumMember member = new EduForumMember();
+                member.ChurchID = ChurchID;
+                member.Mobile = mobile;
+                DataTable memberDetails = new DataTable();
+                memberDetails = member.FindMemberByMobileNumber();
+                DataRow row = dt.NewRow();
+                if (memberDetails.Rows.Count == 0)
+                {
+                    row["IsMember"] = false;
+                }
+                else
+                {
+                    row["IsMember"] = true;
+                    row["EduForumMemberID"] = memberDetails.Rows[0]["ID"];
+                }
+                Random rnd = new Random();                  // Random number creation for OTP
+                row["OTP"] = rnd.Next(2000, 9000);
+                dt.Rows.Add(row);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        #endregion
+
         [WebMethod]
         public string NotificationTestWebservice(string titleString, string descriptionString, Boolean isCommon, string churchID)
         {

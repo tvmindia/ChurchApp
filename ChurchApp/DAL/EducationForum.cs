@@ -532,6 +532,43 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectEduMembers
+
+        #region Find Member by mobile number
+        public DataTable FindMemberByMobileNumber()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[FindMemberByMobileNumber]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
+                cmd.Parameters.Add("@MobileNo", SqlDbType.NVarChar,50).Value = Mobile;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+        #endregion
     }
 
     public class EduEventResponse
@@ -698,7 +735,93 @@ namespace ChurchApp.DAL
             //return dt;
         }
         #endregion Get Response For Event
+    }
+    public class EduEventAbout
+    {
+        Common commonObj = new Common();
+        #region Properties
+        public string ChurchID { get; set; }
+        public string About { get; set; }
+        #endregion Properties
 
+        #region Insert Education forum About description
+        /// <summary>
+        /// Insert or Update about desctritiption of education forum
+        /// </summary>
+        /// <returns>Success/Failure</returns>
+        public string InsertEduForumAbout()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParam = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertORUpdateEduForumAbout]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
+                cmd.Parameters.Add("@About", SqlDbType.NVarChar, -1).Value = About;
+                outParam = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParam.Direction = ParameterDirection.Output;
 
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return outParam.Value.ToString();
+        }
+        #endregion Insert Education forum About description
+
+        #region Get education forum about description
+        /// <summary>
+        /// Get about description of education forum of a church
+        /// </summary>
+        /// <returns>about description</returns>
+        public DataSet SelectEduForumAbout()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetEduForumAboutByChurchID]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion Get education forum about description
     }
 }
