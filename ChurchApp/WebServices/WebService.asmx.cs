@@ -1315,6 +1315,49 @@ namespace ChurchApp.WebServices
             return getDbDataAsJSON(dt);
         }
 
+        [WebMethod]
+        public string EduForumOTP(string mobile,string ChurchID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt.Columns.Add("IsUser");
+                dt.Columns.Add("OTP");
+                dt.Columns.Add("EduForumMemberID");
+
+                EduForumMember member = new EduForumMember();
+                member.ChurchID = ChurchID;
+                member.Mobile = mobile;
+                DataTable memberDetails = new DataTable();
+                memberDetails = member.FindMemberByMobileNumber();
+                DataRow row = dt.NewRow();
+                if (memberDetails.Rows.Count == 0)
+                {
+                    row["IsUser"] = false;
+                }
+                else
+                {
+                    row["IsUser"] = true;
+                    row["EduForumMemberID"] = memberDetails.Rows[0]["ID"];
+                }
+                Random rnd = new Random();                  // Random number creation for OTP
+                row["OTP"] = rnd.Next(2000, 9000);
+                dt.Rows.Add(row);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            return getDbDataAsJSON(dt);
+        }
+
         #endregion
 
         [WebMethod]

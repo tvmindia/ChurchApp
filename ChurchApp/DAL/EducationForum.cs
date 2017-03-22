@@ -531,6 +531,43 @@ namespace ChurchApp.DAL
             return ds;
         }
         #endregion SelectEduMembers
+
+        #region Find Member by mobile number
+        public DataTable FindMemberByMobileNumber()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[FindMemberByMobileNumber]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
+                cmd.Parameters.Add("@MobileNo", SqlDbType.NVarChar,50).Value = Mobile;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+        #endregion
     }
 
     public class EduEventResponse
