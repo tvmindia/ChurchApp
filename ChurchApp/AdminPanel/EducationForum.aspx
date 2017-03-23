@@ -23,6 +23,9 @@ li.active
 {
     font-weight:800!important;
 }
+.tab-content{
+    overflow:hidden;
+}
 </style>
 <div id="content" class="span10">
 <ul class="breadcrumb" style="margin-bottom:0px;">
@@ -47,9 +50,9 @@ li.active
 <div class="row-fluid" style="margin-top:3%">
 <div class="tabbable"> <!-- Only required for left/right tabs -->
 <ul class="nav nav-tabs">
-<li class="active"><a href="#tab1" data-toggle="tab">Events</a></li>
-<li><a href="#tab2" data-toggle="tab">Members</a></li>
-<li><a href="#tab3" data-toggle="tab">About</a></li>
+<li class="active"><a href="#tab1" data-toggle="tab" id="tabEvents">Events</a></li>
+<li><a href="#tab2" data-toggle="tab" onclick="SetMembers()">Members</a></li>
+<li><a href="#tab3" data-toggle="tab" onclick="SetAbout()">About</a></li>
 </ul>
 <div class="tab-content">
 <div class="tab-pane active" id="tab1">
@@ -238,8 +241,13 @@ li.active
 </table>
 </div>
 <div class="tab-pane" id="tab3">
-<h3>About</h3>
-<textarea class="span12" rows="10"></textarea>
+<div class="control-group" >
+<label class="control-label" for="txtEventName">About</label>
+<div class="controls">
+<label class="control-label" for="focusedInput" id="lblEduAbout">XXX</label>
+<textarea class="span12" rows="10" id="txtEduAbout" style="display:none;"></textarea>
+</div>
+</div>
 </div>
 </div>
 </div>

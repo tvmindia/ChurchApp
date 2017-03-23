@@ -6,7 +6,7 @@ var imgPath = '';                   //Stores path of uploaded image
 
 var DeletedImgID = '';              //While changing the uploaded image with new , previous one should get deleted, So imageid to be deleted is stored in this variable
 var DeletedImgPath = '';            //While changing the uploaded image with new , previous one should get deleted from folde, So imag path to be deleted is stored in this variable
-var NotificationTypeCode = 'evt';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
+var NotificationTypeCode = 'EduEvt';   //If notification is adding , notification type has to be given ,this value is the code of notice in notice table
 var IsMobNotified = '';
 var IsAlreadyNotified = false;
 var MaxCharacterLimit = 200;
@@ -99,10 +99,7 @@ $("document").ready(function (e) {
             ]
         });
         $('[data-toggle="popover"]').popover();
-        BindEvents();
-       
-        BindOldEvents();
-        
+        BindEvents(1);        
         $('#btnSaveNotification').click(function () {
             if (NotificationValidation) {
                 debugger;
@@ -214,7 +211,7 @@ $("document").ready(function (e) {
 
             click: function (e) {
                 try {
-                    BindAllLatestEvents();
+                    BindEvents(0);
                     $(".aBack").show();
                     $(".aViewMore").hide();
                     $("#divOldEvents").hide();
@@ -230,7 +227,7 @@ $("document").ready(function (e) {
 
             click: function (e) {
                 try {
-                    BindEvents();
+                    BindEvents(1);
 
                     $(".aBack").hide();
                     $(".aViewMore").show();
@@ -254,7 +251,7 @@ $("document").ready(function (e) {
                 try {
                     $(".aOldBack").show();
                     $('.aOldViewMore').hide();
-                    BindAllOldEvents();
+                    BindEvents(0);
                     $("#divLatestEvents").hide();
                 }
                 catch (e) {
@@ -270,10 +267,10 @@ $("document").ready(function (e) {
                 try {
                     $(".aOldBack").hide();
                     $(".aOldViewMore").show();
-                    BindOldEvents();
+                    //BindOldEvents();
 
                     $("#divLatestEvents").show();
-                    BindEvents();
+                    BindEvents(1);
                 }
                 catch (e) {
                     noty({ type: 'error', text: e.message });
@@ -296,6 +293,54 @@ $("document").ready(function (e) {
     }
 
 });//end of document.ready
+function SetMembers()
+{
+    Dynamicbutton("NoticeEdit", "EditCancel", "");
+    Dynamicbutton("btnSave", "SaveCancel", "");
+    Dynamicbutton("btnDelete", "DeleteCancel", "");
+    Dynamicbutton("btnReset", "ResetCancel", "");
+    Dynamicbutton("btnNotify", "SendNotiCancel", "");
+    DataTables.EduForumMember.clear().rows.add(GetEduForumMembers()).draw(false);
+}
+function SetAbout()
+{
+    debugger;
+    var result = GetEduAbout();
+    $('#lblEduAbout').text(result.About);
+    $('#txtEduAbout').val(result.About);
+    $('#lblEduAbout').show();
+    $('#txtEduAbout').hide();
+
+    Dynamicbutton("NoticeEdit", "Edit", "EditAbout");
+    Dynamicbutton("btnSave", "SaveCancel", "");
+    Dynamicbutton("btnDelete", "DeleteCancel", "");
+    Dynamicbutton("btnReset", "ResetCancel", "");
+    Dynamicbutton("btnNotify", "SendNotiCancel", "");
+}
+function SaveAbout()
+{
+    debugger;
+    var EduEventAbout = new Object();
+    EduEventAbout.About = $('#txtEduAbout').val();
+    var result = InsertEduAbout(EduEventAbout);
+    switch(result.Status)
+    {
+        case "1":
+            noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+            break;
+        case "0":
+            noty({ text: Messages.InsertionFailure, type: 'error' });
+            break;
+
+    }
+}
+function EditAbout()
+{
+    debugger;
+    $('#lblEduAbout').hide();
+    $('#txtEduAbout').show();
+    Dynamicbutton("btnSave", "Save", "SaveAbout");
+}
 function GetEduForumMembers()
 {
     var ds = {};
@@ -401,8 +446,8 @@ function SaveEvents() {
                         noty({ text: UpdationStatus.Status, type: 'error' });
                     }
 
-                    BindEvents();
-                    BindOldEvents();
+                    BindEvents(1);
+                    //BindOldEvents();
 
                 }
                 else {
@@ -438,8 +483,8 @@ function SaveEvents() {
                         noty({ text: UpdationStatus.Status, type: 'error' });
                     }
 
-                    BindEvents();
-                    BindOldEvents();
+                    BindEvents(1);
+                    //BindOldEvents();
                 }
             }
             else {
@@ -501,8 +546,8 @@ function SaveEvents() {
                         noty({ text: InsertionStatus.Status, type: 'error' });
                     }
 
-                    BindEvents();
-                    BindOldEvents();
+                    BindEvents(1);
+                    //BindOldEvents();
 
                 }
                 else {
@@ -545,8 +590,8 @@ function SaveEvents() {
                         noty({ text: InsertionStatus.Status, type: 'error' });
                     }
 
-                    BindEvents();
-                    BindOldEvents();
+                    BindEvents(1);
+                    //BindOldEvents();
                 }
             }
         }
@@ -596,11 +641,11 @@ function DeleteEvents() {
     }
 }
 // Bind Latest Events - Top5
-function BindEvents() {
+function BindEvents(count) {
     try {
         var jsonResult = {};
         var EducationForum = new Object();
-        jsonResult = GetEvents(EducationForum);
+        jsonResult = GetEvents(count);
         if (jsonResult != undefined) {
             FillEvents(jsonResult);
 
@@ -623,44 +668,70 @@ function BindEvents() {
 
 function FillEvents(Records) {
     try {
-        $('#DivNoticeType1').html('');
-
+        $('#DivNoticeType1').empty();
+        $('#OldEventsGrid').empty();
+        var today = new Date();
+        var Latestcount = 0;
+        var OldCount = 0;
         $.each(Records, function (index, Records) {
-            ;
+            debugger;
+            
+             if ((Datecheck(ConvertJsonToDate(Records.EndDate)))>today)
+             {
+                 Latestcount++;
+                 var url = Records.URL;
+                 var html = '';
+                 html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + (Records.EventName != null ? Records.EventName : "") + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span>  <span class="spnDateValues" >' + (Records.StartDate != null ? ConvertJsonToDate(Records.StartDate) : "") + '</span>&nbsp;<br /><p>' + (Records.Description != null ? Records.Description : "") + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details </a><br/><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="ViewResponse(\'' + Records.ID + '\')" > View Responses</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+                 $("#DivNoticeType1").append(html);
+                 if (url != "" && url != null) {
+                     var imgControl = document.getElementById("img" + Records.ID);
+                     if (imgControl != null) {
+                         document.getElementById("img" + Records.ID).src = url;
+                         $('#img' + Records.ID).attr('src', url);
+                     }
+                 }
+                 if (url == null) {
+                     url = "../img/No-Img_Chosen.png";
+                     $('#img' + Records.ID).attr('src', url);
 
-            var url = Records.URL;
-            var html = '';
+                 }
+             }
+             else if ((Datecheck(ConvertJsonToDate(Records.EndDate))) < today)
+             {
+                 OldCount++;
+                 var url = Records.URL;
+                 var html = '';
+                 html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span> <span class="spnDateValues" >' + (Records.StartDate != null ? ConvertJsonToDate(Records.StartDate) : "") + '</span>&nbsp;<br /><p>' + Records.Description + '</p><span class="" style="float:right;><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a><br/><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="ViewResponse(\'' + Records.ID + '\')" > View Responses</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div>'
+                    $("#OldEventsGrid").append(html);
 
-            if (Records.StartDate == null && Records.EndDate == null ) {
-                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + (Records.EventName != null ? Records.EventName : "") + '</p><p>' + (Records.Description != null ? Records.Description : "") + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
-            }
+                 if (url != "" && url != null) {
+                     var imgControl = document.getElementById("img" + Records.ID);
+                     if (imgControl != null) {
+                         document.getElementById("img" + Records.ID).src = url;
+                         $('#img' + Records.ID).attr('src', url);
+                     }
+                 }
+                 if (url == null) {
+                     url = "../img/No-Img_Chosen.png";
+                     $('#img' + Records.ID).attr('src', url);
 
-            else {
-                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + (Records.EventName != null ? Records.EventName : "") + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span>  <span class="spnDateValues" >' + (Records.StartDate != null ? ConvertJsonToDate(Records.StartDate) : "") + '</span>&nbsp;<br /><p>' + (Records.Description != null ? Records.Description : "") + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details </a><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="ViewResponse(\'' + Records.ID + '\')" > View Responses</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
-            }
-            //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Description + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
-            $("#DivNoticeType1").append(html);
-
-            if (url != "" && url != null) {
-                var imgControl = document.getElementById("img" + Records.ID);
-                if (imgControl != null) {
-                    document.getElementById("img" + Records.ID).src = url;
-                    $('#img' + Records.ID).attr('src', url);
-                }
-            }
-            if (url == null) {
-                url = "../img/No-Img_Chosen.png";
-                $('#img' + Records.ID).attr('src', url);
-
-            }
+                 }
+             }
         });
 
-        if (Records.length == 0) {
+        if (Latestcount == 0) {
             //$('.dataTables_empty').parent().parent().remove();
             var img = document.createElement('img');
             img.src = "../img/nodata.jpg";
             img.id = "NoData";
             $("#DivNoticeType1").append(img);
+        }
+        if (OldCount == 0) {
+            //$('.dataTables_empty').parent().parent().remove();
+            var img = document.createElement('img');
+            img.src = "../img/nodata.jpg";
+            img.id = "NoData";
+            $("#OldEventsGrid").append(img);
         }
     }
     catch (e) {
@@ -684,6 +755,11 @@ function ViewResponse(EventID)
     $('#EditContent').hide();
     $('#divView').hide();
     $('#ResponseSection').show();
+    Dynamicbutton("NoticeEdit", "EditCancel", "");
+    Dynamicbutton("btnSave", "SaveCancel", "");
+    Dynamicbutton("btnDelete", "DeleteCancel", "");
+    Dynamicbutton("btnReset", "ResetCancel", "");
+    Dynamicbutton("btnNotify", "SendNotiCancel", "");
 }
 function GetResponse(EduEventResponse)
 {
@@ -714,11 +790,11 @@ function GetResponsecount(EduEventResponse)
 
     }
 }
-function GetEvents(EducationForum) {
+function GetEvents(count) {
     try {
         var ds = {};
         var table = {};
-        var data = "{'eduForumEventsObj':" + JSON.stringify(EducationForum) + "}";
+        var data = "{'Count':" + count + "}";
         ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/GetAllEduForumLatestEvents");
         table = JSON.parse(ds.d);
         return table;
@@ -730,193 +806,10 @@ function GetEvents(EducationForum) {
 }
 //--------------------------------//
 
-
-
-//Bind All latest events
-function BindAllLatestEvents() {
-    try {
-        var jsonResult = {};
-        var Events = new Object();
-        jsonResult = GetAllLatestEvents(Events);
-        if (jsonResult != undefined) {
-            FillEvents(jsonResult);
-
-            if (jsonResult.length >= 5) {
-                $(".aViewMore").show();
-
-                // $(".aViewMore").style.display = "";
-            }
-            else {
-                $(".aViewMore").hide();
-            }
-
-        }
-    }
-    catch (e) {
-
-    }
-
-}
-
-function GetAllLatestEvents(Events) {
-    try {
-        var ds = {};
-        var table = {};
-        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-        ds = getJsonData(data, "../AdminPanel/Events.aspx/GetAllLatestEvents");
-        table = JSON.parse(ds.d);
-        return table;
-    }
-    catch (e) {
-
-    }
-
-}
-//--------------------------------//
-
-
-//Bind old Events - Top5
-function BindOldEvents() {
-    try {
-        var jsonResult = {};
-        var Events = new Object();
-        jsonResult = GetOldEvents(Events);
-        if (jsonResult != undefined) {
-            FillOldEvents(jsonResult);
-
-            if (jsonResult.length >= 5) {
-                $(".aOldViewMore").show();
-
-                // $(".aViewMore").style.display = "";
-            }
-            else {
-                $(".aOldViewMore").hide();
-            }
-        }
-    }
-    catch (e) {
-
-    }
-
-}
-
-function GetOldEvents(Events) {
-    try {
-        var ds = {};
-        var table = {};
-        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-        ds = getJsonData(data, "../AdminPanel/Events.aspx/GetOldEvents");
-        table = JSON.parse(ds.d);
-        return table;
-    }
-    catch (e) {
-
-    }
-
-}
-
-function FillOldEvents(Records) {
-    try {
-        $('#OldEventsGrid').html('');
-
-        $.each(Records, function (index, Records) {
-
-
-            var url = Records.URL;
-            var html = '';
-
-            if (Records.StartDate == null && Records.EndDate == null && Records.EventExpiryDate == null) {
-                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><p>' + Records.Description + '</p><span class="" style="float:right;><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div>>/div>'
-            }
-
-            else {
-
-                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + Records.EventName + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span> <span class="spnDateValues" >' + (Records.StartDate != null ? ConvertJsonToDate(Records.StartDate) : "") + '</span>&nbsp;<br /><p>' + Records.Description + '</p><span class="" style="float:right;><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div>'
-
-            }
-
-
-            //var html = '<div class="accordion"><div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">' + Records.EventName + '</a></div><div class="accordion-body collapse in"><div class="accordion-inner"><img class="eventImage" id=img' + Records.ID + ' src=' + url + '/><span class="spnDates" id="spnStartDate">Start : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.StartDate) + '</span>&nbsp;<span class="spnDates" id="spnEndDate">End : </span>   <span class="spnDateValues" >' + ConvertJsonToDate(Records.EndDate) + '</span>&nbsp;<span class="spnDates" id="spnExpiredate">Expire : </span>  <span class="spnDateValues" >' + ConvertJsonToDate(Records.EventExpiryDate) + '</span>&nbsp; <br /><p>' + Records.Description + '</p><span class="eventViewDetails"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
-            $("#OldEventsGrid").append(html);
-
-            if (url != "" && url != null) {
-                var imgControl = document.getElementById("img" + Records.ID);
-                if (imgControl != null) {
-                    document.getElementById("img" + Records.ID).src = url;
-                    $('#img' + Records.ID).attr('src', url);
-                }
-            }
-            if (url == null) {
-                url = "../img/No-Img_Chosen.png";
-                $('#img' + Records.ID).attr('src', url);
-
-            }
-
-
-        });
-
-        if (Records.length == 0) {
-            //$('.dataTables_empty').parent().parent().remove();
-            var img = document.createElement('img');
-            img.src = "../img/nodata.jpg";
-            img.id = "NoData";
-            $("#OldEventsGrid").append(img);
-        }
-
-    }
-    catch (e) {
-        noty({ type: 'error', text: e.message });
-    }
-}
-
-//--------------------------------//
-
-
-//Bind All old
-function BindAllOldEvents() {
-    try {
-        var jsonResult = {};
-        var Events = new Object();
-        jsonResult = GetAllOldEvents(Events);
-        if (jsonResult != undefined) {
-            FillOldEvents(jsonResult);
-
-            if (jsonResult.length >= 5) {
-                $(".aOldViewMore").show();
-
-                // $(".aViewMore").style.display = "";
-            }
-            else {
-                $(".aOldViewMore").hide();
-            }
-        }
-    }
-    catch (e) {
-
-    }
-
-}
-
-function GetAllOldEvents(Events) {
-    try {
-        var ds = {};
-        var table = {};
-        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
-        ds = getJsonData(data, "../AdminPanel/Events.aspx/GetAllOldEvents");
-        table = JSON.parse(ds.d);
-        return table;
-    }
-    catch (e) {
-
-    }
-
-}
-//--------------------------------//
-
-
 //Clear Controls
 function ClearControls() {
     try {
+        debugger;
         $(':input').each(function () {
 
             if (this.type == 'text' || this.type == 'textarea' || this.type == 'file') {
@@ -945,6 +838,7 @@ function ClearControls() {
         $("#lblAlreadyNotificationSend").hide();
         $("#DivNotificationContent").hide();
         IsAlreadyNotified = false;
+        
     }
     catch (e) {
 
@@ -954,6 +848,8 @@ function ClearControls() {
 
 function SetControlsInNewEventFormat() {
     try {
+        $('#tabEvents').click();
+        debugger;
         ClearControls();
         RemoveStyle();
         $('#ResponseSection').hide();
@@ -1007,6 +903,8 @@ function SetControlsInNewEventFormat() {
 
 function SetControlsInViewFormat() {
     try {
+        debugger;
+        $('#ResponseSection').hide();
          $("#EventEditDivBox").show();
         $("#EditContent").hide();
         $("#divView").show();
@@ -1019,6 +917,7 @@ function SetControlsInViewFormat() {
 
 function SetControlsInEditableFormat() {
     try {
+        debugger;
         $("#lblEventName").hide();
         $("#lblDescription").hide();
         $("#lblStartDate").hide();
@@ -1041,7 +940,7 @@ function SetControlsInEditableFormat() {
 
         $("#rdoNotificationYes").parent().removeClass('checked');
         $('#rdoNotificationNo').parent().addClass('checked');
-
+        $('#ResponseSection').hide();
         $("#lblAlreadyNotificationSend").hide();
         IsAlreadyNotified = false;
     }
@@ -1059,51 +958,31 @@ function EditOnClick(id) {
         RemoveStyle();
         Dynamicbutton("btnNotify", "PushNoti", "SendNotification");
         $('#btnNotify').attr('data-target', '#notificationModal');
-        //$('#NoticeEdit').attr('onclick', 'FixedEditClick();')
         Dynamicbutton("NoticeEdit", "Edit", "FixedEditClick");
         Dynamicbutton("btnSave", "SaveCancel", "");
         Dynamicbutton("btnReset", "ResetCancel", "");
         Dynamicbutton("btnDelete", "Delete", "DeleteEvents");
         Dynamicbutton("btnNotify", "PushNotiCancel", "");
-        //$('#iconEdit').removeClass("halflings-icon white repeat").addClass("halflings-icon white pencil");
-
         SetControlsInViewFormat();
-
         var EducationForum = new Object();
         EducationForum.ID = id;
-
         if (id != "" && id != null) {
-
             $("#hdfEventID").val(id);
-
             var jsonResult = {};
-
             jsonResult = GetEventsByEventID(EducationForum);
-
             if (jsonResult != undefined) {
-               // $.each(jsonResult, function (index, jsonResult) {
                     $("#h1Event").text(jsonResult.EventName);
-
-
-
                     url = jsonResult.URL;
-
-                    if (url == null) {
+                    if (url == null|| url=="") {
                         url = "../img/No-Img_Chosen.png";
                     }
-
                     $('#eventPreviewOnView').attr('src', url);
                     $("#aZoomEventImage").attr("href", url);
                     $('#aZoomEventImage').attr('data-title', jsonResult.EventName);
-
-
                     imageId = jsonResult.ImageID;
                     imgPath = jsonResult.URL;
-
                     DeletedImgID = imageId;
                     DeletedImgPath = imgPath;
-
-
                     if (jsonResult.Description == null || jsonResult.Description == "" || jsonResult.Description == undefined) {
                         //$("#NoticePreviewOnView").css('width', '300px!important');
                         $('#eventPreviewOnView').width(600);
@@ -1116,8 +995,6 @@ function EditOnClick(id) {
                         $('#eventPreviewOnView').width(150);
                         $('#lblEventDescriptionOnView').text(jsonResult.Description);
                     }
-
-                //});
             }
         }
     }
@@ -1173,33 +1050,23 @@ function FixedEditClick() {
         ClearControls();
         SetControlsInEditableFormat();
         $("#h1Event").text("Edit Event");
-
         var EducationForum = new Object();
         EducationForum.ID = $("#hdfEventID").val();
-
         var jsonResult = {};
-
         jsonResult = GetEventsByEventID(EducationForum);
-
         if (jsonResult != undefined) {
-            //$.each(jsonResult, function (index, jsonResult) {
-
                 $("#txtEventName").val(jsonResult.EventName);
                 $("#txtDescription").val(jsonResult.Description);
-
                 url = jsonResult.URL;
-
-                if (url == null) {
+                if (url == null|| url=="") {
                     url = "../img/No-Img_Chosen.png";
                     $('#NoticePreview').attr('src', url);
                 }
                 else {
                     $('#NoticePreview').attr('src', url);
                 }
-
                 imageId = jsonResult.ImageID;
                 imgPath = url;
-
                 if (jsonResult.StartDate != null && jsonResult.StartDate != "") {
                     $("#dateStartDate").val(jsonResult.StartDate);
                 }
@@ -1207,15 +1074,12 @@ function FixedEditClick() {
                 if (jsonResult.EndDate != null && jsonResult.EndDate != "") {
                     $("#dateEndDate").val(jsonResult.EndDate);
                 }
-                if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
+                if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined && jsonResult.NotificationID!="") {
                     IsAlreadyNotified = true;
                     IsMobNotified = false;
                     $("#lblAlreadyNotificationSend").show();
                     $("#lblAlreadyNotificationSend").text("Notification Already added");
                     $('#NotificationInfo').show();
-                    //$('#rdoNotificationYes').parent().addClass('checked');
-                    //$("#rdoNotificationNo").parent().removeClass('checked');
-                    //$("#DivNotificationContent").show();
                     $('#txtCaption').attr('disabled', true);
                     $('#txtCaption').val(jsonResult.Caption);
                     $('#txtnotificationCOntent').attr('disabled', true);
@@ -1224,8 +1088,6 @@ function FixedEditClick() {
                 else {
                     $("#lblAlreadyNotificationSend").hide();
                     $('#NotificationInfo').hide();
-                    //$('#dateStartDate').attr('disabled', false);
-                    //$('#dateExpiryDate').attr('disabled', false);
                     $('#txtnotificationCOntent').attr('disabled', false);
                     $('#txtCaption').attr('disabled', false);
                     IsMobNotified = true;
@@ -1279,7 +1141,7 @@ function UpdateEvent(EducationForum) {
 
 
 //Delete
-function DeleteEvent(Events) {
+function DeleteEvent(EducationForum) {
     try {
         var ds = {};
         var table = {};
@@ -1327,8 +1189,27 @@ function DeleteAppImage(AppImages) {
 
 }
 //--------------------------------//
+function GetEduAbout() {
+    var data = "";
+    jsonResult = getJsonData(data, "../AdminPanel/EducationForum.aspx/GetEduAbout");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+function InsertEduAbout(EduEventAbout) {
+    try {
+        var ds = {};
+        var table = {};
+        var data = "{'eduForumAboutObj':" + JSON.stringify(EduEventAbout) + "}";
+        ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/InsertEduAbout");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    catch (e) {
 
+    }
 
+}
 //Insert Notification
 function InsertNotification(Notification) {
 

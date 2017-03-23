@@ -28,9 +28,10 @@ namespace ChurchApp.DAL
         public string Status { get; set; }
         #endregion Properties
         #region Methods
-        #region Get Latest Events (Top 5)
 
-        public DataSet GetLatestEduForumEvents()
+        #region Get All Edu Events 
+
+        public DataSet GetAllEduForumEvents(int Count)
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -43,8 +44,12 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetLatestEduForumEvents]";
+                cmd.CommandText = "[GetAllEduForumEvents]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
+                if(Count!=0)
+                {
+                    cmd.Parameters.Add("@Count", SqlDbType.Int).Value = Count;
+                }
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -64,127 +69,7 @@ namespace ChurchApp.DAL
             return ds;
         }
 
-        #endregion Get Latest Events
-
-        #region Get All Latest Events 
-
-        public DataSet GetAllLatestEduForumEvents()
-        {
-            dbConnection dcon = null;
-            SqlCommand cmd = null;
-            DataSet ds = null;
-            SqlDataAdapter sda = null;
-            try
-            {
-                dcon = new dbConnection();
-                dcon.GetDBConnection();
-                cmd = new SqlCommand();
-                cmd.Connection = dcon.SQLCon;
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllLatestEduForumEvents]";
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
-                sda = new SqlDataAdapter();
-                sda.SelectCommand = cmd;
-                ds = new DataSet();
-                sda.Fill(ds);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (dcon.SQLCon != null)
-                {
-                    dcon.DisconectDB();
-                }
-            }
-            return ds;
-        }
-
-        #endregion Get All Latest Events
-
-        #region Get Old Events
-        /// <summary>
-        /// Which return datatset containing records with enddate or expire date less than current date
-        /// </summary>
-        /// <returns></returns>
-        public DataSet SelectOldEduForumEvents()
-        {
-            dbConnection dcon = null;
-            SqlCommand cmd = null;
-            DataSet ds = null;
-            SqlDataAdapter sda = null;
-            try
-            {
-                dcon = new dbConnection();
-                dcon.GetDBConnection();
-                cmd = new SqlCommand();
-                cmd.Connection = dcon.SQLCon;
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetOldEduForumEvents]";
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
-                sda = new SqlDataAdapter();
-                sda.SelectCommand = cmd;
-                ds = new DataSet();
-                sda.Fill(ds);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (dcon.SQLCon != null)
-                {
-                    dcon.DisconectDB();
-                }
-            }
-            return ds;
-        }
-
-        #endregion Get Old Events
-
-        #region Get All Old Events
-        /// <summary>
-        /// Which return datatset containing records with enddate or expire date less than current date
-        /// </summary>
-        /// <returns></returns>
-        public DataSet SelectAllOldEduForumEvents()
-        {
-            dbConnection dcon = null;
-            SqlCommand cmd = null;
-            DataSet ds = null;
-            SqlDataAdapter sda = null;
-            try
-            {
-                dcon = new dbConnection();
-                dcon.GetDBConnection();
-                cmd = new SqlCommand();
-                cmd.Connection = dcon.SQLCon;
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetAllOldEduForumEvents]";
-                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
-                sda = new SqlDataAdapter();
-                sda.SelectCommand = cmd;
-                ds = new DataSet();
-                sda.Fill(ds);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (dcon.SQLCon != null)
-                {
-                    dcon.DisconectDB();
-                }
-            }
-            return ds;
-        }
-
-        #endregion Get All Old Events
+        #endregion Get All Edu Events
 
         #region Get Events By EventID
         /// <summary>
@@ -742,6 +627,7 @@ namespace ChurchApp.DAL
         #region Properties
         public string ChurchID { get; set; }
         public string About { get; set; }
+        public string Status { get; set; }
         #endregion Properties
 
         #region Insert Education forum About description
@@ -808,6 +694,11 @@ namespace ChurchApp.DAL
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow dr = ds.Tables[0].Rows[0];
+                    About = dr["EduForumAbout"].ToString();
+                }
             }
             catch (Exception ex)
             {
