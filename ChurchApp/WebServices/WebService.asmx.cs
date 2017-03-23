@@ -1358,6 +1358,57 @@ namespace ChurchApp.WebServices
             return getDbDataAsJSON(dt);
         }
 
+
+        class child
+        {
+            string name { get; set; }
+            string _class { get; set; }
+            string school { get; set; }
+            string dob { get; set; }
+        }
+        [WebMethod]
+        public string RegisterEduForumMember(string churchID,string parentName, string familyUnit,string contactNo, string email, string childJson)
+        {
+            DataTable dt = new DataTable();
+            string registraionID = Guid.NewGuid().ToString();
+            try
+            {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                //Object o = serializer.Deserialize<Object>(childJson);
+                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                rows= serializer.Deserialize<List<Dictionary<string, object>>>(childJson);
+                foreach (Dictionary<string, object> row in rows)
+                {
+                    EduForumMember member = new EduForumMember();
+                    member.ChurchID = churchID;
+                    member.Name = row["Name"].ToString();
+                    member.ParentName = parentName;
+                    member.DOB = row["DOB"].ToString();
+                    member.Class = row["Class"].ToString();
+                    member.School = row["School"].ToString();
+                    member.Mobile = contactNo;
+                    member.Email = email;
+                    member.isMobileVerified = true;
+                    member.registrationID = registraionID;
+                    member.familyUnit = familyUnit;
+                    member.CreatedBY = "App User";
+                    member.InsertForumMember();
+                }
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            return getDbDataAsJSON(dt);
+        }
+
         #endregion
 
         [WebMethod]

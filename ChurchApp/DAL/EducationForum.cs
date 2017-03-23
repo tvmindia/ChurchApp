@@ -426,6 +426,8 @@ namespace ChurchApp.DAL
         public string Email { get; set; }
         public string MobileGoogleAC { get; set; }
         public bool isMobileVerified { get; set; }
+        public string registrationID { get; set; }
+        public string familyUnit { get; set; }
         public string CreatedBY { get; set; }
         public string UpdatedBy { get; set; }
         public string CreatedDate { get; set; }
@@ -461,6 +463,8 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250).Value = Email;
                 cmd.Parameters.Add("@MobileGoogleAC", SqlDbType.NVarChar, 250).Value = MobileGoogleAC;
                 cmd.Parameters.Add("@isMobileVerified",SqlDbType.Bit).Value = isMobileVerified;
+                cmd.Parameters.Add("@RegistrationID", SqlDbType.UniqueIdentifier).Value = registrationID;
+                cmd.Parameters.Add("@FamilyUnit", SqlDbType.NVarChar,50).Value = familyUnit;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = CreatedBY;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
                 //DateTime.Now;
