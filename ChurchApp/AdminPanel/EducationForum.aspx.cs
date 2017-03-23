@@ -18,8 +18,6 @@ namespace ChurchApp.AdminPanel
 
         }
         #region Methods
-
-        #region LATEST Events
         #region Get Members
 
         [WebMethod(EnableSession = true)]
@@ -159,12 +157,12 @@ namespace ChurchApp.AdminPanel
 
         #endregion Get Response Using EventID
 
-        //All LATEST
-        #region Get All Latest Events
+        #region Get All EduEvents
 
         [WebMethod(EnableSession = true)]
-        public static string GetAllEduForumLatestEvents(ChurchApp.DAL.EducationForum eduForumEventsObj)
+        public static string GetAllEduForumLatestEvents(int Count)
         {
+            DAL.EducationForum eduForumEventsObj = new DAL.EducationForum();
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -182,7 +180,7 @@ namespace ChurchApp.AdminPanel
                 if (UA != null)
                 {
                     eduForumEventsObj.ChurchID = UA.ChurchID;
-                    ds = eduForumEventsObj.GetAllLatestEduForumEvents();
+                    ds = eduForumEventsObj.GetAllEduForumEvents(Count);
 
 
 
@@ -215,121 +213,9 @@ namespace ChurchApp.AdminPanel
             return jsonResult;
         }
 
-        #endregion Get All Latest Events //All Latest
+        #endregion Get All EduEvents
 
-        #endregion Latest Events
-
-        #region OLD Events
-
-        //Top 5
-        #region Get Old Events
-
-        [WebMethod(EnableSession = true)]
-        public static string GetOldEvents(ChurchApp.DAL.Events EventsObj)
-        {
-            DAL.Security.UserAuthendication UA;
-            //Converting to Json
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            string jsonResult = null;
-            DataSet ds = null;
-            try
-            {
-                DashBoard dashBoardObj = new DashBoard();
-                UA = dashBoardObj.GetCurrentUserSession();
-                if (UA != null)
-                {
-                    EventsObj.churchId = UA.ChurchID;
-                    ds = EventsObj.SelectOldEvents();
-
-
-
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        foreach (DataRow row in ds.Tables[0].Rows)
-                        {
-                            childRow = new Dictionary<string, object>();
-                            foreach (DataColumn col in ds.Tables[0].Columns)
-                            {
-                                childRow.Add(col.ColumnName, row[col]);
-                            }
-                            parentRow.Add(childRow);
-                        }
-                    }
-                }
-                else
-                {
-                    Common comonObj = new Common();
-                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-
-            jsonResult = jsSerializer.Serialize(parentRow);
-
-            return jsonResult;
-        }
-
-        #endregion Get Old Events   // TOP 5
-
-        //All OLD
-        #region Get All Old Events
-
-        [WebMethod(EnableSession = true)]
-        public static string GetAllOldEvents(ChurchApp.DAL.Events EventsObj)
-        {
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            Security.UserAuthendication UA = null;
-            try
-            {
-                DashBoard dashBoardObj = new DashBoard();
-                UA = dashBoardObj.GetCurrentUserSession();
-                if (UA != null)
-                {
-                    DataSet ds = null;
-                    EventsObj.churchId = UA.ChurchID;
-                    ds = EventsObj.SelectAllOldEvents();
-
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        foreach (DataRow row in ds.Tables[0].Rows)
-                        {
-                            childRow = new Dictionary<string, object>();
-                            foreach (DataColumn col in ds.Tables[0].Columns)
-                            {
-                                childRow.Add(col.ColumnName, row[col]);
-                            }
-                            parentRow.Add(childRow);
-                        }
-                    }
-                }
-                //Session is out
-                else
-                {
-                    Common comonObj = new Common();
-                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-            return jsSerializer.Serialize(parentRow); ;
-        }
-
-        #endregion Get All Old Events   // TOP 5
-
-        #endregion OLD Events
-
-        #region Get Events By EventID
+        #region Get Edu Events By EventID
 
         [WebMethod(EnableSession = true)]
         public static string GetEventsByEventID(ChurchApp.DAL.EducationForum eduForumEventsObj)
@@ -358,9 +244,43 @@ namespace ChurchApp.AdminPanel
             return jsSerializer.Serialize(eduForumEventsObj);
         }
 
-        #endregion Get Events By EventID
+        #endregion Get Edu Events By EventID
 
-        #region Insert Event
+        #region Get Edu Events By EventID
+
+        [WebMethod(EnableSession = true)]
+        public static string GetEduAbout()
+        {
+            DAL.EduEventAbout eduForumAboutObj = new DAL.EduEventAbout();
+            DAL.Security.UserAuthendication UA;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    eduForumAboutObj.ChurchID = UA.ChurchID;
+                    eduForumAboutObj.SelectEduForumAbout();
+                }
+                //Session is out
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return jsSerializer.Serialize(eduForumAboutObj);
+        }
+
+        #endregion Get Edu Events By EventID
+
+
+        #region Insert Edu Event
 
         [WebMethod(EnableSession = true)]
         public static string InsertEduEvent(ChurchApp.DAL.EducationForum eduForumEventsObj)
@@ -399,9 +319,9 @@ namespace ChurchApp.AdminPanel
         }
 
 
-        #endregion Insert Event
+        #endregion Insert Edu Event
 
-        #region Update Event
+        #region Update Edu Event
 
         [WebMethod(EnableSession = true)]
         public static string UpdateEduEvent(ChurchApp.DAL.EducationForum eduForumEventsObj)
@@ -439,7 +359,7 @@ namespace ChurchApp.AdminPanel
         }
 
 
-        #endregion Update Event
+        #endregion Update Edu Event
 
         #region Delete Event
 
@@ -481,6 +401,46 @@ namespace ChurchApp.AdminPanel
 
 
         #endregion Delete Event
+
+        #region Insert Edu Event
+
+        [WebMethod(EnableSession = true)]
+        public static string InsertEduAbout(ChurchApp.DAL.EduEventAbout eduForumAboutObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DAL.Security.UserAuthendication UA;
+
+            string status = null;
+            try
+            {
+                DashBoard dashBoardObj = new DashBoard();
+                UA = dashBoardObj.GetCurrentUserSession();
+                if (UA != null)
+                {
+                    eduForumAboutObj.ChurchID = UA.ChurchID;
+                    status = eduForumAboutObj.InsertEduForumAbout();
+                    eduForumAboutObj.Status = status;
+                }
+                else
+                {
+                    Common comonObj = new Common();
+                    return jsSerializer.Serialize(comonObj.RedirctCurrentRequest());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                eduForumAboutObj.Status = ex.Message;
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(eduForumAboutObj);
+
+        }
+
+
+        #endregion Insert Edu Event
 
         //-------------* AppImage  Methods *--------------//
 
@@ -558,7 +518,7 @@ namespace ChurchApp.AdminPanel
             }
             return jsSerializer.Serialize(NotificationObj);
 
-            //return status;
+            return status;
         }
 
 
