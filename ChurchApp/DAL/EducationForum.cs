@@ -273,7 +273,7 @@ namespace ChurchApp.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[DeleteEvents]";
+                cmd.CommandText = "[DeleteEduEvents]";
                 cmd.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ID);
                 cmd.Parameters.Add("@ChurchId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
                 outParam = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);

@@ -602,15 +602,16 @@ function SaveEvents() {
 }
 function DeleteEvents() {
     try {
+        debugger;
         var deleteConirm = confirm("Want to delete?");
 
         if (deleteConirm) {
             var EventID = $("#hdfEventID").val()
 
-            var Events = new Object();
-            Events.eventId = EventID;
+            var EducationForum = new Object();
+            EducationForum.ID = EventID;
 
-            var DeletionStatus = DeleteEvent(Events);
+            var DeletionStatus = DeleteEvent(EducationForum);
             switch (DeletionStatus.Status) {
                 case "1":
                     noty({ text: Messages.DeletionSuccessFull, type: 'success' });
@@ -624,14 +625,13 @@ function DeleteEvents() {
                     noty({ text: Messages.DeletionFailure, type: 'error' });
                     break;
                 default:
-                    noty({ type: 'error', text: result.Status });
+                    noty({ type: 'error', text: DeletionStatus.Status });
                     break;
 
             }
 
 
-            BindEvents();
-            BindOldEvents();
+            BindEvents(1);
             SetControlsInNewEventFormat();
 
         }
@@ -1145,7 +1145,7 @@ function DeleteEvent(EducationForum) {
     try {
         var ds = {};
         var table = {};
-        var data = "{'EventsObj':" + JSON.stringify(Events) + "}";
+        var data = "{'eduForumEventsObj':" + JSON.stringify(EducationForum) + "}";
         ds = getJsonData(data, "../AdminPanel/EducationForum.aspx/DeleteEvent");
         table = JSON.parse(ds.d);
         return table;

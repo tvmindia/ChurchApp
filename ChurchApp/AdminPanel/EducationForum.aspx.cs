@@ -364,7 +364,7 @@ namespace ChurchApp.AdminPanel
         #region Delete Event
 
         [WebMethod(EnableSession = true)]
-        public static string DeleteEvent(ChurchApp.DAL.Events EventsObj)
+        public static string DeleteEvent(ChurchApp.DAL.EducationForum eduForumEventsObj)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
@@ -375,10 +375,10 @@ namespace ChurchApp.AdminPanel
                 UA = dashBoardObj.GetCurrentUserSession();
                 if (UA != null)
                 {
-                    EventsObj.churchId = UA.ChurchID;
-                    EventsObj.updatedBy = UA.userName;
-                    status = EventsObj.DeleteEvent().ToString();
-                    EventsObj.Status = status;
+                    eduForumEventsObj.ChurchID = UA.ChurchID;
+                    eduForumEventsObj.UpdatedBy = UA.userName;
+                    status = eduForumEventsObj.DeleteEvent();
+                    eduForumEventsObj.Status = status;
                 }
                 //Session is out
                 else
@@ -390,12 +390,12 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-                EventsObj.Status = ex.Message;
+                eduForumEventsObj.Status = ex.Message;
             }
             finally
             {
             }
-            return jsSerializer.Serialize(EventsObj);
+            return jsSerializer.Serialize(eduForumEventsObj);
 
         }
 

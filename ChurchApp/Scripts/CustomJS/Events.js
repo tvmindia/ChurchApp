@@ -592,7 +592,7 @@ function DeleteEvents()
                     noty({ text: Messages.DeletionFailure, type: 'error' });
                     break;
                 default:
-                    noty({ type: 'error', text: result.Status });
+                    noty({ type: 'error', text: DeletionStatus.Status });
                     break;
 
             }
