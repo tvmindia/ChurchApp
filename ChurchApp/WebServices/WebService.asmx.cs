@@ -1374,7 +1374,6 @@ namespace ChurchApp.WebServices
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                //Object o = serializer.Deserialize<Object>(childJson);
                 List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
                 rows= serializer.Deserialize<List<Dictionary<string, object>>>(childJson);
                 foreach (Dictionary<string, object> row in rows)
@@ -1394,6 +1393,16 @@ namespace ChurchApp.WebServices
                     member.CreatedBY = "App User";
                     member.InsertForumMember();
                 }
+                //Success return values
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                dt.Columns.Add("RegistrationID", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = true;
+                dr["Message"] = constants.Successfull;
+                dr["RegistrationID"] = registraionID;
+                dt.Rows.Add(dr);
             }
             catch (Exception ex)
             {
