@@ -68,7 +68,16 @@ $(document).ready(function () {
     }
     
 });   // end of document.ready
-
+function GetChurchDetails()
+{
+    var ds = {};
+    var table = {};
+    var Church = new Object();
+    var data = "{'churchObj':" + JSON.stringify(Church) + "}";
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetChurchDetailsByChurchID");
+    table = JSON.parse(ds.d);
+    return table;
+}
 function GetReviews() {
 
     var ds = {};

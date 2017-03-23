@@ -21,13 +21,18 @@ $("document").ready(function (e) {
         debugger;
         //Setting current churchid
         churchObject.chid = $("#hdfchid").val();
+        var result = GetChurchDetails();
+        if (result[0].DenominationCode == "LC")
+        {
+            $('#spanPrgName').text('Navadharshan');
+        }        
         DataTables.EduForumMember = $('#tblEduForumMembers').DataTable(
         {
             dom: '<"top"f>rt<"bottom"ip><"clear">',
             order: [],
             searching: true,
             paging: true,
-            data: GetEduForumMembers(),
+            data:null,
             columns: [
 
               { "data": "ID" },
