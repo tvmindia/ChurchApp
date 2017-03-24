@@ -25,7 +25,11 @@ $("document").ready(function (e) {
         if (result[0].DenominationCode == "LC")
         {
             $('#spanPrgName').text('Navadharshan');
-        }        
+        }
+        else
+        {
+            $('#spanPrgName').text('Study Portal');
+        }
         DataTables.EduForumMember = $('#tblEduForumMembers').DataTable(
         {
             dom: '<"top"f>rt<"bottom"ip><"clear">',
@@ -298,6 +302,14 @@ $("document").ready(function (e) {
     }
 
 });//end of document.ready
+function SetEvents() {
+    Dynamicbutton("NoticeEdit", "EditCancel", "");
+    Dynamicbutton("btnSave", "SaveCancel", "");
+    Dynamicbutton("btnDelete", "DeleteCancel", "");
+    Dynamicbutton("btnReset", "ResetCancel", "");
+    Dynamicbutton("btnNotify", "SendNotiCancel", "");
+    $('#EventEditDivBox').hide();
+}
 function SetMembers()
 {
     Dynamicbutton("NoticeEdit", "EditCancel", "");

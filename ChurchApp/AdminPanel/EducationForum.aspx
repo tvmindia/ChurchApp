@@ -51,7 +51,7 @@ li.active
     <h2>Education Forum - <span id="spanPrgName"> </span></h2>
 <div class="tabbable"> <!-- Only required for left/right tabs -->
 <ul class="nav nav-tabs">
-<li class="active"><a href="#tab1" data-toggle="tab" id="tabEvents">Events</a></li>
+<li class="active"><a href="#tab1" data-toggle="tab" id="tabEvents" onclick="SetEvents()">Events</a></li>
 <li><a href="#tab2" data-toggle="tab" onclick="SetMembers()">Members</a></li>
 <li><a href="#tab3" data-toggle="tab" onclick="SetAbout()">About</a></li>
 </ul>

@@ -85,7 +85,7 @@
                                <div class="control-group" id="unitNameDiv">
 								<label class="control-label" for="focusedInput">Unit Name:</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Name" id="txtUnitName" onkeypress="return isnotNumber(event);" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtUnitName" type="text"/>
                                     <label class="control-label" id="lblUnitName" for="focusedInput"  style="display:none;"></label>
                                 </div>
 								</div>

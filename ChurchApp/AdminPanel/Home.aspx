@@ -112,6 +112,9 @@
         function popUpload() {
             $('#flupCoverpic').click();
         }
+        function popUploadDetail() {
+            $('#flupChurchDetail').click();
+        }
     </script>
     <div id="content" class="span10">
         <!--breadcrumb-->
@@ -121,16 +124,6 @@
             </li>
             <li>Home</li>
         </ul>
-         <%--<div class="buttonpatch" style="position:fixed;width:243px;right:0;top:8%;z-index:198">		
-			<a class="facebook" title="Add New" id="btnAddNew" onclick="AddNewclick();"><img  src="/img/add.PNG"/></a>
-            <a class="twitter" id="btnMain"><img src="/img/save.png"/></a>
-            <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
-			<a class="rss" id="btnDelete"><img src="/img/delete.png"/></a>
-            <a class="rss" id="btnSendNotification"><img src="/img/sentmail.png"/></a>
-        </div>--%>
-        <!--breadcrumb-->
-
-        <!--churchtable-->
         <div class="row-fluid sortable" style="margin-top:3%">
             <div class="box span12">
                 <div class="box-header" data-original-title>
@@ -218,15 +211,62 @@
                         </fieldset>
                     </div>
                     </div>
+                   
                 </div>
             </div>
             <!--/span-->
-        </div>
-        <!--/row-->
-        <!--churchtable-->
-    </div>
-    <!--end of span10 content-->
 
-     <input id="hdfChurchID" type="hidden" value="" />
+        </div>
+        <hr id="scrollhere">
+        <div class="span12">
+            <div class="buttonpatch" style="height:0px;position:relative;left:87%;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+			 <a class="facebook" title="Edit" id="btnAddDetails" onclick="AddChurchDetails()"><img src="/img/add.png"/></a>
+                <a class="rss" title="Save" id="btnSaveDetails"><img src="/img/save.png"/></a>
+			</div> 
+        </div>
+        <hr>
+        <div class="row-fluid">
+            <div class="span12" id="EditChurchDetails" style="display:none;box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);border-radius:2%;margin-top:1%">
+                <div class="span4">
+                    <img src="../img/No-Img_Chosen.png" id="imgPreviewChurchDetail" style="min-height:267px;max-height:267px;padding:2%;"/>
+                    <div class="_6a uiPopover _30vx _5v-0" style="left:1px;top:0px;position:relative" data-ft="{&quot;tn&quot;:&quot;*|&quot;}">
+                    <a class="_30vy _5pwk _p" href="#" aria-haspopup="true" aria-expanded="false" rel="toggle" role="button" id="btnUploadChurchDetail" aria-controls="u_1c_3" onclick="popUploadDetail();">
+                    <i class="fa fa-camera iconsize _30vz"></i>
+                    <div class="_30v-">
+                    <span class="_30w0 _50f7">Add Photo</span>
+                    </div>
+                    </a>
+                    <input type="file" id="flupChurchDetail" onchange="UploadDetailNow(this);" style="display: none" />
+                    </div>
+                </div>
+                <div class="span8">
+                    <div class="control-group">
+                <label class="control-label" for="txtCaptionDetails">Caption</label>
+                <div class="controls">
+                    <input class="input-xlarge span10 focused" name="Caption" id="txtCaptionDetails" type="text" value="" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="txtDescriptionDetails">Description</label>
+                <div class="controls">
+                    <textarea tabindex="3" class="input-xlarge span10" id="txtDescriptionDetails" name="Description" rows="8" placeholder=""></textarea>
+                </div>
+            </div>
+                </div>
+            
+                             
+            </div>
+            <div class="span12" style="margin-top:1%" id="ChurchDetailDisplay">
+              
+               
+            </div>
+        
+      </div>
+        <hr>
+    </div>
+        <input id="hdfChurchID" type="hidden" value="" />
         <input id="hdfChurchImageID" type="hidden" value="" />
+        <input id="hdfChurchDetailID" type="hidden" value="" />
+        <input id="hdfChurchDetailImageID" type="hidden" value="" />
+      
 </asp:Content>

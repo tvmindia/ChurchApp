@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿var churchObject = {};
+$(document).ready(function () {
     try
     {
         
@@ -42,6 +43,7 @@
         //    }
             
         //});
+        churchObject.chid = $("#hdfchid").val();
         //Clear button click
         $('#btnClear').click(function (e) {
             try
@@ -148,6 +150,7 @@
         });
         //Bind the Church details using churchID
         BindDetails();
+        BindChurchDetails();
         
     }
     catch(e)
@@ -236,6 +239,261 @@ function GetChurchDetailsByChurchID() {
         var Church = new Object();
         var data = "{'churchObj':" + JSON.stringify(Church) + "}";
         ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetChurchDetailsByChurchID");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+
+//----------------------------------------------------------------------Church Details section-------------------------
+function UploadDetailNow(input) {
+    // 
+    debugger;
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#imgPreviewChurchDetail').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+
+}
+function AddChurchDetails()
+{
+    $('#txtCaptionDetails').val('');
+    $('#txtDescriptionDetails').val('');
+    $('#imgPreviewChurchDetail').attr('src',"../img/No-Img_Chosen.png");
+    $('#hdfChurchDetailID').val('');
+    $('#hdfChurchDetailImageID').val('');
+    $('#btnSaveDetails').attr('onclick', 'SaveChurchDetails()');
+    $('#btnSaveDetails').removeClass('rss');
+    $('#btnSaveDetails').addClass('facebook');
+    $('#EditChurchDetails').show(500);
+    $('#txtCaptionDetails').focus();
+}
+function SaveChurchDetails()
+{
+    debugger;
+    var Caption=$('#txtCaptionDetails').val();
+    var Description=$('#txtDescriptionDetails').val();
+    var DetailID=$('#hdfChurchDetailID').val();
+    var ImageID = $('#hdfChurchDetailImageID').val();
+    //
+    var ChurchDetails = new Object();
+    ChurchDetails.churchDetailID = DetailID;
+    ChurchDetails.caption = Caption;
+    ChurchDetails.DetailDescription = Description;
+    ChurchDetails.churchId = churchObject.chid;
+    //
+    if(DetailID!="")
+    {
+    var imgresult;
+    if ((imgresult = $('#flupChurchDetail')[0].files.length > 0)) {
+        ChurchDetails.imageId = ImageID;
+        var formData = new FormData();
+        var imagefile;
+        imagefile = $('#flupChurchDetail')[0].files[0];
+        formData.append('upImageFile', imagefile, imagefile.name);
+        formData.append('churchId', ChurchDetails.churchId);
+        formData.append('churchDetailID', ChurchDetails.churchDetailID);
+        formData.append('ChurchDetailImageId', ChurchDetails.imageId);
+        formData.append('caption', ChurchDetails.caption);
+        formData.append('DetailDescription', ChurchDetails.DetailDescription);
+        formData.append('updatedby', document.getElementById("LoginName").innerHTML);
+        formData.append('ActionTyp', 'ChurchDetailUpdate');
+        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+        if (result.status == "1") {
+            noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+            document.getElementById('flupChurchDetail').value = '';
+            BindChurchDetails();
+        }
+        else {
+            noty({ text: Messages.UpdationFailure, type: 'error' });
+            
+        }
+        }
+        else {
+        var UpdationStatus = UpdateChurchDetails(ChurchDetails);
+
+        if (UpdationStatus.status == "1") {
+            noty({ text: Messages.UpdationSuccessFull, type: 'success' });
+            BindChurchDetails();
+        }
+
+        else {
+            noty({ text: Messages.UpdationFailure, type: 'error' });
+        }
+        }
+        }
+        else {
+
+    //INSERT
+    ///////Image insert using handler
+    var imgresult;
+    if ((imgresult = $('#flupChurchDetail')[0].files.length > 0)) {
+
+        var formData = new FormData();
+        var imagefile;
+        imagefile = $('#flupChurchDetail')[0].files[0];
+        formData.append('upImageFile', imagefile, imagefile.name);
+        formData.append('churchId', ChurchDetails.churchId);
+        formData.append('ChurchDetailImageId', ChurchDetails.imageId);
+        formData.append('caption', ChurchDetails.caption);
+        formData.append('DetailDescription', ChurchDetails.DetailDescription);
+        formData.append('createdby', document.getElementById("LoginName").innerHTML);
+        formData.append('ActionTyp', 'ChurchDetailInsert');
+        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+        if (result.status == "1") {
+            noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+            document.getElementById('flupChurchDetail').value = '';
+            $('#hdfChurchDetailID').val(result.churchDetailID);
+            $('#hdfChurchDetailImageID').val(result.imageId);
+            BindChurchDetails();
+            }
+
+        else {
+            noty({ text: Messages.InsertionFailure, type: 'error' });
+        }
+
+    }
+    else {
+        var InsertionStatus = InsertChurchDetails(ChurchDetails);
+
+        if (InsertionStatus.status == "1") {
+            noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+            $('#hdfChurchDetailID').val(result.churchDetailID);
+            $('#hdfChurchDetailImageID').val(result.imageId);
+            BindChurchDetails();
+        }
+
+        else {
+            noty({ text: Messages.InsertionFailure, type: 'error' });
+        }
+
+    }
+    }
+}
+function InsertChurchDetails(ChurchDetails)
+{
+    debugger;
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'churchDetObj':" + JSON.stringify(ChurchDetails) + "}";
+        ds = getJsonData(data, "../AdminPanel/Home.aspx/InsertChurchDetailsData");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+function UpdateChurchDetails(ChurchDetails) {
+    debugger;
+    var ds = {};
+    var table = {};
+    try {
+        var data = "{'churchDetObj':" + JSON.stringify(ChurchDetails) + "}";
+        ds = getJsonData(data, "../AdminPanel/Home.aspx/UpdateChurchDetails");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+function BindChurchDetails()
+{
+    debugger;
+    var DetailList = GetChurchDetails();
+    $('#ChurchDetailDisplay').empty();
+    for(var i=0;i<DetailList.length;i++)
+    {
+        var html=' <ul class="thumbnails span4">'
+              +'<li class="span12"><div class="thumbnail">'
+                  + '<img src="' + (DetailList[i].URL != "" ? (DetailList[i].URL + '?' + new Date().getTime()) : "../img/No-Img_Chosen.png") + '" style="max-height:300px;min-height:300px;"><div class="caption"><h3>' + DetailList[i].Caption + '</h3>'
+                    + '<p style="white-space: pre;max-height:100px;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 7;-webkit-box-orient: vertical;max-height: 11.6em;min-height: 11.6em;">' + DetailList[i].Description + '</p>'
+                    +'<p class="buttonpatch" style="height:0px;position:relative;z-index:196;">'
+			         + '<a class="facebook" title="Edit" onclick="EditChurchDetails(\'' + DetailList[i].ID + '\')"><img src="/img/edit.png"/></a>'
+                     + '<a class="facebook" title="Delete" onclick="DeleteChurchDetails(\'' + DetailList[i].ID + '\')"><img src="/img/delete.png"/></a>'
+                     + '</p></div></div></li></ul>'
+        $('#ChurchDetailDisplay').append(html);
+    }
+}
+function EditChurchDetails(id)
+{
+    debugger;
+    var Result = GetChurchDetailsDataByDetailID(id);
+    $('#txtCaptionDetails').val(Result.caption);
+    $('#txtDescriptionDetails').val(Result.DetailDescription);
+    $('#imgPreviewChurchDetail').attr('src', (Result.URL != "" ? Result.URL : "../img/No-Img_Chosen.png"));
+    $('#hdfChurchDetailID').val(Result.churchDetailID);
+    $('#hdfChurchDetailImageID').val(Result.imageId);
+    $('#btnSaveDetails').attr('onclick', 'SaveChurchDetails()');
+    $('#btnSaveDetails').removeClass('rss');
+    $('#btnSaveDetails').addClass('facebook');
+    $('#EditChurchDetails').show(500);
+    Animateto("scrollhere");
+    $('#txtCaptionDetails').focus();
+}
+function DeleteChurchDetails(id)
+{
+    var deleteConirm = confirm("Want to delete?");
+
+    if (deleteConirm) {
+        var Result = DeleteChurchDetail(id);
+        if (Result.status == "1") {
+            noty({ text: Messages.DeletionSuccessFull, type: 'success' });
+            $('#EditChurchDetails').hide();
+            BindChurchDetails();
+        }
+        else {
+            noty({ text: Messages.DeletionFailure, type: 'error' });
+
+        }
+    }
+}
+function GetChurchDetailsDataByDetailID(ID) {
+    var ds = {};
+    var table = {};
+    try {
+        var ChurchDetails = new Object();
+        ChurchDetails.churchDetailID = ID;
+        var data = "{'churchDetObj':" + JSON.stringify(ChurchDetails) + "}";
+        ds = getJsonData(data, "../AdminPanel/Home.aspx/GetChurchDetailsDataByDetailID");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+function DeleteChurchDetail(ID)
+{
+    var ds = {};
+    var table = {};
+    try {
+        var ChurchDetails = new Object();
+        ChurchDetails.churchDetailID = ID;
+        var data = "{'churchDetObj':" + JSON.stringify(ChurchDetails) + "}";
+        ds = getJsonData(data, "../AdminPanel/Home.aspx/DeleteChurchDetail");
+        table = JSON.parse(ds.d);
+    }
+    catch (e) {
+
+    }
+    return table;
+}
+function GetChurchDetails()
+{
+    var ds = {};
+    var table = {};
+    try {
+        var ChurchDetails = new Object();
+        var data = "{'churchDetObj':" + JSON.stringify(ChurchDetails) + "}";
+        ds = getJsonData(data, "../AdminPanel/Home.aspx/GetDetailsDataByChurchID");
         table = JSON.parse(ds.d);
     }
     catch (e) {

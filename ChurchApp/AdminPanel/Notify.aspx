@@ -263,8 +263,8 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
 								  <input  class="input-large datepicker" readonly="true" name="ExpiryDate" id="txtExpiryDate" type="text" placeholder="Select Expiry Date"/>
 							  </div>
 							</div>
-
-						<div class="control-group" id="lblScheduleH">
+                        <div style="display:none;">
+                            <div class="control-group" id="lblScheduleH">
 						<label class="control-label" for="date01" >Do you want to Schedule?</label>
 						
 
@@ -300,6 +300,8 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
 						    </tbody>
 					    </table> 
                             </div>
+                        </div>
+						
 					
 
 

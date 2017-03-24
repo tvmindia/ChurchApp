@@ -44,6 +44,7 @@ namespace ChurchApp.ImageHandler
                     DAL.Institutions InstObj = null;
                     GalleryAlbum GalAlbumObj = null;
                     GalleryItems GalItemsObj = null;
+                    ChurchDetails churchDetailsObj = null;
                     ChurchApp.DAL.EducationForum EduForumObj = null;
                     Members memberObj = null;
                     Family familyObj = null;
@@ -380,6 +381,88 @@ namespace ChurchApp.ImageHandler
                                     }
 
 
+                                    break;
+                                case "ChurchDetailInsert":
+                                    try
+                                    {
+                                        churchDetailsObj = new DAL.ChurchDetails();
+                                        //Insert to table
+                                        AppImgObj = new AppImages();
+                                        postFile = context.Request.Files["upImageFile"];
+                                        fileExtension = Path.GetExtension(postFile.FileName);
+                                        AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                        AppImgObj.createdBy = context.Request.Form.GetValues("createdby")[0];
+                                        AppImgObj.type = "image";
+                                        AppImgObj.InsertAppImage1().ToString();
+                                        churchDetailsObj.churchId = context.Request.Form.GetValues("churchId")[0];
+                                        churchDetailsObj.DetailDescription = context.Request.Form.GetValues("DetailDescription")[0];
+                                        churchDetailsObj.caption = context.Request.Form.GetValues("caption")[0];
+                                        churchDetailsObj.createdBy = AppImgObj.createdBy;
+                                        churchDetailsObj.imageId = AppImgObj.appImageId;
+                                        churchDetailsObj.InsertChurchDetails();
+                                        postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + fileExtension);
+                                        jsSerializer = new JavaScriptSerializer();
+                                        context.Response.Write(jsSerializer.Serialize(churchDetailsObj));
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        EventObj.Status = ex.Message;
+                                        context.Response.Write(jsSerializer.Serialize(churchDetailsObj));
+                                    }
+                                    break;
+                                case "ChurchDetailUpdate":
+                                    try
+                                    {
+                                        churchDetailsObj = new DAL.ChurchDetails();
+                                        AppImgObj = new AppImages();
+                                        postFile = context.Request.Files["upImageFile"];
+                                        fileExtension = Path.GetExtension(postFile.FileName);
+                                        if ((context.Request.Form.GetValues("ChurchDetailImageId")[0] != "") && (context.Request.Form.GetValues("ChurchDetailImageId")[0] != null))
+                                        {
+                                            //update currrent image with new one
+                                            AppImgObj.appImageId = context.Request.Form.GetValues("ChurchDetailImageId")[0];
+                                            AppImgObj.DeleteFromFolder();
+                                            AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                            AppImgObj.updatedBy = context.Request.Form.GetValues("updatedby")[0];
+                                            AppImgObj.type = "image";
+                                            AppImgObj.Extension = fileExtension;
+                                            AppImgObj.postedFile = postFile;
+                                            AppImgObj.UpdateAppImage();
+                                            if (AppImgObj.status == "1")
+                                            {
+                                                //Delete Previous image from folder and save new folder 
+                                                AppImgObj.UpdateCurrentAppImageInFolder();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            //insert new image for imageless Event
+                                            AppImgObj.url = "/img/AppImages/" + AppImgObj.appImageId + fileExtension;
+                                            AppImgObj.createdBy = context.Request.Form.GetValues("updatedby")[0];
+                                            AppImgObj.type = "image";
+                                            AppImgObj.Extension = fileExtension;
+                                            AppImgObj.postedFile = postFile;
+                                            AppImgObj.InsertAppImage1().ToString();
+                                            postFile.SaveAs(ImgLoc + @"\" + AppImgObj.appImageId + AppImgObj.Extension);
+
+                                        }
+                                        //Update Events
+                                        churchDetailsObj.churchId = context.Request.Form.GetValues("churchId")[0];
+                                        churchDetailsObj.churchDetailID = context.Request.Form.GetValues("churchDetailID")[0];
+                                        churchDetailsObj.DetailDescription = context.Request.Form.GetValues("DetailDescription")[0];
+                                        churchDetailsObj.caption = context.Request.Form.GetValues("caption")[0];
+                                        churchDetailsObj.updatedBy = AppImgObj.updatedBy;
+                                        churchDetailsObj.imageId = AppImgObj.appImageId;
+                                        churchDetailsObj.UpdateChurchDetails();
+
+                                        jsSerializer = new JavaScriptSerializer();
+                                        context.Response.Write(jsSerializer.Serialize(churchDetailsObj));
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        EventObj.Status = ex.Message;
+                                        context.Response.Write(jsSerializer.Serialize(churchDetailsObj));
+                                    }
                                     break;
                                 case "TownImageInsert":
                                     try
