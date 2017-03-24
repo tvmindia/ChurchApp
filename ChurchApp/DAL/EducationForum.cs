@@ -123,6 +123,49 @@ namespace ChurchApp.DAL
         }
         #endregion Get Events By EventID
 
+        #region Latest and old events for church app
+        /// <summary>
+        /// DAL to get both latest OR old education forum events
+        /// </summary>
+        /// <param name="isOld">true if events before end date is reqiured</param>
+        /// <returns></returns>
+        public DataTable GetEduForumLatestAndOldEventsForApp(bool isOld)
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetEduForumLatestAndOldEventsForApp]";
+                cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
+                cmd.Parameters.Add("@isOld", SqlDbType.Int).Value = isOld;
+                cmd.Parameters.Add("@CurrentDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now.Date);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+        #endregion
+
         #region InsertEvent
         /// <summary>
         /// Add New Event
