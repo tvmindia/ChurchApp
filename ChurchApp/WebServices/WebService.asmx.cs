@@ -1323,7 +1323,7 @@ namespace ChurchApp.WebServices
             {
                 dt.Columns.Add("IsMember");
                 dt.Columns.Add("OTP");
-                dt.Columns.Add("EduForumMemberID");
+                dt.Columns.Add("RegistrationID");
 
                 EduForumMember member = new EduForumMember();
                 member.ChurchID = ChurchID;
@@ -1338,7 +1338,7 @@ namespace ChurchApp.WebServices
                 else
                 {
                     row["IsMember"] = true;
-                    row["EduForumMemberID"] = memberDetails.Rows[0]["ID"];
+                    row["RegistrationID"] = memberDetails.Rows[0]["RegistrationID"];
                 }
                 Random rnd = new Random();                  // Random number creation for OTP
                 row["OTP"] = rnd.Next(2000, 9000);
@@ -1358,14 +1358,6 @@ namespace ChurchApp.WebServices
             return getDbDataAsJSON(dt);
         }
 
-
-        class child
-        {
-            string name { get; set; }
-            string _class { get; set; }
-            string school { get; set; }
-            string dob { get; set; }
-        }
         [WebMethod]
         public string RegisterEduForumMember(string churchID,string parentName, string familyUnit,string contactNo, string email, object childJson)
         {
