@@ -345,7 +345,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@Class", SqlDbType.NVarChar, 50).Value = Class;
                 cmd.Parameters.Add("@School", SqlDbType.NVarChar, 250).Value = School;
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 50).Value = Mobile;
-                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250).Value = Email;
+                if(Email!="")cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250).Value = Email;
                 cmd.Parameters.Add("@MobileGoogleAC", SqlDbType.NVarChar, 250).Value = MobileGoogleAC;
                 cmd.Parameters.Add("@isMobileVerified",SqlDbType.Bit).Value = isMobileVerified;
                 cmd.Parameters.Add("@RegistrationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(registrationID);

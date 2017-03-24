@@ -1367,15 +1367,16 @@ namespace ChurchApp.WebServices
             string dob { get; set; }
         }
         [WebMethod]
-        public string RegisterEduForumMember(string churchID,string parentName, string familyUnit,string contactNo, string email, string childJson)
+        public string RegisterEduForumMember(string churchID,string parentName, string familyUnit,string contactNo, string email, object childJson)
         {
+            if (churchID == "" || parentName == "" || contactNo == "" ) { throw new Exception(constants.UnSuccessfull); }
             DataTable dt = new DataTable();
             string registraionID = Guid.NewGuid().ToString();
             try
             {
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-                rows= serializer.Deserialize<List<Dictionary<string, object>>>(childJson);
+                rows= serializer.Deserialize<List<Dictionary<string, object>>>(serializer.Serialize(childJson));
                 foreach (Dictionary<string, object> row in rows)
                 {
                     EduForumMember member = new EduForumMember();
