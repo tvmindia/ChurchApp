@@ -139,7 +139,7 @@ Checkboxes.prototype = {
                   'className': 'dt-body-center',
                   'render': function (data, type, full, meta){
                      if(type === 'display'){
-                        data = '<input type="checkbox" class="dt-checkboxes">';
+                         data = '<input type="checkbox" onclick="myfunc()" class="dt-checkboxes">';
                      }
                      return data;
                   }

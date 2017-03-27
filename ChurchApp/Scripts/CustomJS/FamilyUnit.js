@@ -8,7 +8,7 @@ $(document).ready(function () {
     //save or edit btn click of Administrator
     $("#btnAddAdmin").click(function (e) {
         try {
-
+            debugger;
             var i = "0";
             var jsonResult = {};
             var position = $("#ddlRole option:selected").text();
@@ -35,7 +35,7 @@ $(document).ready(function () {
                     Administrators.Phone = mobile;
                     Administrators.churchId = churchObject.chid;
                     Administrators.adminId = $("#hdfAdminID").val();
-                    if ($("#AddOrEditAdmin").text() == "Add") {
+                    if (Administrators.adminId == "") {
 
                         if (imgresult = $('#fluImage')[0].files.length > 0) {
                             var formData = new FormData();
@@ -207,6 +207,8 @@ function clearAdminControls() {
         $("#txtMobile").val("");
         $('#ddlRole').val('-1').change();
         $('#ddlMember').val('-1').change();
+        $('#hdfAdminID').val('');
+        $('#hdfPhone').val('');
     }
     catch (e) {
         noty({ type: 'error', text: e.message });
@@ -791,6 +793,7 @@ function DeleteAdministrator(e) {
 function EditAdministrator(e) {
 
     try {
+        debugger;
         $("#hdfAdminDefaultImg").val('')
         $("#hdfAdminImageID").val('');
         $("#hdfAdminID").val('');
@@ -814,6 +817,7 @@ function EditAdministrator(e) {
             else {
                 $('#AdminImg').attr('src', '../img/gallery/Noimage.jpg');
             }
+            BindMemberSelect();
             $('#ddlMember').val(jsonResult[0].MembID).change();
         }
     }

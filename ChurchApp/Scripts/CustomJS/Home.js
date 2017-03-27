@@ -270,8 +270,12 @@ function AddChurchDetails()
     $('#btnSaveDetails').attr('onclick', 'SaveChurchDetails()');
     $('#btnSaveDetails').removeClass('rss');
     $('#btnSaveDetails').addClass('facebook');
+    $('#btnResetDetail').attr('onclick', 'AddChurchDetails()');
+    $('#btnResetDetail').removeClass('rss');
+    $('#btnResetDetail').addClass('facebook');
     $('#EditChurchDetails').show(500);
     $('#txtCaptionDetails').focus();
+    document.getElementById('flupChurchDetail').value = '';
 }
 function SaveChurchDetails()
 {

@@ -372,7 +372,14 @@ namespace ChurchApp.AdminPanel
                         try
                         {
                             notification.churchId = UA.ChurchID;
-                            notification.SendToFCM(notification.caption, notification.description, false, notification.churchId);
+                            if(notification.notificationType == "Education Event")
+                            {
+                                notification.SendToFCM(notification.caption, notification.description, false, notification.churchId,true);
+                            }
+                            else
+                            {
+                                notification.SendToFCM(notification.caption, notification.description, false, notification.churchId);
+                            }
                             notification.status = "1";//Processed status to db
                             notification.UpdateNotificationStatus();
                         }
@@ -399,19 +406,32 @@ namespace ChurchApp.AdminPanel
 
         #region DeleteNotification
         [WebMethod(EnableSession = true)]
-        public static string DeleteNotification(Notification NotificationsObj)
+        public static string DeleteNotification(List<Notification> NotificationList)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
-           
+            Notification notificationObj = new Notification();
+            List<string> StatusList = new List<string>();
             try
             {
                 DashBoard dashBoardObj = new DashBoard();
                 UA = dashBoardObj.GetCurrentUserSession();
                 if(UA!=null)
                 {
-                    NotificationsObj.churchId = UA.ChurchID;
-                    NotificationsObj.status = NotificationsObj.DeleteNotification();
+                    foreach(Notification i in NotificationList)
+                    {
+                        i.churchId = UA.ChurchID;
+                        i.status = i.DeleteNotification();
+                        StatusList.Add(i.status);
+                    }
+                    if(StatusList!=null)
+                    {
+                        
+                        int Abort=StatusList.FindAll(L => L.ToString() == "3").Count;
+                        int Sucess= StatusList.FindAll(L => L.ToString() == "1").Count;
+                        notificationObj.status = "Deleted " + Sucess + " out of " + NotificationList.Count;
+                    }
+                    
                 }
                 else
                 {
@@ -422,9 +442,9 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-                NotificationsObj.status = ex.Message;
+                notificationObj.status = ex.Message;
             }
-            return jsSerializer.Serialize(NotificationsObj);
+            return jsSerializer.Serialize(notificationObj);
         }
         #endregion DeleteNotification
 

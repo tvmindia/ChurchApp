@@ -2265,7 +2265,7 @@ function EditChurch(curobj)
     $(".ddlForane").append($option).trigger('change');
     var $option = $("<option selected></option>").val(churchDetail[0].ChurchStatus).text(churchDetail[0].Status);
     $(".ddlChurchStatus").append($option).trigger('change');
-    var $option = $("<option selected></option>").val(churchDetail[0].Code).text(churchDetail[0].Name);
+    var $option = $("<option selected></option>").val(churchDetail[0].DenominationCode).text(churchDetail[0].DenominationName);
     $(".ddlChurchRite").append($option).trigger('change'); 
     $("#txtPlace").val(churchDetail[0].Place != null && churchDetail[0].Place != "" ? churchDetail[0].Place : '');
     $("#txtNickNames").val(churchDetail[0].NickNames != null && churchDetail[0].NickNames != "" ? churchDetail[0].NickNames : '');

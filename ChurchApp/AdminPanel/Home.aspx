@@ -132,7 +132,7 @@
                         <a id="btnAddNew" runat="server" class="btn-setting"><i class="halflings-icon pencil"></i></a>
                         <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
                     </div>--%>
-                     <div class="buttonpatch" style="height:0px;position:relative;left:48%;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+                     <div class="buttonpatch" style="height:0px;position:relative;float:right;z-index:196;width:116px">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
 			           <a class="facebook" title="Edit" id="btnEdit" onclick="EditChurch()"><img src="/img/edit.png"/></a>
                        <a class="dribble" id="btnReset"><img src="/img/reset.png"/></a>
 			           </div> 
@@ -218,10 +218,13 @@
 
         </div>
         <hr id="scrollhere">
+        
         <div class="span12">
-            <div class="buttonpatch" style="height:0px;position:relative;left:87%;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
+            <h2 style="position:absolute">Church Details</h2>
+            <div class="buttonpatch" style="height:0px;position:relative;left:83%;z-index:196;">	<%--position:fixed;width:243px;right:0;top:8%;z-index:198  --%>	
 			 <a class="facebook" title="Edit" id="btnAddDetails" onclick="AddChurchDetails()"><img src="/img/add.png"/></a>
                 <a class="rss" title="Save" id="btnSaveDetails"><img src="/img/save.png"/></a>
+                <a class="dribble" id="btnResetDetail"><img src="/img/reset.png"/></a>
 			</div> 
         </div>
         <hr>

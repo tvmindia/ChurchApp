@@ -510,6 +510,7 @@ namespace ChurchApp.DAL
         public string ID { get; set; }
         public string ChurchID { get; set; }
         public string EduEventID { get; set; }
+        public string EventName { get; set; }
         public string MemberID{get;set;}
         public string MemberName { get; set; }
         public string ResponseCode { get; set; }
@@ -651,6 +652,7 @@ namespace ChurchApp.DAL
                     AttendCount = dr["Attend"].ToString() != "" ? int.Parse(dr["Attend"].ToString()) : AttendCount;
                     NotSureCount = dr["NotSure"].ToString() != "" ? int.Parse(dr["NotSure"].ToString()) : NotSureCount;
                     NotAttendCount = dr["NotAttend"].ToString() != "" ? int.Parse(dr["NotAttend"].ToString()) : NotAttendCount;
+                    EventName = dr["EventName"].ToString();
                 }
             }
             catch (Exception ex)

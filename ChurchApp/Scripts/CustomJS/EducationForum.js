@@ -110,40 +110,41 @@ $("document").ready(function (e) {
         $('[data-toggle="popover"]').popover();
         BindEvents(1);        
         $('#btnSaveNotification').click(function () {
-            if (NotificationValidation) {
-                debugger;
-                var Notification = new Object();
-                Notification.notificationType = NotificationTypeCode;
-                Notification.linkID = $("#hdfEventID").val();
-                Notification.caption = $('#txtCaption').val();
-                Notification.description = $("#txtnotificationCOntent").val();
-                var result = InsertNotification(Notification);
-                switch (result.status) {
-                    case "1":
-                        $('.modelClear').click();
-                        $("#lblAlreadyNotificationSend").show();
-                        $("#lblAlreadyNotificationSend").text("Notification Already added");
-                        $('#NotificationInfo').show();
-                        $('#txtCaption').attr('disabled', true);
-                        $('#txtnotificationCOntent').attr('disabled', true);
-                        IsMobNotified = false;
-                        noty({ type: 'success', text: Messages.InsertionSuccessFull });
+            if (!IsAlreadyNotified)
+            {
+                if (NotificationValidation) {
+                    debugger;
+                    var Notification = new Object();
+                    Notification.notificationType = NotificationTypeCode;
+                    Notification.linkID = $("#hdfEventID").val();
+                    Notification.caption = $('#txtCaption').val();
+                    Notification.description = $("#txtnotificationCOntent").val();
+                    var result = InsertNotification(Notification);
+                    switch (result.status) {
+                        case "1":
+                            $('.modelClear').click();
+                            $("#lblAlreadyNotificationSend").show();
+                            $("#lblAlreadyNotificationSend").text("Notification Already added");
+                            $('#NotificationInfo').show();
+                            $('#txtCaption').attr('disabled', true);
+                            $('#txtnotificationCOntent').attr('disabled', true);
+                            IsMobNotified = false;
+                            noty({ type: 'success', text: Messages.InsertionSuccessFull });
 
-                        break;
-                    default:
-                        $('.modelClear').click();
-                        $("#lblAlreadyNotificationSend").hide();
-                        $('#NotificationInfo').hide();
-                        $('#txtCaption').attr('disabled', false);
-                        $('#txtnotificationCOntent').attr('disabled', false);
-                        IsMobNotified = true;
-                        noty({ type: 'error', text: result.status });
-                        break;
+                            break;
+                        default:
+                            $('.modelClear').click();
+                            $("#lblAlreadyNotificationSend").hide();
+                            $('#NotificationInfo').hide();
+                            $('#txtCaption').attr('disabled', false);
+                            $('#txtnotificationCOntent').attr('disabled', false);
+                            IsMobNotified = true;
+                            noty({ type: 'error', text: result.status });
+                            break;
+                    }
+
                 }
-
             }
-
-
         });
         //--Limit Notification Content 
         $('#txtnotificationCOntent').keypress(function (e) {
@@ -766,6 +767,7 @@ function ViewResponse(EventID)
     $('#lblAttendCound').text(result.AttendCount);
     $('#lblNotAttendCound').text(result.NotSureCount);
     $('#lblNotSureCound').text(result.NotAttendCount);
+    $('#h1Event').text(result.EventName);
     DataTables.EduForumResponse.clear().rows.add(GetResponse(EduEventResponse)).draw(false);
     
     $('#EventEditDivBox').show();
@@ -1101,6 +1103,7 @@ function FixedEditClick() {
                     $('#txtCaption').val(jsonResult.Caption);
                     $('#txtnotificationCOntent').attr('disabled', true);
                     $("#txtnotificationCOntent").val(jsonResult.Description);
+
                 }
                 else {
                     $("#lblAlreadyNotificationSend").hide();

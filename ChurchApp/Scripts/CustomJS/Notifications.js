@@ -43,11 +43,10 @@ $("document").ready(function (e) {
         ],
         'select': {
             'style': 'multi'
-        },
-        'order': [[1, 'asc']]
+        }
     });
    // $("input.dt-checkboxes").click(myfunc);
-    $("input:checkbox").click(myfunc);
+    //$(":checkbox").click(myfunc);
     
     //BindAsyncNotificationTable();
     //BindAsynOldNotificationTable();
@@ -353,6 +352,9 @@ function EditNotification(curobj)
         else if (data.Type == "Event") {
             type = 'evt';
         }
+        else if (data.Type == "Education Event") {
+            type = 'EduEvt';
+        }
         $("#ddlType").val(type).trigger("change");
         $("#txtStartDate").val(ConvertJsonToDate(data.StartDate));
         $("#txtExpiryDate").val(ConvertJsonToDate(data.ExpiryDate));
@@ -383,6 +385,7 @@ function EditNotification(curobj)
 function myfunc(ele) {
     try
     {
+        debugger;
         //Here Dynamicbutton(buttonid,Casename,function name)
         Dynamicbutton("btnMain", "SaveCancel", "");
         Dynamicbutton("btnSendNotification", "SendNoti", "sendNotification");
@@ -400,6 +403,7 @@ function myfunc(ele) {
 function sendNotification() {
     try
     {
+        debugger;
         var NotiCollection = [];        
         var tabledata = table.rows('.selected').data();
         for (var i = 0; i < tabledata.length; i++)
@@ -407,7 +411,8 @@ function sendNotification() {
             var Notification = new Object();
             Notification.notificationID = tabledata[i].ID;
             Notification.caption = tabledata[i].Caption;
-            Notification.description=tabledata[i].Description;
+            Notification.description = tabledata[i].Description;
+            Notification.notificationType = tabledata[i].Type;
             NotiCollection.push(Notification);            
         }
         result = SendNotificationToApp(NotiCollection);
@@ -431,10 +436,11 @@ function Delete() {
     try
     {
         var deleteConirm = confirm("Want to delete?");
-    /*    if (deleteConirm) {
+        if (deleteConirm) {
           
            try
-                {
+           {
+               debugger;
                     var NotiCollection = [];        
                     var tabledata = table.rows('.selected').data();
                     for (var i = 0; i < tabledata.length; i++)
@@ -443,13 +449,13 @@ function Delete() {
                         Notification.notificationID = tabledata[i].ID;
                         NotiCollection.push(Notification);            
                     }
-                    result = SendNotificationToApp(NotiCollection);
-                    switch (result[0].status) {
+                    result = DeleteNotification(NotiCollection);
+                    switch (result.status) {
                         case "1":
                             noty({ text: Messages.NotificationInitiated, type: 'success' });
                             break;
                         default:
-                            noty({ text: Messages.FailureMsgCaption, type: 'error' });
+                            noty({ text: result.status, type: 'success' });
                             break;
                     }  
                 }
@@ -458,7 +464,7 @@ function Delete() {
                     noty({ text: Messages.FailureMsgCaption, type: 'error' });
                 }
                 BindAllNotification(); 
-        }*/
+        }
     }
     catch(e)
     {
@@ -815,11 +821,11 @@ function SendNotificationToApp(Notifications) {
     return table;
 }
 
-function DeleteNotification(Notifications)
+function DeleteNotification(Notification)
 {
     var ds = {};
     var table = {};
-    var data = "{'NotificationsObj':" + JSON.stringify(Notifications) + "}";
+    var data = "{'NotificationList':" + JSON.stringify(Notification) + "}";
     ds = getJsonData(data, "../AdminPanel/Notifications.aspx/DeleteNotification");
     table = JSON.parse(ds.d);
     return table;
