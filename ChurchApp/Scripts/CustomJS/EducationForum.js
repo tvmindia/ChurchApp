@@ -24,11 +24,11 @@ $("document").ready(function (e) {
         var result = GetChurchDetails();
         if (result[0].DenominationCode == "LC")
         {
-            $('#spanPrgName').text('Navadharshan');
+            $('#spanPrgName').text('- Navadharshan');
         }
         else
         {
-            $('#spanPrgName').text('Study Portal');
+            $('#spanPrgName').text('');
         }
         DataTables.EduForumMember = $('#tblEduForumMembers').DataTable(
         {
