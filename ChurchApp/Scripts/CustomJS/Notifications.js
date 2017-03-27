@@ -14,6 +14,8 @@ $("document").ready(function (e) {
                { "data": "Type", "defaultContent": "<i>-</i>" },
                { "data": "StartDate", "defaultContent": "<i>-</i>" },
                { "data": "ExpiryDate", "defaultContent": "<i>-</i>" },
+               { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
+               { "data": "ProcessedDate", "defaultContent": "<i>-</i>" },
                { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditNotification(this)"><i class="halflings-icon white edit""></i></a>'}
                
 
@@ -29,7 +31,7 @@ $("document").ready(function (e) {
                
            },
            {
-               'targets': [0, 1],
+               'targets': [0, 1,7,6],
                "visible": false,
                "searchable": false
            },
@@ -37,13 +39,14 @@ $("document").ready(function (e) {
                "render": function (data, type, row) {
                    return ConvertJsonToDate(data);
                },
-               "targets": [6,7]
+               "targets": [6,7,8,9]
            },
 
         ],
         'select': {
             'style': 'multi'
-        }
+        },
+        'order': [[8, 'desc']]
     });
    // $("input.dt-checkboxes").click(myfunc);
     //$(":checkbox").click(myfunc);
