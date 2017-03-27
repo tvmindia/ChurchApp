@@ -48,7 +48,7 @@ li.active
 <%--END : Alert boxes --%>
 
 <div class="row-fluid" style="">
-    <h2>Education Forum - <span id="spanPrgName"> </span></h2>
+    <h2>Education Forum <span id="spanPrgName"> </span></h2>
 <div class="tabbable"> <!-- Only required for left/right tabs -->
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab1" data-toggle="tab" id="tabEvents" onclick="SetEvents()">Events</a></li>
