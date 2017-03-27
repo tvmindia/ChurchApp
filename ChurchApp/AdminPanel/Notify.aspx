@@ -200,6 +200,8 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
 								  <th>Type</th>
 								  <th>Start Date</th>
                                   <th>Expiry Date</th>
+                                  <th>Created Date</th>
+                                  <th>Processed Date</th>
                                   <th></th>
 								  
 							  </tr>
