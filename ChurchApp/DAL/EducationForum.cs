@@ -513,6 +513,7 @@ namespace ChurchApp.DAL
         public string EduEventID { get; set; }
         public string EventName { get; set; }
         public string MemberID{get;set;}
+        public string RegistrationID { get; set; }
         public string MemberName { get; set; }
         public string ResponseCode { get; set; }
         public string Response { get; set; }
@@ -526,12 +527,12 @@ namespace ChurchApp.DAL
         public int NotSureCount { get; set; }
         public int NotAttendCount { get; set; }
         #endregion Properties
-        #region InsertEduRedponse
+        #region InsertEduResponse
         /// <summary>
         /// Add New Event
         /// </summary>
         /// <returns>Success/Failure</returns>
-        public string InsertForumMember()
+        public string InsertForumResponse()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -548,6 +549,7 @@ namespace ChurchApp.DAL
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
                 cmd.Parameters.Add("@EduEventID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(EduEventID);
                 cmd.Parameters.Add("@MemberID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(MemberID);
+                cmd.Parameters.Add("@RegistrationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(RegistrationID);
                 cmd.Parameters.Add("@ResponseCode", SqlDbType.Int).Value = ResponseCode;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 100).Value = CreatedBY ;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now);
