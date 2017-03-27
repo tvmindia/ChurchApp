@@ -1385,16 +1385,19 @@ namespace ChurchApp.WebServices
                     member.familyUnit = familyUnit;
                     member.CreatedBY = "App User";
                     member.InsertForumMember();
+                    row["MemberID"] = member.ID;    //Newly created member's ID passing back to app
                 }
                 //Success return values
                 dt = new DataTable();
                 dt.Columns.Add("Flag", typeof(Boolean));
                 dt.Columns.Add("Message", typeof(String));
                 dt.Columns.Add("RegistrationID", typeof(String));
+                dt.Columns.Add("MemberIDs", typeof(String));
                 DataRow dr = dt.NewRow();
                 dr["Flag"] = true;
                 dr["Message"] = constants.Successfull;
                 dr["RegistrationID"] = registraionID;
+                dr["MemberIDs"] = serializer.Serialize(rows);
                 dt.Rows.Add(dr);
             }
             catch (Exception ex)
