@@ -1413,14 +1413,14 @@ namespace ChurchApp.WebServices
 
     
         [WebMethod]
-        public string GetAllEduForumEventsbyChurchID(string ChurchID,Boolean isOld)
+        public string GetAllEduForumEventsbyChurchID(string churchID,Boolean isOld,string registrationID)
         {
             DataTable dt = new DataTable();
             try
             {
                 EducationForum Evtobj = new EducationForum();
-                Evtobj.ChurchID = ChurchID;
-                dt = Evtobj.GetEduForumLatestAndOldEventsForApp(isOld);
+                Evtobj.ChurchID = churchID;
+                dt = Evtobj.GetEduForumLatestAndOldEventsForApp(isOld, registrationID);
                 if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
             }
             catch (Exception ex)
