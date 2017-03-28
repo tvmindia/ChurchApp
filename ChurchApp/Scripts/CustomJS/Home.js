@@ -151,7 +151,10 @@ $(document).ready(function () {
         //Bind the Church details using churchID
         BindDetails();
         BindChurchDetails();
-        
+        var Role = GetRoleforAuthentication();
+        if (Role == "User") {
+            $('.buttonpatch').hide();
+        }
     }
     catch(e)
     {
