@@ -405,7 +405,7 @@ table{
 								<label class="control-label">Main Image</label>
 								<div class="controls">
                                   <img id="ChurchRequestPreview" src="../img/defaultalbumadd.jpg" style="max-height:159px" class="img-rounded"/>
-								  <input type="file" accept="image/*" id="churchRequestimageuploader" onchange="OnUpload(this);ChurchImagePreview(this);"/>
+								  <input type="file" accept="image/*" id="churchRequestimageuploader" onchange="OnUpload(this);ChurchRequestImagePreview(this);"/>
                               
 								</div>
                                      
