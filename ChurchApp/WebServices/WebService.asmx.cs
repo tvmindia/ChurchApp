@@ -1324,6 +1324,7 @@ namespace ChurchApp.WebServices
                 dt.Columns.Add("IsMember");
                 dt.Columns.Add("OTP");
                 dt.Columns.Add("RegistrationID");
+                dt.Columns.Add("MemberIDs");
 
                 EduForumMember member = new EduForumMember();
                 member.ChurchID = ChurchID;
@@ -1339,6 +1340,19 @@ namespace ChurchApp.WebServices
                 {
                     row["IsMember"] = true;
                     row["RegistrationID"] = memberDetails.Rows[0]["RegistrationID"];
+                    List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                    foreach (DataRow memberRow in memberDetails.Rows)
+                    {
+                        Dictionary<string, object> memberDetailsRow = new Dictionary<string, object>();
+                        memberDetailsRow["MemberID"] = memberRow["ID"];
+                        memberDetailsRow["Name"] = memberRow["Name"];
+                        memberDetailsRow["Class"] = memberRow["Class"];
+                        memberDetailsRow["School"] = memberRow["School"];
+                        memberDetailsRow["DOB"] = memberRow["DOB"];
+                        rows.Add(memberDetailsRow);
+                    }
+                    System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                    row["MemberIDs"]= serializer.Serialize(rows);
                 }
                 Random rnd = new Random();                  // Random number creation for OTP
                 row["OTP"] = rnd.Next(2000, 9000);
