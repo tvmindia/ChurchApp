@@ -499,6 +499,10 @@ namespace ChurchApp.DAL
                         else
                             to_String = "/topics/" + churchID;
 
+                        string type = "";
+                        if (isEduForum)
+                            type = "EduForum";
+
                         var objNotification = new
                         {
                             to =to_String,
@@ -507,7 +511,8 @@ namespace ChurchApp.DAL
                             {
                                 title = titleString,
                                 body = descriptionString,
-                                sound = "default"
+                                sound = "default",
+                                type = type
                             }
                         };
                         JavaScriptSerializer js = new JavaScriptSerializer();
