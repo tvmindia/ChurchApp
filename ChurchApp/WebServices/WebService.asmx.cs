@@ -1357,6 +1357,8 @@ namespace ChurchApp.WebServices
                 Random rnd = new Random();                  // Random number creation for OTP
                 row["OTP"] = rnd.Next(2000, 9000);
                 dt.Rows.Add(row);
+                SMSHandler smsHandler = new SMSHandler();
+                smsHandler.SendOTP(row["OTP"].ToString(), mobile);
             }
             catch (Exception ex)
             {
