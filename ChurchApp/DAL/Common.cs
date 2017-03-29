@@ -473,10 +473,7 @@ namespace ChurchApp.DAL
                 throw new Exception("OTP should be 4 digits");
 
             SendMessage(OTP, MobileNo, "2factor", "OTP");
-        }
-
-
-        
+        }        
 
 
         private void SendMessage(string Msg, string MobileNos, string provider = "txtlocal", string type = "Promotional")
@@ -492,6 +489,7 @@ namespace ChurchApp.DAL
                         if (msg != string.Empty)
                         {
                             String message = HttpUtility.UrlEncode(msg);
+                            #region textlocal
                             //--------------------------------------------------------------------------------------------------
                             if (provider == "txtlocal")
                             {
@@ -510,6 +508,9 @@ namespace ChurchApp.DAL
 
                                 }
                             }
+                            #endregion
+
+                            #region smshorizon
                             //-------------------------------------------------------------------------------------------------------
                             else if (provider == "smshorizon")
                             {
@@ -529,25 +530,45 @@ namespace ChurchApp.DAL
 
                                 }
                             }
+
+                            #endregion
+
+                            #region 2factor
                             //-----------------------------------------------------------------------------------------------------------
                             else if (provider == "2factor" && type == "OTP")
                             {
 
-                                using (var wb = new WebClient())
-                                {
-                                    byte[] response = wb.UploadValues("http://205.147.96.66/API/R1/", "POST", new NameValueCollection()
-                                {
-                                        { "module","SMS_OTP"},
-                                {"apikey" , "bddc3759-107a-11e7-9462-00163ef91450"},                                
-                                {"to" , MobileNos},
-                                {"otpvalue" , msg}
-                                     
-                                });
-                                    string result = System.Text.Encoding.UTF8.GetString(response);
+                                string Confgs = System.Web.Configuration.WebConfigurationManager.AppSettings["2factorOTP"];
 
+                                if (!String.IsNullOrEmpty(Confgs))
+                                {
+
+
+                                    string[] ConfgValues = Confgs.Split('|');
+
+                                    using (var wb = new WebClient())
+                                    {
+                                    // byte[] response = wb.UploadValues("http://205.147.96.66/API/R1/", "POST", new NameValueCollection()
+                                    //{
+                                    //{ "module","SMS_OTP"},
+                                    //{"apikey" , "bddc3759-107a-11e7-9462-00163ef91450"},                                
+                                    //{"to" , MobileNos},
+                                    //{"otpvalue" , msg}
+
+                                        byte[] response = wb.UploadValues(ConfgValues[0], "POST", new NameValueCollection()
+                                    {
+                                    { "module",ConfgValues[1]},
+                                    {"apikey" , ConfgValues[2]},                                
+                                    {"to" , MobileNos},
+                                    {"otpvalue" , msg}
+                                     
+                                    });
+                                            string result = System.Text.Encoding.UTF8.GetString(response);
+
+                                    }
                                 }
                             }
-
+                            #endregion
                             //-------------------------------------------------------------------------------------------------------------
 
 
