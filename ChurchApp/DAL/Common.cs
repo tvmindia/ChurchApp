@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Globalization;
+using System.Net;
 using System.Web;
 
 namespace ChurchApp.DAL
@@ -459,5 +461,108 @@ namespace ChurchApp.DAL
         //            }
         //        }
 
+    }
+
+    public class SMSHandler
+    {
+        #region messageSending
+
+        public void SendOTP(string OTP, string MobileNo)
+        {
+            if (OTP.Length != 4)
+                throw new Exception("OTP should be 4 digits");
+
+            SendMessage(OTP, MobileNo, "2factor", "OTP");
+        }
+
+
+        
+
+
+        private void SendMessage(string Msg, string MobileNos, string provider = "txtlocal", string type = "Promotional")
+        {
+            string[] IndividualMsgs = Msg.Split('|');
+            string[] IndividualMobileNos = MobileNos.Split('|');
+            foreach (var msg in IndividualMsgs) //msg is individual message
+            {
+                foreach (var Num in IndividualMobileNos) //Num is individual Number
+                {
+                    if (Num != string.Empty)
+                    {
+                        if (msg != string.Empty)
+                        {
+                            String message = HttpUtility.UrlEncode(msg);
+                            //--------------------------------------------------------------------------------------------------
+                            if (provider == "txtlocal")
+                            {
+                                using (var wb = new WebClient())
+                                {
+                                    byte[] response = wb.UploadValues("https://api.textlocal.in/send/", "POST", new NameValueCollection()
+                                {
+                                {"username" , "suvaneeth@gmail.com"},
+                                {"hash" , "0f6f640793dfe7fd4c75ef55b57c2f841986f71e8c52fbdea5f6cb52cc723603"},
+                                { "apiKey","dSGmbXNsOJU-OZI40tsiF6tEwF6fCgEVq3uZ9lpd56"},
+                                {"sender" , "TXTLCL"},
+                                {"numbers" , Num},
+                                {"message" , message}
+                                });
+                                    string result = System.Text.Encoding.UTF8.GetString(response);
+
+                                }
+                            }
+                            //-------------------------------------------------------------------------------------------------------
+                            else if (provider == "smshorizon")
+                            {
+
+                                using (var wb = new WebClient())
+                                {
+                                    byte[] response = wb.UploadValues("http://smshorizon.co.in/api/sendsms.php", "POST", new NameValueCollection()
+                                {
+                                {"user" , "suvaneeth"},
+                                {"apikey" , "Ge0hv03z2WvwlBOTK3B0"},                   
+                                {"mobile" , Num},
+                                {"message" , msg},
+                                        { "senderid","MYTEXT"},
+                                { "type","txt"}
+                                });
+                                    string result = System.Text.Encoding.UTF8.GetString(response);
+
+                                }
+                            }
+                            //-----------------------------------------------------------------------------------------------------------
+                            else if (provider == "2factor" && type == "OTP")
+                            {
+
+                                using (var wb = new WebClient())
+                                {
+                                    byte[] response = wb.UploadValues("http://205.147.96.66/API/R1/", "POST", new NameValueCollection()
+                                {
+                                        { "module","SMS_OTP"},
+                                {"apikey" , "bddc3759-107a-11e7-9462-00163ef91450"},                                
+                                {"to" , MobileNos},
+                                {"otpvalue" , msg}
+                                     
+                                });
+                                    string result = System.Text.Encoding.UTF8.GetString(response);
+
+                                }
+                            }
+
+                            //-------------------------------------------------------------------------------------------------------------
+
+
+
+                        }
+
+
+
+                    }
+                }
+
+            }
+        }
+
+        #endregion
+    
     }
 }
