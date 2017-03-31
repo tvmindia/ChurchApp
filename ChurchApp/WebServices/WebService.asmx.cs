@@ -261,20 +261,22 @@ namespace ChurchApp.WebServices
         {            
             try
             {
+
+                //Getting other details on object
+                ChurchApp.DAL.Church churchObj = new DAL.Church();
+
                 HttpFileCollection MyFileCollection = HttpContext.Current.Request.Files;
                 //Getting file dettails from http request
-                if (MyFileCollection.Count > 0){
-              
+                if (MyFileCollection.Count > 0) {
+
                     string ImageID = Guid.NewGuid().ToString();
-                    string imagePath= ImageID +"."+ MyFileCollection[0].FileName.Split('.').Last();
+                    string imagePath = ImageID + "." + MyFileCollection[0].FileName.Split('.').Last();
                     string FilePath = Server.MapPath("~/img/AppImages/") + imagePath;
                     MyFileCollection[0].SaveAs(FilePath); //to save coming image to server folder
-
-
-                    //Getting other details
-                    ChurchApp.DAL.Church churchObj = new DAL.Church();
                     churchObj.ImagePath = "/img/AppImages/" + imagePath;
                     churchObj.ImageID = ImageID;
+                }
+                    
 
                     if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form["ChurchName"]))
                     {
@@ -307,8 +309,7 @@ namespace ChurchApp.WebServices
                     
                     if (churchObj.InsertRequestChurch() == "0") throw new Exception(constants.FailToUpload);
                     return "Message:" +constants.SuccessUpload;
-                }
-                return "Message:" + constants.FailToUpload;
+    
             }
             catch (Exception ex)
             {
@@ -1357,8 +1358,8 @@ namespace ChurchApp.WebServices
                 Random rnd = new Random();                  // Random number creation for OTP
                 row["OTP"] = rnd.Next(2000, 9000);
                 dt.Rows.Add(row);
-                SMSHandler smsHandler = new SMSHandler();
-                smsHandler.SendOTP(row["OTP"].ToString(), mobile);
+             /*   SMSHandler smsHandler = new SMSHandler();
+                smsHandler.SendOTP(row["OTP"].ToString(), mobile);*/
             }
             catch (Exception ex)
             {
