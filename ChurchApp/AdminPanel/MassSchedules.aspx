@@ -3,10 +3,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
  
-    <script src="../Scripts/CustomJS/Common.js"></script>
-    <script src="../Scripts/CustomJS/MassSchedules.js"></script>
-    <link href="../CSS/CustomCSS/AdminLayout.css" rel="stylesheet" />
-    <link href="../CSS/CustomCSS/MassSchedules.css" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
+    <script src="../Scripts/CustomJS/MassSchedules.js?version=1"></script>
+    <link href="../CSS/CustomCSS/AdminLayout.css?version=1" rel="stylesheet" />
+    <link href="../CSS/CustomCSS/MassSchedules.css?version=1" rel="stylesheet" />
   <%--  <script src="../Scripts/timepicki.js"></script>--%>
   <%--  <link href="../CSS/timepicki.css" rel="stylesheet" />--%>
      <div id="content" class="span10">

@@ -37,10 +37,8 @@ $("document").ready(function (e) {
                     case "1":
                         $('.modelClear').click();
                         $("#lblAlreadyNotificationSend").show();
-                        $("#lblAlreadyNotificationSend").text("Notification Already added");
+                        $("#lblAlreadyNotificationSend").text("Notifications Already added");
                         $('#NotificationInfo').show();
-                        $('#txtCaption').attr('disabled', true);
-                        $('#txtnotificationCOntent').attr('disabled', true);
                         IsMobNotified = false;
                         noty({ type: 'success', text: Messages.InsertionSuccessFull });
 
@@ -501,7 +499,7 @@ function SaveEvents()
                             if (notires == "1") {
                                 IsMobNotified = false;
                                 $('#lblAlreadyNotificationSend').show();
-                                $('#txtnotificationCOntent').attr('disabled', true);
+                                //$('#txtnotificationCOntent').attr('disabled', true);
 
                             }
                         }
@@ -545,7 +543,7 @@ function SaveEvents()
                             if (notires == "1") {
                                 IsMobNotified = false;
                                 $('#lblAlreadyNotificationSend').show();
-                                $('#txtnotificationCOntent').attr('disabled', true);
+                                //$('#txtnotificationCOntent').attr('disabled', true);
 
                             }
                         }
@@ -1182,7 +1180,7 @@ function cancelEdit()
 function FixedEditClick() {
     try
     {
-         
+        debugger;
         
         //$('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white repeat");
         //$('#NoticeEdit').attr('onclick', 'cancelEdit();');
@@ -1205,7 +1203,7 @@ function FixedEditClick() {
 
         if (jsonResult != undefined) {
             $.each(jsonResult, function (index, jsonResult) {
-                 
+                debugger;
                 $("#txtEventName").val(jsonResult.EventName);
                 $("#txtDescription").val(jsonResult.Descrtiption);
 
@@ -1246,25 +1244,16 @@ function FixedEditClick() {
 
                     $("#hdfIsAutoHide").val(false)
                 }
-                if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
+                if (jsonResult.NotificationCount != 0 && jsonResult.NotificationCount != undefined) {
                     IsAlreadyNotified = true;
                     IsMobNotified = false;
                     $("#lblAlreadyNotificationSend").show();
-                    $("#lblAlreadyNotificationSend").text("Notification Already added");
+                    $("#lblAlreadyNotificationSend").text(jsonResult.NotificationCount+" Notifications Already added");
                     $('#NotificationInfo').show();
-                    //$('#rdoNotificationYes').parent().addClass('checked');
-                    //$("#rdoNotificationNo").parent().removeClass('checked');
-                    //$("#DivNotificationContent").show();
-                    $('#txtCaption').attr('disabled', true);
-                    $('#txtCaption').val(jsonResult.Caption);
-                    $('#txtnotificationCOntent').attr('disabled', true);
-                    $("#txtnotificationCOntent").val(jsonResult.Descrtiption);
                 }
                 else {
                     $("#lblAlreadyNotificationSend").hide();
                     $('#NotificationInfo').hide();
-                    //$('#dateStartDate').attr('disabled', false);
-                    //$('#dateExpiryDate').attr('disabled', false);
                     $('#txtnotificationCOntent').attr('disabled', false);
                     $('#txtCaption').attr('disabled', false);
                     IsMobNotified = true;

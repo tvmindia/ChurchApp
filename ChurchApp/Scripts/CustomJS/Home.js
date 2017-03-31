@@ -74,73 +74,77 @@ $(document).ready(function () {
 
             try {
                 debugger;
-                if ($('#hdfChurchID').val() != '') {
-                    var Church = new Object();
-                    if ((imgresult = $('#flupCoverpic')[0].files.length > 0)) {
-                        var formData = new FormData();
-                        var imagefile;
-                        imagefile = $('#flupCoverpic')[0].files[0];
-                        formData.append('upImageFile', imagefile, imagefile.name);
-                        formData.append('churchid', $("#hdfChurchID").val());
-                        formData.append('ChurchImageID', $('#hdfChurchImageID').val());
-                        formData.append('ActionTyp', 'ChurchUpdate');
-                        formData.append('churchName', $('#txtCaption').val() != null ? $('#txtCaption').val() : "");
-                        formData.append('description', $('#txtDescription').val() != null ? $('#txtDescription').val() : "");
-                        formData.append('phone1', $('#txtNumber').val() != null ? $('#txtNumber').val() : "");
-                        formData.append('address', $('#txtAddress').val() != null ? $('#txtAddress').val() : "");
-                        formData.append('IsHome', true);
-                        formData.append('updatedBy', document.getElementById("LoginName").innerHTML);
-                        var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
-                        switch (result.status) {
-                            case "1":
-                                $("#hdfChurchID").val(result.churchId);
-                                $("#hdfChurchImageID").val(result.mainImageId);
-                                noty({ type: 'success', text: Messages.UpdationSuccessFull });
-                                try {
-                                    BindDetails();
-                                }
-                                catch (e) {
-                                    noty({ type: 'error', text: e.message });
-                                }
-                                break;
-                            case "0":
-                                noty({ type: 'error', text: Messages.FailureMsgCaption });
-                                break;
-                            default:
-                                noty({ type: 'error', text: result.status });
-                                break;
+                if (HomeValidation())
+                {
+                    if ($('#hdfChurchID').val() != '') {
+                        var Church = new Object();
+                        if ((imgresult = $('#flupCoverpic')[0].files.length > 0)) {
+                            var formData = new FormData();
+                            var imagefile;
+                            imagefile = $('#flupCoverpic')[0].files[0];
+                            formData.append('upImageFile', imagefile, imagefile.name);
+                            formData.append('churchid', $("#hdfChurchID").val());
+                            formData.append('ChurchImageID', $('#hdfChurchImageID').val());
+                            formData.append('ActionTyp', 'ChurchUpdate');
+                            formData.append('churchName', $('#txtCaption').val() != null ? $('#txtCaption').val() : "");
+                            formData.append('description', $('#txtDescription').val() != null ? $('#txtDescription').val() : "");
+                            formData.append('phone1', $('#txtNumber').val() != null ? $('#txtNumber').val() : "");
+                            formData.append('address', $('#txtAddress').val() != null ? $('#txtAddress').val() : "");
+                            formData.append('IsHome', true);
+                            formData.append('updatedBy', document.getElementById("LoginName").innerHTML);
+                            var result = postBlobAjax(formData, "../ImageHandler/UploadHandler.ashx");
+                            switch (result.status) {
+                                case "1":
+                                    $("#hdfChurchID").val(result.churchId);
+                                    $("#hdfChurchImageID").val(result.mainImageId);
+                                    noty({ type: 'success', text: Messages.UpdationSuccessFull });
+                                    try {
+                                        BindDetails();
+                                    }
+                                    catch (e) {
+                                        noty({ type: 'error', text: e.message });
+                                    }
+                                    break;
+                                case "0":
+                                    noty({ type: 'error', text: Messages.FailureMsgCaption });
+                                    break;
+                                default:
+                                    noty({ type: 'error', text: result.status });
+                                    break;
+                            }
                         }
-                    }
-                    else {
-                        Church.churchId = $("#hdfChurchID").val();
-                        Church.IsHome = true;
-                        Church.churchName = $('#txtCaption').val() != null ? $('#txtCaption').val() : "";
-                        Church.description = $('#txtDescription').val() != null ? $('#txtDescription').val() : "";
-                        Church.phone1 = $('#txtNumber').val() != null ? $('#txtNumber').val() : "";
-                        Church.address = $('#txtAddress').val() != null ? $('#txtAddress').val() : "";
-                        var result = UpdateChurch(Church);
+                        else {
+                            Church.churchId = $("#hdfChurchID").val();
+                            Church.IsHome = true;
+                            Church.churchName = $('#txtCaption').val() != null ? $('#txtCaption').val() : "";
+                            Church.description = $('#txtDescription').val() != null ? $('#txtDescription').val() : "";
+                            Church.phone1 = $('#txtNumber').val() != null ? $('#txtNumber').val() : "";
+                            Church.address = $('#txtAddress').val() != null ? $('#txtAddress').val() : "";
+                            var result = UpdateChurch(Church);
 
-                        switch (result.status) {
-                            case "1":
-                                $("#hdfChurchID").val(result.churchId);
-                                $("#hdfChurchImageID").val(result.mainImageId);
-                                noty({ type: 'success', text: Messages.UpdationSuccessFull });
-                                try {
-                                    BindDetails();
-                                }
-                                catch (e) {
-                                    noty({ type: 'error', text: e.message });
-                                }
-                                break;
-                            case "0":
-                                noty({ type: 'error', text: Messages.FailureMsgCaption });
-                                break;
-                            default:
-                                noty({ type: 'error', text: result.status });
-                                break;
-                        }//switch
-                    }//else
+                            switch (result.status) {
+                                case "1":
+                                    $("#hdfChurchID").val(result.churchId);
+                                    $("#hdfChurchImageID").val(result.mainImageId);
+                                    noty({ type: 'success', text: Messages.UpdationSuccessFull });
+                                    try {
+                                        BindDetails();
+                                    }
+                                    catch (e) {
+                                        noty({ type: 'error', text: e.message });
+                                    }
+                                    break;
+                                case "0":
+                                    noty({ type: 'error', text: Messages.FailureMsgCaption });
+                                    break;
+                                default:
+                                    noty({ type: 'error', text: result.status });
+                                    break;
+                            }//switch
+                        }//else
+                    }
                 }
+               
             }//try
 
             catch (e) {
@@ -160,12 +164,16 @@ $(document).ready(function () {
     {
         noty({ type: 'error', text: e.message });
     }
-   
+    $('input[type=text],input[type=password]').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+    });
     
 });//End document ready
 
 function EditChurch()
 {
+    BindDetails()
     $('#IdDivChurchDisplay').hide();
     $('#IdDivChurchEdit').show();
     Dynamicbutton('btnEdit', 'EditCancel', '');
@@ -209,6 +217,7 @@ function UploadNow(input) {
 function BindDetails()
 {
     debugger;
+    RemoveStyle();
     var churchDetail = GetChurchDetailsByChurchID();
     if (churchDetail[0].ImageURL == null)
     {
@@ -508,4 +517,40 @@ function GetChurchDetails()
 
     }
     return table;
+}
+function HomeValidation() {
+    try {
+        debugger;
+        var Name = $('#txtCaption');
+
+        var container = [
+            { id: Name[0].id, name: Name[0].name, Value: Name[0].value }
+        ];
+
+
+        var j = 0;
+        for (var i = 0; i < container.length; i++) {
+            if (container[i].Value == "") {
+                j = 1;
+                var txtB = document.getElementById(container[i].id);
+                txtB.style.backgroundImage = "url('../img/invalid.png')";
+                txtB.style.backgroundPosition = "95% center";
+                txtB.style.backgroundRepeat = "no-repeat";
+            }
+        }
+
+        if (j == '1') {
+            noty({ type: 'error', text: Messages.Validation });
+            return false;
+        }
+        if (j == '0') {
+            return true;
+        }
+
+    }
+    catch (e) {
+        noty({ type: 'error', text: e.message });
+    }
+
+
 }

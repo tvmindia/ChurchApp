@@ -1,9 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Novenas.aspx.cs" Inherits="ChurchApp.AdminPanel.Novenas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script src="../Scripts/CustomJS/Novenas.js"></script>
-    <script src="../Scripts/CustomJS/Common.js"></script>
-    <link href="../CSS/CustomCSS/Novenas.css" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Novenas.js?version=1"></script>
+    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
+    <link href="../CSS/CustomCSS/Novenas.css?version=1" rel="stylesheet" />
 
     <%--<script src="../Scripts/timepicki.js"></script>
     <link href="../CSS/timepicki.css" rel="stylesheet" />--%>

@@ -26,6 +26,7 @@ namespace ChurchApp.DAL
         public string CreatedDate { get; set; }
         public string UpdatedDate { get; set; }
         public string Status { get; set; }
+        public int NotificationCount { get; set; }
         #endregion Properties
         #region Methods
 
@@ -105,7 +106,7 @@ namespace ChurchApp.DAL
                     EndDate = dr["EndDate"].ToString() != "" ? (DateTime.Parse(dr["EndDate"].ToString().ToString()).ToString("dd-MMM-yyyy")) : "";
                     URL = dr["URL"].ToString();
                     ImageID = dr["ImageID"].ToString();
-                    NotificationID = dr["NotificationID"].ToString();
+                    NotificationCount = int.Parse(dr["NotificationCount"].ToString());
                 }
             }
             catch (Exception ex)

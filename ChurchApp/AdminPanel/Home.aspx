@@ -3,9 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <link href="../CSS/CustomCSS/Home.css" rel="stylesheet" />
-    <script src="../Scripts/CustomJS/Common.js"></script>
-    <script src="../Scripts/CustomJS/Home.js"></script>
+    <link href="../CSS/CustomCSS/Home.css?version=1" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
+    <script src="../Scripts/CustomJS/Home.js?version=1"></script>
 
     <style>
         ._30vx {
@@ -181,7 +181,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="focusedInput">Phone Number</label>
                                 <div class="controls">
-                                    <input class="input-xlarge span10 focused" name="Caption" id="txtNumber" onkeypress="return isNumber(event);" type="text" value="" />
+                                    <input class="input-xlarge span10 focused" name="Caption" id="txtNumber" onkeypress="return isMobileNumber(event);" type="text" value="" />
                                 </div>
                             </div>
                             <div class="control-group">

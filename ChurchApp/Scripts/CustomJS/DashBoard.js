@@ -692,7 +692,7 @@ $("document").ready(function (e) {
     });
     $('#btnRequestChurchAdd').click(function (e) {
         try {
-            
+            debugger;
             var churchbit = ChurchReqValidation();
             if (churchbit) {
                 Church.churchName = ($('#txtReqChurchName').val() != "" ? $('#txtReqChurchName').val() : "");

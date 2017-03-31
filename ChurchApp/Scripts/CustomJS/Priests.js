@@ -875,11 +875,11 @@ function AutoComplete()
         {
           
             var Name = $('#txtPriestName');
-            var OrdinationDate = $('#OrdinationDate');
+            //var OrdinationDate = $('#OrdinationDate');
             var Role = $('#ddlstatus');
             var container = [
                 { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
-                { id: OrdinationDate[0].id, name: OrdinationDate[0].name, Value: OrdinationDate[0].value },
+                //{ id: OrdinationDate[0].id, name: OrdinationDate[0].name, Value: OrdinationDate[0].value },
                 { id: Role[0].id, name: Role[0].name, Value: Role[0].value },
             ];
 

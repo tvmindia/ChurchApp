@@ -1,6 +1,7 @@
 ﻿var table = {};
 var scheduleDates = new Array();
 var maxScheduleStatus = 0;
+var MaxCharacterLimit = 200;
 $("document").ready(function (e) {    
     table=$('#tblNotifications').DataTable({
         'data': GetAllNotificationstbl(),
@@ -11,13 +12,13 @@ $("document").ready(function (e) {
                { "data": "ID" },
                { "data": "Status" },
                { "data": "Caption", "defaultContent": "<i>-</i>" },
+               { "data": "Description", "class": "details-control", "defaultContent": "<i>-</i>" },
                { "data": "Type", "defaultContent": "<i>-</i>" },
                { "data": "StartDate", "defaultContent": "<i>-</i>" },
                { "data": "ExpiryDate", "defaultContent": "<i>-</i>" },
                { "data": "CreatedDate", "defaultContent": "<i>-</i>" },
                { "data": "ProcessedDate", "defaultContent": "<i>-</i>" },
-               { "data": null, "orderable": false, "defaultContent": '<a class="circlebtn circlebtn-info" onclick="EditNotification(this)"><i class="halflings-icon white edit""></i></a>'}
-               
+               { "data": null, "orderable": false, "defaultContent": '<i>--</i>' }
 
              ],
         'columnDefs': [
@@ -31,7 +32,42 @@ $("document").ready(function (e) {
                
            },
            {
-               'targets': [0, 1,7,6],
+               'targets': 5,
+               'render': function (data, type, row) {
+                   debugger;
+                   if (data)
+                       if (data.length > 30)
+                       {
+                           var newdata = data.substring(0, 30);
+                           return newdata + ' <a style="color:rgba(94, 66, 209, 0.8);"> More.. ▼</a>';
+                       }
+                       else
+                       {
+                           
+                           return data ;
+                       }
+                   
+               }
+           },
+            {//custom js functions can be callled in render property for that target column
+                "render": function (data, type, row) {
+                    if (data.Status == "Processed")
+                    {
+                        return '<a class="circlebtn circlebtn-info" style="background-color:green;" title="Approved"><i class="halflings-icon white ok"></i></a>';
+                    }
+                    else if(data.Status == "Pending")
+                    {
+                        return '<a class="circlebtn circlebtn-info" onclick="EditNotification(this)" title="Edit"><i class="halflings-icon white edit"></i></a>';
+                    }
+                    else if (data.Status == "Failed")
+                    {
+                        return '<a class="circlebtn circlebtn-info" style="background-color:Red;" title="Failed"><i class="halflings-icon white ban-circle"></i></a>';
+                    }
+                },
+                "targets": 11
+            },
+           {
+               'targets': [0, 1,7,8],
                "visible": false,
                "searchable": false
            },
@@ -39,14 +75,64 @@ $("document").ready(function (e) {
                "render": function (data, type, row) {
                    return ConvertJsonToDate(data);
                },
-               "targets": [6,7,8,9]
+               "targets": [7,8,9,10]
            },
 
         ],
         'select': {
             'style': 'multi'
         },
-        'order': [[8, 'desc']]
+        'order': [[9, 'desc']]
+    });
+    // Array to track the ids of the details displayed rows
+    var detailRows = [];
+
+    $('#tblNotifications tbody').on('click', 'tr td.details-control', function () {
+        debugger;
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+        var idx = $.inArray(tr.attr('id'), detailRows);
+
+        if (row.child.isShown()) {
+            tr.removeClass('details');
+            row.child.hide();
+
+            // Remove from the 'open' array
+            detailRows.splice(idx, 1);
+        }
+        else {
+            tr.addClass('details');
+            row.child(format(row.data())).show();
+
+            // Add to the 'open' array
+            if (idx === -1) {
+                detailRows.push(tr.attr('id'));
+            }
+        }
+    });
+
+    // On each draw, loop over the `detailRows` array and show any child rows
+    table.on('draw', function () {
+        $.each(detailRows, function (i, id) {
+            $('#' + id + ' td.details-control').trigger('click');
+        });
+    });
+    $('#txtDescription').keypress(function (e) {
+        try {
+            debugger;
+            if (this.value.length == MaxCharacterLimit) {
+                e.preventDefault();
+                $("#lblNotificationLength").show();
+                $("#lblNotificationLength").text("Maximum " + MaxCharacterLimit + " characters");
+            }
+
+            else {
+                $("#lblNotificationLength").hide();
+            }
+        }
+        catch (e) {
+            noty({ type: 'error', text: e.message });
+        }
     });
    // $("input.dt-checkboxes").click(myfunc);
     //$(":checkbox").click(myfunc);
@@ -310,7 +396,9 @@ $("document").ready(function (e) {
     );
 });
 //end of document.ready()
-
+function format(d) {
+    return '<b>Description:</b><br/>' + d.Description ;
+}
 //Remove Validation style
 function RemoveStyle() {
     try {
@@ -349,7 +437,7 @@ function EditNotification(curobj)
         var data = table.row($(curobj).parents('tr')).data();
         $("#txtCaption").val(data.Caption);
         $("#txtDescription").val(data.Description);
-        if (data.Type == "Notice") {
+        if (data.Type == "Notices") {
             type = 'ntc';
         }
         else if (data.Type == "Event") {

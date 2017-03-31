@@ -382,7 +382,7 @@ li#LIChurches {
 	<footer style="position:absolute;width:96%;">
         
 		<p>
-			<span style="text-align:left;float:left">&copy; 2016 <a href="http://www.thrithvam.com/"> Thrithvam Technology Pvt Ltd.</a></span>
+			<span style="text-align:left;float:left">&copy; <%=DateTime.Now.Year.ToString()%><a href="http://www.thrithvam.com/"> Thrithvam Technology Pvt Ltd.</a></span>
 			
 		</p>
 

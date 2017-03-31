@@ -66,8 +66,8 @@ $("document").ready(function (e) {
                     $("#lblAlreadyNotificationSend").show();
                     $("#lblAlreadyNotificationSend").text("Notification Already added");
                     $('#NotificationInfo').show();
-                    $('#txtCaption').attr('disabled', true);
-                    $('#txtnotificationCOntent').attr('disabled', true);
+                    //$('#txtCaption').attr('disabled', true);
+                    //$('#txtnotificationCOntent').attr('disabled', true);
                     IsMobNotified = false;
                     noty({ type: 'success', text: Messages.InsertionSuccessFull });
 
@@ -223,8 +223,9 @@ $("document").ready(function (e) {
 //------------End of document ready----------------//
 function SendNotification()
 {
+    debugger;
     if ($("#txtNoticeName").val() != "") {
-        $("#txtCaption").val($("#txtNoticeName").val());
+        $("#txtCaption").val($('#ddlNoticeType').val()+' - '+$("#txtNoticeName").val());
     }
 
     if ($("#txtDescription").val() != "") {
@@ -415,7 +416,7 @@ try
                                 $('#lblAlreadyNotificationSend').show();
                                 $('#dateStartDate').attr('disabled', true);
                                 $('#dateExpiryDate').attr('disabled', true);
-                                $('#txtnotificationCOntent').attr('disabled', true);
+                                //$('#txtnotificationCOntent').attr('disabled', true);
                             }
                                     
                                     
@@ -461,7 +462,7 @@ try
                                 $('#lblAlreadyNotificationSend').show();
                                 $('#dateStartDate').attr('disabled', true);
                                 $('#dateExpiryDate').attr('disabled', true);
-                                $('#txtnotificationCOntent').attr('disabled', true);
+                                //$('#txtnotificationCOntent').attr('disabled', true);
 
                             }
                         }
@@ -966,7 +967,7 @@ function FixedEditClick() {
 
     if (jsonResult != undefined) {
         $.each(jsonResult, function (index, jsonResult) {
-            
+            debugger;
 
             $("#lblNoticeName").hide();
 
@@ -984,18 +985,18 @@ function FixedEditClick() {
 
             $("#ddlNoticeType").val(jsonResult.NoticeType).trigger("change");
 
-            if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined) {
+            if (jsonResult.NotificationCount != 0 && jsonResult.NotificationCount != undefined) {
                 $("#lblAlreadyNotificationSend").show();
-                $("#lblAlreadyNotificationSend").text("Notification Already added");
+                $("#lblAlreadyNotificationSend").text(jsonResult.NotificationCount+" Notifications Already added");
                 $('#NotificationInfo').show();
                 //$('#dateStartDate').attr('disabled', true);
                 //$('#dateStartDate').val(ConvertJsonToDate(jsonResult.StartDate));
                 //$('#dateExpiryDate').attr('disabled', true);
                 //$('#dateExpiryDate').val(ConvertJsonToDate(jsonResult.ExpiryDate));
-                $('#txtCaption').attr('disabled', true);
-                $('#txtCaption').val(jsonResult.Caption);
-                $('#txtnotificationCOntent').attr('disabled', true);
-                $('#txtnotificationCOntent').val(jsonResult.Description);
+                //$('#txtCaption').attr('disabled', true);
+                //$('#txtCaption').val(jsonResult.Caption);
+                //$('#txtnotificationCOntent').attr('disabled', true);
+                //$('#txtnotificationCOntent').val(jsonResult.Description);
                 IsMobNotified = false;
             }
             else {

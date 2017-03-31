@@ -454,6 +454,7 @@ function EditUnit() {
     try {
         debugger;
         $("#txtUnitName").show();
+        $("#txtUnitName").removeAttr('disabled');
         $("#lblUnitName").hide();
         $("#UnitmemCount").hide();
         $("#unitCountDiv").hide();
@@ -1048,7 +1049,7 @@ function BindFamilyTable(Records) {
         }
         else {
             $.each(Records, function (index, Records) {
-                var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;" id="' + Records.ID + '"><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + " " + Records.FamilyName + '" onClick="BindFamilyMembers(this);"><i class="fa icon-home" id=faUser aria-hidden="true"></i>' + Records.FamilyName + " - (Family Head: " + Records.FirstName + " " + Records.LastName + ")" + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon edit pencilEdit" title="Edit Family" id="' + Records.ID + '" onClick=UpdateFamily(this);></i><i class="icon-chevron-right ViewUnit" title="View Members" id="' + Records.ID + " " + Records.FamilyName +":Family"+ '" onClick="BindIconFamilyMembers(this);"></i></div>'
+                var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;" id="' + Records.ID + '"><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + " " + Records.FamilyName + '" onClick="BindFamilyMembers(this);"><i class="fa icon-home" id=faUser aria-hidden="true"></i>' + Records.FamilyName + " - (Family Head: " + Records.FirstName + " " + Records.LastName + ")" + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon edit pencilEdit" title="Edit Family" id="' + Records.ID + '" onClick=UpdateFamily(this);></i><i class="icon-chevron-right ViewUnit" title="View Members" id="' + Records.ID + " " + Records.FamilyName +":Family"+ '" onClick="BindFamilyMembers(this);"></i></div>'
                 $("#FamilyUnitsTableBox").append(html);
             });
         }

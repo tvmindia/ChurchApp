@@ -26,11 +26,11 @@ table{
     border-color: #4d90fe;
 }
     </style>
-    <link href="../CSS/CustomCSS/DashBoard.css" rel="stylesheet" />
+    <link href="../CSS/CustomCSS/DashBoard.css?version=1" rel="stylesheet" />
   
-    <script src="../Scripts/CustomJS/Common.js"></script>
+    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYAg9VLLllUHiLbNguOAHAB_scDP038E&libraries=places&callback=initMap"async defer></script>
-    <script src="../Scripts/CustomJS/DashBoard.js"></script>
+    <script src="../Scripts/CustomJS/DashBoard.js?version=1"></script>
      
     <script>
 
@@ -184,7 +184,7 @@ table{
 
                               <label class="control-label" for="focusedInput">Phone 1</label>
                                <div class="controls">
-                               <input class="input-large focused" name="txtPhone1" id="txtPhone1" onkeypress="return isNumber(event);" placeholder="" type="text"/>
+                               <input class="input-large focused" name="txtPhone1" id="txtPhone1" onkeypress="return isMobileNumber(event);" placeholder="" type="text"/>
                               </div>
                               </div>
 
@@ -192,7 +192,7 @@ table{
 
                               <label class="control-label" for="focusedInput">Phone 2</label>
                                <div class="controls">
-                               <input class="input-large focused" name="txtPhone2" id="txtPhone2" onkeypress="return isNumber(event);" placeholder="" type="text"/>
+                               <input class="input-large focused" name="txtPhone2" id="txtPhone2" onkeypress="return isMobileNumber(event);" placeholder="" type="text"/>
                               </div>
                               </div>
 
@@ -372,7 +372,7 @@ table{
 
                               <label class="control-label" for="focusedInput">Phone 1</label>
                                <div class="controls">
-                               <input class="input-large focused" name="txtPhone1" id="txtReqPhone1" onkeypress="return isNumber(event);" placeholder="" type="text"/>
+                               <input class="input-large focused" name="txtPhone1" id="txtReqPhone1" onkeypress="return isMobileNumber(event);" placeholder="" type="text"/>
                               </div>
                               </div>
 
@@ -380,7 +380,7 @@ table{
 
                               <label class="control-label" for="focusedInput">Phone 2</label>
                                <div class="controls">
-                               <input class="input-large focused" name="txtPhone2" id="txtReqPhone2" onkeypress="return isNumber(event);" placeholder="" type="text"/>
+                               <input class="input-large focused" name="txtPhone2" id="txtReqPhone2" onkeypress="return isMobileNumber(event);" placeholder="" type="text"/>
                               </div>
                               </div>
 
@@ -600,7 +600,7 @@ table{
                               <label class="control-label" for="focusedInput">Mobile</label>
                                <div class="controls">
                               
-                                    <input class="input-large focused" onkeypress="return isNumber(event);" name="txtMobile" id="txtMobile" placeholder=""  type="text"/>
+                                    <input class="input-large focused" onkeypress="return isMobileNumber(event);" name="txtMobile" id="txtMobile" placeholder=""  type="text"/>
                               </div>
                               </div>
 

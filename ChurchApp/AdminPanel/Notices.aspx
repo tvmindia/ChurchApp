@@ -6,9 +6,9 @@
     <%--<script src="../Scripts/select2.min.js"></script>
     <link href="../CSS/select2.min.css" rel="stylesheet" />--%>
 
-    <script src="../Scripts/CustomJS/Common.js"></script>
-    <script src="../Scripts/CustomJS/Notices.js"></script>
-    <link href="../CSS/CustomCSS/Notice.css" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
+    <script src="../Scripts/CustomJS/Notices.js?version=1"></script>
+    <link href="../CSS/CustomCSS/Notice.css?version=1" rel="stylesheet" />
      <style>
         #dtbselect option{
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif!important;
@@ -291,7 +291,7 @@
                                      <label for="name">Caption</label><input name="Caption" id="txtCaption" type="text" />
                                     <label for="name">Description</label><textarea id="txtnotificationCOntent" name="Description" rows="3" placeholder=""></textarea>
                                     <label class="control-label" id="lblAlreadyNotificationSend">Notification Was added</label>
-                                    <i class="fa fa-info-circle" id="NotificationInfo" style="display:none;position:relative;top:53px;left:-53px;" data-toggle="popover" data-trigger="hover" data-content="If you added the Mobile notification once you can only edit it from the notification portal !"></i>
+                                    <i class="fa fa-info-circle" id="NotificationInfo" style="display:none;position:relative;top:53px;left:-43px;" data-toggle="popover" data-trigger="hover" data-content="If you added the Mobile notification once you can only edit it from the notification portal !"></i>
                                 </div>
                                 <div class="span6">
                                     <div class="w3-note w3-panel" style="margin-top:10%;">

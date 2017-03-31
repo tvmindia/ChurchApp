@@ -197,3 +197,7 @@ text-overflow: ellipsis;
 {
     text-shadow:none !important;
 }
+.sidebar-nav > ul.nav-tabs>li
+{
+    margin-bottom:-2%;
+}

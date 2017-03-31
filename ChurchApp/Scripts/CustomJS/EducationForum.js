@@ -110,8 +110,8 @@ $("document").ready(function (e) {
         $('[data-toggle="popover"]').popover();
         BindEvents(1);        
         $('#btnSaveNotification').click(function () {
-            if (!IsAlreadyNotified)
-            {
+            //if (!IsAlreadyNotified)
+            //{
                 if (NotificationValidation) {
                     debugger;
                     var Notification = new Object();
@@ -126,8 +126,8 @@ $("document").ready(function (e) {
                             $("#lblAlreadyNotificationSend").show();
                             $("#lblAlreadyNotificationSend").text("Notification Already added");
                             $('#NotificationInfo').show();
-                            $('#txtCaption').attr('disabled', true);
-                            $('#txtnotificationCOntent').attr('disabled', true);
+                            //$('#txtCaption').attr('disabled', true);
+                            //$('#txtnotificationCOntent').attr('disabled', true);
                             IsMobNotified = false;
                             noty({ type: 'success', text: Messages.InsertionSuccessFull });
 
@@ -144,7 +144,7 @@ $("document").ready(function (e) {
                     }
 
                 }
-            }
+            //}
         });
         //--Limit Notification Content 
         $('#txtnotificationCOntent').keypress(function (e) {
@@ -308,16 +308,17 @@ function SetEvents() {
     Dynamicbutton("btnSave", "SaveCancel", "");
     Dynamicbutton("btnDelete", "DeleteCancel", "");
     Dynamicbutton("btnReset", "ResetCancel", "");
-    Dynamicbutton("btnNotify", "SendNotiCancel", "");
+    Dynamicbutton("btnNotify", "PushNotiCancel", "");
     $('#EventEditDivBox').hide();
 }
 function SetMembers()
 {
     Dynamicbutton("NoticeEdit", "EditCancel", "");
+    Dynamicbutton("NoticeEdit", "EditCancel", "");
     Dynamicbutton("btnSave", "SaveCancel", "");
     Dynamicbutton("btnDelete", "DeleteCancel", "");
     Dynamicbutton("btnReset", "ResetCancel", "");
-    Dynamicbutton("btnNotify", "SendNotiCancel", "");
+    Dynamicbutton("btnNotify", "PushNotiCancel", "");
     DataTables.EduForumMember.clear().rows.add(GetEduForumMembers()).draw(false);
 }
 function SetAbout()
@@ -332,8 +333,18 @@ function SetAbout()
     Dynamicbutton("NoticeEdit", "Edit", "EditAbout");
     Dynamicbutton("btnSave", "SaveCancel", "");
     Dynamicbutton("btnDelete", "DeleteCancel", "");
-    Dynamicbutton("btnReset", "ResetCancel", "");
-    Dynamicbutton("btnNotify", "SendNotiCancel", "");
+    if (result.About != "")
+    {
+        Dynamicbutton("btnReset", "Reset", "EditAbout");
+    }
+    else {
+        Dynamicbutton("btnReset", "Reset", "ResetAbout");
+    }
+    Dynamicbutton("btnNotify", "PushNotiCancel", "");
+}
+function ResetAbout()
+{
+    $('#txtEduAbout').val('');
 }
 function SaveAbout()
 {
@@ -344,7 +355,9 @@ function SaveAbout()
     switch(result.Status)
     {
         case "1":
+            $('#lblEduAbout').text(EduEventAbout.About);
             noty({ text: Messages.InsertionSuccessFull, type: 'success' });
+            Dynamicbutton("btnReset", "Reset", "EditAbout");
             break;
         case "0":
             noty({ text: Messages.InsertionFailure, type: 'error' });
@@ -355,6 +368,9 @@ function SaveAbout()
 function EditAbout()
 {
     debugger;
+    var result = GetEduAbout();
+    $('#lblEduAbout').text(result.About);
+    $('#txtEduAbout').val(result.About);
     $('#lblEduAbout').hide();
     $('#txtEduAbout').show();
     Dynamicbutton("btnSave", "Save", "SaveAbout");
@@ -778,7 +794,7 @@ function ViewResponse(EventID)
     Dynamicbutton("btnSave", "SaveCancel", "");
     Dynamicbutton("btnDelete", "DeleteCancel", "");
     Dynamicbutton("btnReset", "ResetCancel", "");
-    Dynamicbutton("btnNotify", "SendNotiCancel", "");
+    Dynamicbutton("btnNotify", "PushNotiCancel", "");
 }
 function GetResponse(EduEventResponse)
 {
@@ -1093,16 +1109,16 @@ function FixedEditClick() {
                 if (jsonResult.EndDate != null && jsonResult.EndDate != "") {
                     $("#dateEndDate").val(jsonResult.EndDate);
                 }
-                if (jsonResult.NotificationID != null && jsonResult.NotificationID != undefined && jsonResult.NotificationID!="") {
+                if (jsonResult.NotificationCount != 0 && jsonResult.NotificationCount != undefined && jsonResult.NotificationCount != "") {
                     IsAlreadyNotified = true;
                     IsMobNotified = false;
                     $("#lblAlreadyNotificationSend").show();
-                    $("#lblAlreadyNotificationSend").text("Notification Already added");
+                    $("#lblAlreadyNotificationSend").text(jsonResult.NotificationCount + " Notifications Already added");
                     $('#NotificationInfo').show();
-                    $('#txtCaption').attr('disabled', true);
-                    $('#txtCaption').val(jsonResult.Caption);
-                    $('#txtnotificationCOntent').attr('disabled', true);
-                    $("#txtnotificationCOntent").val(jsonResult.Description);
+                    //$('#txtCaption').attr('disabled', true);
+                    //$('#txtCaption').val(jsonResult.Caption);
+                    //$('#txtnotificationCOntent').attr('disabled', true);
+                    //$("#txtnotificationCOntent").val(jsonResult.Description);
 
                 }
                 else {

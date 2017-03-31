@@ -2,9 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <link href="../CSS/CustomCSS/PiousOrg.css" rel="stylesheet" />
-    <script src="../Scripts/CustomJS/Common.js"></script>
-    <script src="../Scripts/CustomJS/PiousOrganizations.js"></script>
+    <link href="../CSS/CustomCSS/PiousOrg.css?version=1" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
+    <script src="../Scripts/CustomJS/PiousOrganizations.js?version=1"></script>
      <div id="content" class="span10">
         <ul class="breadcrumb" style="margin-bottom:0px">
 				<li> 

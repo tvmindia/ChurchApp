@@ -2,9 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <link href="../CSS/CustomCSS/Priests.css" rel="stylesheet" />
-    <script src="../Scripts/CustomJS/Common.js"></script>
-    <script src="../Scripts/CustomJS/Priests.js"></script>
+    <link href="../CSS/CustomCSS/Priests.css?version=1" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
+    <script src="../Scripts/CustomJS/Priests.js?version=1"></script>
  
       <div id="content" class="span10">
        <ul class="breadcrumb" style="margin-bottom:0px">
@@ -195,13 +195,13 @@
 							</div>          
                         
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Name</label>
+								<label class="control-label" for="txtPriestName">Name</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtPriestName" data-placement="top" data-toggle="popover" data-trigger="focus" data-content="Select name from list appear when search or Enter the name and continue to save" placeholder="Search / Add.." autocomplete="off" onkeypress="return isnotNumber(event);" type="text"/>
                                 </div>
 								</div>
                         <div class="control-group">
-								<label class="control-label" for="focusedInput">Vicar/Asst</label>
+								<label class="control-label" for="ddlstatus">Vicar/Asst</label>
 								<div class="controls">
                                     <select id="ddlstatus">
                                         <option value="-1" selected disabled">Select</option>
@@ -211,69 +211,69 @@
 								</div>
 								</div> 
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Baptismal Name</label>
+								<label class="control-label" for="txtPriestBaptismName">Baptismal Name</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtPriestBaptismName" onkeypress="return isnotNumber(event);" type="text"/>
                                 </div>
 								</div>
                         <div class="control-group">
-								<label class="control-label" for="focusedInput">Parish</label>
+								<label class="control-label" for="txtParish">Parish</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Parish" id="txtParish" onkeypress="return isnotNumber(event);" type="text"/>
                                 </div>
 								</div>
                         <div class="control-group">
-								<label class="control-label" for="focusedInput">Diocese</label>
+								<label class="control-label" for="txtDiocese">Diocese</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Diocese" id="txtDiocese" onkeypress="return isnotNumber(event);" type="text"/>
                                 </div>
 								</div>
                          <div class="control-group">
-							  <label class="control-label" for="date01">DOB</label>
+							  <label class="control-label" for="priestDOB">DOB</label>
 							  <div class="controls">
-								<input type="text" class="input-xlarge datepicker" readonly="true" id="priestDOB"/>
+								<input type="text" class="input-large datepicker" readonly="true" id="priestDOB"/>
 							  </div>
 							</div>
 
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">About</label>
+								<label class="control-label" for="txtAboutPriest">About</label>
 								<div class="controls">
-								<textarea class="input-xlarge" id="txtAboutPriest" name="AboutPriest" rows="6" placeholder=""></textarea>
+								<textarea class="input-large focused" id="txtAboutPriest" name="AboutPriest" rows="6" placeholder=""></textarea>
 								</div>
 								</div>
 
                           <div class="control-group">
-							  <label class="control-label" for="date01">Ordination Date</label>
+							  <label class="control-label" for="OrdinationDate">Ordination Date</label>
 							  <div class="controls">
-								<input type="text" class="input-xlarge datepicker" readonly="true" name="Ordination" id="OrdinationDate"/>
+								<input type="text" class="input-large datepicker" readonly="true" name="Ordination" id="OrdinationDate"/>
 							  </div>
 							</div>
                          
                        
 						  <div class="control-group">
-								<label class="control-label" for="focusedInput">Designation</label>
+								<label class="control-label" for="Designation">Designation</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Designation" id="txtDesignation" onkeypress="return isnotNumber(event);" type="text" value=""/>
 								</div>
 								</div>
 
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Address</label>
+								<label class="control-label" for="txtAddress">Address</label>
 								<div class="controls">
-								<textarea class="input-xlarge" id="txtAddress" name="Address" rows="6" placeholder=""></textarea></div>
+								<textarea class="input-large focused" id="txtAddress" name="Address" rows="6" placeholder=""></textarea></div>
 								</div>
 
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Email</label>
+								<label class="control-label" for="txtEmail">Email</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Email" id="txtEmail" type="text" value=""/>
+								  <input class="input-large focused" style="width:80%" name="Email" id="txtEmail" type="email" value=""/>
 								</div>
 								</div>
 
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Mobile</label>
+								<label class="control-label" for="txtMobile">Mobile</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Email" id="txtMobile" onkeypress="return isNumber(event);" type="text" value=""/>
+								  <input class="input-large focused" name="Mobile" id="txtMobile" onkeypress="return isMobileNumber(event);" type="text" value=""/>
 								</div>
 								</div>
                         

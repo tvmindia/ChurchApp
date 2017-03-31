@@ -3,12 +3,16 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
       <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootpag/1.0.4/jquery.bootpag.js" ></script>--%>
-    <link href="../CSS/CustomCSS/Notifications.css" rel="stylesheet" />
-    <link href="../CSS/dataTables.checkboxes.css" rel="stylesheet" />
-     <script src="../Scripts/CustomJS/Notifications.js"></script>
-    <script src="../Scripts/DataTables/dataTables.checkboxes.js"></script>
-     <script src="../Scripts/CustomJS/Common.js"></script>
-   
+    <link href="../CSS/CustomCSS/Notifications.css?version=1" rel="stylesheet" />
+    <link href="../CSS/dataTables.checkboxes.css?version=1" rel="stylesheet" />
+     <script src="../Scripts/CustomJS/Notifications.js?version=1"></script>
+    <script src="../Scripts/DataTables/dataTables.checkboxes.js?version=1"></script>
+     <script src="../Scripts/CustomJS/Common.js?version=1"></script>
+   <style>
+       .details-control{
+        cursor:pointer;
+       }
+   </style>
    <%-- <style>
         #dtbselect option{
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif!important;
@@ -187,7 +191,8 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
 
         		<div class="row-fluid" style="margin-top:3%">	
                     <div class="w3-note w3-panel">
-                     <p><strong>Tip:</strong> If you are looking for Pushing or Deleting notifications in this page, you please select the checkbox and continue.</p>
+                     <p><strong>Tip:</strong> &quot;If you are looking for Pushing or Deleting notifications in this page, you please select
+                                                    the checkbox and continue&quot; TO &quot;To Send OR Delete a notification, select the checkbox and continue&quot;</p>
                     </div>
                     <table class="display" cellspacing="0" width="100%" id="tblNotifications">
 							   <thead>
@@ -197,6 +202,7 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
 								  <th></th>
                                   <th>Status</th>
                                   <th>Caption</th>
+                                  <th>Description</th>
 								  <th>Type</th>
 								  <th>Start Date</th>
                                   <th>Expiry Date</th>
@@ -244,8 +250,9 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
                         <div class="control-group" id="lblDescH">
 								<label class="control-label" for="focusedInput" >Description</label>
 								<div class="controls">
-								 <%--<label class="control-label" for="focusedInput" id="lblDescription"></label>--%>
+								 
                                      <textarea class="input-large" id="txtDescription" name="Description" rows="5"></textarea>
+                                    <label class="" id="lblNotificationLength" style="display:none;color:red;"></label>
 								  <%--<input class="input-large focused" name="Description" id="txtDescription" type="text" />--%>
 								</div>
 								</div>

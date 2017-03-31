@@ -145,10 +145,18 @@ var Alert = new CustomAlert();
 function isNumber(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || (charCode > 57) || (charCode == 08))) {
-        return false;
+    if ((charCode > 47 && charCode < 58)) {
+        return true;
     }
-    return true;
+    return false;
+}
+function isMobileNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if ((charCode > 47 && charCode < 58) || (charCode == 40) || (charCode == 41) || (charCode == 32) || (charCode == 43)) {
+        return true;
+    }
+    return false;
 }
 var validFiles = ["bmp", "gif", "png", "jpg", "jpeg"];
 function OnUpload(f) {
@@ -429,7 +437,7 @@ var Messages = {
     LoginSuccess: "Successfully logged in",
     HeadChange: 'Family Head changed, Member details Successfully Edited',
     HeadChangeInsert: 'Family Head changed, Member details Successfully Added',
-    InsertionSuccessFull: "Successfully Inserted",
+    InsertionSuccessFull: "Successfully Saved",
     InsertionFailure: "Not Successfuly Saved Try Again",
     UpdationSuccessFull: "Successfully Edited",
     HeadExist:'Operation Failed! The member you trying to delete belongs to Head',
@@ -489,5 +497,5 @@ var Messages = {
     BugNotFixed: "Please fix the Bug..!!!",
     SelectBug: "Failure..!!! Please Select a Bug to Edit",
 
-    NotificationInitiated: "Inititated processing notifications"
+    NotificationInitiated: "Initiated processing notifications"
 }

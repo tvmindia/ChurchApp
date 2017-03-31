@@ -2,9 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <link href="../CSS/CustomCSS/Institution.css" rel="stylesheet" />
-    <script src="../Scripts/CustomJS/Common.js"></script>
-    <script src="../Scripts/CustomJS/Institution.js"></script>
+    <link href="../CSS/CustomCSS/Institution.css?version=1" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
+    <script src="../Scripts/CustomJS/Institution.js?version=1"></script>
     <style>
     </style>
                <div id="content" class="span10">
@@ -161,25 +161,25 @@
                              </div>
                         </div>  
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Name:</label>
+								<label class="control-label" for="txtInstituteName">Name:</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Name" id="txtInstituteName" type="text"/>
                                 </div>
 								</div>
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Address:</label>
+								<label class="control-label" for="txtAddress">Address:</label>
 								<div class="controls">
 								  <textarea class="input-xlarge" id="txtAddress" name="Address" rows="3" placeholder=""></textarea>
                                 </div>
 								</div>
                         <div class="control-group">
-								<label class="control-label" for="focusedInput">Founder:</label>
+								<label class="control-label" for="txtFounder">Founder:</label>
 								<div class="controls">
 								  <input class="input-large focused" name="Founder" id="txtFounder" type="text"/>
                                 </div>
 								</div>
                         <div class="control-group">
-								<label class="control-label" for="focusedInput">Founded:</label>
+								<label class="control-label" for="txtFounded">Founded:</label>
 								<div class="controls">
 								  <input type="text" class="input-xlarge datepicker" name="Founded"  readonly="true" id="txtFounded"/>
                                 </div>
@@ -194,33 +194,33 @@
 								</div>
 
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Email</label>
+								<label class="control-label" for="txtEmail">Email</label>
 								<div class="controls">
-								  <input class="input-large focused e-mail" name="Email" id="txtEmail" type="text" value="" onkeypress="EmailValidation(this);"/>
+								  <input class="input-xlarge focused e-mail" style="width:80%" name="Email" id="txtEmail" type="email" value="" onkeypress="EmailValidation(this);"/>
 								</div>
 								</div>
                             <div class="control-group">
-								<label class="control-label" for="focusedInput">Website</label>
+								<label class="control-label" for="txtWebsite">Website</label>
 								<div class="controls">
-								  <input class="input-large focused" name="website" id="txtWebsite" type="text" value=""/>
+								  <input class="input-xlarge focused" style="width:80%" name="website" id="txtWebsite" type="url" value=""/>
 								</div>
 								</div>
                          <div class="control-group">
-								<label class="control-label" for="focusedInput">Phone1</label>
+								<label class="control-label" for="txtPhone1">Phone1</label>
 								<div class="controls">
-								  <input class="input-large focused" name="phone1" id="txtPhone1" onkeypress="return isNumber(event);" type="text" value=""/>
+								  <input class="input-large focused" name="phone1" id="txtPhone1" onkeypress="return isMobileNumber(event);" type="text" value=""/>
 								</div>
 								</div>
                         <div class="control-group">
-								<label class="control-label" for="focusedInput">Phone2</label>
+								<label class="control-label" for="txtPhone2">Phone2</label>
 								<div class="controls">
-								  <input class="input-large focused" name="phone2" id="txtPhone2" onkeypress="return isNumber(event);" type="text" value=""/>
+								  <input class="input-large focused" name="phone2" id="txtPhone2" onkeypress="return isMobileNumber(event);" type="text" value=""/>
 								</div>
 								</div>
                             <div class="control-group">
-								<label class="control-label" for="focusedInput">Mobile</label>
+								<label class="control-label" for="txtMob">Mobile</label>
 								<div class="controls">
-								  <input class="input-large focused" name="mobile" id="txtMob" onkeypress="return isNumber(event);" type="text" value=""/>
+								  <input class="input-large focused" name="mobile" id="txtMob" onkeypress="return isMobileNumber(event);" type="text" value=""/>
 								</div>
 								</div>
                         
@@ -308,7 +308,7 @@
                             <label class="control-label" for="inputIcon">Mobile</label>
 					  <div class="input-prepend span6">
                        <span class="add-on"><i class="icon-book"></i></span>
-                       <input class="span12" onkeypress="return isNumber(event);" name="mobile" id="txtMobile" type="text"/>
+                       <input class="span12" onkeypress="return isMobileNumber(event);" name="mobile" id="txtMobile" type="text"/>
                        </div>
 					  </div> 
                            <div class="alert alert-error" id="ErrorBox1" style="display: none;">
