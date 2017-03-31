@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Web;
 
@@ -538,34 +539,19 @@ namespace ChurchApp.DAL
                             else if (provider == "2factor" && type == "OTP")
                             {
 
-                                string Confgs = System.Web.Configuration.WebConfigurationManager.AppSettings["2factorOTP"];
+                                string otpTemplate = System.Web.Configuration.WebConfigurationManager.AppSettings["2factorOTP"];
 
-                                if (!String.IsNullOrEmpty(Confgs))
+                                if (!String.IsNullOrEmpty(otpTemplate))
                                 {
 
+                                    String url = "https://2factor.in/API/bddc3759-107a-11e7-9462-00163ef91450/" + MobileNos + "/" + msg + "/" + otpTemplate + "";
+                                    HttpWebRequest httpWReq = (HttpWebRequest)WebRequest.Create(url);
+                                    httpWReq.Method = "POST";
+                                    httpWReq.ContentType = "application/x-www-form-urlencoded";
+                                    HttpWebResponse response = (HttpWebResponse)httpWReq.GetResponse();
+                                    string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-                                    string[] ConfgValues = Confgs.Split('|');
-
-                                    using (var wb = new WebClient())
-                                    {
-                                    // byte[] response = wb.UploadValues("http://205.147.96.66/API/R1/", "POST", new NameValueCollection()
-                                    //{
-                                    //{ "module","SMS_OTP"},
-                                    //{"apikey" , "bddc3759-107a-11e7-9462-00163ef91450"},                                
-                                    //{"to" , MobileNos},
-                                    //{"otpvalue" , msg}
-
-                                        byte[] response = wb.UploadValues(ConfgValues[0], "POST", new NameValueCollection()
-                                    {
-                                    { "module",ConfgValues[1]},
-                                    {"apikey" , ConfgValues[2]},                                
-                                    {"to" , MobileNos},
-                                    {"otpvalue" , msg}
-                                     
-                                    });
-                                            string result = System.Text.Encoding.UTF8.GetString(response);
-
-                                    }
+                                 
                                 }
                             }
                             #endregion
