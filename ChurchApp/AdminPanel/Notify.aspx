@@ -191,8 +191,7 @@ background-image: -o-linear-gradient(top, #ffffff, #eeeeee);
 
         		<div class="row-fluid" style="margin-top:3%">	
                     <div class="w3-note w3-panel">
-                     <p><strong>Tip:</strong> &quot;If you are looking for Pushing or Deleting notifications in this page, you please select
-                                                    the checkbox and continue&quot; TO &quot;To Send OR Delete a notification, select the checkbox and continue&quot;</p>
+                     <p><strong>Tip:</strong> To Send OR Delete a notification, select the checkbox and continue</p>
                     </div>
                     <table class="display" cellspacing="0" width="100%" id="tblNotifications">
 							   <thead>
