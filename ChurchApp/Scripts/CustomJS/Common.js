@@ -497,5 +497,6 @@ var Messages = {
     BugNotFixed: "Please fix the Bug..!!!",
     SelectBug: "Failure..!!! Please Select a Bug to Edit",
 
-    NotificationInitiated: "Initiated processing notifications"
+    NotificationInitiated: "Initiated processing notifications",
+    NotificationInserted: "Event added to notificaition section"
 }

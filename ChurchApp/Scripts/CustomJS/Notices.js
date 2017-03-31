@@ -69,7 +69,7 @@ $("document").ready(function (e) {
                     //$('#txtCaption').attr('disabled', true);
                     //$('#txtnotificationCOntent').attr('disabled', true);
                     IsMobNotified = false;
-                    noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                    noty({ type: 'success', text: Messages.NotificationInserted });
 
                     break;
                 default:

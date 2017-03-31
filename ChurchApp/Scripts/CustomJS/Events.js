@@ -40,7 +40,7 @@ $("document").ready(function (e) {
                         $("#lblAlreadyNotificationSend").text("Notifications Already added");
                         $('#NotificationInfo').show();
                         IsMobNotified = false;
-                        noty({ type: 'success', text: Messages.InsertionSuccessFull });
+                        noty({ type: 'success', text: Messages.NotificationInserted });
 
                         break;
                     default:
