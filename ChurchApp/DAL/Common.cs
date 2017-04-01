@@ -544,7 +544,7 @@ namespace ChurchApp.DAL
                                 if (!String.IsNullOrEmpty(otpTemplate))
                                 {
 
-                                    String url = "https://2factor.in/API/bddc3759-107a-11e7-9462-00163ef91450/SMS/" + MobileNos + "/" + msg + "/" + otpTemplate + "";
+                                    String url = "https://2factor.in/API/V1/bddc3759-107a-11e7-9462-00163ef91450/SMS/" + MobileNos + "/" + msg + "/" + otpTemplate + "";
                             
                                     HttpWebRequest httpWReq = (HttpWebRequest)WebRequest.Create(url);
                                     httpWReq.Method = "POST";
