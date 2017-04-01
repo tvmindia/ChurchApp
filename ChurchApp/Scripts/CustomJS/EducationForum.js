@@ -704,13 +704,13 @@ function FillEvents(Records) {
     try {
         $('#DivNoticeType1').empty();
         $('#OldEventsGrid').empty();
-        var today = new Date();
+        //var today = new Date();
         var Latestcount = 0;
         var OldCount = 0;
         $.each(Records, function (index, Records) {
             
             
-             if ((Datecheck(ConvertJsonToDate(Records.EndDate)))>today)
+            if ((Datecheck(ConvertJsonToDate(Records.EndDate))) >= (Datecheck(ConvertJsonToDate(Records.today))))
              {
                  Latestcount++;
                  var url = Records.URL;
@@ -730,7 +730,7 @@ function FillEvents(Records) {
 
                  }
              }
-             else if ((Datecheck(ConvertJsonToDate(Records.EndDate))) < today)
+            else if ((Datecheck(ConvertJsonToDate(Records.EndDate))) < (Datecheck(ConvertJsonToDate(Records.today))))
              {
                  OldCount++;
                  var url = Records.URL;

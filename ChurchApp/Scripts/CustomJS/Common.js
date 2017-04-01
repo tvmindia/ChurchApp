@@ -338,7 +338,7 @@ function getJsonData(data, page) {
 }
 
 function ConvertJsonToDate(jsonDate) {
-   
+    debugger;
     if (jsonDate != null) {
         var dateString = jsonDate.substr(6);
         var currentTime = new Date(parseInt(dateString));
