@@ -781,8 +781,8 @@ function ViewResponse(EventID)
     var result = GetResponsecount(EduEventResponse)
     $('#lblResponseCound').text(result.TotalCount);
     $('#lblAttendCound').text(result.AttendCount);
-    $('#lblNotAttendCound').text(result.NotSureCount);
-    $('#lblNotSureCound').text(result.NotAttendCount);
+    $('#lblNotAttendCound').text(result.NotAttendCount);
+    $('#lblNotSureCound').text(result.NotSureCount);
     $('#h1Event').text(result.EventName);
     DataTables.EduForumResponse.clear().rows.add(GetResponse(EduEventResponse)).draw(false);
     
