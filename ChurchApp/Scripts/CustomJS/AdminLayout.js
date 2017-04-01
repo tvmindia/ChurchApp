@@ -3,7 +3,7 @@ var formatRepoSelection = "";
 $(document).ready(function () {
     
     try {
-        debugger;
+        
         var Role = GetRoleforAuthentication();
         if (Role == "User")
         {

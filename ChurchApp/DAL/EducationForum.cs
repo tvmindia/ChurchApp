@@ -47,7 +47,8 @@ namespace ChurchApp.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetAllEduForumEvents]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
-                if(Count!=0)
+                cmd.Parameters.Add("@CurrentDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now.Date);
+                if (Count!=0)
                 {
                     cmd.Parameters.Add("@Count", SqlDbType.Int).Value = Count;
                 }

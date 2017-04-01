@@ -36,7 +36,7 @@ $("document").ready(function (e) {
     });
     //--------------- *Save MassTiming* ----------------//
     $(".cancel").click(function (e) {
-        debugger;
+        
         $("#massTimingTempTableBody").empty();
         $('#massTimingsUpdate').hide();
         $("#AddorEditSpan").text("Save");
@@ -73,7 +73,7 @@ $("document").ready(function (e) {
     });
 
     $(".AddMass").click(function (e) {
-        debugger;
+        
         if ($('.dropcheck').attr('placeholder') != "Select Days") {
             if ($("#TxtTime").val() != "" && $("#TxtTime").val() != null) {
                 var MassTimings = new Object();
@@ -311,7 +311,7 @@ $("document").ready(function (e) {
 //----------Insert MassTiming--------------//
 function GetDayandTime()
 {
-    debugger;
+    
     counter = 0;
         $("#AddorEditSpan").text("Save");
     var dayarr = new Array();
@@ -600,7 +600,7 @@ function BindTime(Time) {
 function BindMassEditGrid(e) {
     try
     {
-        debugger;
+        
         //$('.dropdown-menu li.active').removeClass('active');
         //$("input[type=checkbox]").prop('checked', false);
         //$('.dropdown-menu li input[type=checkbox]').prop('checked', false);

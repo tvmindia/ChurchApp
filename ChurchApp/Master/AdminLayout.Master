@@ -24,84 +24,53 @@
 	<!-- start: Mobile Specific -->
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<!-- end: Mobile Specific -->
-	
 	<!-- start: CSS -->
-    <%-- <link href="../fonts/fontawesome-webfont-62877.ttf" rel="stylesheet"/>
     <link href="../fonts/fontawesome-webfont-62877.woff" rel="stylesheet"/>--%>
-   	<link  href="../CSS/bootstrap.min.css" rel="stylesheet"/>
-	<link href="../CSS/bootstrap-responsive.min.css" rel="stylesheet"/>
-	<link href="../CSS/style.css" rel="stylesheet"/>
-	<link href="../CSS/style-responsive.css" rel="stylesheet"/>
-	<link href="../CSS/googleapiFont.css" rel="stylesheet" />
-
-    <link href="../CSS/CustomCSS/AdminLayout.css" rel="stylesheet" />
-    <link href="../CSS/select2.min.css" rel="stylesheet" />
-    <link href="../Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
-   
-
+   	<link  href="../CSS/bootstrap.min.css?version=1" rel="stylesheet"/>
+	<link href="../CSS/bootstrap-responsive.min.css?version=1" rel="stylesheet"/>
+	<link href="../CSS/style.css?version=1" rel="stylesheet"/>
+	<link href="../CSS/style-responsive.css?version=1" rel="stylesheet"/>
+	<link href="../CSS/googleapiFont.css?version=1" rel="stylesheet" />
+    <link href="../CSS/CustomCSS/AdminLayout.css?version=1" rel="stylesheet" />
+    <link href="../CSS/select2.min.css?version=1" rel="stylesheet" />
+    <link href="../Content/DataTables/css/jquery.dataTables.min.css?version=1" rel="stylesheet" />
     <!-- end: CSS -->
       <!-- start: JavaScript-->
-        <script src="../Scripts/jquery-1.12.3.min.js"></script>
-		<%--<script src="../Scripts/jquery-1.9.1.min.js"></script>--%>
-	    <script src="../Scripts/jquery-migrate-1.0.0.min.js"></script>
-	
-		<script src="../Scripts/jquery-ui-1.10.0.custom.min.js"></script>
-	
-		<script src="../Scripts/jquery.ui.touch-punch.js"></script>
-	
-		<script src="../Scripts/modernizr.js"></script>
-	
-		<script src="../Scripts/bootstrap.min.js"></script>
-	
-		<script src="../Scripts/jquery.cookie.js"></script>
-	
-		<script src='../Scripts/fullcalendar.min.js'></script>
-        <script src="../Scripts/DataTables/jquery.dataTables.min.js"></script>
-	   	<script src="../Scripts/excanvas.js"></script>
-	    <script src="../Scripts/jquery.flot.js"></script>
-	    <script src="../Scripts/jquery.flot.pie.js"></script>
-    	<script src="../Scripts/jquery.flot.stack.js"></script>
-	    <script src="../Scripts/jquery.flot.resize.min.js"></script>
-	
-		<script src="../Scripts/jquery.chosen.min.js"></script>
-	
-		<script src="../Scripts/jquery.uniform.min.js"></script>
-		
-		<script src="../Scripts/jquery.cleditor.min.js"></script>
-	
-		<script src="../Scripts/jquery.noty.js"></script>
-	
-		<script src="../Scripts/jquery.elfinder.min.js"></script>
-	
-		<script src="../Scripts/jquery.raty.min.js"></script>
-	
-		<script src="../Scripts/jquery.iphone.toggle.js"></script>
-	
-		<script src="../Scripts/jquery.uploadify-3.1.min.js"></script>
-	
-		<script src="../Scripts/jquery.gritter.min.js"></script>
-	
-		<script src="../Scripts/jquery.imagesloaded.js"></script>
-	
-		<script src="../Scripts/jquery.masonry.min.js"></script>
-	
-		<script src="../Scripts/jquery.knob.modified.js"></script>
-	
-		<script src="../Scripts/jquery.sparkline.min.js"></script>
-	
-		<script src="../Scripts/counter.js"></script>
-	
-		<%--<script src="../Scripts/retina.js"></script>--%>
-
-		<script src="../Scripts/custom.js"></script>
-
-        <script src="../Scripts/CustomJS/AdminLayout.js"></script>
-      
-    <script src="../Scripts/select2.min.js"></script>
-      <link href="../CSS/bootstrap-multiselect.css" rel="stylesheet" />
-    <script src="../Scripts/bootstrap-multiselect.js"></script>
-    <link href="../CSS/jquery.timepicker.min.css" rel="stylesheet" />
-    <script src="../Scripts/jquery.timepicker.min.js"></script>
+        <script src="../Scripts/jquery-1.12.3.min.js?version=1"></script>
+	    <script src="../Scripts/jquery-migrate-1.0.0.min.js?version=1"></script>
+		<script src="../Scripts/jquery-ui-1.10.0.custom.min.js?version=1"></script>
+		<script src="../Scripts/jquery.ui.touch-punch.js?version=1"></script>
+		<script src="../Scripts/modernizr.js?version=1"></script>
+		<script src="../Scripts/bootstrap.min.js?version=1"></script>
+		<script src="../Scripts/jquery.cookie.js?version=1"></script>
+		<script src='../Scripts/fullcalendar.min.js?version=1'></script>
+        <script src="../Scripts/DataTables/jquery.dataTables.min.js?version=1"></script>
+	   	<script src="../Scripts/excanvas.js?version=1"></script>
+	    <script src="../Scripts/jquery.flot.js?version=1"></script>
+	    <script src="../Scripts/jquery.flot.pie.js?version=1"></script>
+    	<script src="../Scripts/jquery.flot.stack.js?version=1"></script>
+	    <script src="../Scripts/jquery.flot.resize.min.js?version=1"></script>
+		<script src="../Scripts/jquery.chosen.min.js?version=1"></script>
+		<script src="../Scripts/jquery.uniform.min.js?version=1"></script>
+		<script src="../Scripts/jquery.cleditor.min.js?version=1"></script>
+		<script src="../Scripts/jquery.noty.js?version=1"></script>
+		<script src="../Scripts/jquery.elfinder.min.js?version=1"></script>
+		<script src="../Scripts/jquery.raty.min.js?version=1"></script>
+		<script src="../Scripts/jquery.iphone.toggle.js?version=1"></script>
+		<script src="../Scripts/jquery.uploadify-3.1.min.js?version=1"></script>
+		<script src="../Scripts/jquery.gritter.min.js?version=1"></script>
+		<script src="../Scripts/jquery.imagesloaded.js?version=1"></script>
+		<script src="../Scripts/jquery.masonry.min.js?version=1"></script>
+		<script src="../Scripts/jquery.knob.modified.js?version=1"></script>
+		<script src="../Scripts/jquery.sparkline.min.js?version=1"></script>
+		<script src="../Scripts/counter.js?version=1"></script>
+		<script src="../Scripts/custom.js?version=1"></script>
+        <script src="../Scripts/CustomJS/AdminLayout.js?version=1"></script>
+    <script src="../Scripts/select2.min.js?version=1"></script>
+    <link href="../CSS/bootstrap-multiselect.css?version=1" rel="stylesheet" />
+    <script src="../Scripts/bootstrap-multiselect.js?version=1"></script>
+    <link href="../CSS/jquery.timepicker.min.css?version=1" rel="stylesheet" />
+    <script src="../Scripts/jquery.timepicker.min.js?version=1"></script>
 	<!-- end: JavaScript-->
 
 
@@ -301,7 +270,7 @@ li#LIChurches {
    
 
 
-    <div class="container-fluid-full" style="padding-top:3.2%;">
+    <div class="container-fluid-full" style="padding-top:2.2%;">
         
     <div class="row-fluid"><!-- rowfluid1 -->
 
@@ -309,23 +278,23 @@ li#LIChurches {
 			<div id="sidebar-left" class="span2" style="position:fixed;">
 				<div class="nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
-						<li id="Li_DashBoard" runat="server"><a href="../AdminPanel/DashBoard.aspx"><i class="fa fa-tachometer" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Dashboard</span></a></li>	
-                        <li id="Li_BugTracker" runat="server"><a href="../AdminPanel/BugTracker.aspx"><i class="fa fa-bug" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Bug Tracker</span></a></li>
-                        <li id="Li_ImportExcel" runat="server"><a href="../AdminPanel/ImportExcel.aspx"><i class="fa fa-file-excel-o" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Import Excel</span></a></li>
-						<li><a href="../AdminPanel/Home.aspx"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Home</span></a></li>
-					    <li><a href="../AdminPanel/Priests.aspx"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Priests</span></a></li>
-						<li><a href="../AdminPanel/Events.aspx"><i class="fa fa-bullhorn" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Events</span></a></li>
-						<li><a href="../AdminPanel/EducationForum.aspx"><i class="fa fa-graduation-cap" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Education Forum</span></a></li>
+						<li id="Li_DashBoard" runat="server"><a href="../AdminPanel/DashBoard.aspx?version=1"><i class="fa fa-tachometer" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Dashboard</span></a></li>	
+                        <li id="Li_BugTracker" runat="server"><a href="../AdminPanel/BugTracker.aspx?version=1"><i class="fa fa-bug" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Bug Tracker</span></a></li>
+                        <li id="Li_ImportExcel" runat="server"><a href="../AdminPanel/ImportExcel.aspx?version=1"><i class="fa fa-file-excel-o" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Import Excel</span></a></li>
+						<li><a href="../AdminPanel/Home.aspx?version=1"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Home</span></a></li>
+					    <li><a href="../AdminPanel/Priests.aspx?version=1"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Priests</span></a></li>
+						<li><a href="../AdminPanel/Events.aspx?version=1"><i class="fa fa-bullhorn" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Events</span></a></li>
+						<li><a href="../AdminPanel/EducationForum.aspx?version=1"><i class="fa fa-graduation-cap" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Education Forum</span></a></li>
 						
-                        <li><a href="../AdminPanel/FamilyUnit.aspx"><i class="fa fa-users fa-lg" aria-hidden="false"></i><span class="hidden-tablet navtitle"> Family Units</span></a></li>
-						<li><a href="../AdminPanel/Gallery.aspx"><i class="fa fa-television" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Gallery</span></a></li>
-						<li><a href="../AdminPanel/Institutions.aspx"><i class="fa fa-university" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Institutions</span></a></li>
+                        <li><a href="../AdminPanel/FamilyUnit.aspx?version=1"><i class="fa fa-users fa-lg" aria-hidden="false"></i><span class="hidden-tablet navtitle"> Family Units</span></a></li>
+						<li><a href="../AdminPanel/Gallery.aspx?version=1"><i class="fa fa-television" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Gallery</span></a></li>
+						<li><a href="../AdminPanel/Institutions.aspx?version=1"><i class="fa fa-university" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Institutions</span></a></li>
 
-                        <li><a href="../AdminPanel/PiousOrganizations.aspx"><i class="fa fa-university" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Pious Organizations</span></a></li>
-						<li id="MassSchedule"><a href="../AdminPanel/MassSchedules.aspx"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Mass Timing</span></a></li>
-                        <li><a href="../AdminPanel/Novenas.aspx"><i class="fa fa-child" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Novenas</span></a></li>
-						<li><a href="../AdminPanel/Notices.aspx"><i class="fa fa-sticky-note" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Notices</span></a></li>
-						<li><a href="../AdminPanel/Notify.aspx"><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Notifications</span></a></li>
+                        <li><a href="../AdminPanel/PiousOrganizations.aspx?version=1"><i class="fa fa-university" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Pious Organizations</span></a></li>
+						<li id="MassSchedule"><a href="../AdminPanel/MassSchedules.aspx?version=1"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Mass Timing</span></a></li>
+                        <li><a href="../AdminPanel/Novenas.aspx?version=1"><i class="fa fa-child" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Novenas</span></a></li>
+						<li><a href="../AdminPanel/Notices.aspx?version=1"><i class="fa fa-sticky-note" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Notices</span></a></li>
+						<li><a href="../AdminPanel/Notify.aspx?version=1"><i class="fa fa-envelope-o" aria-hidden="true"></i><span class="hidden-tablet navtitle"> Notifications</span></a></li>
 						
 						
 					</ul>

@@ -2,13 +2,13 @@
 var churchObject = {};
 $(document).ready(function () {
     churchObject.chid = $("#hdfchid").val();
-    debugger;
+    
     BindSelect();
     UnitPageLoad();
     //save or edit btn click of Administrator
     $("#btnAddAdmin").click(function (e) {
         try {
-            debugger;
+            
             var i = "0";
             var jsonResult = {};
             var position = $("#ddlRole option:selected").text();
@@ -217,7 +217,7 @@ function clearAdminControls() {
 // Show Picture preview for file upload Admin
 function showpreviewAdmin(input) {
     try {
-        debugger;
+        
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -233,7 +233,7 @@ function showpreviewAdmin(input) {
 // Show Picture preview for file upload Admin
 function showpreviewMember(input) {
     try {
-        debugger;
+        
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -307,7 +307,7 @@ function BindGetAllFamilyUnitsTable(Records) {
 ////---------------------------------------------Unit Section--------------------------------------------------------------/////
 //Initialize Unit Screen
 function UnitPageLoad() {
-    debugger;
+    
     //Disable buttons Unused
     Dynamicbutton("btnBack", "BackCancel", "");
     Dynamicbutton("btnEdit", "EditCancel", "");
@@ -401,7 +401,7 @@ function HideTextBoxesForUnit() {
 }
 //unit view Details
 function ViewUnitDetails(e) {
-    debugger;
+    
     ManageUnitView();
     var jsonResult = {};
     var unitID = e.id.split(":")[0];
@@ -452,7 +452,7 @@ function Opentip()
 //unit edit settings
 function EditUnit() {
     try {
-        debugger;
+        
         $("#txtUnitName").show();
         $("#txtUnitName").removeAttr('disabled');
         $("#lblUnitName").hide();
@@ -480,7 +480,7 @@ function EditUnit() {
 }
 function ResetUnit()
 {
-    debugger;
+    
     if($("#hdfUnitID").val()=="")
     {
         ClearFields();
@@ -494,7 +494,7 @@ function ResetUnit()
 function DeleteUnit()
 {
     try {
-        debugger;
+        
         var jsonResult = {};
         var Family = new Object();
         var FamilyUnits = new Object();
@@ -549,7 +549,7 @@ function BindExecutives(status) {
 //unit executive details View
 function BindAdminViewData(Records, status) {
     try {
-        debugger;
+        
         $("#divAdminDetals").show();
         $("#divAdminDetals").empty();
         var length = Records.length;
@@ -656,7 +656,7 @@ function FamilyUnitsValidation() {
 //function to save or edit family unit
 function saveFamilyUnit() {
     try {
-        debugger;
+        
         if (FamilyUnitsValidation()) {
             var jsonResult = {};
             var addOrEdit = $("#familyUnitAddOrEdit").text();
@@ -794,7 +794,7 @@ function DeleteAdministrator(e) {
 function EditAdministrator(e) {
 
     try {
-        debugger;
+        
         $("#hdfAdminDefaultImg").val('')
         $("#hdfAdminImageID").val('');
         $("#hdfAdminID").val('');
@@ -891,7 +891,7 @@ function BindSelect() {
 //Binds Admin member
 function BindMemberSelect() {
     try {
-        debugger;
+        
         var FamilyUnits = new Object();
         var Family = new Object();
         var Members = new Object();
@@ -942,7 +942,7 @@ function BindFamiliesScreen()
 //family grid
 function BindFamilies(e) {
     try {
-        debugger;
+        
         FamilyPageLoad();
         //Families();
         var jsonResult = {};
@@ -1129,7 +1129,7 @@ function ShowTextBoxesForMember() {
 //Basic Validation For New Family
 function FamilyValidation() {
     try {
-        debugger;
+        
         $('#Displaydiv').remove();
         var firstName = $('#txtFirstName');
         var lastName = $('#txtLastName');
@@ -1204,10 +1204,10 @@ function FamilyAutoBind() {
 //function to save or edit family
 function saveFamily() {
     try {
-        debugger;
+        
         if (FamilyValidation())
         {
-            debugger;
+            
             var jsonResult = {};
             var FamilyUnits = new Object();
             var Family = new Object();
@@ -1282,7 +1282,7 @@ function saveFamily() {
 function DeleteFamilyData()
 {
     try {
-        debugger;
+        
         var jsonResult = {};
         var FamilyUnits = new Object();
         var Family = new Object();
@@ -1294,7 +1294,7 @@ function DeleteFamilyData()
         var deleteConirm = confirm("Want to delete?");
         if (deleteConirm) {
             jsonResult = DeleteFamily(Family);
-            debugger;
+            
             switch (jsonResult.status) {
                 case "1":
                     noty({ text: Messages.DeletionSuccessFull, type: 'success' });
@@ -1347,7 +1347,7 @@ function MemberPageLoad()
 //bind members
 function BindFamilyMembers(e) {
     try {
-        debugger;
+        
         MemberPageLoad();
         var jsonResult = {};
         var familyID = e.id.split(" ")[0];
@@ -1381,7 +1381,7 @@ function BindFamilyMembers(e) {
 //member grid bind
 function BindGetAllFamilyMemeberData(Records) {
     try {
-        debugger;
+        
         $('#FamilyUnitsTableBox').css("height", "auto");
         $("#FamilyUnitsTableBox").html('');
 
@@ -1417,7 +1417,7 @@ function BindGetAllFamilyMemeberData(Records) {
 // display div to add member
 function AddFamilyMember() {
     try {
-        debugger;
+        
         
         $("#hdfMemberID").val('');
         Member();
@@ -1449,7 +1449,7 @@ function AddFamilyMember() {
 //edit members settings
 function EditMembers(e) {
     try {
-        debugger;
+        
         Member();
         var jsonResult = {};
         var memberID = e.id.split(",")[0];
@@ -1518,7 +1518,7 @@ function ResetMember()
 //member page settings
 function Member() {
     try {
-        debugger;
+        
         ClearField();
         $('#chkIsHead').closest('span').removeClass('checked');
         ShowTextBoxesForMember();
@@ -1647,7 +1647,7 @@ function FamilyMembersAutoBind() {
 //function to save or edit member
 function saveMember() {
     try {
-        debugger;
+        
         if (MemberValidation())
         {
             var i = "0";

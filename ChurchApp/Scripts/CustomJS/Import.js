@@ -1,6 +1,6 @@
 ﻿var ImportError = {};
 $("document").ready(function (e) {
-    debugger;
+    
     try
     {
         $(".ddlexcel").select2({
@@ -32,7 +32,7 @@ $("document").ready(function (e) {
         noty({ type: 'error', text: e.message });
     }
     $(".uploadexcel").click(function (e) {
-        //debugger;
+        //
         var excelresult;
         var valresult = validateExcel();
         
@@ -54,7 +54,7 @@ $("document").ready(function (e) {
                 }
             }           
             var result = postBlobAjax(formData, " ../ExcelHandler/ExcelHandler.ashx");
-            //debugger;
+            //
             switch (result.status)
             {
                 case "1":
@@ -114,7 +114,7 @@ $("document").ready(function (e) {
 
 function ddldropdownchange()
 {
-    debugger;
+    
     $("#excelErrorDiv").css("display", "none");
 
     var checkvalue = document.getElementById('ddlexceldropdown').value;
@@ -132,7 +132,7 @@ function ddldropdownchange()
 
 function GetAllErrorData(ds)
 {
-    debugger;
+    
     var table = {};
     try
     {
@@ -191,7 +191,7 @@ function GetExcelTablenames(Excel) {
 }
 
 function validateExcel() {
-    debugger;
+    
     var fileUpload = document.getElementById('excelfileuploader');
     var Extension = fileUpload.value.substring(fileUpload.value.lastIndexOf('.') + 1).toLowerCase();
     var flag = validateExcelExtension(Extension)

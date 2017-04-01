@@ -484,7 +484,7 @@ function SaveNovena()
 function DeleteNovenaData()
 {
     try {
-        debugger;
+        
         
         var deleteConirm = confirm("Want to delete?");
         if (deleteConirm) {
@@ -1049,7 +1049,7 @@ function FixedEditClick()
 function ViewIndividualPatron(obj) {
     try
     {
-        debugger;
+        
         IsNormal = true;
         $('#DivBoxHeader').hide();
         $('#DivSaints').hide();
@@ -1079,7 +1079,7 @@ function ViewIndividualPatron(obj) {
 function AddNewNovena() {
     try
     {
-        debugger;
+        
         IsNormal = true;
         $('#DivBoxHeader').hide();
         $('#DivSaints').hide();
@@ -1271,7 +1271,7 @@ function SetControlsInNovenaFormat(IsNewButtonClicked)
 {
     try
     {
-        debugger;
+        
         IsNormal = true;
         ClearControls();
         if (PatronID != ""&& AddNewNovenaTag == "Minor") {
@@ -1923,7 +1923,7 @@ function BindPatrons() {
     }
 }
 function FillPatrons(Records) {
-    debugger;
+    
     $('#DivSaints').html('');
     // var TotalRecords = Records.length+1;
     var TotalRecords = Records.length + 1;            // Adding 1 bcz ADD NEW EVENT div has to be appended first

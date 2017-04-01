@@ -745,7 +745,8 @@ ul.messages li .message {
 }
 
 .breadcrumb {
-	margin: -23px -28px 28px -28px;
+	/*margin: -30px -28px 28px -28px;*/
+    margin:-2.5% -2.5% 2.5% -2%;
 	line-height: 25px;/*34px;*/
 	background:#fcfdfe; /*#bbdefb;*/ /*#eee;*/
 	border: 0px;

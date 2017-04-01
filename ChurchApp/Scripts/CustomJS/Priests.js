@@ -98,7 +98,7 @@ $(document).ready(function () {
 function MainbuttonClick()
 {
     try {
-        debugger;
+        
         var FlagExist = VicarExist();
         var Role = FlagExist.result;
         if (($('#ddlstatus').val() == 'Vicar') && (Role == 2)) {
@@ -174,7 +174,7 @@ function Delete()
 function AddnewPriest(cur_obj)
 {
     try {
-        debugger;
+        
         var status = $(cur_obj).attr('name');
         //check if vicar exist 
         var FlagExist = VicarExist();
@@ -221,7 +221,7 @@ function savePriest()
 {
     
     try {
-        debugger;
+        
         var i;
         var priestflag = PriestValidation();
         if (priestflag) {
@@ -484,7 +484,7 @@ function AutoComplete()
     function check() {
         try
         {
-            debugger;
+            
             var priestDetails = {};
             var elems = $();
             var elemsAsst = $();
@@ -652,7 +652,7 @@ function AutoComplete()
     function BindDetails(priestID) {
         try
         {
-            debugger;
+            
             var PriestRow = {};
             PriestRow = GetPriestDetailsUsingPiestID(priestID);
             if (PriestRow.result ==null)
@@ -701,7 +701,7 @@ function AutoComplete()
     {
         try
         {
-            debugger;
+            
             RemoveStyle();
             if (AddpriestFlag == 0) {
                 Dynamicbutton("btnDelete", "Delete", "Delete");

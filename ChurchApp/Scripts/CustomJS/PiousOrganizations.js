@@ -118,7 +118,7 @@ function showpreviewAdmin(input) {
 //member select dropdown change of administrator
 function AdminMemberChange() {
     try {
-        debugger;
+        
         if ($("#ddlMember").val() != "" && $("#ddlMember").val() != null && $("#ddlMember").val() != "-1") {
             var FamilyUnits = new Object();
             var Family = new Object();
@@ -164,7 +164,7 @@ function AdminMemberChange() {
 function SaveAdministrator()
 {
     try {
-        debugger;
+        
         var AppImgURL = '';
         var Administrators = new Object();
         var AdminID = $('#hdnAdminID').val();
@@ -297,7 +297,7 @@ function SaveAdministrator()
 ///function save and update Pious Organization
 function SaveInstitution() {
     try {
-        debugger;
+        
         var AppImgURL = '';
         var InstituteID = $("#hdnInstutID").val();
 
@@ -448,7 +448,7 @@ function AutoComplete() {
 //Binds Admin member
 function BindMemberSelect() {
     try {
-        debugger;
+        
         var Members = new Object();
         var selectRow = {};
         selectRow = GetAllUnitMembersForAdmin(Members);
@@ -606,7 +606,7 @@ function BindInstituteslist() {
 //Bind Pious Organization Details to view
 function BindDetails(intituteID) {
     try {
-        debugger;
+        
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);
         ClearFields();
@@ -830,7 +830,7 @@ function OpenInstituteDetails(intituteID) {
 //Edit Pious Organization button onclick function
 function EditInstitute(this_obj) {
     try {
-        debugger;
+        
         var intituteID = this_obj;
         var InstituteRow = {};
         InstituteRow = GetInstituteDetailsUsingID(intituteID);
@@ -989,7 +989,7 @@ function Cancel() {
             EditInstitute($("#hdnInstutID").val());
         }
         else {
-            debugger;
+            
             ClearFields();
             RemoveStyle();
             $('#priestPreview').hide();

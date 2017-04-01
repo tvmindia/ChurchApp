@@ -735,7 +735,7 @@ $("document").ready(function (e) {
 });//end of document.ready
 function UpdateImageAlbumName()
 {
-    debugger;
+    
     var GalleryAlbum = new Object;
     if ($('#txtPhotoAlbumName').val() != "")
     {

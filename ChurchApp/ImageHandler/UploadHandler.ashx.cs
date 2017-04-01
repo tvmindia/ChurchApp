@@ -345,7 +345,7 @@ namespace ChurchApp.ImageHandler
                                             churchObj.IsHome = Boolean.Parse(context.Request.Form.GetValues("IsHome")[0].ToString());
                                             churchObj.churchId = context.Request.Form.GetValues("churchid")[0];
                                             churchObj.churchName = context.Request.Form.GetValues("churchName")[0];
-                                            churchObj.description = context.Request.Form.GetValues("description")[0];
+                                            churchObj.about = context.Request.Form.GetValues("about")[0];
                                             churchObj.phone1 = context.Request.Form.GetValues("phone1")[0];
                                             churchObj.address = context.Request.Form.GetValues("address")[0];
                                             churchObj.mainImageId = AppImgObj.appImageId;

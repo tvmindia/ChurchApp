@@ -73,7 +73,7 @@ $(document).ready(function () {
         $('#btnSave').click(function (e) {
 
             try {
-                debugger;
+                
                 if (HomeValidation())
                 {
                     if ($('#hdfChurchID').val() != '') {
@@ -87,7 +87,7 @@ $(document).ready(function () {
                             formData.append('ChurchImageID', $('#hdfChurchImageID').val());
                             formData.append('ActionTyp', 'ChurchUpdate');
                             formData.append('churchName', $('#txtCaption').val() != null ? $('#txtCaption').val() : "");
-                            formData.append('description', $('#txtDescription').val() != null ? $('#txtDescription').val() : "");
+                            formData.append('about', $('#txtDescription').val() != null ? $('#txtDescription').val() : "");
                             formData.append('phone1', $('#txtNumber').val() != null ? $('#txtNumber').val() : "");
                             formData.append('address', $('#txtAddress').val() != null ? $('#txtAddress').val() : "");
                             formData.append('IsHome', true);
@@ -117,7 +117,7 @@ $(document).ready(function () {
                             Church.churchId = $("#hdfChurchID").val();
                             Church.IsHome = true;
                             Church.churchName = $('#txtCaption').val() != null ? $('#txtCaption').val() : "";
-                            Church.description = $('#txtDescription').val() != null ? $('#txtDescription').val() : "";
+                            Church.about = $('#txtDescription').val() != null ? $('#txtDescription').val() : "";
                             Church.phone1 = $('#txtNumber').val() != null ? $('#txtNumber').val() : "";
                             Church.address = $('#txtAddress').val() != null ? $('#txtAddress').val() : "";
                             var result = UpdateChurch(Church);
@@ -216,7 +216,8 @@ function UploadNow(input) {
 //Function for binding textfields and image of church
 function BindDetails()
 {
-    debugger;
+    
+    
     RemoveStyle();
     var churchDetail = GetChurchDetailsByChurchID();
     if (churchDetail[0].ImageURL == null)
@@ -234,9 +235,9 @@ function BindDetails()
     $('#h3ChurchName').text(churchDetail[0].ChurchName != null ? churchDetail[0].ChurchName : "");
     $('#h3ChurchPhone').text(churchDetail[0].Phone1 != null ? churchDetail[0].Phone1 : "");
     $('#h3ChurchAddress').text(churchDetail[0].Address != null ? churchDetail[0].Address : "");
-    $('#pChurchDesc').text(churchDetail[0].Description!=null?churchDetail[0].Description:"");
+    $('#pChurchDesc').text(churchDetail[0].About!=null?churchDetail[0].About:"");
     $('#txtCaption').val(churchDetail[0].ChurchName!=null?churchDetail[0].ChurchName:"");
-    $('#txtDescription').val(churchDetail[0].Description != null ? churchDetail[0].Description : "");
+    $('#txtDescription').val(churchDetail[0].About != null ? churchDetail[0].About : "");
     $('#txtNumber').val(churchDetail[0].Phone1 != null ? churchDetail[0].Phone1 : "");
     $('#txtAddress').val(churchDetail[0].Address != null ? churchDetail[0].Address : "");
     $('#hdfChurchID').val(churchDetail[0].ID);
@@ -262,7 +263,7 @@ function GetChurchDetailsByChurchID() {
 //----------------------------------------------------------------------Church Details section-------------------------
 function UploadDetailNow(input) {
     // 
-    debugger;
+    
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -291,7 +292,7 @@ function AddChurchDetails()
 }
 function SaveChurchDetails()
 {
-    debugger;
+    
     var Caption=$('#txtCaptionDetails').val();
     var Description=$('#txtDescriptionDetails').val();
     var DetailID=$('#hdfChurchDetailID').val();
@@ -394,7 +395,7 @@ function SaveChurchDetails()
 }
 function InsertChurchDetails(ChurchDetails)
 {
-    debugger;
+    
     var ds = {};
     var table = {};
     try {
@@ -408,7 +409,7 @@ function InsertChurchDetails(ChurchDetails)
     return table;
 }
 function UpdateChurchDetails(ChurchDetails) {
-    debugger;
+    
     var ds = {};
     var table = {};
     try {
@@ -423,7 +424,7 @@ function UpdateChurchDetails(ChurchDetails) {
 }
 function BindChurchDetails()
 {
-    debugger;
+    
     var DetailList = GetChurchDetails();
     $('#ChurchDetailDisplay').empty();
     for(var i=0;i<DetailList.length;i++)
@@ -441,7 +442,7 @@ function BindChurchDetails()
 }
 function EditChurchDetails(id)
 {
-    debugger;
+    
     var Result = GetChurchDetailsDataByDetailID(id);
     $('#txtCaptionDetails').val(Result.caption);
     $('#txtDescriptionDetails').val(Result.DetailDescription);
@@ -520,7 +521,7 @@ function GetChurchDetails()
 }
 function HomeValidation() {
     try {
-        debugger;
+        
         var Name = $('#txtCaption');
 
         var container = [

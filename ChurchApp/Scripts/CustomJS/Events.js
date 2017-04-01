@@ -26,7 +26,7 @@ $("document").ready(function (e) {
         churchObject.chid = $("#hdfchid").val();
         $('#btnSaveNotification').click(function () {
             if (NotificationValidation) {
-                debugger;
+                
                 var Notification = new Object();
                 Notification.notificationType = NotificationTypeCode;
                 Notification.linkID = $("#hdfEventID").val();
@@ -1180,7 +1180,7 @@ function cancelEdit()
 function FixedEditClick() {
     try
     {
-        debugger;
+        
         
         //$('#iconEdit').removeClass("halflings-icon white pencil").addClass("halflings-icon white repeat");
         //$('#NoticeEdit').attr('onclick', 'cancelEdit();');
@@ -1203,7 +1203,7 @@ function FixedEditClick() {
 
         if (jsonResult != undefined) {
             $.each(jsonResult, function (index, jsonResult) {
-                debugger;
+                
                 $("#txtEventName").val(jsonResult.EventName);
                 $("#txtDescription").val(jsonResult.Descrtiption);
 

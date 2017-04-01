@@ -53,7 +53,7 @@ $("document").ready(function (e) {
     $('#btnSaveNotification').click(function () {
         if (NotificationValidation)
         {
-            debugger;
+            
             var Notification = new Object();
             Notification.notificationType = NotificationTypeCode;
             Notification.linkID = $("#hdfNoticeID").val();
@@ -223,7 +223,7 @@ $("document").ready(function (e) {
 //------------End of document ready----------------//
 function SendNotification()
 {
-    debugger;
+    
     if ($("#txtNoticeName").val() != "") {
         $("#txtCaption").val($('#ddlNoticeType').val()+' - '+$("#txtNoticeName").val());
     }
@@ -922,7 +922,7 @@ function cancelEdit() {
 //Edit
 //--- while select a notice , ther will appear a fixed edit icon ,its click functionality is given below
 function FixedEditClick() {
-    debugger;
+    
     Dynamicbutton("btnNotify", "PushNoti", "SendNotification");
     $('#btnNotify').attr('data-target', '#notificationModal');
     //$('#NoticeEdit').hide();
@@ -967,7 +967,7 @@ function FixedEditClick() {
 
     if (jsonResult != undefined) {
         $.each(jsonResult, function (index, jsonResult) {
-            debugger;
+            
 
             $("#lblNoticeName").hide();
 

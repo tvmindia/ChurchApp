@@ -1285,7 +1285,7 @@
 //function BindFamilies(e) {
 //    try
 //    {
-//        debugger;
+//        
 //        Families();
 //        var jsonResult = {};
 //        $("#hdfUnitName").val(e.textContent);
@@ -1832,7 +1832,7 @@
 //function BindFamilyUnitMemebrs() {
 //    try
 //    {
-//        debugger;
+//        
 //        var jsonResult = {};
 //        var FamilyUnits = new Object();
 //        FamilyUnits.unitId = $("#hdfUnitID").val();

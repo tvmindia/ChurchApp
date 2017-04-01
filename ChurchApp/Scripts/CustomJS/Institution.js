@@ -1064,7 +1064,7 @@ function Cancel() {
         }
         else
         {
-            debugger;
+            
             ClearFields();
             RemoveStyle();
             $('#priestPreview').attr('src', '../img/gallery/Institution.jpg');

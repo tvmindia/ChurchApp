@@ -57,7 +57,7 @@ $("document").ready(function (e) {
                      // since we are using custom formatting functions we do not need to
                      // alter the remote JSON data, except to indicate that infinite
                      // scrolling can be used
-                     debugger;
+                     
                      params.page = params.page || 1;
 
                      return {
@@ -107,7 +107,7 @@ $("document").ready(function (e) {
                     // since we are using custom formatting functions we do not need to
                     // alter the remote JSON data, except to indicate that infinite
                     // scrolling can be used
-                    debugger;
+                    
                     params.page = params.page || 1;
 
                     return {
@@ -151,7 +151,7 @@ $("document").ready(function (e) {
 
                 data: function (params) {
                     {
-                        debugger;
+                        
                         var Diocese = new Object();
                         var forane = new Object();
                         forane.DioceseID = $('#idddlDiocese').val();
@@ -214,7 +214,7 @@ $("document").ready(function (e) {
                     // since we are using custom formatting functions we do not need to
                     // alter the remote JSON data, except to indicate that infinite
                     // scrolling can be used
-                    debugger;
+                    
                     params.page = params.page || 1;
 
                     return {
@@ -263,7 +263,7 @@ $("document").ready(function (e) {
                     // since we are using custom formatting functions we do not need to
                     // alter the remote JSON data, except to indicate that infinite
                     // scrolling can be used
-                    debugger;
+                    
                     params.page = params.page || 1;
 
                     return {
@@ -692,7 +692,7 @@ $("document").ready(function (e) {
     });
     $('#btnRequestChurchAdd').click(function (e) {
         try {
-            debugger;
+            
             var churchbit = ChurchReqValidation();
             if (churchbit) {
                 Church.churchName = ($('#txtReqChurchName').val() != "" ? $('#txtReqChurchName').val() : "");
@@ -2246,7 +2246,7 @@ function EditRequestChurch(curobj) {
 }
 function EditChurch(curobj)
 {
-    debugger;
+    
     Animateto("txtChurchName");
     //Get Current table row data
     var data = DashDataTables.churchTable.row($(curobj).parents('tr')).data();

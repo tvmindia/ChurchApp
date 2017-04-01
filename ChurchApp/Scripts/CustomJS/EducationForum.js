@@ -18,7 +18,7 @@ var DataTables = {};
 
 $("document").ready(function (e) {
     try {
-        debugger;
+        
         //Setting current churchid
         churchObject.chid = $("#hdfchid").val();
         var result = GetChurchDetails();
@@ -57,7 +57,7 @@ $("document").ready(function (e) {
              }, {
                  "targets": 5,
                  "render": function (data, type, full, meta) {
-                     debugger;
+                     
                      var DOB = ConvertJsonToDate(full.DOB).split("-");
                      if (DOB)
                      {
@@ -113,7 +113,7 @@ $("document").ready(function (e) {
             //if (!IsAlreadyNotified)
             //{
                 if (NotificationValidation) {
-                    debugger;
+                    
                     var Notification = new Object();
                     Notification.notificationType = NotificationTypeCode;
                     Notification.linkID = $("#hdfEventID").val();
@@ -323,7 +323,7 @@ function SetMembers()
 }
 function SetAbout()
 {
-    debugger;
+    
     var result = GetEduAbout();
     $('#lblEduAbout').text(result.About);
     $('#txtEduAbout').val(result.About);
@@ -348,7 +348,7 @@ function ResetAbout()
 }
 function SaveAbout()
 {
-    debugger;
+    
     var EduEventAbout = new Object();
     EduEventAbout.About = $('#txtEduAbout').val();
     var result = InsertEduAbout(EduEventAbout);
@@ -367,7 +367,7 @@ function SaveAbout()
 }
 function EditAbout()
 {
-    debugger;
+    
     var result = GetEduAbout();
     $('#lblEduAbout').text(result.About);
     $('#txtEduAbout').val(result.About);
@@ -403,7 +403,7 @@ function SendNotification() {
 }
 function SaveEvents() {
     try {
-        debugger;
+        
         var today = new Date();
         var startcheck = $("#dateStartDate").val();
         var endcheck = $("#dateEndDate").val();
@@ -636,7 +636,7 @@ function SaveEvents() {
 }
 function DeleteEvents() {
     try {
-        debugger;
+        
         var deleteConirm = confirm("Want to delete?");
 
         if (deleteConirm) {
@@ -708,7 +708,7 @@ function FillEvents(Records) {
         var Latestcount = 0;
         var OldCount = 0;
         $.each(Records, function (index, Records) {
-            debugger;
+            
             
              if ((Datecheck(ConvertJsonToDate(Records.EndDate)))>today)
              {
@@ -844,7 +844,7 @@ function GetEvents(count) {
 //Clear Controls
 function ClearControls() {
     try {
-        debugger;
+        
         $(':input').each(function () {
 
             if (this.type == 'text' || this.type == 'textarea' || this.type == 'file') {
@@ -884,7 +884,7 @@ function ClearControls() {
 function SetControlsInNewEventFormat() {
     try {
         $('#tabEvents').click();
-        debugger;
+        
         ClearControls();
         RemoveStyle();
         $('#ResponseSection').hide();
@@ -938,7 +938,7 @@ function SetControlsInNewEventFormat() {
 
 function SetControlsInViewFormat() {
     try {
-        debugger;
+        
         $('#ResponseSection').hide();
          $("#EventEditDivBox").show();
         $("#EditContent").hide();
@@ -952,7 +952,7 @@ function SetControlsInViewFormat() {
 
 function SetControlsInEditableFormat() {
     try {
-        debugger;
+        
         $("#lblEventName").hide();
         $("#lblDescription").hide();
         $("#lblStartDate").hide();
@@ -989,7 +989,7 @@ function SetControlsInEditableFormat() {
 //Edit -- view only
 function EditOnClick(id) {
     try {
-        debugger;
+        
         RemoveStyle();
         Dynamicbutton("btnNotify", "PushNoti", "SendNotification");
         $('#btnNotify').attr('data-target', '#notificationModal');
@@ -1041,7 +1041,7 @@ function EditOnClick(id) {
 
 function GetEventsByEventID(EducationForum) {
     try {
-        debugger;
+        
         var ds = {};
         var table = {};
         var data = "{'eduForumEventsObj':" + JSON.stringify(EducationForum) + "}";
@@ -1075,7 +1075,7 @@ function cancelEdit() {
 
 function FixedEditClick() {
     try {
-        debugger;
+        
         Dynamicbutton("NoticeEdit", "EditCancel", "");
         Dynamicbutton("btnSave", "Save", "SaveEvents");
         Dynamicbutton("btnDelete", "Delete", "DeleteEvents");

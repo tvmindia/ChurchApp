@@ -34,7 +34,7 @@ $("document").ready(function (e) {
            {
                'targets': 5,
                'render': function (data, type, row) {
-                   debugger;
+                   
                    if (data)
                        if (data.length > 30)
                        {
@@ -88,7 +88,7 @@ $("document").ready(function (e) {
     var detailRows = [];
 
     $('#tblNotifications tbody').on('click', 'tr td.details-control', function () {
-        debugger;
+        
         var tr = $(this).closest('tr');
         var row = table.row(tr);
         var idx = $.inArray(tr.attr('id'), detailRows);
@@ -119,7 +119,7 @@ $("document").ready(function (e) {
     });
     $('#txtDescription').keypress(function (e) {
         try {
-            debugger;
+            
             if (this.value.length == MaxCharacterLimit) {
                 e.preventDefault();
                 $("#lblNotificationLength").show();
@@ -461,7 +461,7 @@ function EditNotification(curobj)
         Animateto("divnotificationAdd");
         //Schedules
         BindNotificationScheduleTable(data.ID);
-        debugger;
+        
         if (data.StatusCode > maxScheduleStatus && scheduleDates.length==0) {
             maxScheduleStatus = data.StatusCode;
         }
@@ -476,7 +476,7 @@ function EditNotification(curobj)
 function myfunc(ele) {
     try
     {
-        debugger;
+        
         //Here Dynamicbutton(buttonid,Casename,function name)
         Dynamicbutton("btnMain", "SaveCancel", "");
         Dynamicbutton("btnSendNotification", "SendNoti", "sendNotification");
@@ -494,7 +494,7 @@ function myfunc(ele) {
 function sendNotification() {
     try
     {
-        debugger;
+        
         var NotiCollection = [];        
         var tabledata = table.rows('.selected').data();
         for (var i = 0; i < tabledata.length; i++)
@@ -531,7 +531,7 @@ function Delete() {
           
            try
            {
-               debugger;
+               
                     var NotiCollection = [];        
                     var tabledata = table.rows('.selected').data();
                     for (var i = 0; i < tabledata.length; i++)
@@ -725,7 +725,7 @@ function SaveNotification()
             Notifications.notificationID = notificationID;
             //var addOrEdit = $("#detailsHeading").text();
 
-            debugger;
+            
             if (scheduleDates.length == 0) {
                 Notifications.status = maxScheduleStatus;//Default is 0        
             }
