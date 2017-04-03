@@ -424,21 +424,29 @@ function UpdateChurchDetails(ChurchDetails) {
 }
 function BindChurchDetails()
 {
-    
+    debugger;
     var DetailList = GetChurchDetails();
     $('#ChurchDetailDisplay').empty();
-    for(var i=0;i<DetailList.length;i++)
+    if (DetailList.length > 0)
     {
-        var html=' <ul class="thumbnails span4">'
-              +'<li class="span12"><div class="thumbnail">'
-                  + '<img src="' + (DetailList[i].URL != "" && DetailList[i].URL !=null? (DetailList[i].URL + '?' + new Date().getTime()) : "../img/No-Img_Chosen.png") + '" style="max-height:300px;min-height:300px;"><div class="caption"><h3>' + DetailList[i].Caption + '</h3>'
-                    + '<p style="white-space: pre;max-height:100px;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 7;-webkit-box-orient: vertical;max-height: 11.6em;min-height: 11.6em;">' + DetailList[i].Description + '</p>'
-                    +'<p class="buttonpatch" style="height:0px;position:relative;z-index:196;">'
-			         + '<a class="facebook" title="Edit" onclick="EditChurchDetails(\'' + DetailList[i].ID + '\')"><img src="/img/edit.png"/></a>'
-                     + '<a class="facebook" title="Delete" onclick="DeleteChurchDetails(\'' + DetailList[i].ID + '\')"><img src="/img/delete.png"/></a>'
-                     + '</p></div></div></li></ul>'
+        for (var i = 0; i < DetailList.length; i++) {
+            var html = ' <ul class="thumbnails span4">'
+                  + '<li class="span12"><div class="thumbnail">'
+                      + '<img src="' + (DetailList[i].URL != "" && DetailList[i].URL != null ? (DetailList[i].URL + '?' + new Date().getTime()) : "../img/No-Img_Chosen.png") + '" style="max-height:300px;min-height:300px;"><div class="caption"><h3>' + DetailList[i].Caption + '</h3>'
+                        + '<p style="white-space: pre;max-height:100px;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 7;-webkit-box-orient: vertical;max-height: 11.6em;min-height: 11.6em;">' + DetailList[i].Description + '</p>'
+                        + '<p class="buttonpatch" style="height:0px;position:relative;z-index:196;">'
+                         + '<a class="facebook" title="Edit" onclick="EditChurchDetails(\'' + DetailList[i].ID + '\')"><img src="/img/edit.png"/></a>'
+                         + '<a class="facebook" title="Delete" onclick="DeleteChurchDetails(\'' + DetailList[i].ID + '\')"><img src="/img/delete.png"/></a>'
+                         + '</p></div></div></li></ul>'
+            $('#ChurchDetailDisplay').append(html);
+        }
+    }
+    else
+    {
+        var html = '<img src="../img/nodata.jpg"/>';
         $('#ChurchDetailDisplay').append(html);
     }
+    
 }
 function EditChurchDetails(id)
 {
