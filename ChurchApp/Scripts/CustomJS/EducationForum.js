@@ -709,8 +709,27 @@ function FillEvents(Records) {
         var OldCount = 0;
         $.each(Records, function (index, Records) {
             debugger;
-            
-            if ((new Date(Records.EndDate)) >= (new Date(Records.today)))
+            if (Records.EndDate == "")
+            {
+                Latestcount++;
+                var url = Records.URL;
+                var html = '';
+                html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;"><p class="lead" style="margin-bottom:0px;">' + (Records.EventName != null ? Records.EventName : "") + '</p><span class="fa fa-calendar-check-o" id="spnStartDate"></span>  <span class="spnDateValues" >' + (Records.StartDate != null ? (Records.StartDate) : "") + '</span>&nbsp;<br /><p>' + (Records.Description != null ? Records.Description : "") + '</p><span class="" style="float:right;"><div class="Eventeditdiv"><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="EditOnClick(\'' + Records.ID + '\')" >View Details </a><br/><a id=' + Records.ID + ' href="#" class="aViewDetails" onclick="ViewResponse(\'' + Records.ID + '\')" > View Responses</a></div></span><input id=' + Records.ID + ' type="hidden" value=' + Records.ID + '/></div></div></div></div>'
+                $("#DivNoticeType1").append(html);
+                if (url != "" && url != null) {
+                    var imgControl = document.getElementById("img" + Records.ID);
+                    if (imgControl != null) {
+                        document.getElementById("img" + Records.ID).src = url;
+                        $('#img' + Records.ID).attr('src', url);
+                    }
+                }
+                if (url == null) {
+                    url = "../img/No-Img_Chosen.png";
+                    $('#img' + Records.ID).attr('src', url);
+
+                }
+            }
+            else if ((new Date(Records.EndDate)) >= (new Date(Records.today)))
              {
                  Latestcount++;
                  var url = Records.URL;

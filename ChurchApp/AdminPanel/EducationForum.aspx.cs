@@ -193,15 +193,15 @@ namespace ChurchApp.AdminPanel
                             {
                                 if(col.ColumnName=="StartDate")
                                 {
-                                    childRow.Add(col.ColumnName, DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy"));
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
                                 }
                                 else if(col.ColumnName == "EndDate")
                                 {
-                                    childRow.Add(col.ColumnName, DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy"));
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
                                 }
                                 else if(col.ColumnName == "today")
                                 {
-                                    childRow.Add(col.ColumnName, DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy"));
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
                                 }
                                 else
                                 {

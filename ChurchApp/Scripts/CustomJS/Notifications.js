@@ -73,7 +73,7 @@ $("document").ready(function (e) {
            },
            {
                "render": function (data, type, row) {
-                   return ConvertJsonToDate(data);
+                   return data;
                },
                "targets": [7,8,9,10]
            },

@@ -120,7 +120,22 @@ namespace ChurchApp.AdminPanel
                             childRow = new Dictionary<string, object>();
                             foreach (DataColumn col in ds.Tables[0].Columns)
                             {
-                                childRow.Add(col.ColumnName, row[col]);
+                                if (col.ColumnName == "StartDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else if (col.ColumnName == "EndDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else if (col.ColumnName == "EventExpiryDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else
+                                {
+                                    childRow.Add(col.ColumnName, row[col]);
+                                }
                             }
                             parentRow.Add(childRow);
                         }
@@ -179,8 +194,23 @@ namespace ChurchApp.AdminPanel
                         childRow = new Dictionary<string, object>();
                         foreach (DataColumn col in ds.Tables[0].Columns)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
-                        }
+                                if (col.ColumnName == "StartDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else if (col.ColumnName == "EndDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else if (col.ColumnName == "EventExpiryDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else
+                                {
+                                    childRow.Add(col.ColumnName, row[col]);
+                                }
+                            }
                         parentRow.Add(childRow);
                     }
                 }
@@ -238,7 +268,22 @@ namespace ChurchApp.AdminPanel
                             childRow = new Dictionary<string, object>();
                             foreach (DataColumn col in ds.Tables[0].Columns)
                             {
-                                childRow.Add(col.ColumnName, row[col]);
+                                if (col.ColumnName == "StartDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else if (col.ColumnName == "EndDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else if (col.ColumnName == "EventExpiryDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else
+                                {
+                                    childRow.Add(col.ColumnName, row[col]);
+                                }
                             }
                             parentRow.Add(childRow);
                         }
@@ -290,7 +335,22 @@ namespace ChurchApp.AdminPanel
                             childRow = new Dictionary<string, object>();
                             foreach (DataColumn col in ds.Tables[0].Columns)
                             {
-                                childRow.Add(col.ColumnName, row[col]);
+                                if (col.ColumnName == "StartDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else if (col.ColumnName == "EndDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else if (col.ColumnName == "EventExpiryDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else
+                                {
+                                    childRow.Add(col.ColumnName, row[col]);
+                                }
                             }
                             parentRow.Add(childRow);
                         }
@@ -344,7 +404,22 @@ namespace ChurchApp.AdminPanel
                             childRow = new Dictionary<string, object>();
                             foreach (DataColumn col in ds.Tables[0].Columns)
                             {
-                                childRow.Add(col.ColumnName, row[col]);
+                                if (col.ColumnName == "StartDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else if (col.ColumnName == "EndDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else if (col.ColumnName == "EventExpiryDate")
+                                {
+                                    childRow.Add(col.ColumnName, row[col].ToString() != "" ? DateTime.Parse(row[col].ToString().ToString()).ToString("dd-MMM-yyyy") : "");
+                                }
+                                else
+                                {
+                                    childRow.Add(col.ColumnName, row[col]);
+                                }
                             }
                             parentRow.Add(childRow);
                         }
