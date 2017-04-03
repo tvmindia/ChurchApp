@@ -147,7 +147,7 @@ namespace ChurchApp.DAL
                 cmd.CommandText = "[GetEduForumLatestAndOldEventsForApp]";
                 cmd.Parameters.Add("@ChurchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ChurchID);
                 cmd.Parameters.Add("@isOld", SqlDbType.Int).Value = isOld;
-                cmd.Parameters.Add("@CurrentDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now.Date);
+                cmd.Parameters.Add("@CurrentDate", SqlDbType.DateTime).Value = commonObj.ConvertDatenow(DateTime.Now).Date;
                 cmd.Parameters.Add("@RegistrationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(RegistrationID);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
