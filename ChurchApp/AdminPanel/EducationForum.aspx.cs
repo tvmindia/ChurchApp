@@ -505,8 +505,6 @@ namespace ChurchApp.AdminPanel
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             DAL.Security.UserAuthendication UA;
-
-            string status = null;
             try
             {
                 DashBoard dashBoardObj = new DashBoard();
@@ -525,16 +523,14 @@ namespace ChurchApp.AdminPanel
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                status = "500";//Exception of foreign key
+                NotificationObj.status = ex.Message;//Exception of foreign key
             }
             finally
             {
             }
             return jsSerializer.Serialize(NotificationObj);
-
-            return status;
         }
 
 
