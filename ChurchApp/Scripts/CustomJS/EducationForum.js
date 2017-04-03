@@ -708,7 +708,7 @@ function FillEvents(Records) {
         var Latestcount = 0;
         var OldCount = 0;
         $.each(Records, function (index, Records) {
-            debugger;
+            
             if (Records.EndDate == "")
             {
                 Latestcount++;

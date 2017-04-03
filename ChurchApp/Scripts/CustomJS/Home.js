@@ -424,7 +424,7 @@ function UpdateChurchDetails(ChurchDetails) {
 }
 function BindChurchDetails()
 {
-    debugger;
+    
     var DetailList = GetChurchDetails();
     $('#ChurchDetailDisplay').empty();
     if (DetailList.length > 0)

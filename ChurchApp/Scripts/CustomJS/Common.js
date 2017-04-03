@@ -179,7 +179,7 @@ function OnUpload(f) {
 }
 //Date validation is the date is valid
 function Datecheck(DateNow) {
-    debugger;
+    
     var Months = [{ month: "Jan", value: "01" },
         { month: "Feb", value: "02" },
         { month: "Mar", value: "03" },
@@ -338,7 +338,7 @@ function getJsonData(data, page) {
 }
 
 function ConvertJsonToDate(jsonDate) {
-    debugger;
+    
     if (jsonDate != null) {
         var dateString = jsonDate.substr(6);
         var currentTime = new Date(parseInt(dateString));
