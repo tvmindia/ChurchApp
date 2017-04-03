@@ -25,7 +25,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<!-- end: Mobile Specific -->
 	<!-- start: CSS -->
-    <link href="../fonts/fontawesome-webfont-62877.woff" rel="stylesheet"/>--%>
+    <link href="../fonts/fontawesome-webfont-62877.woff" rel="stylesheet"/>
    	<link  href="../CSS/bootstrap.min.css?version=1" rel="stylesheet"/>
 	<link href="../CSS/bootstrap-responsive.min.css?version=1" rel="stylesheet"/>
 	<link href="../CSS/style.css?version=1" rel="stylesheet"/>
@@ -270,7 +270,7 @@ li#LIChurches {
    
 
 
-    <div class="container-fluid-full" style="padding-top:2.2%;">
+    <div class="container-fluid-full" style="padding-top:3.7%;">
         
     <div class="row-fluid"><!-- rowfluid1 -->
 

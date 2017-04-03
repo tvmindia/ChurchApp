@@ -708,9 +708,9 @@ function FillEvents(Records) {
         var Latestcount = 0;
         var OldCount = 0;
         $.each(Records, function (index, Records) {
+            debugger;
             
-            
-            if ((Datecheck(ConvertJsonToDate(Records.EndDate))) >= (Datecheck(ConvertJsonToDate(Records.today))))
+            if ((new Date(Records.EndDate)) >= (new Date(Records.today)))
              {
                  Latestcount++;
                  var url = Records.URL;
@@ -730,7 +730,7 @@ function FillEvents(Records) {
 
                  }
              }
-            else if ((Datecheck(ConvertJsonToDate(Records.EndDate))) < (Datecheck(ConvertJsonToDate(Records.today))))
+            else if ((new Date(Records.EndDate)) < (new Date(Records.today)))
              {
                  OldCount++;
                  var url = Records.URL;
