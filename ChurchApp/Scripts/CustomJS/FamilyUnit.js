@@ -275,15 +275,14 @@ function BindGetAllFamilyUnitsTable(Records) {
         $("#FamilyUnitsTableBox").empty();
         var length = Records.length;
         $.each(Records, function (index, Records) {
-            var FamilyUnits = new Object();
-            FamilyUnits.unitId = Records.ID;
-            var Family = new Object();
-            Family.familyUnitsObj = FamilyUnits;
-            jsonResult = GetAllFamilys(Family);
-            var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;">' + "<span style='color:#0cdbe1;position: absolute;font-weight: 900;'>" + jsonResult.length + "</span>" + '<div class=""><div class=""><div class="accordion-inner" style="border-top:none;" id="' + Records.ID + '" onclick="BindFamilies(this);"><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + '" onclick="BindFamilies(this);"' + Records.UnitName + '</a><i class="fa fa-users" id=faUser aria-hidden="true"></i>' + Records.UnitName + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon eye-open pencilEdit" title="View Unit Details" id="' + Records.ID + ":" + Records.UnitName + '"  Unit" onClick=ViewUnitDetails(this);></i><i class="icon-chevron-right ViewUnit" title="View Families" id="' + Records.ID +":Unit"+'" onClick="BindIconUnit(this);"></i></div>'
-            $("#FamilyUnitsTableBox").append(html);
+                var FamilyUnits = new Object();
+                FamilyUnits.unitId = Records.ID;
+                var Family = new Object();
+                Family.familyUnitsObj = FamilyUnits;
+                var html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;">' + "<span style='color:#0cdbe1;position: absolute;font-weight: 900;'>" + Records.FamilyCount + "</span>" + '<div class=""><div class=""><div class="accordion-inner" style="border-top:none;" id="' + Records.ID + '" onclick="BindFamilies(this);"><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + '" onclick="BindFamilies(this);"' + Records.UnitName + '</a><i class="fa fa-users" id=faUser aria-hidden="true"></i>' + Records.UnitName + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon eye-open pencilEdit" title="View Unit Details" id="' + Records.ID + ":" + Records.UnitName + '"  Unit" onClick=ViewUnitDetails(this);></i><i class="icon-chevron-right ViewUnit" title="View Families" id="' + Records.ID + ":Unit" + '" onClick="BindIconUnit(this);"></i></div>'
+                $("#FamilyUnitsTableBox").append(html);
         });
-
+        
         if (length == 0) {
             $('#FamilyUnitsTableBox').css("height", "210px");
             $('#FamilyUnitsTableBox').css("margin-top", "2%");
@@ -906,7 +905,7 @@ function BindMemberSelect() {
             $('#ddlMember').append($('<option>',
             {
                 value: selectRow[i].ID,
-                text: selectRow[i].FirstName + "." + selectRow[i].LastName + " 🏠 " + selectRow[i].FamilyName
+                text: selectRow[i].FirstName + "." + (selectRow[i].LastName!=null?selectRow[i].LastName:"") + " 🏠 " + selectRow[i].FamilyName
             }));
         }
     }
@@ -1006,7 +1005,7 @@ function UpdateFamily(e) {
         jsonResult = SelectFamily(Family);
         if (jsonResult != undefined) {
             $("#txtFirstName").val(jsonResult[0].FirstName);
-            $("#txtLastName").val(jsonResult[0].LastName);
+            $("#txtLastName").val(jsonResult[0].LastName!=null?jsonResult[0].LastName:"");
             $("#txtFamilyName").val(jsonResult[0].FamilyName);
             $("#txtPhone").val(jsonResult[0].Contact);
             $("#txtAddress").val(jsonResult[0].Address);
@@ -1049,7 +1048,7 @@ function BindFamilyTable(Records) {
         }
         else {
             $.each(Records, function (index, Records) {
-                var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;" id="' + Records.ID + '"><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + " " + Records.FamilyName + '" onClick="BindFamilyMembers(this);"><i class="fa icon-home" id=faUser aria-hidden="true"></i>' + Records.FamilyName + " - (Family Head: " + Records.FirstName + " " + Records.LastName + ")" + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon edit pencilEdit" title="Edit Family" id="' + Records.ID + '" onClick=UpdateFamily(this);></i><i class="icon-chevron-right ViewUnit" title="View Members" id="' + Records.ID + " " + Records.FamilyName +":Family"+ '" onClick="BindFamilyMembers(this);"></i></div>'
+                var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;" id="' + Records.ID + '"><div class="lead" style="margin-bottom:0px;"><a class="unitLink" id="' + Records.ID + " " + Records.FamilyName + '" onClick="BindFamilyMembers(this);"><i class="fa icon-home" id=faUser aria-hidden="true"></i>' + Records.FamilyName + " - (Family Head: " + Records.FirstName + " " + (Records.LastName!=null?Records.LastName:"") + ")" + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon edit pencilEdit" title="Edit Family" id="' + Records.ID + '" onClick=UpdateFamily(this);></i><i class="icon-chevron-right ViewUnit" title="View Members" id="' + Records.ID + " " + Records.FamilyName +":Family"+ '" onClick="BindFamilyMembers(this);"></i></div>'
                 $("#FamilyUnitsTableBox").append(html);
             });
         }
@@ -1132,18 +1131,18 @@ function FamilyValidation() {
         
         $('#Displaydiv').remove();
         var firstName = $('#txtFirstName');
-        var lastName = $('#txtLastName');
+        //var lastName = $('#txtLastName');
         var familyName = $('#txtFamilyName');
         var unitName = $('#txtUnitName');
-        var phone = $('#txtPhone');
+        //var phone = $('#txtPhone');
         var address = $('#txtAddress');
 
         var container = [
             { id: firstName[0].id, name: firstName[0].name, Value: firstName[0].value },
-            { id: lastName[0].id, name: lastName[0].name, Value: lastName[0].value },
+            //{ id: lastName[0].id, name: lastName[0].name, Value: lastName[0].value },
             { id: familyName[0].id, name: familyName[0].name, Value: familyName[0].value },
             { id: unitName[0].id, name: unitName[0].name, Value: unitName[0].value },
-            { id: phone[0].id, name: phone[0].name, Value: phone[0].value },
+            //{ id: phone[0].id, name: phone[0].name, Value: phone[0].value },
             { id: address[0].id, name: address[0].name, Value: address[0].value },
         ];
 
@@ -1399,7 +1398,7 @@ function BindGetAllFamilyMemeberData(Records) {
         else {
             $.each(Records, function (index, Records) {
                 $('#hdfFamilyAddress').val(Records.Address);
-                var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;height:30px !important;"id="' + Records.ID + '" ><div class="lead" style="margin-bottom:0px;"><a class="" id="' + Records.ID + ',' + Records.FamilyID + '"</a><i class="fa fa-user" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + Records.LastName + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon edit pencilEdit" title="Edit Family" id="' + Records.ID + ',' + Records.FamilyID + '" onclick="EditMembers(this);"></i></div>'
+                var html = html = '<div class="accordion" style="border-bottom: 1px solid #e6e2e2;"><div class=""><div class=""><div class="accordion-inner" style="border-top:none;height:30px !important;"id="' + Records.ID + '" ><div class="lead" style="margin-bottom:0px;"><a class="" id="' + Records.ID + ',' + Records.FamilyID + '"</a><i class="fa fa-user" id=faUser aria-hidden="true"></i>' + Records.FirstName + " " + (Records.LastName != null ? Records.LastName : "") + '</a></h4></div></div></div></div><div class="Edit"><i class="halflings-icon edit pencilEdit" title="Edit Family" id="' + Records.ID + ',' + Records.FamilyID + '" onclick="EditMembers(this);"></i></div>'
                 $("#FamilyUnitsTableBox").append(html);
             });
         }
@@ -1566,7 +1565,7 @@ function MemberValidation() {
     try {
         //$('#Displaydiv').remove();
         var firstName = $('#txtFirstName');
-        var lastName = $('#txtLastName');
+        //var lastName = $('#txtLastName');
         var familyName = $('#txtFamilyName');
         var unitName = $('#txtUnitName');
         //var phone = $('#txtPhone');
@@ -1574,7 +1573,7 @@ function MemberValidation() {
 
         var container = [
             { id: firstName[0].id, name: firstName[0].name, Value: firstName[0].value },
-            { id: lastName[0].id, name: lastName[0].name, Value: lastName[0].value },
+            //{ id: lastName[0].id, name: lastName[0].name, Value: lastName[0].value },
             { id: familyName[0].id, name: familyName[0].name, Value: familyName[0].value },
             { id: unitName[0].id, name: unitName[0].name, Value: unitName[0].value },
             //{ id: phone[0].id, name: phone[0].name, Value: phone[0].value },

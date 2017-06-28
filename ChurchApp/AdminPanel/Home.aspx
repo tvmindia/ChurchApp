@@ -3,9 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <link href="../CSS/CustomCSS/Home.css?version=1" rel="stylesheet" />
-    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
-    <script src="../Scripts/CustomJS/Home.js?version=1"></script>
+    <link href="../CSS/CustomCSS/Home.css?version=2" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js?version=2"></script>
+    <script src="../Scripts/CustomJS/Home.js?version=2"></script>
 
     <style>
         ._30vx {

@@ -26,11 +26,11 @@ table{
     border-color: #4d90fe;
 }
     </style>
-    <link href="../CSS/CustomCSS/DashBoard.css?version=1" rel="stylesheet" />
+    <link href="../CSS/CustomCSS/DashBoard.css?version=2" rel="stylesheet" />
   
-    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
+    <script src="../Scripts/CustomJS/Common.js?version=2"></script>
      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYAg9VLLllUHiLbNguOAHAB_scDP038E&libraries=places&callback=initMap"async defer></script>
-    <script src="../Scripts/CustomJS/DashBoard.js?version=1"></script>
+    <script src="../Scripts/CustomJS/DashBoard.js?version=2"></script>
      
     <script>
 

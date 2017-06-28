@@ -2,9 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-<link href="../CSS/CustomCSS/Events.css?version=1" rel="stylesheet" />
-<script src="../Scripts/CustomJS/Common.js?version=1"></script>
-<script src="../Scripts/CustomJS/EducationForum.js?version=1"></script>
+<link href="../CSS/CustomCSS/Events.css?version=2" rel="stylesheet" />
+<script src="../Scripts/CustomJS/Common.js?version=2"></script>
+<script src="../Scripts/CustomJS/EducationForum.js?version=2"></script>
 <style>
 .w3-note {
 background-color: #ffffcc;

@@ -153,7 +153,7 @@ function isNumber(evt) {
 function isMobileNumber(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode > 47 && charCode < 58) || (charCode == 40) || (charCode == 41) || (charCode == 32) || (charCode == 43)) {
+    if ((charCode > 47 && charCode < 58) || (charCode == 40) || (charCode == 41) || (charCode == 32) || (charCode == 43)||(charCode==8)) {
         return true;
     }
     return false;
@@ -309,15 +309,23 @@ function getJsonData(data, page) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                
-                if (data != null) {
-                    var vald = JSON.parse(data.d);
-                    if (vald.statusCode == '555') {
-                        window.location.replace(window.location.protocol + "//" + window.location.host + vald.url);
+                try
+                {
+                    if (data != null) {
+                        var vald = JSON.parse(data.d);
+                        if (vald.statusCode == '555') {
+                            window.location.replace(window.location.protocol + "//" + window.location.host + vald.url);
+                        }
                     }
-                }
 
-                jsonResult = data;
+                    jsonResult = data;
+                }
+                catch(e)
+                {
+                    data = null;
+                    $('#displaywait').hide();
+                }
+                
             },
             error: function (xmlhttprequest, textstatus, message) {
                 

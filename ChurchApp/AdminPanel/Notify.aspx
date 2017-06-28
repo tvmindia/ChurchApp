@@ -3,11 +3,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
       <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootpag/1.0.4/jquery.bootpag.js" ></script>--%>
-    <link href="../CSS/CustomCSS/Notifications.css?version=1" rel="stylesheet" />
-    <link href="../CSS/dataTables.checkboxes.css?version=1" rel="stylesheet" />
-     <script src="../Scripts/CustomJS/Notifications.js?version=1"></script>
-    <script src="../Scripts/DataTables/dataTables.checkboxes.js?version=1"></script>
-     <script src="../Scripts/CustomJS/Common.js?version=1"></script>
+    <link href="../CSS/CustomCSS/Notifications.css?version=2" rel="stylesheet" />
+    <link href="../CSS/dataTables.checkboxes.css?version=2" rel="stylesheet" />
+     <script src="../Scripts/CustomJS/Notifications.js?version=2"></script>
+    <script src="../Scripts/DataTables/dataTables.checkboxes.js?version=2"></script>
+     <script src="../Scripts/CustomJS/Common.js?version=2"></script>
    <style>
        .details-control{
         cursor:pointer;

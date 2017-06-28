@@ -3,8 +3,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
       
-    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
-    <script src="../Scripts/CustomJS/Import.js?version=1"></script>
+    <script src="../Scripts/CustomJS/Common.js?version=2"></script>
+    <script src="../Scripts/CustomJS/Import.js?version=2"></script>
   <style>
       #errorLabelsDiv
       {

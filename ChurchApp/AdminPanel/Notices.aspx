@@ -6,9 +6,9 @@
     <%--<script src="../Scripts/select2.min.js"></script>
     <link href="../CSS/select2.min.css" rel="stylesheet" />--%>
 
-    <script src="../Scripts/CustomJS/Common.js?version=1"></script>
-    <script src="../Scripts/CustomJS/Notices.js?version=1"></script>
-    <link href="../CSS/CustomCSS/Notice.css?version=1" rel="stylesheet" />
+    <script src="../Scripts/CustomJS/Common.js?version=2"></script>
+    <script src="../Scripts/CustomJS/Notices.js?version=2"></script>
+    <link href="../CSS/CustomCSS/Notice.css?version=2" rel="stylesheet" />
      <style>
         #dtbselect option{
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif!important;

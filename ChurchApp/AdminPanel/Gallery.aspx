@@ -2,14 +2,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <link href="../CSS/CustomCSS/Gallery.css" rel="stylesheet" />
+    <link href="../CSS/CustomCSS/Gallery.css?version=2" rel="stylesheet" />
   <%--  <link href="../CSS/lightbox.min.css" rel="stylesheet" />--%>
     <%-- <script src="../Scripts/lightbox-plus-jquery.min.js"></script>--%>
-    <link href="../CSS/lightbox.css" rel="stylesheet" />
-    <script src="../Scripts/lightbox.js"></script>
-   <script src="../Scripts/progressbar.js"></script>
-    <script src="../Scripts/CustomJS/Common.js"></script>
-    <script src="../Scripts/CustomJS/Gallery.js"></script>
+    <link href="../CSS/lightbox.css?version=2" rel="stylesheet" />
+    <script src="../Scripts/lightbox.js?version=2"></script>
+   <script src="../Scripts/progressbar.js?version=2"></script>
+    <script src="../Scripts/CustomJS/Common.js?version=2"></script>
+    <script src="../Scripts/CustomJS/Gallery.js?version=2"></script>
     <style>
         .change{
             position:absolute!important;
