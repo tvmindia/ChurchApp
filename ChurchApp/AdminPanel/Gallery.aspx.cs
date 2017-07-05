@@ -55,7 +55,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
           
             
@@ -106,6 +106,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
+                throw ex;
 
             }
            
@@ -379,8 +380,8 @@ namespace ChurchApp.AdminPanel
     }
     catch (Exception ex)
     {
-
-    }
+                throw ex;
+            }
   
     return jsSerializer.Serialize(parentRow);
  }
@@ -430,8 +431,8 @@ public static string GetAllVideosByAlbumID(GalleryItems GalleryItemsObj)
     }
     catch (Exception ex)
     {
-
-    }
+                throw ex;
+            }
    
     return jsSerializer.Serialize(parentRow);
 }

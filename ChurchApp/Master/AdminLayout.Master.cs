@@ -85,7 +85,7 @@ namespace ChurchApp.Master
             }
             catch(Exception ex)
             {
-
+                throw ex;
             }
     }
 

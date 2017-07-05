@@ -26,7 +26,7 @@ $("document").ready(function (e) {
         churchObject.chid = $("#hdfchid").val();
         $('#btnSaveNotification').click(function () {
             if (NotificationValidation) {
-                
+                debugger;
                 var Notification = new Object();
                 Notification.notificationType = NotificationTypeCode;
                 Notification.linkID = $("#hdfEventID").val();

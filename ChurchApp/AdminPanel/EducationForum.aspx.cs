@@ -63,7 +63,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             jsonResult = jsSerializer.Serialize(parentRow);
 
@@ -117,7 +117,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             jsonResult = jsSerializer.Serialize(parentRow);
 
@@ -150,7 +150,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             return jsSerializer.Serialize(forumResponseObj);
         }
@@ -221,7 +221,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
 
             jsonResult = jsSerializer.Serialize(parentRow);
@@ -255,7 +255,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             return jsSerializer.Serialize(eduForumEventsObj);
         }
@@ -288,7 +288,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             return jsSerializer.Serialize(eduForumAboutObj);
         }

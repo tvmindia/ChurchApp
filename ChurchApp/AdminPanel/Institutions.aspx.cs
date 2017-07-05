@@ -274,7 +274,7 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-
+                throw ex;
             }
             return jsSerializer.Serialize(parentRow);
         }
@@ -411,7 +411,7 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-
+                throw ex;
             }
             
 

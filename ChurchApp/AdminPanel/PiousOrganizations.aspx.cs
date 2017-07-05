@@ -53,7 +53,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             
             return output.ToString();
@@ -102,7 +102,7 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-
+                throw ex;
             }
                   
             return output.ToString();
@@ -140,7 +140,7 @@ namespace ChurchApp.AdminPanel
             }
             catch(Exception ex)
             {
-               
+                throw ex;
             }
                     
             return jsSerializer.Serialize(PatrnObj);
@@ -311,7 +311,7 @@ namespace ChurchApp.AdminPanel
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             return jsSerializer.Serialize(parentRow);
         }

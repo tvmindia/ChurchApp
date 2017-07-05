@@ -44,10 +44,10 @@ namespace ChurchApp.Services
                         notiSchedTemp.notificationID = dr["ID"].ToString();
                         try
                         {
-                            notiTemp.SendToFCM(dr["Caption"].ToString(), dr["Description"].ToString(), false, dr["ChurchID"].ToString());                            
+                            notiTemp.SendToFCM(dr["Caption"].ToString(), dr["Description"].ToString(), false,"" ,"",dr["ChurchID"].ToString());                            
                             notiSchedTemp.scheduleStatus = "1";//Processed
                         }
-                        catch(Exception exc)
+                        catch(Exception)
                         {
                             notiSchedTemp.scheduleStatus = "2";//Failed                            
                         }
@@ -61,6 +61,7 @@ namespace ChurchApp.Services
                 }
                 catch (Exception ex)
                 {
+                    throw ex;
                 }
             }
         }

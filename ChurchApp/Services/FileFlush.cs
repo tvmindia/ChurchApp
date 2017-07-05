@@ -44,6 +44,7 @@ namespace ChurchApp.Services
                 }
                 catch (Exception ex)
                 {
+                    throw ex;
                 }
             }
         }

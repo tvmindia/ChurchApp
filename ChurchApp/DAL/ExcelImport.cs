@@ -208,7 +208,7 @@ namespace ChurchApp.DAL
                     catch (Exception ex)
                     {
                         dsExcel = null;
-                        throw;
+                        throw ex;
                     }
                 }
                 else

@@ -700,7 +700,7 @@ namespace ChurchApp.WebServices
                                 dt.Rows[i]["URL"] = "/vid/Poster/" + id + ".jpg";
                             }
                         }
-                        catch(Exception ex){
+                        catch(Exception){
                             dt.Rows[i]["URL"] = "null";
                         }
                       
@@ -766,7 +766,7 @@ namespace ChurchApp.WebServices
                                 dt.Rows[i]["Thumbnail"] = "/vid/Poster/" + id + ".jpg";
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             dt.Rows[i]["URL"] = "null";
                         }
@@ -1515,7 +1515,7 @@ namespace ChurchApp.WebServices
             try
             {
                 Notification noti = new Notification();
-                noti.SendToFCM(titleString, descriptionString, isCommon, churchID);
+                noti.SendToFCM(titleString, descriptionString, isCommon,"","", churchID);
                 //Return error message
                 dt = new DataTable();
                 dt.Columns.Add("Flag", typeof(Boolean));

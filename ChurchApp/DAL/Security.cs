@@ -658,7 +658,7 @@ namespace ChurchApp.DAL
 
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 status = "500";//Exception of foreign key

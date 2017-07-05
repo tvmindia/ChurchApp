@@ -77,7 +77,7 @@ namespace ChurchApp.AdminPanel
                 }
                 
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return "";
             }
@@ -123,7 +123,7 @@ namespace ChurchApp.AdminPanel
                 }
                 return output.ToString();
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return "";
             }
@@ -164,7 +164,7 @@ namespace ChurchApp.AdminPanel
                 }
                 return jsSerializer.Serialize(priestObj);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return "";
             }
@@ -199,7 +199,7 @@ namespace ChurchApp.AdminPanel
                 }
                 return jsSerializer.Serialize(PriestObj);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "";
             }

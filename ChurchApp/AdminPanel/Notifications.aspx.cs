@@ -372,18 +372,18 @@ namespace ChurchApp.AdminPanel
                         try
                         {
                             notification.churchId = UA.ChurchID;
-                            if(notification.notificationType == "Education Event")
+                          /*  if(notification.notificationType == "Education Event")
                             {
                                 notification.SendToFCM(notification.caption, notification.description, false, notification.churchId,true);
                             }
                             else
-                            {
-                                notification.SendToFCM(notification.caption, notification.description, false, notification.churchId);
-                            }
+                            {*/
+                                notification.SendToFCM(notification.caption, notification.description, false,notification.notificationType,notification.linkID, notification.churchId);
+                           /* }*/
                             notification.status = "1";//Processed status to db
                             notification.UpdateNotificationStatus();
                         }
-                        catch(Exception e)
+                        catch(Exception)
                         {
                             notification.status = "2";//Failure status to db
                             notification.UpdateNotificationStatus();

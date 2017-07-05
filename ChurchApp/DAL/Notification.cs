@@ -476,9 +476,9 @@ namespace ChurchApp.DAL
         /// <param name="descriptionString">Description of notification</param>
         /// <param name="isCommon">Specify whether the notification is common for all app users or a specific church</param>
         /// <param name="churchID">church id in the case of notification for a specific church's user(User might set it as 'Mychurch' in app)</param>
-        public void SendToFCM(string titleString,string descriptionString,Boolean isCommon,string churchID="",Boolean isEduForum=false)
+        public void SendToFCM(string titleString,string descriptionString,Boolean isCommon, string type, string LinkID, string churchID ="")
         {
-            //Validation
+        /*    //Validation
             if (!isCommon)//if not a message to all apps, churchID should be provided
             {
                 if (churchID == "" || churchID == null)
@@ -607,6 +607,7 @@ namespace ChurchApp.DAL
 
                 throw ex;
             }
+            */
         }
         #endregion Notification message to Cloud messaging system
 

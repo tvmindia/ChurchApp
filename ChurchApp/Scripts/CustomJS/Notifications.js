@@ -494,16 +494,18 @@ function myfunc(ele) {
 function sendNotification() {
     try
     {
-        
+        debugger;
         var NotiCollection = [];        
         var tabledata = table.rows('.selected').data();
         for (var i = 0; i < tabledata.length; i++)
         {
+            debugger;
             var Notification = new Object();
             Notification.notificationID = tabledata[i].ID;
             Notification.caption = tabledata[i].Caption;
             Notification.description = tabledata[i].Description;
             Notification.notificationType = tabledata[i].Type;
+            Notification.linkID = tabledata[i].LinkID;
             NotiCollection.push(Notification);            
         }
         result = SendNotificationToApp(NotiCollection);
@@ -686,29 +688,41 @@ function SaveNotification()
 {
     try
     {
+        debugger;
         var result = "";
         var today = new Date();
         var caption = $("#txtCaption").val();
         var type = $("#ddlType").val();
         var description = $("#txtDescription").val();
-        var startDate = $("#txtStartDate").val();
+        var startDate = $("#txtStartDate").val() != "NaN-undefined-NaN" ? $("#txtStartDate").val() : null;
         // var month = startDate.split(" ")[1];
         //startDate = parseDate(startDate);
-        if (startDate.includes(",")) {
-            startDate = startDate.split(":")[1];
+        if (startDate)
+        {
+            if (startDate.includes(",")) {
+                startDate = startDate.split(":")[1];
+            }
         }
-        var expiryDate = $("#txtExpiryDate").val();
-
-        if (expiryDate.includes(",")) {
-            expiryDate = expiryDate.split(":")[1];
+       
+        var expiryDate = $("#txtExpiryDate").val() != "NaN-undefined-NaN" ? $("#txtExpiryDate").val() : null;
+        if (expiryDate)
+        {
+            if (expiryDate.includes(",")) {
+                expiryDate = expiryDate.split(":")[1];
+            }
         }
+        
         var churchId = $("#hdfChurchID").val();
         var notificationID = $("#hdfNotificationID").val();
         if ($("#LinkID").val() != undefined) {
             var linkID = $("#LinkID").val().replace('/', "");
         }
-        startDate = startDate.replace(/ /g, '-')
-        expiryDate = expiryDate.replace(/ /g, '-')
+        if (startDate) {
+            startDate = startDate.replace(/ /g, '-')
+        }
+        if (expiryDate) {
+            expiryDate = expiryDate.replace(/ /g, '-')
+        }
         if (expiryDate < startDate) {
             noty({ text: Messages.NotificationDateChecking, type: 'information' });
         }
