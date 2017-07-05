@@ -548,7 +548,7 @@ namespace ChurchApp.DAL
                             }
                         }
 
-
+                /*
                 /////////////////////////////////////////////////////////
                 //For idividual churches
                 WebRequest tRequest1 = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
@@ -586,7 +586,7 @@ namespace ChurchApp.DAL
                     }
                 }
                 /////////////////////////////////////////////////////////
-
+                */
             }
             catch (Exception ex)
             {
