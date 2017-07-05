@@ -478,7 +478,7 @@ namespace ChurchApp.DAL
         /// <param name="churchID">church id in the case of notification for a specific church's user(User might set it as 'Mychurch' in app)</param>
         public void SendToFCM(string titleString,string descriptionString,Boolean isCommon, string type, string LinkID, string churchID ="")
         {
-        /*    //Validation
+            //Validation
             if (!isCommon)//if not a message to all apps, churchID should be provided
             {
                 if (churchID == "" || churchID == null)
@@ -488,7 +488,7 @@ namespace ChurchApp.DAL
                 throw new Exception("No title");
             if (descriptionString == "" || descriptionString == null)
                 throw new Exception("No description");
-            //Sending notification through Firebase Cluod Messaging
+            //Sending notification through Firebase Cloud Messaging
             try
             {                
                         WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
@@ -498,14 +498,8 @@ namespace ChurchApp.DAL
                         string to_String = "";
                         if (isCommon)
                             to_String = "/topics/common";
-                        else if(isEduForum)
-                            to_String = "/topics/" + churchID + "eduForum";
                         else
-                            to_String = "/topics/" + churchID;
-
-                        string type = "";
-                        if (isEduForum)
-                            type = "EduForum";
+                            to_String = "/topics/" + churchID;                      
 
                         var objNotification = new
                         {
@@ -516,7 +510,8 @@ namespace ChurchApp.DAL
                                 title = titleString,
                                 body = descriptionString,
                                 sound = "default",
-                                type = type
+                                type = type,
+                                linkid = LinkID
                             }
                         };
                         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -607,7 +602,7 @@ namespace ChurchApp.DAL
 
                 throw ex;
             }
-            */
+            
         }
         #endregion Notification message to Cloud messaging system
 
