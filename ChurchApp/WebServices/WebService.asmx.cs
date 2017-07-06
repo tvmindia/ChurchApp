@@ -1122,6 +1122,39 @@ namespace ChurchApp.WebServices
         }
         #endregion GetNoticesByChurchID
 
+        #region GetNoticesByNoticeID
+        [WebMethod]
+        public string GetNoticesByNoticeID(string NoticeID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ChurchApp.DAL.Notices Nobj = new DAL.Notices();
+                Nobj.noticeId = NoticeID;
+                dt = Nobj.GetNoticesByNoticeID().Tables[0];
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
+
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion GetNoticesByChurchID
+
 
         #endregion Notices
 
