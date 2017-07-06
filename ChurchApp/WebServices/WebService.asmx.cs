@@ -1572,6 +1572,34 @@ namespace ChurchApp.WebServices
             return getDbDataAsJSON(dt);
         }
 
+        [WebMethod]
+        public string GetEduForumEventbyEventID(string EventID, string registrationID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                EducationForum Evtobj = new EducationForum();
+                Evtobj.ID = EventID;
+                dt = Evtobj.GetEduForumEventsByEventIDForApp(registrationID);
+                if (dt.Rows.Count == 0) throw new Exception(constants.NoItems);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+
+            }
+            return getDbDataAsJSON(dt);
+        }
         #endregion
 
         [WebMethod]
